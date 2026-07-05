@@ -1,0 +1,15 @@
+{
+  "schema": "https://opendatasheet.org/schema/v0.1/board.json",
+  "board": "NUCLEO-U575ZI-Q",
+  "mcu": "STM32U575ZI",
+  "leds": [
+    { "name": "LD1", "color": "green", "port": "C", "pin": 7, "active": "high" },
+    { "name": "LD2", "color": "blue", "port": "B", "pin": 7, "active": "high" },
+    { "name": "LD3", "color": "red", "port": "G", "pin": 2, "active": "high" }
+  ],
+  "default_led": "LD1",
+  "button": { "name": "B1", "port": "C", "pin": 13 },
+  "vcp": { "tx_port": "A", "tx_pin": 9, "rx_port": "A", "rx_pin": 10, "baud": 115200 },
+  "clock": { "source": "MSI", "hse_hz": null, "lse_hz": 32768 },
+  "provenance": { "doc": "UM3115", "section": "6.4", "rev": "2" }
+}

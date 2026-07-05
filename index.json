@@ -1,0 +1,41 @@
+{
+  "schema": "https://opendatasheet.org/schema/v0.1/kb-index.json",
+  "capabilities": [
+    {
+      "id": "gpio.blink",
+      "title": "Toggle a GPIO output (LED blink)",
+      "keywords": ["led", "blink", "gpio", "toggle", "output", "heartbeat"],
+      "pattern": "Enable the port clock (__HAL_RCC_GPIO<port>_CLK_ENABLE), configure the pin as GPIO_MODE_OUTPUT_PP, then HAL_GPIO_TogglePin(GPIO<port>, GPIO_PIN_<n>) on a HAL_Delay() cadence. Portable raw HAL — no vendor BSP.",
+      "source": { "kind": "pattern", "ref": "scaffold/seed/<family>/Core/Src/main.c.tmpl" },
+      "refman": { "doc": "RM0456", "section": "GPIO functional description" },
+      "verify": "Scope/LA on the pin, or watch the onboard LED — one edge per HAL_Delay period."
+    },
+    {
+      "id": "rcc.clock-config",
+      "title": "Configure the system clock (SystemClock_Config)",
+      "keywords": ["clock", "rcc", "sysclk", "hclk", "msi", "pll", "systemclock_config"],
+      "pattern": "HAL_RCC_OscConfig() to bring up the oscillator (MSI by default on U5), then HAL_RCC_ClockConfig() to route SYSCLK and set the AHB/APB prescalers with the correct FLASH latency. The family template ships a working default; retargeting to a specific frequency is a refman-verified sequence (voltage scaling + flash latency must track the target HCLK).",
+      "source": { "kind": "pattern", "ref": "scaffold/seed/<family>/Core/Src/main.c.tmpl" },
+      "refman": { "doc": "RM0456", "section": "RCC — clock configuration" },
+      "verify": "Read SystemCoreClock after SystemCoreClockUpdate(), or measure MCO."
+    }
+  ],
+  "gotchas": [
+    {
+      "family": "STM32U5",
+      "note": "Main SRAM is 768K @ 0x20000000 with a SEPARATE SRAM4 16K @ 0x28000000 — do not collapse to one 784K region. `_estack` sits at the end of the main RAM."
+    },
+    {
+      "family": "STM32U5",
+      "note": "Hard-float compiler flags (-mfloat-abi=hard) alongside the stock `.fpu softvfp` in the CMSIS startup .s is the normal, correct combo — it links fine, don't 'fix' it."
+    },
+    {
+      "family": "STM32U5",
+      "note": "The modern GCC11+ linker script uses the `(READONLY)` attribute on .ARM.extab/.ARM etc. On GCC<=10 those lines must drop `(READONLY)`; the harness assumes GCC11+."
+    },
+    {
+      "family": "STM32U5",
+      "note": "U5 can boot a TrustZone dual secure/non-secure image, but a plain scaffold is a single non-secure image — it emits no partition_*.h and needs none (system_stm32u5xx.c only references it under __ARM_FEATURE_CMSE)."
+    }
+  ]
+}
