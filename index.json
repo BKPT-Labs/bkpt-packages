@@ -5,7 +5,10 @@
       "id": "stm32u5",
       "family": "STM32U5",
       "rev": "1",
-      "manifest": "stm32u5/manifest.json"
+      "manifest": "stm32u5/manifest.json",
+      "boards": [
+        "nucleo-u575zi-q"
+      ]
     }
   ]
 }
