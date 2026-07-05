@@ -1,0 +1,25 @@
+{
+  "schema": "https://opendatasheet.org/schema/v0.1/sdk-provider.json",
+  "id": "stm32u5-hal",
+  "family": "STM32U5",
+  "vendor": "STMicroelectronics",
+  "layout": {
+    "hal_sources": ["Drivers/{family}xx_HAL_Driver/Src"],
+    "includes": [
+      "Drivers/{family}xx_HAL_Driver/Inc",
+      "Drivers/CMSIS/Device/ST/{family}xx/Include",
+      "Drivers/CMSIS/Include"
+    ],
+    "startup": { "glob": "Drivers/CMSIS/Device/ST/{family}xx/Source/Templates/gcc/startup_{cmsis_device}.s" },
+    "system_init": { "glob": "Drivers/CMSIS/Device/ST/{family}xx/Source/Templates/system_{family_l}xx.c" },
+    "hal_conf_template": { "glob": "Drivers/{family}xx_HAL_Driver/Inc/{family_l}xx_hal_conf_template.h" },
+    "hal_module": {
+      "src": "Drivers/{family}xx_HAL_Driver/Src/{family_l}xx_hal_{module}.c",
+      "inc": "Drivers/{family}xx_HAL_Driver/Inc/{family_l}xx_hal_{module}.h"
+    }
+  },
+  "discovery": {
+    "env": ["STM32CUBE_U5_PATH"],
+    "paths": ["~/STM32Cube/Repository/STM32Cube_FW_U5_*", "/opt/st/**/STM32Cube_FW_U5_*"]
+  }
+}

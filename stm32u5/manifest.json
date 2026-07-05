@@ -1,27 +1,95 @@
 {
   "schema": "https://opendatasheet.org/schema/v0.1/scaffold-manifest.json",
   "family": "STM32U5",
-  "dirs": ["Core/Inc", "Core/Src", "cmake"],
+  "dirs": [
+    "Core/Inc",
+    "Core/Src",
+    "cmake"
+  ],
   "copy": [
-    { "from": "startup", "to": "startup_{cmsis_device}.s" },
-    { "from": "system_init", "to": "Core/Src/system_{family_l}xx.c" },
-    { "from": "hal_conf_template", "to": "Core/Inc/{family_l}xx_hal_conf.h" },
-    { "from": "hal_sources", "to": "Drivers/{family}xx_HAL_Driver/Src" },
-    { "from": "includes", "to": "mirror" }
+    {
+      "from": "startup",
+      "to": "startup_{cmsis_device}.s"
+    },
+    {
+      "from": "system_init",
+      "to": "Core/Src/system_{family_l}xx.c"
+    },
+    {
+      "from": "hal_conf_template",
+      "to": "Core/Inc/{family_l}xx_hal_conf.h"
+    },
+    {
+      "from": "hal_sources",
+      "to": "Drivers/{family}xx_HAL_Driver/Src"
+    },
+    {
+      "from": "includes",
+      "to": "mirror"
+    }
   ],
   "render": [
-    { "tmpl": "CMakeLists.txt.tmpl", "to": "CMakeLists.txt" },
-    { "tmpl": "CMakePresets.json.tmpl", "to": "CMakePresets.json" },
-    { "tmpl": "gcc-arm-none-eabi.cmake.tmpl", "to": "cmake/gcc-arm-none-eabi.cmake" },
-    { "tmpl": "linker/FLASH.ld.tmpl", "to": "{cpp_define}_FLASH.ld", "gen": "linker" },
-    { "tmpl": "Core/Src/main.c.tmpl", "to": "Core/Src/main.c" },
-    { "tmpl": "Core/Src/it.c.tmpl", "to": "Core/Src/{family_l}xx_it.c" },
-    { "tmpl": "Core/Src/hal_msp.c.tmpl", "to": "Core/Src/{family_l}xx_hal_msp.c" },
-    { "tmpl": "Core/Src/syscalls.c", "to": "Core/Src/syscalls.c", "verbatim": true },
-    { "tmpl": "Core/Src/sysmem.c", "to": "Core/Src/sysmem.c", "verbatim": true },
-    { "tmpl": "Core/Inc/main.h.tmpl", "to": "Core/Inc/main.h" },
-    { "tmpl": "Core/Inc/it.h.tmpl", "to": "Core/Inc/{family_l}xx_it.h" },
-    { "tmpl": "README.md.tmpl", "to": "README.md" },
-    { "tmpl": "gitignore", "to": ".gitignore" }
-  ]
+    {
+      "tmpl": "CMakeLists.txt.tmpl",
+      "to": "CMakeLists.txt"
+    },
+    {
+      "tmpl": "CMakePresets.json.tmpl",
+      "to": "CMakePresets.json"
+    },
+    {
+      "tmpl": "gcc-arm-none-eabi.cmake.tmpl",
+      "to": "cmake/gcc-arm-none-eabi.cmake"
+    },
+    {
+      "tmpl": "linker/FLASH.ld.tmpl",
+      "to": "{cpp_define}_FLASH.ld",
+      "gen": "linker"
+    },
+    {
+      "tmpl": "Core/Src/main.c.tmpl",
+      "to": "Core/Src/main.c"
+    },
+    {
+      "tmpl": "Core/Src/it.c.tmpl",
+      "to": "Core/Src/{family_l}xx_it.c"
+    },
+    {
+      "tmpl": "Core/Src/hal_msp.c.tmpl",
+      "to": "Core/Src/{family_l}xx_hal_msp.c"
+    },
+    {
+      "tmpl": "Core/Src/syscalls.c",
+      "to": "Core/Src/syscalls.c",
+      "verbatim": true
+    },
+    {
+      "tmpl": "Core/Src/sysmem.c",
+      "to": "Core/Src/sysmem.c",
+      "verbatim": true
+    },
+    {
+      "tmpl": "Core/Inc/main.h.tmpl",
+      "to": "Core/Inc/main.h"
+    },
+    {
+      "tmpl": "Core/Inc/it.h.tmpl",
+      "to": "Core/Inc/{family_l}xx_it.h"
+    },
+    {
+      "tmpl": "README.md.tmpl",
+      "to": "README.md"
+    },
+    {
+      "tmpl": "gitignore",
+      "to": ".gitignore"
+    }
+  ],
+  "package": {
+    "provider": "provider.json",
+    "kb": "kb.json",
+    "boards": [
+      "nucleo-u575zi-q.json"
+    ]
+  }
 }
