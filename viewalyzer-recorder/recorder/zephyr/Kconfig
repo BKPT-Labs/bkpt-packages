@@ -1,0 +1,221 @@
+menuconfig VIEWALYZER
+	bool "ViewAlyzer Trace Recorder"
+	default n
+	select TRACING
+	select THREAD_MONITOR
+	select THREAD_STACK_INFO
+	select THREAD_NAME
+	help
+	  Enable the ViewAlyzer binary trace recorder for Zephyr.
+
+if VIEWALYZER
+
+choice VIEWALYZER_TRANSPORT
+	prompt "Transport backend"
+	default VIEWALYZER_TRANSPORT_ITM
+	help
+	  Select how the recorder sends trace data to the host.
+
+config VIEWALYZER_TRANSPORT_ITM
+	bool "ARM ITM / SWO"
+	help
+	  Send recorder data over the Cortex-M ITM stimulus port.
+
+config VIEWALYZER_TRANSPORT_RTT
+	bool "SEGGER RTT"
+	select HAS_SEGGER_RTT
+	select USE_SEGGER_RTT
+	select STM32_ENABLE_DEBUG_SLEEP_STOP if SOC_FAMILY_STM32
+	help
+	  Send recorder data over SEGGER RTT.  Requires the Zephyr Segger module
+	  (add 'segger' to the west manifest name-allowlist then run west update).
+
+endchoice
+
+config VIEWALYZER_TRACE_THREADS
+	bool "Trace thread switches"
+	default y
+	select TRACING_THREAD
+
+config VIEWALYZER_TRACE_ISRS
+	bool "Trace ISRs"
+	default y
+	select TRACING_ISR
+
+config VIEWALYZER_TRACE_MUTEXES
+	bool "Trace mutexes"
+	default y
+	select TRACING_MUTEX
+
+config VIEWALYZER_TRACE_SEMAPHORES
+	bool "Trace semaphores"
+	default y
+	select TRACING_SEMAPHORE
+
+config VIEWALYZER_TRACE_SLEEP
+	bool "Trace thread sleep (k_sleep / k_msleep / k_usleep)"
+	default y
+	help
+	  Emit enter/exit events when threads call k_sleep, k_msleep,
+	  or k_usleep.  Allows the viewer to distinguish explicit sleep
+	  from generic OS/idle time.
+
+config VIEWALYZER_TRACE_TIMERS
+	bool "Trace kernel timers (k_timer)"
+	default y
+	select TRACING_TIMER
+	help
+	  Emit init/start/stop events when threads create, arm, or cancel
+	  kernel timers.  Allows the viewer to display timer lifecycle on
+	  the event table and timeline.
+
+config VIEWALYZER_TRACE_HEAPS
+	bool "Trace kernel heaps (k_heap alloc/free)"
+	default y
+	select TRACING_HEAP
+	help
+	  Emit alloc/free events for kernel heaps.  Allows the viewer to
+	  display allocation patterns, sizes, and potential memory leaks.
+
+config VIEWALYZER_TRACE_PM
+	bool "Trace power management suspend/resume"
+	default y
+	depends on PM
+	help
+	  Emit enter/exit events when the system enters or exits a low-power
+	  state via pm_system_suspend.  Requires CONFIG_PM to be enabled.
+	  Allows the viewer to display low-power periods in the event table
+	  and timeline.
+
+config VIEWALYZER_HEAP_RUNTIME_STATS
+	bool "Send heap runtime statistics (allocated_bytes) in heap events"
+	default y
+	depends on VIEWALYZER_TRACE_HEAPS
+	select SYS_HEAP_RUNTIME_STATS
+	help
+	  When enabled, each heap alloc/free trace event carries the current
+	  total allocated_bytes from the Zephyr sys_heap runtime statistics
+	  instead of just the individual request size.  This lets ViewAlyzer
+	  show live heap usage, high-water marks, and inferred free sizes.
+	  Adds a small overhead per alloc/free to query heap stats.
+
+config VIEWALYZER_TRACE_MESSAGE_QUEUES
+	bool "Trace message queues"
+	default y
+	select TRACING_MESSAGE_QUEUE
+
+config VIEWALYZER_STACK_USAGE
+	bool "Capture thread stack usage"
+	default y
+	select INIT_STACKS
+
+config VIEWALYZER_STACK_USAGE_HEARTBEAT_MS
+	int "Stack-usage heartbeat interval (ms)"
+	default 500
+	help
+	  Stack-usage packets are emitted on thread switch-out only when the value
+	  changed since the last sample, OR when this many milliseconds have
+	  elapsed since the last emission for that thread. The heartbeat keeps the
+	  host's per-thread stack display alive for idle threads. 0 = emit on every
+	  switch-out (legacy behaviour, much higher bandwidth).
+
+config VIEWALYZER_BUFFERED
+	bool "Buffer trace packets in RAM and drain them explicitly"
+	default n
+	help
+	  When enabled, trace hooks copy packets into a RAM ring buffer (bounded,
+	  non-blocking) instead of writing straight to the wire, and VA_Drain()
+	  (call from your idle thread / main loop) flushes the ring. This bounds
+	  per-hook latency regardless of wire backpressure, at the cost of the
+	  on-wire byte position lagging the event — so it is INCOMPATIBLE with
+	  fused ETM+ITM time-correlation captures. Leave off for the default
+	  direct-to-wire behaviour.
+
+config VIEWALYZER_BUFFER_SIZE
+	int "Trace ring buffer size (bytes)"
+	default 4096
+	depends on VIEWALYZER_BUFFERED
+	help
+	  Capacity of the RAM ring buffer used in buffered mode. Larger buffers
+	  absorb bigger bursts before dropping packets.
+
+config VIEWALYZER_TIMESTAMP_64
+	bool "Use 64-bit timestamps on the wire (legacy v1 format)"
+	default n
+	help
+	  By default the recorder emits 32-bit timestamps (protocol v2), halving
+	  the dominant cost of the trace stream; the host reconstructs the full
+	  64-bit cycle count from packet ordering. Enable this to emit the legacy
+	  64-bit (v1) wire format instead — only needed for hosts that predate v2
+	  support.
+
+config VIEWALYZER_MAX_SYNC_OBJECTS
+	int "Max sync object slots"
+	default 64
+	help
+	  Number of mutex, semaphore, and queue objects the recorder can track.
+
+config VIEWALYZER_MAX_TASKS
+	int "Max task slots"
+	default 16
+	help
+	  Number of RTOS task or thread entries the recorder can track.
+
+config VIEWALYZER_MAX_USER_FUNCTIONS
+	int "Max user function slots"
+	default 16
+	help
+	  Number of user-profiled function IDs the recorder can store.
+
+config VIEWALYZER_MAX_TASK_NAME_LEN
+	int "Max task name length"
+	default 16
+	range 4 255
+	help
+	  Maximum stored length for task, object, and user-function names.
+
+config VIEWALYZER_ALLOW_DISABLE_INTERRUPTS
+	bool "Allow interrupt masking in recorder critical sections"
+	default y
+	help
+	  Allow the recorder to mask interrupts around short internal critical
+	  sections. Disable this if the target environment must never disable
+	  interrupts from inside the recorder.
+
+config VIEWALYZER_RTT_CHANNEL
+	int "RTT up-buffer channel"
+	default 0
+	range 0 15
+	depends on VIEWALYZER_TRANSPORT_RTT
+	help
+	  SEGGER RTT up-buffer channel used by the recorder.
+
+config VIEWALYZER_CONFIGURE_RTT
+	bool "Configure the RTT up-buffer in VA_Init()"
+	default y
+	depends on VIEWALYZER_TRANSPORT_RTT
+	help
+	  Let the recorder call SEGGER_RTT_Init() and configure its RTT
+	  up-buffer during initialization. Disable this if another component
+	  owns RTT channel setup.
+
+config VIEWALYZER_RTT_BUFFER_SIZE
+	int "Recorder RTT buffer size"
+	default 4096
+	range 0 65535
+	depends on VIEWALYZER_TRANSPORT_RTT && VIEWALYZER_CONFIGURE_RTT
+	help
+	  Size of the recorder-owned RTT up-buffer. Set to 0 to use the RTT
+	  control block without providing a dedicated buffer.
+
+config VIEWALYZER_AUTO_SETUP_INTERVAL_MS
+	int "Auto setup bundle re-emit interval (ms)"
+	default 2000
+	range 0 60000
+	help
+	  Interval in milliseconds at which the recorder automatically
+	  re-emits the sync marker and setup packets. This helps the host
+	  application resync if it connects mid-session. Set to 0 to disable
+	  automatic re-emission.
+
+endif

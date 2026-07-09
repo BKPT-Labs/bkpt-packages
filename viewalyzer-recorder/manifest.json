@@ -1,0 +1,36 @@
+{
+  "schema": "https://opendatasheet.org/schema/v0.1/component-manifest.json",
+  "family": "ViewAlyzer Recorder",
+  "kind": "component",
+  "package": {
+    "files": [
+      "recorder/core/README.md",
+      "recorder/core/VA_Internal.h",
+      "recorder/core/ViewAlyzer.c",
+      "recorder/core/ViewAlyzer.h",
+      "recorder/core/viewalyzer_cobs.c",
+      "recorder/core/viewalyzer_cobs.h",
+      "recorder/freertos/README.md",
+      "recorder/freertos/VA_Adapter_FreeRTOS.c",
+      "recorder/freertos/VA_Adapter_FreeRTOS.h",
+      "recorder/freertos/ViewAlyzerFreeRTOSHook.h",
+      "recorder/freertos/ViewAlyzerFreeRTOSHook_V10_4_Plus.h",
+      "recorder/zephyr/CMakeLists.txt",
+      "recorder/zephyr/Kconfig",
+      "recorder/zephyr/README.md",
+      "recorder/zephyr/VA_Adapter_Zephyr.c",
+      "recorder/zephyr/VA_Adapter_Zephyr.h",
+      "recorder/zephyr/main.h",
+      "recorder/zephyr/module.yml",
+      "recorder/zephyr/tracing_user.h"
+    ]
+  },
+  "provenance": {
+    "source_repo": "ViewAlyzer",
+    "source_rev": "59a6ea456bfd66dffa009f28883966f2ada252fe-dirty",
+    "recorder_version": "1.0.0",
+    "wire_version": 2,
+    "content_hash": "sha256:42958c5bf2783d70b88a96b5b2d3d0b31e63607fc5a571d16e9a2f560ec941a6"
+  },
+  "rev": "1"
+}
