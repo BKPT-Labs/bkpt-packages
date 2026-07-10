@@ -1,0 +1,92 @@
+{
+  "$schema": "https://opendatasheet.org/schema/v0.1/trace-support.schema.json",
+  "spec_version": "0.1",
+  "type": "trace-support",
+  "rev": 1,
+  "updated_utc": "2026-07-09",
+  "comment": "CANONICAL debugger-side trace bring-up catalog (bkpt-packages/trace-support). Consumers bundle a snapshot at build/dev time (the ViewAlyzer app never fetches at runtime; a future app fetch would come from this repo). Offline user override: <userAppData>/ViewAlyzer/trace-support.json (same shape). Rows are keyed by debug ARCHITECTURE, not by chip: one row covers every part sharing a vendor debug-domain map, so this file stays a handful of rows forever. A row matches when probing its idcode_addr over the debug connection reads a nonzero device id (optionally restricted to dev_id). Its init ops then run through a read-modify-write interpreter: {addr, set} = write literal, {addr, or} = OR bits in, {addr, insert, mask} = (old & ~mask) | (insert & mask). The token $prescaler resolves to (cpu-clock-hz / swo-freq-hz) - 1. tpiu:false means the row replaces the standard ARM TPIU programming (parts with their own SWO block).",
+  "devices": [
+    {
+      "name": "stm32h7",
+      "match": {
+        "idcode_addr": "0x5C001000",
+        "dev_id": [
+          "0x450",
+          "0x480",
+          "0x483",
+          "0x484"
+        ]
+      },
+      "tpiu": false,
+      "init": [
+        {
+          "addr": "0x5C001004",
+          "or": "0x00700000",
+          "comment": "DBGMCU_CR: D1/D3 debug clocks + trace clock enable"
+        },
+        {
+          "addr": "0x5C004FB0",
+          "set": "0xC5ACCE55",
+          "comment": "SWTF LAR unlock"
+        },
+        {
+          "addr": "0x5C003FB0",
+          "set": "0xC5ACCE55",
+          "comment": "SWO LAR unlock"
+        },
+        {
+          "addr": "0x5C0030F0",
+          "set": "0x00000002",
+          "comment": "SWO SPPR: async NRZ (replaces the standard TPIU block)"
+        },
+        {
+          "addr": "0x5C003010",
+          "insert": "$prescaler",
+          "mask": "0x00000FFF",
+          "comment": "SWO CODR: baud divider"
+        },
+        {
+          "addr": "0x5C004000",
+          "or": "0x00000001",
+          "comment": "SWTF CTRL: enable funnel slave 0 (ITM)"
+        },
+        {
+          "addr": "0x580244E0",
+          "or": "0x00000002",
+          "comment": "RCC AHB4ENR: GPIOB clock (SWO pin = PB3)"
+        },
+        {
+          "addr": "0x58020400",
+          "insert": "0x00000080",
+          "mask": "0x000000C0",
+          "comment": "GPIOB MODER: PB3 alternate function"
+        },
+        {
+          "addr": "0x58020408",
+          "or": "0x000000C0",
+          "comment": "GPIOB OSPEEDR: PB3 very high speed"
+        },
+        {
+          "addr": "0x58020420",
+          "insert": "0x00000000",
+          "mask": "0x0000F000",
+          "comment": "GPIOB AFRL: PB3 AF0 (TRACESWO)"
+        }
+      ]
+    },
+    {
+      "name": "stm32-classic",
+      "match": {
+        "idcode_addr": "0xE0042000"
+      },
+      "tpiu": true,
+      "init": [
+        {
+          "addr": "0xE0042004",
+          "or": "0x00000027",
+          "comment": "DBGMCU_CR: TRACE_IOEN + DBG_SLEEP/STOP/STANDBY (keeps trace clocked through WFI idles)"
+        }
+      ]
+    }
+  ]
+}

@@ -20,6 +20,13 @@
       "rev": "1",
       "manifest": "viewalyzer-recorder/manifest.json",
       "hash": "sha256:42958c5bf2783d70b88a96b5b2d3d0b31e63607fc5a571d16e9a2f560ec941a6"
+    },
+    {
+      "id": "trace-support",
+      "family": "Trace Support",
+      "kind": "component",
+      "rev": "1",
+      "manifest": "trace-support/manifest.json"
     }
   ]
 }
