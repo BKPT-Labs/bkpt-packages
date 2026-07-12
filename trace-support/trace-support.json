@@ -2,8 +2,8 @@
   "$schema": "https://opendatasheet.org/schema/v0.1/trace-support.schema.json",
   "spec_version": "0.1",
   "type": "trace-support",
-  "rev": 1,
-  "updated_utc": "2026-07-09",
+  "rev": 2,
+  "updated_utc": "2026-07-11",
   "comment": "CANONICAL debugger-side trace bring-up catalog (bkpt-packages/trace-support). Consumers bundle a snapshot at build/dev time (the ViewAlyzer app never fetches at runtime; a future app fetch would come from this repo). Offline user override: <userAppData>/ViewAlyzer/trace-support.json (same shape). Rows are keyed by debug ARCHITECTURE, not by chip: one row covers every part sharing a vendor debug-domain map, so this file stays a handful of rows forever. A row matches when probing its idcode_addr over the debug connection reads a nonzero device id (optionally restricted to dev_id). Its init ops then run through a read-modify-write interpreter: {addr, set} = write literal, {addr, or} = OR bits in, {addr, insert, mask} = (old & ~mask) | (insert & mask). The token $prescaler resolves to (cpu-clock-hz / swo-freq-hz) - 1. tpiu:false means the row replaces the standard ARM TPIU programming (parts with their own SWO block).",
   "devices": [
     {
@@ -71,6 +71,21 @@
           "insert": "0x00000000",
           "mask": "0x0000F000",
           "comment": "GPIOB AFRL: PB3 AF0 (TRACESWO)"
+        }
+      ]
+    },
+    {
+      "name": "stm32-tz-m33 (U5/L5/WBA)",
+      "match": {
+        "idcode_addr": "0xE0044000",
+        "comment": "DBGMCU for the TrustZone Cortex-M33 generation (U5/L5/WBA all map DBGMCU here; H5 does not). dev_id 0x482 (U575/585) verified on silicon 2026-07-11; other family ids match by architecture."
+      },
+      "tpiu": true,
+      "init": [
+        {
+          "addr": "0xE0044004",
+          "or": "0x00000036",
+          "comment": "DBGMCU_CR: TRACE_EN (trace clock gate \u2014 without it the TPIU is absent from the bus: accesses bus-fault AND wedge the ST-LINK DAP until probe power-cycle) + TRACE_IOEN + DBG_STOP/STANDBY; TRACE_MODE=00 async SWO"
         }
       ]
     },
