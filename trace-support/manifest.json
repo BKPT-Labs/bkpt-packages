@@ -1,7 +1,7 @@
 {
-  "schema": "https://opendatasheet.org/schema/v0.1/component-manifest.json",
-  "family": "Trace Support",
+  "schema": "https://opendatasheet.org/schema/v0.2/component-manifest.json",
   "kind": "component",
+  "name": "Trace Support",
   "rev": "1",
   "package": {
     "files": [

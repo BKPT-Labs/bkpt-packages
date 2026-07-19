@@ -105,10 +105,11 @@ def main() -> int:
     old_hash = (manifest.get("provenance") or {}).get("content_hash")
 
     manifest.setdefault(
-        "schema", "https://opendatasheet.org/schema/v0.1/component-manifest.json"
+        "schema", "https://opendatasheet.org/schema/v0.2/component-manifest.json"
     )
-    manifest["family"] = "ViewAlyzer Recorder"
+    manifest.pop("family", None)
     manifest["kind"] = "component"
+    manifest["name"] = "ViewAlyzer Recorder"
     pkg = manifest.setdefault("package", {})
     # Non-recorder package files (templates etc.) are preserved across syncs;
     # the recorder/ subtree is regenerated wholesale.
@@ -127,13 +128,13 @@ def main() -> int:
     # ---- registry entry -----------------------------------------------------
     index_path = REPO_ROOT / "index.json"
     index = json.loads(index_path.read_text())
-    rows = index.setdefault("families", [])
+    rows = index.setdefault("packages", [])
     row = next((r for r in rows if r.get("id") == "viewalyzer-recorder"), None)
     if row is None:
         row = {
             "id": "viewalyzer-recorder",
-            "family": "ViewAlyzer Recorder",
             "kind": "component",
+            "name": "ViewAlyzer Recorder",
             "rev": "0",
             "manifest": "viewalyzer-recorder/manifest.json",
         }

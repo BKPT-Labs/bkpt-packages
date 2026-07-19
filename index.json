@@ -1,8 +1,10 @@
 {
-  "schema": "https://opendatasheet.org/schema/v0.1/package-index.json",
-  "families": [
+  "schema": "https://opendatasheet.org/schema/v0.2/package-index.json",
+  "packages": [
     {
       "id": "stm32u5",
+      "kind": "family",
+      "name": "STM32U5",
       "family": "STM32U5",
       "rev": "1",
       "manifest": "stm32u5/manifest.json",
@@ -15,16 +17,16 @@
     },
     {
       "id": "viewalyzer-recorder",
-      "family": "ViewAlyzer Recorder",
       "kind": "component",
+      "name": "ViewAlyzer Recorder",
       "rev": "1",
       "manifest": "viewalyzer-recorder/manifest.json",
       "hash": "sha256:42958c5bf2783d70b88a96b5b2d3d0b31e63607fc5a571d16e9a2f560ec941a6"
     },
     {
       "id": "trace-support",
-      "family": "Trace Support",
       "kind": "component",
+      "name": "Trace Support",
       "rev": "1",
       "manifest": "trace-support/manifest.json"
     }
