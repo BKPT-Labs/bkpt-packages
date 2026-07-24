@@ -27,7 +27,7 @@
   },
   "provenance": {
     "source_repo": "ViewAlyzer",
-    "source_rev": "4b8dceaf2dc576e332b122ea8889be3a5a9b27ef-dirty",
+    "source_rev": "34668e0c6a779c1655af0fc3baf59d92215637b2",
     "recorder_version": "1.1.0",
     "wire_version": 3,
     "content_hash": "sha256:d689f6143cb625d1b8c24c6e9df89686852523f8f6be5cc59a22dae8a5508c36"
