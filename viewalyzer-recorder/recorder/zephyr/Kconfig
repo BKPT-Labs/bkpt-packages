@@ -139,6 +139,17 @@ config VIEWALYZER_BUFFER_SIZE
 	  Capacity of the RAM ring buffer used in buffered mode. Larger buffers
 	  absorb bigger bursts before dropping packets.
 
+config VIEWALYZER_SEQ
+	bool "Per-packet sequence counter for loss detection (protocol v3)"
+	default y
+	help
+	  Stamp every trace packet with a rolling 8-bit sequence number and
+	  emit a periodic 32-bit absolute checkpoint. The host uses these to
+	  detect and quantify event loss exactly — whether packets were dropped
+	  at the source (full buffer) or lost in the transport — which
+	  timestamps alone cannot prove. Costs 1 byte per packet. Disable to
+	  emit the legacy v2 wire format without sequence numbers.
+
 config VIEWALYZER_TIMESTAMP_64
 	bool "Use 64-bit timestamps on the wire (legacy v1 format)"
 	default n

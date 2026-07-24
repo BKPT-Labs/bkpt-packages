@@ -48,6 +48,32 @@ extern "C"
     static VA_TransportSendFn s_user_send_fn = NULL;
 #endif
 
+/* ================================================================
+ *  Throughput-test byte counters (compile-gated, OFF by default)
+ * ================================================================
+ *  Built only with -DVA_TP_TEST=1 (see the Nucleo_H723_Throughput
+ *  example). The recorder tallies how many bytes it OFFERED to the
+ *  active transport vs. how many the transport had to DROP — the
+ *  offered-vs-delivered gap that a host-side "delivered KB/s" reading
+ *  alone can't reveal. A debugger/host reads the _VA_TP block by
+ *  symbol (or by scanning RAM for the "VATPCNT1" magic). Layout is a
+ *  little-endian host contract: do not reorder fields.
+ *
+ *  offered  = every packet handed to _va_send_bytes (protocol bytes,
+ *             pre-transport-framing — matches the host's decoded count)
+ *  dropped  = packets the transport could not accept (ITM FIFO stall,
+ *             RAM-ring full, or over-size). delivered = offered - dropped. */
+#if defined(VA_TP_TEST) && (VA_TP_TEST == 1)
+/* VA_TpCounters_t is declared in ViewAlyzer.h so the host/app can read it. */
+VA_TpCounters_t _VA_TP __attribute__((aligned(4)));
+static const char VA_TP_MAGIC[8] = "VATPCNT1";
+#define VA_TP_OFFER(len) do { _VA_TP.offeredPackets++; _VA_TP.offeredBytes += (uint32_t)(len); } while (0)
+#define VA_TP_DROP(len)  do { _VA_TP.droppedPackets++; _VA_TP.droppedBytes  += (uint32_t)(len); } while (0)
+#else
+#define VA_TP_OFFER(len) ((void)0)
+#define VA_TP_DROP(len)  ((void)0)
+#endif
+
 /* Lightweight uint32-to-decimal into a prefix buffer, e.g. "CLK:170000000" */
 static char *_va_u32_to_str(char *buf, size_t buf_size, const char *prefix, uint32_t val)
 {
@@ -123,15 +149,23 @@ static void _va_strcat_suffix(char *buf, size_t buf_size,
 
     // --- Stream Sync Marker ---
     // Byte 3 and byte 9 encode the wire-format version so a host locks onto
-    // the correct timestamp width from the marker alone:
-    //   v1 (64-bit ts): "VAZ\x01" "SYNC01" AA 55
-    //   v2 (32-bit ts): "VAZ\x02" "SYNC02" AA 55
-    // An old host scanning only for the v1 marker never syncs onto a v2 stream
-    // (clean "no data" instead of misparse).
-#if VA_TIMESTAMP_BITS == 32
-    static const uint8_t VA_SYNC_MARKER[] = {0x56, 0x41, 0x5A, 0x02, 0x53, 0x59, 0x4E, 0x43, 0x30, 0x32, 0xAA, 0x55};
+    // the correct packet layout from the marker alone. Protocol v2 (32-bit
+    // timestamps): "VAZ\x02" "SYNC02" AA 55. Protocol v3 = v2 plus a rolling
+    // 8-bit sequence byte at offset 1 of every packet (see VA_SEQ_COUNTER):
+    // "VAZ\x03" "SYNC03" AA 55. The marker itself carries no sequence byte
+    // and does not consume a sequence number.
+#if VA_SEQ_COUNTER
+    static const uint8_t VA_SYNC_MARKER[] = {0x56, 0x41, 0x5A, 0x03, 0x53, 0x59, 0x4E, 0x43, 0x30, 0x33, 0xAA, 0x55};
 #else
-    static const uint8_t VA_SYNC_MARKER[] = {0x56, 0x41, 0x5A, 0x01, 0x53, 0x59, 0x4E, 0x43, 0x30, 0x31, 0xAA, 0x55};
+    static const uint8_t VA_SYNC_MARKER[] = {0x56, 0x41, 0x5A, 0x02, 0x53, 0x59, 0x4E, 0x43, 0x30, 0x32, 0xAA, 0x55};
+#endif
+
+#if VA_SEQ_COUNTER
+    // Absolute count of sequence-stamped packets emitted since VA_Init. The
+    // low 8 bits go on the wire in every packet; the full value rides in the
+    // periodic VA_EVENT_SEQ_CHECKPOINT. Guarded by the caller's critical
+    // section like all emission state (single writer).
+    static uint32_t _va_seq = 0;
 #endif
 
     // --- Task ID Mapping (RTOS-agnostic) ---
@@ -201,27 +235,67 @@ static void _va_strcat_suffix(char *buf, size_t buf_size,
  * ================================================================ */
 
 #if VA_TRANSPORT_IS_ITM
-#define ITM_WaitReady(port) while (ITM->PORT[port].u32 == 0)
+/* How long to spin waiting for the ITM stimulus FIFO before declaring the
+   trace pipe STALLED. A draining pipe frees a FIFO slot within tens of
+   microseconds even at slow SWO rates, so this limit (~ms at typical clocks)
+   is only ever exhausted when the pipe is dead: nobody has enabled the SWO
+   pin/TPIU (DBGMCU trace gating is debugger-owned), or the debugger went
+   away. Without the limit the first emission spins forever and FREEZES the
+   application — a target running VA-instrumented firmware with no host
+   attached deadlocked at VA_Init's first setup packet. */
+#ifndef VA_ITM_STALL_SPIN_LIMIT
+#define VA_ITM_STALL_SPIN_LIMIT 50000u
+#endif
 
-static inline void ITM_SendU32(uint8_t port, uint32_t value)
+/* Once stalled, emissions drop immediately (no spin cost) until the next
+   periodic setup-bundle attempt re-arms one bounded retry (~every
+   VA_AUTO_SETUP_INTERVAL_MS). A host that attaches and enables the drain
+   therefore restores tracing within one bundle period, and its first
+   packets are exactly the sync marker + setup bundle it needs to re-sync.
+   Races on the flag are benign: worst case is one extra bounded spin. */
+static volatile uint8_t _va_itm_stalled = 0;
+
+static inline int ITM_WaitReady(uint8_t port)
 {
-    ITM_WaitReady(port);
+    if (ITM->PORT[port].u32 != 0)
+        return 1;
+    for (uint32_t i = 0; i < VA_ITM_STALL_SPIN_LIMIT; ++i)
+        if (ITM->PORT[port].u32 != 0)
+            return 1;
+    _va_itm_stalled = 1;
+    return 0;
+}
+
+static inline int ITM_SendU32(uint8_t port, uint32_t value)
+{
+    if (!ITM_WaitReady(port))
+        return 0;
     ITM->PORT[port].u32 = value;
+    return 1;
 }
-static inline void ITM_SendU16(uint8_t port, uint16_t value)
+static inline int ITM_SendU16(uint8_t port, uint16_t value)
 {
-    ITM_WaitReady(port);
+    if (!ITM_WaitReady(port))
+        return 0;
     ITM->PORT[port].u16 = value;
+    return 1;
 }
-static inline void ITM_SendU8(uint8_t port, uint8_t value)
+static inline int ITM_SendU8(uint8_t port, uint8_t value)
 {
-    ITM_WaitReady(port);
+    if (!ITM_WaitReady(port))
+        return 0;
     ITM->PORT[port].u8 = value;
+    return 1;
 }
 static void _va_send_bytes(const uint8_t *data, uint32_t length)
 {
     if (!VA_IS_INIT)
         return;
+    if (_va_itm_stalled)
+    {
+        VA_TP_DROP(length);   /* throughput test: pipe stalled → whole packet lost */
+        return;     /* pipe known-dead: drop the packet, don't spin */
+    }
     uint32_t i = 0;
     while (length >= 4)
     {
@@ -229,7 +303,10 @@ static void _va_send_bytes(const uint8_t *data, uint32_t length)
                         ((uint32_t)data[i + 2] << 16) |
                         ((uint32_t)data[i + 1] << 8) |
                         ((uint32_t)data[i + 0] << 0);
-        ITM_SendU32(VA_ITM_PORT, word);
+        if (!ITM_SendU32(VA_ITM_PORT, word))
+            return;  /* stalled mid-packet: drop the rest (host parser
+                        treats the truncated packet as a corrupt run and
+                        re-syncs at the next marker) */
         i += 4;
         length -= 4;
     }
@@ -238,13 +315,15 @@ static void _va_send_bytes(const uint8_t *data, uint32_t length)
     if (length >= 2)
     {
         uint16_t half = (uint16_t)(((uint16_t)data[i + 1] << 8) | (uint16_t)data[i + 0]);
-        ITM_SendU16(VA_ITM_PORT, half);
+        if (!ITM_SendU16(VA_ITM_PORT, half))
+            return;
         i += 2;
         length -= 2;
     }
     if (length > 0)
     {
-        ITM_SendU8(VA_ITM_PORT, data[i]);
+        if (!ITM_SendU8(VA_ITM_PORT, data[i]))
+            return;
         i++;
         length--;
     }
@@ -266,8 +345,84 @@ static void _va_send_bytes(const uint8_t *data, uint32_t length)
     s_user_send_fn(data, length);
 }
 
+#elif VA_TRANSPORT_IS_RAMBUF
+/* ViewAlyzer-owned RAM ring buffer, drained by the host through the debug
+   probe (ST-Link, CMSIS-DAP, J-Link, ...) with non-intrusive memory reads.
+   The host locates _VA_RAMBUF by scanning RAM for the magic tag (or via the
+   ELF symbol), then polls wrOff, reads new ring bytes, and advances rdOff.
+   The struct layout below is a host-protocol contract: fixed field order,
+   little-endian, magic at offset 0. Do not reorder or insert fields.
+
+   Concurrency model: every emission runs inside a VA critical section
+   (single writer), and the host is the only writer of rdOff — a single
+   aligned 32-bit store from the probe, so no locking is needed on either
+   side. The DMB before publishing wrOff guarantees the probe can never read
+   an offset that points at bytes still in flight. */
+typedef struct
+{
+    char              magic[16];      /* "ViewAlyzerRB01", written last      */
+    uint32_t          bufferAddr;     /* absolute address of the ring bytes  */
+    uint32_t          bufferSize;     /* ring capacity in bytes              */
+    volatile uint32_t wrOff;          /* target-owned write offset           */
+    volatile uint32_t rdOff;          /* host-owned read offset              */
+    volatile uint32_t droppedPackets; /* packets dropped since VA_Init       */
+    uint32_t          flags;          /* bit0 = VA_RAMBUF_MODE               */
+} VA_RamBufControlBlock_t;
+
+static VA_RAMBUF_ATTRIBUTES uint8_t s_va_rambuf_storage[VA_RAMBUF_SIZE];
+VA_RAMBUF_ATTRIBUTES VA_RamBufControlBlock_t _VA_RAMBUF __attribute__((aligned(4)));
+
+static const char VA_RAMBUF_MAGIC[16] = "ViewAlyzerRB01";
+
+/* One byte is always kept unused so wrOff == rdOff means exactly "empty". */
+static inline uint32_t _va_rambuf_free(void)
+{
+    uint32_t wr = _VA_RAMBUF.wrOff;
+    uint32_t rd = _VA_RAMBUF.rdOff;
+    return (rd > wr) ? (rd - wr - 1u) : ((uint32_t)VA_RAMBUF_SIZE - wr + rd - 1u);
+}
+
+static void _va_send_bytes(const uint8_t *data, uint32_t length)
+{
+    if (!VA_IS_INIT || length == 0)
+        return;
+    if (length > (uint32_t)VA_RAMBUF_SIZE - 1u)
+    {
+        _VA_RAMBUF.droppedPackets++;
+        VA_TP_DROP(length);
+        return;
+    }
+#if (VA_RAMBUF_MODE == VA_RAMBUF_MODE_BLOCK)
+    /* Lossless mode. The host advances rdOff through the debug port, so this
+       makes progress even inside a critical section — but it stalls the
+       firmware indefinitely when no host is draining the buffer. */
+    while (_va_rambuf_free() < length) {}
 #else
-#error "VA_TRANSPORT must be ARM_ITM, JLINK_RTT, or CUSTOM_TRANSPORT"
+    /* Packets are dropped whole, never truncated, so every byte that does
+       reach the ring is a complete packet and the stream stays parseable. */
+    if (_va_rambuf_free() < length)
+    {
+        _VA_RAMBUF.droppedPackets++;
+        VA_TP_DROP(length);
+        return;
+    }
+#endif
+    uint32_t wr = _VA_RAMBUF.wrOff;
+    uint32_t chunk = (uint32_t)VA_RAMBUF_SIZE - wr;
+    if (chunk > length)
+        chunk = length;
+    memcpy(&s_va_rambuf_storage[wr], data, chunk);
+    if (chunk < length)
+        memcpy(&s_va_rambuf_storage[0], data + chunk, length - chunk);
+    wr += length;
+    if (wr >= (uint32_t)VA_RAMBUF_SIZE)
+        wr -= (uint32_t)VA_RAMBUF_SIZE;
+    __DMB();   /* ring bytes must be probe-visible before the offset is */
+    _VA_RAMBUF.wrOff = wr;
+}
+
+#else
+#error "VA_TRANSPORT must be ARM_ITM, JLINK_RTT, CUSTOM_TRANSPORT, or RAM_BUFFER"
 #endif // VA_TRANSPORT
 
 /* ================================================================
@@ -308,6 +463,7 @@ static void _va_ring_push(const uint8_t *data, uint32_t length)
  * ================================================================ */
 static inline void _va_emit_packet_raw(const uint8_t *data, uint32_t length)
 {
+    VA_TP_OFFER(length);   /* throughput test: count offered load (no-op otherwise) */
 #if VA_TRANSPORT_IS_CUSTOM
     uint8_t cobs_buf[VA_MAX_PACKET_SIZE + (VA_MAX_PACKET_SIZE / 254) + 2];
     size_t encoded_len = va_cobs_encode(data, (size_t)length, cobs_buf);
@@ -325,8 +481,17 @@ static inline void _va_emit_packet_raw(const uint8_t *data, uint32_t length)
 #endif
 }
 
-void _va_emit_packet(const uint8_t *data, uint32_t length)
+void _va_emit_packet(uint8_t *data, uint32_t length)
 {
+#if VA_SEQ_COUNTER
+    /* Stamp the rolling sequence byte here, in the single funnel every packet
+       passes through, so the sequence order is exactly the wire order (the
+       caller holds the critical section that serializes emission). Packets
+       dropped downstream (ring full, ITM stall, rambuf full) have already
+       consumed their number — the host sees those as sequence gaps, which is
+       the point: source drops and transport loss are both real loss. */
+    data[1] = (uint8_t)_va_seq++;
+#endif
     /* The triggering packet goes out FIRST, the periodic bundle after it.
      * The packet's position on the wire is what time-correlation (fused
      * ETM+ITM captures) anchors on — emitting the bundle first would place
@@ -348,6 +513,14 @@ void _va_emit_packet(const uint8_t *data, uint32_t length)
             _va_bundle_due = true;
     }
 #endif
+}
+
+/* Emit the sync marker. Markers are a fixed byte literal scanned for by the
+   host — they carry no sequence byte and must not consume a sequence number,
+   so they bypass _va_emit_packet's stamping. */
+static inline void _va_emit_sync_marker(void)
+{
+    _va_emit_packet_raw(VA_SYNC_MARKER, sizeof(VA_SYNC_MARKER));
 }
 
 /* True when executing in an exception/interrupt context (any Cortex-M).
@@ -396,14 +569,41 @@ static inline uint32_t _va_put_ts(uint8_t *dst, uint64_t timestamp)
     return VA_TIMESTAMP_BYTES;
 }
 
+/* All builders lay packets out as [type][seq][rest...]: the byte after the
+   type code is reserved for the rolling sequence number (v3, VA_SEQ_BYTES=1)
+   and stamped centrally in _va_emit_packet. With VA_SEQ_COUNTER=0 the slot
+   collapses away and the layout is byte-identical to wire v2. */
+
 void _va_send_event_packet(uint8_t type_byte, uint8_t id, uint64_t timestamp)
 {
-    uint8_t packet[2 + VA_TIMESTAMP_BYTES];
+    uint8_t packet[2 + VA_SEQ_BYTES + VA_TIMESTAMP_BYTES];
     packet[0] = type_byte;
-    packet[1] = id;
-    _va_put_ts(&packet[2], timestamp);
+    packet[1 + VA_SEQ_BYTES] = id;
+    _va_put_ts(&packet[2 + VA_SEQ_BYTES], timestamp);
     _va_emit_packet(packet, sizeof(packet));
 }
+
+#if VA_SEQ_COUNTER
+/* Emit a sequence checkpoint. Must be called inside a VA critical section:
+   the payload is read from _va_seq before emission, and because no packet can
+   intervene inside the CS it is exactly the absolute sequence number this
+   packet itself gets stamped with (low 8 bits match its own seq byte). */
+static void _va_send_seq_checkpoint(void)
+{
+    uint8_t packet[2 + VA_SEQ_BYTES + VA_TIMESTAMP_BYTES + 4];
+    uint32_t seq = _va_seq;
+    uint32_t p = 0;
+    packet[p++] = VA_EVENT_SEQ_CHECKPOINT;
+    p += VA_SEQ_BYTES;
+    packet[p++] = 0;                /* id unused */
+    p += _va_put_ts(&packet[p], _va_get_timestamp_unlocked());
+    packet[p++] = (uint8_t)(seq >> 0);
+    packet[p++] = (uint8_t)(seq >> 8);
+    packet[p++] = (uint8_t)(seq >> 16);
+    packet[p++] = (uint8_t)(seq >> 24);
+    _va_emit_packet(packet, p);
+}
+#endif
 
 void _va_send_setup_packet(uint8_t setupCode, uint8_t id, const char *name)
 {
@@ -412,12 +612,14 @@ void _va_send_setup_packet(uint8_t setupCode, uint8_t id, const char *name)
     {
         name_len = VA_MAX_TASK_NAME_LEN - 1;
     }
-    uint8_t buf[3 + VA_MAX_TASK_NAME_LEN];
-    buf[0] = setupCode;
-    buf[1] = id;
-    buf[2] = name_len;
-    memcpy(&buf[3], name, name_len);
-    _va_emit_packet(buf, 3 + name_len);
+    uint8_t buf[3 + VA_SEQ_BYTES + VA_MAX_TASK_NAME_LEN];
+    uint32_t p = 0;
+    buf[p++] = setupCode;
+    p += VA_SEQ_BYTES;
+    buf[p++] = id;
+    buf[p++] = name_len;
+    memcpy(&buf[p], name, name_len);
+    _va_emit_packet(buf, p + name_len);
 }
 
 void _va_send_user_setup_packet(uint8_t id, uint8_t type, const char *name)
@@ -427,20 +629,23 @@ void _va_send_user_setup_packet(uint8_t id, uint8_t type, const char *name)
     {
         name_len = VA_MAX_TASK_NAME_LEN - 1;
     }
-    uint8_t buf[4 + VA_MAX_TASK_NAME_LEN];
-    buf[0] = VA_SETUP_USER_TRACE;
-    buf[1] = id;
-    buf[2] = type;
-    buf[3] = name_len;
-    memcpy(&buf[4], name, name_len);
-    _va_emit_packet(buf, 4 + name_len);
+    uint8_t buf[4 + VA_SEQ_BYTES + VA_MAX_TASK_NAME_LEN];
+    uint32_t p = 0;
+    buf[p++] = VA_SETUP_USER_TRACE;
+    p += VA_SEQ_BYTES;
+    buf[p++] = id;
+    buf[p++] = type;
+    buf[p++] = name_len;
+    memcpy(&buf[p], name, name_len);
+    _va_emit_packet(buf, p + name_len);
 }
 
 void _va_send_user_event_packet(uint8_t id, int32_t value, uint64_t timestamp)
 {
-    uint8_t packet[2 + VA_TIMESTAMP_BYTES + 4];
+    uint8_t packet[2 + VA_SEQ_BYTES + VA_TIMESTAMP_BYTES + 4];
     uint32_t p = 0;
     packet[p++] = VA_EVENT_USER_TRACE;
+    p += VA_SEQ_BYTES;
     packet[p++] = id;
     p += _va_put_ts(&packet[p], timestamp);
     packet[p++] = (uint8_t)(value >> 0);
@@ -452,11 +657,12 @@ void _va_send_user_event_packet(uint8_t id, int32_t value, uint64_t timestamp)
 
 void _va_send_float_event_packet(uint8_t id, float value, uint64_t timestamp)
 {
-    uint8_t packet[2 + VA_TIMESTAMP_BYTES + 4];
+    uint8_t packet[2 + VA_SEQ_BYTES + VA_TIMESTAMP_BYTES + 4];
     uint32_t fbits;
     uint32_t p = 0;
     memcpy(&fbits, &value, sizeof(fbits));
     packet[p++] = VA_EVENT_FLOAT_TRACE;
+    p += VA_SEQ_BYTES;
     packet[p++] = id;
     p += _va_put_ts(&packet[p], timestamp);
     packet[p++] = (uint8_t)(fbits >> 0);
@@ -468,9 +674,10 @@ void _va_send_float_event_packet(uint8_t id, float value, uint64_t timestamp)
 
 void _va_send_user_toggle_event_packet(uint8_t id, VA_UserToggleState_t state, uint64_t timestamp)
 {
-    uint8_t packet[2 + VA_TIMESTAMP_BYTES + 1];
+    uint8_t packet[2 + VA_SEQ_BYTES + VA_TIMESTAMP_BYTES + 1];
     uint32_t p = 0;
     packet[p++] = VA_EVENT_USER_TOGGLE;
+    p += VA_SEQ_BYTES;
     packet[p++] = id;
     p += _va_put_ts(&packet[p], timestamp);
     packet[p++] = (uint8_t)(state);
@@ -479,9 +686,10 @@ void _va_send_user_toggle_event_packet(uint8_t id, VA_UserToggleState_t state, u
 
 void _va_send_notification_event_packet(uint8_t type_byte, uint8_t id, uint8_t other_id, uint32_t value, uint64_t timestamp)
 {
-    uint8_t packet[3 + VA_TIMESTAMP_BYTES + 4];
+    uint8_t packet[3 + VA_SEQ_BYTES + VA_TIMESTAMP_BYTES + 4];
     uint32_t p = 0;
     packet[p++] = type_byte;
+    p += VA_SEQ_BYTES;
     packet[p++] = id;
     packet[p++] = other_id;
     p += _va_put_ts(&packet[p], timestamp);
@@ -494,9 +702,10 @@ void _va_send_notification_event_packet(uint8_t type_byte, uint8_t id, uint8_t o
 
 void _va_send_mutex_contention_packet(uint8_t mutex_id, uint8_t waiting_task_id, uint8_t holder_task_id, uint64_t timestamp)
 {
-    uint8_t packet[4 + VA_TIMESTAMP_BYTES];
+    uint8_t packet[4 + VA_SEQ_BYTES + VA_TIMESTAMP_BYTES];
     uint32_t p = 0;
     packet[p++] = VA_EVENT_MUTEX_CONTENTION;
+    p += VA_SEQ_BYTES;
     packet[p++] = mutex_id;
     packet[p++] = waiting_task_id;
     packet[p++] = holder_task_id;
@@ -506,9 +715,10 @@ void _va_send_mutex_contention_packet(uint8_t mutex_id, uint8_t waiting_task_id,
 
 void _va_send_task_create_packet(uint8_t id, uint64_t timestamp, uint32_t priority, uint32_t base_priority, uint32_t stack_size)
 {
-    uint8_t packet[2 + VA_TIMESTAMP_BYTES + 12];
+    uint8_t packet[2 + VA_SEQ_BYTES + VA_TIMESTAMP_BYTES + 12];
     uint32_t p = 0;
     packet[p++] = VA_EVENT_TASK_CREATE;
+    p += VA_SEQ_BYTES;
     packet[p++] = id;
     p += _va_put_ts(&packet[p], timestamp);
     packet[p++] = (uint8_t)(priority >> 0);
@@ -528,9 +738,10 @@ void _va_send_task_create_packet(uint8_t id, uint64_t timestamp, uint32_t priori
 
 void _va_send_stack_usage_packet(uint8_t id, uint64_t timestamp, uint32_t stack_used, uint32_t stack_total)
 {
-    uint8_t packet[2 + VA_TIMESTAMP_BYTES + 8];
+    uint8_t packet[2 + VA_SEQ_BYTES + VA_TIMESTAMP_BYTES + 8];
     uint32_t p = 0;
     packet[p++] = VA_EVENT_TASK_STACK_USAGE;
+    p += VA_SEQ_BYTES;
     packet[p++] = id;
     p += _va_put_ts(&packet[p], timestamp);
     packet[p++] = (uint8_t)(stack_used >> 0);
@@ -546,9 +757,10 @@ void _va_send_stack_usage_packet(uint8_t id, uint64_t timestamp, uint32_t stack_
 
 void _va_send_data_event_packet(uint8_t type_byte, uint8_t id, uint32_t value, uint64_t timestamp)
 {
-    uint8_t packet[2 + VA_TIMESTAMP_BYTES + 4];
+    uint8_t packet[2 + VA_SEQ_BYTES + VA_TIMESTAMP_BYTES + 4];
     uint32_t p = 0;
     packet[p++] = type_byte;
+    p += VA_SEQ_BYTES;
     packet[p++] = id;
     p += _va_put_ts(&packet[p], timestamp);
     packet[p++] = (uint8_t)(value >> 0);
@@ -565,16 +777,18 @@ void _va_send_heap_setup_packet(uint8_t id, const char *name, uint32_t totalSize
     {
         name_len = VA_MAX_TASK_NAME_LEN - 1;
     }
-    uint8_t buf[7 + VA_MAX_TASK_NAME_LEN];
-    buf[0] = VA_SETUP_HEAP_INFO;
-    buf[1] = id;
-    buf[2] = (uint8_t)(totalSize >> 0);
-    buf[3] = (uint8_t)(totalSize >> 8);
-    buf[4] = (uint8_t)(totalSize >> 16);
-    buf[5] = (uint8_t)(totalSize >> 24);
-    buf[6] = name_len;
-    memcpy(&buf[7], name, name_len);
-    _va_emit_packet(buf, 7 + name_len);
+    uint8_t buf[7 + VA_SEQ_BYTES + VA_MAX_TASK_NAME_LEN];
+    uint32_t p = 0;
+    buf[p++] = VA_SETUP_HEAP_INFO;
+    p += VA_SEQ_BYTES;
+    buf[p++] = id;
+    buf[p++] = (uint8_t)(totalSize >> 0);
+    buf[p++] = (uint8_t)(totalSize >> 8);
+    buf[p++] = (uint8_t)(totalSize >> 16);
+    buf[p++] = (uint8_t)(totalSize >> 24);
+    buf[p++] = name_len;
+    memcpy(&buf[p], name, name_len);
+    _va_emit_packet(buf, p + name_len);
 }
 
 /* ================================================================
@@ -659,6 +873,14 @@ void VA_EmitSetupBundle(void)
     if (!VA_IS_INIT)
         return;
 
+#if VA_TRANSPORT_IS_ITM
+    /* Re-arm a stalled ITM pipe: retry one bounded emission per bundle
+       period. If a host has attached and enabled the SWO drain since the
+       stall, tracing resumes here — leading with the sync marker + setup
+       bundle the host needs to sync onto the stream. */
+    _va_itm_stalled = 0;
+#endif
+
     /* Each packet is emitted under its OWN short critical section so
        interrupts are serviced between packets. The whole bundle (~1 KB) used
        to go out under a single VA_CS_ENTER, blocking interrupts for
@@ -667,7 +889,12 @@ void VA_EmitSetupBundle(void)
        The caller (_va_service_pending_bundle) runs in thread context with no
        CS held — see WP-5. */
 
-    VA_ATOMIC(_va_emit_packet(VA_SYNC_MARKER, sizeof(VA_SYNC_MARKER)));
+    VA_ATOMIC(_va_emit_sync_marker());
+#if VA_SEQ_COUNTER
+    /* Absolute checkpoint rides with every bundle so a host attaching or
+       recovering mid-stream can compute exact loss totals. */
+    VA_ATOMIC(_va_send_seq_checkpoint());
+#endif
 
     {
         char info_buf[40];
@@ -1189,9 +1416,10 @@ void VA_LogString(uint8_t id, const char *msg)
     VA_CS_ENTER();
     uint64_t ts = _va_get_timestamp_unlocked();
 
-    uint8_t buf[2 + VA_TIMESTAMP_BYTES + 2 + VA_MAX_LOG_STRING_LEN];
+    uint8_t buf[2 + VA_SEQ_BYTES + VA_TIMESTAMP_BYTES + 2 + VA_MAX_LOG_STRING_LEN];
     uint32_t p = 0;
     buf[p++] = VA_EVENT_STRING_EVENT;
+    p += VA_SEQ_BYTES;
     buf[p++] = id;
     p += _va_put_ts(&buf[p], ts);
     buf[p++] = (uint8_t)(len >> 0);
@@ -1775,6 +2003,10 @@ void VA_Init(uint32_t cpu_freq)
     _va_task_cache_handle = NULL;
     _va_task_cache_idx    = -1;
 
+#if VA_SEQ_COUNTER
+    _va_seq = 0;
+#endif
+
 #if VA_AUTO_SETUP_INTERVAL_MS > 0
     _va_last_bundle_ts  = 0;
     _va_emitting_bundle = false;
@@ -1793,6 +2025,14 @@ void VA_Init(uint32_t cpu_freq)
     _va_ring_tail = 0;
     _va_dropped_packets = 0;
     _va_dropped_bytes = 0;
+#endif
+
+#if defined(VA_TP_TEST) && (VA_TP_TEST == 1)
+    _VA_TP.offeredPackets = 0;
+    _VA_TP.offeredBytes   = 0;
+    _VA_TP.droppedPackets = 0;
+    _VA_TP.droppedBytes   = 0;
+    for (int i = 0; i < 8; ++i) _VA_TP.magic[i] = VA_TP_MAGIC[i];
 #endif
 
 #if VA_HAS_RTOS
@@ -1839,6 +2079,7 @@ void VA_Init(uint32_t cpu_freq)
 #endif
     ITM->TCR |= ITM_TCR_ITMENA_Msk;
     ITM->TER |= (1UL << VA_ITM_PORT);
+    _va_itm_stalled = 0;
 #elif VA_TRANSPORT_IS_JLINK
 #if (VA_CONFIGURE_RTT == 1)
         SEGGER_RTT_Init();
@@ -1850,16 +2091,40 @@ void VA_Init(uint32_t cpu_freq)
 #endif // VA_CONFIGURE_RTT
 #elif VA_TRANSPORT_IS_CUSTOM
     // Nothing to init — user provides send function via VA_RegisterTransportSend()
+#elif VA_TRANSPORT_IS_RAMBUF
+    _VA_RAMBUF.magic[0] = '\0';   /* invalidate while (re)initialising */
+    __DMB();
+    _VA_RAMBUF.bufferAddr     = (uint32_t)(uintptr_t)&s_va_rambuf_storage[0];
+    _VA_RAMBUF.bufferSize     = (uint32_t)VA_RAMBUF_SIZE;
+    _VA_RAMBUF.wrOff          = 0;
+    _VA_RAMBUF.rdOff          = 0;
+    _VA_RAMBUF.droppedPackets = 0;
+    _VA_RAMBUF.flags          = VA_RAMBUF_MODE;
+    __DMB();
+    /* Magic written last and backwards, so a scanning host can never match a
+       partially initialised control block. */
+    for (int i = 15; i >= 0; i--)
+        _VA_RAMBUF.magic[i] = VA_RAMBUF_MAGIC[i];
+    __DMB();
 #endif // VA_TRANSPORT
     VA_IS_INIT = true;
 
-    _va_emit_packet(VA_SYNC_MARKER, sizeof(VA_SYNC_MARKER));
+    _va_emit_sync_marker();
 
     /* Session-start marker — distinguishes a fresh VA_Init from periodic
        auto-bundle re-emissions (VA_EmitSetupBundle).  The host uses this
        to know that all subsequent data is from the current session, not
        stale bytes left over in the RTT ring buffer from a previous run. */
     _va_send_setup_packet(VA_SETUP_INFO, 0, "SES:START");
+
+#if VA_SEQ_COUNTER
+    /* MUST come after SES:START: the host resets its sequence expectation
+       and checkpoint baseline on SES (new counter epoch, not loss). A
+       checkpoint sent before it would be judged against the previous
+       session's counter — a phantom loss burst on every re-init — and its
+       baseline would be wiped by the epoch reset an instant later. */
+    _va_send_seq_checkpoint();
+#endif
 
     char info_buf[40];
     _va_u32_to_str(info_buf, sizeof(info_buf), "CLK:", _va_cpu_freq);

@@ -20,7 +20,7 @@
 #define VIEWALYZER_H
 
 // Recorder source version (bump on any wire/packet or API change).
-#define VA_RECORDER_VERSION "1.0.0"
+#define VA_RECORDER_VERSION "1.1.0"
 
 /* Device/CMSIS header. The recorder needs the CMSIS core definitions
  * (ITM/DWT/CoreDebug). By default it includes the project's "main.h"
@@ -84,6 +84,7 @@ extern "C"
 #define ARM_ITM            1u
 #define JLINK_RTT          2u
 #define CUSTOM_TRANSPORT   3u
+#define RAM_BUFFER         4u
 
 #ifndef VA_TRANSPORT
 #define VA_TRANSPORT ARM_ITM  // Select active transport backend
@@ -161,19 +162,37 @@ extern "C"
 #endif
 
 #ifndef VA_TIMESTAMP_BITS
-// Width of the timestamp field on the wire. 32 (default, protocol v2) halves
-// the dominant cost of the stream; the low 32 bits of the cycle counter wrap
-// periodically (e.g. ~25 s @ 170 MHz) and the host reconstructs the full
-// 64-bit value from packet ordering. Set to 64 for the legacy v1 wire format.
+// Width of the timestamp field on the wire. 32 (protocol v2, the only wire
+// format) halves the dominant cost of the stream; the low 32 bits of the
+// cycle counter wrap periodically (e.g. ~25 s @ 170 MHz) and the host
+// reconstructs the full 64-bit value from packet ordering.
 // VA_AUTO_SETUP_INTERVAL_MS must stay well below the wrap period so the host
 // never misses a wrap (a sync/bundle guarantees at least one packet per
 // interval); 2000 ms gives a >12x margin at 170 MHz.
 #define VA_TIMESTAMP_BITS 32
 #endif
-#if (VA_TIMESTAMP_BITS != 32) && (VA_TIMESTAMP_BITS != 64)
-#error "VA_TIMESTAMP_BITS must be 32 or 64"
+#if VA_TIMESTAMP_BITS != 32
+#error "VA_TIMESTAMP_BITS must be 32: the legacy v1 (64-bit) wire format is no longer supported"
 #endif
 #define VA_TIMESTAMP_BYTES (VA_TIMESTAMP_BITS / 8)
+
+#ifndef VA_SEQ_COUNTER
+// Per-packet sequence counter (wire protocol v3). Every packet — events and
+// setup packets alike — carries a rolling 8-bit sequence number right after
+// the type byte, and a 32-bit absolute checkpoint packet rides with each
+// periodic setup bundle. This is the host's ground truth for loss detection:
+// any gap in the sequence is exactly that many packets lost (whether dropped
+// at the source by a full ring or lost in the transport), which timestamps
+// alone can never prove. Costs 1 byte per packet (~17% on the 6-byte core
+// events). Set to 0 to emit the legacy v2 wire format with no sequence field;
+// the sync marker version (SYNC03 vs SYNC02) tells the host which one to parse.
+#define VA_SEQ_COUNTER 1
+#endif
+#if VA_SEQ_COUNTER
+#define VA_SEQ_BYTES 1
+#else
+#define VA_SEQ_BYTES 0
+#endif
 
 // If using J-LINK RTT transport, configure RTT here by setting VA_CONFIGURE_RTT to 1
 // otherwise set to 0 to skip RTT configuration and user is expected to do it elsewhere
@@ -185,6 +204,29 @@ extern "C"
 #endif
 #ifndef VA_RTT_MODE
 #define VA_RTT_MODE SEGGER_RTT_MODE_BLOCK_IF_FIFO_FULL // RTT buffering mode
+#endif
+
+// If using the RAM_BUFFER transport, configure it here. The recorder owns a
+// ring buffer + control block in target RAM and the host drains it through
+// the debug probe with non-intrusive memory reads — RTT-style streaming that
+// works with ST-Link and any other probe, no SEGGER code required. The host
+// finds the control block by scanning RAM for its magic tag, or directly via
+// the _VA_RAMBUF ELF symbol.
+#ifndef VA_RAMBUF_SIZE
+#define VA_RAMBUF_SIZE 8192u        // Bytes reserved for the trace ring buffer
+#endif
+
+#define VA_RAMBUF_MODE_DROP  0      // Buffer full: drop whole packets, count them (default)
+#define VA_RAMBUF_MODE_BLOCK 1      // Buffer full: wait for host to drain (lossless, stalls firmware if no host attached)
+#ifndef VA_RAMBUF_MODE
+#define VA_RAMBUF_MODE VA_RAMBUF_MODE_DROP
+#endif
+
+#ifndef VA_RAMBUF_ATTRIBUTES
+// Optional placement attributes for the buffer + control block, e.g.
+// __attribute__((section(".va_rambuf"))) to pin them to a non-cacheable RAM
+// region on cached parts (Cortex-M7 with D-cache enabled).
+#define VA_RAMBUF_ATTRIBUTES
 #endif
 
 // Convenience Macros for User Event Timing
@@ -213,13 +255,31 @@ extern "C"
 #define VA_TRANSPORT_IS_ITM      ((VA_TRANSPORT) == ARM_ITM)
 #define VA_TRANSPORT_IS_JLINK    ((VA_TRANSPORT) == JLINK_RTT)
 #define VA_TRANSPORT_IS_CUSTOM   ((VA_TRANSPORT) == CUSTOM_TRANSPORT)
+#define VA_TRANSPORT_IS_RAMBUF   ((VA_TRANSPORT) == RAM_BUFFER)
 
 // Maximum raw packet size (before COBS encoding).
 // Largest packet is VA_LogString: 12-byte header + message payload.
-#define VA_MAX_PACKET_SIZE (12 + VA_MAX_LOG_STRING_LEN)
+#define VA_MAX_PACKET_SIZE (12 + VA_SEQ_BYTES + VA_MAX_LOG_STRING_LEN)
 
 // User-provided send function signature for custom transport
 typedef void (*VA_TransportSendFn)(const uint8_t *data, uint32_t length);
+
+// --- Throughput-test counters (compile-gated with -DVA_TP_TEST=1) ---
+// Off by default. When enabled (see the Nucleo_H723_Throughput example) the
+// recorder tallies bytes OFFERED to the transport vs. DROPPED, exposed as the
+// _VA_TP symbol (magic "VATPCNT1"). delivered = offered - dropped. The layout
+// is a little-endian host contract — do not reorder fields.
+#if defined(VA_TP_TEST) && (VA_TP_TEST == 1)
+    typedef struct
+    {
+        char              magic[8];          /* "VATPCNT1", written last        */
+        volatile uint32_t offeredPackets;    /* packets handed to the transport */
+        volatile uint32_t offeredBytes;      /* their total protocol bytes      */
+        volatile uint32_t droppedPackets;    /* packets the transport dropped   */
+        volatile uint32_t droppedBytes;      /* their total protocol bytes      */
+    } VA_TpCounters_t;
+    extern VA_TpCounters_t _VA_TP;
+#endif
 
 // --- Binary Event Type Codes ---
 #define VA_EVENT_TYPE_MASK        0x7F
@@ -246,6 +306,11 @@ typedef void (*VA_TransportSendFn)(const uint8_t *data, uint32_t length);
 #define VA_EVENT_TIMER            0x13
 #define VA_EVENT_HEAP_SYNC        0x14
 #define VA_EVENT_PM_SUSPEND       0x15
+// Sequence checkpoint (v3 only): id is unused (0), payload is the 32-bit
+// absolute sequence number of this packet itself. Emitted with every setup
+// bundle so the host can compute exact totals (lost = absolute - received)
+// even across bursts longer than the 8-bit rolling counter's period.
+#define VA_EVENT_SEQ_CHECKPOINT   0x16
 
 
 // --- Setup Message Codes ---

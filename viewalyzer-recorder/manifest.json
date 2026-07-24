@@ -17,20 +17,20 @@
       "recorder/freertos/ViewAlyzerFreeRTOSHook_V10_4_Plus.h",
       "recorder/zephyr/CMakeLists.txt",
       "recorder/zephyr/Kconfig",
-      "recorder/zephyr/README.md",
-      "recorder/zephyr/VA_Adapter_Zephyr.c",
-      "recorder/zephyr/VA_Adapter_Zephyr.h",
       "recorder/zephyr/main.h",
       "recorder/zephyr/module.yml",
-      "recorder/zephyr/tracing_user.h"
+      "recorder/zephyr/README.md",
+      "recorder/zephyr/tracing_user.h",
+      "recorder/zephyr/VA_Adapter_Zephyr.c",
+      "recorder/zephyr/VA_Adapter_Zephyr.h"
     ]
   },
   "provenance": {
     "source_repo": "ViewAlyzer",
-    "source_rev": "59a6ea456bfd66dffa009f28883966f2ada252fe-dirty",
-    "recorder_version": "1.0.0",
-    "wire_version": 2,
-    "content_hash": "sha256:42958c5bf2783d70b88a96b5b2d3d0b31e63607fc5a571d16e9a2f560ec941a6"
+    "source_rev": "4b8dceaf2dc576e332b122ea8889be3a5a9b27ef-dirty",
+    "recorder_version": "1.1.0",
+    "wire_version": 3,
+    "content_hash": "sha256:d689f6143cb625d1b8c24c6e9df89686852523f8f6be5cc59a22dae8a5508c36"
   },
-  "rev": "1"
+  "rev": "2"
 }

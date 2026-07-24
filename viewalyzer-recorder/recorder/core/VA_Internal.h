@@ -100,7 +100,10 @@ uint64_t _va_get_timestamp_unlocked(void);
    between packets. No-op in ISR context or when no bundle is due. */
 void _va_service_pending_bundle(void);
 
-void _va_emit_packet(const uint8_t *data, uint32_t length);
+/* Emit one packet. In wire v3 (VA_SEQ_COUNTER) the byte at data[1] is the
+   reserved sequence slot and is overwritten here — builders must lay packets
+   out as [type][seq][rest...] and never pass read-only storage. */
+void _va_emit_packet(uint8_t *data, uint32_t length);
 void _va_send_event_packet(uint8_t type_byte, uint8_t id, uint64_t timestamp);
 void _va_send_setup_packet(uint8_t setupCode, uint8_t id, const char *name);
 void _va_send_user_setup_packet(uint8_t id, uint8_t type, const char *name);

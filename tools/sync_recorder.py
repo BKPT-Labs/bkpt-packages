@@ -34,8 +34,9 @@ DEFAULT_SOURCE = REPO_ROOT.parent.parent / "ViewAlyzer_Root" / "ViewAlyzer"
 EMBEDDED_TREES = ("core", "freertos", "zephyr")
 
 # The wire version the vendored recorder emits by default (VA_TIMESTAMP_BITS=32
-# -> sync marker v2). Bump alongside any recorder default change.
-WIRE_VERSION = 2
+# + VA_SEQ_COUNTER=1 -> sync marker v3, per-packet sequence byte). Bump
+# alongside any recorder default change.
+WIRE_VERSION = 3
 
 
 def _git_rev(repo: Path) -> str:

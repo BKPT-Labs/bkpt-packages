@@ -45,8 +45,19 @@ VA_TRANSPORT=JLINK_RTT
 or:
 
 ```c
+VA_TRANSPORT=RAM_BUFFER
+```
+
+or:
+
+```c
 VA_TRANSPORT=CUSTOM_TRANSPORT
 ```
+
+`RAM_BUFFER` needs no init code and no extra sources — the recorder keeps a
+ring buffer in RAM and the ViewAlyzer app drains it through the debug probe
+(ST-Link supported; no SEGGER RTT). Tune with `VA_RAMBUF_SIZE` and
+`VA_RAMBUF_MODE` if needed.
 
 Useful optional defines:
 
