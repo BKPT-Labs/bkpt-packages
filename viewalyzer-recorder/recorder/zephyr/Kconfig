@@ -1,14 +1,33 @@
+# Copyright 2025-2026 BKPT, Inc.
+# SPDX-License-Identifier: Apache-2.0
+
 menuconfig VIEWALYZER
 	bool "ViewAlyzer Trace Recorder"
 	default n
 	select TRACING
-	select THREAD_MONITOR
-	select THREAD_STACK_INFO
-	select THREAD_NAME
 	help
 	  Enable the ViewAlyzer binary trace recorder for Zephyr.
 
+	  Every event category below is independent: turning one off compiles
+	  out its events, its packet builders, its registry storage, and its
+	  kernel trace points, so you only pay for what you record. The set you
+	  chose is reported to the host with every setup bundle, so the viewer
+	  can say "disabled in this firmware build" instead of showing an empty
+	  view.
+
 if VIEWALYZER
+
+# Hidden: true when ANY enabled category needs thread ids and names, even if
+# thread switch EVENTS are off. Mutex contention, sleep, and stack usage all
+# name threads, so registration (and the kernel support it needs) has to
+# survive independently of CONFIG_VIEWALYZER_TRACE_THREADS.
+config VIEWALYZER_NEEDS_THREAD_REGISTRY
+	bool
+	default y if VIEWALYZER_TRACE_THREADS || VIEWALYZER_STACK_USAGE || \
+		     VIEWALYZER_TRACE_MUTEX_CONTENTION || VIEWALYZER_TRACE_SLEEP
+	select TRACING_THREAD
+	select THREAD_MONITOR
+	select THREAD_NAME
 
 choice VIEWALYZER_TRANSPORT
 	prompt "Transport backend"
@@ -30,12 +49,26 @@ config VIEWALYZER_TRANSPORT_RTT
 	  Send recorder data over SEGGER RTT.  Requires the Zephyr Segger module
 	  (add 'segger' to the west manifest name-allowlist then run west update).
 
+config VIEWALYZER_TRANSPORT_RAMBUF
+	bool "ViewAlyzer RAM buffer"
+	select STM32_ENABLE_DEBUG_SLEEP_STOP if SOC_FAMILY_STM32
+	help
+	  Buffer recorder data in a ring buffer in target RAM that the host
+	  drains through the debug probe with non-intrusive memory reads:
+	  RTT-style streaming that works with ST-LINK and any other probe,
+	  with no SEGGER code or Zephyr Segger module required.  The host
+	  finds the control block by scanning RAM for its magic tag, or
+	  directly via the _VA_RAMBUF ELF symbol.
+
 endchoice
 
 config VIEWALYZER_TRACE_THREADS
 	bool "Trace thread switches"
 	default y
-	select TRACING_THREAD
+	help
+	  Emit thread switch-in/switch-out and thread-create events. Thread
+	  ids and names are still registered when this is off but another
+	  category (stack usage, mutex contention, sleep) needs them.
 
 config VIEWALYZER_TRACE_ISRS
 	bool "Trace ISRs"
@@ -46,6 +79,17 @@ config VIEWALYZER_TRACE_MUTEXES
 	bool "Trace mutexes"
 	default y
 	select TRACING_MUTEX
+
+config VIEWALYZER_TRACE_MUTEX_CONTENTION
+	bool "Trace mutex contention (who is blocked on whom)"
+	default y
+	select TRACING_MUTEX
+	help
+	  Emit a contention event when a thread blocks on a mutex another
+	  thread holds, naming both threads. Works with mutex give/take
+	  tracing turned off: the mutex and both threads are still registered
+	  so the contention event can name them, but no mutex give/take
+	  events reach the wire.
 
 config VIEWALYZER_TRACE_SEMAPHORES
 	bool "Trace semaphores"
@@ -104,20 +148,52 @@ config VIEWALYZER_TRACE_MESSAGE_QUEUES
 	default y
 	select TRACING_MESSAGE_QUEUE
 
+config VIEWALYZER_TRACE_USER_VALUES
+	bool "Trace user values (VA_LogTrace / VA_LogTraceFloat / VA_LogToggle)"
+	default y
+	help
+	  Your own named values plotted against the timeline. Independent of
+	  the kernel - this works on bare metal too.
+
+config VIEWALYZER_TRACE_USER_EVENTS
+	bool "Trace user event spans (VA_EVENT_START / VA_EVENT_END)"
+	default y
+
+config VIEWALYZER_TRACE_STRINGS
+	bool "Trace log strings (VA_LogString)"
+	default y
+
+config VIEWALYZER_TRACE_GPIO
+	bool "Trace GPIO state (VA_LogGPIO)"
+	default y
+
+config VIEWALYZER_TRACE_COUNTERS
+	bool "Trace counters (VA_LogCounter)"
+	default y
+
+config VIEWALYZER_TRACE_HEAP_METRICS
+	bool "Trace the manual heap gauge (VA_LogHeap)"
+	default y
+	help
+	  Your own heap-usage readings, reported by calling VA_LogHeap. This
+	  is separate from VIEWALYZER_TRACE_HEAPS, which traces the Zephyr
+	  k_heap allocator automatically.
+
 config VIEWALYZER_STACK_USAGE
 	bool "Capture thread stack usage"
 	default y
 	select INIT_STACKS
+	select THREAD_STACK_INFO
 
 config VIEWALYZER_STACK_USAGE_HEARTBEAT_MS
 	int "Stack-usage heartbeat interval (ms)"
 	default 500
 	help
-	  Stack-usage packets are emitted on thread switch-out only when the value
-	  changed since the last sample, OR when this many milliseconds have
-	  elapsed since the last emission for that thread. The heartbeat keeps the
-	  host's per-thread stack display alive for idle threads. 0 = emit on every
-	  switch-out (legacy behaviour, much higher bandwidth).
+	  Stack usage is sampled and emitted on thread switch-out, at most once
+	  per this many milliseconds per thread. The high-water scan runs with
+	  interrupts masked, so this interval also bounds its cost per context
+	  switch. 0 = sample on every switch-out (much higher overhead and
+	  bandwidth).
 
 config VIEWALYZER_BUFFERED
 	bool "Buffer trace packets in RAM and drain them explicitly"
@@ -127,7 +203,7 @@ config VIEWALYZER_BUFFERED
 	  non-blocking) instead of writing straight to the wire, and VA_Drain()
 	  (call from your idle thread / main loop) flushes the ring. This bounds
 	  per-hook latency regardless of wire backpressure, at the cost of the
-	  on-wire byte position lagging the event — so it is INCOMPATIBLE with
+	  on-wire byte position lagging the event - so it is INCOMPATIBLE with
 	  fused ETM+ITM time-correlation captures. Leave off for the default
 	  direct-to-wire behaviour.
 
@@ -145,20 +221,10 @@ config VIEWALYZER_SEQ
 	help
 	  Stamp every trace packet with a rolling 8-bit sequence number and
 	  emit a periodic 32-bit absolute checkpoint. The host uses these to
-	  detect and quantify event loss exactly — whether packets were dropped
-	  at the source (full buffer) or lost in the transport — which
+	  detect and quantify event loss exactly - whether packets were dropped
+	  at the source (full buffer) or lost in the transport - which
 	  timestamps alone cannot prove. Costs 1 byte per packet. Disable to
 	  emit the legacy v2 wire format without sequence numbers.
-
-config VIEWALYZER_TIMESTAMP_64
-	bool "Use 64-bit timestamps on the wire (legacy v1 format)"
-	default n
-	help
-	  By default the recorder emits 32-bit timestamps (protocol v2), halving
-	  the dominant cost of the trace stream; the host reconstructs the full
-	  64-bit cycle count from packet ordering. Enable this to emit the legacy
-	  64-bit (v1) wire format instead — only needed for hosts that predate v2
-	  support.
 
 config VIEWALYZER_MAX_SYNC_OBJECTS
 	int "Max sync object slots"
@@ -172,11 +238,11 @@ config VIEWALYZER_MAX_TASKS
 	help
 	  Number of RTOS task or thread entries the recorder can track.
 
-config VIEWALYZER_MAX_USER_FUNCTIONS
-	int "Max user function slots"
+config VIEWALYZER_MAX_USER_EVENTS
+	int "Max user trace / event slots"
 	default 16
 	help
-	  Number of user-profiled function IDs the recorder can store.
+	  Number of user trace and user event IDs the recorder can store.
 
 config VIEWALYZER_MAX_TASK_NAME_LEN
 	int "Max task name length"
@@ -218,6 +284,94 @@ config VIEWALYZER_RTT_BUFFER_SIZE
 	help
 	  Size of the recorder-owned RTT up-buffer. Set to 0 to use the RTT
 	  control block without providing a dedicated buffer.
+
+config VIEWALYZER_RAMBUF_SIZE
+	int "RAM buffer size (bytes)"
+	default 8192
+	range 256 1048576
+	depends on VIEWALYZER_TRANSPORT_RAMBUF
+	help
+	  Bytes of target RAM reserved for the trace ring buffer.  Larger
+	  buffers absorb bigger event bursts between host drain polls before
+	  packets are dropped (or, in blocking mode, before hooks stall).
+
+config VIEWALYZER_RAMBUF_BLOCK
+	bool "Block when the RAM buffer is full (lossless)"
+	default n
+	depends on VIEWALYZER_TRANSPORT_RAMBUF
+	depends on !VIEWALYZER_RAMBUF_WRAP
+	help
+	  When the ring buffer is full, wait for the host to drain it instead
+	  of dropping whole packets.  Lossless, but stalls the firmware if no
+	  host is attached and draining - leave disabled unless you need
+	  guaranteed capture of every event.
+
+config VIEWALYZER_RAMBUF_WRAP
+	bool "Post-mortem snapshot mode (overwrite oldest, no live streaming)"
+	default n
+	depends on VIEWALYZER_TRANSPORT_RAMBUF
+	help
+	  Turn the RAM buffer into a post-mortem snapshot ring: when full, the
+	  oldest packets are overwritten so the ring always holds the most
+	  recent trace window.  Run untethered, then read the window out after
+	  a crash or hang with "ViewAlyzer --headless --snapshot" (or the GUI
+	  Take Snapshot button).  Live streaming is not possible in this mode;
+	  use the default drop mode (or VIEWALYZER_SNAPSHOT alongside another
+	  transport) if you need to stream while the system runs.  From a
+	  fault handler, call VA_SnapshotFreeze() to preserve the window.
+
+config VIEWALYZER_SNAPSHOT
+	bool "Post-mortem snapshot ring alongside the live transport"
+	default n
+	depends on !VIEWALYZER_RAMBUF_WRAP
+	help
+	  Tee every trace packet into a second, wrapping RAM ring that always
+	  holds the most recent window, while the selected transport streams
+	  live as usual.  After a crash or hang, read the window out through
+	  the debug probe with "ViewAlyzer --headless --snapshot" - no host
+	  connection is needed while the system runs.  Costs
+	  VIEWALYZER_SNAPSHOT_SIZE bytes of RAM plus one byte per packet.
+	  From a fault handler, call VA_SnapshotFreeze() to preserve the
+	  window.
+
+config VIEWALYZER_SNAPSHOT_SIZE
+	int "Snapshot ring size (bytes)"
+	default 4096
+	range 256 1048576
+	depends on VIEWALYZER_SNAPSHOT
+	help
+	  Bytes of target RAM reserved for the post-mortem snapshot ring.
+	  Bigger rings hold a longer window before the oldest packets are
+	  overwritten.
+
+config VIEWALYZER_SNAPSHOT_SETUP_SIZE
+	int "Snapshot names area size (bytes)"
+	default 1024
+	range 0 65536
+	depends on VIEWALYZER_RAMBUF_WRAP || VIEWALYZER_SNAPSHOT
+	help
+	  RAM beside the snapshot ring that always holds the latest setup
+	  bundle (thread, ISR, trace and sync-object names) so a snapshot
+	  window shorter than the bundle interval still gets full names.
+	  Size it to hold your registries (roughly 20 bytes per named
+	  entity); if the bundle outgrows it, the names that no longer fit
+	  are dropped. 0 disables the area (snapshots then show generic
+	  "Task N" style names unless the window happens to contain a
+	  bundle).
+
+config VIEWALYZER_RAMBUF_BUSY_IDLE
+	bool "Keep the CPU awake so probe reads stay valid (busy idle)"
+	default y
+	depends on VIEWALYZER_TRANSPORT_RAMBUF
+	help
+	  Spin in the idle hook instead of letting the idle thread reach WFI.
+	  On some probe/MCU combinations (verified: ST-LINK V3 + STM32G4)
+	  debug memory reads return a stuck garbage word while the core
+	  sleeps - even with the DBGMCU sleep-debug bits set - which corrupts
+	  the drained trace stream.  Interrupts stay enabled while spinning,
+	  so scheduling and timeouts are unaffected; the cost is idle-mode
+	  power.  Disable only after verifying clean captures on your target
+	  while it sleeps, or when power draw matters more than streaming.
 
 config VIEWALYZER_AUTO_SETUP_INTERVAL_MS
 	int "Auto setup bundle re-emit interval (ms)"

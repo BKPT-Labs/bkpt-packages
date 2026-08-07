@@ -20,8 +20,55 @@ On top of the core recorder APIs, the FreeRTOS adapter maps native kernel activi
 
 - `VA_Adapter_FreeRTOS.c` - FreeRTOS-specific adapter implementation
 - `VA_Adapter_FreeRTOS.h` - adapter declaration layer included through the core
-- `ViewAlyzerFreeRTOSHook.h` - trace macro hook header for older FreeRTOS macro signatures
-- `ViewAlyzerFreeRTOSHook_V10_4_Plus.h` - trace macro hook header for FreeRTOS 10.4+
+- `ViewAlyzerFreeRTOSHook_Common.h` - every trace hook except task notifications
+- `ViewAlyzerFreeRTOSHook.h` - include this from `FreeRTOSConfig.h` on FreeRTOS before 10.4
+- `ViewAlyzerFreeRTOSHook_V10_4_Plus.h` - include this from `FreeRTOSConfig.h` on 10.4+
+
+The two version-specific headers differ only in the task-notification macro
+signatures (10.4 added the notification index); everything else lives in the
+common header, so the two can never drift.
+
+## Both halves must share one configuration
+
+Your **kernel** compiles the trace hooks (`FreeRTOSConfig.h` includes the hook
+header), while `ViewAlyzer.c` compiles into the recorder. Both read
+`ViewAlyzerConfig.h`, so the switches cannot disagree at the source level -
+but only if the configuration actually reaches both targets. Use `-D`,
+`-include`, or `VA_CONFIG_HEADER`. A define written directly inside
+`FreeRTOSConfig.h` is invisible to `ViewAlyzer.c`.
+
+Getting this wrong has two outcomes, and only one of them is loud:
+
+| Situation | Result |
+|---|---|
+| core gated off, kernel still calls | undefined reference at link - loud, fix it |
+| kernel gated off, core gated on | **silent**: no hooks installed, zero events, no error |
+
+## Selective tracing on FreeRTOS
+
+FreeRTOS defines no `traceGIVE_MUTEX` / `traceTAKE_MUTEX` - the kernel never
+invokes them. **All** non-recursive mutex and semaphore traffic flows through
+the shared `traceQUEUE_SEND` / `traceQUEUE_RECEIVE` hooks, so mutexes,
+semaphores, and queues share one pair of hooks and are separated at run time
+by object type.
+
+Consequences worth knowing:
+
+- With every one of those categories off, the hooks are not installed at all
+  and the cost is genuinely zero (the kernel keeps its own no-op defaults).
+- With queues on and mutexes off, a mutex operation still enters the hook far
+  enough to classify the object and return. That residual is imposed by
+  FreeRTOS's shared trace points, not by the recorder: it is a null check on
+  `pcHead` plus one `ucQueueType` load, ahead of the pending-bundle service
+  and the interrupt mask that are the real cost of the hook.
+- `configUSE_TRACE_FACILITY=1` is required for reliable filtering. Without it
+  `Queue_t` has no `ucQueueType` field and mutexes cannot be told apart from
+  semaphores; the adapter emits a `#warning` saying so.
+- `VA_TRACE_MUTEX_CONTENTION=1` works with `VA_TRACE_MUTEXES=0`: the mutex and
+  both tasks stay registered so the contention event can name them, and no
+  give/take events reach the wire.
+
+See the [top-level README](../README.md) for the full category list.
 
 ## Build Defines
 

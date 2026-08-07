@@ -1,274 +1,61 @@
 /**
  * @file ViewAlyzer.h
- * @brief ViewAlyzer Recorder Firmware - Main API Header
+ * @brief ViewAlyzer Recorder Firmware - Public API
  *
- * Copyright (c) 2025 Free Radical Labs
+ * Configuration lives in ViewAlyzerConfig.h - this header is the API surface
+ * only. It includes no device, CMSIS, or RTOS headers, so it is safe to
+ * include from anywhere, including FreeRTOSConfig.h.
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction for non-commercial purposes, including
- * without limitation the rights to use, copy, modify, merge, publish, distribute,
- * and sublicense copies of the Software, subject to the conditions in the LICENSE file.
+ * Copyright 2025-2026 BKPT, Inc.
  *
- * For commercial licensing or questions about usage restrictions, contact:
- * support@viewalyzer.net
+ * SPDX-License-Identifier: Apache-2.0
  *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 #ifndef VIEWALYZER_H
 #define VIEWALYZER_H
 
-// Recorder source version (bump on any wire/packet or API change).
-#define VA_RECORDER_VERSION "1.1.0"
+/* Recorder source version (bump on any wire/packet or API change). */
+#define VA_RECORDER_VERSION "1.3.0"
 
-/* Device/CMSIS header. The recorder needs the CMSIS core definitions
- * (ITM/DWT/CoreDebug). By default it includes the project's "main.h"
- * (STM32Cube convention pulls the device header in transitively). Projects
- * without a main.h define VA_DEVICE_HEADER to their CMSIS device header
- * instead, e.g. -DVA_DEVICE_HEADER='"stm32g474xx.h"'.
- */
-#if defined(VA_DEVICE_HEADER)
-#include VA_DEVICE_HEADER
-#else
-#include "main.h"
-#endif
-#include "stdint.h"
-#include "stdbool.h"
+#include "ViewAlyzerConfig.h"
+#include <stdint.h>
+#include <stdbool.h>
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
-/**************************************************************
-                     USER CONFIGURATION
-**************************************************************/
-#ifndef VA_ENABLED
-#define VA_ENABLED 1         // Can be defined in your build system to 0 to disable ViewAlyzer
-#endif
-
-/* ── RTOS Selection ──────────────────────────────────────────────
- * Define VA_RTOS_SELECT in your build system or here.
- * 0 = No RTOS (bare-metal with user traces / ISR logging only)
- * 1 = FreeRTOS
- * 2 = Zephyr
- * 3 = ThreadX  (reserved for future)
- */
-#define VA_RTOS_NONE     0
-#define VA_RTOS_FREERTOS 1
-#define VA_RTOS_ZEPHYR   2
-#define VA_RTOS_THREADX  3
-
-/* Backward compatibility: honour the old VA_TRACE_FREERTOS knob */
-#if defined(VA_TRACE_FREERTOS) && (VA_TRACE_FREERTOS == 1) && !defined(VA_RTOS_SELECT)
-#define VA_RTOS_SELECT VA_RTOS_FREERTOS
-#endif
-
-#ifndef VA_RTOS_SELECT
-#define VA_RTOS_SELECT VA_RTOS_NONE
-#endif
-
-/* Convenience flag — true when any RTOS adapter is active */
-#define VA_HAS_RTOS (VA_RTOS_SELECT != VA_RTOS_NONE)
-
-/* Keep the old define working for existing FreeRTOS hook headers */
-#ifndef VA_TRACE_FREERTOS
-#if (VA_RTOS_SELECT == VA_RTOS_FREERTOS)
-#define VA_TRACE_FREERTOS 1
-#else
-#define VA_TRACE_FREERTOS 0
-#endif
-#endif
-
-#define ARM_ITM            1u
-#define JLINK_RTT          2u
-#define CUSTOM_TRANSPORT   3u
-#define RAM_BUFFER         4u
-
-#ifndef VA_TRANSPORT
-#define VA_TRANSPORT ARM_ITM  // Select active transport backend
-#endif
-#define LOG_PENDSV 0             // Experimental, unused
-
-#ifndef VA_ITM_PORT
-#define VA_ITM_PORT    1         // ITM stimulus port where logs are sent when using ST-LINK transport
-#endif
-#ifndef VA_RTT_CHANNEL
-#define VA_RTT_CHANNEL 0        // RTT channel when using J-LINK RTT transport
-#endif
-
-#ifndef VA_MAX_TASKS
-#define VA_MAX_TASKS          16  // RTOS task/thread slots (each ~40 bytes)
-#endif
-
-#ifndef VA_MAX_SYNC_OBJECTS
-#define VA_MAX_SYNC_OBJECTS   64  // Mutexes, semaphores, queues, FIFOs
-#endif
-
-#ifndef VA_MAX_USER_EVENTS
-#ifdef VA_MAX_USER_FUNCTIONS
-#define VA_MAX_USER_EVENTS VA_MAX_USER_FUNCTIONS
-#else
-#define VA_MAX_USER_EVENTS 16  // User-profiled spans or events
-#endif
-#endif
-
-#ifndef VA_MAX_USER_FUNCTIONS
-#define VA_MAX_USER_FUNCTIONS VA_MAX_USER_EVENTS
-#endif
-
-#ifndef VA_MAX_TASK_NAME_LEN
-#define VA_MAX_TASK_NAME_LEN  16
-#endif
-
-#ifndef VA_ALLOWED_TO_DISABLE_INTERRUPTS
-#define VA_ALLOWED_TO_DISABLE_INTERRUPTS 1 // Set to 1 to allow critical sections
-#endif
-
-#ifndef VA_MAX_LOG_STRING_LEN
-#define VA_MAX_LOG_STRING_LEN 100  // Max bytes per VA_LogString() message. Protocol max is 1024.
-#endif
-
-#ifndef VA_CAPTURE_STACK_USAGE
-#define VA_CAPTURE_STACK_USAGE 1 // Set to 0 to disable stack usage packets and queries
-#endif
-
-#ifndef VA_TRANSPORT_BUFFERED
-// Buffered transport mode. When 1, trace hooks copy encoded packets into a
-// RAM ring buffer (bounded, non-blocking) instead of pushing them straight to
-// the wire, and VA_Drain() — called from your idle thread / main loop —
-// flushes the ring to the transport. This bounds per-hook latency regardless
-// of wire backpressure, at the cost of the on-wire byte position lagging the
-// event (so it is INCOMPATIBLE with fused ETM+ITM time-correlation captures).
-// 0 = unbuffered (default): each hook writes directly to the wire.
-#define VA_TRANSPORT_BUFFERED 0
-#endif
-
-#ifndef VA_BUFFER_SIZE
-#define VA_BUFFER_SIZE 4096   // Ring capacity (bytes) when VA_TRANSPORT_BUFFERED.
-#endif
-
-#ifndef VA_STACK_USAGE_HEARTBEAT_MS
-// Stack-usage packets are emitted only when the value changes since the last
-// switch-out, OR when this many ms have elapsed since the last emission for
-// that task (heartbeat keeps host charts alive for idle tasks). 0 = emit on
-// every switch-out (legacy behaviour).
-#define VA_STACK_USAGE_HEARTBEAT_MS 500
-#endif
-
-#ifndef VA_AUTO_SETUP_INTERVAL_MS
-#define VA_AUTO_SETUP_INTERVAL_MS 2000   // Auto re-emit sync + setup packets at this interval (ms). 0 = disabled.
-#endif
-
-#ifndef VA_TIMESTAMP_BITS
-// Width of the timestamp field on the wire. 32 (protocol v2, the only wire
-// format) halves the dominant cost of the stream; the low 32 bits of the
-// cycle counter wrap periodically (e.g. ~25 s @ 170 MHz) and the host
-// reconstructs the full 64-bit value from packet ordering.
-// VA_AUTO_SETUP_INTERVAL_MS must stay well below the wrap period so the host
-// never misses a wrap (a sync/bundle guarantees at least one packet per
-// interval); 2000 ms gives a >12x margin at 170 MHz.
-#define VA_TIMESTAMP_BITS 32
-#endif
-#if VA_TIMESTAMP_BITS != 32
-#error "VA_TIMESTAMP_BITS must be 32: the legacy v1 (64-bit) wire format is no longer supported"
-#endif
-#define VA_TIMESTAMP_BYTES (VA_TIMESTAMP_BITS / 8)
-
-#ifndef VA_SEQ_COUNTER
-// Per-packet sequence counter (wire protocol v3). Every packet — events and
-// setup packets alike — carries a rolling 8-bit sequence number right after
-// the type byte, and a 32-bit absolute checkpoint packet rides with each
-// periodic setup bundle. This is the host's ground truth for loss detection:
-// any gap in the sequence is exactly that many packets lost (whether dropped
-// at the source by a full ring or lost in the transport), which timestamps
-// alone can never prove. Costs 1 byte per packet (~17% on the 6-byte core
-// events). Set to 0 to emit the legacy v2 wire format with no sequence field;
-// the sync marker version (SYNC03 vs SYNC02) tells the host which one to parse.
-#define VA_SEQ_COUNTER 1
-#endif
-#if VA_SEQ_COUNTER
-#define VA_SEQ_BYTES 1
-#else
-#define VA_SEQ_BYTES 0
-#endif
-
-// If using J-LINK RTT transport, configure RTT here by setting VA_CONFIGURE_RTT to 1
-// otherwise set to 0 to skip RTT configuration and user is expected to do it elsewhere
-#ifndef VA_CONFIGURE_RTT
-#define VA_CONFIGURE_RTT       1                        //set to 0 to use your own init
-#endif
-#ifndef VA_RTT_BUFFER_SIZE
-#define VA_RTT_BUFFER_SIZE 4096u                       // Bytes reserved for RTT up-buffer
-#endif
-#ifndef VA_RTT_MODE
-#define VA_RTT_MODE SEGGER_RTT_MODE_BLOCK_IF_FIFO_FULL // RTT buffering mode
-#endif
-
-// If using the RAM_BUFFER transport, configure it here. The recorder owns a
-// ring buffer + control block in target RAM and the host drains it through
-// the debug probe with non-intrusive memory reads — RTT-style streaming that
-// works with ST-Link and any other probe, no SEGGER code required. The host
-// finds the control block by scanning RAM for its magic tag, or directly via
-// the _VA_RAMBUF ELF symbol.
-#ifndef VA_RAMBUF_SIZE
-#define VA_RAMBUF_SIZE 8192u        // Bytes reserved for the trace ring buffer
-#endif
-
-#define VA_RAMBUF_MODE_DROP  0      // Buffer full: drop whole packets, count them (default)
-#define VA_RAMBUF_MODE_BLOCK 1      // Buffer full: wait for host to drain (lossless, stalls firmware if no host attached)
-#ifndef VA_RAMBUF_MODE
-#define VA_RAMBUF_MODE VA_RAMBUF_MODE_DROP
-#endif
-
-#ifndef VA_RAMBUF_ATTRIBUTES
-// Optional placement attributes for the buffer + control block, e.g.
-// __attribute__((section(".va_rambuf"))) to pin them to a non-cacheable RAM
-// region on cached parts (Cortex-M7 with D-cache enabled).
-#define VA_RAMBUF_ATTRIBUTES
-#endif
-
-// Convenience Macros for User Event Timing
-#if (VA_ENABLED == 1)
-#define VA_EVENT_START(id) VA_LogEvent(id, USER_EVENT_START)
-#define VA_EVENT_END(id) VA_LogEvent(id, USER_EVENT_END)
-#define VA_FUNCTION_ENTRY(id) VA_EVENT_START(id)
-#define VA_FUNCTION_EXIT(id) VA_EVENT_END(id)
-#else
-#define VA_EVENT_START(id) ((void)0)
-#define VA_EVENT_END(id) ((void)0)
-#define VA_FUNCTION_ENTRY(id) ((void)0)
-#define VA_FUNCTION_EXIT(id) ((void)0)
-#endif
-
-/**************************************************************
-                        END USER CONFIGURATION
-**************************************************************/
-
-
-/**************************************************************
-                     DO NOT EDIT BELOW THIS LINE
-**************************************************************/
-
-// --- Derived Configuration ---
-#define VA_TRANSPORT_IS_ITM      ((VA_TRANSPORT) == ARM_ITM)
-#define VA_TRANSPORT_IS_JLINK    ((VA_TRANSPORT) == JLINK_RTT)
-#define VA_TRANSPORT_IS_CUSTOM   ((VA_TRANSPORT) == CUSTOM_TRANSPORT)
-#define VA_TRANSPORT_IS_RAMBUF   ((VA_TRANSPORT) == RAM_BUFFER)
-
-// Maximum raw packet size (before COBS encoding).
-// Largest packet is VA_LogString: 12-byte header + message payload.
+/* Maximum raw packet size (before COBS encoding).
+   Largest packet is VA_LogString: 12-byte header + message payload. */
 #define VA_MAX_PACKET_SIZE (12 + VA_SEQ_BYTES + VA_MAX_LOG_STRING_LEN)
 
-// User-provided send function signature for custom transport
+/* User-provided send function signature for custom transport */
 typedef void (*VA_TransportSendFn)(const uint8_t *data, uint32_t length);
 
-// --- Throughput-test counters (compile-gated with -DVA_TP_TEST=1) ---
-// Off by default. When enabled (see the Nucleo_H723_Throughput example) the
-// recorder tallies bytes OFFERED to the transport vs. DROPPED, exposed as the
-// _VA_TP symbol (magic "VATPCNT1"). delivered = offered - dropped. The layout
-// is a little-endian host contract — do not reorder fields.
+/* Discard the arguments of a compiled-out API without evaluating them
+   (no side effects, no -Wunused warnings). */
+#define VA_DISCARD_1(a)       ((void)sizeof(a))
+#define VA_DISCARD_2(a, b)    (VA_DISCARD_1(a), VA_DISCARD_1(b))
+#define VA_DISCARD_3(a, b, c) (VA_DISCARD_2(a, b), VA_DISCARD_1(c))
+#define VA_DISCARD_PICK(_1, _2, _3, NAME, ...) NAME
+#define VA_DISCARD_ARGS(...) \
+    VA_DISCARD_PICK(__VA_ARGS__, VA_DISCARD_3, VA_DISCARD_2, VA_DISCARD_1)(__VA_ARGS__)
+
+/* Throughput-test counters (compile-gated with -DVA_TP_TEST=1, off by
+   default). Little-endian layout is a host contract - do not reorder. */
 #if defined(VA_TP_TEST) && (VA_TP_TEST == 1)
     typedef struct
     {
@@ -281,7 +68,7 @@ typedef void (*VA_TransportSendFn)(const uint8_t *data, uint32_t length);
     extern VA_TpCounters_t _VA_TP;
 #endif
 
-// --- Binary Event Type Codes ---
+/* --- Binary Event Type Codes --- */
 #define VA_EVENT_TYPE_MASK        0x7F
 #define VA_EVENT_FLAG_START_END   0x80
 #define VA_EVENT_TASK_SWITCH      0x01
@@ -295,9 +82,8 @@ typedef void (*VA_TransportSendFn)(const uint8_t *data, uint32_t length);
 #define VA_EVENT_TASK_STACK_USAGE 0x09
 #define VA_EVENT_USER_TOGGLE      0x0A
 #define VA_EVENT_USER_EVENT       0x0B
-#define VA_EVENT_USER_FUNCTION    VA_EVENT_USER_EVENT
 #define VA_EVENT_MUTEX_CONTENTION 0x0C
-#define VA_EVENT_STRING_EVENT    0x0D
+#define VA_EVENT_STRING_EVENT     0x0D
 #define VA_EVENT_FLOAT_TRACE      0x0E
 #define VA_EVENT_GPIO             0x0F
 #define VA_EVENT_COUNTER          0x10
@@ -306,23 +92,23 @@ typedef void (*VA_TransportSendFn)(const uint8_t *data, uint32_t length);
 #define VA_EVENT_TIMER            0x13
 #define VA_EVENT_HEAP_SYNC        0x14
 #define VA_EVENT_PM_SUSPEND       0x15
-// Sequence checkpoint (v3 only): id is unused (0), payload is the 32-bit
-// absolute sequence number of this packet itself. Emitted with every setup
-// bundle so the host can compute exact totals (lost = absolute - received)
-// even across bursts longer than the 8-bit rolling counter's period.
+/* v3 only: payload = 32-bit absolute sequence number of this packet. */
 #define VA_EVENT_SEQ_CHECKPOINT   0x16
+/* v3+: id = heap object, value = requested bytes of the failed alloc. */
+#define VA_EVENT_HEAP_FAIL        0x17
 
 
-// --- Setup Message Codes ---
+/* --- Setup Message Codes --- */
 #define VA_SETUP_TASK_MAP          0x70
 #define VA_SETUP_ISR_MAP           0x71
-#define VA_SETUP_INFO              0x7F
 #define VA_SETUP_USER_TRACE        0x72
 #define VA_SETUP_SEMAPHORE_MAP     0x73
 #define VA_SETUP_MUTEX_MAP         0x74
 #define VA_SETUP_QUEUE_MAP         0x75
-#define VA_SETUP_USER_EVENT_MAP   0x76
-#define VA_SETUP_USER_FUNCTION_MAP VA_SETUP_USER_EVENT_MAP
+#define VA_SETUP_USER_EVENT_MAP    0x76
+/* Typed flags packet: [0x77][seq?][group(1)][value(4, little-endian)].
+   Groups are VA_FLAG_GROUP_* in ViewAlyzerConfig.h. Unlike every other setup
+   code this one carries no name string. */
 #define VA_SETUP_CONFIG_FLAGS      0x77
 #define VA_SETUP_GPIO_MAP          0x78
 #define VA_SETUP_HEAP_INFO         0x79
@@ -330,6 +116,7 @@ typedef void (*VA_TransportSendFn)(const uint8_t *data, uint32_t length);
 #define VA_SETUP_TIMER_MAP         0x7B
 #define VA_SETUP_HEAP_MAP          0x7C
 #define VA_SETUP_PM_MAP            0x7D
+#define VA_SETUP_INFO              0x7F
 
     typedef enum
     {
@@ -368,151 +155,307 @@ typedef void (*VA_TransportSendFn)(const uint8_t *data, uint32_t length);
         VA_OBJECT_TYPE_POWER_MGMT      = 7
     } VA_QueueObjectType_t;
 
-// --- Static ISR IDs ---
+/* --- Static ISR IDs --- */
 #define VA_ISR_ID_SYSTICK 1
 #define VA_ISR_ID_PENDSV 2
-// ... Add more ISR IDs ...
+/* ... Add more ISR IDs ... */
 
-// --- Public Functions ---
+/* ── Public API ──────────────────────────────────────────────────── */
+/* Session infrastructure (init, drain, tick, transport registration) is
+   always present. Everything else follows its VA_TRACE_* category: when a
+   category is off, its functions become argument-discarding no-op macros,
+   so calls in your code keep compiling and cost nothing. */
 #if (VA_ENABLED == 1)
-    // user API
+
 #if VA_TRANSPORT_IS_CUSTOM
     void VA_RegisterTransportSend(VA_TransportSendFn sendFn);
 #endif
     void VA_Init(uint32_t cpu_freq);
-    void VA_EmitSetupBundle(void);    // re-emit sync marker + all setup packets (call periodically, e.g. every 2-5 s)
-    void VA_TickOverflowCheck(void);  // call periodically (e.g. every 1-10 s) to prevent DWT rollover misses
-    void VA_Drain(void);              // buffered mode only: flush the RAM ring to the wire. Call from idle/main loop. No-op when VA_TRANSPORT_BUFFERED == 0.
-    void VA_RegisterUserTrace(uint8_t id, const char *name, VA_UserTraceType_t type);
-    void VA_RegisterUserEvent(uint8_t id, const char *name);
-    void VA_RegisterUserFunction(uint8_t id, const char *name); /* backward-compatible alias */
+    void VA_EmitSetupBundle(void);    /* re-emit sync marker + all setup packets (call periodically, e.g. every 2-5 s) */
+    void VA_TickOverflowCheck(void);  /* call periodically (e.g. every 1-10 s) to prevent DWT rollover misses */
+    void VA_Drain(void);              /* buffered mode only: flush the RAM ring to the wire. Call from idle/main loop. No-op when VA_TRANSPORT_BUFFERED == 0. */
+    bool VA_IsInit(void);
+
+#if VA_PM_RING
+    /** Stop snapshot-ring writes so the current post-mortem window survives
+     *  whatever the system does next. Call from your fault or assert handler
+     *  (any context is safe); everything emitted before the call is already
+     *  in the ring. Only meaningful with VA_RAMBUF_MODE_WRAP or VA_SNAPSHOT;
+     *  a no-op macro otherwise, so the call always compiles. */
+    void VA_SnapshotFreeze(void);
+#else
+#define VA_SnapshotFreeze() ((void)0)
+#endif
+
+/* ── ISR tracing ─────────────────────────────────────────────── */
+#if VA_TRACE_ISRS
     void VA_LogISRStart(uint8_t isrId);
     void VA_LogISREnd(uint8_t isrId);
+#else
+#define VA_LogISRStart(isrId) VA_DISCARD_ARGS(isrId)
+#define VA_LogISREnd(isrId)   VA_DISCARD_ARGS(isrId)
+#endif
+
+/* Compile-time check that a string-literal name fits the fixed
+   VA_MAX_TASK_NAME_LEN wire field (pointers pass; truncated at runtime). */
+#define VA_ASSERT_NAME_FITS(name) \
+    ((void) sizeof (char[(sizeof (name) <= VA_MAX_TASK_NAME_LEN) ? 1 : -1]))
+
+/* ── User values: VA_LogTrace / VA_LogTraceFloat / VA_LogToggle ── */
+#if VA_NEEDS_USER_TRACE_REGISTRY
+    /* Also the registration path for ISR names (VA_USER_TYPE_ISR). */
+    void VA_RegisterUserTrace(uint8_t id, const char *name, VA_UserTraceType_t type);
+    /* Parenthesised callee => the macro does not recurse into itself. */
+#define VA_RegisterUserTrace(id, name, type) \
+    (VA_ASSERT_NAME_FITS (name), (VA_RegisterUserTrace) ((id), (name), (type)))
+#else
+#define VA_RegisterUserTrace(id, name, type) \
+    (VA_ASSERT_NAME_FITS (name), VA_DISCARD_ARGS(id, name, type))
+#endif
+
+#if VA_TRACE_USER_VALUES
     void VA_LogTrace(uint8_t id, int32_t value);
     void VA_LogTraceFloat(uint8_t id, float value);
-    void VA_LogString(uint8_t id, const char *msg);
     void VA_LogToggle(uint8_t id, bool state);
+#else
+#define VA_LogTrace(id, value)      VA_DISCARD_ARGS(id, value)
+#define VA_LogTraceFloat(id, value) VA_DISCARD_ARGS(id, value)
+#define VA_LogToggle(id, state)     VA_DISCARD_ARGS(id, state)
+#endif
+
+/* ── User event spans ────────────────────────────────────────── */
+#if VA_TRACE_USER_EVENTS
+    void VA_RegisterUserEvent(uint8_t id, const char *name);
     void VA_LogEvent(uint8_t id, bool state);
-    void VA_LogUserEvent(uint8_t id, bool state); /* backward-compatible alias */
-    void VA_LogGPIO(uint8_t id, bool state);
-    void VA_LogCounter(uint8_t id, uint32_t value);
-    void VA_LogHeap(uint8_t id, uint32_t usedBytes);
+#define VA_RegisterUserEvent(id, name) \
+    (VA_ASSERT_NAME_FITS (name), (VA_RegisterUserEvent) ((id), (name)))
+#define VA_EVENT_START(id) VA_LogEvent(id, USER_EVENT_START)
+#define VA_EVENT_END(id)   VA_LogEvent(id, USER_EVENT_END)
+#else
+#define VA_RegisterUserEvent(id, name) \
+    (VA_ASSERT_NAME_FITS (name), VA_DISCARD_ARGS(id, name))
+#define VA_LogEvent(id, state)         VA_DISCARD_ARGS(id, state)
+#define VA_EVENT_START(id)             VA_DISCARD_ARGS(id)
+#define VA_EVENT_END(id)               VA_DISCARD_ARGS(id)
+#endif
 
-    /* ── Sleep tracing (Zephyr k_sleep / k_msleep / k_usleep) ── */
-    void va_logSleepEnter(void *taskHandle);
-    void va_logSleepExit(void *taskHandle);
+/* ── Strings ─────────────────────────────────────────────────── */
+#if VA_TRACE_STRINGS
+    void VA_LogString(uint8_t id, const char *msg);
+#else
+#define VA_LogString(id, msg) VA_DISCARD_ARGS(id, msg)
+#endif
 
-    /* ── PM tracing (Zephyr pm_system_suspend enter/exit) ── */
-    void va_logPMSuspendEnter(void);
-    void va_logPMSuspendExit(uint8_t state);
-
+/* ── GPIO ────────────────────────────────────────────────────── */
+#if VA_TRACE_GPIO
     void VA_RegisterGPIO(uint8_t id, const char *name);
-    void VA_RegisterHeap(uint8_t id, const char *name, uint32_t totalSize);
+    void VA_LogGPIO(uint8_t id, bool state);
+#else
+#define VA_RegisterGPIO(id, name) VA_DISCARD_ARGS(id, name)
+#define VA_LogGPIO(id, state)     VA_DISCARD_ARGS(id, state)
+#endif
 
-    /* ── RTOS task/object hooks (generic void* handles) ──────────
-     * These are called by the RTOS adapter (FreeRTOS trace macros,
-     * Zephyr tracing callbacks, etc.).  The handle is opaque to the
-     * core — the adapter is responsible for passing the correct
-     * RTOS-native pointer.
-     */
+/* ── Counters ────────────────────────────────────────────────── */
+#if VA_TRACE_COUNTERS
+    void VA_LogCounter(uint8_t id, uint32_t value);
+#else
+#define VA_LogCounter(id, value) VA_DISCARD_ARGS(id, value)
+#endif
+
+/* ── Manual heap gauge (bare metal included) ─────────────────── */
+#if VA_TRACE_HEAP_METRICS
+    void VA_RegisterHeap(uint8_t id, const char *name, uint32_t totalSize);
+    void VA_LogHeap(uint8_t id, uint32_t usedBytes);
+#else
+#define VA_RegisterHeap(id, name, totalSize) VA_DISCARD_ARGS(id, name, totalSize)
+#define VA_LogHeap(id, usedBytes)            VA_DISCARD_ARGS(id, usedBytes)
+#endif
+
+    /* ── RTOS task/object hooks (generic void* handles) ──────────── */
+    /* Called by the RTOS adapter. The handle is opaque to the core - the
+       adapter passes the correct RTOS-native pointer. */
+
+/* ── Task registry + switches ────────────────────────────────── */
+#if VA_NEEDS_TASK_REGISTRY
+    void va_taskcreated(void *taskHandle, const char *name);
+    /* Frees the registry slot so a recycled TCB/thread address cannot
+       inherit the dead task's identity. The id is never reused. */
+    void va_taskdeleted(void *taskHandle);
+
+    /* Task-creation scratch globals, filled by the adapter just before
+       va_taskcreated(). Declared here so the kernel-compiled hook header
+       sees them without the device header. */
+    extern volatile void     *g_task_pxStack;
+    extern volatile void     *g_task_pxEndOfStack;
+    extern volatile uint32_t  g_task_uxPriority;
+    extern volatile uint32_t  g_task_uxBasePriority;
+    extern volatile uint32_t  g_task_ulStackDepth;
+#else
+#define va_taskcreated(h, n) VA_DISCARD_ARGS(h, n)
+#define va_taskdeleted(h)    VA_DISCARD_ARGS(h)
+#endif
+
+#if VA_NEEDS_SWITCH_HOOK
     void va_taskswitchedin(void *taskHandle);
     void va_taskswitchedout(void *taskHandle);
-    void va_taskcreated(void *taskHandle, const char *name);
-    bool va_isnit(void);
-    
+#else
+#define va_taskswitchedin(h)  VA_DISCARD_ARGS(h)
+#define va_taskswitchedout(h) VA_DISCARD_ARGS(h)
+#endif
+
+/* ── Task notifications ──────────────────────────────────────── */
+#if VA_HAS_RTOS && VA_TRACE_TASK_NOTIFICATIONS
     void va_logtasknotifygive(void *srcHandle, void *destHandle, uint32_t value);
     void va_logtasknotifytake(void *taskHandle, uint32_t value);
+#else
+#define va_logtasknotifygive(s, d, v) VA_DISCARD_ARGS(s, d, v)
+#define va_logtasknotifytake(h, v)    VA_DISCARD_ARGS(h, v)
+#endif
 
-    // Unified object tracking API
+/* ── Sleep (Zephyr k_sleep / k_msleep / k_usleep) ────────────── */
+#if VA_HAS_RTOS && VA_TRACE_SLEEP
+    void va_logSleepEnter(void *taskHandle);
+    void va_logSleepExit(void *taskHandle);
+#else
+#define va_logSleepEnter(h) VA_DISCARD_ARGS(h)
+#define va_logSleepExit(h)  VA_DISCARD_ARGS(h)
+#endif
+
+/* ── PM (Zephyr pm_system_suspend enter/exit) ────────────────── */
+#if VA_HAS_RTOS && VA_TRACE_PM
+    void va_logPMSuspendEnter(void);
+    void va_logPMSuspendExit(uint8_t state);
+#else
+#define va_logPMSuspendEnter()      ((void)0)
+#define va_logPMSuspendExit(state)  VA_DISCARD_ARGS(state)
+#endif
+
+/* ── Sync objects (mutex / semaphore / queue / timer / heap / PM) ──
+ *  On FreeRTOS these four categories share one pair of kernel trace hooks,
+ *  so the give/take entry points exist whenever ANY of them is on and reject
+ *  disabled object types at run time. */
+#if VA_NEEDS_OBJECT_REGISTRY
     void va_logQueueObjectCreate(void *queueObject, const char *name);
     void va_logQueueObjectCreateWithType(void *queueObject, const char *typeHint);
     void va_updateQueueObjectType(void *queueObject, const char *typeHint);
+    /* Frees the registry slot on object deletion (same rule as tasks: the
+       slot is reusable, the id is not). */
+    void va_logQueueObjectDelete(void *queueObject);
     void va_logQueueObjectGive(void *queueObject, uint32_t timeout);
     void va_logQueueObjectTake(void *queueObject, uint32_t timeout);
-    void va_logQueueObjectBlocking(void *queueObject);
+#else
+#define va_logQueueObjectCreate(queueObject, name)             VA_DISCARD_ARGS(queueObject, name)
+#define va_logQueueObjectCreateWithType(queueObject, typeHint) VA_DISCARD_ARGS(queueObject, typeHint)
+#define va_updateQueueObjectType(queueObject, typeHint)        VA_DISCARD_ARGS(queueObject, typeHint)
+#define va_logQueueObjectDelete(queueObject)                   VA_DISCARD_ARGS(queueObject)
+#define va_logQueueObjectGive(queueObject, timeout)            VA_DISCARD_ARGS(queueObject, timeout)
+#define va_logQueueObjectTake(queueObject, timeout)            VA_DISCARD_ARGS(queueObject, timeout)
+#endif
 
-    // Heap alloc/free tracing (sends 14-byte data event with allocated_bytes from runtime stats)
+#if VA_NEEDS_BLOCKING_HOOK
+    void va_logQueueObjectBlocking(void *queueObject);
+#else
+#define va_logQueueObjectBlocking(queueObject) VA_DISCARD_ARGS(queueObject)
+#endif
+
+/* ── Kernel heap allocator tracing ───────────────────────────── */
+#if VA_HAS_RTOS && VA_TRACE_RTOS_HEAPS
     void va_logHeapAlloc(void *heapObject, uint32_t allocBytes);
     void va_logHeapFree(void *heapObject, uint32_t allocatedBytes);
-
-    extern volatile uint32_t notificationValue;
+    void va_logHeapAllocFailed(void *heapObject, uint32_t requestedBytes);
+    void va_logHeapCapacity(void *heapObject, const char *name, uint32_t totalSize);
+#else
+#define va_logHeapAlloc(heapObject, allocBytes)             VA_DISCARD_ARGS(heapObject, allocBytes)
+#define va_logHeapFree(heapObject, allocatedBytes)          VA_DISCARD_ARGS(heapObject, allocatedBytes)
+#define va_logHeapAllocFailed(heapObject, requestedBytes)   VA_DISCARD_ARGS(heapObject, requestedBytes)
+#define va_logHeapCapacity(heapObject, name, totalSize)     VA_DISCARD_ARGS(heapObject, name, totalSize)
+#endif
 
     /* ── RTOS Adapter interface ──────────────────────────────────
-     * Each RTOS adapter must implement these.  The core calls them
-     * when it needs RTOS-specific information.
+     * Each RTOS adapter implements the ones its enabled categories need.
      */
-#if VA_HAS_RTOS
+#if VA_NEEDS_OBJECT_REGISTRY
     /** Determine the sync-object type from a native RTOS handle.
      *  FreeRTOS: inspects pcHead / ucQueueType in the Queue_t mirror.
-     *  Zephyr:   uses k_object_access or user-provided hint.
+     *  Zephyr:   uses the caller-provided type hint (always returns QUEUE).
      */
     VA_QueueObjectType_t va_adapter_get_queue_object_type(void *handle);
+#endif
 
+#if VA_HAS_RTOS && VA_TRACE_STACK_USAGE
     /** Return stack usage in words for the given task handle.
      *  FreeRTOS: calls uxTaskGetStackHighWaterMark.
      *  Zephyr:   calls k_thread_stack_space_get.
-     *  Only used when VA_CAPTURE_STACK_USAGE is enabled.
      */
     uint32_t va_adapter_calculate_stack_usage(void *taskHandle);
 
-    /** Return total stack size in words for the given task handle.
-     *  Only used when VA_CAPTURE_STACK_USAGE is enabled.
-     */
+    /** Return total stack size in words for the given task handle. */
     uint32_t va_adapter_get_total_stack_size(void *taskHandle);
+#endif
 
+#if VA_NEEDS_BLOCKING_HOOK
     /** Detect mutex contention and emit a contention packet if applicable.
      *  Called from va_logQueueObjectBlocking().
      */
     void va_adapter_check_mutex_contention(void *queueObject, uint8_t queue_va_id);
-#endif /* VA_HAS_RTOS */
+#endif
 
-#else
-// --- Empty stubs ---
-#define VA_RegisterTransportSend(fn) ((void)0)
-#define VA_Init(cpu_freq) ((void)0)
+#else /* VA_ENABLED == 0 - the whole recorder compiles away */
+
+/* Same contract as a disabled category: the call still compiles, its
+   arguments are NOT evaluated, and they still count as used so a build with
+   tracing off does not fill up with -Wunused warnings. */
+#define VA_RegisterTransportSend(fn) VA_DISCARD_ARGS(fn)
+#define VA_Init(cpu_freq) VA_DISCARD_ARGS(cpu_freq)
+#define VA_EmitSetupBundle() ((void)0)
 #define VA_TickOverflowCheck() ((void)0)
 #define VA_Drain() ((void)0)
-#define VA_RegisterUserEvent(id, name) ((void)0)
-#define VA_RegisterUserTrace(id, name, type) ((void)0)
-#define VA_RegisterUserFunction(id, name) ((void)0)
-#define VA_LogISRStart(isrId) ((void)0)
-#define VA_LogISREnd(isrId) ((void)0)
-#define VA_LogTrace(id, value) ((void)0)
-#define VA_LogTraceFloat(id, value) ((void)0)
-#define VA_LogString(id, msg) ((void)0)
-#define VA_LogToggle(id, state) ((void)0)
-#define VA_LogEvent(id, state) ((void)0)
-#define VA_LogUserEvent(id, state) ((void)0)
-#define VA_LogGPIO(id, state) ((void)0)
-#define VA_LogCounter(id, value) ((void)0)
-#define VA_LogHeap(id, usedBytes) ((void)0)
-#define VA_RegisterGPIO(id, name) ((void)0)
-#define VA_RegisterHeap(id, name, totalSize) ((void)0)
+#define VA_SnapshotFreeze() ((void)0)
+#define VA_RegisterUserEvent(id, name) VA_DISCARD_ARGS(id, name)
+#define VA_RegisterUserTrace(id, name, type) VA_DISCARD_ARGS(id, name, type)
+#define VA_LogISRStart(isrId) VA_DISCARD_ARGS(isrId)
+#define VA_LogISREnd(isrId) VA_DISCARD_ARGS(isrId)
+#define VA_LogTrace(id, value) VA_DISCARD_ARGS(id, value)
+#define VA_LogTraceFloat(id, value) VA_DISCARD_ARGS(id, value)
+#define VA_LogString(id, msg) VA_DISCARD_ARGS(id, msg)
+#define VA_LogToggle(id, state) VA_DISCARD_ARGS(id, state)
+#define VA_LogEvent(id, state) VA_DISCARD_ARGS(id, state)
+#define VA_EVENT_START(id) VA_DISCARD_ARGS(id)
+#define VA_EVENT_END(id) VA_DISCARD_ARGS(id)
+#define VA_LogGPIO(id, state) VA_DISCARD_ARGS(id, state)
+#define VA_LogCounter(id, value) VA_DISCARD_ARGS(id, value)
+#define VA_LogHeap(id, usedBytes) VA_DISCARD_ARGS(id, usedBytes)
+#define VA_RegisterGPIO(id, name) VA_DISCARD_ARGS(id, name)
+#define VA_RegisterHeap(id, name, totalSize) VA_DISCARD_ARGS(id, name, totalSize)
 
-#define va_taskswitchedin(h) ((void)0)
-#define va_taskswitchedout(h) ((void)0)
-#define va_taskcreated(h, n) ((void)0)
-#define va_logtasknotifygive(s, d, v) ((void)0)
-#define va_logtasknotifytake(h, v) ((void)0)
-#define va_logQueueObjectCreate(queueObject, name) ((void)0)
-#define va_logQueueObjectCreateWithType(queueObject, typeHint) ((void)0)
-#define va_updateQueueObjectType(queueObject, typeHint) ((void)0)
-#define va_logQueueObjectGive(queueObject, timeout) ((void)0)
-#define va_logQueueObjectTake(queueObject, timeout) ((void)0)
-#define va_logQueueObjectBlocking(queueObject) ((void)0)
-#define va_logHeapAlloc(heapObject, allocBytes) ((void)0)
-#define va_logHeapFree(heapObject, allocatedBytes) ((void)0)
-#define va_logSleepEnter(h) ((void)0)
-#define va_logSleepExit(h) ((void)0)
+#define va_taskswitchedin(h) VA_DISCARD_ARGS(h)
+#define va_taskswitchedout(h) VA_DISCARD_ARGS(h)
+#define va_taskcreated(h, n) VA_DISCARD_ARGS(h, n)
+#define va_taskdeleted(h) VA_DISCARD_ARGS(h)
+#define va_logtasknotifygive(s, d, v) VA_DISCARD_ARGS(s, d, v)
+#define va_logtasknotifytake(h, v) VA_DISCARD_ARGS(h, v)
+#define va_logQueueObjectCreate(queueObject, name) VA_DISCARD_ARGS(queueObject, name)
+#define va_logQueueObjectCreateWithType(queueObject, typeHint) VA_DISCARD_ARGS(queueObject, typeHint)
+#define va_updateQueueObjectType(queueObject, typeHint) VA_DISCARD_ARGS(queueObject, typeHint)
+#define va_logQueueObjectDelete(queueObject) VA_DISCARD_ARGS(queueObject)
+#define va_logQueueObjectGive(queueObject, timeout) VA_DISCARD_ARGS(queueObject, timeout)
+#define va_logQueueObjectTake(queueObject, timeout) VA_DISCARD_ARGS(queueObject, timeout)
+#define va_logQueueObjectBlocking(queueObject) VA_DISCARD_ARGS(queueObject)
+#define va_logHeapAlloc(heapObject, allocBytes) VA_DISCARD_ARGS(heapObject, allocBytes)
+#define va_logHeapFree(heapObject, allocatedBytes) VA_DISCARD_ARGS(heapObject, allocatedBytes)
+#define va_logHeapAllocFailed(heapObject, requestedBytes) VA_DISCARD_ARGS(heapObject, requestedBytes)
+#define va_logHeapCapacity(heapObject, name, totalSize) VA_DISCARD_ARGS(heapObject, name, totalSize)
+#define va_logSleepEnter(h) VA_DISCARD_ARGS(h)
+#define va_logSleepExit(h) VA_DISCARD_ARGS(h)
+#define va_logPMSuspendEnter() ((void)0)
+#define va_logPMSuspendExit(state) VA_DISCARD_ARGS(state)
 
-bool va_isnit(void);
+#define VA_IsInit() false
 
-extern volatile uint32_t notificationValue;
-
-#endif // VA_ENABLED
+#endif /* VA_ENABLED */
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif // VIEWALYZER_H
+#endif /* VIEWALYZER_H */

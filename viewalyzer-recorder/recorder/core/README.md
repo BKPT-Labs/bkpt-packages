@@ -54,7 +54,7 @@ or:
 VA_TRANSPORT=CUSTOM_TRANSPORT
 ```
 
-`RAM_BUFFER` needs no init code and no extra sources — the recorder keeps a
+`RAM_BUFFER` needs no init code and no extra sources - the recorder keeps a
 ring buffer in RAM and the ViewAlyzer app drains it through the debug probe
 (ST-Link supported; no SEGGER RTT). Tune with `VA_RAMBUF_SIZE` and
 `VA_RAMBUF_MODE` if needed.
@@ -63,7 +63,25 @@ Useful optional defines:
 
 - `VA_AUTO_SETUP_INTERVAL_MS` to periodically re-emit setup packets
 - `VA_ALLOWED_TO_DISABLE_INTERRUPTS` to control short internal critical sections
-- `VA_MAX_USER_FUNCTIONS`, `VA_MAX_TASK_NAME_LEN`, `VA_MAX_SYNC_OBJECTS`
+- `VA_MAX_USER_EVENTS`, `VA_MAX_TASK_NAME_LEN`, `VA_MAX_SYNC_OBJECTS`
+
+All of them live in `ViewAlyzerConfig.h`, together with the `VA_TRACE_*`
+category switches that decide which kinds of event get compiled in at all
+(see the top-level README). That header includes nothing, so it is safe to
+pull into `FreeRTOSConfig.h` and into Zephyr kernel translation units.
+
+`VA_Internal.h` is the only ViewAlyzer header that includes the device/CMSIS
+header, and it requires `VA_DEVICE_HEADER` to be set to a BARE token:
+
+```
+-DVA_DEVICE_HEADER=stm32g474xx.h     # STM32Cube: the device header
+-DVA_DEVICE_HEADER=cmsis_core.h      # Zephyr (the module sets this for you)
+-DVA_DEVICE_HEADER=main.h            # any project whose main.h pulls it in
+```
+
+Quoted forms survive a POSIX shell but get mangled by CMD, Ninja response
+files, Makefiles, and the Keil/IAR define boxes, so the bare token is the
+only supported spelling.
 
 ## Minimal Integration
 

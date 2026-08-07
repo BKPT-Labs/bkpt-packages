@@ -1,6 +1,6 @@
 /**
  * @file VA_Adapter_FreeRTOS.c
- * @brief ViewAlyzer FreeRTOS Adapter — RTOS-specific logic
+ * @brief ViewAlyzer FreeRTOS Adapter - RTOS-specific logic
  *
  * Contains everything that depends on FreeRTOS internals:
  *   - Queue-type detection (QueueDefinitionMirror hack)
@@ -9,7 +9,21 @@
  *
  * This file is compiled ONLY when VA_RTOS_SELECT == VA_RTOS_FREERTOS.
  *
- * Copyright (c) 2025 Free Radical Labs
+ * Copyright 2025-2026 BKPT, Inc.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 #include "ViewAlyzer.h"
@@ -25,10 +39,13 @@
 #include "semphr.h"
 #endif
 
-/* ================================================================
- *  Queue-type detection — mirrors the private FreeRTOS Queue_t layout
- * ================================================================ */
+#if VA_NEEDS_OBJECT_REGISTRY && (configUSE_TRACE_FACILITY != 1)
+#warning "ViewAlyzer: set configUSE_TRACE_FACILITY to 1 in FreeRTOSConfig.h. Without it Queue_t has no ucQueueType field, so mutexes and semaphores cannot be told apart and per-category filtering degrades to 'item size 0 means binary semaphore'."
+#endif
 
+/* ── Queue-type detection - mirrors the private FreeRTOS Queue_t layout ─── */
+
+#if VA_NEEDS_OBJECT_REGISTRY
 VA_QueueObjectType_t va_adapter_get_queue_object_type(void *handle)
 {
     if (handle == NULL)
@@ -91,11 +108,11 @@ VA_QueueObjectType_t va_adapter_get_queue_object_type(void *handle)
     return VA_OBJECT_TYPE_QUEUE;
 #endif
 }
+#endif /* VA_NEEDS_OBJECT_REGISTRY */
 
-/* ================================================================
- *  Stack usage
- * ================================================================ */
+/* ── Stack usage ─────────────────────────────────────────────────── */
 
+#if VA_TRACE_STACK_USAGE
 uint32_t va_adapter_calculate_stack_usage(void *taskHandle)
 {
 #if (INCLUDE_uxTaskGetStackHighWaterMark == 1)
@@ -122,11 +139,11 @@ uint32_t va_adapter_get_total_stack_size(void *taskHandle)
     }
     return 0;
 }
+#endif /* VA_TRACE_STACK_USAGE */
 
-/* ================================================================
- *  Mutex contention detection
- * ================================================================ */
+/* ── Mutex contention detection ──────────────────────────────────── */
 
+#if VA_NEEDS_BLOCKING_HOOK
 void va_adapter_check_mutex_contention(void *queueObject, uint8_t queue_va_id)
 {
 #if ((defined(INCLUDE_xSemaphoreGetMutexHolder) && (INCLUDE_xSemaphoreGetMutexHolder == 1)) || \
@@ -157,5 +174,11 @@ void va_adapter_check_mutex_contention(void *queueObject, uint8_t queue_va_id)
     (void)queue_va_id;
 #endif
 }
+#endif /* VA_NEEDS_BLOCKING_HOOK */
+
+/* Nothing above may have survived the category selection; give the
+   translation unit something so strict toolchains do not warn about an
+   empty object file. */
+const char va_adapter_freertos_present = 1;
 
 #endif /* VA_ENABLED && VA_RTOS_FREERTOS */

@@ -40,34 +40,68 @@ That means application code does not need to define `VA_RTOS_SELECT` manually wh
 
 ## prj.conf Example
 
-Use this as a starting point and trim it to what your app actually needs:
+Every category defaults to `y`, so the minimum config below already traces
+everything. Set the ones you do not need to `n` and they compile out
+completely - events, packet builders, registry storage, and the Zephyr trace
+points that feed them:
 
 ```conf
 CONFIG_VIEWALYZER=y
-
-# Thread and ISR visibility
-CONFIG_VIEWALYZER_TRACE_THREADS=y
-CONFIG_VIEWALYZER_TRACE_ISRS=y
-
-# Synchronization and message-passing objects
-CONFIG_VIEWALYZER_TRACE_MUTEXES=y
-CONFIG_VIEWALYZER_TRACE_SEMAPHORES=y
-CONFIG_VIEWALYZER_TRACE_MESSAGE_QUEUES=y
-
-# Optional extras
-CONFIG_VIEWALYZER_TRACE_SLEEP=y
-CONFIG_VIEWALYZER_STACK_USAGE=y
+CONFIG_TRACING_USER=y
 
 # Choose one transport
 CONFIG_VIEWALYZER_TRANSPORT_ITM=y
 # CONFIG_VIEWALYZER_TRANSPORT_RTT=y
-
-# Helpful Zephyr features selected by the module or commonly used with it
-CONFIG_TRACING_USER=y
-CONFIG_THREAD_NAME=y
-CONFIG_THREAD_MONITOR=y
-CONFIG_THREAD_STACK_INFO=y
+# CONFIG_VIEWALYZER_TRANSPORT_RAMBUF=y
 ```
+
+The full category list, all `y` by default:
+
+```conf
+# Threads and ISRs
+CONFIG_VIEWALYZER_TRACE_THREADS=y
+CONFIG_VIEWALYZER_TRACE_ISRS=y
+CONFIG_VIEWALYZER_STACK_USAGE=y
+
+# Synchronization and message-passing objects
+CONFIG_VIEWALYZER_TRACE_MUTEXES=y
+CONFIG_VIEWALYZER_TRACE_MUTEX_CONTENTION=y
+CONFIG_VIEWALYZER_TRACE_SEMAPHORES=y
+CONFIG_VIEWALYZER_TRACE_MESSAGE_QUEUES=y
+CONFIG_VIEWALYZER_TRACE_TIMERS=y
+CONFIG_VIEWALYZER_TRACE_HEAPS=y
+CONFIG_VIEWALYZER_TRACE_SLEEP=y
+CONFIG_VIEWALYZER_TRACE_PM=y          # needs CONFIG_PM
+
+# Your own instrumentation
+CONFIG_VIEWALYZER_TRACE_USER_VALUES=y
+CONFIG_VIEWALYZER_TRACE_USER_EVENTS=y
+CONFIG_VIEWALYZER_TRACE_STRINGS=y
+CONFIG_VIEWALYZER_TRACE_GPIO=y
+CONFIG_VIEWALYZER_TRACE_COUNTERS=y
+CONFIG_VIEWALYZER_TRACE_HEAP_METRICS=y
+```
+
+Two things worth knowing:
+
+- Thread ids and names survive `CONFIG_VIEWALYZER_TRACE_THREADS=n`. Stack
+  usage, sleep, and mutex contention all name threads, so registration (and
+  the `THREAD_MONITOR` / `THREAD_NAME` support it needs) follows what is
+  actually enabled, not the thread-switch category.
+- `CONFIG_VIEWALYZER_TRACE_MUTEX_CONTENTION=y` works with
+  `CONFIG_VIEWALYZER_TRACE_MUTEXES=n`: the mutex and both threads stay
+  registered so the contention event can name them, and no lock/unlock events
+  reach the wire.
+
+The recorder reports the categories it was built with in every setup bundle,
+so the ViewAlyzer app can say "mutex tracing is disabled in this firmware
+build" rather than showing an empty view. There is a worked example fragment
+in `Example-Projects/zephyr/STM32-Zephyr-VA-Module-Full-Demo/selective-tracing.conf`.
+
+The module maps each Kconfig choice onto the generic `VA_TRACE_*` switch the
+recorder core uses, and does it through `zephyr_compile_definitions`, which is
+global - so the kernel translation units that expand the trace points get the
+identical set and the two halves cannot disagree.
 
 If you use RTT instead of ITM/SWO, add the Zephyr `segger` module to your west manifest and update it before building.
 
