@@ -68,6 +68,12 @@
 #if !VA_CHECK_BOOL(VA_TRACE_QUEUES)
 #error "ViewAlyzer: VA_TRACE_QUEUES must be 0 or 1"
 #endif
+#if !VA_CHECK_BOOL(VA_TRACE_EVENT_FLAGS)
+#error "ViewAlyzer: VA_TRACE_EVENT_FLAGS must be 0 or 1"
+#endif
+#if !VA_CHECK_BOOL(VA_TRACE_WORK)
+#error "ViewAlyzer: VA_TRACE_WORK must be 0 or 1"
+#endif
 #if !VA_CHECK_BOOL(VA_TRACE_SLEEP)
 #error "ViewAlyzer: VA_TRACE_SLEEP must be 0 or 1"
 #endif
@@ -100,15 +106,21 @@
 #endif
 
 #if VA_TIMESTAMP_BITS != 32
-#error "ViewAlyzer: VA_TIMESTAMP_BITS must be 32 (the legacy 64-bit v1 wire format is gone)"
+#error "ViewAlyzer: VA_TIMESTAMP_BITS must be 32 (the wire format has exactly one timestamp width)"
 #endif
 #define VA_TIMESTAMP_BYTES (VA_TIMESTAMP_BITS / 8)
 
-#if VA_SEQ_COUNTER
-#define VA_SEQ_BYTES 1
-#else
-#define VA_SEQ_BYTES 0
+/* The per-packet sequence byte is part of the wire format, not a knob: it is
+   the host's ground truth for loss detection (any gap in the rolling 8-bit
+   sequence is exactly that many packets lost, which timestamps alone can
+   never prove). Costs 1 byte per packet. */
+#if defined(VA_SEQ_COUNTER) && (VA_SEQ_COUNTER != 1)
+#error "ViewAlyzer: VA_SEQ_COUNTER is not configurable; sequence bytes are part of the wire format"
 #endif
+#ifndef VA_SEQ_COUNTER
+#define VA_SEQ_COUNTER 1
+#endif
+#define VA_SEQ_BYTES 1
 
 /* ── Derived transport flags ────────────────────────────────────────── */
 #define VA_TRANSPORT_IS_ITM      ((VA_TRANSPORT) == ARM_ITM)
@@ -133,6 +145,17 @@
 #error "ViewAlyzer: snapshot ring requires VA_MAX_LOG_STRING_LEN <= 242 (frame length is one byte)"
 #endif
 
+#if VA_PM_RING && (VA_SNAPSHOT_SETUP_SIZE > 0) && (VA_SNAPSHOT_SETUP_SIZE < 64)
+/* The names area must at least hold the sync marker plus one setup packet. */
+#error "ViewAlyzer: VA_SNAPSHOT_SETUP_SIZE must be 0 (disabled) or at least 64 bytes"
+#endif
+
+#if VA_TRANSPORT_BUFFERED && (((VA_BUFFER_SIZE) & ((VA_BUFFER_SIZE) - 1)) != 0)
+/* The buffered ring uses free-running indices; a non-power-of-two capacity
+   corrupts the ring when the 32-bit indices wrap. */
+#error "ViewAlyzer: VA_BUFFER_SIZE must be a power of two"
+#endif
+
 /* ── Derived category flags ─────────────────────────────────────
    A category is not simply on or off: some data has to be TRACKED so an
    enabled category can reference it, without emitting events of its own.
@@ -152,14 +175,17 @@
 #define VA_NEEDS_TASK_SWITCH_EVENTS (VA_HAS_RTOS && VA_TRACE_TASKS)
 
 /* ... but stack usage is sampled on switch-OUT, so the switch hook itself
-   must still be installed when only stack usage is on. */
-#define VA_NEEDS_SWITCH_HOOK (VA_HAS_RTOS && (VA_TRACE_TASKS || VA_TRACE_STACK_USAGE))
+   must still be installed when only stack usage is on. FreeRTOS sleep also
+   needs it: a delayed task's sleep EXIT is detected at its next switch-in. */
+#define VA_NEEDS_SWITCH_HOOK (VA_HAS_RTOS && (VA_TRACE_TASKS || VA_TRACE_STACK_USAGE \
+                              || ((VA_RTOS_SELECT == VA_RTOS_FREERTOS) && VA_TRACE_SLEEP)))
 
 /* Sync-object ids and names. */
 #define VA_NEEDS_OBJECT_REGISTRY (VA_HAS_RTOS && (VA_TRACE_MUTEXES           \
                                                || VA_TRACE_MUTEX_CONTENTION  \
                                                || VA_TRACE_SEMAPHORES        \
                                                || VA_TRACE_QUEUES            \
+                                               || VA_TRACE_EVENT_FLAGS       \
                                                || VA_TRACE_TIMERS            \
                                                || VA_TRACE_RTOS_HEAPS        \
                                                || VA_TRACE_PM))
@@ -224,6 +250,8 @@
 #define VA_CAT_BIT_GPIO               15u
 #define VA_CAT_BIT_COUNTERS           16u
 #define VA_CAT_BIT_HEAP_METRICS       17u
+#define VA_CAT_BIT_EVENT_FLAGS        18u
+#define VA_CAT_BIT_WORK               19u
 
 #define VA_TRACE_CATEGORY_MASK                                                   \
     (((uint32_t)(VA_TRACE_TASKS              != 0) << VA_CAT_BIT_TASKS)              \
@@ -243,16 +271,22 @@
    | ((uint32_t)(VA_TRACE_STRINGS            != 0) << VA_CAT_BIT_STRINGS)            \
    | ((uint32_t)(VA_TRACE_GPIO               != 0) << VA_CAT_BIT_GPIO)               \
    | ((uint32_t)(VA_TRACE_COUNTERS           != 0) << VA_CAT_BIT_COUNTERS)           \
-   | ((uint32_t)(VA_TRACE_HEAP_METRICS       != 0) << VA_CAT_BIT_HEAP_METRICS))
+   | ((uint32_t)(VA_TRACE_HEAP_METRICS       != 0) << VA_CAT_BIT_HEAP_METRICS)       \
+   | ((uint32_t)(VA_TRACE_EVENT_FLAGS        != 0) << VA_CAT_BIT_EVENT_FLAGS)     \
+   | ((uint32_t)(VA_TRACE_WORK               != 0) << VA_CAT_BIT_WORK))
 
 /* Flag groups carried by VA_SETUP_CONFIG_FLAGS (0x77). The packet is
-   [code][seq?][group(1)][value(4, little-endian)]. */
+   [code][seq][group(1)][value(4, little-endian)]. Hosts must skip groups
+   they do not know; group ids are append-only. */
 #define VA_FLAG_GROUP_CATEGORIES 0x01u   /* value = VA_TRACE_CATEGORY_MASK */
 #define VA_FLAG_GROUP_BUILD      0x02u   /* value = VA_BUILD_FLAGS below   */
+#define VA_FLAG_GROUP_VERSION    0x03u   /* value = VA_RECORDER_VERSION_PACKED */
 
 #define VA_BUILD_BIT_NO_RTOS     0u      /* bare-metal build */
 #define VA_BUILD_BIT_BUFFERED    1u      /* VA_TRANSPORT_BUFFERED */
-#define VA_BUILD_BIT_SEQ_COUNTER 2u      /* VA_SEQ_COUNTER (wire v3) */
+#define VA_BUILD_BIT_SEQ_COUNTER 2u      /* sequence bytes present (always set
+                                            by firmware; kept so hosts can
+                                            trust the bit, not assume it) */
 /* Timestamps were stamped by the HOST, not by a target cycle counter. Only
    host-side senders (the python viewalyzer package, test harnesses) ever set
    this; the firmware cannot, which is why it has no VA_TRACE_* switch. */

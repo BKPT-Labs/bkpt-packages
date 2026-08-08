@@ -8,12 +8,15 @@ This path hooks Zephyr's tracing callbacks and emits native ViewAlyzer task, ISR
 
 On top of the core recorder APIs, the Zephyr adapter can trace:
 
-- thread creation
+- thread creation, naming (`k_thread_name_set`), and abort
 - thread switch in and switch out
 - ISR enter and exit
-- mutex lock and unlock
+- mutex lock and unlock, and mutex contention
 - semaphore give and take
 - message queue activity
+- kernel timers (`k_timer` init, start, stop)
+- kernel heap allocation (`k_heap` alloc, free, failed alloc)
+- power-management suspend and resume (with `CONFIG_PM`)
 - sleep calls such as `k_sleep()`, `k_msleep()`, and `k_usleep()`
 - stack usage, when enabled
 
@@ -34,7 +37,9 @@ When `CONFIG_VIEWALYZER=y`, the module CMake file:
 - compiles `zephyr/VA_Adapter_Zephyr.c`
 - sets `VA_RTOS_SELECT=VA_RTOS_ZEPHYR`
 - maps the selected Zephyr transport option to `VA_TRANSPORT`
-- force-includes `zephyr/tracing_user.h`
+- prepends `zephyr/` to the include path so the recorder's `tracing_user.h`
+  wrapper is found before Zephyr's stock copy (the wrapper then pulls the
+  stock header in via `#include_next` and re-points selected trace macros)
 
 That means application code does not need to define `VA_RTOS_SELECT` manually when using the module.
 
@@ -134,12 +139,13 @@ Your application still initializes the recorder explicitly:
 #include "ViewAlyzer.h"
 #include "VA_Adapter_Zephyr.h"
 
-void main(void)
+int main(void)
 {
 	VA_Init(CONFIG_SYS_CLOCK_HW_CYCLES_PER_SEC);
 	VA_Zephyr_RegisterExistingThreads();
 
 	VA_RegisterUserTrace(1, "LoopTime", VA_USER_TYPE_GRAPH);
+	return 0;
 }
 ```
 

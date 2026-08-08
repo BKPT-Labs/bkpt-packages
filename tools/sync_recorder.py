@@ -27,16 +27,12 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 PKG_DIR = REPO_ROOT / "viewalyzer-recorder"
 RECORDER_DEST = PKG_DIR / "recorder"
-DEFAULT_SOURCE = REPO_ROOT.parent.parent / "ViewAlyzer_Root" / "ViewAlyzer"
+DEFAULT_SOURCE = REPO_ROOT.parent / "ViewAlyzer"
 
 # Embedded-target trees only. c-udp/ (host UDP lib) and python/ (host decoder)
 # never ship to firmware projects.
 EMBEDDED_TREES = ("core", "freertos", "zephyr")
 
-# The wire version the vendored recorder emits by default (VA_TIMESTAMP_BITS=32
-# + VA_SEQ_COUNTER=1 -> sync marker v3, per-packet sequence byte). Bump
-# alongside any recorder default change.
-WIRE_VERSION = 3
 
 
 def _git_rev(repo: Path) -> str:
@@ -56,10 +52,21 @@ def _git_rev(repo: Path) -> str:
 
 
 def _recorder_version(core_header: Path) -> str:
-    m = re.search(
-        r'#define\s+VA_RECORDER_VERSION\s+"([^"]+)"', core_header.read_text()
-    )
-    return m.group(1) if m else "unknown"
+    """major.minor.patch from the numeric defines (the single source)."""
+    text = core_header.read_text()
+    parts = []
+    for field in ("MAJOR", "MINOR", "PATCH"):
+        m = re.search(rf"#define\s+VA_RECORDER_VERSION_{field}\s+(\d+)", text)
+        if not m:
+            return "unknown"
+        parts.append(m.group(1))
+    return ".".join(parts)
+
+
+def _wire_version(core_header: Path) -> int:
+    """VA_WIRE_VERSION from the recorder source (never hardcoded here)."""
+    m = re.search(r"#define\s+VA_WIRE_VERSION\s+(\d+)", core_header.read_text())
+    return int(m.group(1)) if m else 0
 
 
 def _content_hash(root: Path, rel_files: list[str]) -> str:
@@ -122,7 +129,7 @@ def main() -> int:
         "recorder_version": _recorder_version(
             RECORDER_DEST / "core" / "ViewAlyzer.h"
         ),
-        "wire_version": WIRE_VERSION,
+        "wire_version": _wire_version(RECORDER_DEST / "core" / "ViewAlyzer.h"),
         "content_hash": content_hash,
     }
 

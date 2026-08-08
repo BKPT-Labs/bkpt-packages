@@ -22,6 +22,7 @@
 #include_next <tracing_user.h>
 
 #include <zephyr/kernel.h>
+#include <zephyr/version.h>
 
 /* Dependency-free, so safe inside Zephyr's own kernel TUs. */
 #include "ViewAlyzerConfig.h"
@@ -61,9 +62,32 @@ void sys_trace_k_msgq_put_exit(struct k_msgq *msgq, k_timeout_t timeout, int ret
 void sys_trace_k_msgq_get_enter(struct k_msgq *msgq, k_timeout_t timeout);
 void sys_trace_k_msgq_get_blocking(struct k_msgq *msgq, k_timeout_t timeout);
 void sys_trace_k_msgq_get_exit(struct k_msgq *msgq, k_timeout_t timeout, int ret);
+void sys_trace_k_fifo_init(struct k_fifo *fifo);
+void sys_trace_k_fifo_put(struct k_fifo *fifo);
+void sys_trace_k_fifo_alloc_put(struct k_fifo *fifo, int ret);
+void sys_trace_k_fifo_get(struct k_fifo *fifo, void *ret);
+void sys_trace_k_lifo_init(struct k_lifo *lifo);
+void sys_trace_k_lifo_put(struct k_lifo *lifo);
+void sys_trace_k_lifo_alloc_put(struct k_lifo *lifo, int ret);
+void sys_trace_k_lifo_get(struct k_lifo *lifo, void *ret);
+#endif
+
+#if VA_TRACE_EVENT_FLAGS
+void sys_trace_k_event_init(struct k_event *event);
+void sys_trace_k_event_post(struct k_event *event, uint32_t events);
+void sys_trace_k_event_wait_exit(struct k_event *event, uint32_t events, uint32_t ret);
+#endif
+
+#if VA_TRACE_WORK
+void sys_trace_k_work_submit(struct k_work *work, int ret);
+void sys_trace_k_work_schedule(struct k_work_delayable *dwork, k_timeout_t delay, int ret);
+void sys_trace_k_work_cancel(struct k_work *work);
+void sys_trace_k_work_cancel_delayable(struct k_work_delayable *dwork);
 #endif
 
 #if VA_TRACE_SLEEP
+void sys_trace_va_thread_suspend(struct k_thread *thread);
+void sys_trace_va_thread_resume(struct k_thread *thread);
 void sys_trace_k_thread_sleep_enter(k_timeout_t timeout);
 void sys_trace_k_thread_sleep_exit(k_timeout_t timeout, int ret);
 void sys_trace_k_thread_msleep_enter(int32_t ms);
@@ -146,9 +170,72 @@ void sys_trace_va_pm_system_suspend_exit(uint32_t ticks, uint8_t state);
 #define sys_port_trace_k_msgq_get_blocking(msgq, timeout) sys_trace_k_msgq_get_blocking(msgq, timeout)
 #undef  sys_port_trace_k_msgq_get_exit
 #define sys_port_trace_k_msgq_get_exit(msgq, timeout, ret) sys_trace_k_msgq_get_exit(msgq, timeout, ret)
+
+/* k_fifo / k_lifo ride the queue events: put = give, successful get = take.
+   They have no fixed capacity; pairing order is FIFO or LIFO per the name.
+   The underlying k_queue trace points are NOT hooked, so nothing doubles. */
+#undef  sys_port_trace_k_fifo_init_exit
+#define sys_port_trace_k_fifo_init_exit(fifo) sys_trace_k_fifo_init(fifo)
+#undef  sys_port_trace_k_fifo_put_exit
+#define sys_port_trace_k_fifo_put_exit(fifo, data) sys_trace_k_fifo_put(fifo)
+#undef  sys_port_trace_k_fifo_alloc_put_exit
+#define sys_port_trace_k_fifo_alloc_put_exit(fifo, data, ret) sys_trace_k_fifo_alloc_put(fifo, ret)
+#undef  sys_port_trace_k_fifo_put_list_exit
+#define sys_port_trace_k_fifo_put_list_exit(fifo, head, tail) sys_trace_k_fifo_put(fifo)
+#undef  sys_port_trace_k_fifo_put_slist_exit
+#define sys_port_trace_k_fifo_put_slist_exit(fifo, list) sys_trace_k_fifo_put(fifo)
+#undef  sys_port_trace_k_fifo_get_exit
+#define sys_port_trace_k_fifo_get_exit(fifo, timeout, ret) sys_trace_k_fifo_get(fifo, ret)
+
+#undef  sys_port_trace_k_lifo_init_exit
+#define sys_port_trace_k_lifo_init_exit(lifo) sys_trace_k_lifo_init(lifo)
+#undef  sys_port_trace_k_lifo_put_exit
+#define sys_port_trace_k_lifo_put_exit(lifo, data) sys_trace_k_lifo_put(lifo)
+#undef  sys_port_trace_k_lifo_alloc_put_exit
+#define sys_port_trace_k_lifo_alloc_put_exit(lifo, data, ret) sys_trace_k_lifo_alloc_put(lifo, ret)
+#undef  sys_port_trace_k_lifo_get_exit
+#define sys_port_trace_k_lifo_get_exit(lifo, timeout, ret) sys_trace_k_lifo_get(lifo, ret)
+#endif
+
+#if VA_TRACE_EVENT_FLAGS
+#undef  sys_port_trace_k_event_init
+#define sys_port_trace_k_event_init(event) sys_trace_k_event_init(event)
+/* The post ENTER point carries the raw posted bits (the exit's `events`
+   local has already been merged with the previous state). */
+#undef  sys_port_trace_k_event_post_enter
+#define sys_port_trace_k_event_post_enter(event, events, events_mask) sys_trace_k_event_post(event, events)
+#undef  sys_port_trace_k_event_wait_exit
+#define sys_port_trace_k_event_wait_exit(event, events, ret) sys_trace_k_event_wait_exit(event, events, ret)
+#endif
+
+#if VA_TRACE_WORK
+/* Only the *_to_queue / *_for_queue exits are hooked: the plain
+   k_work_submit/schedule/reschedule wrappers call them internally and
+   trace BOTH pairs, so hooking both would double-report. All four cancel
+   entry points are independent. */
+#undef  sys_port_trace_k_work_submit_to_queue_exit
+#define sys_port_trace_k_work_submit_to_queue_exit(queue, work, ret) sys_trace_k_work_submit(work, ret)
+#undef  sys_port_trace_k_work_schedule_for_queue_exit
+#define sys_port_trace_k_work_schedule_for_queue_exit(queue, dwork, delay, ret) sys_trace_k_work_schedule(dwork, delay, ret)
+#undef  sys_port_trace_k_work_reschedule_for_queue_exit
+#define sys_port_trace_k_work_reschedule_for_queue_exit(queue, dwork, delay, ret) sys_trace_k_work_schedule(dwork, delay, ret)
+#undef  sys_port_trace_k_work_cancel_exit
+#define sys_port_trace_k_work_cancel_exit(work, ret) sys_trace_k_work_cancel(work)
+#undef  sys_port_trace_k_work_cancel_sync_exit
+#define sys_port_trace_k_work_cancel_sync_exit(work, sync, ret) sys_trace_k_work_cancel(work)
+#undef  sys_port_trace_k_work_cancel_delayable_exit
+#define sys_port_trace_k_work_cancel_delayable_exit(dwork, ret) sys_trace_k_work_cancel_delayable(dwork)
+#undef  sys_port_trace_k_work_cancel_delayable_sync_exit
+#define sys_port_trace_k_work_cancel_delayable_sync_exit(dwork, sync, ret) sys_trace_k_work_cancel_delayable(dwork)
 #endif
 
 #if VA_TRACE_SLEEP
+/* Suspend/resume ride the sleep events: the suspend-to-resume window shows
+   as a sleep period on the suspended thread, same as the FreeRTOS adapter. */
+#undef  sys_port_trace_k_thread_suspend_enter
+#define sys_port_trace_k_thread_suspend_enter(thread) sys_trace_va_thread_suspend(thread)
+#undef  sys_port_trace_k_thread_resume_enter
+#define sys_port_trace_k_thread_resume_enter(thread) sys_trace_va_thread_resume(thread)
 #undef  sys_port_trace_k_thread_sleep_enter
 #define sys_port_trace_k_thread_sleep_enter(timeout) sys_trace_k_thread_sleep_enter(timeout)
 #undef  sys_port_trace_k_thread_sleep_exit
@@ -178,14 +265,29 @@ void sys_trace_va_pm_system_suspend_exit(uint32_t ticks, uint8_t state);
 /* `bytes` is in scope at the kernel trace point. */
 #undef  sys_port_trace_k_heap_init
 #define sys_port_trace_k_heap_init(heap) sys_trace_k_heap_init(heap)
+
+/* The blocking point was renamed in Zephyr 4.2 (aligned_alloc_blocking ->
+   alloc_helper_blocking); hook both names so every version emits it. */
 #undef  sys_port_trace_k_heap_aligned_alloc_blocking
 #define sys_port_trace_k_heap_aligned_alloc_blocking(heap, timeout) sys_trace_k_heap_alloc_blocking(heap)
+#undef  sys_port_trace_k_heap_alloc_helper_blocking
+#define sys_port_trace_k_heap_alloc_helper_blocking(heap, timeout) sys_trace_k_heap_alloc_blocking(heap)
+
 #undef  sys_port_trace_k_heap_aligned_alloc_exit
 #define sys_port_trace_k_heap_aligned_alloc_exit(heap, timeout, ret) sys_trace_k_heap_alloc_exit_impl(heap, (uint32_t)(bytes), ret)
-/* Newer Zephyr traces k_heap_alloc directly. k_heap_calloc is NOT hooked:
-   it calls k_heap_alloc internally and would double-report. */
+/* Zephyr 4.2 refactored k_heap_alloc and k_heap_aligned_alloc onto a shared
+   helper, so their exit points are independent and both must be hooked. On
+   older kernels k_heap_alloc calls k_heap_aligned_alloc internally - there
+   the inner aligned exit already covers both, and hooking the outer alloc
+   exit too would double-report. k_heap_calloc is NOT hooked on any version:
+   it allocates through the hooked paths and would double-report.
+   The gate is 4.1.99, not 4.2.0: post-4.1 development snapshots carry the
+   refactor while reporting 4.1.99, and every release resolves correctly
+   either way. */
+#if ZEPHYR_VERSION_CODE >= ZEPHYR_VERSION(4, 1, 99)
 #undef  sys_port_trace_k_heap_alloc_exit
 #define sys_port_trace_k_heap_alloc_exit(heap, timeout, ret) sys_trace_k_heap_alloc_exit_impl(heap, (uint32_t)(bytes), ret)
+#endif
 #undef  sys_port_trace_k_heap_free
 #define sys_port_trace_k_heap_free(heap) sys_trace_k_heap_free(heap)
 #undef  sys_port_trace_k_heap_realloc_exit

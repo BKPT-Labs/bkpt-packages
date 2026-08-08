@@ -19,15 +19,15 @@
       "id": "viewalyzer-recorder",
       "kind": "component",
       "name": "ViewAlyzer Recorder",
-      "rev": "8",
+      "rev": "1",
       "manifest": "viewalyzer-recorder/manifest.json",
-      "hash": "sha256:dd3a96facee2be6ee6ccea42d4872b3ae2aa5eaa7a765591fd8357a53f353c7e"
+      "hash": "sha256:e74f25bb618f4e24bbba54a0b4d721acac7b79c1a0d637cfe81af5f65ce036cc"
     },
     {
       "id": "trace-support",
       "kind": "component",
       "name": "Trace Support",
-      "rev": "2",
+      "rev": "1",
       "manifest": "trace-support/manifest.json"
     }
   ]

@@ -72,11 +72,13 @@ See the [top-level README](../README.md) for the full category list.
 
 ## Build Defines
 
-Set the recorder mode to FreeRTOS:
+Set the recorder mode to FreeRTOS and name your part's CMSIS device header
+(a bare token: no quotes, no angle brackets):
 
 ```c
 VA_ENABLED=1
 VA_RTOS_SELECT=VA_RTOS_FREERTOS
+VA_DEVICE_HEADER=stm32g474xx.h
 ```
 
 Then select a transport the same way you would for bare-metal:
@@ -124,10 +126,25 @@ The hook headers define the `traceTASK_*`, queue, mutex, semaphore, and notifica
 These options affect how much detail the adapter can provide:
 
 - `configUSE_TRACE_FACILITY=1` gives the adapter reliable queue object typing
-- `INCLUDE_uxTaskGetStackHighWaterMark=1` enables stack usage reporting
+- `INCLUDE_uxTaskGetStackHighWaterMark` enables stack usage reporting. The
+  hook header defaults it to 1 when stack tracing is on; setting it to 0
+  above the hook include disables stack packets entirely (no data, rather
+  than wrong data)
 - `INCLUDE_xSemaphoreGetMutexHolder=1` or `INCLUDE_xQueueGetMutexHolder=1` enables mutex contention ownership detection
 
 If those options are off, the recorder still works, but the missing data stays unavailable.
+
+## Object Names, Recursive Mutexes, and Late Init
+
+- Names given with `vQueueAddToRegistry()` are picked up and replace the
+  auto-generated names ("Queue", "BinSem", ...) in the viewer.
+- Recursive mutexes appear as one take at first acquisition and one give at
+  final release. Nested takes and gives change no ownership and emit
+  nothing, and a timed-out take emits nothing.
+- Tasks created before `VA_Init()` are registered lazily on their first
+  switch-in. They keep their real names, but their priority and stack size
+  are unknown (reported as 0) and they get no stack-usage samples - call
+  `VA_Init()` before creating tasks to get full data.
 
 ## Startup Sequence
 

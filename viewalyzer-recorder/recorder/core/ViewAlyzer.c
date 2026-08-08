@@ -132,33 +132,25 @@ static void _va_strcat_suffix(char *buf, size_t buf_size,
 }
 #endif /* VA_NEEDS_OBJECT_REGISTRY */
 
-#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined(__ARM_ARCH_8M_MAIN__) || defined(__ARM_ARCH_8M_BASE__)
-#define DWT_ENABLED 1
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined(__ARM_ARCH_8M_MAIN__) || defined(__ARM_ARCH_8M_BASE__) || defined(__ARM_ARCH_8_1M_MAIN__)
     static volatile uint32_t g_dwt_overflow_count = 0;
     static volatile uint32_t g_dwt_last_value = 0;
 #else
-#define DWT_ENABLED 0
-#warning "ViewAlyzer requires DWT Cycle Counter (Cortex-M3/M4/M7). ViewAlyzer functions disabled."
-#define DWT_NOT_AVAILABLE
+#error "ViewAlyzer: this architecture has no DWT cycle counter (timestamps need one). Supported: Cortex-M3 and later (ARMv7-M / ARMv8-M / ARMv8.1-M). Cortex-M0/M0+ (ARMv6-M) is not supported; build this target with VA_ENABLED=0."
 #endif
-
-#ifndef DWT_NOT_AVAILABLE /* Only compile the rest if DWT is enabled */
 
     /* ── Shared global state (exposed via VA_Internal.h) ────────── */
     volatile bool VA_IS_INIT = false;
 
-    /* Stream sync marker. Encodes the wire version (SYNC03 = v3 sequence
-       bytes, SYNC02 = v2); carries no sequence byte itself. */
-#if VA_SEQ_COUNTER
-    static const uint8_t VA_SYNC_MARKER[] = {0x56, 0x41, 0x5A, 0x03, 0x53, 0x59, 0x4E, 0x43, 0x30, 0x33, 0xAA, 0x55};
-#else
-    static const uint8_t VA_SYNC_MARKER[] = {0x56, 0x41, 0x5A, 0x02, 0x53, 0x59, 0x4E, 0x43, 0x30, 0x32, 0xAA, 0x55};
-#endif
+    /* Stream sync marker: "VAZ" + wire version (binary), "SYNC" + wire
+       version (ASCII), 0xAA 0x55. Carries no sequence byte itself. */
+    static const uint8_t VA_SYNC_MARKER[] = {0x56, 0x41, 0x5A, VA_WIRE_VERSION,
+                                             0x53, 0x59, 0x4E, 0x43,
+                                             '0', '0' + VA_WIRE_VERSION,
+                                             0xAA, 0x55};
 
-#if VA_SEQ_COUNTER
     /* Absolute packet count since VA_Init; low 8 bits go on the wire. */
     static uint32_t _va_seq = 0;
-#endif
 
     static uint32_t _va_cpu_freq = 0;
 
@@ -236,6 +228,30 @@ typedef char va_assert_info_markers_fit_[
     uint8_t next_queue_object_id = 1;
 #endif
 
+#if VA_TRACE_GPIO
+    /* GPIO channel registry. Stored so the periodic bundle can re-emit the
+       name map for late-attaching hosts. */
+    typedef struct
+    {
+        uint8_t id;
+        char name[VA_MAX_TASK_NAME_LEN];
+        bool active;
+    } VA_GpioMapEntry_t;
+    static VA_GpioMapEntry_t gpioMap[VA_MAX_GPIOS];
+#endif
+
+#if VA_TRACE_HEAP_METRICS
+    /* Manual heap-gauge registry (same late-attach rationale). */
+    typedef struct
+    {
+        uint8_t id;
+        char name[VA_MAX_TASK_NAME_LEN];
+        uint32_t totalSize;
+        bool active;
+    } VA_HeapGaugeMapEntry_t;
+    static VA_HeapGaugeMapEntry_t heapGaugeMap[VA_MAX_HEAPS];
+#endif
+
 /* ── Post-mortem snapshot ring (VA_RAMBUF_MODE_WRAP / VA_SNAPSHOT) ─── */
 #if VA_PM_RING
 /* Wrapping ring holding the most recent trace window, read out through the
@@ -252,9 +268,9 @@ typedef struct
     volatile uint32_t discarded;   /* frames overwritten + oversize drops   */
     volatile uint32_t flags;       /* bit0 frozen, bit1 has wrapped         */
     uint32_t          cpuFreqHz;   /* from VA_Init, 0 = unknown             */
-    uint8_t           wireVersion; /* 3 = seq bytes present, 2 = legacy     */
+    uint8_t           wireVersion; /* VA_WIRE_VERSION                       */
     uint8_t           tsBytes;     /* wire timestamp width (4)              */
-    uint16_t          reserved;
+    uint16_t          recorderVersion; /* (major << 8) | minor              */
     uint32_t          setupAddr;   /* names area (latest setup bundle), 0 = none */
     volatile uint32_t setupUsed;   /* valid bytes in the names area         */
 } VA_PmRingControlBlock_t;
@@ -457,7 +473,9 @@ static void _va_send_bytes(const uint8_t *data, uint32_t length)
 {
     if (!VA_IS_INIT)
         return;
-    SEGGER_RTT_Write(VA_RTT_CHANNEL, data, length);
+    unsigned written = SEGGER_RTT_Write(VA_RTT_CHANNEL, data, length);
+    if (written < length)
+        VA_TP_DROP(length - written);
 }
 
 #elif VA_TRANSPORT_IS_CUSTOM
@@ -488,6 +506,10 @@ typedef struct
     volatile uint32_t rdOff;          /* host-owned read offset              */
     volatile uint32_t droppedPackets; /* packets dropped since VA_Init       */
     uint32_t          flags;          /* bit0 = VA_RAMBUF_MODE               */
+    uint32_t          cpuFreqHz;      /* from VA_Init, 0 = unknown           */
+    uint8_t           wireVersion;    /* VA_WIRE_VERSION                     */
+    uint8_t           tsBytes;        /* wire timestamp width (4)            */
+    uint16_t          recorderVersion;/* (major << 8) | minor                */
 } VA_RamBufControlBlock_t;
 
 static VA_RAMBUF_ATTRIBUTES uint8_t s_va_rambuf_storage[VA_RAMBUF_SIZE];
@@ -599,11 +621,9 @@ static inline void _va_emit_packet_raw(const uint8_t *data, uint32_t length)
 
 void _va_emit_packet(uint8_t *data, uint32_t length)
 {
-#if VA_SEQ_COUNTER
     /* Stamped in the single funnel so sequence order is exactly wire order;
        packets dropped downstream keep their number (host sees gaps). */
     data[1] = (uint8_t)_va_seq++;
-#endif
     /* Triggering packet first, periodic bundle after: time-correlation
        anchors on the packet's wire position. */
     _va_emit_packet_raw(data, length);
@@ -682,7 +702,7 @@ static inline uint32_t _va_put_ts(uint8_t *dst, uint64_t timestamp)
 }
 
 /* All builders lay packets out as [type][seq][rest...]; the seq slot is
-   stamped centrally in _va_emit_packet (collapses away in wire v2). */
+   stamped centrally in _va_emit_packet. */
 
 void _va_send_event_packet(uint8_t type_byte, uint8_t id, uint64_t timestamp)
 {
@@ -693,7 +713,6 @@ void _va_send_event_packet(uint8_t type_byte, uint8_t id, uint64_t timestamp)
     _va_emit_packet(packet, sizeof(packet));
 }
 
-#if VA_SEQ_COUNTER
 /* Emit a sequence checkpoint. Must be called inside a VA critical section:
    the payload is read from _va_seq before emission, and because no packet can
    intervene inside the CS it is exactly the absolute sequence number this
@@ -713,7 +732,6 @@ static void _va_send_seq_checkpoint(void)
     packet[p++] = (uint8_t)(seq >> 24);
     _va_emit_packet(packet, p);
 }
-#endif
 
 void _va_send_setup_packet(uint8_t setupCode, uint8_t id, const char *name)
 {
@@ -731,6 +749,25 @@ void _va_send_setup_packet(uint8_t setupCode, uint8_t id, const char *name)
     memcpy(&buf[p], name, name_len);
     _va_emit_packet(buf, p + name_len);
 }
+
+#if VA_NEEDS_OBJECT_REGISTRY
+/* Typed per-object info: [0x7E][seq?][id][kind][value(4)], no name string.
+   The id is in the sync-object id space. */
+static void _va_send_object_info_packet(uint8_t id, uint8_t kind, uint32_t value)
+{
+    uint8_t packet[3 + VA_SEQ_BYTES + 4];
+    uint32_t p = 0;
+    packet[p++] = VA_SETUP_OBJECT_INFO;
+    p += VA_SEQ_BYTES;
+    packet[p++] = id;
+    packet[p++] = kind;
+    packet[p++] = (uint8_t)(value >> 0);
+    packet[p++] = (uint8_t)(value >> 8);
+    packet[p++] = (uint8_t)(value >> 16);
+    packet[p++] = (uint8_t)(value >> 24);
+    _va_emit_packet(packet, p);
+}
+#endif
 
 /* Typed flags packet: [0x77][seq?][group][value(4)], no name string. */
 static void _va_send_config_flags_packet(uint8_t group, uint32_t value)
@@ -907,7 +944,7 @@ void _va_send_data_event_packet(uint8_t type_byte, uint8_t id, uint32_t value, u
     _va_emit_packet(packet, p);
 }
 
-#if VA_TRACE_HEAP_METRICS || (VA_HAS_RTOS && VA_TRACE_RTOS_HEAPS)
+#if VA_TRACE_HEAP_METRICS
 void _va_send_heap_setup_packet(uint8_t id, const char *name, uint32_t totalSize)
 {
     uint8_t name_len = (uint8_t)strlen(name);
@@ -989,6 +1026,12 @@ void VA_TickOverflowCheck(void)
 {
     if (!VA_IS_INIT) return;
     (void)_va_get_timestamp();
+#if VA_TRANSPORT_IS_ITM
+    /* Re-arm a stalled ITM pipe (one bounded retry per call), so builds
+       with the periodic bundle disabled still recover when a host starts
+       draining SWO. */
+    _va_itm_stalled = 0;
+#endif
     /* Also a guaranteed unmasked-thread-context point for a due bundle, in
        case every log call happens under masked interrupts. */
     _va_service_pending_bundle();
@@ -1047,9 +1090,7 @@ void VA_EmitSetupBundle(void)
        packets; the host only needs each individual packet to be atomic. */
 
     VA_ATOMIC(_va_emit_sync_marker());
-#if VA_SEQ_COUNTER
     VA_ATOMIC(_va_send_seq_checkpoint());
-#endif
 
     {
         char info_buf[40];
@@ -1065,9 +1106,12 @@ void VA_EmitSetupBundle(void)
     VA_ATOMIC(_va_send_setup_packet(VA_SETUP_OS_INFO, 0, "BareMetal"));
 #endif
 
-    /* Which categories this firmware was built with (for late attachers). */
+    /* Which categories this firmware was built with (for late attachers),
+       plus the build flags and recorder version - the version rides the
+       bundle too so a host that attaches mid-session still learns it. */
     VA_ATOMIC(_va_send_config_flags_packet(VA_FLAG_GROUP_CATEGORIES, VA_TRACE_CATEGORY_MASK));
     VA_ATOMIC(_va_send_config_flags_packet(VA_FLAG_GROUP_BUILD, VA_BUILD_FLAGS));
+    VA_ATOMIC(_va_send_config_flags_packet(VA_FLAG_GROUP_VERSION, VA_RECORDER_VERSION_PACKED));
 
 #if VA_NEEDS_TASK_REGISTRY
     for (int i = 0; i < VA_MAX_TASKS; ++i)
@@ -1107,9 +1151,23 @@ void VA_EmitSetupBundle(void)
     for (int i = 0; i < VA_MAX_SYNC_OBJECTS; ++i)
     {
         if (queueObjectMap[i].active)
+        {
             VA_ATOMIC(_va_send_setup_packet(_va_get_setup_packet_type(queueObjectMap[i].type),
                                             queueObjectMap[i].id,
                                             queueObjectMap[i].name));
+            VA_ATOMIC(_va_send_object_info_packet(queueObjectMap[i].id,
+                                                  VA_OBJINFO_OBJECT_ADDR,
+                                                  (uint32_t)(uintptr_t)queueObjectMap[i].handle));
+#if VA_HAS_RTOS && VA_TRACE_RTOS_HEAPS
+            /* Heap capacity anchors the host's 100% line; re-sent so a host
+               that attached after registration still learns it. */
+            if (queueObjectMap[i].type == VA_OBJECT_TYPE_HEAP
+                && queueObjectMap[i].heapCapacity > 0)
+                VA_ATOMIC(_va_send_object_info_packet(queueObjectMap[i].id,
+                                                      VA_OBJINFO_HEAP_CAPACITY,
+                                                      queueObjectMap[i].heapCapacity));
+#endif
+        }
     }
 #endif
 
@@ -1134,6 +1192,21 @@ void VA_EmitSetupBundle(void)
         if (userEventMap[i].active)
             VA_ATOMIC(_va_send_setup_packet(VA_SETUP_USER_EVENT_MAP, userEventMap[i].id,
                                             userEventMap[i].name));
+    }
+#endif
+#if VA_TRACE_GPIO
+    for (int i = 0; i < VA_MAX_GPIOS; ++i)
+    {
+        if (gpioMap[i].active)
+            VA_ATOMIC(_va_send_setup_packet(VA_SETUP_GPIO_MAP, gpioMap[i].id, gpioMap[i].name));
+    }
+#endif
+#if VA_TRACE_HEAP_METRICS
+    for (int i = 0; i < VA_MAX_HEAPS; ++i)
+    {
+        if (heapGaugeMap[i].active)
+            VA_ATOMIC(_va_send_heap_setup_packet(heapGaugeMap[i].id, heapGaugeMap[i].name,
+                                                 heapGaugeMap[i].totalSize));
     }
 #endif
 
@@ -1245,6 +1318,9 @@ uint8_t _va_assign_task_id(void *handle, const char *name)
     taskMap[empty_slot].lastStackEmitTs = 0;
     taskMap[empty_slot].hasStackSample = false;
 #endif
+#if (VA_RTOS_SELECT == VA_RTOS_FREERTOS) && VA_TRACE_SLEEP
+    taskMap[empty_slot].sleeping = false;
+#endif
 
     _va_copy_name(taskMap[empty_slot].name, name);
 
@@ -1285,6 +1361,7 @@ const char *_va_get_object_type_name(VA_QueueObjectType_t type)
     case VA_OBJECT_TYPE_COUNTING_SEM:    return "CountingSem";
     case VA_OBJECT_TYPE_BINARY_SEM:      return "BinarySem";
     case VA_OBJECT_TYPE_RECURSIVE_MUTEX: return "RecursiveMutex";
+    case VA_OBJECT_TYPE_EVENTFLAG:       return "EventFlag";
     default:                             return "Unknown";
     }
 }
@@ -1294,6 +1371,9 @@ uint8_t _va_get_setup_packet_type(VA_QueueObjectType_t type)
     switch (type)
     {
     case VA_OBJECT_TYPE_QUEUE:
+    /* Event flags ride the queue map; the "EventFlag" name suffix carries
+       the type to the host (old hosts degrade to showing a queue). */
+    case VA_OBJECT_TYPE_EVENTFLAG:
         return VA_SETUP_QUEUE_MAP;
     case VA_OBJECT_TYPE_MUTEX:
     case VA_OBJECT_TYPE_RECURSIVE_MUTEX:
@@ -1358,6 +1438,14 @@ uint8_t _va_assign_queue_object_id(void *handle, const char *name, VA_QueueObjec
     if (handle == NULL)
         return 0;
 
+    /* Already registered: keep the existing id (a thread's first-touch
+       registration can race an ISR touching the same object). */
+    {
+        int existing = _va_find_queue_object_index(handle);
+        if (existing >= 0)
+            return queueObjectMap[existing].id;
+    }
+
     int empty_slot = -1;
     for (int i = 0; i < VA_MAX_SYNC_OBJECTS; ++i)
     {
@@ -1375,6 +1463,9 @@ uint8_t _va_assign_queue_object_id(void *handle, const char *name, VA_QueueObjec
     queueObjectMap[empty_slot].handle = handle;
     queueObjectMap[empty_slot].id = new_id;
     queueObjectMap[empty_slot].type = type;
+#if VA_HAS_RTOS && VA_TRACE_RTOS_HEAPS
+    queueObjectMap[empty_slot].heapCapacity = 0;
+#endif
 
     /* Prime the MRU cache with the freshly assigned slot. */
     _va_qobj_cache_handle = handle;
@@ -1390,6 +1481,10 @@ uint8_t _va_assign_queue_object_id(void *handle, const char *name, VA_QueueObjec
     }
 
     _va_send_setup_packet(_va_get_setup_packet_type(type), new_id, queueObjectMap[empty_slot].name);
+    /* The handle address lets hosts name statically-defined objects from
+       the ELF (heap-allocated handles simply resolve to nothing). */
+    _va_send_object_info_packet(new_id, VA_OBJINFO_OBJECT_ADDR,
+                                (uint32_t)(uintptr_t)handle);
     return new_id;
 }
 
@@ -1406,6 +1501,7 @@ static inline bool _va_type_emits_events(VA_QueueObjectType_t type)
     case VA_OBJECT_TYPE_TIMER:           return (VA_TRACE_TIMERS != 0);
     case VA_OBJECT_TYPE_HEAP:            return (VA_TRACE_RTOS_HEAPS != 0);
     case VA_OBJECT_TYPE_POWER_MGMT:      return (VA_TRACE_PM != 0);
+    case VA_OBJECT_TYPE_EVENTFLAG:       return (VA_TRACE_EVENT_FLAGS != 0);
     case VA_OBJECT_TYPE_QUEUE:
     default:                             return (VA_TRACE_QUEUES != 0);
     }
@@ -1446,6 +1542,7 @@ static inline uint8_t _va_event_type_for_object(VA_QueueObjectType_t type)
     case VA_OBJECT_TYPE_BINARY_SEM:      return VA_EVENT_SEMAPHORE;
     case VA_OBJECT_TYPE_TIMER:           return VA_EVENT_TIMER;
     case VA_OBJECT_TYPE_POWER_MGMT:      return VA_EVENT_PM_SUSPEND;
+    case VA_OBJECT_TYPE_EVENTFLAG:       return VA_EVENT_EVENTFLAG;
     case VA_OBJECT_TYPE_QUEUE:
     default:                             return VA_EVENT_QUEUE;
     }
@@ -1526,6 +1623,24 @@ void va_taskdeleted(void *taskHandle)
         return;
     VA_CS_ENTER();
     _va_release_task(_va_find_task_index(taskHandle));
+    VA_CS_EXIT();
+}
+
+/* Update a registered task's name and re-emit its name map (a task that
+   gets its name after creation, e.g. Zephyr k_thread_name_set). Unknown
+   handles are ignored; the switch-in path registers them with the new
+   name instead. */
+void va_taskrenamed(void *taskHandle, const char *name)
+{
+    if (taskHandle == NULL || name == NULL || name[0] == '\0')
+        return;
+    VA_CS_ENTER();
+    int idx = _va_find_task_index(taskHandle);
+    if (idx >= 0)
+    {
+        _va_copy_name(taskMap[idx].name, name);
+        _va_send_setup_packet(VA_SETUP_TASK_MAP, taskMap[idx].id, taskMap[idx].name);
+    }
     VA_CS_EXIT();
 }
 #endif /* VA_NEEDS_TASK_REGISTRY */
@@ -1714,6 +1829,21 @@ void VA_RegisterGPIO(uint8_t id, const char *name)
         VA_CS_EXIT();
         return;
     }
+
+    /* Store for periodic re-emission (late-attaching hosts). */
+    int slot = -1;
+    for (int i = 0; i < VA_MAX_GPIOS; ++i)
+    {
+        if (gpioMap[i].active && gpioMap[i].id == id) { slot = i; break; }
+        if (slot < 0 && !gpioMap[i].active) slot = i;
+    }
+    if (slot >= 0)
+    {
+        gpioMap[slot].active = true;
+        gpioMap[slot].id = id;
+        _va_copy_name(gpioMap[slot].name, name);
+    }
+
     _va_send_setup_packet(VA_SETUP_GPIO_MAP, id, name);
     VA_CS_EXIT();
 }
@@ -1746,6 +1876,22 @@ void VA_RegisterHeap(uint8_t id, const char *name, uint32_t totalSize)
         VA_CS_EXIT();
         return;
     }
+
+    /* Store for periodic re-emission (late-attaching hosts). */
+    int slot = -1;
+    for (int i = 0; i < VA_MAX_HEAPS; ++i)
+    {
+        if (heapGaugeMap[i].active && heapGaugeMap[i].id == id) { slot = i; break; }
+        if (slot < 0 && !heapGaugeMap[i].active) slot = i;
+    }
+    if (slot >= 0)
+    {
+        heapGaugeMap[slot].active = true;
+        heapGaugeMap[slot].id = id;
+        heapGaugeMap[slot].totalSize = totalSize;
+        _va_copy_name(heapGaugeMap[slot].name, name);
+    }
+
     _va_send_heap_setup_packet(id, name, totalSize);
     VA_CS_EXIT();
 }
@@ -1889,6 +2035,8 @@ void va_updateQueueObjectType(void *queueObject, const char *typeHint)
                 type = VA_OBJECT_TYPE_BINARY_SEM;
             else if (strstr(typeHint, "Semaphore") != NULL || strstr(typeHint, "Sem") != NULL)
                 type = VA_OBJECT_TYPE_COUNTING_SEM;
+            else if (strstr(typeHint, "EvtFlag") != NULL || strstr(typeHint, "EventFlag") != NULL)
+                type = VA_OBJECT_TYPE_EVENTFLAG;
         }
 
         /* Corrected type belongs to an untraced category: give the slot
@@ -1970,6 +2118,8 @@ void va_logQueueObjectCreateWithType(void *queueObject, const char *typeHint)
             type = VA_OBJECT_TYPE_TIMER;
         else if (strstr(typeHint, "Heap") != NULL)
             type = VA_OBJECT_TYPE_HEAP;
+        else if (strstr(typeHint, "EvtFlag") != NULL || strstr(typeHint, "EventFlag") != NULL)
+            type = VA_OBJECT_TYPE_EVENTFLAG;
     }
 
     char descriptiveName[VA_MAX_TASK_NAME_LEN];
@@ -2028,12 +2178,43 @@ void va_logQueueObjectCreateWithType(void *queueObject, const char *typeHint)
                 finalName = descriptiveName;
             }
             break;
+        case VA_OBJECT_TYPE_EVENTFLAG:
+            if (strstr(typeHint, "EvtFlag") == NULL && strstr(typeHint, "EventFlag") == NULL)
+            {
+                _va_strcat_suffix(descriptiveName, sizeof(descriptiveName), typeHint, "EvtFlag");
+                finalName = descriptiveName;
+            }
+            break;
         default:
             break;
         }
     }
 
     _va_assign_queue_object_id(queueObject, finalName, type);
+    VA_CS_EXIT();
+}
+
+/* User-assigned object name (FreeRTOS vQueueAddToRegistry). Replaces any
+   auto-generated name verbatim and re-emits the name map. */
+void va_logQueueObjectSetName(void *queueObject, const char *name)
+{
+    if (queueObject == NULL || name == NULL || name[0] == '\0')
+        return;
+
+    VA_CS_ENTER();
+    int idx = _va_find_queue_object_index(queueObject);
+    if (idx >= 0)
+    {
+        _va_copy_name(queueObjectMap[idx].name, name);
+        _va_send_setup_packet(_va_get_setup_packet_type(queueObjectMap[idx].type),
+                              queueObjectMap[idx].id, queueObjectMap[idx].name);
+    }
+    else
+    {
+        VA_QueueObjectType_t type = va_adapter_get_queue_object_type(queueObject);
+        if (_va_type_needs_registry(type))
+            _va_assign_queue_object_id(queueObject, name, type);
+    }
     VA_CS_EXIT();
 }
 
@@ -2094,7 +2275,228 @@ void va_logQueueObjectTake(void *queueObject, uint32_t timeout)
     VA_CS_EXIT();
 }
 
+/* ── Typed object entry points ───────────────────────────────────────
+   For objects whose native handle the adapter cannot classify (FreeRTOS
+   software timers, event groups, heap sentinels). The caller-supplied type
+   routes both registration and event emission; va_adapter_get_queue_object_type
+   is never consulted, so these are safe for non-Queue_t handles. */
+
+void va_logQueueObjectCreateTyped(void *queueObject, const char *name, VA_QueueObjectType_t type)
+{
+    if (queueObject == NULL || !_va_type_needs_registry(type))
+        return;
+
+    VA_CS_ENTER();
+    int idx = _va_find_queue_object_index(queueObject);
+    if (idx >= 0)
+    {
+        /* Repeated create at a live slot: refresh the type and name. */
+        queueObjectMap[idx].type = type;
+        if (name != NULL && name[0] != '\0')
+        {
+            _va_copy_name(queueObjectMap[idx].name, name);
+            _va_send_setup_packet(_va_get_setup_packet_type(type),
+                                  queueObjectMap[idx].id, queueObjectMap[idx].name);
+        }
+    }
+    else
+    {
+        _va_assign_queue_object_id(queueObject,
+                                   (name != NULL && name[0] != '\0') ? name : NULL,
+                                   type);
+    }
+    VA_CS_EXIT();
+}
+
+void va_logQueueObjectGiveTyped(void *queueObject, VA_QueueObjectType_t type)
+{
+    if (queueObject == NULL || !_va_type_emits_events(type))
+        return;
+
+    _va_service_pending_bundle();
+    VA_CS_ENTER();
+    uint8_t id = _va_find_queue_object_id(queueObject);
+    if (id == 0)
+        id = _va_assign_queue_object_id(queueObject, NULL, type);
+    _va_send_event_packet(VA_EVENT_FLAG_START_END | _va_event_type_for_object(type),
+                          id, _va_get_timestamp_unlocked());
+    VA_CS_EXIT();
+}
+
+void va_logQueueObjectTakeTyped(void *queueObject, VA_QueueObjectType_t type)
+{
+    if (queueObject == NULL || !_va_type_emits_events(type))
+        return;
+
+    _va_service_pending_bundle();
+    VA_CS_ENTER();
+    uint8_t id = _va_find_queue_object_id(queueObject);
+    if (id == 0)
+        id = _va_assign_queue_object_id(queueObject, NULL, type);
+    _va_send_event_packet(_va_event_type_for_object(type), id, _va_get_timestamp_unlocked());
+    VA_CS_EXIT();
+}
+
+/* ── Failed operations ───────────────────────────────────────────────
+   One wire event covers every sync-object failure: timeout, no space, no
+   data. Follows the object's own category, so a build that traces queues
+   also sees their failures - no extra knob. */
+
+void va_logObjectOpFailedTyped(void *queueObject, VA_QueueObjectType_t type,
+                               bool giveSide, uint32_t detail)
+{
+    if (queueObject == NULL || !_va_type_emits_events(type))
+        return;
+
+    _va_service_pending_bundle();
+    VA_CS_ENTER();
+    uint8_t id = _va_find_queue_object_id(queueObject);
+    if (id == 0)
+        id = _va_assign_queue_object_id(queueObject, NULL, type);
+    _va_send_data_event_packet(giveSide ? (VA_EVENT_FLAG_START_END | VA_EVENT_OP_FAILED)
+                                        : VA_EVENT_OP_FAILED,
+                               id, detail, _va_get_timestamp_unlocked());
+    VA_CS_EXIT();
+}
+
+void va_logQueueObjectOpFailed(void *queueObject, bool giveSide, uint32_t detail)
+{
+    if (queueObject == NULL)
+        return;
+
+#if VA_NEEDS_SYNC_PREFILTER
+    if (!_va_type_emits_events(va_adapter_get_queue_object_type(queueObject)))
+        return;
+#endif
+
+    VA_CS_ENTER();
+    VA_QueueObjectType_t type = _va_get_stored_queue_object_type(queueObject);
+    VA_CS_EXIT();
+    va_logObjectOpFailedTyped(queueObject, type, giveSide, detail);
+}
+
 #endif /* VA_NEEDS_OBJECT_REGISTRY */
+
+/* ── Event flags (FreeRTOS event groups / Zephyr k_event) ────────── */
+#if VA_HAS_RTOS && VA_TRACE_EVENT_FLAGS
+
+void va_logEventFlagSet(void *flagObject, uint32_t bits)
+{
+    if (flagObject == NULL)
+        return;
+
+    _va_service_pending_bundle();
+    VA_CS_ENTER();
+    uint8_t id = _va_find_queue_object_id(flagObject);
+    if (id == 0)
+        id = _va_assign_queue_object_id(flagObject, NULL, VA_OBJECT_TYPE_EVENTFLAG);
+    _va_send_data_event_packet(VA_EVENT_FLAG_START_END | VA_EVENT_EVENTFLAG,
+                               id, bits, _va_get_timestamp_unlocked());
+    VA_CS_EXIT();
+}
+
+void va_logEventFlagWaitEnd(void *flagObject, uint32_t bits)
+{
+    if (flagObject == NULL)
+        return;
+
+    _va_service_pending_bundle();
+    VA_CS_ENTER();
+    uint8_t id = _va_find_queue_object_id(flagObject);
+    if (id == 0)
+        id = _va_assign_queue_object_id(flagObject, NULL, VA_OBJECT_TYPE_EVENTFLAG);
+    _va_send_data_event_packet(VA_EVENT_EVENTFLAG, id, bits, _va_get_timestamp_unlocked());
+    VA_CS_EXIT();
+}
+
+#endif /* VA_TRACE_EVENT_FLAGS */
+
+/* ── Two-value events (timer arm, deferred work) ─────────────────── */
+#if VA_HAS_RTOS && (VA_TRACE_TIMERS || VA_TRACE_WORK)
+
+/* [type][seq?][id][ts][v1(4)][v2(4)], both values little-endian. */
+static void _va_send_dual_u32_packet(uint8_t type_byte, uint8_t id,
+                                     uint32_t v1, uint32_t v2, uint64_t timestamp)
+{
+    uint8_t packet[2 + VA_SEQ_BYTES + VA_TIMESTAMP_BYTES + 8];
+    uint32_t p = 0;
+    packet[p++] = type_byte;
+    p += VA_SEQ_BYTES;
+    packet[p++] = id;
+    p += _va_put_ts(&packet[p], timestamp);
+    packet[p++] = (uint8_t)(v1 >> 0);
+    packet[p++] = (uint8_t)(v1 >> 8);
+    packet[p++] = (uint8_t)(v1 >> 16);
+    packet[p++] = (uint8_t)(v1 >> 24);
+    packet[p++] = (uint8_t)(v2 >> 0);
+    packet[p++] = (uint8_t)(v2 >> 8);
+    packet[p++] = (uint8_t)(v2 >> 16);
+    packet[p++] = (uint8_t)(v2 >> 24);
+    _va_emit_packet(packet, p);
+}
+
+#endif /* VA_TRACE_TIMERS || VA_TRACE_WORK */
+
+/* ── Timer arm (duration/period payload) ─────────────────────────── */
+#if VA_HAS_RTOS && VA_TRACE_TIMERS
+
+void va_logTimerArm(void *timerObject, uint32_t durationMs, uint32_t periodMs)
+{
+    if (timerObject == NULL)
+        return;
+    /* Clamp so a "never" timeout survives the signed db columns. */
+    if (durationMs > 0x7FFFFFFFu)
+        durationMs = 0x7FFFFFFFu;
+    if (periodMs > 0x7FFFFFFFu)
+        periodMs = 0x7FFFFFFFu;
+
+    _va_service_pending_bundle();
+    VA_CS_ENTER();
+    uint8_t id = _va_find_queue_object_id(timerObject);
+    if (id == 0)
+        id = _va_assign_queue_object_id(timerObject, NULL, VA_OBJECT_TYPE_TIMER);
+    _va_send_dual_u32_packet(VA_EVENT_TIMER_ARM, id, durationMs, periodMs,
+                             _va_get_timestamp_unlocked());
+    VA_CS_EXIT();
+}
+
+#endif /* VA_TRACE_TIMERS */
+
+/* ── Deferred work (Zephyr k_work family) ────────────────────────── */
+#if VA_HAS_RTOS && VA_TRACE_WORK
+
+/* Work items consume no object ids (id byte 0); the handler address is
+   the identity and the host symbolicates it from the ELF. */
+
+void va_logWorkArm(void *handler, uint32_t delayMs)
+{
+    if (handler == NULL)
+        return;
+    /* Clamp so a "never" delay survives the signed db column. */
+    if (delayMs > 0x7FFFFFFFu)
+        delayMs = 0x7FFFFFFFu;
+
+    _va_service_pending_bundle();
+    VA_CS_ENTER();
+    _va_send_dual_u32_packet(VA_EVENT_FLAG_START_END | VA_EVENT_WORK, 0,
+                             (uint32_t)(uintptr_t)handler, delayMs,
+                             _va_get_timestamp_unlocked());
+    VA_CS_EXIT();
+}
+
+void va_logWorkCancel(void *handler)
+{
+    if (handler == NULL)
+        return;
+
+    _va_service_pending_bundle();
+    VA_CS_ENTER();
+    _va_send_dual_u32_packet(VA_EVENT_WORK, 0, (uint32_t)(uintptr_t)handler, 0,
+                             _va_get_timestamp_unlocked());
+    VA_CS_EXIT();
+}
+
+#endif /* VA_TRACE_WORK */
 
 #if VA_NEEDS_BLOCKING_HOOK
 /* Registers the object even when VA_TRACE_MUTEXES is off: the contention
@@ -2158,12 +2560,20 @@ void va_logHeapCapacity(void *heapObject, const char *name, uint32_t totalSize)
         return;
 
     VA_CS_ENTER();
-    uint8_t id = _va_find_queue_object_id(heapObject);
-    if (id == 0)
+    int idx = _va_find_queue_object_index(heapObject);
+    if (idx < 0)
     {
-        id = _va_assign_queue_object_id(heapObject, name, VA_OBJECT_TYPE_HEAP);
+        _va_assign_queue_object_id(heapObject, name, VA_OBJECT_TYPE_HEAP);
+        idx = _va_find_queue_object_index(heapObject);
     }
-    _va_send_heap_setup_packet(id, name, totalSize);
+    if (idx >= 0)
+    {
+        queueObjectMap[idx].heapCapacity = totalSize;
+        /* Capacity travels in the sync-object id space (VA_SETUP_HEAP_INFO
+           belongs to the manual heap gauges, whose ids can collide). */
+        _va_send_object_info_packet(queueObjectMap[idx].id,
+                                    VA_OBJINFO_HEAP_CAPACITY, totalSize);
+    }
     VA_CS_EXIT();
 }
 
@@ -2252,9 +2662,7 @@ void VA_Init(uint32_t cpu_freq)
     _va_task_cache_idx    = -1;
 #endif
 
-#if VA_SEQ_COUNTER
     _va_seq = 0;
-#endif
 
 #if VA_AUTO_SETUP_INTERVAL_MS > 0
     _va_bundle.last_cyc = 0;
@@ -2299,6 +2707,9 @@ void VA_Init(uint32_t cpu_freq)
         taskMap[i].lastStackEmitTs = 0;
         taskMap[i].hasStackSample = false;
 #endif
+#if (VA_RTOS_SELECT == VA_RTOS_FREERTOS) && VA_TRACE_SLEEP
+        taskMap[i].sleeping = false;
+#endif
     }
     next_task_id = 1;
     _va_task_map_overflow = false;
@@ -2322,6 +2733,25 @@ void VA_Init(uint32_t cpu_freq)
         userEventMap[i].active = false;
         userEventMap[i].id = 0;
         userEventMap[i].name[0] = '\0';
+    }
+#endif
+
+#if VA_TRACE_GPIO
+    for (int i = 0; i < VA_MAX_GPIOS; ++i)
+    {
+        gpioMap[i].active = false;
+        gpioMap[i].id = 0;
+        gpioMap[i].name[0] = '\0';
+    }
+#endif
+
+#if VA_TRACE_HEAP_METRICS
+    for (int i = 0; i < VA_MAX_HEAPS; ++i)
+    {
+        heapGaugeMap[i].active = false;
+        heapGaugeMap[i].id = 0;
+        heapGaugeMap[i].totalSize = 0;
+        heapGaugeMap[i].name[0] = '\0';
     }
 #endif
 
@@ -2366,6 +2796,11 @@ void VA_Init(uint32_t cpu_freq)
     _VA_RAMBUF.rdOff          = 0;
     _VA_RAMBUF.droppedPackets = 0;
     _VA_RAMBUF.flags          = VA_RAMBUF_MODE;
+    _VA_RAMBUF.cpuFreqHz      = _va_cpu_freq;
+    _VA_RAMBUF.wireVersion    = (uint8_t)VA_WIRE_VERSION;
+    _VA_RAMBUF.tsBytes        = (uint8_t)VA_TIMESTAMP_BYTES;
+    _VA_RAMBUF.recorderVersion = (uint16_t)((VA_RECORDER_VERSION_MAJOR << 8)
+                                           | VA_RECORDER_VERSION_MINOR);
     __DMB();
     /* Magic written last and backwards, so a scanning host can never match a
        partially initialised control block. */
@@ -2384,9 +2819,10 @@ void VA_Init(uint32_t cpu_freq)
     _VA_PMBUF.discarded   = 0;
     _VA_PMBUF.flags       = 0;
     _VA_PMBUF.cpuFreqHz   = _va_cpu_freq;
-    _VA_PMBUF.wireVersion = (uint8_t)(VA_SEQ_COUNTER ? 3 : 2);
+    _VA_PMBUF.wireVersion = (uint8_t)VA_WIRE_VERSION;
     _VA_PMBUF.tsBytes     = (uint8_t)VA_TIMESTAMP_BYTES;
-    _VA_PMBUF.reserved    = 0;
+    _VA_PMBUF.recorderVersion = (uint16_t)((VA_RECORDER_VERSION_MAJOR << 8)
+                                          | VA_RECORDER_VERSION_MINOR);
 #if VA_SNAPSHOT_SETUP_SIZE > 0
     _VA_PMBUF.setupAddr   = (uint32_t)(uintptr_t)&s_va_pm_setup[0];
 #else
@@ -2407,11 +2843,9 @@ void VA_Init(uint32_t cpu_freq)
     /* Session-start marker: fresh VA_Init, not a periodic re-emission. */
     _va_send_setup_packet(VA_SETUP_INFO, 0, "SES:START");
 
-#if VA_SEQ_COUNTER
     /* MUST come after SES:START (the host resets its sequence epoch on SES;
        the reverse order reads as a phantom loss burst). */
     _va_send_seq_checkpoint();
-#endif
 
     char info_buf[40];
     _va_u32_to_str(info_buf, sizeof(info_buf), "CLK:", _va_cpu_freq);
@@ -2422,6 +2856,7 @@ void VA_Init(uint32_t cpu_freq)
 
     _va_send_config_flags_packet(VA_FLAG_GROUP_CATEGORIES, VA_TRACE_CATEGORY_MASK);
     _va_send_config_flags_packet(VA_FLAG_GROUP_BUILD, VA_BUILD_FLAGS);
+    _va_send_config_flags_packet(VA_FLAG_GROUP_VERSION, VA_RECORDER_VERSION_PACKED);
 
 #if (VA_RTOS_SELECT == VA_RTOS_FREERTOS)
     _va_send_setup_packet(VA_SETUP_OS_INFO, 0, "FreeRTOS");
@@ -2434,7 +2869,6 @@ void VA_Init(uint32_t cpu_freq)
     VA_CS_EXIT();
 }
 
-#endif /* DWT_NOT_AVAILABLE check */
 #endif /* VA_ENABLED check */
 
 #ifdef __cplusplus

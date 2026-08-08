@@ -26,8 +26,33 @@
 #ifndef VIEWALYZER_H
 #define VIEWALYZER_H
 
-/* Recorder source version (bump on any wire/packet or API change). */
-#define VA_RECORDER_VERSION "1.3.0"
+/* Recorder version. Semver, bumped only at tagged releases: patch = fixes,
+   minor = additive (new event codes, category bits, flag groups), major =
+   breaking wire/API change. The three numeric parts are the source of truth;
+   the string and packed forms derive from them. */
+#define VA_RECORDER_VERSION_MAJOR 1
+#define VA_RECORDER_VERSION_MINOR 0
+#define VA_RECORDER_VERSION_PATCH 0
+
+#define VA_VERSION_STR2_(x) #x
+#define VA_VERSION_STR_(x)  VA_VERSION_STR2_(x)
+#define VA_RECORDER_VERSION                    \
+    VA_VERSION_STR_(VA_RECORDER_VERSION_MAJOR) \
+    "." VA_VERSION_STR_(VA_RECORDER_VERSION_MINOR) \
+    "." VA_VERSION_STR_(VA_RECORDER_VERSION_PATCH)
+
+/* On-wire form (VA_SETUP_CONFIG_FLAGS group VA_FLAG_GROUP_VERSION). */
+#define VA_RECORDER_VERSION_PACKED                     \
+    (((uint32_t)VA_RECORDER_VERSION_MAJOR << 16)       \
+   | ((uint32_t)VA_RECORDER_VERSION_MINOR << 8)        \
+   | ((uint32_t)VA_RECORDER_VERSION_PATCH))
+
+/* Wire protocol id, decoupled from the recorder version above. Encoded in
+   the sync marker (byte 3 binary, bytes 8-9 ASCII) and the ring control
+   blocks. Format 1 = 32-bit timestamps + per-packet sequence bytes. Bumps
+   only on a breaking framing change; additive event/setup codes do NOT bump
+   it (hosts gate on the category mask and packet presence instead). */
+#define VA_WIRE_VERSION 1
 
 #include "ViewAlyzerConfig.h"
 #include <stdint.h>
@@ -92,10 +117,32 @@ typedef void (*VA_TransportSendFn)(const uint8_t *data, uint32_t length);
 #define VA_EVENT_TIMER            0x13
 #define VA_EVENT_HEAP_SYNC        0x14
 #define VA_EVENT_PM_SUSPEND       0x15
-/* v3 only: payload = 32-bit absolute sequence number of this packet. */
+/* Payload = 32-bit absolute sequence number of this packet. */
 #define VA_EVENT_SEQ_CHECKPOINT   0x16
-/* v3+: id = heap object, value = requested bytes of the failed alloc. */
+/* id = heap object, value = requested bytes of the failed alloc. */
 #define VA_EVENT_HEAP_FAIL        0x17
+/* Event-flag group (FreeRTOS event group / Zephyr k_event).
+   START flag = bits set/posted (value = the bits); no flag = a wait was
+   satisfied (value = the bits waited for / matched). */
+#define VA_EVENT_EVENTFLAG        0x18
+/* An operation on a sync object FAILED (timeout / no space / no data).
+   id = object id, START flag = give/send/set side, no flag = take/receive/
+   wait side; value = operation detail (waited-for bits for event flags,
+   0 otherwise). Distinct from VA_EVENT_HEAP_FAIL. */
+#define VA_EVENT_OP_FAILED        0x19
+/* Deferred work (Zephyr k_work family). Payload after the timestamp
+   is [handler(4)][delay_ms(4)], both little-endian; the handler address is
+   symbolicated by the host from the ELF, and work items consume no object
+   ids (the id byte is 0). START flag = armed (delay_ms 0 = submitted to
+   run now, >0 = scheduled that far ahead); no flag = canceled. There is no
+   execution trace point in the kernel, so the host derives the expected
+   fire time from arm + delay and must not fabricate start/end events. */
+#define VA_EVENT_WORK             0x1A
+/* A kernel timer was armed. Emitted alongside (not instead of) the
+   Timer give event; id = the timer's sync-object id, payload after the
+   timestamp is [duration_ms(4)][period_ms(4)]. period 0 = one-shot; the
+   first expected fire is arm + duration, later ones repeat at period. */
+#define VA_EVENT_TIMER_ARM        0x1B
 
 
 /* --- Setup Message Codes --- */
@@ -116,7 +163,18 @@ typedef void (*VA_TransportSendFn)(const uint8_t *data, uint32_t length);
 #define VA_SETUP_TIMER_MAP         0x7B
 #define VA_SETUP_HEAP_MAP          0x7C
 #define VA_SETUP_PM_MAP            0x7D
+/* Typed per-object info: [0x7E][seq?][id(1)][kind(1)][value(4, LE)].
+   id is in the SYNC-OBJECT id space (unlike VA_SETUP_HEAP_INFO, whose id
+   space is the manual heap gauges). Fixed length, no name string. */
+#define VA_SETUP_OBJECT_INFO       0x7E
 #define VA_SETUP_INFO              0x7F
+
+/* VA_SETUP_OBJECT_INFO kinds. */
+#define VA_OBJINFO_HEAP_CAPACITY   0x01   /* value = heap capacity in bytes */
+#define VA_OBJINFO_OBJECT_ADDR     0x02   /* value = the object's native handle
+                                             address, so hosts can name
+                                             statically-defined objects from
+                                             the ELF's data symbols */
 
     typedef enum
     {
@@ -152,7 +210,8 @@ typedef void (*VA_TransportSendFn)(const uint8_t *data, uint32_t length);
         VA_OBJECT_TYPE_RECURSIVE_MUTEX = 4,
         VA_OBJECT_TYPE_TIMER           = 5,
         VA_OBJECT_TYPE_HEAP            = 6,
-        VA_OBJECT_TYPE_POWER_MGMT      = 7
+        VA_OBJECT_TYPE_POWER_MGMT      = 7,
+        VA_OBJECT_TYPE_EVENTFLAG       = 8
     } VA_QueueObjectType_t;
 
 /* --- Static ISR IDs --- */
@@ -281,6 +340,8 @@ typedef void (*VA_TransportSendFn)(const uint8_t *data, uint32_t length);
     /* Frees the registry slot so a recycled TCB/thread address cannot
        inherit the dead task's identity. The id is never reused. */
     void va_taskdeleted(void *taskHandle);
+    /* Updates the stored name and re-emits the task's name map. */
+    void va_taskrenamed(void *taskHandle, const char *name);
 
     /* Task-creation scratch globals, filled by the adapter just before
        va_taskcreated(). Declared here so the kernel-compiled hook header
@@ -293,6 +354,7 @@ typedef void (*VA_TransportSendFn)(const uint8_t *data, uint32_t length);
 #else
 #define va_taskcreated(h, n) VA_DISCARD_ARGS(h, n)
 #define va_taskdeleted(h)    VA_DISCARD_ARGS(h)
+#define va_taskrenamed(h, n) VA_DISCARD_ARGS(h, n)
 #endif
 
 #if VA_NEEDS_SWITCH_HOOK
@@ -337,25 +399,79 @@ typedef void (*VA_TransportSendFn)(const uint8_t *data, uint32_t length);
 #if VA_NEEDS_OBJECT_REGISTRY
     void va_logQueueObjectCreate(void *queueObject, const char *name);
     void va_logQueueObjectCreateWithType(void *queueObject, const char *typeHint);
+    /* Typed entry points for objects the adapter cannot classify from the
+       handle alone (FreeRTOS software timers, event groups, heap sentinels -
+       anything that is not a Queue_t). The caller states the object type;
+       the adapter's handle inspection is never consulted. */
+    void va_logQueueObjectCreateTyped(void *queueObject, const char *name, VA_QueueObjectType_t type);
+    void va_logQueueObjectGiveTyped(void *queueObject, VA_QueueObjectType_t type);
+    void va_logQueueObjectTakeTyped(void *queueObject, VA_QueueObjectType_t type);
     void va_updateQueueObjectType(void *queueObject, const char *typeHint);
     /* Frees the registry slot on object deletion (same rule as tasks: the
        slot is reusable, the id is not). */
     void va_logQueueObjectDelete(void *queueObject);
+    /* User-assigned name (FreeRTOS vQueueAddToRegistry); replaces the
+       auto-generated name and re-emits the name map. */
+    void va_logQueueObjectSetName(void *queueObject, const char *name);
     void va_logQueueObjectGive(void *queueObject, uint32_t timeout);
     void va_logQueueObjectTake(void *queueObject, uint32_t timeout);
+    /* A failed give/send (giveSide true) or take/receive (false) on a sync
+       object: timeout, no space, or no data. The typed variant is for
+       handles the adapter cannot classify (event flags). detail rides the
+       value field (waited-for bits for event flags, 0 otherwise). */
+    void va_logQueueObjectOpFailed(void *queueObject, bool giveSide, uint32_t detail);
+    void va_logObjectOpFailedTyped(void *queueObject, VA_QueueObjectType_t type, bool giveSide, uint32_t detail);
 #else
 #define va_logQueueObjectCreate(queueObject, name)             VA_DISCARD_ARGS(queueObject, name)
 #define va_logQueueObjectCreateWithType(queueObject, typeHint) VA_DISCARD_ARGS(queueObject, typeHint)
+#define va_logQueueObjectCreateTyped(queueObject, name, type)  VA_DISCARD_ARGS(queueObject, name, type)
+#define va_logQueueObjectGiveTyped(queueObject, type)          VA_DISCARD_ARGS(queueObject, type)
+#define va_logQueueObjectTakeTyped(queueObject, type)          VA_DISCARD_ARGS(queueObject, type)
 #define va_updateQueueObjectType(queueObject, typeHint)        VA_DISCARD_ARGS(queueObject, typeHint)
 #define va_logQueueObjectDelete(queueObject)                   VA_DISCARD_ARGS(queueObject)
+#define va_logQueueObjectSetName(queueObject, name)            VA_DISCARD_ARGS(queueObject, name)
 #define va_logQueueObjectGive(queueObject, timeout)            VA_DISCARD_ARGS(queueObject, timeout)
 #define va_logQueueObjectTake(queueObject, timeout)            VA_DISCARD_ARGS(queueObject, timeout)
+#define va_logQueueObjectOpFailed(queueObject, giveSide, detail) VA_DISCARD_ARGS(queueObject, giveSide, detail)
+#define va_logObjectOpFailedTyped(queueObject, type, giveSide, detail) \
+    (VA_DISCARD_2(queueObject, type), VA_DISCARD_2(giveSide, detail))
 #endif
 
 #if VA_NEEDS_BLOCKING_HOOK
     void va_logQueueObjectBlocking(void *queueObject);
 #else
 #define va_logQueueObjectBlocking(queueObject) VA_DISCARD_ARGS(queueObject)
+#endif
+
+/* ── Event flags (FreeRTOS event groups / Zephyr k_event) ────────── */
+#if VA_HAS_RTOS && VA_TRACE_EVENT_FLAGS
+    void va_logEventFlagSet(void *flagObject, uint32_t bits);
+    void va_logEventFlagWaitEnd(void *flagObject, uint32_t bits);
+#else
+#define va_logEventFlagSet(flagObject, bits)     VA_DISCARD_ARGS(flagObject, bits)
+#define va_logEventFlagWaitEnd(flagObject, bits) VA_DISCARD_ARGS(flagObject, bits)
+#endif
+
+/* ── Timer arm (duration/period at k_timer_start / xTimerStart) ──── */
+#if VA_HAS_RTOS && VA_TRACE_TIMERS
+    /** Emitted by the adapters when a timer is armed, alongside the Timer
+     *  give event. periodMs 0 = one-shot. */
+    void va_logTimerArm(void *timerObject, uint32_t durationMs, uint32_t periodMs);
+#else
+#define va_logTimerArm(timerObject, durationMs, periodMs) \
+    VA_DISCARD_ARGS(timerObject, durationMs, periodMs)
+#endif
+
+/* ── Deferred work (Zephyr k_work family) ────────────────────────── */
+#if VA_HAS_RTOS && VA_TRACE_WORK
+    /** Work armed: delayMs 0 = submitted to run now, >0 = scheduled that
+     *  far ahead (rescheduling arms again with the new delay). The handler
+     *  address identifies the work item; no object id is consumed. */
+    void va_logWorkArm(void *handler, uint32_t delayMs);
+    void va_logWorkCancel(void *handler);
+#else
+#define va_logWorkArm(handler, delayMs) VA_DISCARD_ARGS(handler, delayMs)
+#define va_logWorkCancel(handler)       VA_DISCARD_ARGS(handler)
 #endif
 
 /* ── Kernel heap allocator tracing ───────────────────────────── */
@@ -432,14 +548,27 @@ typedef void (*VA_TransportSendFn)(const uint8_t *data, uint32_t length);
 #define va_taskswitchedout(h) VA_DISCARD_ARGS(h)
 #define va_taskcreated(h, n) VA_DISCARD_ARGS(h, n)
 #define va_taskdeleted(h) VA_DISCARD_ARGS(h)
+#define va_taskrenamed(h, n) VA_DISCARD_ARGS(h, n)
 #define va_logtasknotifygive(s, d, v) VA_DISCARD_ARGS(s, d, v)
 #define va_logtasknotifytake(h, v) VA_DISCARD_ARGS(h, v)
 #define va_logQueueObjectCreate(queueObject, name) VA_DISCARD_ARGS(queueObject, name)
 #define va_logQueueObjectCreateWithType(queueObject, typeHint) VA_DISCARD_ARGS(queueObject, typeHint)
+#define va_logQueueObjectCreateTyped(queueObject, name, type) VA_DISCARD_ARGS(queueObject, name, type)
+#define va_logQueueObjectGiveTyped(queueObject, type) VA_DISCARD_ARGS(queueObject, type)
+#define va_logQueueObjectTakeTyped(queueObject, type) VA_DISCARD_ARGS(queueObject, type)
 #define va_updateQueueObjectType(queueObject, typeHint) VA_DISCARD_ARGS(queueObject, typeHint)
 #define va_logQueueObjectDelete(queueObject) VA_DISCARD_ARGS(queueObject)
+#define va_logQueueObjectSetName(queueObject, name) VA_DISCARD_ARGS(queueObject, name)
 #define va_logQueueObjectGive(queueObject, timeout) VA_DISCARD_ARGS(queueObject, timeout)
 #define va_logQueueObjectTake(queueObject, timeout) VA_DISCARD_ARGS(queueObject, timeout)
+#define va_logQueueObjectOpFailed(queueObject, giveSide, detail) VA_DISCARD_ARGS(queueObject, giveSide, detail)
+#define va_logObjectOpFailedTyped(queueObject, type, giveSide, detail) \
+    (VA_DISCARD_2(queueObject, type), VA_DISCARD_2(giveSide, detail))
+#define va_logEventFlagSet(flagObject, bits) VA_DISCARD_ARGS(flagObject, bits)
+#define va_logEventFlagWaitEnd(flagObject, bits) VA_DISCARD_ARGS(flagObject, bits)
+#define va_logWorkArm(handler, delayMs) VA_DISCARD_ARGS(handler, delayMs)
+#define va_logWorkCancel(handler) VA_DISCARD_ARGS(handler)
+#define va_logTimerArm(timerObject, durationMs, periodMs) VA_DISCARD_ARGS(timerObject, durationMs, periodMs)
 #define va_logQueueObjectBlocking(queueObject) VA_DISCARD_ARGS(queueObject)
 #define va_logHeapAlloc(heapObject, allocBytes) VA_DISCARD_ARGS(heapObject, allocBytes)
 #define va_logHeapFree(heapObject, allocatedBytes) VA_DISCARD_ARGS(heapObject, allocatedBytes)

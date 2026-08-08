@@ -51,6 +51,8 @@
 /* #define VA_TRACE_MUTEX_CONTENTION   1 */
 /* #define VA_TRACE_SEMAPHORES         1 */
 /* #define VA_TRACE_QUEUES             1 */
+/* #define VA_TRACE_EVENT_FLAGS        1 */
+/* #define VA_TRACE_WORK               1 */
 /* #define VA_TRACE_SLEEP              1 */
 /* #define VA_TRACE_TIMERS             1 */
 /* #define VA_TRACE_RTOS_HEAPS         1 */

@@ -38,6 +38,9 @@
 #if defined(INCLUDE_xSemaphoreGetMutexHolder) || defined(INCLUDE_xQueueGetMutexHolder)
 #include "semphr.h"
 #endif
+#if VA_TRACE_TIMERS
+#include "timers.h"
+#endif
 
 #if VA_NEEDS_OBJECT_REGISTRY && (configUSE_TRACE_FACILITY != 1)
 #warning "ViewAlyzer: set configUSE_TRACE_FACILITY to 1 in FreeRTOSConfig.h. Without it Queue_t has no ucQueueType field, so mutexes and semaphores cannot be told apart and per-category filtering degrades to 'item size 0 means binary semaphore'."
@@ -132,14 +135,215 @@ uint32_t va_adapter_calculate_stack_usage(void *taskHandle)
 
 uint32_t va_adapter_get_total_stack_size(void *taskHandle)
 {
+#if (INCLUDE_uxTaskGetStackHighWaterMark == 1)
     int idx = _va_find_task_index(taskHandle);
     if (idx >= 0)
     {
         return taskMap[idx].ulStackDepth;
     }
     return 0;
+#else
+    /* No high-water mark available: return 0 so no stack packet is emitted
+       at all, instead of confidently reporting 0 bytes used. */
+    (void)taskHandle;
+    return 0;
+#endif
 }
 #endif /* VA_TRACE_STACK_USAGE */
+
+/* ── Sleep (traceTASK_DELAY / suspend / resume) ──────────────────── */
+
+#if VA_TRACE_SLEEP
+/* The sleeping flag makes enter/exit idempotent: a resume of a task that
+   never slept emits nothing, and a resumed task's switch-in does not emit
+   a second exit. */
+void va_freertos_sleep_enter(void *taskHandle)
+{
+    if (!VA_IsInit() || taskHandle == NULL)
+        return;
+    bool emit = false;
+    VA_CS_ENTER();
+    int idx = _va_find_task_index(taskHandle);
+    if (idx >= 0 && !taskMap[idx].sleeping)
+    {
+        taskMap[idx].sleeping = true;
+        emit = true;
+    }
+    VA_CS_EXIT();
+    if (emit)
+        va_logSleepEnter(taskHandle);
+}
+
+void va_freertos_sleep_exit(void *taskHandle)
+{
+    if (!VA_IsInit() || taskHandle == NULL)
+        return;
+    bool emit = false;
+    VA_CS_ENTER();
+    int idx = _va_find_task_index(taskHandle);
+    if (idx >= 0 && taskMap[idx].sleeping)
+    {
+        taskMap[idx].sleeping = false;
+        emit = true;
+    }
+    VA_CS_EXIT();
+    if (emit)
+        va_logSleepExit(taskHandle);
+}
+#endif /* VA_TRACE_SLEEP */
+
+/* ── Task switch-in with lazy registration ───────────────────────── */
+
+#if VA_NEEDS_SWITCH_HOOK
+/* Registers tasks the create hook never saw (created before VA_Init).
+   Runs in the context-switch path: only lock-free FreeRTOS accessors are
+   safe here, so priority and stack depth stay 0 for late registrations. */
+void va_freertos_taskswitchedin(void *taskHandle)
+{
+    if (VA_IsInit() && _va_find_task_id(taskHandle) == 0)
+    {
+        g_task_pxStack       = NULL;
+        g_task_pxEndOfStack  = NULL;
+        g_task_uxPriority    = 0;
+        g_task_uxBasePriority = 0;
+        g_task_ulStackDepth  = 0;
+        va_taskcreated(taskHandle, pcTaskGetName((TaskHandle_t)taskHandle));
+    }
+#if VA_TRACE_SLEEP
+    /* A delayed task waking up: close its sleep before the switch event. */
+    va_freertos_sleep_exit(taskHandle);
+#endif
+    va_taskswitchedin(taskHandle);
+}
+#endif /* VA_NEEDS_SWITCH_HOOK */
+
+/* ── Software timers ─────────────────────────────────────────────── */
+
+#if VA_TRACE_TIMERS
+/* A timer created before VA_Init lost its registration when VA_Init reset
+   the registry; re-register it by name before its first event. */
+static void va_freertos_timer_ensure_registered(void *timer)
+{
+    if (VA_IsInit() && _va_find_queue_object_id(timer) == 0)
+        va_logQueueObjectCreateTyped(timer, pcTimerGetName((TimerHandle_t)timer),
+                                     VA_OBJECT_TYPE_TIMER);
+}
+
+/* Duration/period for the arm event. FreeRTOS timers first fire one full
+   period after starting, so duration = period; one-shot timers report
+   period 0. The reload-mode accessor arrived in kernel 10.2 - older
+   kernels report every timer as periodic (the safer reading). */
+static void va_freertos_timer_arm(void *timer)
+{
+    uint32_t periodMs = (uint32_t)(xTimerGetPeriod((TimerHandle_t)timer)
+                                   * portTICK_PERIOD_MS);
+#if (tskKERNEL_VERSION_MAJOR > 10) \
+    || (tskKERNEL_VERSION_MAJOR == 10 && tskKERNEL_VERSION_MINOR >= 2)
+    bool autoReload = uxTimerGetReloadMode((TimerHandle_t)timer) != 0;
+#else
+    bool autoReload = true;
+#endif
+    va_logTimerArm(timer, periodMs, autoReload ? periodMs : 0);
+}
+
+void va_freertos_timer_command(void *timer, int32_t commandId)
+{
+    if (timer == NULL)
+        return;
+    va_freertos_timer_ensure_registered(timer);
+
+    switch (commandId)
+    {
+    case tmrCOMMAND_START:
+    case tmrCOMMAND_RESET:
+    case tmrCOMMAND_CHANGE_PERIOD:
+#if defined(tmrCOMMAND_START_FROM_ISR)
+    case tmrCOMMAND_START_FROM_ISR:
+    case tmrCOMMAND_RESET_FROM_ISR:
+    case tmrCOMMAND_CHANGE_PERIOD_FROM_ISR:
+#endif
+        va_logQueueObjectGiveTyped(timer, VA_OBJECT_TYPE_TIMER);
+        va_freertos_timer_arm(timer);
+        break;
+
+    case tmrCOMMAND_STOP:
+#if defined(tmrCOMMAND_STOP_FROM_ISR)
+    case tmrCOMMAND_STOP_FROM_ISR:
+#endif
+        va_logQueueObjectTakeTyped(timer, VA_OBJECT_TYPE_TIMER);
+        break;
+
+    case tmrCOMMAND_DELETE:
+        va_logQueueObjectDelete(timer);
+        break;
+
+    default:
+        break;
+    }
+}
+
+void va_freertos_timer_expired(void *timer)
+{
+    if (timer == NULL)
+        return;
+    va_freertos_timer_ensure_registered(timer);
+    va_logQueueObjectTakeTyped(timer, VA_OBJECT_TYPE_TIMER);
+}
+#endif /* VA_TRACE_TIMERS */
+
+/* ── Kernel heap (traceMALLOC / traceFREE) ───────────────────────── */
+
+#if VA_TRACE_RTOS_HEAPS
+/* One heap object for the kernel allocator; the sentinel address stands in
+   for a handle. The running total is derived from the trace hook sizes, so
+   it is scheme-independent (heap_1 through heap_5). Heap functions run with
+   the scheduler suspended and are not ISR-callable, but the counter update
+   stays atomic for safety. */
+static uint8_t  s_va_heap_sentinel;
+static uint32_t s_va_heap_allocated;
+static bool     s_va_heap_registered;
+
+static void va_freertos_heap_ensure_registered(void)
+{
+    if (s_va_heap_registered || !VA_IsInit())
+        return;
+    s_va_heap_registered = true;
+#if defined(configTOTAL_HEAP_SIZE)
+    va_logHeapCapacity(&s_va_heap_sentinel, "FreeRTOSHeap", (uint32_t)configTOTAL_HEAP_SIZE);
+#endif
+}
+
+void va_freertos_heap_alloc(void *address, uint32_t size)
+{
+    if (!VA_IsInit())
+        return;
+    va_freertos_heap_ensure_registered();
+
+    if (address == NULL)
+    {
+        if (size > 0)
+            va_logHeapAllocFailed(&s_va_heap_sentinel, size);
+        return;
+    }
+
+    uint32_t total;
+    VA_ATOMIC(s_va_heap_allocated += size; total = s_va_heap_allocated);
+    va_logHeapAlloc(&s_va_heap_sentinel, total);
+}
+
+void va_freertos_heap_free(void *address, uint32_t size)
+{
+    if (!VA_IsInit() || address == NULL)
+        return;
+    va_freertos_heap_ensure_registered();
+
+    uint32_t total;
+    VA_ATOMIC(
+        s_va_heap_allocated = (size <= s_va_heap_allocated) ? s_va_heap_allocated - size : 0;
+        total = s_va_heap_allocated);
+    va_logHeapFree(&s_va_heap_sentinel, total);
+}
+#endif /* VA_TRACE_RTOS_HEAPS */
 
 /* ── Mutex contention detection ──────────────────────────────────── */
 

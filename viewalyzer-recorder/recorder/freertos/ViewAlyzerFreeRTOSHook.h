@@ -1,9 +1,10 @@
 /**
  * @file ViewAlyzerFreeRTOSHook.h
- * @brief ViewAlyzer trace hooks for FreeRTOS before v10.4.0
+ * @brief ViewAlyzer trace hooks for FreeRTOS v9.0.0 through v10.3.x
  *
  * Include from the BOTTOM of your FreeRTOSConfig.h (after
- * configUSE_TRACE_FACILITY and the INCLUDE_* options).
+ * configUSE_TRACE_FACILITY and the INCLUDE_* options). Kernels older than
+ * v9.0.0 are not supported (the hooks use pcTaskGetName, added in v9.0).
  *
  * The pre-10.4 task notification trace macros take no notification index,
  * and ulNotifiedValue is a scalar rather than an array; that is the only
@@ -27,8 +28,12 @@
  * limitations under the License.
  */
 
-#ifndef ViewAlyzer_CONFIG_H
-#define ViewAlyzer_CONFIG_H
+#ifndef VIEWALYZER_FREERTOS_HOOK_PRE_10_4_H
+#define VIEWALYZER_FREERTOS_HOOK_PRE_10_4_H
+
+#ifdef VIEWALYZER_FREERTOS_HOOK_V10_4_PLUS_H
+#error "ViewAlyzer: include only ONE hook header - this FreeRTOSConfig.h already includes ViewAlyzerFreeRTOSHook_V10_4_Plus.h"
+#endif
 
 #ifndef __ASSEMBLER__
 
@@ -40,8 +45,11 @@
 #error "ViewAlyzer: a task-notification trace macro is already defined - another trace tool is installed in this FreeRTOSConfig.h"
 #endif
 
-#define traceTASK_NOTIFY() va_logtasknotifygive((void *)pxCurrentTCB, (void *)pxTCB, ulValue)
-#define traceTASK_NOTIFY_FROM_ISR() va_logtasknotifygive(NULL, (void *)pxTCB, ulValue)
+/* All give variants report the post-update notified value (the macros fire
+   after the kernel applies the action), so task-context and ISR-context
+   sends of the same notification report the same thing. */
+#define traceTASK_NOTIFY() va_logtasknotifygive((void *)pxCurrentTCB, (void *)pxTCB, pxTCB->ulNotifiedValue)
+#define traceTASK_NOTIFY_FROM_ISR() va_logtasknotifygive(NULL, (void *)pxTCB, pxTCB->ulNotifiedValue)
 #define traceTASK_NOTIFY_GIVE_FROM_ISR() va_logtasknotifygive(NULL, (void *)pxTCB, pxTCB->ulNotifiedValue)
 #define traceTASK_NOTIFY_TAKE() va_logtasknotifytake((void *)pxCurrentTCB, pxCurrentTCB->ulNotifiedValue)
 #define traceTASK_NOTIFY_WAIT() va_logtasknotifytake((void *)pxCurrentTCB, pxCurrentTCB->ulNotifiedValue)
@@ -50,4 +58,4 @@
 
 #endif /* __ASSEMBLER__ */
 
-#endif /* ViewAlyzer_CONFIG_H */
+#endif /* VIEWALYZER_FREERTOS_HOOK_PRE_10_4_H */

@@ -32,11 +32,12 @@ if(CONFIG_VIEWALYZER)
     VA_MAX_TASKS=${CONFIG_VIEWALYZER_MAX_TASKS}
     VA_MAX_SYNC_OBJECTS=${CONFIG_VIEWALYZER_MAX_SYNC_OBJECTS}
     VA_MAX_USER_EVENTS=${CONFIG_VIEWALYZER_MAX_USER_EVENTS}
+    VA_MAX_GPIOS=${CONFIG_VIEWALYZER_MAX_GPIOS}
+    VA_MAX_HEAPS=${CONFIG_VIEWALYZER_MAX_HEAP_GAUGES}
     VA_MAX_TASK_NAME_LEN=${CONFIG_VIEWALYZER_MAX_TASK_NAME_LEN}
     VA_AUTO_SETUP_INTERVAL_MS=${CONFIG_VIEWALYZER_AUTO_SETUP_INTERVAL_MS}
     VA_STACK_USAGE_HEARTBEAT_MS=${CONFIG_VIEWALYZER_STACK_USAGE_HEARTBEAT_MS}
     VA_TRANSPORT_BUFFERED=$<IF:$<BOOL:${CONFIG_VIEWALYZER_BUFFERED}>,1,0>
-    VA_SEQ_COUNTER=$<IF:$<BOOL:${CONFIG_VIEWALYZER_SEQ}>,1,0>
 
     # ── Trace categories ───────────────────────────────────────────
     VA_TRACE_TASKS=$<IF:$<BOOL:${CONFIG_VIEWALYZER_TRACE_THREADS}>,1,0>
@@ -46,6 +47,8 @@ if(CONFIG_VIEWALYZER)
     VA_TRACE_MUTEX_CONTENTION=$<IF:$<BOOL:${CONFIG_VIEWALYZER_TRACE_MUTEX_CONTENTION}>,1,0>
     VA_TRACE_SEMAPHORES=$<IF:$<BOOL:${CONFIG_VIEWALYZER_TRACE_SEMAPHORES}>,1,0>
     VA_TRACE_QUEUES=$<IF:$<BOOL:${CONFIG_VIEWALYZER_TRACE_MESSAGE_QUEUES}>,1,0>
+    VA_TRACE_EVENT_FLAGS=$<IF:$<BOOL:${CONFIG_VIEWALYZER_TRACE_EVENT_FLAGS}>,1,0>
+    VA_TRACE_WORK=$<IF:$<BOOL:${CONFIG_VIEWALYZER_TRACE_WORK}>,1,0>
     VA_TRACE_SLEEP=$<IF:$<BOOL:${CONFIG_VIEWALYZER_TRACE_SLEEP}>,1,0>
     VA_TRACE_TIMERS=$<IF:$<BOOL:${CONFIG_VIEWALYZER_TRACE_TIMERS}>,1,0>
     VA_TRACE_RTOS_HEAPS=$<IF:$<BOOL:${CONFIG_VIEWALYZER_TRACE_HEAPS}>,1,0>
@@ -112,11 +115,13 @@ if(CONFIG_VIEWALYZER)
     zephyr_compile_definitions(VA_ALLOWED_TO_DISABLE_INTERRUPTS=0)
   endif()
 
-  # Our tracing_user.h must shadow Zephyr's stock subsys/tracing/user copy
-  # (same _TRACE_USER_H guard, first-found wins). The mutex/heap trace points
-  # expand inside Zephyr's OWN kernel TUs (kernel/mutex.c, the heap code) via
-  # kernel.h -> tracing/tracing.h -> `#include "tracing_user.h"`, so our dir
-  # must precede subsys/tracing/user on the include path of *those* TUs too.
+  # Our tracing_user.h must be found BEFORE Zephyr's stock subsys/tracing/user
+  # copy: it has its own include guard and pulls the stock header in via
+  # #include_next, then re-points selected trace macros. The mutex/heap trace
+  # points expand inside Zephyr's OWN kernel TUs (kernel/mutex.c, the heap
+  # code) via kernel.h -> tracing/tracing.h -> `#include "tracing_user.h"`, so
+  # our dir must precede subsys/tracing/user on the include path of *those*
+  # TUs too.
   #
   # `include_directories(BEFORE ...)` is directory-scoped to this module and
   # does NOT reach the `kernel` target, so it loses there. Prepend to the

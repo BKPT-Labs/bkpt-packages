@@ -94,7 +94,7 @@
  *     #define VA_TRACE_ISRS     1
  *
  * Categories with no implementation for your RTOS compile away silently -
- * VA_TRACE_SLEEP has no automatic FreeRTOS path, for example.
+ * VA_TRACE_TASK_NOTIFICATIONS has no Zephyr path, for example.
  *
  * The set of enabled categories is reported to the host in every setup
  * bundle (VA_SETUP_CONFIG_FLAGS), so a viewer can say "mutex tracing is
@@ -131,8 +131,14 @@
 #ifndef VA_TRACE_QUEUES
 #define VA_TRACE_QUEUES             VA_TRACE_DEFAULT /* Queues / message queues */
 #endif
+#ifndef VA_TRACE_EVENT_FLAGS
+#define VA_TRACE_EVENT_FLAGS        VA_TRACE_DEFAULT /* Event groups / k_event */
+#endif
+#ifndef VA_TRACE_WORK
+#define VA_TRACE_WORK               VA_TRACE_DEFAULT /* Deferred work (Zephyr k_work) */
+#endif
 #ifndef VA_TRACE_SLEEP
-#define VA_TRACE_SLEEP              VA_TRACE_DEFAULT /* Explicit sleep (Zephyr k_sleep family) */
+#define VA_TRACE_SLEEP              VA_TRACE_DEFAULT /* Explicit sleep (k_sleep family, vTaskDelay/suspend) */
 #endif
 #ifndef VA_TRACE_TIMERS
 #define VA_TRACE_TIMERS             VA_TRACE_DEFAULT /* Kernel timers */
@@ -192,8 +198,16 @@
 #ifndef VA_RTT_BUFFER_SIZE
 #define VA_RTT_BUFFER_SIZE 4096u      /* Bytes reserved for the RTT up-buffer */
 #endif
+/* RTT buffering mode. The default, NO_BLOCK_SKIP, never stalls the
+   firmware: when the RTT buffer is full a packet is skipped WHOLE (the
+   stream stays parseable) and the host detects and quantifies the loss
+   from the per-packet sequence numbers. Set
+   VA_RTT_MODE=SEGGER_RTT_MODE_BLOCK_IF_FIFO_FULL for guaranteed-lossless
+   captures instead - but know that a blocking build freezes inside a
+   trace call once the buffer fills if no host is draining the channel,
+   so it must only boot with a J-Link attached and reading. */
 #ifndef VA_RTT_MODE
-#define VA_RTT_MODE SEGGER_RTT_MODE_BLOCK_IF_FIFO_FULL /* RTT buffering mode */
+#define VA_RTT_MODE SEGGER_RTT_MODE_NO_BLOCK_SKIP
 #endif
 
 /* ── RAM buffer transport options ──────────────────────────────────── */
@@ -313,6 +327,13 @@
 #define VA_MAX_USER_TRACES    16
 #endif
 
+#ifndef VA_MAX_GPIOS
+#define VA_MAX_GPIOS          16      /* VA_RegisterGPIO() channels */
+#endif
+#ifndef VA_MAX_HEAPS
+#define VA_MAX_HEAPS          8       /* VA_RegisterHeap() gauges */
+#endif
+
 #ifndef VA_MAX_TASK_NAME_LEN
 #define VA_MAX_TASK_NAME_LEN  16      /* Includes the NUL: 15 usable characters */
 #endif
@@ -338,28 +359,15 @@
 #define VA_AUTO_SETUP_INTERVAL_MS 2000 /* Re-emit sync + setup packets at this interval (ms). 0 = off. */
 #endif
 
-/* Width of the timestamp field on the wire. 32 (protocol v2, the only wire
-   format) halves the dominant cost of the stream; the low 32 bits of the
-   cycle counter wrap periodically (e.g. ~25 s @ 170 MHz) and the host
+/* Width of the timestamp field on the wire. Always 32: the low 32 bits of
+   the cycle counter wrap periodically (e.g. ~25 s @ 170 MHz) and the host
    reconstructs the full 64-bit value from packet ordering.
    VA_AUTO_SETUP_INTERVAL_MS must stay well below the wrap period so the host
    never misses a wrap (a sync/bundle guarantees at least one packet per
-   interval); 2000 ms gives a >12x margin at 170 MHz. */
+   interval); 2000 ms gives a >12x margin at 170 MHz. Not a knob: any other
+   value is a compile error. */
 #ifndef VA_TIMESTAMP_BITS
 #define VA_TIMESTAMP_BITS 32
-#endif
-
-/* Per-packet sequence counter (wire protocol v3). Every packet - events and
-   setup packets alike - carries a rolling 8-bit sequence number right after
-   the type byte, and a 32-bit absolute checkpoint packet rides with each
-   periodic setup bundle. This is the host's ground truth for loss detection:
-   any gap in the sequence is exactly that many packets lost (whether dropped
-   at the source by a full ring or lost in the transport), which timestamps
-   alone can never prove. Costs 1 byte per packet (~17% on the 6-byte core
-   events). Set to 0 to emit the legacy v2 wire format with no sequence field;
-   the sync marker version (SYNC03 vs SYNC02) tells the host which one to parse. */
-#ifndef VA_SEQ_COUNTER
-#define VA_SEQ_COUNTER 1
 #endif
 
 /* ── End of user configuration ─────────────────────────────────────── */

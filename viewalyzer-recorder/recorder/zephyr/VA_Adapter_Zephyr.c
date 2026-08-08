@@ -214,6 +214,21 @@ void sys_trace_thread_abort_user(struct k_thread *thread)
     sys_trace_va_thread_abort(thread);
 }
 
+/* k_thread_create() has no name parameter, so threads named afterwards via
+   k_thread_name_set() would otherwise keep the placeholder "thread" name. */
+void sys_trace_thread_name_set_user(struct k_thread *thread)
+{
+    if (!VA_IsInit())
+        return;
+    const char *name = k_thread_name_get((k_tid_t)thread);
+    if (name == NULL || name[0] == '\0')
+        return;
+    if (_va_find_task_id((void *)thread) == 0)
+        va_zephyr_register_thread((k_tid_t)thread);
+    else
+        va_taskrenamed((void *)thread, name);
+}
+
 void sys_trace_thread_switched_in_user(void)
 {
     if (!VA_IsInit())
@@ -238,6 +253,7 @@ void sys_trace_thread_switched_out_user(void)
 #endif /* VA_NEEDS_TASK_REGISTRY */
 
 #if VA_TRACE_ISRS
+/* ISR ids are one byte on the wire, so exception numbers above 255 alias. */
 void sys_trace_isr_enter_user(void)
 {
     if (!VA_IsInit())
@@ -317,10 +333,13 @@ void sys_trace_k_mutex_lock_exit(struct k_mutex *mutex, k_timeout_t timeout, int
     ARG_UNUSED(timeout);
     ARG_UNUSED(ret);
 #if VA_TRACE_MUTEXES
-    if (!VA_IsInit() || ret != 0)
+    if (!VA_IsInit())
         return;
     va_zephyr_ensure_object_type((void *)mutex, VA_OBJECT_TYPE_MUTEX, "Mutex");
-    va_logQueueObjectTake((void *)mutex, va_zephyr_timeout_to_ms(timeout));
+    if (ret == 0)
+        va_logQueueObjectTake((void *)mutex, va_zephyr_timeout_to_ms(timeout));
+    else
+        va_logObjectOpFailedTyped((void *)mutex, VA_OBJECT_TYPE_MUTEX, false, 0);
 #endif
 }
 
@@ -406,10 +425,13 @@ void sys_trace_k_sem_take_exit(struct k_sem *sem, k_timeout_t timeout, int ret)
         : VA_OBJECT_TYPE_COUNTING_SEM;
     const char *type_hint = (sem->limit <= 1) ? "BinSem" : "CountSem";
 
-    if (!VA_IsInit() || ret != 0)
+    if (!VA_IsInit())
         return;
     va_zephyr_ensure_object_type((void *)sem, expected_type, type_hint);
-    va_logQueueObjectTake((void *)sem, va_zephyr_timeout_to_ms(timeout));
+    if (ret == 0)
+        va_logQueueObjectTake((void *)sem, va_zephyr_timeout_to_ms(timeout));
+    else
+        va_logObjectOpFailedTyped((void *)sem, expected_type, false, 0);
 }
 #endif
 
@@ -440,10 +462,13 @@ void sys_trace_k_msgq_put_blocking(struct k_msgq *msgq, k_timeout_t timeout)
 
 void sys_trace_k_msgq_put_exit(struct k_msgq *msgq, k_timeout_t timeout, int ret)
 {
-    if (!VA_IsInit() || ret != 0)
+    if (!VA_IsInit())
         return;
     va_zephyr_ensure_object_type((void *)msgq, VA_OBJECT_TYPE_QUEUE, "Queue");
-    va_logQueueObjectGive((void *)msgq, va_zephyr_timeout_to_ms(timeout));
+    if (ret == 0)
+        va_logQueueObjectGive((void *)msgq, va_zephyr_timeout_to_ms(timeout));
+    else
+        va_logObjectOpFailedTyped((void *)msgq, VA_OBJECT_TYPE_QUEUE, true, 0);
 }
 
 void sys_trace_k_msgq_get_enter(struct k_msgq *msgq, k_timeout_t timeout)
@@ -463,16 +488,179 @@ void sys_trace_k_msgq_get_blocking(struct k_msgq *msgq, k_timeout_t timeout)
 
 void sys_trace_k_msgq_get_exit(struct k_msgq *msgq, k_timeout_t timeout, int ret)
 {
-    if (!VA_IsInit() || ret != 0)
+    if (!VA_IsInit())
         return;
     va_zephyr_ensure_object_type((void *)msgq, VA_OBJECT_TYPE_QUEUE, "Queue");
-    va_logQueueObjectTake((void *)msgq, va_zephyr_timeout_to_ms(timeout));
+    if (ret == 0)
+        va_logQueueObjectTake((void *)msgq, va_zephyr_timeout_to_ms(timeout));
+    else
+        va_logObjectOpFailedTyped((void *)msgq, VA_OBJECT_TYPE_QUEUE, false, 0);
 }
 #endif
+
+/* ── FIFO / LIFO tracing dispatch (called from sys_port_trace macros) ───
+   Mapped onto the queue events: put = give, successful get = take. These
+   have no fixed capacity; consumption order follows the object kind. */
+
+#if VA_TRACE_QUEUES
+void sys_trace_k_fifo_init(struct k_fifo *fifo)
+{
+    if (!VA_IsInit())
+        return;
+    va_zephyr_ensure_object_type((void *)fifo, VA_OBJECT_TYPE_QUEUE, "FifoQueue");
+}
+
+void sys_trace_k_fifo_put(struct k_fifo *fifo)
+{
+    if (!VA_IsInit())
+        return;
+    va_zephyr_ensure_object_type((void *)fifo, VA_OBJECT_TYPE_QUEUE, "FifoQueue");
+    va_logQueueObjectGive((void *)fifo, 0);
+}
+
+void sys_trace_k_fifo_alloc_put(struct k_fifo *fifo, int ret)
+{
+    if (ret == 0)
+        sys_trace_k_fifo_put(fifo);
+}
+
+void sys_trace_k_fifo_get(struct k_fifo *fifo, void *ret)
+{
+    if (!VA_IsInit() || ret == NULL)
+        return;
+    va_zephyr_ensure_object_type((void *)fifo, VA_OBJECT_TYPE_QUEUE, "FifoQueue");
+    va_logQueueObjectTake((void *)fifo, 0);
+}
+
+void sys_trace_k_lifo_init(struct k_lifo *lifo)
+{
+    if (!VA_IsInit())
+        return;
+    va_zephyr_ensure_object_type((void *)lifo, VA_OBJECT_TYPE_QUEUE, "LifoQueue");
+}
+
+void sys_trace_k_lifo_put(struct k_lifo *lifo)
+{
+    if (!VA_IsInit())
+        return;
+    va_zephyr_ensure_object_type((void *)lifo, VA_OBJECT_TYPE_QUEUE, "LifoQueue");
+    va_logQueueObjectGive((void *)lifo, 0);
+}
+
+void sys_trace_k_lifo_alloc_put(struct k_lifo *lifo, int ret)
+{
+    if (ret == 0)
+        sys_trace_k_lifo_put(lifo);
+}
+
+void sys_trace_k_lifo_get(struct k_lifo *lifo, void *ret)
+{
+    if (!VA_IsInit() || ret == NULL)
+        return;
+    va_zephyr_ensure_object_type((void *)lifo, VA_OBJECT_TYPE_QUEUE, "LifoQueue");
+    va_logQueueObjectTake((void *)lifo, 0);
+}
+#endif /* VA_TRACE_QUEUES */
+
+/* ── Event tracing dispatch (k_event) ────────────────────────────── */
+/* post = give-shaped set (value = posted bits, taken at the enter point
+   before the kernel merges them); a satisfied wait = take-shaped event
+   (value = matched bits); a timed-out or unmatched wait = failed op
+   (value = the bits waited for). k_event_clear posts 0 bits and is
+   skipped. */
+
+#if VA_TRACE_EVENT_FLAGS
+static void va_zephyr_ensure_eventflag(struct k_event *event)
+{
+    if (_va_find_queue_object_id((void *)event) == 0)
+        va_logQueueObjectCreateTyped((void *)event, NULL, VA_OBJECT_TYPE_EVENTFLAG);
+}
+
+void sys_trace_k_event_init(struct k_event *event)
+{
+    if (!VA_IsInit())
+        return;
+    va_zephyr_ensure_eventflag(event);
+}
+
+void sys_trace_k_event_post(struct k_event *event, uint32_t events)
+{
+    if (!VA_IsInit() || events == 0)
+        return;
+    va_zephyr_ensure_eventflag(event);
+    va_logEventFlagSet((void *)event, events);
+}
+
+void sys_trace_k_event_wait_exit(struct k_event *event, uint32_t events, uint32_t ret)
+{
+    if (!VA_IsInit() || events == 0)
+        return;
+    va_zephyr_ensure_eventflag(event);
+    if (ret != 0)
+        va_logEventFlagWaitEnd((void *)event, ret);
+    else
+        va_logObjectOpFailedTyped((void *)event, VA_OBJECT_TYPE_EVENTFLAG, false, events);
+}
+#endif /* VA_TRACE_EVENT_FLAGS */
+
+/* ── Deferred-work tracing dispatch (k_work family) ──────────────── */
+/* Arm events fire only when the operation actually queued or scheduled
+   the item (ret > 0; 0 = already pending, negative = rejected). The
+   kernel has no trace point at delayed-work expiry or around handler
+   execution, so the host derives the expected fire time from arm + delay
+   and attributes execution to the workqueue thread. */
+
+#if VA_TRACE_WORK
+void sys_trace_k_work_submit(struct k_work *work, int ret)
+{
+    if (!VA_IsInit() || ret <= 0)
+        return;
+    va_logWorkArm((void *)work->handler, 0);
+}
+
+void sys_trace_k_work_schedule(struct k_work_delayable *dwork, k_timeout_t delay, int ret)
+{
+    if (!VA_IsInit() || ret <= 0)
+        return;
+    va_logWorkArm((void *)dwork->work.handler, va_zephyr_timeout_to_ms(delay));
+}
+
+void sys_trace_k_work_cancel(struct k_work *work)
+{
+    if (!VA_IsInit())
+        return;
+    va_logWorkCancel((void *)work->handler);
+}
+
+void sys_trace_k_work_cancel_delayable(struct k_work_delayable *dwork)
+{
+    if (!VA_IsInit())
+        return;
+    va_logWorkCancel((void *)dwork->work.handler);
+}
+#endif /* VA_TRACE_WORK */
 
 /* ── Sleep tracing dispatch (k_sleep / k_msleep / k_usleep) ──────── */
 
 #if VA_TRACE_SLEEP
+/* Suspend/resume ride the sleep events: the suspend-to-resume window shows
+   as one sleep period on the suspended thread. The resume point fires
+   before the kernel checks whether the thread was actually suspended, so a
+   spurious resume emits an unmatched exit, which hosts ignore. */
+void sys_trace_va_thread_suspend(struct k_thread *thread)
+{
+    if (!VA_IsInit())
+        return;
+    va_logSleepEnter((void *)thread);
+}
+
+void sys_trace_va_thread_resume(struct k_thread *thread)
+{
+    if (!VA_IsInit())
+        return;
+    va_logSleepExit((void *)thread);
+}
+
 void sys_trace_k_thread_sleep_enter(k_timeout_t timeout)
 {
     ARG_UNUSED(timeout);
@@ -537,12 +725,13 @@ void sys_trace_k_timer_init(struct k_timer *timer)
 
 void sys_trace_k_timer_start(struct k_timer *timer, k_timeout_t duration, k_timeout_t period)
 {
-    ARG_UNUSED(duration);
-    ARG_UNUSED(period);
     if (!VA_IsInit())
         return;
     va_zephyr_ensure_object_type((void *)timer, VA_OBJECT_TYPE_TIMER, "Timer");
     va_logQueueObjectGive((void *)timer, va_zephyr_timeout_to_ms(duration));
+    /* K_NO_WAIT period maps to 0 = one-shot. */
+    va_logTimerArm((void *)timer, va_zephyr_timeout_to_ms(duration),
+                   va_zephyr_timeout_to_ms(period));
 }
 
 void sys_trace_k_timer_stop(struct k_timer *timer)
@@ -570,21 +759,35 @@ void sys_trace_k_timer_status_sync_blocking(struct k_timer *timer, k_timeout_t t
 static void va_zephyr_report_heap_capacity_once(struct k_heap *heap)
 {
 #if defined(CONFIG_VIEWALYZER_HEAP_RUNTIME_STATS)
+    /* reported[] is shared between thread and ISR contexts (K_NO_WAIT
+       allocs are ISR-legal), so the scan-and-claim must be atomic. */
     static void *reported[VA_MAX_SYNC_OBJECTS];
+    int slot = -1;
+
+    VA_CS_ENTER();
     for (int i = 0; i < VA_MAX_SYNC_OBJECTS; ++i)
     {
         if (reported[i] == (void *)heap)
-            return;
+            break;
         if (reported[i] == NULL)
         {
-            struct sys_memory_stats stats;
-            if (sys_heap_runtime_stats_get(&heap->heap, &stats) != 0)
-                return;                     /* retry on the next event */
             reported[i] = (void *)heap;
-            va_logHeapCapacity((void *)heap, "Heap",
-                               (uint32_t)(stats.allocated_bytes + stats.free_bytes));
+            slot = i;
+            break;
+        }
+    }
+    VA_CS_EXIT();
+
+    if (slot >= 0)
+    {
+        struct sys_memory_stats stats;
+        if (sys_heap_runtime_stats_get(&heap->heap, &stats) != 0)
+        {
+            VA_ATOMIC(reported[slot] = NULL);   /* retry on the next event */
             return;
         }
+        va_logHeapCapacity((void *)heap, "Heap",
+                           (uint32_t)(stats.allocated_bytes + stats.free_bytes));
     }
 #else
     ARG_UNUSED(heap);

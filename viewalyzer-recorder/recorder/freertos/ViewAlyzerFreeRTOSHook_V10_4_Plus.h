@@ -26,8 +26,12 @@
  * limitations under the License.
  */
 
-#ifndef ViewAlyzer_CONFIG_V10_4_PLUS_H
-#define ViewAlyzer_CONFIG_V10_4_PLUS_H
+#ifndef VIEWALYZER_FREERTOS_HOOK_V10_4_PLUS_H
+#define VIEWALYZER_FREERTOS_HOOK_V10_4_PLUS_H
+
+#ifdef VIEWALYZER_FREERTOS_HOOK_PRE_10_4_H
+#error "ViewAlyzer: include only ONE hook header - this FreeRTOSConfig.h already includes ViewAlyzerFreeRTOSHook.h"
+#endif
 
 #ifndef __ASSEMBLER__
 
@@ -41,9 +45,12 @@
 
 /* The _BLOCK variants fire BEFORE the notification arrives (the task is
    about to block) and are deliberately left unhooked - hooking them would
-   double every blocking take/wait with a stale value. */
-#define traceTASK_NOTIFY(uxIndexToNotify) va_logtasknotifygive((void *)pxCurrentTCB, (void *)pxTCB, ulValue)
-#define traceTASK_NOTIFY_FROM_ISR(uxIndexToNotify) va_logtasknotifygive(NULL, (void *)pxTCB, ulValue)
+   double every blocking take/wait with a stale value.
+   All give variants report the post-update notified value (the macros fire
+   after the kernel applies the action), so task-context and ISR-context
+   sends of the same notification report the same thing. */
+#define traceTASK_NOTIFY(uxIndexToNotify) va_logtasknotifygive((void *)pxCurrentTCB, (void *)pxTCB, pxTCB->ulNotifiedValue[(uxIndexToNotify)])
+#define traceTASK_NOTIFY_FROM_ISR(uxIndexToNotify) va_logtasknotifygive(NULL, (void *)pxTCB, pxTCB->ulNotifiedValue[(uxIndexToNotify)])
 #define traceTASK_NOTIFY_GIVE_FROM_ISR(uxIndexToNotify) va_logtasknotifygive(NULL, (void *)pxTCB, pxTCB->ulNotifiedValue[(uxIndexToNotify)])
 #define traceTASK_NOTIFY_TAKE(uxIndexToWait) va_logtasknotifytake((void *)pxCurrentTCB, pxCurrentTCB->ulNotifiedValue[(uxIndexToWait)])
 #define traceTASK_NOTIFY_WAIT(uxIndexToWait) va_logtasknotifytake((void *)pxCurrentTCB, pxCurrentTCB->ulNotifiedValue[(uxIndexToWait)])
@@ -52,4 +59,4 @@
 
 #endif /* __ASSEMBLER__ */
 
-#endif /* ViewAlyzer_CONFIG_V10_4_PLUS_H */
+#endif /* VIEWALYZER_FREERTOS_HOOK_V10_4_PLUS_H */

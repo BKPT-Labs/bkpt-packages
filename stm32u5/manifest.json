@@ -92,5 +92,6 @@
     "boards": [
       "nucleo-u575zi-q.json"
     ]
-  }
+  },
+  "rev": "1"
 }

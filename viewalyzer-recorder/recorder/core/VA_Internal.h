@@ -89,6 +89,11 @@ typedef struct {
     uint64_t lastStackEmitTs;               /* cycle count of last emission   */
     bool     hasStackSample;                /* false until first emission     */
 #endif
+#if (VA_RTOS_SELECT == VA_RTOS_FREERTOS) && VA_TRACE_SLEEP
+    /* FreeRTOS has no delay/suspend EXIT trace point; the flag carries the
+       sleep across to the next switch-in or resume, which emits the exit. */
+    bool     sleeping;
+#endif
 } VA_TaskMapEntry_t;
 #endif /* VA_NEEDS_TASK_REGISTRY */
 
@@ -100,6 +105,11 @@ typedef struct {
     char                name[VA_MAX_TASK_NAME_LEN];
     VA_QueueObjectType_t type;
     bool                active;
+#if VA_HAS_RTOS && VA_TRACE_RTOS_HEAPS
+    uint32_t            heapCapacity;    /* bytes; 0 = unknown. Re-emitted with
+                                            each setup bundle so late-attaching
+                                            hosts learn heap capacity. */
+#endif
 } VA_QueueObjectMapEntry_t;
 #endif
 
@@ -130,9 +140,9 @@ uint64_t _va_get_timestamp_unlocked(void);
    between packets. No-op in ISR context or when no bundle is due. */
 void _va_service_pending_bundle(void);
 
-/* Emit one packet. In wire v3 (VA_SEQ_COUNTER) the byte at data[1] is the
-   reserved sequence slot and is overwritten here - builders must lay packets
-   out as [type][seq][rest...] and never pass read-only storage. */
+/* Emit one packet. The byte at data[1] is the reserved sequence slot and is
+   overwritten here - builders must lay packets out as [type][seq][rest...]
+   and never pass read-only storage. */
 void _va_emit_packet(uint8_t *data, uint32_t length);
 void _va_send_event_packet(uint8_t type_byte, uint8_t id, uint64_t timestamp);
 void _va_send_setup_packet(uint8_t setupCode, uint8_t id, const char *name);
@@ -158,7 +168,7 @@ void _va_send_task_create_packet(uint8_t id, uint64_t timestamp, uint32_t priori
 #if VA_HAS_RTOS && VA_TRACE_STACK_USAGE
 void _va_send_stack_usage_packet(uint8_t id, uint64_t timestamp, uint32_t stack_used, uint32_t stack_total);
 #endif
-#if VA_TRACE_HEAP_METRICS || (VA_HAS_RTOS && VA_TRACE_RTOS_HEAPS)
+#if VA_TRACE_HEAP_METRICS
 void _va_send_heap_setup_packet(uint8_t id, const char *name, uint32_t totalSize);
 #endif
 
