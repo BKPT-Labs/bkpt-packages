@@ -1,0 +1,37 @@
+# Poke BKPT-Suite's suite-check the moment a version/schema source file
+# changes here, instead of waiting for the nightly (CI_RELEASE_PLAN.md
+# phase A). Generated for this repo; the path list mirrors what
+# BKPT-Suite/tools/versions.py reads from this repo - keep them in sync.
+#
+# Needs secret SUITE_DISPATCH_TOKEN: a fine-grained PAT that can write to
+# BKPT-Labs/BKPT-Suite (repository_dispatch requires write). Missing token
+# only warns - the nightly run still catches everything.
+name: version-guard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'viewalyzer-recorder/manifest.json'
+      - 'viewalyzer-recorder/recorder/core/ViewAlyzer.h'
+
+permissions: {}
+
+jobs:
+  poke-suite-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Dispatch suite-check in BKPT-Suite
+        env:
+          TOKEN: ${{ secrets.SUITE_DISPATCH_TOKEN }}
+        run: |
+          if [ -z "$TOKEN" ]; then
+            echo "::warning::SUITE_DISPATCH_TOKEN is not set - suite-check will only see this change at the nightly run."
+            exit 0
+          fi
+          curl -sf -X POST \
+            -H "Authorization: Bearer $TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/BKPT-Labs/BKPT-Suite/dispatches \
+            -d '{"event_type":"version-files-changed","client_payload":{"repo":"${{ github.repository }}","sha":"${{ github.sha }}"}}'
