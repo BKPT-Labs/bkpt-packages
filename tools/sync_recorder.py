@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Vendor the ViewAlyzer firmware recorder into the viewalyzer-recorder package.
 
-Copies the embedded recorder trees (core/, freertos/, zephyr/ — never the
-host-side c-udp/ or python/ dirs) from the ViewAlyzer source repo into
+Copies the embedded recorder trees (core/, freertos/, zephyr/) from the
+ViewAlyzer source repo into
 `viewalyzer-recorder/recorder/`, stamps provenance (source git rev, recorder
 version macro, wire version, content hash) into the package manifest, and
 updates the registry entry in index.json.
@@ -29,8 +29,8 @@ PKG_DIR = REPO_ROOT / "viewalyzer-recorder"
 RECORDER_DEST = PKG_DIR / "recorder"
 DEFAULT_SOURCE = REPO_ROOT.parent / "ViewAlyzer"
 
-# Embedded-target trees only. c-udp/ (host UDP lib) and python/ (host decoder)
-# never ship to firmware projects.
+# Embedded-target trees only; anything else in the recorder dir never
+# ships to firmware projects.
 EMBEDDED_TREES = ("core", "freertos", "zephyr")
 
 
