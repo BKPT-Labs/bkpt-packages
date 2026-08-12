@@ -59,5 +59,11 @@ void VA_Zephyr_RegisterExistingThreads(void);
 }
 #endif
 
+#else /* !(VA_ENABLED && ZEPHYR) */
+
+/* No-op so the call can stay in application code unconditionally,
+   including VA_ENABLED=0 and non-Zephyr builds. */
+#define VA_Zephyr_RegisterExistingThreads() ((void)0)
+
 #endif /* VA_ENABLED && ZEPHYR */
 #endif /* VA_ADAPTER_ZEPHYR_H */

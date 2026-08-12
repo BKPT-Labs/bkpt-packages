@@ -116,6 +116,8 @@ VA_QueueObjectType_t va_adapter_get_queue_object_type(void *handle)
 /* ── Stack usage ─────────────────────────────────────────────────── */
 
 #if VA_TRACE_STACK_USAGE
+/* Adapters report stack usage in BYTES; FreeRTOS accounts in StackType_t
+   words internally, so the conversion happens at this boundary. */
 uint32_t va_adapter_calculate_stack_usage(void *taskHandle)
 {
 #if (INCLUDE_uxTaskGetStackHighWaterMark == 1)
@@ -124,9 +126,9 @@ uint32_t va_adapter_calculate_stack_usage(void *taskHandle)
     if (idx >= 0 && taskMap[idx].ulStackDepth > 0)
     {
         uint32_t used_stack_words = taskMap[idx].ulStackDepth - free_stack_words;
-        return used_stack_words;
+        return used_stack_words * (uint32_t)sizeof(StackType_t);
     }
-    return free_stack_words;
+    return free_stack_words * (uint32_t)sizeof(StackType_t);
 #else
     (void)taskHandle;
     return 0;
@@ -139,7 +141,7 @@ uint32_t va_adapter_get_total_stack_size(void *taskHandle)
     int idx = _va_find_task_index(taskHandle);
     if (idx >= 0)
     {
-        return taskMap[idx].ulStackDepth;
+        return taskMap[idx].ulStackDepth * (uint32_t)sizeof(StackType_t);
     }
     return 0;
 #else
@@ -229,24 +231,28 @@ static void va_freertos_timer_ensure_registered(void *timer)
                                      VA_OBJECT_TYPE_TIMER);
 }
 
-/* Duration/period for the arm event. FreeRTOS timers first fire one full
+/* Duration/period for the arm event: FreeRTOS timers first fire one full
    period after starting, so duration = period; one-shot timers report
-   period 0. The reload-mode accessor arrived in kernel 10.2 - older
-   kernels report every timer as periodic (the safer reading). */
-static void va_freertos_timer_arm(void *timer)
+   period 0. periodTicks is the period THIS arm takes effect with (for
+   change-period commands: the queued new value, not xTimerGetPeriod).
+   uxTimerGetReloadMode takes a task-level critical section that is
+   illegal in ISR context, and does not exist before kernel 10.2; where
+   it cannot be called, timers report as periodic (the safer reading). */
+static void va_freertos_timer_arm(void *timer, uint32_t periodTicks, bool fromIsr)
 {
-    uint32_t periodMs = (uint32_t)(xTimerGetPeriod((TimerHandle_t)timer)
-                                   * portTICK_PERIOD_MS);
+    uint32_t periodMs = (uint32_t)(periodTicks * portTICK_PERIOD_MS);
+    bool autoReload = true;
 #if (tskKERNEL_VERSION_MAJOR > 10) \
     || (tskKERNEL_VERSION_MAJOR == 10 && tskKERNEL_VERSION_MINOR >= 2)
-    bool autoReload = uxTimerGetReloadMode((TimerHandle_t)timer) != 0;
+    if (!fromIsr)
+        autoReload = uxTimerGetReloadMode((TimerHandle_t)timer) != 0;
 #else
-    bool autoReload = true;
+    (void)fromIsr;
 #endif
     va_logTimerArm(timer, periodMs, autoReload ? periodMs : 0);
 }
 
-void va_freertos_timer_command(void *timer, int32_t commandId)
+void va_freertos_timer_command(void *timer, int32_t commandId, uint32_t optionalValue)
 {
     if (timer == NULL)
         return;
@@ -256,15 +262,29 @@ void va_freertos_timer_command(void *timer, int32_t commandId)
     {
     case tmrCOMMAND_START:
     case tmrCOMMAND_RESET:
+        va_logQueueObjectGiveTyped(timer, VA_OBJECT_TYPE_TIMER);
+        va_freertos_timer_arm(timer, (uint32_t)xTimerGetPeriod((TimerHandle_t)timer),
+                              false);
+        break;
+
     case tmrCOMMAND_CHANGE_PERIOD:
+        va_logQueueObjectGiveTyped(timer, VA_OBJECT_TYPE_TIMER);
+        va_freertos_timer_arm(timer, optionalValue, false);
+        break;
+
 #if defined(tmrCOMMAND_START_FROM_ISR)
     case tmrCOMMAND_START_FROM_ISR:
     case tmrCOMMAND_RESET_FROM_ISR:
-    case tmrCOMMAND_CHANGE_PERIOD_FROM_ISR:
-#endif
         va_logQueueObjectGiveTyped(timer, VA_OBJECT_TYPE_TIMER);
-        va_freertos_timer_arm(timer);
+        va_freertos_timer_arm(timer, (uint32_t)xTimerGetPeriod((TimerHandle_t)timer),
+                              true);
         break;
+
+    case tmrCOMMAND_CHANGE_PERIOD_FROM_ISR:
+        va_logQueueObjectGiveTyped(timer, VA_OBJECT_TYPE_TIMER);
+        va_freertos_timer_arm(timer, optionalValue, true);
+        break;
+#endif
 
     case tmrCOMMAND_STOP:
 #if defined(tmrCOMMAND_STOP_FROM_ISR)

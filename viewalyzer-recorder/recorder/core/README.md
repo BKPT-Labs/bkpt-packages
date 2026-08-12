@@ -19,7 +19,7 @@ It does not create task lanes automatically because there is no scheduler adapte
 
 - `ViewAlyzer.h` - public API and compile-time configuration
 - `ViewAlyzer.c` - recorder core implementation
-- `viewalyzer_cobs.h` / `viewalyzer_cobs.c` - COBS framing used by the transport stream
+- `viewalyzer_cobs.h` / `viewalyzer_cobs.c` - COBS framing; needed only for `CUSTOM_TRANSPORT` builds (ITM/RTT/RAM-buffer builds do not use it, and it is harmless to compile anyway)
 
 ## Build Defines
 
@@ -67,8 +67,10 @@ Useful optional defines:
 
 All of them live in `ViewAlyzerConfig.h`, together with the `VA_TRACE_*`
 category switches that decide which kinds of event get compiled in at all
-(see the top-level README). That header includes nothing, so it is safe to
-pull into `FreeRTOSConfig.h` and into Zephyr kernel translation units.
+(see the top-level README). That header includes no device, CMSIS, or RTOS
+headers, so it is safe to pull into `FreeRTOSConfig.h` and into Zephyr
+kernel translation units. If you configure via `VA_CONFIG_HEADER`, the
+directory holding your config header must be on those include paths too.
 
 `VA_Internal.h` is the only ViewAlyzer header that includes the device/CMSIS
 header, and it requires `VA_DEVICE_HEADER` to be set to a BARE token:
@@ -88,7 +90,7 @@ only supported spelling.
 Compile these files into your firmware:
 
 - `core/ViewAlyzer.c`
-- `core/viewalyzer_cobs.c`
+- `core/viewalyzer_cobs.c` (only needed for `CUSTOM_TRANSPORT` builds)
 
 Add the `core/` directory to your include path, then initialize the recorder once your clocks and debug transport are ready:
 

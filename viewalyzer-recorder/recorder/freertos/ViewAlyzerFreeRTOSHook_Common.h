@@ -225,7 +225,7 @@ void va_freertos_taskswitchedin(void *taskHandle);
 #ifdef __cplusplus
 extern "C" {
 #endif
-void va_freertos_timer_command(void *timer, int32_t commandId);
+void va_freertos_timer_command(void *timer, int32_t commandId, uint32_t optionalValue);
 void va_freertos_timer_expired(void *timer);
 #ifdef __cplusplus
 }
@@ -234,11 +234,14 @@ void va_freertos_timer_expired(void *timer);
 #define traceTIMER_CREATE(pxNewTimer) \
     va_logQueueObjectCreateTyped((void *)(pxNewTimer), (pxNewTimer)->pcTimerName, VA_OBJECT_TYPE_TIMER)
 
+/* xOptionalValue rides along: for the change-period commands it carries the
+   NEW period in ticks, which the kernel has only queued at this point. */
 #define traceTIMER_COMMAND_SEND(xTimer, xCommandID, xOptionalValue, xReturn)          \
     do                                                                                \
     {                                                                                 \
         if ((xReturn) != pdFAIL)                                                      \
-            va_freertos_timer_command((void *)(xTimer), (int32_t)(xCommandID));       \
+            va_freertos_timer_command((void *)(xTimer), (int32_t)(xCommandID),        \
+                                      (uint32_t)(xOptionalValue));                    \
     } while (0)
 
 #define traceTIMER_EXPIRED(pxTimer) \

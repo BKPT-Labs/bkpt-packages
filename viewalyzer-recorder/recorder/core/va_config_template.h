@@ -66,8 +66,36 @@
 /* #define VA_TRACE_COUNTERS           1 */
 /* #define VA_TRACE_HEAP_METRICS       1 */
 
+/* ── Timestamp source ──────────────────────────────────────────────
+   DWT_CYCCNT (default) or CUSTOM_TIMER.
+
+   Pick CUSTOM_TIMER when the core has no DWT cycle counter (Cortex-M0/
+   M0+/M23) or the vendor omitted it. VA_Init() then takes your tick
+   source alongside the CPU clock:
+
+       VA_Init(cpu_freq, my_read_ticks, tick_hz);
+
+   where my_read_ticks is `uint32_t fn(void)` returning a FREE-RUNNING
+   counter (e.g. `return TIM2->CNT;`). The timer must be running before
+   VA_Init(), must never pause while the CPU runs, and the function must
+   be safe to call from any context (including interrupts masked), take
+   no locks, and be cheap - it runs inside every trace hook. Any tick
+   rate works; timestamp resolution = one tick.
+
+   Wrap budget: the recorder needs one clock read per counter wrap.
+   Events do this for free; across QUIET gaps call VA_TickOverflowCheck()
+   more often than the wrap period (2^bits / tick_hz):
+       32-bit @ 1 MHz      wraps every ~71 min  - trivial
+       16-bit @ 32.768 kHz wraps every 2 s      - check every <= 1 s
+       16-bit @ 1 MHz      wraps every 65 ms    - prefer a 32-bit timer!
+*/
+
+/* #define VA_TIMESTAMP_SOURCE DWT_CYCCNT */
+/* #define VA_TIMER_BITS       32 */
+
 /* ── Transport ─────────────────────────────────────────────────────
-   ARM_ITM, JLINK_RTT, CUSTOM_TRANSPORT, or RAM_BUFFER. */
+   ARM_ITM, JLINK_RTT, CUSTOM_TRANSPORT, or RAM_BUFFER.
+   (No ITM on Cortex-M0/M0+/M23 - use RAM_BUFFER or JLINK_RTT there.) */
 
 /* #define VA_TRANSPORT ARM_ITM */
 

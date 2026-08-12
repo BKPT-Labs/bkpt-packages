@@ -14,7 +14,23 @@ On top of the core recorder APIs, the FreeRTOS adapter maps native kernel activi
 - queues
 - semaphores and mutexes
 - mutex contention
+- event groups
+- software timers (create/start/stop/expire, with arm periods)
+- explicit sleep (`vTaskDelay`/`vTaskDelayUntil`, suspend/resume)
+- kernel heap (`pvPortMalloc`/`vPortFree`)
+- tickless-idle power management (requires `configUSE_TICKLESS_IDLE=1`)
 - stack usage, when enabled
+
+Version notes: the adapter supports FreeRTOS v9.0.0 and later (v9 through
+v11 verified), single-core only (SMP builds are rejected at compile time).
+`k_work`-style deferred-work tracing is a Zephyr-only category and is
+reported off on FreeRTOS builds.
+
+One operational requirement: call `VA_TickOverflowCheck()` periodically
+from THREAD context (a housekeeping loop is fine). Every FreeRTOS kernel
+trace hook runs in ISR or critical-section context, where the recorder
+must defer its periodic setup bundle - without a thread-context recorder
+call, late-attaching hosts never receive names.
 
 ## Files
 
@@ -98,10 +114,14 @@ VA_TRANSPORT=JLINK_RTT
 Compile these files into your firmware:
 
 - `core/ViewAlyzer.c`
-- `core/viewalyzer_cobs.c`
 - `freertos/VA_Adapter_FreeRTOS.c`
+- `core/viewalyzer_cobs.c` - ONLY for `CUSTOM_TRANSPORT` builds (COBS
+  framing); ITM, RTT, and RAM-buffer builds do not use it
 
-Add both `core/` and `freertos/` to the include path.
+Add both `core/` and `freertos/` to the include path. If you use the
+recommended `-DVA_CONFIG_HEADER=va_config.h` flow, the directory holding
+your `va_config.h` must be on the KERNEL's include path too (the kernel
+compiles the trace hooks and with them the configuration).
 
 ## FreeRTOSConfig.h Integration
 
@@ -140,7 +160,7 @@ If those options are off, the recorder still works, but the missing data stays u
   auto-generated names ("Queue", "BinSem", ...) in the viewer.
 - Recursive mutexes appear as one take at first acquisition and one give at
   final release. Nested takes and gives change no ownership and emit
-  nothing, and a timed-out take emits nothing.
+  nothing; a timed-out take emits no take event, only a failed-op event.
 - Tasks created before `VA_Init()` are registered lazily on their first
   switch-in. They keep their real names, but their priority and stack size
   are unknown (reported as 0) and they get no stack-usage samples - call

@@ -37,9 +37,8 @@ extern "C"
 
 #if VA_TRANSPORT_IS_JLINK
 #include "SEGGER_RTT.h"
-#ifndef VA_RTT_MODE
-#define VA_RTT_MODE SEGGER_RTT_MODE_BLOCK_IF_FIFO_FULL
-#endif
+/* VA_RTT_MODE always arrives defined from ViewAlyzerConfig.h (default
+   SEGGER_RTT_MODE_NO_BLOCK_SKIP); no fallback here. */
 #if VA_RTT_BUFFER_SIZE > 0
     static uint8_t s_va_rtt_up_buffer[VA_RTT_BUFFER_SIZE];
 #endif
@@ -132,11 +131,22 @@ static void _va_strcat_suffix(char *buf, size_t buf_size,
 }
 #endif /* VA_NEEDS_OBJECT_REGISTRY */
 
-#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined(__ARM_ARCH_8M_MAIN__) || defined(__ARM_ARCH_8M_BASE__) || defined(__ARM_ARCH_8_1M_MAIN__)
-    static volatile uint32_t g_dwt_overflow_count = 0;
-    static volatile uint32_t g_dwt_last_value = 0;
+    /* 64-bit software-extension state for the tick source. Wrap is
+       detected by decrease, so the clock must be read at least once per
+       wrap period: every emitted event does; VA_TickOverflowCheck()
+       covers quiet gaps. */
+    static volatile uint32_t _va_ts_ovf  = 0;
+    static volatile uint32_t _va_ts_last = 0;
+
+#if VA_TS_IS_CUSTOM
+    /* Tick source. Trace calls are legal before VA_Init (boot-time kernel
+       hooks), so the pointer must always be callable: it starts on the
+       stub and returns to it when VA_Init rejects a source. */
+    static uint32_t _va_ts_none(void) { return 0u; }
+    static VA_TimestampFn _va_ts_fn = _va_ts_none;
+#define _VA_TICK_READ() ((_va_ts_fn()) & VA_TS_SOURCE_MASK)
 #else
-#error "ViewAlyzer: this architecture has no DWT cycle counter (timestamps need one). Supported: Cortex-M3 and later (ARMv7-M / ARMv8-M / ARMv8.1-M). Cortex-M0/M0+ (ARMv6-M) is not supported; build this target with VA_ENABLED=0."
+#define _VA_TICK_READ() (DWT->CYCCNT)
 #endif
 
     /* ── Shared global state (exposed via VA_Internal.h) ────────── */
@@ -152,14 +162,36 @@ static void _va_strcat_suffix(char *buf, size_t buf_size,
     /* Absolute packet count since VA_Init; low 8 bits go on the wire. */
     static uint32_t _va_seq = 0;
 
-    static uint32_t _va_cpu_freq = 0;
+    /* Tick rate of the timestamp source: the CPU clock for DWT_CYCCNT, the
+       registered tick_hz for CUSTOM_TIMER. Reported as CLK: and used for
+       every interval-in-ticks computation. */
+    static uint32_t _va_tick_hz = 0;
 
 /* Info-packet markers; must fit VA_MAX_TASK_NAME_LEN untruncated. */
 #define VA_INFO_TASKMAP_FULL  "ERR:TASKMAPFULL"
 #define VA_INFO_USERMAP_FULL  "ERR:USERMAPFULL"
+/* Registry-overflow reports for the remaining registries; same latched,
+   re-announced-per-bundle pattern as the task/user-trace pair above. */
+#define VA_INFO_OBJMAP_FULL   "ERR:OBJMAPFULL"
+#define VA_INFO_EVTMAP_FULL   "ERR:EVTMAPFULL"
+#define VA_INFO_GPIOMAP_FULL  "ERR:GPIOMAPFULL"
+#define VA_INFO_HEAPMAP_FULL  "ERR:HEAPMAPFULL"
+/* Timestamp-source init failures: emitted once by VA_Init, which then
+   refuses to start, so a dead or misconfigured tick source shows up on
+   the host as a named error instead of a capture with zero-time events. */
+#define VA_INFO_TS_NULL       "ERR:TS_NULL"
+#define VA_INFO_TS_HZ_ZERO    "ERR:TS_HZ_ZERO"
+#define VA_INFO_TS_DEAD       "ERR:TS_DEAD"
 typedef char va_assert_info_markers_fit_[
     (sizeof (VA_INFO_TASKMAP_FULL) <= VA_MAX_TASK_NAME_LEN &&
-     sizeof (VA_INFO_USERMAP_FULL) <= VA_MAX_TASK_NAME_LEN) ? 1 : -1];
+     sizeof (VA_INFO_USERMAP_FULL) <= VA_MAX_TASK_NAME_LEN &&
+     sizeof (VA_INFO_OBJMAP_FULL)  <= VA_MAX_TASK_NAME_LEN &&
+     sizeof (VA_INFO_EVTMAP_FULL)  <= VA_MAX_TASK_NAME_LEN &&
+     sizeof (VA_INFO_GPIOMAP_FULL) <= VA_MAX_TASK_NAME_LEN &&
+     sizeof (VA_INFO_HEAPMAP_FULL) <= VA_MAX_TASK_NAME_LEN &&
+     sizeof (VA_INFO_TS_NULL)      <= VA_MAX_TASK_NAME_LEN &&
+     sizeof (VA_INFO_TS_HZ_ZERO)   <= VA_MAX_TASK_NAME_LEN &&
+     sizeof (VA_INFO_TS_DEAD)      <= VA_MAX_TASK_NAME_LEN) ? 1 : -1];
 
 #if VA_NEEDS_TASK_REGISTRY
     /* --- Task ID Mapping (RTOS-agnostic) --- */
@@ -174,17 +206,20 @@ typedef char va_assert_info_markers_fit_[
 #endif
 
 #if VA_AUTO_SETUP_INTERVAL_MS > 0
-    /* Periodic-bundle due tracking (raw CYCCNT, wrap-safe, ISR-safe). */
+    /* Periodic-bundle due tracking (extended 64-bit tick timestamps, so it
+       is wrap-safe for any tick-source width; ISR-safe). */
     static struct {
-        uint32_t last_cyc;   /* raw CYCCNT at the last bundle */
-        uint32_t interval;   /* cycles, <= 2^31-1; 0 until VA_Init ("not configured") */
-        bool     due;        /* set inside CS (possibly in an ISR), serviced outside */
-        bool     emitting;   /* thread context only */
+        uint64_t last_ts;    /* extended timestamp at the last bundle */
+        uint64_t interval;   /* ticks; 0 until VA_Init ("not configured") */
+        /* volatile: set inside a CS (possibly in an ISR), polled from
+           thread context - without it LTO can hoist the poll. */
+        volatile bool due;
+        volatile bool emitting;   /* thread context only */
     } _va_bundle;
 #endif
 
 #if VA_HAS_RTOS && VA_TRACE_STACK_USAGE
-    static uint64_t _va_stack_heartbeat_cycles = 0; /* precomputed in VA_Init */
+    static uint64_t _va_stack_heartbeat_ticks = 0; /* precomputed in VA_Init */
 #endif
 
 #if VA_NEEDS_TASK_REGISTRY
@@ -205,6 +240,8 @@ typedef char va_assert_info_markers_fit_[
         bool active;
     } VA_UserEventMapEntry_t;
     static VA_UserEventMapEntry_t userEventMap[VA_MAX_USER_EVENTS];
+    /* Latched registry-full condition, re-announced by every setup bundle. */
+    static bool _va_user_event_overflow = false;
 #endif
 
 #if VA_NEEDS_USER_TRACE_REGISTRY
@@ -226,6 +263,9 @@ typedef char va_assert_info_markers_fit_[
     /* --- Queue / sync-object map (RTOS-agnostic storage, adapter determines type) --- */
     VA_QueueObjectMapEntry_t queueObjectMap[VA_MAX_SYNC_OBJECTS];
     uint8_t next_queue_object_id = 1;
+    /* Latched full/exhausted condition, re-announced by every setup bundle
+       (slots are reused after delete, the 255-id space is not). */
+    static bool _va_obj_map_overflow = false;
 #endif
 
 #if VA_TRACE_GPIO
@@ -238,6 +278,8 @@ typedef char va_assert_info_markers_fit_[
         bool active;
     } VA_GpioMapEntry_t;
     static VA_GpioMapEntry_t gpioMap[VA_MAX_GPIOS];
+    /* Latched registry-full condition, re-announced by every setup bundle. */
+    static bool _va_gpio_map_overflow = false;
 #endif
 
 #if VA_TRACE_HEAP_METRICS
@@ -250,6 +292,8 @@ typedef char va_assert_info_markers_fit_[
         bool active;
     } VA_HeapGaugeMapEntry_t;
     static VA_HeapGaugeMapEntry_t heapGaugeMap[VA_MAX_HEAPS];
+    /* Latched registry-full condition, re-announced by every setup bundle. */
+    static bool _va_heap_map_overflow = false;
 #endif
 
 /* ── Post-mortem snapshot ring (VA_RAMBUF_MODE_WRAP / VA_SNAPSHOT) ─── */
@@ -630,11 +674,15 @@ void _va_emit_packet(uint8_t *data, uint32_t length)
 
 #if VA_AUTO_SETUP_INTERVAL_MS > 0
     /* Only flag the bundle as due - emitting ~1 KB inline here would block
-       interrupts. _va_service_pending_bundle() emits from thread context. */
+       interrupts; _va_service_pending_bundle() emits from thread context.
+       "Now" comes from the extension state, not a fresh clock read: a torn
+       ovf/last pair only fires one bundle early or late. */
     {
-        const uint32_t interval = _va_bundle.interval;
+        const uint64_t interval = _va_bundle.interval;
+        const uint64_t now = (((uint64_t)_va_ts_ovf) << VA_TS_SOURCE_BITS)
+                             | _va_ts_last;
         if (interval != 0u && !_va_bundle.emitting && !_va_bundle.due &&
-            (uint32_t)(DWT->CYCCNT - _va_bundle.last_cyc) >= interval)
+            (now - _va_bundle.last_ts) >= interval)
             _va_bundle.due = true;
     }
 #endif
@@ -660,7 +708,8 @@ static inline bool _va_irqs_masked(void)
 {
     if (__get_PRIMASK() != 0u)
         return true;
-#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) || defined(__ARM_ARCH_8M_MAIN__)
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) \
+ || defined(__ARM_ARCH_8M_MAIN__) || defined(__ARM_ARCH_8_1M_MAIN__)
     if (__get_BASEPRI() != 0u)
         return true;
 #endif
@@ -676,7 +725,7 @@ void _va_service_pending_bundle(void)
         return;   /* defer to the next unmasked thread-context log call */
 
     _va_bundle.due      = false;
-    _va_bundle.last_cyc = DWT->CYCCNT;
+    _va_bundle.last_ts  = _va_get_timestamp();
     _va_bundle.emitting = true;
     VA_EmitSetupBundle();          /* emits each packet under its own short CS */
     _va_bundle.emitting = false;
@@ -1000,37 +1049,53 @@ static void _va_emit_string_event(uint8_t id, const char *msg)
 
 /* ── Timestamp ───────────────────────────────────────────────────── */
 
-/* Cycle-counter read + software 64-bit extension. MUST run with interrupts
+/* Tick-source read + software 64-bit extension. MUST run with interrupts
    masked; _va_get_timestamp() wraps it for callers outside a CS. */
 uint64_t _va_get_timestamp_unlocked(void)
 {
-    uint32_t current_dwt = DWT->CYCCNT;
-    if (current_dwt < g_dwt_last_value)
+    uint32_t current = _VA_TICK_READ();
+    if (current < _va_ts_last)
     {
-        g_dwt_overflow_count++;
+        _va_ts_ovf++;
     }
-    g_dwt_last_value = current_dwt;
-    return (((uint64_t)g_dwt_overflow_count) << 32) | current_dwt;
+    _va_ts_last = current;
+    return (((uint64_t)_va_ts_ovf) << VA_TS_SOURCE_BITS) | current;
 }
 
 uint64_t _va_get_timestamp(void)
 {
+#if VA_ALLOWED_TO_DISABLE_INTERRUPTS
     uint32_t primask_state = __get_PRIMASK();
     __disable_irq();
     uint64_t ts = _va_get_timestamp_unlocked();
     __set_PRIMASK(primask_state);
     return ts;
+#else
+    /* Single-execution-context contract (see the knob's comment): the
+       unlocked read is safe, and masking would break the knob's promise. */
+    return _va_get_timestamp_unlocked();
+#endif
 }
 
 void VA_TickOverflowCheck(void)
 {
     if (!VA_IS_INIT) return;
-    (void)_va_get_timestamp();
 #if VA_TRANSPORT_IS_ITM
-    /* Re-arm a stalled ITM pipe (one bounded retry per call), so builds
-       with the periodic bundle disabled still recover when a host starts
-       draining SWO. */
-    _va_itm_stalled = 0;
+    /* Re-arm a stalled ITM pipe so a host that starts draining SWO is
+       picked up even with the periodic bundle disabled. At most once per
+       second: each re-arm makes the next packet burn the full stall-spin
+       limit with interrupts masked. */
+    {
+        static uint64_t _va_last_itm_rearm;
+        uint64_t now = _va_get_timestamp();
+        if ((now - _va_last_itm_rearm) >= (uint64_t)_va_tick_hz)
+        {
+            _va_last_itm_rearm = now;
+            _va_itm_stalled = 0;
+        }
+    }
+#else
+    (void)_va_get_timestamp();
 #endif
     /* Also a guaranteed unmasked-thread-context point for a due bundle, in
        case every log call happens under masked interrupts. */
@@ -1094,7 +1159,7 @@ void VA_EmitSetupBundle(void)
 
     {
         char info_buf[40];
-        _va_u32_to_str(info_buf, sizeof(info_buf), "CLK:", _va_cpu_freq);
+        _va_u32_to_str(info_buf, sizeof(info_buf), "CLK:", _va_tick_hz);
         VA_ATOMIC(_va_send_setup_packet(VA_SETUP_INFO, 0, info_buf));
     }
 
@@ -1116,58 +1181,97 @@ void VA_EmitSetupBundle(void)
 #if VA_NEEDS_TASK_REGISTRY
     for (int i = 0; i < VA_MAX_TASKS; ++i)
     {
-        if (taskMap[i].active)
+        /* Snapshot the whole entry under ONE short CS: the slot can be
+           deleted and recycled between this loop's per-packet critical
+           sections, and the fields must all describe the same task. */
+        bool     active;
+        uint8_t  tid = 0;
+        void    *handle = NULL;
+        char     name[VA_MAX_TASK_NAME_LEN];
+#if VA_NEEDS_TASK_SWITCH_EVENTS
+        uint32_t prio = 0, basePrio = 0, stackDepth = 0;
+#endif
+        VA_CS_ENTER();
+        active = taskMap[i].active;
+        if (active)
         {
-            uint8_t  tid    = taskMap[i].id;
-            void    *handle = taskMap[i].handle;
+            tid    = taskMap[i].id;
+            handle = taskMap[i].handle;
+            memcpy(name, taskMap[i].name, sizeof(name));
+#if VA_NEEDS_TASK_SWITCH_EVENTS
+            prio       = taskMap[i].uxPriority;
+            basePrio   = taskMap[i].uxBasePriority;
+            stackDepth = taskMap[i].ulStackDepth;
+#endif
+        }
+        VA_CS_EXIT();
+        if (!active)
+            continue;
 
-            /* Name map goes out whenever the registry exists. */
-            VA_ATOMIC(_va_send_setup_packet(VA_SETUP_TASK_MAP, tid, taskMap[i].name));
+        /* Name map goes out whenever the registry exists. */
+        VA_ATOMIC(_va_send_setup_packet(VA_SETUP_TASK_MAP, tid, name));
 
 #if VA_NEEDS_TASK_SWITCH_EVENTS
-            VA_ATOMIC(_va_send_task_create_packet(tid, _va_get_timestamp_unlocked(),
-                                                  taskMap[i].uxPriority,
-                                                  taskMap[i].uxBasePriority,
-                                                  taskMap[i].ulStackDepth));
+        VA_ATOMIC(_va_send_task_create_packet(tid, _va_get_timestamp_unlocked(),
+                                              prio, basePrio, stackDepth));
 #endif
 
 #if VA_TRACE_STACK_USAGE
-            /* Stack-usage snapshot for late-attaching hosts. */
-            if (handle != NULL)
+        /* Stack-usage snapshot for late-attaching hosts. The adapter call
+           dereferences the live TCB: it must run under the same CS that
+           re-validates the slot. */
+        VA_ATOMIC(
+            if (handle != NULL && taskMap[i].active && taskMap[i].handle == handle)
             {
                 uint32_t su = va_adapter_calculate_stack_usage(handle);
                 uint32_t st = va_adapter_get_total_stack_size(handle);
                 if (st > 0)
-                    VA_ATOMIC(_va_send_stack_usage_packet(tid, _va_get_timestamp_unlocked(), su, st));
-            }
+                    _va_send_stack_usage_packet(tid, _va_get_timestamp_unlocked(), su, st);
+            });
 #else
-            (void)handle;
+        (void)handle;
 #endif
-        }
     }
 #endif /* VA_NEEDS_TASK_REGISTRY */
 
 #if VA_NEEDS_OBJECT_REGISTRY
     for (int i = 0; i < VA_MAX_SYNC_OBJECTS; ++i)
     {
-        if (queueObjectMap[i].active)
-        {
-            VA_ATOMIC(_va_send_setup_packet(_va_get_setup_packet_type(queueObjectMap[i].type),
-                                            queueObjectMap[i].id,
-                                            queueObjectMap[i].name));
-            VA_ATOMIC(_va_send_object_info_packet(queueObjectMap[i].id,
-                                                  VA_OBJINFO_OBJECT_ADDR,
-                                                  (uint32_t)(uintptr_t)queueObjectMap[i].handle));
+        /* Snapshot under one CS so a slot recycled mid-loop cannot emit
+           the new object's name under the old object's id. */
+        bool                 active;
+        uint8_t              oid = 0;
+        VA_QueueObjectType_t otype = VA_OBJECT_TYPE_QUEUE;
+        void                *ohandle = NULL;
+        char                 oname[VA_MAX_TASK_NAME_LEN];
 #if VA_HAS_RTOS && VA_TRACE_RTOS_HEAPS
-            /* Heap capacity anchors the host's 100% line; re-sent so a host
-               that attached after registration still learns it. */
-            if (queueObjectMap[i].type == VA_OBJECT_TYPE_HEAP
-                && queueObjectMap[i].heapCapacity > 0)
-                VA_ATOMIC(_va_send_object_info_packet(queueObjectMap[i].id,
-                                                      VA_OBJINFO_HEAP_CAPACITY,
-                                                      queueObjectMap[i].heapCapacity));
+        uint32_t             ocap = 0;
+#endif
+        VA_CS_ENTER();
+        active = queueObjectMap[i].active;
+        if (active)
+        {
+            oid     = queueObjectMap[i].id;
+            otype   = queueObjectMap[i].type;
+            ohandle = queueObjectMap[i].handle;
+            memcpy(oname, queueObjectMap[i].name, sizeof(oname));
+#if VA_HAS_RTOS && VA_TRACE_RTOS_HEAPS
+            ocap    = queueObjectMap[i].heapCapacity;
 #endif
         }
+        VA_CS_EXIT();
+        if (!active)
+            continue;
+
+        VA_ATOMIC(_va_send_setup_packet(_va_get_setup_packet_type(otype), oid, oname));
+        VA_ATOMIC(_va_send_object_info_packet(oid, VA_OBJINFO_OBJECT_ADDR,
+                                              (uint32_t)(uintptr_t)ohandle));
+#if VA_HAS_RTOS && VA_TRACE_RTOS_HEAPS
+        /* Heap capacity anchors the host's 100% line; re-sent so a host
+           that attached after registration still learns it. */
+        if (otype == VA_OBJECT_TYPE_HEAP && ocap > 0)
+            VA_ATOMIC(_va_send_object_info_packet(oid, VA_OBJINFO_HEAP_CAPACITY, ocap));
+#endif
     }
 #endif
 
@@ -1219,18 +1323,41 @@ void VA_EmitSetupBundle(void)
     if (_va_user_trace_overflow)
         VA_ATOMIC(_va_send_setup_packet(VA_SETUP_INFO, 0, VA_INFO_USERMAP_FULL));
 #endif
+#if VA_NEEDS_OBJECT_REGISTRY
+    if (_va_obj_map_overflow)
+        VA_ATOMIC(_va_send_setup_packet(VA_SETUP_INFO, 0, VA_INFO_OBJMAP_FULL));
+#endif
+#if VA_TRACE_USER_EVENTS
+    if (_va_user_event_overflow)
+        VA_ATOMIC(_va_send_setup_packet(VA_SETUP_INFO, 0, VA_INFO_EVTMAP_FULL));
+#endif
+#if VA_TRACE_GPIO
+    if (_va_gpio_map_overflow)
+        VA_ATOMIC(_va_send_setup_packet(VA_SETUP_INFO, 0, VA_INFO_GPIOMAP_FULL));
+#endif
+#if VA_TRACE_HEAP_METRICS
+    if (_va_heap_map_overflow)
+        VA_ATOMIC(_va_send_setup_packet(VA_SETUP_INFO, 0, VA_INFO_HEAPMAP_FULL));
+#endif
 }
 
-static void _va_enable_dwt_counter(void)
+#if VA_TS_IS_DWT || VA_TRANSPORT_IS_ITM
+/* DEMCR.TRCENA powers both the DWT and the ITM; CYCCNT setup follows only
+   when timestamps come from the DWT. Compiled out when neither consumer
+   exists - baseline cores have none of these registers. */
+static void _va_enable_trace_hw(void)
 {
 #if (__ARM_ARCH >= 8)
     DCB->DEMCR |= DCB_DEMCR_TRCENA_Msk;
 #else
     CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
 #endif
+#if VA_TS_IS_DWT
     DWT->CYCCNT = 0;
     DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
+#endif
 }
+#endif /* VA_TS_IS_DWT || VA_TRANSPORT_IS_ITM */
 
 /* ── Generic task-map helpers ────────────────────────────────────── */
 #if VA_NEEDS_TASK_REGISTRY
@@ -1362,6 +1489,9 @@ const char *_va_get_object_type_name(VA_QueueObjectType_t type)
     case VA_OBJECT_TYPE_BINARY_SEM:      return "BinarySem";
     case VA_OBJECT_TYPE_RECURSIVE_MUTEX: return "RecursiveMutex";
     case VA_OBJECT_TYPE_EVENTFLAG:       return "EventFlag";
+    case VA_OBJECT_TYPE_TIMER:           return "Timer";
+    case VA_OBJECT_TYPE_HEAP:            return "Heap";
+    case VA_OBJECT_TYPE_POWER_MGMT:      return "PowerMgmt";
     default:                             return "Unknown";
     }
 }
@@ -1456,7 +1586,17 @@ uint8_t _va_assign_queue_object_id(void *handle, const char *name, VA_QueueObjec
         }
     }
     if (empty_slot == -1 || next_queue_object_id == 0)
+    {
+        /* Registry full or id space exhausted: this object traces as id 0.
+           Announce on the wire, latched for re-announcement in every
+           bundle. */
+        if (!_va_obj_map_overflow)
+        {
+            _va_obj_map_overflow = true;
+            _va_send_setup_packet(VA_SETUP_INFO, 0, VA_INFO_OBJMAP_FULL);
+        }
         return 0;
+    }
 
     uint8_t new_id = next_queue_object_id++;
     queueObjectMap[empty_slot].active = true;
@@ -1583,7 +1723,14 @@ static uint8_t _va_assign_user_event_id(uint8_t event_id, const char *name)
         }
     }
     if (empty_slot == -1)
+    {
+        if (!_va_user_event_overflow)
+        {
+            _va_user_event_overflow = true;
+            _va_send_setup_packet(VA_SETUP_INFO, 0, VA_INFO_EVTMAP_FULL);
+        }
         return 0;
+    }
 
     userEventMap[empty_slot].active = true;
     userEventMap[empty_slot].id = event_id;
@@ -1681,9 +1828,9 @@ void va_taskswitchedout(void *taskHandle)
        context switch with interrupts masked. */
     if (id != 0 && idx >= 0)
     {
-        bool sample = (_va_stack_heartbeat_cycles == 0)
+        bool sample = (_va_stack_heartbeat_ticks == 0)
                     || !taskMap[idx].hasStackSample
-                    || (now - taskMap[idx].lastStackEmitTs) >= _va_stack_heartbeat_cycles;
+                    || (now - taskMap[idx].lastStackEmitTs) >= _va_stack_heartbeat_ticks;
         if (sample)
         {
             uint32_t stack_used  = va_adapter_calculate_stack_usage(taskHandle);
@@ -1843,6 +1990,13 @@ void VA_RegisterGPIO(uint8_t id, const char *name)
         gpioMap[slot].id = id;
         _va_copy_name(gpioMap[slot].name, name);
     }
+    else if (!_va_gpio_map_overflow)
+    {
+        /* The name goes out once below but cannot be stored, so the
+           periodic bundle will not carry it. Announce that. */
+        _va_gpio_map_overflow = true;
+        _va_send_setup_packet(VA_SETUP_INFO, 0, VA_INFO_GPIOMAP_FULL);
+    }
 
     _va_send_setup_packet(VA_SETUP_GPIO_MAP, id, name);
     VA_CS_EXIT();
@@ -1890,6 +2044,13 @@ void VA_RegisterHeap(uint8_t id, const char *name, uint32_t totalSize)
         heapGaugeMap[slot].id = id;
         heapGaugeMap[slot].totalSize = totalSize;
         _va_copy_name(heapGaugeMap[slot].name, name);
+    }
+    else if (!_va_heap_map_overflow)
+    {
+        /* The name goes out once below but cannot be stored, so the
+           periodic bundle will not carry it. Announce that. */
+        _va_heap_map_overflow = true;
+        _va_send_setup_packet(VA_SETUP_INFO, 0, VA_INFO_HEAPMAP_FULL);
     }
 
     _va_send_heap_setup_packet(id, name, totalSize);
@@ -2033,6 +2194,10 @@ void va_updateQueueObjectType(void *queueObject, const char *typeHint)
                 type = VA_OBJECT_TYPE_COUNTING_SEM;
             else if (strstr(typeHint, "BinSem") != NULL || strstr(typeHint, "BinarySem") != NULL)
                 type = VA_OBJECT_TYPE_BINARY_SEM;
+            else if (strstr(typeHint, "Timer") != NULL)
+                type = VA_OBJECT_TYPE_TIMER;
+            else if (strstr(typeHint, "Heap") != NULL)
+                type = VA_OBJECT_TYPE_HEAP;
             else if (strstr(typeHint, "Semaphore") != NULL || strstr(typeHint, "Sem") != NULL)
                 type = VA_OBJECT_TYPE_COUNTING_SEM;
             else if (strstr(typeHint, "EvtFlag") != NULL || strstr(typeHint, "EventFlag") != NULL)
@@ -2649,12 +2814,69 @@ void VA_RegisterTransportSend(VA_TransportSendFn sendFn)
 }
 #endif
 
-void VA_Init(uint32_t cpu_freq)
+#if VA_TS_IS_DWT
+/* Function-shaped CYCCNT read so the DWT arm can share the liveness probe. */
+static uint32_t _va_read_cyccnt(void)
 {
+    return DWT->CYCCNT;
+}
+#endif
+
+/* Bounded spin until the tick source shows movement. Must run with
+   interrupts ENABLED: the dead-source case burns the full bound (~0.1 s).
+   A healthy source exits within one tick period; the bound gives sources
+   down to ~1 kHz several periods. */
+static bool _va_tick_source_alive(VA_TimestampFn fn, uint32_t cpu_freq)
+{
+    const uint32_t first = fn() & VA_TS_SOURCE_MASK;
+    uint32_t spins = (cpu_freq != 0u) ? (cpu_freq >> 6) : 1000000u;
+    while (spins-- != 0u)
+    {
+        if ((fn() & VA_TS_SOURCE_MASK) != first)
+            return true;
+    }
+    return false;
+}
+
+#if VA_TS_IS_CUSTOM
+void VA_Init(uint32_t cpu_freq, VA_TimestampFn ts_fn, uint32_t tick_hz)
+#else
+void VA_Init(uint32_t cpu_freq)
+#endif
+{
+    /* ── Tick-source verdict, decided before interrupts are masked ─────
+       Both arms are probed for movement: the arch check only proves the
+       architecture CAN have a cycle counter; a vendor-omitted DWT enables
+       fine and never counts. A dead verdict is reported (and the recorder
+       refused) once the transport is up. */
+#if VA_TS_IS_DWT || VA_TRANSPORT_IS_ITM
+    _va_enable_trace_hw();
+#endif
+    const char *ts_err = NULL;
+#if VA_TS_IS_CUSTOM
+    if (ts_fn == 0)
+        ts_err = VA_INFO_TS_NULL;
+    else if (tick_hz == 0u)
+        ts_err = VA_INFO_TS_HZ_ZERO;
+    else if (!_va_tick_source_alive(ts_fn, cpu_freq))
+        ts_err = VA_INFO_TS_DEAD;
+#else
+    if (!_va_tick_source_alive(_va_read_cyccnt, cpu_freq))
+        ts_err = VA_INFO_TS_DEAD;
+#endif
+
     VA_CS_ENTER();
-    _va_cpu_freq = cpu_freq;
-    g_dwt_overflow_count = 0;
-    g_dwt_last_value = 0;
+#if VA_TS_IS_CUSTOM
+    /* Tick math and the reported CLK: rate come from the timer, not the
+       CPU clock. A rejected source is never installed - trace calls must
+       keep hitting the stub. */
+    _va_ts_fn   = (ts_err == NULL) ? ts_fn : _va_ts_none;
+    _va_tick_hz = tick_hz;
+#else
+    _va_tick_hz = cpu_freq;
+#endif
+    _va_ts_ovf  = 0;
+    _va_ts_last = 0;
 
 #if VA_NEEDS_TASK_REGISTRY
     /* Reset MRU lookup caches (stale slot indices from a previous run). */
@@ -2665,18 +2887,16 @@ void VA_Init(uint32_t cpu_freq)
     _va_seq = 0;
 
 #if VA_AUTO_SETUP_INTERVAL_MS > 0
-    _va_bundle.last_cyc = 0;
+    _va_bundle.last_ts  = 0;
     _va_bundle.emitting = false;
     _va_bundle.due      = false;
-    /* Bundle interval in cycles, clamped to 2^31-1 for wrap-safe compares. */
-    {
-        uint64_t interval = ((uint64_t)_va_cpu_freq / 1000) * VA_AUTO_SETUP_INTERVAL_MS;
-        _va_bundle.interval = (interval > 0x7FFFFFFFu) ? 0x7FFFFFFFu : (uint32_t)interval;
-    }
+    /* Bundle interval in ticks; the 64-bit extended-timestamp compare in
+       _va_emit_packet needs no wrap clamp. */
+    _va_bundle.interval = ((uint64_t)_va_tick_hz / 1000) * VA_AUTO_SETUP_INTERVAL_MS;
 #endif
 
 #if VA_HAS_RTOS && VA_TRACE_STACK_USAGE
-    _va_stack_heartbeat_cycles = ((uint64_t)_va_cpu_freq / 1000) * VA_STACK_USAGE_HEARTBEAT_MS;
+    _va_stack_heartbeat_ticks = ((uint64_t)_va_tick_hz / 1000) * VA_STACK_USAGE_HEARTBEAT_MS;
 #endif
 
 #if VA_TRANSPORT_BUFFERED
@@ -2723,6 +2943,7 @@ void VA_Init(uint32_t cpu_freq)
         queueObjectMap[i].id = 0;
     }
     next_queue_object_id = 1;
+    _va_obj_map_overflow = false;
     _va_qobj_cache_handle = NULL;
     _va_qobj_cache_idx    = -1;
 #endif
@@ -2734,6 +2955,7 @@ void VA_Init(uint32_t cpu_freq)
         userEventMap[i].id = 0;
         userEventMap[i].name[0] = '\0';
     }
+    _va_user_event_overflow = false;
 #endif
 
 #if VA_TRACE_GPIO
@@ -2743,6 +2965,7 @@ void VA_Init(uint32_t cpu_freq)
         gpioMap[i].id = 0;
         gpioMap[i].name[0] = '\0';
     }
+    _va_gpio_map_overflow = false;
 #endif
 
 #if VA_TRACE_HEAP_METRICS
@@ -2753,6 +2976,7 @@ void VA_Init(uint32_t cpu_freq)
         heapGaugeMap[i].totalSize = 0;
         heapGaugeMap[i].name[0] = '\0';
     }
+    _va_heap_map_overflow = false;
 #endif
 
 #if VA_NEEDS_USER_TRACE_REGISTRY
@@ -2764,8 +2988,6 @@ void VA_Init(uint32_t cpu_freq)
     }
     _va_user_trace_overflow = false;
 #endif
-
-    _va_enable_dwt_counter();
 
 #if VA_TRANSPORT_IS_ITM
     /* CoreSight LAR unlock: ARMv7-M only (removed on ARMv8-M, and CMSIS-6
@@ -2796,7 +3018,7 @@ void VA_Init(uint32_t cpu_freq)
     _VA_RAMBUF.rdOff          = 0;
     _VA_RAMBUF.droppedPackets = 0;
     _VA_RAMBUF.flags          = VA_RAMBUF_MODE;
-    _VA_RAMBUF.cpuFreqHz      = _va_cpu_freq;
+    _VA_RAMBUF.cpuFreqHz      = _va_tick_hz;
     _VA_RAMBUF.wireVersion    = (uint8_t)VA_WIRE_VERSION;
     _VA_RAMBUF.tsBytes        = (uint8_t)VA_TIMESTAMP_BYTES;
     _VA_RAMBUF.recorderVersion = (uint16_t)((VA_RECORDER_VERSION_MAJOR << 8)
@@ -2818,7 +3040,7 @@ void VA_Init(uint32_t cpu_freq)
     _VA_PMBUF.rdOff       = 0;
     _VA_PMBUF.discarded   = 0;
     _VA_PMBUF.flags       = 0;
-    _VA_PMBUF.cpuFreqHz   = _va_cpu_freq;
+    _VA_PMBUF.cpuFreqHz   = _va_tick_hz;
     _VA_PMBUF.wireVersion = (uint8_t)VA_WIRE_VERSION;
     _VA_PMBUF.tsBytes     = (uint8_t)VA_TIMESTAMP_BYTES;
     _VA_PMBUF.recorderVersion = (uint16_t)((VA_RECORDER_VERSION_MAJOR << 8)
@@ -2836,7 +3058,24 @@ void VA_Init(uint32_t cpu_freq)
         _VA_PMBUF.magic[i] = VA_PM_MAGIC[i];
     __DMB();
 #endif /* VA_PM_RING */
+
+    /* Transport writers drop bytes until VA_IS_INIT, so the gate must open
+       before the tick-source verdict can put its failure report on the
+       wire. Interrupts are masked, so nothing else can emit through the
+       briefly-open gate of a failing init. */
     VA_IS_INIT = true;
+
+    /* A dead or misconfigured tick source must never look like a working
+       session: emit a sync marker plus one named ERR: packet, then refuse
+       to start. */
+    if (ts_err != NULL)
+    {
+        _va_emit_sync_marker();
+        _va_send_setup_packet(VA_SETUP_INFO, 0, ts_err);
+        VA_IS_INIT = false;
+        VA_CS_EXIT();
+        return;
+    }
 
     _va_emit_sync_marker();
 
@@ -2848,7 +3087,7 @@ void VA_Init(uint32_t cpu_freq)
     _va_send_seq_checkpoint();
 
     char info_buf[40];
-    _va_u32_to_str(info_buf, sizeof(info_buf), "CLK:", _va_cpu_freq);
+    _va_u32_to_str(info_buf, sizeof(info_buf), "CLK:", _va_tick_hz);
     _va_send_setup_packet(VA_SETUP_INFO, 0, info_buf);
 #if VA_TRACE_ISRS
     _va_send_setup_packet(VA_SETUP_ISR_MAP, VA_ISR_ID_SYSTICK, "SysTick");

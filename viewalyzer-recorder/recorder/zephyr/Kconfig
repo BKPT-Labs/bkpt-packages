@@ -9,8 +9,16 @@ menuconfig VIEWALYZER
 	help
 	  Enable the ViewAlyzer binary trace recorder for Zephyr.
 
-	  Available on Arm Cortex-M only: timestamps come from the DWT cycle
-	  counter and the transports use ITM/RTT/probe memory reads.
+	  Also requires CONFIG_TRACING_USER=y (the recorder rides Zephyr's
+	  user-tracing hooks; the build stops with a clear error without it).
+
+	  Available on Arm Cortex-M only. Timestamps come from the DWT cycle
+	  counter where the core has one, or from a user-provided free-running
+	  timer (see "Timestamp source") on cores without it (Cortex-M0/M0+/
+	  M23). Transports use ITM/RTT/probe memory reads; cores without ITM
+	  use the RAM buffer (any probe) or RTT. The CUSTOM_TRANSPORT hook is
+	  not selectable from Kconfig - use the VA_CONFIG_HEADER flow from
+	  ViewAlyzerConfig.h if you need it on Zephyr.
 
 	  Every event category below is independent: turning one off compiles
 	  out its events, its packet builders, its registry storage, and its
@@ -33,16 +41,26 @@ config VIEWALYZER_NEEDS_THREAD_REGISTRY
 	select THREAD_MONITOR
 	select THREAD_NAME
 
+# Hidden: baseline cores (ARMv6-M and ARMv8-M baseline) have neither a DWT
+# cycle counter nor an ITM, so both the default timestamp source and the
+# default transport must change there.
+config VIEWALYZER_CPU_BASELINE
+	bool
+	default y if CPU_CORTEX_M0 || CPU_CORTEX_M0PLUS || CPU_CORTEX_M23
+
 choice VIEWALYZER_TRANSPORT
 	prompt "Transport backend"
+	default VIEWALYZER_TRANSPORT_RAMBUF if VIEWALYZER_CPU_BASELINE
 	default VIEWALYZER_TRANSPORT_ITM
 	help
 	  Select how the recorder sends trace data to the host.
 
 config VIEWALYZER_TRANSPORT_ITM
 	bool "ARM ITM / SWO"
+	depends on !VIEWALYZER_CPU_BASELINE
 	help
 	  Send recorder data over the Cortex-M ITM stimulus port.
+	  Not available on Cortex-M0/M0+/M23: those cores have no ITM.
 
 config VIEWALYZER_TRANSPORT_RTT
 	bool "SEGGER RTT"
@@ -65,6 +83,52 @@ config VIEWALYZER_TRANSPORT_RAMBUF
 	  directly via the _VA_RAMBUF ELF symbol.
 
 endchoice
+
+choice VIEWALYZER_TIMESTAMP_SOURCE
+	prompt "Timestamp source"
+	default VIEWALYZER_TS_CUSTOM_TIMER if VIEWALYZER_CPU_BASELINE
+	default VIEWALYZER_TS_DWT
+	help
+	  Where event timestamps come from.
+
+config VIEWALYZER_TS_DWT
+	bool "DWT cycle counter"
+	depends on !VIEWALYZER_CPU_BASELINE
+	help
+	  Timestamps from the CPU cycle counter (zero-cost reads, CPU-clock
+	  resolution). Not available on Cortex-M0/M0+/M23, and some vendors
+	  omit the DWT even on larger cores - pick the custom timer there.
+
+config VIEWALYZER_TS_CUSTOM_TIMER
+	bool "Custom free-running timer"
+	help
+	  Timestamps from a free-running hardware timer you own. VA_Init()
+	  changes shape with this choice and takes the tick source directly:
+
+	      VA_Init(cpu_freq, my_read_ticks, tick_hz);
+
+	  where my_read_ticks is a `uint32_t fn(void)` returning the raw
+	  counter (e.g. TIM2->CNT). Start the timer BEFORE VA_Init(); the
+	  recorder probes that it is actually counting and reports a
+	  host-visible ERR:TS_* packet (refusing to start) if it is not.
+	  The function must be callable from any context, take no locks,
+	  and never pause while the CPU runs. Any tick rate works; the rate
+	  is reported to the host, and timestamp resolution = one tick.
+
+endchoice
+
+config VIEWALYZER_TIMER_BITS
+	int "Custom timer counter width (16 or 32)"
+	depends on VIEWALYZER_TS_CUSTOM_TIMER
+	range 16 32
+	default 32
+	help
+	  Bit width of the custom timer's counter; only 16 or 32 is accepted
+	  (anything else fails the build). With a 16-bit timer the recorder
+	  must see one clock read per 65536-tick wrap or time is silently
+	  lost: events read the clock for free, but across quiet gaps
+	  VA_TickOverflowCheck() must run more often than 65536 / tick_hz
+	  seconds (65 ms at 1 MHz). Prefer a 32-bit timer where one exists.
 
 config VIEWALYZER_TRACE_THREADS
 	bool "Trace thread switches"
@@ -253,10 +317,22 @@ config VIEWALYZER_MAX_TASKS
 	  Number of RTOS task or thread entries the recorder can track.
 
 config VIEWALYZER_MAX_USER_EVENTS
-	int "Max user trace / event slots"
+	int "Max user event (span) slots"
 	default 16
 	help
-	  Number of user trace and user event IDs the recorder can store.
+	  Number of VA_RegisterUserEvent() span/event IDs the recorder can
+	  store. User TRACES (graphs, counters, toggles, ISR names) have their
+	  own separate budget: VIEWALYZER_MAX_USER_TRACES.
+
+config VIEWALYZER_MAX_USER_TRACES
+	int "Max user trace slots"
+	default 16
+	help
+	  Number of VA_RegisterUserTrace() registrations (graphs, counters,
+	  toggles, bars) plus ISR-name registrations the recorder can store -
+	  a SEPARATE budget from VIEWALYZER_MAX_USER_EVENTS. On overflow the
+	  recorder reports ERR:USERMAPFULL on the wire and the viewer names
+	  this knob.
 
 config VIEWALYZER_MAX_GPIOS
 	int "Max GPIO channel slots"

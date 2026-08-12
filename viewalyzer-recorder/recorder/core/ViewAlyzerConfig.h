@@ -223,8 +223,11 @@
 #endif
 
 #define VA_RAMBUF_MODE_DROP  0        /* Buffer full: drop whole packets, count them (default) */
-#define VA_RAMBUF_MODE_BLOCK 1        /* Buffer full: wait for host to drain (lossless, stalls
-                                         firmware if no host is attached) */
+#define VA_RAMBUF_MODE_BLOCK 1        /* Buffer full: wait for host to drain (lossless). The wait
+                                         spins inside the trace call's critical section, i.e. with
+                                         interrupts MASKED: with no host draining, this is a hard
+                                         hang (no ticks, no watchdog kicks), not a recoverable
+                                         stall. Only boot BLOCK builds with a host attached. */
 #define VA_RAMBUF_MODE_WRAP  2        /* Post-mortem snapshot: overwrite the oldest packets, keep
                                          the newest window. No live streaming in this mode - the
                                          ring is read out after the fact with
@@ -239,6 +242,17 @@
    region on cached parts (Cortex-M7 with D-cache enabled). */
 #ifndef VA_RAMBUF_ATTRIBUTES
 #define VA_RAMBUF_ATTRIBUTES
+#endif
+
+/* Keep the core out of WFI while the RAM-buffer transport is active: some
+   probe/MCU combos return garbage for debug memory reads while the core
+   sleeps, which shows up as stream corruption. 1 = the idle path spins
+   (interrupts still serviced) instead of sleeping; 0 = normal sleep.
+   Consumed by the Zephyr adapter (Kconfig: VIEWALYZER_RAMBUF_BUSY_IDLE);
+   other adapters/bare metal must keep the core awake themselves if their
+   probe misreads during sleep. */
+#ifndef VA_RAMBUF_BUSY_IDLE
+#define VA_RAMBUF_BUSY_IDLE 1
 #endif
 
 /* ── Snapshot (post-mortem) ring ───────────────────────────────────── */
@@ -258,7 +272,12 @@
    with VA_SNAPSHOT is rejected (two identical snapshot rings).
 
    From a fault or assert handler, call VA_SnapshotFreeze() to stop further
-   snapshot writes so the window at the moment of the fault is preserved. */
+   snapshot writes so the window at the moment of the fault is preserved.
+
+   Reading the ring from a RUNNING target has no torn-read detection: the
+   host can land mid-frame if the target keeps writing while it walks the
+   ring. Snapshot dumps should halt the target first (the app's snapshot
+   flows do) or follow a VA_SnapshotFreeze(). */
 
 #ifndef VA_SNAPSHOT
 #define VA_SNAPSHOT 0                 /* 1 = enable the snapshot tee ring */
@@ -341,10 +360,61 @@
 #define VA_MAX_LOG_STRING_LEN 100     /* Max bytes per VA_LogString() message (protocol max 1024) */
 #endif
 
+/* ── Timestamp source ──────────────────────────────────────────────── */
+
+/* Where event timestamps come from.
+ *
+ * DWT_CYCCNT (default): the CPU cycle counter (ARMv7-M / ARMv8-M
+ * mainline). An architecture without one (Cortex-M0/M0+/M23) is a
+ * compile error; a vendor-omitted DWT on a capable core is caught at
+ * VA_Init, which probes the counter and refuses to start (ERR:TS_DEAD).
+ *
+ * CUSTOM_TIMER: a free-running hardware timer read by a function handed
+ * to VA_Init(), whose signature changes with this knob:
+ *
+ *     VA_Init(cpu_freq)                     with DWT_CYCCNT
+ *     VA_Init(cpu_freq, ts_fn, tick_hz)     with CUSTOM_TIMER
+ *
+ * The function returns the raw counter value; the recorder does the
+ * 64-bit extension and reports tick_hz to the host, so any tick rate
+ * works (timestamp resolution = one tick). The source must:
+ *   - be monotonic modulo 2^VA_TIMER_BITS and never pause while the CPU
+ *     runs (beware timers that stop in sleep modes you trace through);
+ *   - be callable from ANY context, including with interrupts masked;
+ *   - take no locks, block on nothing, and be cheap - it runs inside
+ *     every trace hook.
+ * VA_Init() probes this source too (ERR:TS_NULL / ERR:TS_HZ_ZERO /
+ * ERR:TS_DEAD). */
+
+#define DWT_CYCCNT   1u               /* DWT cycle counter (mainline ARMv7-M/ARMv8-M) */
+#define CUSTOM_TIMER 2u               /* your free-running timer, via VA_Init() */
+
+#ifndef VA_TIMESTAMP_SOURCE
+#define VA_TIMESTAMP_SOURCE DWT_CYCCNT
+#endif
+
+/* Width of the CUSTOM_TIMER counter: 32 or 16. With a 16-bit source the
+   recorder must observe at least one tick read per 2^16-tick wrap or time
+   is silently lost. Every emitted event reads the clock, but across quiet
+   gaps VA_TickOverflowCheck() must be called more often than
+   65536 / tick_hz seconds - 65 ms at 1 MHz! Prefer a 32-bit timer, or a
+   prescaled/slow 16-bit one (32.768 kHz wraps every 2 s). Must stay 32
+   for DWT_CYCCNT. */
+#ifndef VA_TIMER_BITS
+#define VA_TIMER_BITS 32
+#endif
+
 /* ── Timing / wire format ──────────────────────────────────────────── */
 
+/* 1 (default): the recorder guards shared state with short PRIMASK-masked
+ * critical sections.
+ * 0: for systems that forbid the recorder from masking interrupts. HARD
+ * CONTRACT: every trace call must come from a single execution context
+ * (no tracing from ISRs, no preemption between tracing contexts) -
+ * concurrent trace calls corrupt the stream silently. Advertised to hosts
+ * via build-flags bit VA_BUILD_BIT_NO_CS. */
 #ifndef VA_ALLOWED_TO_DISABLE_INTERRUPTS
-#define VA_ALLOWED_TO_DISABLE_INTERRUPTS 1 /* 1 = recorder may use critical sections */
+#define VA_ALLOWED_TO_DISABLE_INTERRUPTS 1
 #endif
 
 /* Stack usage is sampled and emitted on task switch-out, at most once per
@@ -359,9 +429,11 @@
 #define VA_AUTO_SETUP_INTERVAL_MS 2000 /* Re-emit sync + setup packets at this interval (ms). 0 = off. */
 #endif
 
-/* Width of the timestamp field on the wire. Always 32: the low 32 bits of
-   the cycle counter wrap periodically (e.g. ~25 s @ 170 MHz) and the host
-   reconstructs the full 64-bit value from packet ordering.
+/* Width of the timestamp field on the wire (NOT the tick-source width -
+   that is VA_TIMER_BITS above). Always 32: the low 32 bits of the extended
+   tick count wrap periodically (2^32 / tick rate: ~25 s at a 170 MHz
+   CYCCNT; slower custom timers only widen it) and the host reconstructs
+   the full 64-bit value from packet ordering.
    VA_AUTO_SETUP_INTERVAL_MS must stay well below the wrap period so the host
    never misses a wrap (a sync/bundle guarantees at least one packet per
    interval); 2000 ms gives a >12x margin at 170 MHz. Not a knob: any other

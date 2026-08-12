@@ -32,7 +32,7 @@
    the string and packed forms derive from them. */
 #define VA_RECORDER_VERSION_MAJOR 1
 #define VA_RECORDER_VERSION_MINOR 0
-#define VA_RECORDER_VERSION_PATCH 0
+#define VA_RECORDER_VERSION_PATCH 1
 
 #define VA_VERSION_STR2_(x) #x
 #define VA_VERSION_STR_(x)  VA_VERSION_STR2_(x)
@@ -69,6 +69,11 @@ extern "C"
 
 /* User-provided send function signature for custom transport */
 typedef void (*VA_TransportSendFn)(const uint8_t *data, uint32_t length);
+
+/* User-provided tick source for CUSTOM_TIMER timestamps: returns the
+   current value of a free-running counter (low VA_TIMER_BITS bits used).
+   Full contract at VA_TIMESTAMP_SOURCE in ViewAlyzerConfig.h. */
+typedef uint32_t (*VA_TimestampFn)(void);
 
 /* Discard the arguments of a compiled-out API without evaluating them
    (no side effects, no -Wunused warnings). */
@@ -229,9 +234,21 @@ typedef void (*VA_TransportSendFn)(const uint8_t *data, uint32_t length);
 #if VA_TRANSPORT_IS_CUSTOM
     void VA_RegisterTransportSend(VA_TransportSendFn sendFn);
 #endif
+/* VA_Init resets every registry: call it BEFORE any VA_Register* call.
+   User traces/events/GPIOs/heap gauges registered earlier are wiped and
+   never re-registered. VA_Init also probes the timestamp source for
+   movement and refuses to start (reporting ERR:TS_* to the host) when it
+   is not counting - including a vendor-omitted DWT. */
+#if VA_TS_IS_CUSTOM
+    /* CUSTOM_TIMER build: the tick source rides in VA_Init itself, so a
+       missing source is a compile error. The timer must be RUNNING before
+       the call. Tick math and the CLK: rate use tick_hz. */
+    void VA_Init(uint32_t cpu_freq, VA_TimestampFn ts_fn, uint32_t tick_hz);
+#else
     void VA_Init(uint32_t cpu_freq);
+#endif
     void VA_EmitSetupBundle(void);    /* re-emit sync marker + all setup packets (call periodically, e.g. every 2-5 s) */
-    void VA_TickOverflowCheck(void);  /* call periodically (e.g. every 1-10 s) to prevent DWT rollover misses */
+    void VA_TickOverflowCheck(void);  /* call more often than the tick counter wraps: DWT every 1-10 s; 16-bit timers wrap in ms (see VA_TIMER_BITS) */
     void VA_Drain(void);              /* buffered mode only: flush the RAM ring to the wire. Call from idle/main loop. No-op when VA_TRANSPORT_BUFFERED == 0. */
     bool VA_IsInit(void);
 
@@ -499,13 +516,13 @@ typedef void (*VA_TransportSendFn)(const uint8_t *data, uint32_t length);
 #endif
 
 #if VA_HAS_RTOS && VA_TRACE_STACK_USAGE
-    /** Return stack usage in words for the given task handle.
-     *  FreeRTOS: calls uxTaskGetStackHighWaterMark.
-     *  Zephyr:   calls k_thread_stack_space_get.
+    /** Return stack usage in BYTES for the given task handle.
+     *  FreeRTOS: uxTaskGetStackHighWaterMark, converted from words.
+     *  Zephyr:   k_thread_stack_space_get (bytes natively).
      */
     uint32_t va_adapter_calculate_stack_usage(void *taskHandle);
 
-    /** Return total stack size in words for the given task handle. */
+    /** Return total stack size in BYTES for the given task handle. */
     uint32_t va_adapter_get_total_stack_size(void *taskHandle);
 #endif
 
@@ -522,7 +539,9 @@ typedef void (*VA_TransportSendFn)(const uint8_t *data, uint32_t length);
    arguments are NOT evaluated, and they still count as used so a build with
    tracing off does not fill up with -Wunused warnings. */
 #define VA_RegisterTransportSend(fn) VA_DISCARD_ARGS(fn)
-#define VA_Init(cpu_freq) VA_DISCARD_ARGS(cpu_freq)
+/* Variadic: matches both the 1-arg (DWT_CYCCNT) and 3-arg (CUSTOM_TIMER)
+   VA_Init shapes. */
+#define VA_Init(...) VA_DISCARD_ARGS(__VA_ARGS__)
 #define VA_EmitSetupBundle() ((void)0)
 #define VA_TickOverflowCheck() ((void)0)
 #define VA_Drain() ((void)0)

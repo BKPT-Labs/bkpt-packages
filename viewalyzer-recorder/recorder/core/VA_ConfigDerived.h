@@ -128,6 +128,57 @@
 #define VA_TRANSPORT_IS_CUSTOM   ((VA_TRANSPORT) == CUSTOM_TRANSPORT)
 #define VA_TRANSPORT_IS_RAMBUF   ((VA_TRANSPORT) == RAM_BUFFER)
 
+/* ── Derived timestamp-source flags ─────────────────────────────────── */
+#define VA_TS_IS_DWT    ((VA_TIMESTAMP_SOURCE) == DWT_CYCCNT)
+#define VA_TS_IS_CUSTOM ((VA_TIMESTAMP_SOURCE) == CUSTOM_TIMER)
+
+#if !VA_TS_IS_DWT && !VA_TS_IS_CUSTOM
+#error "ViewAlyzer: VA_TIMESTAMP_SOURCE must be DWT_CYCCNT or CUSTOM_TIMER"
+#endif
+
+#if VA_TS_IS_DWT && (VA_TIMER_BITS != 32)
+#error "ViewAlyzer: VA_TIMER_BITS applies to CUSTOM_TIMER only - the DWT cycle counter is always 32-bit"
+#endif
+#if VA_TS_IS_CUSTOM && (VA_TIMER_BITS != 16) && (VA_TIMER_BITS != 32)
+#error "ViewAlyzer: VA_TIMER_BITS must be 16 or 32"
+#endif
+
+/* Width/mask of the raw tick source (NOT the wire timestamp field - that
+   is VA_TIMESTAMP_BITS). The 64-bit software extension shifts by this. */
+#if VA_TS_IS_CUSTOM
+#define VA_TS_SOURCE_BITS VA_TIMER_BITS
+#else
+#define VA_TS_SOURCE_BITS 32
+#endif
+#if VA_TS_SOURCE_BITS == 16
+#define VA_TS_SOURCE_MASK 0xFFFFu
+#else
+#define VA_TS_SOURCE_MASK 0xFFFFFFFFu
+#endif
+
+/* ── Architecture capability (feeds the cross-checks below only) ─────
+   Whether this ARCHITECTURE can have the optional CoreSight hardware.
+   These do not gate code - the selects do. ARMv8-M baseline (Cortex-M23)
+   reports __ARM_ARCH == 8 but has neither ITM nor a DWT cycle counter,
+   same as ARMv6-M. */
+#if defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7EM__) \
+ || defined(__ARM_ARCH_8M_MAIN__) || defined(__ARM_ARCH_8_1M_MAIN__)
+#define VA_ARCH_HAS_CYCCNT 1
+#define VA_ARCH_HAS_ITM    1
+#else
+#define VA_ARCH_HAS_CYCCNT 0
+#define VA_ARCH_HAS_ITM    0
+#endif
+
+/* Guarded by VA_ENABLED so the VA_ENABLED=0 escape hatch compiles on any
+   core. */
+#if VA_ENABLED && VA_TS_IS_DWT && !VA_ARCH_HAS_CYCCNT
+#error "ViewAlyzer: this core has no DWT cycle counter (Cortex-M0/M0+/M23). Set VA_TIMESTAMP_SOURCE=CUSTOM_TIMER (Zephyr: CONFIG_VIEWALYZER_TS_CUSTOM_TIMER=y) and pass a free-running timer to VA_Init() - see va_config_template.h."
+#endif
+#if VA_ENABLED && VA_TRANSPORT_IS_ITM && !VA_ARCH_HAS_ITM
+#error "ViewAlyzer: this core has no ITM (Cortex-M0/M0+/M23). Use VA_TRANSPORT=RAM_BUFFER (any probe, including on-board ST-LINK) or JLINK_RTT."
+#endif
+
 /* ── Derived snapshot (post-mortem) ring flags ──────────────────────
    The post-mortem ring exists in exactly one of two shapes:
    - the RAM_BUFFER transport ring itself in WRAP mode (untethered builds), or
@@ -154,6 +205,27 @@
 /* The buffered ring uses free-running indices; a non-power-of-two capacity
    corrupts the ring when the 32-bit indices wrap. */
 #error "ViewAlyzer: VA_BUFFER_SIZE must be a power of two"
+#endif
+
+#if VA_TRANSPORT_BUFFERED && VA_TRANSPORT_IS_RAMBUF
+/* VA_Drain flushes in packet-agnostic chunks; the RAM-buffer sink drops on
+   whole-write granularity, fragmenting packets on a full ring (and
+   chunk-framing the WRAP-mode snapshot). Buffered mode needs a
+   self-framing or lossless sink. */
+#error "ViewAlyzer: VA_TRANSPORT_BUFFERED cannot be combined with the RAM_BUFFER transport"
+#endif
+
+#if VA_TRANSPORT_IS_CUSTOM && ((VA_MAX_LOG_STRING_LEN) + 6 < (VA_MAX_TASK_NAME_LEN))
+/* The custom-transport COBS scratch buffer is sized from
+   VA_MAX_PACKET_SIZE (driven by VA_MAX_LOG_STRING_LEN), but the largest
+   setup packet scales with VA_MAX_TASK_NAME_LEN. */
+#error "ViewAlyzer: with CUSTOM_TRANSPORT, VA_MAX_LOG_STRING_LEN must be at least VA_MAX_TASK_NAME_LEN - 6"
+#endif
+
+#if VA_TRANSPORT_IS_ITM && ((VA_ITM_PORT) >= 32)
+/* ITM has 32 stimulus ports; (1UL << VA_ITM_PORT) and ITM->PORT[VA_ITM_PORT]
+   are undefined beyond them. */
+#error "ViewAlyzer: VA_ITM_PORT must be 0..31"
 #endif
 
 /* ── Derived category flags ─────────────────────────────────────
@@ -253,27 +325,34 @@
 #define VA_CAT_BIT_EVENT_FLAGS        18u
 #define VA_CAT_BIT_WORK               19u
 
+/* The mask reports what this build can actually EMIT, not the raw knobs:
+   RTOS categories are off on bare metal, task notifications exist only on
+   FreeRTOS, k_work only on Zephyr. */
+#define VA_CAT_RTOS_(sym)     (VA_HAS_RTOS && (sym) != 0)
+#define VA_CAT_FREERTOS_(sym) ((VA_RTOS_SELECT == VA_RTOS_FREERTOS) && (sym) != 0)
+#define VA_CAT_ZEPHYR_(sym)   ((VA_RTOS_SELECT == VA_RTOS_ZEPHYR) && (sym) != 0)
+
 #define VA_TRACE_CATEGORY_MASK                                                   \
-    (((uint32_t)(VA_TRACE_TASKS              != 0) << VA_CAT_BIT_TASKS)              \
-   | ((uint32_t)(VA_TRACE_TASK_NOTIFICATIONS != 0) << VA_CAT_BIT_TASK_NOTIFICATIONS) \
-   | ((uint32_t)(VA_TRACE_STACK_USAGE        != 0) << VA_CAT_BIT_STACK_USAGE)        \
+    (((uint32_t)VA_CAT_RTOS_(VA_TRACE_TASKS)              << VA_CAT_BIT_TASKS)              \
+   | ((uint32_t)VA_CAT_FREERTOS_(VA_TRACE_TASK_NOTIFICATIONS) << VA_CAT_BIT_TASK_NOTIFICATIONS) \
+   | ((uint32_t)VA_CAT_RTOS_(VA_TRACE_STACK_USAGE)        << VA_CAT_BIT_STACK_USAGE)        \
    | ((uint32_t)(VA_TRACE_ISRS               != 0) << VA_CAT_BIT_ISRS)               \
-   | ((uint32_t)(VA_TRACE_MUTEXES            != 0) << VA_CAT_BIT_MUTEXES)            \
-   | ((uint32_t)(VA_TRACE_MUTEX_CONTENTION   != 0) << VA_CAT_BIT_MUTEX_CONTENTION)   \
-   | ((uint32_t)(VA_TRACE_SEMAPHORES         != 0) << VA_CAT_BIT_SEMAPHORES)         \
-   | ((uint32_t)(VA_TRACE_QUEUES             != 0) << VA_CAT_BIT_QUEUES)             \
-   | ((uint32_t)(VA_TRACE_SLEEP              != 0) << VA_CAT_BIT_SLEEP)              \
-   | ((uint32_t)(VA_TRACE_TIMERS             != 0) << VA_CAT_BIT_TIMERS)             \
-   | ((uint32_t)(VA_TRACE_RTOS_HEAPS         != 0) << VA_CAT_BIT_RTOS_HEAPS)         \
-   | ((uint32_t)(VA_TRACE_PM                 != 0) << VA_CAT_BIT_PM)                 \
+   | ((uint32_t)VA_CAT_RTOS_(VA_TRACE_MUTEXES)            << VA_CAT_BIT_MUTEXES)            \
+   | ((uint32_t)VA_CAT_RTOS_(VA_TRACE_MUTEX_CONTENTION)   << VA_CAT_BIT_MUTEX_CONTENTION)   \
+   | ((uint32_t)VA_CAT_RTOS_(VA_TRACE_SEMAPHORES)         << VA_CAT_BIT_SEMAPHORES)         \
+   | ((uint32_t)VA_CAT_RTOS_(VA_TRACE_QUEUES)             << VA_CAT_BIT_QUEUES)             \
+   | ((uint32_t)VA_CAT_RTOS_(VA_TRACE_SLEEP)              << VA_CAT_BIT_SLEEP)              \
+   | ((uint32_t)VA_CAT_RTOS_(VA_TRACE_TIMERS)             << VA_CAT_BIT_TIMERS)             \
+   | ((uint32_t)VA_CAT_RTOS_(VA_TRACE_RTOS_HEAPS)         << VA_CAT_BIT_RTOS_HEAPS)         \
+   | ((uint32_t)VA_CAT_RTOS_(VA_TRACE_PM)                 << VA_CAT_BIT_PM)                 \
    | ((uint32_t)(VA_TRACE_USER_VALUES        != 0) << VA_CAT_BIT_USER_VALUES)        \
    | ((uint32_t)(VA_TRACE_USER_EVENTS        != 0) << VA_CAT_BIT_USER_EVENTS)        \
    | ((uint32_t)(VA_TRACE_STRINGS            != 0) << VA_CAT_BIT_STRINGS)            \
    | ((uint32_t)(VA_TRACE_GPIO               != 0) << VA_CAT_BIT_GPIO)               \
    | ((uint32_t)(VA_TRACE_COUNTERS           != 0) << VA_CAT_BIT_COUNTERS)           \
    | ((uint32_t)(VA_TRACE_HEAP_METRICS       != 0) << VA_CAT_BIT_HEAP_METRICS)       \
-   | ((uint32_t)(VA_TRACE_EVENT_FLAGS        != 0) << VA_CAT_BIT_EVENT_FLAGS)     \
-   | ((uint32_t)(VA_TRACE_WORK               != 0) << VA_CAT_BIT_WORK))
+   | ((uint32_t)VA_CAT_RTOS_(VA_TRACE_EVENT_FLAGS)        << VA_CAT_BIT_EVENT_FLAGS)     \
+   | ((uint32_t)VA_CAT_ZEPHYR_(VA_TRACE_WORK)             << VA_CAT_BIT_WORK))
 
 /* Flag groups carried by VA_SETUP_CONFIG_FLAGS (0x77). The packet is
    [code][seq][group(1)][value(4, little-endian)]. Hosts must skip groups
@@ -291,10 +370,20 @@
    host-side senders (the python viewalyzer package, test harnesses) ever set
    this; the firmware cannot, which is why it has no VA_TRACE_* switch. */
 #define VA_BUILD_BIT_HOST_TS     3u
+/* Timestamps come from a user-supplied timer (VA_TIMESTAMP_SOURCE =
+   CUSTOM_TIMER), not the DWT cycle counter. The CLK: rate is that timer's
+   tick rate, which need not equal the CPU clock - hosts that want an HCLK
+   (ETM correlation) must not assume CLK: is one when this bit is set. */
+#define VA_BUILD_BIT_TIMER_TS    4u
+/* Built with VA_ALLOWED_TO_DISABLE_INTERRUPTS=0 (single-execution-context
+   contract): lets a host label such captures. */
+#define VA_BUILD_BIT_NO_CS       5u
 
 #define VA_BUILD_FLAGS                                                        \
     (((uint32_t)(VA_HAS_RTOS == 0)          << VA_BUILD_BIT_NO_RTOS)          \
    | ((uint32_t)(VA_TRANSPORT_BUFFERED != 0) << VA_BUILD_BIT_BUFFERED)        \
-   | ((uint32_t)(VA_SEQ_COUNTER != 0)        << VA_BUILD_BIT_SEQ_COUNTER))
+   | ((uint32_t)(VA_SEQ_COUNTER != 0)        << VA_BUILD_BIT_SEQ_COUNTER)     \
+   | ((uint32_t)(VA_TS_IS_CUSTOM != 0)       << VA_BUILD_BIT_TIMER_TS)        \
+   | ((uint32_t)(VA_ALLOWED_TO_DISABLE_INTERRUPTS == 0) << VA_BUILD_BIT_NO_CS))
 
 #endif /* VA_CONFIG_DERIVED_H */

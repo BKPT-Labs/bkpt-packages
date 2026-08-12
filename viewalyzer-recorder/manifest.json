@@ -5,14 +5,14 @@
   "package": {
     "files": [
       "recorder/core/README.md",
+      "recorder/core/va_config_template.h",
       "recorder/core/VA_ConfigDerived.h",
       "recorder/core/VA_Internal.h",
       "recorder/core/ViewAlyzer.c",
       "recorder/core/ViewAlyzer.h",
-      "recorder/core/ViewAlyzerConfig.h",
-      "recorder/core/va_config_template.h",
       "recorder/core/viewalyzer_cobs.c",
       "recorder/core/viewalyzer_cobs.h",
+      "recorder/core/ViewAlyzerConfig.h",
       "recorder/freertos/README.md",
       "recorder/freertos/VA_Adapter_FreeRTOS.c",
       "recorder/freertos/VA_Adapter_FreeRTOS.h",
@@ -21,19 +21,19 @@
       "recorder/freertos/ViewAlyzerFreeRTOSHook_V10_4_Plus.h",
       "recorder/zephyr/CMakeLists.txt",
       "recorder/zephyr/Kconfig",
-      "recorder/zephyr/README.md",
-      "recorder/zephyr/VA_Adapter_Zephyr.c",
-      "recorder/zephyr/VA_Adapter_Zephyr.h",
       "recorder/zephyr/module.yml",
-      "recorder/zephyr/tracing_user.h"
+      "recorder/zephyr/README.md",
+      "recorder/zephyr/tracing_user.h",
+      "recorder/zephyr/VA_Adapter_Zephyr.c",
+      "recorder/zephyr/VA_Adapter_Zephyr.h"
     ]
   },
   "provenance": {
     "source_repo": "ViewAlyzer",
-    "source_rev": "3c9b67b130d46ddce170ffecee171828d44541ab",
-    "recorder_version": "1.0.0",
+    "source_rev": "ce1ac0dcbcd400290d9bf1e7c5f0873f9b136a37-dirty",
+    "recorder_version": "1.0.1",
     "wire_version": 1,
-    "content_hash": "sha256:e74f25bb618f4e24bbba54a0b4d721acac7b79c1a0d637cfe81af5f65ce036cc"
+    "content_hash": "sha256:d03a765dfca99108622df38dc3453cb5c454b684e6c6ff917c2c2438ec44ded5"
   },
-  "rev": "1"
+  "rev": "2"
 }

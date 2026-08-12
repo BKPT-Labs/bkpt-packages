@@ -13,7 +13,9 @@ On top of the core recorder APIs, the Zephyr adapter can trace:
 - ISR enter and exit
 - mutex lock and unlock, and mutex contention
 - semaphore give and take
-- message queue activity
+- message queue, `k_fifo`, and `k_lifo` activity
+- event flags (`k_event` init, post, wait)
+- deferred work (`k_work` submit, schedule, cancel)
 - kernel timers (`k_timer` init, start, stop)
 - kernel heap allocation (`k_heap` alloc, free, failed alloc)
 - power-management suspend and resume (with `CONFIG_PM`)
@@ -35,7 +37,7 @@ When `CONFIG_VIEWALYZER=y`, the module CMake file:
 
 - compiles `core/ViewAlyzer.c`
 - compiles `zephyr/VA_Adapter_Zephyr.c`
-- sets `VA_RTOS_SELECT=VA_RTOS_ZEPHYR`
+- sets `VA_RTOS_SELECT` to Zephyr
 - maps the selected Zephyr transport option to `VA_TRANSPORT`
 - prepends `zephyr/` to the include path so the recorder's `tracing_user.h`
   wrapper is found before Zephyr's stock copy (the wrapper then pulls the
@@ -60,6 +62,11 @@ CONFIG_VIEWALYZER_TRANSPORT_ITM=y
 # CONFIG_VIEWALYZER_TRANSPORT_RAMBUF=y
 ```
 
+On Cortex-M0/M0+/M23 (no ITM, no DWT) the defaults flip: the transport
+defaults to RAMBUF and the timestamp source to a user timer
+(`CONFIG_VIEWALYZER_TS_CUSTOM_TIMER`), which changes `VA_Init()` to take
+the tick source - see "Application Startup" below.
+
 The full category list, all `y` by default:
 
 ```conf
@@ -73,6 +80,8 @@ CONFIG_VIEWALYZER_TRACE_MUTEXES=y
 CONFIG_VIEWALYZER_TRACE_MUTEX_CONTENTION=y
 CONFIG_VIEWALYZER_TRACE_SEMAPHORES=y
 CONFIG_VIEWALYZER_TRACE_MESSAGE_QUEUES=y
+CONFIG_VIEWALYZER_TRACE_EVENT_FLAGS=y
+CONFIG_VIEWALYZER_TRACE_WORK=y
 CONFIG_VIEWALYZER_TRACE_TIMERS=y
 CONFIG_VIEWALYZER_TRACE_HEAPS=y
 CONFIG_VIEWALYZER_TRACE_SLEEP=y
@@ -131,6 +140,26 @@ CONFIG_VIEWALYZER_RTT_BUFFER_SIZE=4096
 
 Disable `CONFIG_VIEWALYZER_CONFIGURE_RTT` if another part of your system owns RTT initialization.
 
+### RAM buffer
+
+Use `CONFIG_VIEWALYZER_TRANSPORT_RAMBUF=y` (the default on cores without
+ITM). RTT-style streaming drained through the debug probe; works with the
+on-board ST-LINK of any Nucleo. Options:
+
+```conf
+CONFIG_VIEWALYZER_RAMBUF_SIZE=8192
+# CONFIG_VIEWALYZER_RAMBUF_BLOCK=y     # lossless; hard-hangs without a host draining
+# CONFIG_VIEWALYZER_RAMBUF_WRAP=y      # post-mortem snapshot ring, no live streaming
+# CONFIG_VIEWALYZER_SNAPSHOT=y         # extra snapshot ring beside a live transport
+CONFIG_VIEWALYZER_RAMBUF_BUSY_IDLE=y   # keep the core out of WFI while streaming
+```
+
+Semantics of all of these (snapshot readout, the WFI caveat behind
+`RAMBUF_BUSY_IDLE`) are covered in the [top-level README](../README.md).
+Sizing and budget knobs (`CONFIG_VIEWALYZER_MAX_*`,
+`CONFIG_VIEWALYZER_AUTO_SETUP_INTERVAL_MS`, ...) are all in Kconfig -
+browse them with `west build -t menuconfig` under ViewAlyzer.
+
 ## Application Startup
 
 Your application still initializes the recorder explicitly:
@@ -141,6 +170,9 @@ Your application still initializes the recorder explicitly:
 
 int main(void)
 {
+	/* CONFIG_VIEWALYZER_TS_CUSTOM_TIMER=y (default on M0/M0+/M23) changes
+	   this to VA_Init(cpu_freq, read_ticks_fn, tick_hz) - see the
+	   top-level README, "Timestamp Source". */
 	VA_Init(CONFIG_SYS_CLOCK_HW_CYCLES_PER_SEC);
 	VA_Zephyr_RegisterExistingThreads();
 
