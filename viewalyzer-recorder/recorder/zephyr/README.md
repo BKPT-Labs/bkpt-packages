@@ -110,7 +110,8 @@ Two things worth knowing:
 The recorder reports the categories it was built with in every setup bundle,
 so the ViewAlyzer app can say "mutex tracing is disabled in this firmware
 build" rather than showing an empty view. There is a worked example fragment
-in `Example-Projects/zephyr/STM32-Zephyr-VA-Module-Full-Demo/selective-tracing.conf`.
+in the ViewAlyzer-Examples repository (STM32-Zephyr-VA-Demo README,
+"Selective tracing" section).
 
 The module maps each Kconfig choice onto the generic `VA_TRACE_*` switch the
 recorder core uses, and does it through `zephyr_compile_definitions`, which is
