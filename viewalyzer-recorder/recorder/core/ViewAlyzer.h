@@ -32,7 +32,7 @@
    the string and packed forms derive from them. */
 #define VA_RECORDER_VERSION_MAJOR 1
 #define VA_RECORDER_VERSION_MINOR 0
-#define VA_RECORDER_VERSION_PATCH 2
+#define VA_RECORDER_VERSION_PATCH 3
 
 #define VA_VERSION_STR2_(x) #x
 #define VA_VERSION_STR_(x)  VA_VERSION_STR2_(x)
