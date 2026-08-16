@@ -2,9 +2,9 @@
   "$schema": "https://opendatasheet.org/schema/v0.1/trace-support.schema.json",
   "spec_version": "0.1",
   "type": "trace-support",
-  "rev": 2,
-  "updated_utc": "2026-07-11",
-  "comment": "CANONICAL debugger-side trace bring-up catalog (bkpt-packages/trace-support). Consumers bundle a snapshot at build/dev time (the ViewAlyzer app never fetches at runtime; a future app fetch would come from this repo). Offline user override: <userAppData>/ViewAlyzer/trace-support.json (same shape). Rows are keyed by debug ARCHITECTURE, not by chip: one row covers every part sharing a vendor debug-domain map, so this file stays a handful of rows forever. A row matches when probing its idcode_addr over the debug connection reads a nonzero device id (optionally restricted to dev_id). Its init ops then run through a read-modify-write interpreter: {addr, set} = write literal, {addr, or} = OR bits in, {addr, insert, mask} = (old & ~mask) | (insert & mask). The token $prescaler resolves to (cpu-clock-hz / swo-freq-hz) - 1. tpiu:false means the row replaces the standard ARM TPIU programming (parts with their own SWO block).",
+  "rev": 3,
+  "updated_utc": "2026-08-16",
+  "comment": "CANONICAL debugger-side trace bring-up catalog (bkpt-packages/trace-support). Consumers bundle a snapshot at build/dev time (the ViewAlyzer app never fetches at runtime; a future app fetch would come from this repo). Offline user override: <userAppData>/ViewAlyzer/trace-support.json (same shape). Rows are keyed by debug ARCHITECTURE, not by chip: one row covers every part sharing a vendor debug-domain map, so this file stays a handful of rows forever. A row matches when probing its idcode_addr over the debug connection reads a nonzero device id (optionally restricted to dev_id). Its init ops then run through a read-modify-write interpreter: {addr, set} = write literal, {addr, or} = OR bits in, {addr, insert, mask} = (old & ~mask) | (insert & mask). The token $prescaler resolves to (cpu-clock-hz / swo-freq-hz) - 1. tpiu:false means the row replaces the standard ARM TPIU programming (parts with their own SWO block). Optional per-row keys: onchip = the vacore_capture --probeless profile token for the family (Auto chip selection in the on-chip trace flow; absent = generic discovery), note = a one-line caveat logged when the row matches (for example: SWO bring-up not catalogued for this family yet). Rows are probed IN ORDER and the first match wins, so rows with a dev_id list must precede match-any rows whose idcode address aliases on other parts.",
   "devices": [
     {
       "name": "stm32h7",
@@ -72,7 +72,36 @@
           "mask": "0x0000F000",
           "comment": "GPIOB AFRL: PB3 AF0 (TRACESWO)"
         }
-      ]
+      ],
+      "onchip": "h7",
+      "comment": "Auto resolves 0x450 to the single-core h7 profile; a dual-core H745/H755 (same dev_id) needs the h755-cm7 override."
+    },
+    {
+      "name": "stm32h7rs",
+      "match": {
+        "idcode_addr": "0x5C001000",
+        "dev_id": [
+          "0x485"
+        ]
+      },
+      "onchip": "h7rs",
+      "tpiu": true,
+      "note": "STM32H7R/S: on-chip trace is supported; SWO bring-up rows are not catalogued for this family yet, so SWO needs firmware-side bring-up.",
+      "init": []
+    },
+    {
+      "name": "stm32n6",
+      "match": {
+        "idcode_addr": "0x54001000",
+        "dev_id": [
+          "0x486"
+        ]
+      },
+      "onchip": "n6",
+      "tpiu": true,
+      "note": "STM32N6: on-chip trace (ETR) is supported; SWO bring-up rows are not catalogued for this family yet, so SWO needs firmware-side bring-up.",
+      "init": [],
+      "comment": "Must precede the match-any M33 row: 0xE0044000 reads a nonzero word on this part."
     },
     {
       "name": "stm32-tz-m33 (U5/L5/WBA)",
@@ -87,7 +116,8 @@
           "or": "0x00000036",
           "comment": "DBGMCU_CR: TRACE_EN (trace clock gate \u2014 without it the TPIU is absent from the bus: accesses bus-fault AND wedge the ST-LINK DAP until probe power-cycle) + TRACE_IOEN + DBG_STOP/STANDBY; TRACE_MODE=00 async SWO"
         }
-      ]
+      ],
+      "onchip": "generic"
     },
     {
       "name": "stm32-classic",
@@ -101,7 +131,8 @@
           "or": "0x00000027",
           "comment": "DBGMCU_CR: TRACE_IOEN + DBG_SLEEP/STOP/STANDBY (keeps trace clocked through WFI idles)"
         }
-      ]
+      ],
+      "onchip": "generic"
     }
   ]
 }
