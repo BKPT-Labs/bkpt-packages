@@ -111,9 +111,22 @@
 /* #define VA_RAMBUF_SIZE 8192u */
 /* #define VA_RAMBUF_MODE VA_RAMBUF_MODE_DROP */
 
+/* Placement of the RAM-buffer ring + control block. Default: ordinary
+   .bss, the linker picks the address. Define this to pin them to a
+   specific RAM region via a section from your linker script - e.g. a
+   non-cacheable region on cached parts (Cortex-M7 with D-cache on).
+   The host needs no matching change: it finds the ring via the
+   _VA_RAMBUF ELF symbol or by scanning for its magic tag. */
+/* #define VA_RAMBUF_ATTRIBUTES __attribute__((section(".va_rambuf"))) */
+
 /* Snapshot (post-mortem) ring */
 /* #define VA_SNAPSHOT      0 */
 /* #define VA_SNAPSHOT_SIZE 4096u */
+
+/* Placement of the snapshot ring + control block (same idea as
+   VA_RAMBUF_ATTRIBUTES; also useful to pin them to RAM that survives a
+   warm reset). */
+/* #define VA_SNAPSHOT_ATTRIBUTES __attribute__((section(".va_snapshot"))) */
 
 /* ── Sizes ─────────────────────────────────────────────────────────── */
 

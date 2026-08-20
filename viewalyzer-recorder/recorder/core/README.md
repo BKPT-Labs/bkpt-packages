@@ -57,7 +57,12 @@ VA_TRANSPORT=CUSTOM_TRANSPORT
 `RAM_BUFFER` needs no init code and no extra sources - the recorder keeps a
 ring buffer in RAM and the ViewAlyzer app drains it through the debug probe
 (ST-Link supported; no SEGGER RTT). Tune with `VA_RAMBUF_SIZE` and
-`VA_RAMBUF_MODE` if needed.
+`VA_RAMBUF_MODE` if needed. To control WHERE the ring lives, define
+`VA_RAMBUF_ATTRIBUTES` (e.g.
+`__attribute__((section(".va_rambuf")))` plus a matching linker-script
+section) - useful to pin it to a non-cacheable region on cached parts.
+The host finds the ring wherever it lands (ELF symbol or magic-tag scan),
+so no host-side change is needed.
 
 Useful optional defines:
 
