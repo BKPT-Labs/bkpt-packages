@@ -19,9 +19,9 @@
       "id": "viewalyzer-recorder",
       "kind": "component",
       "name": "ViewAlyzer Recorder",
-      "rev": "6",
+      "rev": "7",
       "manifest": "viewalyzer-recorder/manifest.json",
-      "hash": "sha256:87d2b23b9af1fefb71638b3c19692bee7a72a9e34bad1c08b061e3b8719d352f"
+      "hash": "sha256:cba24e0dfef886003efa321bb5d63dbaf8fd05534436e28bfabd30839364a52b"
     },
     {
       "id": "trace-support",
