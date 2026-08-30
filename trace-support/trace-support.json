@@ -2,8 +2,8 @@
   "$schema": "https://opendatasheet.org/schema/v0.1/trace-support.schema.json",
   "spec_version": "0.1",
   "type": "trace-support",
-  "rev": 7,
-  "updated_utc": "2026-08-29",
+  "rev": 8,
+  "updated_utc": "2026-08-30",
   "comment": "CANONICAL debugger-side trace bring-up catalog (bkpt-packages/trace-support). Consumers bundle a snapshot at build/dev time (the ViewAlyzer app never fetches at runtime; a future app fetch would come from this repo). Offline user override: <userAppData>/ViewAlyzer/trace-support.json (same shape). Rows are keyed by debug ARCHITECTURE, not by chip: one row covers every part sharing a vendor debug-domain map, so this file stays a handful of rows forever. A row matches when probing its idcode_addr over the debug connection reads a nonzero device id (optionally restricted to dev_id). Its init ops then run through a read-modify-write interpreter: {addr, set} = write literal, {addr, or} = OR bits in, {addr, insert, mask} = (old & ~mask) | (insert & mask). The token $prescaler normally resolves to (cpu-clock-hz / swo-freq-hz) - 1; an op with src-clock-div resolves it from (cpu-clock-hz / src-clock-div) instead. tpiu:false means the row replaces the standard ARM TPIU programming (parts with their own SWO block). Optional per-row keys: onchip = the vacore_capture --probeless profile token for the family (Auto chip selection in the on-chip trace flow; absent = generic discovery), note = a one-line caveat logged when the row matches (for example: SWO bring-up not catalogued for this family yet). Rows are probed IN ORDER and the first match wins, so rows with a dev_id list must precede match-any rows whose idcode address aliases on other parts.",
   "devices": [
     {
@@ -85,6 +85,35 @@
         ]
       },
       "onchip": "h7rs",
+      "etm_history": {
+        "schema": 1,
+        "backend": "coresight-tmc",
+        "rom_roots": [
+          {
+            "ap": 0,
+            "base": "0x5C010000",
+            "comment": "STM32H7R/S SoC CoreSight ROM root is not advertised by AP.BASE. Runtime component IDs remain authoritative."
+          }
+        ],
+        "access_prep": [
+          {
+            "ap": 0,
+            "addr": "0x5C001004",
+            "or": "0x00700007",
+            "readback_mask": "0x00700007",
+            "readback_value": "0x00700007",
+            "comment": "DBGMCU_CR: trace/debug-domain clocks and low-power debug keepalive, preserved with read-modify-write."
+          }
+        ],
+        "route": {
+          "candidate_funnel_inputs": [
+            0
+          ],
+          "verified_funnel_input": 0,
+          "verification": "nucleo-h7s3l8-etf-2026-07-29",
+          "comment": "Bench-proven on NUCLEO-H7S3L8. The live ROM walk and TMC DEVID still determine whether an ETF exists and its capacity."
+        }
+      },
       "tpiu": true,
       "note": "STM32H7R/S: on-chip trace is supported; SWO bring-up rows are not catalogued for this family yet, so SWO needs firmware-side bring-up.",
       "init": []
@@ -101,7 +130,7 @@
       "onchip": "n6",
       "etm_history": {
         "schema": 1,
-        "backend": "coresight-tmc-etr",
+        "backend": "coresight-tmc",
         "rom_roots": [
           {
             "ap": 1,
@@ -130,8 +159,6 @@
         },
         "buffer": {
           "requires_elf_reservation": true,
-          "start_symbol": "__bkpt_etm_buffer_start__",
-          "end_symbol": "__bkpt_etm_buffer_end__",
           "advanced_override": true,
           "allowed_regions": [
             {
