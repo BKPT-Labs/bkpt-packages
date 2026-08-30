@@ -2,7 +2,7 @@
   "$schema": "https://opendatasheet.org/schema/v0.1/trace-support.schema.json",
   "spec_version": "0.1",
   "type": "trace-support",
-  "rev": 6,
+  "rev": 7,
   "updated_utc": "2026-08-29",
   "comment": "CANONICAL debugger-side trace bring-up catalog (bkpt-packages/trace-support). Consumers bundle a snapshot at build/dev time (the ViewAlyzer app never fetches at runtime; a future app fetch would come from this repo). Offline user override: <userAppData>/ViewAlyzer/trace-support.json (same shape). Rows are keyed by debug ARCHITECTURE, not by chip: one row covers every part sharing a vendor debug-domain map, so this file stays a handful of rows forever. A row matches when probing its idcode_addr over the debug connection reads a nonzero device id (optionally restricted to dev_id). Its init ops then run through a read-modify-write interpreter: {addr, set} = write literal, {addr, or} = OR bits in, {addr, insert, mask} = (old & ~mask) | (insert & mask). The token $prescaler normally resolves to (cpu-clock-hz / swo-freq-hz) - 1; an op with src-clock-div resolves it from (cpu-clock-hz / src-clock-div) instead. tpiu:false means the row replaces the standard ARM TPIU programming (parts with their own SWO block). Optional per-row keys: onchip = the vacore_capture --probeless profile token for the family (Auto chip selection in the on-chip trace flow; absent = generic discovery), note = a one-line caveat logged when the row matches (for example: SWO bring-up not catalogued for this family yet). Rows are probed IN ORDER and the first match wins, so rows with a dev_id list must precede match-any rows whose idcode address aliases on other parts.",
   "devices": [
@@ -99,6 +99,72 @@
         ]
       },
       "onchip": "n6",
+      "etm_history": {
+        "schema": 1,
+        "backend": "coresight-tmc-etr",
+        "rom_roots": [
+          {
+            "ap": 1,
+            "base": "0xE00FE000",
+            "comment": "Architected Armv8-M PPB ROM root. Runtime component IDs remain authoritative."
+          }
+        ],
+        "access_prep": [
+          {
+            "addr": "0x54024C10",
+            "set": "0x00000310",
+            "readback_mask": "0x00000310",
+            "readback_value": "0x00000310",
+            "comment": "RIFSC RIMC_ATTR0: ETR master 0 needs MCID1|MSEC|MPRIV or AXI writes are acknowledged and silently discarded."
+          }
+        ],
+        "route": {
+          "candidate_funnel_inputs": [
+            0,
+            1
+          ],
+          "verified_funnel_input": 0,
+          "replicator_block_port": 1,
+          "verification": "bkpt-direct-ingress-2026-08-29",
+          "comment": "Verified on STM32N6570-DK over bkpt_probe direct SWD with the ELF-reserved 4 KiB ETR ring: input 0 wrapped with 4096 captured bytes (3920 nonzero); input 1 produced 32 bytes (1 nonzero). The diagnostic restored all trace routing/state and used no OpenOCD runtime."
+        },
+        "buffer": {
+          "requires_elf_reservation": true,
+          "start_symbol": "__bkpt_etm_buffer_start__",
+          "end_symbol": "__bkpt_etm_buffer_end__",
+          "advanced_override": true,
+          "allowed_regions": [
+            {
+              "start": "0x34110000",
+              "end": "0x34200000",
+              "alignment": 4096,
+              "comment": "Verified clocked AXISRAM2 window above the boot ROM stack. This is a safety boundary, not proof that an arbitrary firmware leaves it unused."
+            }
+          ]
+        },
+        "quirks": [
+          {
+            "key": "etm-power-up",
+            "value": "trcpdcr-pu",
+            "comment": "Set TRCPDCR.PU before programming the Cortex-M55 ETM."
+          },
+          {
+            "key": "plain-instruction-trace",
+            "value": "required",
+            "comment": "Program TRCCONFIGR=1; reset state enables conditional trace packets unsupported by the packaged decoder."
+          },
+          {
+            "key": "tmc-pointer-init",
+            "value": "required",
+            "comment": "Initialize RRP/RWP to the resolved buffer base before every circular arm."
+          },
+          {
+            "key": "memory-error",
+            "value": "disarm-no-retry",
+            "comment": "An ETR AXI memory error can wedge AP1; disarm immediately and require a power cycle rather than retrying."
+          }
+        ]
+      },
       "tpiu": false,
       "init": [
         {
