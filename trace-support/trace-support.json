@@ -110,8 +110,8 @@
             0
           ],
           "verified_funnel_input": 0,
-          "verification": "nucleo-h7s3l8-etf-2026-07-29",
-          "comment": "Bench-proven on NUCLEO-H7S3L8. The live ROM walk and TMC DEVID still determine whether an ETF exists and its capacity."
+          "verification": "bkpt-native-nucleo-h7s3l8-etf-2026-08-30",
+          "comment": "Bench-proven end to end on NUCLEO-H7S3L8 with the native BKPT server: cross-AP arm, wrapped RRD drain, OpenCSD decode, and extension flame view. The live ROM walk and TMC DEVID still determine whether an ETF exists and its capacity."
         }
       },
       "tpiu": true,
