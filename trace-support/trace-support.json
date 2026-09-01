@@ -2,10 +2,108 @@
   "$schema": "https://opendatasheet.org/schema/v0.1/trace-support.schema.json",
   "spec_version": "0.1",
   "type": "trace-support",
-  "rev": 6,
-  "updated_utc": "2026-08-29",
-  "comment": "CANONICAL debugger-side trace bring-up catalog (bkpt-packages/trace-support). Consumers bundle a snapshot at build/dev time (the ViewAlyzer app never fetches at runtime; a future app fetch would come from this repo). Offline user override: <userAppData>/ViewAlyzer/trace-support.json (same shape). Rows are keyed by debug ARCHITECTURE, not by chip: one row covers every part sharing a vendor debug-domain map, so this file stays a handful of rows forever. A row matches when probing its idcode_addr over the debug connection reads a nonzero device id (optionally restricted to dev_id). Its init ops then run through a read-modify-write interpreter: {addr, set} = write literal, {addr, or} = OR bits in, {addr, insert, mask} = (old & ~mask) | (insert & mask). The token $prescaler normally resolves to (cpu-clock-hz / swo-freq-hz) - 1; an op with src-clock-div resolves it from (cpu-clock-hz / src-clock-div) instead. tpiu:false means the row replaces the standard ARM TPIU programming (parts with their own SWO block). Optional per-row keys: onchip = the vacore_capture --probeless profile token for the family (Auto chip selection in the on-chip trace flow; absent = generic discovery), note = a one-line caveat logged when the row matches (for example: SWO bring-up not catalogued for this family yet). Rows are probed IN ORDER and the first match wins, so rows with a dev_id list must precede match-any rows whose idcode address aliases on other parts.",
+  "rev": 10,
+  "updated_utc": "2026-09-01",
+  "comment": "CANONICAL debugger-side trace bring-up catalog (bkpt-packages/trace-support). Consumers bundle a snapshot at build/dev time (the ViewAlyzer app never fetches at runtime; a future app fetch would come from this repo). Offline user override: <userAppData>/ViewAlyzer/trace-support.json (same shape). Rows are keyed by debug ARCHITECTURE, not by chip: one row covers every part sharing a vendor debug-domain map, so this file stays a handful of rows forever. A row matches when probing its idcode_addr over the debug connection reads a nonzero device id (optionally restricted to dev_id). Its init ops then run through a read-modify-write interpreter: {addr, set} = write literal, {addr, or} = OR bits in, {addr, insert, mask} = (old & ~mask) | (insert & mask). The token $prescaler normally resolves to (cpu-clock-hz / swo-freq-hz) - 1. A row-level swo_clock_div makes both the probe receiver and $prescaler use cpu-clock-hz / swo_clock_div; an individual op may override that with src-clock-div. tpiu:false means the row replaces the standard ARM TPIU programming (parts with their own SWO block). Optional per-row keys: onchip = the vacore_capture --probeless profile token for the family (Auto chip selection in the on-chip trace flow; absent = generic discovery), note = a one-line caveat logged when the row matches (for example: SWO bring-up not catalogued for this family yet). Rows are probed IN ORDER and the first match wins, so rows with a dev_id list must precede match-any rows whose idcode address aliases on other parts.",
   "devices": [
+    {
+      "name": "stm32h723",
+      "match": {
+        "idcode_addr": "0x5C001000",
+        "ap": 0,
+        "dev_id": [
+          "0x483"
+        ]
+      },
+      "onchip": "h7",
+      "etm_history": {
+        "schema": 1,
+        "backend": "coresight-tmc",
+        "rom_roots": [
+          {
+            "ap": 2,
+            "base": "0x5C010000",
+            "comment": "STM32H723 system CoreSight ROM root on AP2 is not advertised by the core AP. Runtime component IDs remain authoritative."
+          }
+        ],
+        "access_prep": [
+          {
+            "ap": 0,
+            "addr": "0x5C001004",
+            "or": "0x00700000",
+            "readback_mask": "0x00700000",
+            "readback_value": "0x00700000",
+            "restore_after_discovery": false,
+            "comment": "DBGMCU_CR: D1/D3 debug clocks and trace clock, enabled with read-modify-write. Do not write the reset value back: on H723 that write gates the live debug domain even when zero was read before preparation."
+          }
+        ],
+        "route": {
+          "candidate_funnel_inputs": [
+            0
+          ],
+          "verified_funnel_input": 0,
+          "verification": "bkpt-native-nucleo-h723zg-etf-2026-08-30",
+          "comment": "Bench-proven end to end on NUCLEO-H723ZG with the native BKPT server: multi-AP discovery, arm, wrapped RRD drain, and OpenCSD decode. The live ROM walk and TMC DEVID still determine whether an ETF exists and its capacity."
+        }
+      },
+      "tpiu": false,
+      "init": [
+        {
+          "addr": "0x5C001004",
+          "or": "0x00700000",
+          "comment": "DBGMCU_CR: D1/D3 debug clocks + trace clock enable"
+        },
+        {
+          "addr": "0x5C004FB0",
+          "set": "0xC5ACCE55",
+          "comment": "SWTF LAR unlock"
+        },
+        {
+          "addr": "0x5C003FB0",
+          "set": "0xC5ACCE55",
+          "comment": "SWO LAR unlock"
+        },
+        {
+          "addr": "0x5C0030F0",
+          "set": "0x00000002",
+          "comment": "SWO SPPR: async NRZ (replaces the standard TPIU block)"
+        },
+        {
+          "addr": "0x5C003010",
+          "insert": "$prescaler",
+          "mask": "0x00000FFF",
+          "src-clock-div": 2,
+          "comment": "SWO CODR: H723 trace source is core / 2"
+        },
+        {
+          "addr": "0x5C004000",
+          "or": "0x00000001",
+          "comment": "SWTF CTRL: enable funnel slave 0 (ITM)"
+        },
+        {
+          "addr": "0x580244E0",
+          "or": "0x00000002",
+          "comment": "RCC AHB4ENR: GPIOB clock (SWO pin = PB3)"
+        },
+        {
+          "addr": "0x58020400",
+          "insert": "0x00000080",
+          "mask": "0x000000C0",
+          "comment": "GPIOB MODER: PB3 alternate function"
+        },
+        {
+          "addr": "0x58020408",
+          "or": "0x000000C0",
+          "comment": "GPIOB OSPEEDR: PB3 very high speed"
+        },
+        {
+          "addr": "0x58020420",
+          "insert": "0x00000000",
+          "mask": "0x0000F000",
+          "comment": "GPIOB AFRL: PB3 AF0 (TRACESWO)"
+        }
+      ]
+    },
     {
       "name": "stm32h7",
       "match": {
@@ -13,7 +111,6 @@
         "dev_id": [
           "0x450",
           "0x480",
-          "0x483",
           "0x484"
         ]
       },
@@ -85,9 +182,101 @@
         ]
       },
       "onchip": "h7rs",
-      "tpiu": true,
-      "note": "STM32H7R/S: on-chip trace is supported; SWO bring-up rows are not catalogued for this family yet, so SWO needs firmware-side bring-up.",
-      "init": []
+      "etm_history": {
+        "schema": 1,
+        "backend": "coresight-tmc",
+        "rom_roots": [
+          {
+            "ap": 0,
+            "base": "0x5C010000",
+            "comment": "STM32H7R/S SoC CoreSight ROM root is not advertised by AP.BASE. Runtime component IDs remain authoritative."
+          }
+        ],
+        "access_prep": [
+          {
+            "ap": 0,
+            "addr": "0x5C001004",
+            "or": "0x00700007",
+            "readback_mask": "0x00700007",
+            "readback_value": "0x00700007",
+            "restore_after_discovery": false,
+            "comment": "DBGMCU_CR: trace/debug-domain clocks and low-power debug keepalive, enabled with read-modify-write. Do not write the reset value back: on H7S3 that write gates the live debug domain before arming."
+          }
+        ],
+        "route": {
+          "candidate_funnel_inputs": [
+            0
+          ],
+          "verified_funnel_input": 0,
+          "verification": "bkpt-native-nucleo-h7s3l8-etf-2026-08-30",
+          "comment": "Bench-proven end to end on NUCLEO-H7S3L8 with the native BKPT server: cross-AP arm, wrapped RRD drain, OpenCSD decode, and extension flame view. The live ROM walk and TMC DEVID still determine whether an ETF exists and its capacity."
+        }
+      },
+      "tpiu": false,
+      "note": "STM32H7R/S: ITM/SWO uses the system SWO/SWTF aliases at 0x5C003000/0x5C004000 and PB3 AF0; the SWO source is CPU/3. ETM History uses the AP0 ETF independently.",
+      "swo_clock_div": 3,
+      "init": [
+        {
+          "addr": "0x5C001004",
+          "or": "0x00700007",
+          "comment": "DBGMCU_CR: trace/debug-domain clocks and low-power debug keepalive"
+        },
+        {
+          "addr": "0x5C004FB0",
+          "set": "0xC5ACCE55",
+          "comment": "SWTF LAR unlock"
+        },
+        {
+          "addr": "0x5C003FB0",
+          "set": "0xC5ACCE55",
+          "comment": "SWO LAR unlock"
+        },
+        {
+          "addr": "0x5C0030F0",
+          "set": "0x00000002",
+          "comment": "SWO SPPR: asynchronous NRZ"
+        },
+        {
+          "addr": "0x5C003010",
+          "insert": "$prescaler",
+          "mask": "0x00000FFF",
+          "src-clock-div": 3,
+          "comment": "SWO CODR baud divider; STM32H7R/S supplies this block from CPU/3"
+        },
+        {
+          "addr": "0x5C004000",
+          "or": "0x00000001",
+          "comment": "SWTF CTRL: enable the direct ITM input"
+        },
+        {
+          "addr": "0x58024540",
+          "or": "0x00000002",
+          "comment": "RCC AHB4ENR: GPIOB clock"
+        },
+        {
+          "addr": "0x58020400",
+          "insert": "0x00000080",
+          "mask": "0x000000C0",
+          "comment": "GPIOB MODER: PB3 alternate function"
+        },
+        {
+          "addr": "0x58020408",
+          "or": "0x000000C0",
+          "comment": "GPIOB OSPEEDR: PB3 very high speed"
+        },
+        {
+          "addr": "0x5802040C",
+          "insert": "0x00000000",
+          "mask": "0x000000C0",
+          "comment": "GPIOB PUPDR: PB3 no pull"
+        },
+        {
+          "addr": "0x58020420",
+          "insert": "0x00000000",
+          "mask": "0x0000F000",
+          "comment": "GPIOB AFRL: PB3 AF0 (TRACESWO)"
+        }
+      ]
     },
     {
       "name": "stm32n6",
@@ -99,6 +288,70 @@
         ]
       },
       "onchip": "n6",
+      "etm_history": {
+        "schema": 1,
+        "backend": "coresight-tmc",
+        "rom_roots": [
+          {
+            "ap": 1,
+            "base": "0xE00FE000",
+            "comment": "Architected Armv8-M PPB ROM root. Runtime component IDs remain authoritative."
+          }
+        ],
+        "access_prep": [
+          {
+            "addr": "0x54024C10",
+            "set": "0x00000310",
+            "readback_mask": "0x00000310",
+            "readback_value": "0x00000310",
+            "comment": "RIFSC RIMC_ATTR0: ETR master 0 needs MCID1|MSEC|MPRIV or AXI writes are acknowledged and silently discarded."
+          }
+        ],
+        "route": {
+          "candidate_funnel_inputs": [
+            0,
+            1
+          ],
+          "verified_funnel_input": 0,
+          "replicator_block_port": 1,
+          "verification": "bkpt-direct-ingress-2026-08-29",
+          "comment": "Verified on STM32N6570-DK over bkpt_probe direct SWD with the ELF-reserved 4 KiB ETR ring: input 0 wrapped with 4096 captured bytes (3920 nonzero); input 1 produced 32 bytes (1 nonzero). The diagnostic restored all trace routing/state and used no OpenOCD runtime."
+        },
+        "buffer": {
+          "requires_elf_reservation": true,
+          "advanced_override": true,
+          "allowed_regions": [
+            {
+              "start": "0x34110000",
+              "end": "0x34200000",
+              "alignment": 4096,
+              "comment": "Verified clocked AXISRAM2 window above the boot ROM stack. This is a safety boundary, not proof that an arbitrary firmware leaves it unused."
+            }
+          ]
+        },
+        "quirks": [
+          {
+            "key": "etm-power-up",
+            "value": "trcpdcr-pu",
+            "comment": "Set TRCPDCR.PU before programming the Cortex-M55 ETM."
+          },
+          {
+            "key": "plain-instruction-trace",
+            "value": "required",
+            "comment": "Program TRCCONFIGR=1; reset state enables conditional trace packets unsupported by the packaged decoder."
+          },
+          {
+            "key": "tmc-pointer-init",
+            "value": "required",
+            "comment": "Initialize RRP/RWP to the resolved buffer base before every circular arm."
+          },
+          {
+            "key": "memory-error",
+            "value": "disarm-no-retry",
+            "comment": "An ETR AXI memory error can wedge AP1; disarm immediately and require a power cycle rather than retrying."
+          }
+        ]
+      },
       "tpiu": false,
       "init": [
         {
