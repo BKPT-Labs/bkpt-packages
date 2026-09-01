@@ -2,8 +2,8 @@
   "$schema": "https://opendatasheet.org/schema/v0.1/trace-support.schema.json",
   "spec_version": "0.1",
   "type": "trace-support",
-  "rev": 9,
-  "updated_utc": "2026-08-30",
+  "rev": 10,
+  "updated_utc": "2026-09-01",
   "comment": "CANONICAL debugger-side trace bring-up catalog (bkpt-packages/trace-support). Consumers bundle a snapshot at build/dev time (the ViewAlyzer app never fetches at runtime; a future app fetch would come from this repo). Offline user override: <userAppData>/ViewAlyzer/trace-support.json (same shape). Rows are keyed by debug ARCHITECTURE, not by chip: one row covers every part sharing a vendor debug-domain map, so this file stays a handful of rows forever. A row matches when probing its idcode_addr over the debug connection reads a nonzero device id (optionally restricted to dev_id). Its init ops then run through a read-modify-write interpreter: {addr, set} = write literal, {addr, or} = OR bits in, {addr, insert, mask} = (old & ~mask) | (insert & mask). The token $prescaler normally resolves to (cpu-clock-hz / swo-freq-hz) - 1. A row-level swo_clock_div makes both the probe receiver and $prescaler use cpu-clock-hz / swo_clock_div; an individual op may override that with src-clock-div. tpiu:false means the row replaces the standard ARM TPIU programming (parts with their own SWO block). Optional per-row keys: onchip = the vacore_capture --probeless profile token for the family (Auto chip selection in the on-chip trace flow; absent = generic discovery), note = a one-line caveat logged when the row matches (for example: SWO bring-up not catalogued for this family yet). Rows are probed IN ORDER and the first match wins, so rows with a dev_id list must precede match-any rows whose idcode address aliases on other parts.",
   "devices": [
     {
@@ -72,7 +72,8 @@
           "addr": "0x5C003010",
           "insert": "$prescaler",
           "mask": "0x00000FFF",
-          "comment": "SWO CODR: baud divider"
+          "src-clock-div": 2,
+          "comment": "SWO CODR: H723 trace source is core / 2"
         },
         {
           "addr": "0x5C004000",
