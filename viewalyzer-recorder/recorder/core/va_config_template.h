@@ -1,52 +1,52 @@
 /**
  * @file va_config_template.h
- * @brief Template for a project-owned ViewAlyzer configuration header.
+ * @brief Project configuration template for ViewAlyzer.
  *
- * Copy this file into YOUR project (e.g. as va_config.h), uncomment the
- * knobs you want to change, and build with
+ * QUICK START
+ *   1. Copy this file into your project as va_config.h.
+ *   2. Set VA_DEVICE_HEADER and uncomment only the overrides you need.
+ *   3. Build with -DVA_CONFIG_HEADER=va_config.h.
  *
- *     -DVA_CONFIG_HEADER=va_config.h
- *
- * (a bare token: no quotes, no angle brackets). It is included before every
- * default in ViewAlyzerConfig.h, so anything set here wins. Because it lives
- * outside the vendored recorder tree, package updates leave it alone -
- * unlike edits made to ViewAlyzerConfig.h itself.
- *
- * Every line below shows the default. Leave a line commented and you get
- * that default; this file changes nothing until you uncomment something.
- * The full knob list with detailed comments is in ViewAlyzerConfig.h.
+ * Optional settings retain their defaults while commented. See
+ * ViewAlyzerConfig.h for the complete option reference.
  *
  * Copyright 2025-2026 BKPT, Inc.
- *
  * SPDX-License-Identifier: Apache-2.0
  */
 
 #ifndef VA_CONFIG_H
 #define VA_CONFIG_H
 
-/* Master switch: 0 compiles the recorder out entirely. */
+/* --------------------------------------------------------------------------
+ * CORE
+ * -------------------------------------------------------------------------- */
+
+/* Required outside Zephyr: your CMSIS device header, as a bare token. */
+/* #define VA_DEVICE_HEADER stm32g4xx.h */
+
+/* Set to 0 to compile out the recorder. */
 /* #define VA_ENABLED 1 */
 
-/* RTOS: VA_RTOS_NONE, VA_RTOS_FREERTOS, or VA_RTOS_ZEPHYR.
-   (Usually set by your build system; Zephyr sets it from Kconfig.) */
+/* Usually supplied by the build system; Zephyr uses Kconfig. */
+/* Options: VA_RTOS_NONE | VA_RTOS_FREERTOS | VA_RTOS_ZEPHYR */
 /* #define VA_RTOS_SELECT VA_RTOS_NONE */
 
-/* ── What gets traced ──────────────────────────────────────────────
-   Every category defaults to VA_TRACE_DEFAULT. Two ways to use this:
-   - opt OUT: leave VA_TRACE_DEFAULT at 1 and set the noisy ones to 0, or
-   - opt IN:  set VA_TRACE_DEFAULT to 0 and name what you want at 1.
-   A disabled category costs nothing: events, packet builders, registries,
-   and kernel hooks are all compiled away. */
+/* --------------------------------------------------------------------------
+ * TRACE FILTERS
+ *
+ * Categories inherit VA_TRACE_DEFAULT. Keep 1 and disable noisy categories,
+ * or set 0 and enable only what you need. Disabled categories compile out.
+ * -------------------------------------------------------------------------- */
 
 /* #define VA_TRACE_DEFAULT 1 */
 
-/* RTOS scheduling */
+/* Scheduling */
 /* #define VA_TRACE_TASKS              1 */
 /* #define VA_TRACE_TASK_NOTIFICATIONS 1 */
 /* #define VA_TRACE_STACK_USAGE        1 */
 /* #define VA_TRACE_ISRS               1 */
 
-/* RTOS synchronisation objects */
+/* RTOS objects */
 /* #define VA_TRACE_MUTEXES            1 */
 /* #define VA_TRACE_MUTEX_CONTENTION   1 */
 /* #define VA_TRACE_SEMAPHORES         1 */
@@ -58,7 +58,7 @@
 /* #define VA_TRACE_RTOS_HEAPS         1 */
 /* #define VA_TRACE_PM                 1 */
 
-/* User instrumentation (works on bare metal too) */
+/* User instrumentation (also available on bare metal) */
 /* #define VA_TRACE_USER_VALUES        1 */
 /* #define VA_TRACE_USER_EVENTS        1 */
 /* #define VA_TRACE_STRINGS            1 */
@@ -66,38 +66,32 @@
 /* #define VA_TRACE_COUNTERS           1 */
 /* #define VA_TRACE_HEAP_METRICS       1 */
 
-/* ── Timestamp source ──────────────────────────────────────────────
-   DWT_CYCCNT (default) or CUSTOM_TIMER.
-
-   Pick CUSTOM_TIMER when the core has no DWT cycle counter (Cortex-M0/
-   M0+/M23) or the vendor omitted it. VA_Init() then takes your tick
-   source alongside the CPU clock:
-
-       VA_Init(cpu_freq, my_read_ticks, tick_hz);
-
-   where my_read_ticks is `uint32_t fn(void)` returning a FREE-RUNNING
-   counter (e.g. `return TIM2->CNT;`). The timer must be running before
-   VA_Init(), must never pause while the CPU runs, and the function must
-   be safe to call from any context (including interrupts masked), take
-   no locks, and be cheap - it runs inside every trace hook. Any tick
-   rate works; timestamp resolution = one tick.
-
-   Wrap budget: the recorder needs one clock read per counter wrap.
-   Events do this for free; across QUIET gaps call VA_TickOverflowCheck()
-   more often than the wrap period (2^bits / tick_hz):
-       32-bit @ 1 MHz      wraps every ~71 min  - trivial
-       16-bit @ 32.768 kHz wraps every 2 s      - check every <= 1 s
-       16-bit @ 1 MHz      wraps every 65 ms    - prefer a 32-bit timer!
-*/
+/* --------------------------------------------------------------------------
+ * TIMEBASE
+ *
+ * Default: DWT_CYCCNT. Use CUSTOM_TIMER when DWT is unavailable (such as on
+ * Cortex-M0/M0+/M23), then initialize with:
+ *
+ *   VA_Init(cpu_freq, read_ticks, tick_hz);
+ *
+ * read_ticks must return a free-running uint32_t counter and be fast,
+ * lock-free, and safe from any context. During quiet periods, call
+ * VA_TickOverflowCheck() at least once per counter wrap. Prefer 32-bit timers.
+ * -------------------------------------------------------------------------- */
 
 /* #define VA_TIMESTAMP_SOURCE DWT_CYCCNT */
+
+/* Custom timer width: typically 16 or 32 bits. */
 /* #define VA_TIMER_BITS       32 */
 
-/* ── Transport ─────────────────────────────────────────────────────
-   ARM_ITM, JLINK_RTT, CUSTOM_TRANSPORT, or RAM_BUFFER.
-   (No ITM on Cortex-M0/M0+/M23 - use RAM_BUFFER or JLINK_RTT there.) */
+/* --------------------------------------------------------------------------
+ * TRANSPORT
+ *
+ * Options: ARM_ITM | JLINK_RTT | CUSTOM_TRANSPORT | RAM_BUFFER
+ * Cortex-M0/M0+/M23: use JLINK_RTT or RAM_BUFFER (ITM is unavailable).
+ * -------------------------------------------------------------------------- */
 
-/* #define VA_TRANSPORT ARM_ITM */
+/* #define VA_TRANSPORT RAM_BUFFER */
 
 /* ITM */
 /* #define VA_ITM_PORT 1 */
@@ -111,24 +105,19 @@
 /* #define VA_RAMBUF_SIZE 8192u */
 /* #define VA_RAMBUF_MODE VA_RAMBUF_MODE_DROP */
 
-/* Placement of the RAM-buffer ring + control block. Default: ordinary
-   .bss, the linker picks the address. Define this to pin them to a
-   specific RAM region via a section from your linker script - e.g. a
-   non-cacheable region on cached parts (Cortex-M7 with D-cache on).
-   The host needs no matching change: it finds the ring via the
-   _VA_RAMBUF ELF symbol or by scanning for its magic tag. */
+/* Optional linker placement for the RAM ring and control block. */
 /* #define VA_RAMBUF_ATTRIBUTES __attribute__((section(".va_rambuf"))) */
 
 /* Snapshot (post-mortem) ring */
 /* #define VA_SNAPSHOT      0 */
 /* #define VA_SNAPSHOT_SIZE 4096u */
 
-/* Placement of the snapshot ring + control block (same idea as
-   VA_RAMBUF_ATTRIBUTES; also useful to pin them to RAM that survives a
-   warm reset). */
+/* Optional linker placement; use retained RAM to survive warm resets. */
 /* #define VA_SNAPSHOT_ATTRIBUTES __attribute__((section(".va_snapshot"))) */
 
-/* ── Sizes ─────────────────────────────────────────────────────────── */
+/* --------------------------------------------------------------------------
+ * CAPACITY
+ * -------------------------------------------------------------------------- */
 
 /* #define VA_MAX_TASKS          16 */
 /* #define VA_MAX_SYNC_OBJECTS   64 */

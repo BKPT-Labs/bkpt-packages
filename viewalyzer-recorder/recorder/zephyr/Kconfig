@@ -42,16 +42,14 @@ config VIEWALYZER_NEEDS_THREAD_REGISTRY
 	select THREAD_NAME
 
 # Hidden: baseline cores (ARMv6-M and ARMv8-M baseline) have neither a DWT
-# cycle counter nor an ITM, so both the default timestamp source and the
-# default transport must change there.
+# cycle counter nor an ITM, so the default timestamp source must change there.
 config VIEWALYZER_CPU_BASELINE
 	bool
 	default y if CPU_CORTEX_M0 || CPU_CORTEX_M0PLUS || CPU_CORTEX_M23
 
 choice VIEWALYZER_TRANSPORT
 	prompt "Transport backend"
-	default VIEWALYZER_TRANSPORT_RAMBUF if VIEWALYZER_CPU_BASELINE
-	default VIEWALYZER_TRANSPORT_ITM
+	default VIEWALYZER_TRANSPORT_RAMBUF
 	help
 	  Select how the recorder sends trace data to the host.
 

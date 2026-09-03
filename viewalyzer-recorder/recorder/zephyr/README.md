@@ -56,16 +56,16 @@ points that feed them:
 CONFIG_VIEWALYZER=y
 CONFIG_TRACING_USER=y
 
-# Choose one transport
-CONFIG_VIEWALYZER_TRANSPORT_ITM=y
+# RAM buffer is the default; select one of the others to override it
+CONFIG_VIEWALYZER_TRANSPORT_RAMBUF=y
+# CONFIG_VIEWALYZER_TRANSPORT_ITM=y
 # CONFIG_VIEWALYZER_TRANSPORT_RTT=y
-# CONFIG_VIEWALYZER_TRANSPORT_RAMBUF=y
 ```
 
-On Cortex-M0/M0+/M23 (no ITM, no DWT) the defaults flip: the transport
-defaults to RAMBUF and the timestamp source to a user timer
-(`CONFIG_VIEWALYZER_TS_CUSTOM_TIMER`), which changes `VA_Init()` to take
-the tick source - see "Application Startup" below.
+RAMBUF is the default transport on every supported core. On Cortex-M0/M0+/M23
+(no ITM, no DWT), the timestamp source also defaults to a user timer
+(`CONFIG_VIEWALYZER_TS_CUSTOM_TIMER`), which changes `VA_Init()` to take the
+tick source - see "Application Startup" below.
 
 The full category list, all `y` by default:
 
@@ -143,9 +143,9 @@ Disable `CONFIG_VIEWALYZER_CONFIGURE_RTT` if another part of your system owns RT
 
 ### RAM buffer
 
-Use `CONFIG_VIEWALYZER_TRANSPORT_RAMBUF=y` (the default on cores without
-ITM). RTT-style streaming drained through the debug probe; works with the
-on-board ST-LINK of any Nucleo. Options:
+Use `CONFIG_VIEWALYZER_TRANSPORT_RAMBUF=y` (the default on every supported
+core). RTT-style streaming is drained through the debug probe and works with
+the on-board ST-LINK of any Nucleo. Options:
 
 ```conf
 CONFIG_VIEWALYZER_RAMBUF_SIZE=8192

@@ -178,7 +178,7 @@
 #define RAM_BUFFER       4u           /* RAM ring drained by any debug probe */
 
 #ifndef VA_TRANSPORT
-#define VA_TRANSPORT ARM_ITM
+#define VA_TRANSPORT RAM_BUFFER
 #endif
 
 /* ── ITM transport options ─────────────────────────────────────────── */
