@@ -2,9 +2,9 @@
   "$schema": "https://opendatasheet.org/schema/v0.1/trace-support.schema.json",
   "spec_version": "0.1",
   "type": "trace-support",
-  "rev": 10,
-  "updated_utc": "2026-09-01",
-  "comment": "CANONICAL debugger-side trace bring-up catalog (bkpt-packages/trace-support). Consumers bundle a snapshot at build/dev time (the ViewAlyzer app never fetches at runtime; a future app fetch would come from this repo). Offline user override: <userAppData>/ViewAlyzer/trace-support.json (same shape). Rows are keyed by debug ARCHITECTURE, not by chip: one row covers every part sharing a vendor debug-domain map, so this file stays a handful of rows forever. A row matches when probing its idcode_addr over the debug connection reads a nonzero device id (optionally restricted to dev_id). Its init ops then run through a read-modify-write interpreter: {addr, set} = write literal, {addr, or} = OR bits in, {addr, insert, mask} = (old & ~mask) | (insert & mask). The token $prescaler normally resolves to (cpu-clock-hz / swo-freq-hz) - 1. A row-level swo_clock_div makes both the probe receiver and $prescaler use cpu-clock-hz / swo_clock_div; an individual op may override that with src-clock-div. tpiu:false means the row replaces the standard ARM TPIU programming (parts with their own SWO block). Optional per-row keys: onchip = the vacore_capture --probeless profile token for the family (Auto chip selection in the on-chip trace flow; absent = generic discovery), note = a one-line caveat logged when the row matches (for example: SWO bring-up not catalogued for this family yet). Rows are probed IN ORDER and the first match wins, so rows with a dev_id list must precede match-any rows whose idcode address aliases on other parts.",
+  "rev": 12,
+  "updated_utc": "2026-09-07",
+  "comment": "CANONICAL debugger-side trace bring-up catalog (bkpt-packages/trace-support). Consumers bundle a snapshot at build/dev time (the ViewAlyzer app never fetches at runtime; a future app fetch would come from this repo). Offline user override: <userAppData>/ViewAlyzer/trace-support.json (same shape). Rows group parts sharing a vendor debug-domain map. Device ID allowlists identify the known parts in each group; an arbitrary nonzero value at the same address is not sufficient vendor identification. Unknown IDs require catalog validation before vendor-specific initialization is enabled. Its init ops then run through a read-modify-write interpreter: {addr, set} = write literal, {addr, or} = OR bits in, {addr, insert, mask} = (old & ~mask) | (insert & mask). The token $prescaler normally resolves to (cpu-clock-hz / swo-freq-hz) - 1. A row-level swo_clock_div makes both the probe receiver and $prescaler use cpu-clock-hz / swo_clock_div; an individual op may override that with src-clock-div. tpiu:false means the row replaces the standard ARM TPIU programming (parts with their own SWO block). Optional per-row keys: onchip = the vacore_capture --probeless profile token for the family (Auto chip selection in the on-chip trace flow; absent = generic discovery), note = a one-line caveat logged when the row matches (for example: SWO bring-up not catalogued for this family yet). Rows are probed IN ORDER and the first match wins; keep more specific layouts before broader groups.",
   "devices": [
     {
       "name": "stm32h723",
@@ -72,8 +72,14 @@
           "addr": "0x5C003010",
           "insert": "$prescaler",
           "mask": "0x00000FFF",
-          "src-clock-div": 2,
-          "comment": "SWO CODR: H723 trace source is core / 2"
+          "src-clock": {
+            "kind": "stm32h7-rcc",
+            "cfgr": "0x58024410",
+            "d1cfgr": "0x58024418",
+            "pllcfgr": "0x5802442C",
+            "pll1divr": "0x58024430"
+          },
+          "comment": "SWO CODR: traceclkin/core follows RCC SWS, D1CPRE and PLL1 P/R; requires stm32h7-rcc clock-model support."
         },
         {
           "addr": "0x5C004000",
@@ -435,7 +441,7 @@
         }
       ],
       "note": "STM32N6: ITM/SWO rides the system trace tree (CSTF funnel -> ETF in FIFO passthrough -> replicator -> SWO block at 0xE008A000). DBGMCU (DEV_ID, trace clocks) is on AP0; the core and the whole trace tree are on AP1 (the default AP). The ETR path (probeless on-chip trace) shares the funnel + ETF; see capture/probeless/st_n6.tcl.",
-      "comment": "Must precede the match-any M33 row: 0xE0044000 reads a nonzero word on this part."
+      "comment": "Keep this specific layout before broader groups; 0xE0044000 aliases a nonzero word on this part."
     },
     {
       "name": "stm32h5",
@@ -445,7 +451,7 @@
           "0x474",
           "0x484"
         ],
-        "comment": "DBGMCU as seen from the Cortex-M33 core AP (AP1 on H5); AP0 aliases it at 0xE0044000 but the products program through the core AP. dev_id 0x474 = H503 (verified on the rack 2026-08-28: IDCODE 0x10036474), 0x484 = H56x/H573. Listed before the match-any rows."
+        "comment": "DBGMCU as seen from the Cortex-M33 core AP (AP1 on H5); AP0 aliases it at 0xE0044000 but the products program through the core AP. dev_id 0x474 = H503 (verified on the rack 2026-08-28: IDCODE 0x10036474), 0x484 = H56x/H573."
       },
       "tpiu": true,
       "onchip": "generic",
@@ -458,10 +464,11 @@
       ]
     },
     {
-      "name": "stm32-tz-m33 (U5/L5/WBA)",
+      "name": "stm32-tz-m33 (U3/U5/L5/WBA)",
       "match": {
         "idcode_addr": "0xE0044000",
-        "comment": "DBGMCU for the TrustZone Cortex-M33 generation (U5/L5/WBA all map DBGMCU here; H5 does not). dev_id 0x482 (U575/585) verified on silicon 2026-07-11; other family ids match by architecture."
+        "dev_id": ["0x454", "0x455", "0x472", "0x476", "0x481", "0x482", "0x492", "0x4B0"],
+        "comment": "DBGMCU for U3/U5/L5/WBA; H5 uses its own row. IDs from ST's STM32CubeCLT 1.19.0 Programmer Data_Base device records: U3=454, U535/545=455, L5=472, U5F/G=476, U59/A=481, U575/585=482, WBA5=492, WBA6=4B0. Never match an arbitrary nonzero word: RW612 reads 0x003 at this address on the bench. Unknown IDs require catalog validation; they retain generic Cortex-M debugging."
       },
       "tpiu": true,
       "init": [
@@ -476,7 +483,17 @@
     {
       "name": "stm32-classic",
       "match": {
-        "idcode_addr": "0xE0042000"
+        "idcode_addr": "0xE0042000",
+        "dev_id": [
+          "0x410", "0x411", "0x412", "0x413", "0x414", "0x415", "0x416", "0x417", "0x418", "0x419",
+          "0x420", "0x421", "0x422", "0x423", "0x425", "0x427", "0x428", "0x429", "0x430", "0x431",
+          "0x432", "0x433", "0x434", "0x435", "0x436", "0x437", "0x438", "0x439", "0x440", "0x441",
+          "0x442", "0x443", "0x444", "0x445", "0x446", "0x447", "0x448", "0x449", "0x44C", "0x44D",
+          "0x451", "0x452", "0x453", "0x456", "0x457", "0x458", "0x459", "0x460", "0x461", "0x462",
+          "0x463", "0x464", "0x466", "0x467", "0x468", "0x469", "0x470", "0x471", "0x479", "0x489",
+          "0x493", "0x494", "0x495", "0x497"
+        ],
+        "comment": "Known F0/F1/F2/F3/F4/F7/L0/L1/L4/G0/G4/C0/U0/WB/WL IDs from ST's STM32CubeCLT 1.19.0 Programmer Data_Base. H7/H5/N6 and TrustZone-M33 layouts have separate rows. An ID list is a necessary guard, not a trace-capability claim: the core's discovery still gates every feature. Unknown/non-ST IDs do not authorize writes to this vendor register map."
       },
       "tpiu": true,
       "init": [
