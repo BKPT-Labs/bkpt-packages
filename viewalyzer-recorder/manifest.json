@@ -30,10 +30,10 @@
   },
   "provenance": {
     "source_repo": "ViewAlyzer",
-    "source_rev": "67b6ddd430c3f7c6c5d452f2449d33bf8935ed85",
-    "recorder_version": "1.1.1",
+    "source_rev": "b0a59c5c404aa27f32c969586a8ad5b2003cf64d",
+    "recorder_version": "1.1.2",
     "wire_version": 1,
-    "content_hash": "sha256:d3cfef8d83e0b27d3fdaa0ae56d141b9dd28fe241b897d8944202aaa5c4f1c70"
+    "content_hash": "sha256:1a52cce74e6a0fdefa5296fa9c3508622c6e5098e3c4f7398428022b056354a6"
   },
-  "rev": "8"
+  "rev": "9"
 }
