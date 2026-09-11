@@ -1,9 +1,11 @@
 # Trace source clocks
 
-Revision 13 adds the STM32C562 trace gate, matched by device ID `0x44E` at
+Revision 14 routes the STM32C562 trace gate through system AP0, matched by device ID `0x44E` at
 `0x44024000`. It enables DBGMCU trace clocks, the SWO pin and debug during
 stop/standby through `0x44024004`, then uses the standard Cortex-M TPIU.
-The C562 core is on AP1; these catalog accesses use the attached core's AP.
+The C562 core is on AP1, which returns zero for these vendor registers while
+the core sleeps. Both the match and initialization therefore declare AP0.
+This corrects the revision 13 route, which worked with a halted core.
 This route has been exercised with the rack's NUCLEO-C562RE at 144 MHz core
 and 2 MHz SWO. Other C5 device IDs are not implicitly enrolled.
 
