@@ -1,5 +1,12 @@
 # Trace source clocks
 
+Revision 13 adds the STM32C562 trace gate, matched by device ID `0x44E` at
+`0x44024000`. It enables DBGMCU trace clocks, the SWO pin and debug during
+stop/standby through `0x44024004`, then uses the standard Cortex-M TPIU.
+The C562 core is on AP1; these catalog accesses use the attached core's AP.
+This route has been exercised with the rack's NUCLEO-C562RE at 144 MHz core
+and 2 MHz SWO. Other C5 device IDs are not implicitly enrolled.
+
 `src-clock-div` on a `$prescaler` operation specifies a fixed integer
 core-to-trace divider. The target prescaler is
 `max(1, floor((cpu_hz / divider) / swo_hz)) - 1`.

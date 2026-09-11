@@ -2,8 +2,8 @@
   "$schema": "https://opendatasheet.org/schema/v0.1/trace-support.schema.json",
   "spec_version": "0.1",
   "type": "trace-support",
-  "rev": 12,
-  "updated_utc": "2026-09-07",
+  "rev": 13,
+  "updated_utc": "2026-09-11",
   "comment": "CANONICAL debugger-side trace bring-up catalog (bkpt-packages/trace-support). Consumers bundle a snapshot at build/dev time (the ViewAlyzer app never fetches at runtime; a future app fetch would come from this repo). Offline user override: <userAppData>/ViewAlyzer/trace-support.json (same shape). Rows group parts sharing a vendor debug-domain map. Device ID allowlists identify the known parts in each group; an arbitrary nonzero value at the same address is not sufficient vendor identification. Unknown IDs require catalog validation before vendor-specific initialization is enabled. Its init ops then run through a read-modify-write interpreter: {addr, set} = write literal, {addr, or} = OR bits in, {addr, insert, mask} = (old & ~mask) | (insert & mask). The token $prescaler normally resolves to (cpu-clock-hz / swo-freq-hz) - 1. A row-level swo_clock_div makes both the probe receiver and $prescaler use cpu-clock-hz / swo_clock_div; an individual op may override that with src-clock-div. tpiu:false means the row replaces the standard ARM TPIU programming (parts with their own SWO block). Optional per-row keys: onchip = the vacore_capture --probeless profile token for the family (Auto chip selection in the on-chip trace flow; absent = generic discovery), note = a one-line caveat logged when the row matches (for example: SWO bring-up not catalogued for this family yet). Rows are probed IN ORDER and the first match wins; keep more specific layouts before broader groups.",
   "devices": [
     {
@@ -442,6 +442,23 @@
       ],
       "note": "STM32N6: ITM/SWO rides the system trace tree (CSTF funnel -> ETF in FIFO passthrough -> replicator -> SWO block at 0xE008A000). DBGMCU (DEV_ID, trace clocks) is on AP0; the core and the whole trace tree are on AP1 (the default AP). The ETR path (probeless on-chip trace) shares the funnel + ETF; see capture/probeless/st_n6.tcl.",
       "comment": "Keep this specific layout before broader groups; 0xE0044000 aliases a nonzero word on this part."
+    },
+    {
+      "name": "stm32c5",
+      "match": {
+        "idcode_addr": "0x44024000",
+        "dev_id": ["0x44E"],
+        "comment": "STM32C562RE: CubeProgrammer device ID 0x44E on NUCLEO-C562RE; ST STM32C5 DFP stm32c562xx.h maps DBGMCU to AHB3 + 0x4000 (0x44024000). Core debug uses AP1; AP0 also exposes the system register map."
+      },
+      "tpiu": true,
+      "onchip": "generic",
+      "init": [
+        {
+          "addr": "0x44024004",
+          "or": "0x00000036",
+          "comment": "DBGMCU_CR: TRACE_EN bit 5, TRACE_IOEN bit 4, DBG_STOP/STANDBY bits 1/2. Standard ARM TPIU handles async SWO; preserve other debug state."
+        }
+      ]
     },
     {
       "name": "stm32h5",
