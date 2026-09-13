@@ -21,8 +21,13 @@
 
 #include "viewalyzer_cobs.h"
 
-size_t va_cobs_encode(const uint8_t *input, size_t in_len, uint8_t *output)
+size_t va_cobs_encode(const uint8_t *input, size_t in_len, uint8_t *output,
+                      size_t capacity)
 {
+    size_t required = va_cobs_max_encoded_len(in_len);
+    if (!output || (!input && in_len != 0) || required == 0 || capacity < required)
+        return 0;
+
     size_t out_idx  = 0;
     size_t code_idx = out_idx++;   /* reserve space for first code byte */
     uint8_t code    = 1;

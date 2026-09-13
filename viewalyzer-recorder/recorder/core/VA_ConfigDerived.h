@@ -201,10 +201,14 @@
 #error "ViewAlyzer: VA_SNAPSHOT_SETUP_SIZE must be 0 (disabled) or at least 64 bytes"
 #endif
 
-#if VA_TRANSPORT_BUFFERED && (((VA_BUFFER_SIZE) & ((VA_BUFFER_SIZE) - 1)) != 0)
+#if VA_TRANSPORT_BUFFERED && ((VA_BUFFER_SIZE < 64) || (VA_BUFFER_SIZE > 0x80000000u) || (((VA_BUFFER_SIZE) & ((VA_BUFFER_SIZE) - 1)) != 0))
 /* The buffered ring uses free-running indices; a non-power-of-two capacity
    corrupts the ring when the 32-bit indices wrap. */
-#error "ViewAlyzer: VA_BUFFER_SIZE must be a power of two"
+#error "ViewAlyzer: VA_BUFFER_SIZE must be a power of two between 64 and 2147483648 bytes"
+#endif
+
+#if VA_TRANSPORT_BUFFERED && ((VA_DRAIN_MAX_BYTES < 1) || (VA_DRAIN_MAX_BYTES > 0xFFFFFFFFu))
+#error "ViewAlyzer: VA_DRAIN_MAX_BYTES must be 1..4294967295"
 #endif
 
 #if VA_TRANSPORT_BUFFERED && VA_TRANSPORT_IS_RAMBUF
@@ -215,11 +219,11 @@
 #error "ViewAlyzer: VA_TRANSPORT_BUFFERED cannot be combined with the RAM_BUFFER transport"
 #endif
 
-#if VA_TRANSPORT_IS_CUSTOM && ((VA_MAX_LOG_STRING_LEN) + 6 < (VA_MAX_TASK_NAME_LEN))
-/* The custom-transport COBS scratch buffer is sized from
-   VA_MAX_PACKET_SIZE (driven by VA_MAX_LOG_STRING_LEN), but the largest
-   setup packet scales with VA_MAX_TASK_NAME_LEN. */
-#error "ViewAlyzer: with CUSTOM_TRANSPORT, VA_MAX_LOG_STRING_LEN must be at least VA_MAX_TASK_NAME_LEN - 6"
+#if (VA_MAX_TASK_NAME_LEN < 4) || (VA_MAX_TASK_NAME_LEN > 255)
+#error "ViewAlyzer: VA_MAX_TASK_NAME_LEN must be 4..255 (including the terminator)"
+#endif
+#if (VA_MAX_LOG_STRING_LEN < 0) || (VA_MAX_LOG_STRING_LEN > 1024)
+#error "ViewAlyzer: VA_MAX_LOG_STRING_LEN must be 0..1024"
 #endif
 
 #if VA_TRANSPORT_IS_ITM && ((VA_ITM_PORT) >= 32)

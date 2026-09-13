@@ -167,7 +167,7 @@ static void _va_strcat_suffix(char *buf, size_t buf_size,
        every interval-in-ticks computation. */
     static uint32_t _va_tick_hz = 0;
 
-/* Info-packet markers; must fit VA_MAX_TASK_NAME_LEN untruncated. */
+/* Info-packet markers have a separate bound from display names. */
 #define VA_INFO_TASKMAP_FULL  "ERR:TASKMAPFULL"
 #define VA_INFO_USERMAP_FULL  "ERR:USERMAPFULL"
 /* Registry-overflow reports for the remaining registries; same latched,
@@ -183,15 +183,15 @@ static void _va_strcat_suffix(char *buf, size_t buf_size,
 #define VA_INFO_TS_HZ_ZERO    "ERR:TS_HZ_ZERO"
 #define VA_INFO_TS_DEAD       "ERR:TS_DEAD"
 typedef char va_assert_info_markers_fit_[
-    (sizeof (VA_INFO_TASKMAP_FULL) <= VA_MAX_TASK_NAME_LEN &&
-     sizeof (VA_INFO_USERMAP_FULL) <= VA_MAX_TASK_NAME_LEN &&
-     sizeof (VA_INFO_OBJMAP_FULL)  <= VA_MAX_TASK_NAME_LEN &&
-     sizeof (VA_INFO_EVTMAP_FULL)  <= VA_MAX_TASK_NAME_LEN &&
-     sizeof (VA_INFO_GPIOMAP_FULL) <= VA_MAX_TASK_NAME_LEN &&
-     sizeof (VA_INFO_HEAPMAP_FULL) <= VA_MAX_TASK_NAME_LEN &&
-     sizeof (VA_INFO_TS_NULL)      <= VA_MAX_TASK_NAME_LEN &&
-     sizeof (VA_INFO_TS_HZ_ZERO)   <= VA_MAX_TASK_NAME_LEN &&
-     sizeof (VA_INFO_TS_DEAD)      <= VA_MAX_TASK_NAME_LEN) ? 1 : -1];
+    (sizeof (VA_INFO_TASKMAP_FULL) <= VA_CONTROL_TEXT_CAPACITY &&
+     sizeof (VA_INFO_USERMAP_FULL) <= VA_CONTROL_TEXT_CAPACITY &&
+     sizeof (VA_INFO_OBJMAP_FULL)  <= VA_CONTROL_TEXT_CAPACITY &&
+     sizeof (VA_INFO_EVTMAP_FULL)  <= VA_CONTROL_TEXT_CAPACITY &&
+     sizeof (VA_INFO_GPIOMAP_FULL) <= VA_CONTROL_TEXT_CAPACITY &&
+     sizeof (VA_INFO_HEAPMAP_FULL) <= VA_CONTROL_TEXT_CAPACITY &&
+     sizeof (VA_INFO_TS_NULL)      <= VA_CONTROL_TEXT_CAPACITY &&
+     sizeof (VA_INFO_TS_HZ_ZERO)   <= VA_CONTROL_TEXT_CAPACITY &&
+     sizeof (VA_INFO_TS_DEAD)      <= VA_CONTROL_TEXT_CAPACITY) ? 1 : -1];
 
 #if VA_NEEDS_TASK_REGISTRY
     /* --- Task ID Mapping (RTOS-agnostic) --- */
@@ -439,7 +439,6 @@ void VA_SnapshotFreeze(void)
 #define VA_ITM_STALL_SPIN_LIMIT 50000u
 #endif
 
-/* Once stalled, emissions drop until the periodic bundle re-arms a retry. */
 static volatile uint8_t _va_itm_stalled = 0;
 
 static inline int ITM_WaitReady(uint8_t port)
@@ -474,14 +473,31 @@ static inline int ITM_SendU8(uint8_t port, uint8_t value)
     ITM->PORT[port].u8 = value;
     return 1;
 }
-static void _va_send_bytes(const uint8_t *data, uint32_t length)
+static uint32_t _va_send_bytes(const uint8_t *data, uint32_t length)
 {
     if (!VA_IS_INIT)
-        return;
+        return 0;
+#if VA_TRANSPORT_BUFFERED
+#if (__ARM_ARCH >= 8)
+    if (!(DCB->DEMCR & DCB_DEMCR_TRCENA_Msk))
+        return 0;
+#else
+    if (!(CoreDebug->DEMCR & CoreDebug_DEMCR_TRCENA_Msk))
+        return 0;
+#endif
+    if (!(ITM->TCR & ITM_TCR_ITMENA_Msk) || !(ITM->TER & (1UL << VA_ITM_PORT)))
+        return 0;
+#endif
     if (_va_itm_stalled)
     {
+#if VA_TRANSPORT_BUFFERED
+        if (ITM->PORT[VA_ITM_PORT].u32 == 0)
+            return 0;
+        _va_itm_stalled = 0;
+#else
         VA_TP_DROP(length);
-        return;   /* pipe known-dead: drop the packet, don't spin */
+        return 0;
+#endif
     }
     uint32_t i = 0;
     while (length >= 4)
@@ -491,7 +507,7 @@ static void _va_send_bytes(const uint8_t *data, uint32_t length)
                         ((uint32_t)data[i + 1] << 8) |
                         ((uint32_t)data[i + 0] << 0);
         if (!ITM_SendU32(VA_ITM_PORT, word))
-            return;   /* stalled mid-packet: host re-syncs at the next marker */
+            return i;
         i += 4;
         length -= 4;
     }
@@ -499,20 +515,35 @@ static void _va_send_bytes(const uint8_t *data, uint32_t length)
     {
         uint16_t half = (uint16_t)(((uint16_t)data[i + 1] << 8) | (uint16_t)data[i + 0]);
         if (!ITM_SendU16(VA_ITM_PORT, half))
-            return;
+            return i;
         i += 2;
         length -= 2;
     }
     if (length > 0)
     {
         if (!ITM_SendU8(VA_ITM_PORT, data[i]))
-            return;
+            return i;
         i++;
         length--;
     }
+    return i;
 }
 
 #elif VA_TRANSPORT_IS_JLINK
+#if VA_TRANSPORT_BUFFERED
+static uint32_t _va_send_bytes(const uint8_t *data, uint32_t length)
+{
+    if (!VA_IS_INIT)
+        return 0;
+    /* Only the drain writes this channel; the host can only free space. */
+    uint32_t available = SEGGER_RTT_GetAvailWriteSpace(VA_RTT_CHANNEL);
+    if (length > available)
+        length = available;
+    if (length == 0)
+        return 0;
+    return SEGGER_RTT_Write(VA_RTT_CHANNEL, data, length);
+}
+#else
 static void _va_send_bytes(const uint8_t *data, uint32_t length)
 {
     if (!VA_IS_INIT)
@@ -521,13 +552,15 @@ static void _va_send_bytes(const uint8_t *data, uint32_t length)
     if (written < length)
         VA_TP_DROP(length - written);
 }
+#endif
 
 #elif VA_TRANSPORT_IS_CUSTOM
-static void _va_send_bytes(const uint8_t *data, uint32_t length)
+static uint32_t _va_send_bytes(const uint8_t *data, uint32_t length)
 {
     if (!VA_IS_INIT || s_user_send_fn == NULL)
-        return;
-    s_user_send_fn(data, length);
+        return 0;
+    uint32_t written = s_user_send_fn(data, length);
+    return written <= length ? written : 0;
 }
 
 #elif VA_TRANSPORT_IS_RAMBUF
@@ -619,6 +652,8 @@ static volatile uint32_t _va_ring_head = 0;   /* next write index (free-running)
 static volatile uint32_t _va_ring_tail = 0;   /* next read index  (free-running) */
 static volatile uint32_t _va_dropped_packets = 0;
 static volatile uint32_t _va_dropped_bytes   = 0;
+static uint32_t          _va_reported_drops  = 0;
+static bool              _va_drain_active    = false;
 
 static inline uint32_t _va_ring_used(void) { return _va_ring_head - _va_ring_tail; }
 
@@ -628,8 +663,13 @@ static void _va_ring_push(const uint8_t *data, uint32_t length)
 {
     if (length > (uint32_t)(VA_BUFFER_SIZE) - _va_ring_used())
     {
-        _va_dropped_packets++;
-        _va_dropped_bytes += length;
+        if (_va_dropped_packets != UINT32_MAX)
+            _va_dropped_packets++;
+        if (length > UINT32_MAX - _va_dropped_bytes)
+            _va_dropped_bytes = UINT32_MAX;
+        else
+            _va_dropped_bytes += length;
+        VA_TP_DROP(length);
         return;
     }
     for (uint32_t i = 0; i < length; ++i)
@@ -647,8 +687,14 @@ static inline void _va_emit_packet_raw(const uint8_t *data, uint32_t length)
     _va_pm_write(data, length);
 #endif
 #if VA_TRANSPORT_IS_CUSTOM
-    uint8_t cobs_buf[VA_MAX_PACKET_SIZE + (VA_MAX_PACKET_SIZE / 254) + 2];
-    size_t encoded_len = va_cobs_encode(data, (size_t)length, cobs_buf);
+    /* Packet emission holds the recorder critical section. */
+    static uint8_t cobs_buf[VA_MAX_PACKET_SIZE + (VA_MAX_PACKET_SIZE / 254) + 2];
+    size_t encoded_len = va_cobs_encode(data, (size_t)length, cobs_buf, sizeof(cobs_buf));
+    if (encoded_len == 0)
+    {
+        VA_TP_DROP(length);
+        return;  /* sequence is already consumed; the host sees a loss */
+    }
 #if VA_TRANSPORT_BUFFERED
     _va_ring_push(cobs_buf, (uint32_t)encoded_len);   /* drained later, already framed */
 #else
@@ -784,19 +830,26 @@ static void _va_send_seq_checkpoint(void)
 
 void _va_send_setup_packet(uint8_t setupCode, uint8_t id, const char *name)
 {
-    uint8_t name_len = (uint8_t)strlen(name);
-    if (name_len >= VA_MAX_TASK_NAME_LEN)
+    size_t name_len = strlen(name);
+#if VA_MAX_TASK_NAME_LEN < VA_CONTROL_TEXT_MIN_CAPACITY
+    /* Control messages require a larger limit when display names are small. */
+    if (setupCode == VA_SETUP_INFO || setupCode == VA_SETUP_OS_INFO)
     {
-        name_len = VA_MAX_TASK_NAME_LEN - 1;
+        if (name_len >= VA_CONTROL_TEXT_CAPACITY)
+            name_len = VA_CONTROL_TEXT_CAPACITY - 1;
     }
-    uint8_t buf[3 + VA_SEQ_BYTES + VA_MAX_TASK_NAME_LEN];
+    else
+#endif
+    if (name_len >= VA_MAX_TASK_NAME_LEN)
+        name_len = VA_MAX_TASK_NAME_LEN - 1;
+    uint8_t buf[3 + VA_SEQ_BYTES + VA_SETUP_TEXT_CAPACITY];
     uint32_t p = 0;
     buf[p++] = setupCode;
     p += VA_SEQ_BYTES;
     buf[p++] = id;
-    buf[p++] = name_len;
+    buf[p++] = (uint8_t)name_len;
     memcpy(&buf[p], name, name_len);
-    _va_emit_packet(buf, p + name_len);
+    _va_emit_packet(buf, p + (uint32_t)name_len);
 }
 
 #if VA_NEEDS_OBJECT_REGISTRY
@@ -836,7 +889,7 @@ static void _va_send_config_flags_packet(uint8_t group, uint32_t value)
 #if VA_NEEDS_USER_TRACE_REGISTRY
 void _va_send_user_setup_packet(uint8_t id, uint8_t type, const char *name)
 {
-    uint8_t name_len = (uint8_t)strlen(name);
+    size_t name_len = strlen(name);
     if (name_len >= VA_MAX_TASK_NAME_LEN)
     {
         name_len = VA_MAX_TASK_NAME_LEN - 1;
@@ -847,9 +900,9 @@ void _va_send_user_setup_packet(uint8_t id, uint8_t type, const char *name)
     p += VA_SEQ_BYTES;
     buf[p++] = id;
     buf[p++] = type;
-    buf[p++] = name_len;
+    buf[p++] = (uint8_t)name_len;
     memcpy(&buf[p], name, name_len);
-    _va_emit_packet(buf, p + name_len);
+    _va_emit_packet(buf, p + (uint32_t)name_len);
 }
 #endif /* VA_NEEDS_USER_TRACE_REGISTRY */
 
@@ -996,7 +1049,7 @@ void _va_send_data_event_packet(uint8_t type_byte, uint8_t id, uint32_t value, u
 #if VA_TRACE_HEAP_METRICS
 void _va_send_heap_setup_packet(uint8_t id, const char *name, uint32_t totalSize)
 {
-    uint8_t name_len = (uint8_t)strlen(name);
+    size_t name_len = strlen(name);
     if (name_len >= VA_MAX_TASK_NAME_LEN)
     {
         name_len = VA_MAX_TASK_NAME_LEN - 1;
@@ -1010,21 +1063,19 @@ void _va_send_heap_setup_packet(uint8_t id, const char *name, uint32_t totalSize
     buf[p++] = (uint8_t)(totalSize >> 8);
     buf[p++] = (uint8_t)(totalSize >> 16);
     buf[p++] = (uint8_t)(totalSize >> 24);
-    buf[p++] = name_len;
+    buf[p++] = (uint8_t)name_len;
     memcpy(&buf[p], name, name_len);
-    _va_emit_packet(buf, p + name_len);
+    _va_emit_packet(buf, p + (uint32_t)name_len);
 }
 #endif /* heap setup packet */
 
-#if VA_TRACE_STRINGS || VA_TRANSPORT_BUFFERED
-/* Session infrastructure, not the VA_TRACE_STRINGS category: VA_Drain()
-   loss reporting also goes through here. */
+#if VA_TRACE_STRINGS
 static void _va_emit_string_event(uint8_t id, const char *msg)
 {
     if (!msg) return;
-    uint16_t len = (uint16_t)strlen(msg);
-    if (len == 0) return;
+    size_t len = strlen(msg);
     if (len > VA_MAX_LOG_STRING_LEN) len = VA_MAX_LOG_STRING_LEN;
+    if (len == 0) return;
 
     _va_service_pending_bundle();
 
@@ -1040,12 +1091,12 @@ static void _va_emit_string_event(uint8_t id, const char *msg)
     buf[p++] = (uint8_t)(len >> 0);
     buf[p++] = (uint8_t)(len >> 8);
     memcpy(&buf[p], msg, len);
-    p += len;
+    p += (uint32_t)len;
 
     _va_emit_packet(buf, p);
     VA_CS_EXIT();
 }
-#endif /* VA_TRACE_STRINGS || VA_TRANSPORT_BUFFERED */
+#endif /* VA_TRACE_STRINGS */
 
 /* ── Timestamp ───────────────────────────────────────────────────── */
 
@@ -1102,41 +1153,99 @@ void VA_TickOverflowCheck(void)
     _va_service_pending_bundle();
 }
 
+VA_BufferStats_t VA_GetBufferStats(void)
+{
+    VA_BufferStats_t stats = {0, 0, 0};
+#if VA_TRANSPORT_BUFFERED
+    VA_CS_ENTER();
+    stats.queuedBytes = _va_ring_used();
+    stats.droppedPackets = _va_dropped_packets;
+    stats.droppedBytes = _va_dropped_bytes;
+    VA_CS_EXIT();
+#endif
+    return stats;
+}
+
+#if VA_TRANSPORT_BUFFERED
+/* Queue loss metadata only when it fits; caller holds the critical section. */
+static void _va_report_buffer_drops(void)
+{
+    uint32_t dropped = _va_dropped_packets - _va_reported_drops;
+    if (dropped == 0)
+        return;
+    char msg[16];
+    _va_u32_to_str(msg, sizeof(msg), "DROP:", dropped);
+    uint32_t len = (uint32_t)strlen(msg);
+    uint8_t packet[2 + VA_SEQ_BYTES + VA_TIMESTAMP_BYTES + 2 + 15];
+    uint32_t size = 2 + VA_SEQ_BYTES + VA_TIMESTAMP_BYTES + 2 + len;
+#if VA_TRANSPORT_IS_CUSTOM
+    uint32_t required = (uint32_t)va_cobs_max_encoded_len(size);
+#else
+    uint32_t required = size;
+#endif
+    if (required > VA_BUFFER_SIZE - _va_ring_used())
+        return;
+    uint32_t p = 0;
+    packet[p++] = VA_EVENT_STRING_EVENT;
+    p += VA_SEQ_BYTES;
+    packet[p++] = 0;
+    p += _va_put_ts(&packet[p], _va_get_timestamp_unlocked());
+    packet[p++] = (uint8_t)len;
+    packet[p++] = 0;
+    memcpy(&packet[p], msg, len);
+    _va_emit_packet(packet, size);
+    _va_reported_drops = _va_dropped_packets;
+}
+#endif
+
 void VA_Drain(void)
 {
 #if VA_TRANSPORT_BUFFERED
-    if (!VA_IS_INIT)
+    if (!VA_IS_INIT || _va_in_isr() || _va_irqs_masked())
         return;
-
-    /* Report accumulated drops as a StringEvent (id 0). */
-    VA_CS_ENTER();
-    uint32_t dropped = _va_dropped_packets;
-    if (dropped) { _va_dropped_packets = 0; _va_dropped_bytes = 0; }
-    VA_CS_EXIT();
-    if (dropped)
+    uint32_t remaining;
     {
-        char msg[24];
-        _va_u32_to_str(msg, sizeof(msg), "DROP:", dropped);
-        _va_emit_string_event(0, msg);
-    }
-
-    /* Flush in bounded chunks; the possibly-blocking send runs outside the
-       CS so interrupts stay enabled. */
-    for (;;)
-    {
-        uint8_t  chunk[64];
-        uint32_t n = 0;
         VA_CS_ENTER();
-        uint32_t used = _va_ring_used();
-        n = (used < sizeof(chunk)) ? used : (uint32_t) sizeof(chunk);
-        for (uint32_t i = 0; i < n; ++i)
-            chunk[i] = _va_ring[(_va_ring_tail + i) % VA_BUFFER_SIZE];
-        _va_ring_tail += n;
+        if (_va_drain_active)
+        {
+            VA_CS_EXIT();
+            return;
+        }
+        _va_drain_active = true;
+        remaining = _va_ring_used();
+        if (remaining > VA_DRAIN_MAX_BYTES)
+            remaining = VA_DRAIN_MAX_BYTES;
         VA_CS_EXIT();
-
-        if (n == 0)
+    }
+    /* Retain queued bytes until accepted; new writes cannot extend the budget. */
+    while (remaining != 0)
+    {
+        uint32_t offset;
+        uint32_t n = remaining < 64u ? remaining : 64u;
+        {
+            VA_CS_ENTER();
+            offset = _va_ring_tail % VA_BUFFER_SIZE;
+            uint32_t contiguous = VA_BUFFER_SIZE - offset;
+            if (n > contiguous)
+                n = contiguous;
+            VA_CS_EXIT();
+        }
+        /* The unchanged tail reserves this span until the send returns. */
+        uint32_t written = _va_send_bytes(&_va_ring[offset], n);
+        {
+            VA_CS_ENTER();
+            _va_ring_tail += written;
+            VA_CS_EXIT();
+        }
+        remaining -= n;
+        if (written < n)
             break;
-        _va_send_bytes(chunk, n);
+    }
+    {
+        VA_CS_ENTER();
+        _va_report_buffer_drops();
+        _va_drain_active = false;
+        VA_CS_EXIT();
     }
 #endif
 }
@@ -2904,6 +3013,8 @@ void VA_Init(uint32_t cpu_freq)
     _va_ring_tail = 0;
     _va_dropped_packets = 0;
     _va_dropped_bytes = 0;
+    _va_reported_drops = 0;
+    _va_drain_active = false;
 #endif
 
 #if defined(VA_TP_TEST) && (VA_TP_TEST == 1)

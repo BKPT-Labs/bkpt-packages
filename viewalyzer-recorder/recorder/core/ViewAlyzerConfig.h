@@ -324,6 +324,9 @@
 #ifndef VA_BUFFER_SIZE
 #define VA_BUFFER_SIZE 4096           /* Ring capacity (bytes) when VA_TRANSPORT_BUFFERED */
 #endif
+#ifndef VA_DRAIN_MAX_BYTES
+#define VA_DRAIN_MAX_BYTES 256u       /* Maximum bytes offered to the sink per VA_Drain call */
+#endif
 
 /* ── Registry sizes ────────────────────────────────────────────────── */
 

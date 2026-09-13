@@ -161,6 +161,15 @@ Sizing and budget knobs (`CONFIG_VIEWALYZER_MAX_*`,
 `CONFIG_VIEWALYZER_AUTO_SETUP_INTERVAL_MS`, ...) are all in Kconfig -
 browse them with `west build -t menuconfig` under ViewAlyzer.
 
+### Buffered ITM or RTT
+
+`CONFIG_VIEWALYZER_BUFFERED=y` requires regular `VA_Drain()` calls from an
+application thread with interrupts unmasked. The module does not create a drain
+worker, and draining cannot run from a kernel trace hook or timer ISR. Budget
+the calling thread's stack for both application work and recorder draining.
+`CONFIG_VIEWALYZER_TRANSPORT_RAMBUF=y` needs no firmware drain call. See
+[Scheduling the drain](../docs/api/transports.md#scheduling-the-drain).
+
 ## Application Startup
 
 Your application still initializes the recorder explicitly:

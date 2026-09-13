@@ -182,6 +182,20 @@ void app_init(void)
 
 User traces still work exactly the same as in bare-metal mode. The difference is that task and sync-object events are now emitted automatically through FreeRTOS.
 
+## Buffered output
+
+With `VA_TRANSPORT_BUFFERED=1` for ITM, RTT or a custom transport, your
+application must schedule `VA_Drain()`. The trace-hook headers do not install
+an idle callback or create a drain task. Use FreeRTOS's `vApplicationIdleHook()`
+with `configUSE_IDLE_HOOK=1`, or an application service task if idle time is
+insufficient. Add the call to an existing idle hook rather than defining another.
+
+Draining and the custom send callback use the chosen task's stack. Budget and
+measure that stack separately from producer tasks; `configMINIMAL_STACK_SIZE`
+is in words. The default RAM transport needs no firmware drain hook. See
+[Scheduling the drain](../docs/api/transports.md#scheduling-the-drain) for the
+hook example, safe contexts and stack guidance.
+
 ## What You Usually Do Not Need to Call Manually
 
 These functions are public because the hook layer needs them, but application code normally should not call them directly:

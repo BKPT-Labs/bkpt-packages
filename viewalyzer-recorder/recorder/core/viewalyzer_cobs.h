@@ -38,20 +38,30 @@ extern "C" {
  *
  * @param input     Raw packet bytes to encode.
  * @param in_len    Length of input in bytes.
+ * Input and output must not overlap. A NULL input is valid only for an
+ * empty packet. Capacity must cover the worst case even for inputs that
+ * would encode to fewer bytes.
+ *
  * @param output    Buffer to write encoded bytes into.
- *                  Must be at least va_cobs_max_encoded_len(in_len) bytes.
- * @return          Number of bytes written to output (including the 0x00 delimiter).
+ * @param capacity  Available output bytes, including the delimiter.
+ * @return          Bytes written, including the delimiter, or 0 for invalid
+ *                  arguments, size overflow, or insufficient capacity.
+ *                  On failure the output is untouched.
  */
-size_t va_cobs_encode(const uint8_t *input, size_t in_len, uint8_t *output);
+size_t va_cobs_encode(const uint8_t *input, size_t in_len, uint8_t *output,
+                      size_t capacity);
 
 /**
  * Returns the worst-case encoded length for a given input length.
- * Use this to size your output buffer.
+ * Use this to size your output buffer. Returns 0 on size_t overflow.
  */
 static inline size_t va_cobs_max_encoded_len(size_t in_len)
 {
     /* overhead: 1 byte per 254 input bytes + 1 code byte + 1 delimiter */
-    return in_len + (in_len / 254) + 2;
+    size_t overhead = (in_len / 254) + 2;
+    if (in_len > SIZE_MAX - overhead)
+        return 0;
+    return in_len + overhead;
 }
 
 #ifdef __cplusplus

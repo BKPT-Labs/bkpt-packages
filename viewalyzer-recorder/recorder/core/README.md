@@ -145,12 +145,12 @@ If the target can run for a long time before the host connects, call these perio
 
 ## Custom Transport
 
-If you set `VA_TRANSPORT=CUSTOM_TRANSPORT`, register your send function before or during initialization:
+If you set `VA_TRANSPORT=CUSTOM_TRANSPORT`, register your send function before initialization:
 
 ```c
-static void send_bytes(const uint8_t *data, uint32_t length)
+static uint32_t send_bytes(const uint8_t *data, uint32_t length)
 {
-    my_transport_write(data, length);
+    return my_transport_try_copy(data, length);
 }
 
 void app_init(void)
@@ -159,6 +159,14 @@ void app_init(void)
     VA_Init(SystemCoreClock);
 }
 ```
+
+The callback must return promptly with the number of bytes copied into its own
+transmit storage. Use `VA_TRANSPORT_BUFFERED=1` and call `VA_Drain()` regularly
+to retry partial acceptance. Direct mode requires all-or-none frame acceptance.
+The main loop or application task schedules draining and supplies its stack;
+the core does not create a background worker. The default RAM transport does
+not need draining from firmware. See the [transport contract](../docs/api/transports.md#custom-transport)
+and [drain scheduling](../docs/api/transports.md#scheduling-the-drain).
 
 ## When to Move to an RTOS Adapter
 

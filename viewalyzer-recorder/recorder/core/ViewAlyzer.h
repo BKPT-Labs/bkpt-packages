@@ -32,7 +32,7 @@
    the string and packed forms derive from them. */
 #define VA_RECORDER_VERSION_MAJOR 1
 #define VA_RECORDER_VERSION_MINOR 1
-#define VA_RECORDER_VERSION_PATCH 2
+#define VA_RECORDER_VERSION_PATCH 3
 
 #define VA_VERSION_STR2_(x) #x
 #define VA_VERSION_STR_(x)  VA_VERSION_STR2_(x)
@@ -63,12 +63,40 @@ extern "C"
 {
 #endif
 
-/* Maximum raw packet size (before COBS encoding).
-   Largest packet is VA_LogString: 12-byte header + message payload. */
-#define VA_MAX_PACKET_SIZE (12 + VA_SEQ_BYTES + VA_MAX_LOG_STRING_LEN)
+/* Control text reserves space for "CLK:" plus ten uint32 digits and for
+   registry error markers, including the terminator. Small display-name
+   limits must not truncate session, clock, OS or error messages. */
+#define VA_PACKET_MAX_(a, b) ((a) > (b) ? (a) : (b))
+#define VA_CONTROL_TEXT_MIN_CAPACITY 16u
+#define VA_CONTROL_TEXT_CAPACITY VA_PACKET_MAX_(VA_MAX_TASK_NAME_LEN, VA_CONTROL_TEXT_MIN_CAPACITY)
+#define VA_SETUP_TEXT_CAPACITY VA_CONTROL_TEXT_CAPACITY
 
-/* User-provided send function signature for custom transport */
-typedef void (*VA_TransportSendFn)(const uint8_t *data, uint32_t length);
+/* Largest raw packet across ALL shapes, before COBS. Fixed task creation
+   has three uint32 fields; heap setup has the largest named header.
+   Keep these independent: small logs must still allow full-sized metadata. */
+#define VA_MAX_FIXED_PACKET_SIZE (2u + VA_SEQ_BYTES + VA_TIMESTAMP_BYTES + 12u)
+#if VA_TRANSPORT_BUFFERED
+/* DROP: plus ten decimal digits is transport metadata, independent of logs. */
+#define VA_STRING_PAYLOAD_CAPACITY VA_PACKET_MAX_(VA_MAX_LOG_STRING_LEN, 15u)
+#else
+#define VA_STRING_PAYLOAD_CAPACITY VA_MAX_LOG_STRING_LEN
+#endif
+#define VA_MAX_STRING_PACKET_SIZE (2u + VA_SEQ_BYTES + VA_TIMESTAMP_BYTES + 2u + VA_STRING_PAYLOAD_CAPACITY)
+#define VA_MAX_NAMED_PACKET_SIZE (7u + VA_SEQ_BYTES + VA_MAX_TASK_NAME_LEN - 1u)
+#define VA_MAX_CONTROL_PACKET_SIZE (3u + VA_SEQ_BYTES + VA_CONTROL_TEXT_CAPACITY - 1u)
+#define VA_MAX_PACKET_SIZE \
+    VA_PACKET_MAX_(VA_PACKET_MAX_(VA_MAX_FIXED_PACKET_SIZE, VA_MAX_STRING_PACKET_SIZE), \
+                   VA_PACKET_MAX_(VA_MAX_NAMED_PACKET_SIZE, VA_MAX_CONTROL_PACKET_SIZE))
+
+/* Return bytes sent or copied (0..length); never block or retain the data pointer. */
+typedef uint32_t (*VA_TransportSendFn)(const uint8_t *data, uint32_t length);
+
+typedef struct
+{
+    uint32_t queuedBytes;
+    uint32_t droppedPackets;
+    uint32_t droppedBytes;
+} VA_BufferStats_t;
 
 /* User-provided tick source for CUSTOM_TIMER timestamps: returns the
    current value of a free-running counter (low VA_TIMER_BITS bits used).
@@ -249,7 +277,10 @@ typedef uint32_t (*VA_TimestampFn)(void);
 #endif
     void VA_EmitSetupBundle(void);    /* re-emit sync marker + all setup packets (call periodically, e.g. every 2-5 s) */
     void VA_TickOverflowCheck(void);  /* call more often than the tick counter wraps: DWT every 1-10 s; 16-bit timers wrap in ms (see VA_TIMER_BITS) */
-    void VA_Drain(void);              /* buffered mode only: flush the RAM ring to the wire. Call from idle/main loop. No-op when VA_TRANSPORT_BUFFERED == 0. */
+    /* Bounded buffered service; ISR, masked and overlapping calls do nothing. */
+    void VA_Drain(void);
+    /* Buffered queue and saturating loss totals since VA_Init; zero in direct mode. */
+    VA_BufferStats_t VA_GetBufferStats(void);
     bool VA_IsInit(void);
 
 #if VA_PM_RING
@@ -545,6 +576,11 @@ typedef uint32_t (*VA_TimestampFn)(void);
 #define VA_EmitSetupBundle() ((void)0)
 #define VA_TickOverflowCheck() ((void)0)
 #define VA_Drain() ((void)0)
+static inline VA_BufferStats_t VA_GetBufferStats(void)
+{
+    VA_BufferStats_t stats = {0, 0, 0};
+    return stats;
+}
 #define VA_SnapshotFreeze() ((void)0)
 #define VA_RegisterUserEvent(id, name) VA_DISCARD_ARGS(id, name)
 #define VA_RegisterUserTrace(id, name, type) VA_DISCARD_ARGS(id, name, type)

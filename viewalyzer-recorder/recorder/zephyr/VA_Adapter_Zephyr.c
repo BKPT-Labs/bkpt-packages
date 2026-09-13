@@ -10,9 +10,9 @@
  * Also overrides Zephyr's CONFIG_TRACING_USER weak callbacks to emit
  * native ViewAlyzer task-switch events through the core engine.
  *
- * Mutex, semaphore, and message-queue tracing dispatch functions are
- * defined directly here (not in stock tracing_user.c) so that users
- * never need to modify Zephyr core files.  The companion header
+ * Recorder-owned tracing dispatch functions use viewalyzer_zephyr_* names
+ * so they can coexist with Zephyr's own sys_trace_* definitions. Required
+ * weak user callbacks retain their upstream names. The companion header
  * tracing_user.h (shipped alongside this file) wires the
  * sys_port_trace macros to these functions.  Users just need:
  *   zephyr_include_directories(BEFORE <path-to-VA-zephyr-dir>)
@@ -202,7 +202,7 @@ void sys_trace_thread_create_user(struct k_thread *thread)
    sys_port_trace_k_thread_abort_enter re-point in tracing_user.h; the weak
    sys_trace_thread_abort_user below covers kernels that still route abort
    through sys_trace_thread_abort (release is idempotent). */
-void sys_trace_va_thread_abort(struct k_thread *thread)
+void viewalyzer_zephyr_thread_abort(struct k_thread *thread)
 {
     if (!VA_IsInit())
         return;
@@ -211,7 +211,7 @@ void sys_trace_va_thread_abort(struct k_thread *thread)
 
 void sys_trace_thread_abort_user(struct k_thread *thread)
 {
-    sys_trace_va_thread_abort(thread);
+    viewalyzer_zephyr_thread_abort(thread);
 }
 
 /* k_thread_create() has no name parameter, so threads named afterwards via
@@ -300,14 +300,14 @@ void sys_trace_idle_user(void)
 /* ── Mutex tracing dispatch (called from sys_port_trace macros) ──── */
 
 #if VA_TRACE_MUTEXES || VA_TRACE_MUTEX_CONTENTION
-void sys_trace_k_mutex_init(struct k_mutex *mutex, int ret)
+void viewalyzer_zephyr_mutex_init(struct k_mutex *mutex, int ret)
 {
     if (!VA_IsInit() || ret != 0)
         return;
     va_zephyr_ensure_object_type((void *)mutex, VA_OBJECT_TYPE_MUTEX, "Mutex");
 }
 
-void sys_trace_k_mutex_lock_enter(struct k_mutex *mutex, k_timeout_t timeout)
+void viewalyzer_zephyr_mutex_lock_enter(struct k_mutex *mutex, k_timeout_t timeout)
 {
     (void)mutex;
     (void)timeout;
@@ -315,7 +315,7 @@ void sys_trace_k_mutex_lock_enter(struct k_mutex *mutex, k_timeout_t timeout)
 
 /* Contention is sampled here, while the mutex is still held by someone
    else. */
-void sys_trace_k_mutex_lock_blocking(struct k_mutex *mutex, k_timeout_t timeout)
+void viewalyzer_zephyr_mutex_lock_blocking(struct k_mutex *mutex, k_timeout_t timeout)
 {
     ARG_UNUSED(timeout);
     ARG_UNUSED(mutex);
@@ -327,7 +327,7 @@ void sys_trace_k_mutex_lock_blocking(struct k_mutex *mutex, k_timeout_t timeout)
 #endif
 }
 
-void sys_trace_k_mutex_lock_exit(struct k_mutex *mutex, k_timeout_t timeout, int ret)
+void viewalyzer_zephyr_mutex_lock_exit(struct k_mutex *mutex, k_timeout_t timeout, int ret)
 {
     ARG_UNUSED(mutex);
     ARG_UNUSED(timeout);
@@ -343,12 +343,12 @@ void sys_trace_k_mutex_lock_exit(struct k_mutex *mutex, k_timeout_t timeout, int
 #endif
 }
 
-void sys_trace_k_mutex_unlock_enter(struct k_mutex *mutex)
+void viewalyzer_zephyr_mutex_unlock_enter(struct k_mutex *mutex)
 {
     (void)mutex;
 }
 
-void sys_trace_k_mutex_unlock_exit(struct k_mutex *mutex, int ret)
+void viewalyzer_zephyr_mutex_unlock_exit(struct k_mutex *mutex, int ret)
 {
     ARG_UNUSED(mutex);
     ARG_UNUSED(ret);
@@ -364,7 +364,7 @@ void sys_trace_k_mutex_unlock_exit(struct k_mutex *mutex, int ret)
 /* ── Semaphore tracing dispatch (called from sys_port_trace macros) ─── */
 
 #if VA_TRACE_SEMAPHORES
-void sys_trace_k_sem_init(struct k_sem *sem, int ret)
+void viewalyzer_zephyr_sem_init(struct k_sem *sem, int ret)
 {
     VA_QueueObjectType_t expected_type;
     const char *type_hint;
@@ -385,7 +385,7 @@ void sys_trace_k_sem_init(struct k_sem *sem, int ret)
     va_zephyr_ensure_object_type((void *)sem, expected_type, type_hint);
 }
 
-void sys_trace_k_sem_give_enter(struct k_sem *sem)
+void viewalyzer_zephyr_sem_give_enter(struct k_sem *sem)
 {
     VA_QueueObjectType_t expected_type = (sem->limit <= 1)
         ? VA_OBJECT_TYPE_BINARY_SEM
@@ -398,13 +398,13 @@ void sys_trace_k_sem_give_enter(struct k_sem *sem)
     va_logQueueObjectGive((void *)sem, 0);
 }
 
-void sys_trace_k_sem_take_enter(struct k_sem *sem, k_timeout_t timeout)
+void viewalyzer_zephyr_sem_take_enter(struct k_sem *sem, k_timeout_t timeout)
 {
     (void)sem;
     (void)timeout;
 }
 
-void sys_trace_k_sem_take_blocking(struct k_sem *sem, k_timeout_t timeout)
+void viewalyzer_zephyr_sem_take_blocking(struct k_sem *sem, k_timeout_t timeout)
 {
     VA_QueueObjectType_t expected_type = (sem->limit <= 1)
         ? VA_OBJECT_TYPE_BINARY_SEM
@@ -418,7 +418,7 @@ void sys_trace_k_sem_take_blocking(struct k_sem *sem, k_timeout_t timeout)
     va_logQueueObjectBlocking((void *)sem);
 }
 
-void sys_trace_k_sem_take_exit(struct k_sem *sem, k_timeout_t timeout, int ret)
+void viewalyzer_zephyr_sem_take_exit(struct k_sem *sem, k_timeout_t timeout, int ret)
 {
     VA_QueueObjectType_t expected_type = (sem->limit <= 1)
         ? VA_OBJECT_TYPE_BINARY_SEM
@@ -438,20 +438,20 @@ void sys_trace_k_sem_take_exit(struct k_sem *sem, k_timeout_t timeout, int ret)
 /* ── Message queue tracing dispatch (called from sys_port_trace macros) ─── */
 
 #if VA_TRACE_QUEUES
-void sys_trace_k_msgq_init(struct k_msgq *msgq)
+void viewalyzer_zephyr_msgq_init(struct k_msgq *msgq)
 {
     if (!VA_IsInit())
         return;
     va_zephyr_ensure_object_type((void *)msgq, VA_OBJECT_TYPE_QUEUE, "Queue");
 }
 
-void sys_trace_k_msgq_put_enter(struct k_msgq *msgq, k_timeout_t timeout)
+void viewalyzer_zephyr_msgq_put_enter(struct k_msgq *msgq, k_timeout_t timeout)
 {
     (void)msgq;
     (void)timeout;
 }
 
-void sys_trace_k_msgq_put_blocking(struct k_msgq *msgq, k_timeout_t timeout)
+void viewalyzer_zephyr_msgq_put_blocking(struct k_msgq *msgq, k_timeout_t timeout)
 {
     ARG_UNUSED(timeout);
     if (!VA_IsInit())
@@ -460,7 +460,7 @@ void sys_trace_k_msgq_put_blocking(struct k_msgq *msgq, k_timeout_t timeout)
     va_logQueueObjectBlocking((void *)msgq);
 }
 
-void sys_trace_k_msgq_put_exit(struct k_msgq *msgq, k_timeout_t timeout, int ret)
+void viewalyzer_zephyr_msgq_put_exit(struct k_msgq *msgq, k_timeout_t timeout, int ret)
 {
     if (!VA_IsInit())
         return;
@@ -471,13 +471,13 @@ void sys_trace_k_msgq_put_exit(struct k_msgq *msgq, k_timeout_t timeout, int ret
         va_logObjectOpFailedTyped((void *)msgq, VA_OBJECT_TYPE_QUEUE, true, 0);
 }
 
-void sys_trace_k_msgq_get_enter(struct k_msgq *msgq, k_timeout_t timeout)
+void viewalyzer_zephyr_msgq_get_enter(struct k_msgq *msgq, k_timeout_t timeout)
 {
     (void)msgq;
     (void)timeout;
 }
 
-void sys_trace_k_msgq_get_blocking(struct k_msgq *msgq, k_timeout_t timeout)
+void viewalyzer_zephyr_msgq_get_blocking(struct k_msgq *msgq, k_timeout_t timeout)
 {
     ARG_UNUSED(timeout);
     if (!VA_IsInit())
@@ -486,7 +486,7 @@ void sys_trace_k_msgq_get_blocking(struct k_msgq *msgq, k_timeout_t timeout)
     va_logQueueObjectBlocking((void *)msgq);
 }
 
-void sys_trace_k_msgq_get_exit(struct k_msgq *msgq, k_timeout_t timeout, int ret)
+void viewalyzer_zephyr_msgq_get_exit(struct k_msgq *msgq, k_timeout_t timeout, int ret)
 {
     if (!VA_IsInit())
         return;
@@ -503,14 +503,14 @@ void sys_trace_k_msgq_get_exit(struct k_msgq *msgq, k_timeout_t timeout, int ret
    have no fixed capacity; consumption order follows the object kind. */
 
 #if VA_TRACE_QUEUES
-void sys_trace_k_fifo_init(struct k_fifo *fifo)
+void viewalyzer_zephyr_fifo_init(struct k_fifo *fifo)
 {
     if (!VA_IsInit())
         return;
     va_zephyr_ensure_object_type((void *)fifo, VA_OBJECT_TYPE_QUEUE, "FifoQueue");
 }
 
-void sys_trace_k_fifo_put(struct k_fifo *fifo)
+void viewalyzer_zephyr_fifo_put(struct k_fifo *fifo)
 {
     if (!VA_IsInit())
         return;
@@ -518,13 +518,13 @@ void sys_trace_k_fifo_put(struct k_fifo *fifo)
     va_logQueueObjectGive((void *)fifo, 0);
 }
 
-void sys_trace_k_fifo_alloc_put(struct k_fifo *fifo, int ret)
+void viewalyzer_zephyr_fifo_alloc_put(struct k_fifo *fifo, int ret)
 {
     if (ret == 0)
-        sys_trace_k_fifo_put(fifo);
+        viewalyzer_zephyr_fifo_put(fifo);
 }
 
-void sys_trace_k_fifo_get(struct k_fifo *fifo, void *ret)
+void viewalyzer_zephyr_fifo_get(struct k_fifo *fifo, void *ret)
 {
     if (!VA_IsInit() || ret == NULL)
         return;
@@ -532,14 +532,14 @@ void sys_trace_k_fifo_get(struct k_fifo *fifo, void *ret)
     va_logQueueObjectTake((void *)fifo, 0);
 }
 
-void sys_trace_k_lifo_init(struct k_lifo *lifo)
+void viewalyzer_zephyr_lifo_init(struct k_lifo *lifo)
 {
     if (!VA_IsInit())
         return;
     va_zephyr_ensure_object_type((void *)lifo, VA_OBJECT_TYPE_QUEUE, "LifoQueue");
 }
 
-void sys_trace_k_lifo_put(struct k_lifo *lifo)
+void viewalyzer_zephyr_lifo_put(struct k_lifo *lifo)
 {
     if (!VA_IsInit())
         return;
@@ -547,13 +547,13 @@ void sys_trace_k_lifo_put(struct k_lifo *lifo)
     va_logQueueObjectGive((void *)lifo, 0);
 }
 
-void sys_trace_k_lifo_alloc_put(struct k_lifo *lifo, int ret)
+void viewalyzer_zephyr_lifo_alloc_put(struct k_lifo *lifo, int ret)
 {
     if (ret == 0)
-        sys_trace_k_lifo_put(lifo);
+        viewalyzer_zephyr_lifo_put(lifo);
 }
 
-void sys_trace_k_lifo_get(struct k_lifo *lifo, void *ret)
+void viewalyzer_zephyr_lifo_get(struct k_lifo *lifo, void *ret)
 {
     if (!VA_IsInit() || ret == NULL)
         return;
@@ -576,14 +576,14 @@ static void va_zephyr_ensure_eventflag(struct k_event *event)
         va_logQueueObjectCreateTyped((void *)event, NULL, VA_OBJECT_TYPE_EVENTFLAG);
 }
 
-void sys_trace_k_event_init(struct k_event *event)
+void viewalyzer_zephyr_event_init(struct k_event *event)
 {
     if (!VA_IsInit())
         return;
     va_zephyr_ensure_eventflag(event);
 }
 
-void sys_trace_k_event_post(struct k_event *event, uint32_t events)
+void viewalyzer_zephyr_event_post(struct k_event *event, uint32_t events)
 {
     if (!VA_IsInit() || events == 0)
         return;
@@ -591,7 +591,7 @@ void sys_trace_k_event_post(struct k_event *event, uint32_t events)
     va_logEventFlagSet((void *)event, events);
 }
 
-void sys_trace_k_event_wait_exit(struct k_event *event, uint32_t events, uint32_t ret)
+void viewalyzer_zephyr_event_wait_exit(struct k_event *event, uint32_t events, uint32_t ret)
 {
     if (!VA_IsInit() || events == 0)
         return;
@@ -611,28 +611,28 @@ void sys_trace_k_event_wait_exit(struct k_event *event, uint32_t events, uint32_
    and attributes execution to the workqueue thread. */
 
 #if VA_TRACE_WORK
-void sys_trace_k_work_submit(struct k_work *work, int ret)
+void viewalyzer_zephyr_work_submit(struct k_work *work, int ret)
 {
     if (!VA_IsInit() || ret <= 0)
         return;
     va_logWorkArm((void *)work->handler, 0);
 }
 
-void sys_trace_k_work_schedule(struct k_work_delayable *dwork, k_timeout_t delay, int ret)
+void viewalyzer_zephyr_work_schedule(struct k_work_delayable *dwork, k_timeout_t delay, int ret)
 {
     if (!VA_IsInit() || ret <= 0)
         return;
     va_logWorkArm((void *)dwork->work.handler, va_zephyr_timeout_to_ms(delay));
 }
 
-void sys_trace_k_work_cancel(struct k_work *work)
+void viewalyzer_zephyr_work_cancel(struct k_work *work)
 {
     if (!VA_IsInit())
         return;
     va_logWorkCancel((void *)work->handler);
 }
 
-void sys_trace_k_work_cancel_delayable(struct k_work_delayable *dwork)
+void viewalyzer_zephyr_work_cancel_delayable(struct k_work_delayable *dwork)
 {
     if (!VA_IsInit())
         return;
@@ -647,21 +647,21 @@ void sys_trace_k_work_cancel_delayable(struct k_work_delayable *dwork)
    as one sleep period on the suspended thread. The resume point fires
    before the kernel checks whether the thread was actually suspended, so a
    spurious resume emits an unmatched exit, which hosts ignore. */
-void sys_trace_va_thread_suspend(struct k_thread *thread)
+void viewalyzer_zephyr_thread_suspend(struct k_thread *thread)
 {
     if (!VA_IsInit())
         return;
     va_logSleepEnter((void *)thread);
 }
 
-void sys_trace_va_thread_resume(struct k_thread *thread)
+void viewalyzer_zephyr_thread_resume(struct k_thread *thread)
 {
     if (!VA_IsInit())
         return;
     va_logSleepExit((void *)thread);
 }
 
-void sys_trace_k_thread_sleep_enter(k_timeout_t timeout)
+void viewalyzer_zephyr_thread_sleep_enter(k_timeout_t timeout)
 {
     ARG_UNUSED(timeout);
     if (!VA_IsInit())
@@ -669,7 +669,7 @@ void sys_trace_k_thread_sleep_enter(k_timeout_t timeout)
     va_logSleepEnter((void *)k_current_get());
 }
 
-void sys_trace_k_thread_sleep_exit(k_timeout_t timeout, int ret)
+void viewalyzer_zephyr_thread_sleep_exit(k_timeout_t timeout, int ret)
 {
     ARG_UNUSED(timeout);
     ARG_UNUSED(ret);
@@ -678,7 +678,7 @@ void sys_trace_k_thread_sleep_exit(k_timeout_t timeout, int ret)
     va_logSleepExit((void *)k_current_get());
 }
 
-void sys_trace_k_thread_msleep_enter(int32_t ms)
+void viewalyzer_zephyr_thread_msleep_enter(int32_t ms)
 {
     ARG_UNUSED(ms);
     if (!VA_IsInit())
@@ -686,7 +686,7 @@ void sys_trace_k_thread_msleep_enter(int32_t ms)
     va_logSleepEnter((void *)k_current_get());
 }
 
-void sys_trace_k_thread_msleep_exit(int32_t ms, int ret)
+void viewalyzer_zephyr_thread_msleep_exit(int32_t ms, int ret)
 {
     ARG_UNUSED(ms);
     ARG_UNUSED(ret);
@@ -695,7 +695,7 @@ void sys_trace_k_thread_msleep_exit(int32_t ms, int ret)
     va_logSleepExit((void *)k_current_get());
 }
 
-void sys_trace_k_thread_usleep_enter(int32_t us)
+void viewalyzer_zephyr_thread_usleep_enter(int32_t us)
 {
     ARG_UNUSED(us);
     if (!VA_IsInit())
@@ -703,7 +703,7 @@ void sys_trace_k_thread_usleep_enter(int32_t us)
     va_logSleepEnter((void *)k_current_get());
 }
 
-void sys_trace_k_thread_usleep_exit(int32_t us, int ret)
+void viewalyzer_zephyr_thread_usleep_exit(int32_t us, int ret)
 {
     ARG_UNUSED(us);
     ARG_UNUSED(ret);
@@ -716,14 +716,14 @@ void sys_trace_k_thread_usleep_exit(int32_t us, int ret)
 /* ── Timer tracing dispatch (k_timer init / start / stop) ────────── */
 
 #if VA_TRACE_TIMERS
-void sys_trace_k_timer_init(struct k_timer *timer)
+void viewalyzer_zephyr_timer_init(struct k_timer *timer)
 {
     if (!VA_IsInit())
         return;
     va_zephyr_ensure_object_type((void *)timer, VA_OBJECT_TYPE_TIMER, "Timer");
 }
 
-void sys_trace_k_timer_start(struct k_timer *timer, k_timeout_t duration, k_timeout_t period)
+void viewalyzer_zephyr_timer_start(struct k_timer *timer, k_timeout_t duration, k_timeout_t period)
 {
     if (!VA_IsInit())
         return;
@@ -734,7 +734,7 @@ void sys_trace_k_timer_start(struct k_timer *timer, k_timeout_t duration, k_time
                    va_zephyr_timeout_to_ms(period));
 }
 
-void sys_trace_k_timer_stop(struct k_timer *timer)
+void viewalyzer_zephyr_timer_stop(struct k_timer *timer)
 {
     if (!VA_IsInit())
         return;
@@ -742,7 +742,7 @@ void sys_trace_k_timer_stop(struct k_timer *timer)
     va_logQueueObjectTake((void *)timer, 0);
 }
 
-void sys_trace_k_timer_status_sync_blocking(struct k_timer *timer, k_timeout_t timeout)
+void viewalyzer_zephyr_timer_status_sync_blocking(struct k_timer *timer, k_timeout_t timeout)
 {
     ARG_UNUSED(timeout);
     if (!VA_IsInit())
@@ -794,7 +794,7 @@ static void va_zephyr_report_heap_capacity_once(struct k_heap *heap)
 #endif
 }
 
-void sys_trace_k_heap_init(struct k_heap *heap)
+void viewalyzer_zephyr_heap_init(struct k_heap *heap)
 {
     if (!VA_IsInit())
         return;
@@ -802,7 +802,7 @@ void sys_trace_k_heap_init(struct k_heap *heap)
     va_zephyr_report_heap_capacity_once(heap);
 }
 
-void sys_trace_k_heap_alloc_exit_impl(struct k_heap *heap, uint32_t alloc_bytes, void *ret)
+void viewalyzer_zephyr_heap_alloc_exit_impl(struct k_heap *heap, uint32_t alloc_bytes, void *ret)
 {
     ARG_UNUSED(alloc_bytes);
     ARG_UNUSED(ret);
@@ -828,7 +828,7 @@ void sys_trace_k_heap_alloc_exit_impl(struct k_heap *heap, uint32_t alloc_bytes,
 #endif
 }
 
-void sys_trace_k_heap_free(struct k_heap *heap)
+void viewalyzer_zephyr_heap_free(struct k_heap *heap)
 {
     if (!VA_IsInit())
         return;
@@ -846,7 +846,7 @@ void sys_trace_k_heap_free(struct k_heap *heap)
 #endif
 }
 
-void sys_trace_k_heap_alloc_blocking(struct k_heap *heap)
+void viewalyzer_zephyr_heap_alloc_blocking(struct k_heap *heap)
 {
     if (!VA_IsInit())
         return;
@@ -858,7 +858,7 @@ void sys_trace_k_heap_alloc_blocking(struct k_heap *heap)
 /* ── PM tracing dispatch (pm_system_suspend enter / exit) ────────── */
 
 #if VA_TRACE_PM
-void sys_trace_va_pm_system_suspend_enter(uint32_t ticks)
+void viewalyzer_zephyr_pm_system_suspend_enter(uint32_t ticks)
 {
     ARG_UNUSED(ticks);
     if (!VA_IsInit())
@@ -866,7 +866,7 @@ void sys_trace_va_pm_system_suspend_enter(uint32_t ticks)
     va_logPMSuspendEnter();
 }
 
-void sys_trace_va_pm_system_suspend_exit(uint32_t ticks, uint8_t state)
+void viewalyzer_zephyr_pm_system_suspend_exit(uint32_t ticks, uint8_t state)
 {
     ARG_UNUSED(ticks);
     if (!VA_IsInit())
