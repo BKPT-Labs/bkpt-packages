@@ -1,0 +1,2 @@
+# Vendored recorder hashes must survive checkout on Windows, Linux and macOS.
+viewalyzer-recorder/recorder/** text=auto eol=lf

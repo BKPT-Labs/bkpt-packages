@@ -12,6 +12,7 @@ Usage:
 
 Without --rev the registry rev is bumped by 1 only when the content hash
 changed (re-running on identical sources is a no-op).
+Text payloads use LF and manifest paths use forward slashes on every OS.
 """
 from __future__ import annotations
 
@@ -98,10 +99,21 @@ def main() -> int:
     for tree in EMBEDDED_TREES:
         src = src_recorder / tree
         for f in sorted(p for p in src.rglob("*") if p.is_file()):
-            rel = f"recorder/{tree}/{f.relative_to(src)}"
+            rel = f"recorder/{tree}/{f.relative_to(src).as_posix()}"
             dest = PKG_DIR / rel
             dest.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(f, dest)
+            # Git may check the same source out with CRLF or LF. Hash and ship
+            # canonical text bytes so a Windows sync also verifies on Linux
+            # and macOS. Binary files are copied unchanged.
+            data = dest.read_bytes()
+            try:
+                data.decode("utf-8")
+            except UnicodeDecodeError:
+                pass
+            else:
+                if b"\x00" not in data:
+                    dest.write_bytes(data.replace(b"\r\n", b"\n"))
             copied.append(rel)
 
     # ---- provenance ---------------------------------------------------------
@@ -154,8 +166,8 @@ def main() -> int:
     row["hash"] = content_hash
 
     manifest["rev"] = row["rev"]
-    manifest_path.write_text(json.dumps(manifest, indent=2) + "\n")
-    index_path.write_text(json.dumps(index, indent=2) + "\n")
+    manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8", newline="\n")
+    index_path.write_text(json.dumps(index, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     changed = "changed" if content_hash != old_hash else "unchanged"
     print(f"synced {len(copied)} files ({changed})")
