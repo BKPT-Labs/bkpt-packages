@@ -12,7 +12,8 @@ Usage:
 
 Without --rev the registry rev is bumped by 1 only when the content hash
 changed (re-running on identical sources is a no-op).
-Text payloads use LF and manifest paths use forward slashes on every OS.
+Text payloads use LF and manifest paths use forward slashes and the same
+case-sensitive ordering on every OS.
 """
 from __future__ import annotations
 
@@ -98,7 +99,10 @@ def main() -> int:
     copied: list[str] = []
     for tree in EMBEDDED_TREES:
         src = src_recorder / tree
-        for f in sorted(p for p in src.rglob("*") if p.is_file()):
+        # Path comparisons fold case on Windows but not on Linux/macOS.
+        # Sort portable strings so identical sources produce identical lists.
+        for f in sorted((p for p in src.rglob("*") if p.is_file()),
+                        key=lambda p: p.relative_to(src).as_posix()):
             rel = f"recorder/{tree}/{f.relative_to(src).as_posix()}"
             dest = PKG_DIR / rel
             dest.parent.mkdir(parents=True, exist_ok=True)

@@ -5,14 +5,14 @@
   "package": {
     "files": [
       "recorder/core/README.md",
-      "recorder/core/va_config_template.h",
       "recorder/core/VA_ConfigDerived.h",
       "recorder/core/VA_Internal.h",
       "recorder/core/ViewAlyzer.c",
       "recorder/core/ViewAlyzer.h",
+      "recorder/core/ViewAlyzerConfig.h",
+      "recorder/core/va_config_template.h",
       "recorder/core/viewalyzer_cobs.c",
       "recorder/core/viewalyzer_cobs.h",
-      "recorder/core/ViewAlyzerConfig.h",
       "recorder/freertos/README.md",
       "recorder/freertos/VA_Adapter_FreeRTOS.c",
       "recorder/freertos/VA_Adapter_FreeRTOS.h",
@@ -21,11 +21,11 @@
       "recorder/freertos/ViewAlyzerFreeRTOSHook_V10_4_Plus.h",
       "recorder/zephyr/CMakeLists.txt",
       "recorder/zephyr/Kconfig",
-      "recorder/zephyr/module.yml",
       "recorder/zephyr/README.md",
-      "recorder/zephyr/tracing_user.h",
       "recorder/zephyr/VA_Adapter_Zephyr.c",
-      "recorder/zephyr/VA_Adapter_Zephyr.h"
+      "recorder/zephyr/VA_Adapter_Zephyr.h",
+      "recorder/zephyr/module.yml",
+      "recorder/zephyr/tracing_user.h"
     ]
   },
   "provenance": {
