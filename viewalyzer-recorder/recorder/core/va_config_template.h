@@ -105,7 +105,12 @@
 /* #define VA_RAMBUF_SIZE 8192u */
 /* #define VA_RAMBUF_MODE VA_RAMBUF_MODE_DROP */
 
-/* Optional linker placement for the RAM ring and control block. */
+/* RAM metadata defaults on for direct DROP mode without a snapshot tee.
+   Uncomment VA_METADATA=0 to use setup bundles. See docs/api/ram-metadata.md. */
+/* #define VA_METADATA      0 */
+/* #define VA_METADATA_SIZE 2048u */
+
+/* Optional linker placement for the ring, control blocks and metadata. */
 /* #define VA_RAMBUF_ATTRIBUTES __attribute__((section(".va_rambuf"))) */
 
 /* Snapshot (post-mortem) ring */

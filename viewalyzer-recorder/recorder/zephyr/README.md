@@ -22,6 +22,20 @@ On top of the core recorder APIs, the Zephyr adapter can trace:
 - sleep calls such as `k_sleep()`, `k_msleep()`, and `k_usleep()`
 - stack usage, when enabled
 
+## Capture and periodic service
+
+Direct DROP-mode RAM capture enables `CONFIG_VIEWALYZER_METADATA` by default.
+Select the matching firmware ELF in ViewAlyzer-RS before recording. Set
+`CONFIG_VIEWALYZER_METADATA=n` for setup-bundle capture, or change
+`CONFIG_VIEWALYZER_METADATA_SIZE` to adjust the table capacity.
+See [RAM metadata](../docs/api/ram-metadata.md).
+
+Call `VA_TickOverflowCheck()` periodically from an application thread for
+quiet-time rollover and idle attachment requests; the module does not create
+a service task. Events already handle rollover while tracing. See
+[service intervals](../docs/api/api.md#va_tickoverflowcheck).
+Default RAM capture needs no periodic `VA_EmitSetupBundle()` call.
+
 ## Files
 
 - `VA_Adapter_Zephyr.c` - Zephyr-specific adapter implementation

@@ -205,12 +205,18 @@ typedef char va_assert_info_markers_fit_[
     static int   _va_task_cache_idx    = -1;
 #endif
 
-#if VA_AUTO_SETUP_INTERVAL_MS > 0
-    /* Periodic-bundle due tracking (extended 64-bit tick timestamps, so it
-       is wrap-safe for any tick-source width; ISR-safe). */
+#if VA_BUNDLE_SERVICE
+    /* Bundle due tracking (extended 64-bit tick timestamps, so it is
+       wrap-safe for any tick-source width; ISR-safe). A bundle becomes due
+       periodically (VA_AUTO_SETUP_INTERVAL_MS) and/or when a RAM-buffer
+       host attaches; it is emitted from thread context only. */
     static struct {
         uint64_t last_ts;    /* extended timestamp at the last bundle */
-        uint64_t interval;   /* ticks; 0 until VA_Init ("not configured") */
+        uint64_t interval;   /* ticks; 0 = no periodic bundle */
+        /* Last thread-context service (0 = never). A due bundle waits for
+           VA_TickOverflowCheck() while this is within defer_ticks. */
+        uint64_t service_ts;
+        uint64_t defer_ticks;
         /* volatile: set inside a CS (possibly in an ISR), polled from
            thread context - without it LTO can hoist the poll. */
         volatile bool due;
@@ -595,9 +601,8 @@ VA_RAMBUF_ATTRIBUTES VA_RamBufControlBlock_t _VA_RAMBUF __attribute__((aligned(4
 static const char VA_RAMBUF_MAGIC[16] = "ViewAlyzerRB01";
 
 /* One byte is always kept unused so wrOff == rdOff means exactly "empty". */
-static inline uint32_t _va_rambuf_free(void)
+static inline uint32_t _va_rambuf_free(uint32_t wr)
 {
-    uint32_t wr = _VA_RAMBUF.wrOff;
     uint32_t rd = _VA_RAMBUF.rdOff;
     return (rd > wr) ? (rd - wr - 1u) : ((uint32_t)VA_RAMBUF_SIZE - wr + rd - 1u);
 }
@@ -612,23 +617,36 @@ static void _va_send_bytes(const uint8_t *data, uint32_t length)
         VA_TP_DROP(length);
         return;
     }
+    uint32_t wr = _VA_RAMBUF.wrOff;
 #if (VA_RAMBUF_MODE == VA_RAMBUF_MODE_BLOCK)
     /* Lossless: stalls the firmware when no host is draining. */
-    while (_va_rambuf_free() < length) {}
+    while (_va_rambuf_free(wr) < length) {}
 #else
     /* Drop whole packets, never truncate - the stream stays parseable. */
-    if (_va_rambuf_free() < length)
+    if (_va_rambuf_free(wr) < length)
     {
         _VA_RAMBUF.droppedPackets++;
         VA_TP_DROP(length);
         return;
     }
 #endif
-    uint32_t wr = _VA_RAMBUF.wrOff;
     uint32_t chunk = (uint32_t)VA_RAMBUF_SIZE - wr;
     if (chunk > length)
         chunk = length;
-    memcpy(&s_va_rambuf_storage[wr], data, chunk);
+    if (chunk == 7u)
+    {
+        /* Common event size; byte stores support every ring alignment. */
+        volatile uint8_t *dst = &s_va_rambuf_storage[wr];
+        dst[0] = data[0];
+        dst[1] = data[1];
+        dst[2] = data[2];
+        dst[3] = data[3];
+        dst[4] = data[4];
+        dst[5] = data[5];
+        dst[6] = data[6];
+    }
+    else
+        memcpy(&s_va_rambuf_storage[wr], data, chunk);
     if (chunk < length)
         memcpy(&s_va_rambuf_storage[0], data + chunk, length - chunk);
     wr += length;
@@ -637,6 +655,39 @@ static void _va_send_bytes(const uint8_t *data, uint32_t length)
     __DMB();   /* ring bytes must be probe-visible before the offset is */
     _VA_RAMBUF.wrOff = wr;
 }
+
+#if VA_RAMBUF_ATTACH_BUNDLE
+/* Host-attach detection. The target never writes rdOff, so any change is
+   the host consuming; a change after "no host" is an attach and earns one
+   setup bundle (readers that skip the stale backlog move rdOff too, so
+   they are detected even when they never read a byte of it). The host is
+   considered gone once pending data stays unconsumed for
+   VA_RAMBUF_HOST_IDLE_MS; an empty ring is not evidence either way. */
+static uint32_t _va_rambuf_seen_rd;      /* rdOff at the last poll          */
+static uint64_t _va_rambuf_consume_ts;   /* last observed consumption       */
+static uint64_t _va_rambuf_idle_ticks;   /* VA_RAMBUF_HOST_IDLE_MS in ticks */
+static bool     _va_rambuf_host_active;
+
+/* Thread-context poll from VA_TickOverflowCheck(); true once per attach. */
+static bool _va_rambuf_poll_host(uint64_t now)
+{
+    uint32_t rd = _VA_RAMBUF.rdOff;
+    uint32_t wr = _VA_RAMBUF.wrOff;
+    if (rd != _va_rambuf_seen_rd)
+    {
+        _va_rambuf_seen_rd    = rd;
+        _va_rambuf_consume_ts = now;
+        if (_va_rambuf_host_active)
+            return false;
+        _va_rambuf_host_active = true;
+        return true;
+    }
+    if (_va_rambuf_host_active && rd != wr &&
+        (now - _va_rambuf_consume_ts) >= _va_rambuf_idle_ticks)
+        _va_rambuf_host_active = false;
+    return false;
+}
+#endif /* VA_RAMBUF_ATTACH_BUNDLE */
 #endif /* VA_PM_VIA_TRANSPORT */
 
 #else
@@ -678,6 +729,10 @@ static void _va_ring_push(const uint8_t *data, uint32_t length)
 }
 #endif /* VA_TRANSPORT_BUFFERED */
 
+#if VA_METADATA
+#include "VA_Metadata.h"
+#endif
+
 /* ── Packet emission layer ───────────────────────────────────────── */
 static inline void _va_emit_packet_raw(const uint8_t *data, uint32_t length)
 {
@@ -714,11 +769,20 @@ void _va_emit_packet(uint8_t *data, uint32_t length)
     /* Stamped in the single funnel so sequence order is exactly wire order;
        packets dropped downstream keep their number (host sees gaps). */
     data[1] = (uint8_t)_va_seq++;
+#if VA_METADATA
+    if ((data[0] >= 0x70u && data[0] <= 0x7Fu) || data[0] == VA_EVENT_TASK_CREATE)
+        _va_metadata_store(data, length);
+    if ((data[0] & VA_EVENT_TYPE_MASK) == VA_EVENT_TASK_SWITCH)
+        _va_metadata_running = (data[0] & VA_EVENT_FLAG_START_END) ? data[2] : 0;
+#endif
     /* Triggering packet first, periodic bundle after: time-correlation
        anchors on the packet's wire position. */
     _va_emit_packet_raw(data, length);
+#if VA_METADATA
+    _va_metadata_poll();
+#endif
 
-#if VA_AUTO_SETUP_INTERVAL_MS > 0
+#if VA_BUNDLE_SERVICE
     /* Only flag the bundle as due - emitting ~1 KB inline here would block
        interrupts; _va_service_pending_bundle() emits from thread context.
        "Now" comes from the extension state, not a fresh clock read: a torn
@@ -762,19 +826,43 @@ static inline bool _va_irqs_masked(void)
     return false;
 }
 
-void _va_service_pending_bundle(void)
+#if VA_BUNDLE_SERVICE
+/* Emit a due bundle. The caller has verified unmasked thread context. */
+static void _va_emit_due_bundle(void)
 {
-#if VA_AUTO_SETUP_INTERVAL_MS > 0
     if (!_va_bundle.due || _va_bundle.emitting)
         return;
-    if (_va_in_isr() || _va_irqs_masked())
-        return;   /* defer to the next unmasked thread-context log call */
-
     _va_bundle.due      = false;
     _va_bundle.last_ts  = _va_get_timestamp();
     _va_bundle.emitting = true;
     VA_EmitSetupBundle();          /* emits each packet under its own short CS */
     _va_bundle.emitting = false;
+}
+#endif
+
+/* Hook / VA_Log* path: the opportunistic service point. */
+void _va_service_pending_bundle(void)
+{
+#if VA_BUNDLE_SERVICE
+    if (!_va_bundle.due || _va_bundle.emitting)
+        return;
+    if (_va_in_isr() || _va_irqs_masked())
+        return;   /* defer to the next unmasked thread-context log call */
+
+    /* A periodic thread-context VA_TickOverflowCheck() caller exists: leave
+       the bundle to it. Kernel hooks run in whichever task the kernel is
+       serving - FreeRTOS traceTIMER_EXPIRED, for instance, runs in the
+       timer service task right before the callback - and the bundle is
+       ~1 KB of packets, so paying it here delays that task by tens of
+       microseconds. Hooks take over again if the service call stops. */
+    if (_va_bundle.service_ts != 0u)
+    {
+        const uint64_t now = (((uint64_t)_va_ts_ovf) << VA_TS_SOURCE_BITS)
+                             | _va_ts_last;
+        if ((now - _va_bundle.service_ts) < _va_bundle.defer_ticks)
+            return;
+    }
+    _va_emit_due_bundle();
 #endif
 }
 
@@ -827,6 +915,61 @@ static void _va_send_seq_checkpoint(void)
     packet[p++] = (uint8_t)(seq >> 24);
     _va_emit_packet(packet, p);
 }
+
+#if VA_METADATA
+/* One bounded publication: a full ring leaves the request pending and does
+   not consume sequence numbers. No table walking or stack scanning here. */
+static bool _va_metadata_checkpoint(bool sync)
+{
+    uint8_t packet[30];
+    uint32_t n = sync ? 12u : 0u;
+    uint32_t length = n + 11u + ((sync && _va_metadata_running) ? 7u : 0u);
+    if (_va_rambuf_free(_VA_RAMBUF.wrOff) < length)
+        return false;
+    if (sync)
+    {
+        memcpy(packet, VA_SYNC_MARKER, 12);
+        VA_TP_OFFER(12);
+    }
+    VA_TP_OFFER(11);
+    uint32_t seq = _va_seq++;
+    uint64_t now = _va_get_timestamp_unlocked();
+    packet[n++] = VA_EVENT_SEQ_CHECKPOINT;
+    packet[n++] = (uint8_t)seq;
+    packet[n++] = 0;
+    n += _va_put_ts(packet + n, now);
+    packet[n++] = (uint8_t)seq;
+    packet[n++] = (uint8_t)(seq >> 8);
+    packet[n++] = (uint8_t)(seq >> 16);
+    packet[n++] = (uint8_t)(seq >> 24);
+    if (sync && _va_metadata_running)
+    {
+        VA_TP_OFFER(7);
+        packet[n++] = VA_EVENT_TASK_SWITCH | VA_EVENT_FLAG_START_END;
+        packet[n++] = (uint8_t)_va_seq++;
+        packet[n++] = _va_metadata_running;
+        n += _va_put_ts(packet + n, now);
+    }
+    _va_send_bytes(packet, n);
+    _va_metadata_last_checkpoint = now;
+    if (sync) _VA_METADATA.ackSequence = seq;
+    return true;
+}
+
+static void _va_metadata_request(uint32_t request)
+{
+    __DMB();
+    uint32_t generation = _VA_METADATA.generation;
+    uint32_t status = (_VA_METADATA.flags != 0u) ? 2u :
+                      (_VA_METADATA.requestGeneration != generation ? 1u : 0u);
+    if (status == 0u && !_va_metadata_checkpoint(true))
+        return;
+    _VA_METADATA.ackGeneration = generation;
+    _VA_METADATA.ackStatus = status;
+    __DMB();
+    _VA_METADATA.ack = request; /* ACK only this request, after publication. */
+}
+#endif
 
 void _va_send_setup_packet(uint8_t setupCode, uint8_t id, const char *name)
 {
@@ -1131,7 +1274,14 @@ uint64_t _va_get_timestamp(void)
 void VA_TickOverflowCheck(void)
 {
     if (!VA_IS_INIT) return;
-#if VA_TRANSPORT_IS_ITM
+#if VA_METADATA
+    VA_ATOMIC(
+        _va_metadata_poll();
+        uint64_t now = _va_get_timestamp_unlocked();
+        if (now - _va_metadata_last_checkpoint >= _va_metadata_heartbeat)
+            (void)_va_metadata_checkpoint(false);
+    );
+#elif VA_TRANSPORT_IS_ITM
     /* Re-arm a stalled ITM pipe so a host that starts draining SWO is
        picked up even with the periodic bundle disabled. At most once per
        second: each re-arm makes the next packet burn the full stall-spin
@@ -1148,9 +1298,19 @@ void VA_TickOverflowCheck(void)
 #else
     (void)_va_get_timestamp();
 #endif
-    /* Also a guaranteed unmasked-thread-context point for a due bundle, in
-       case every log call happens under masked interrupts. */
-    _va_service_pending_bundle();
+#if VA_BUNDLE_SERVICE
+    /* Unmasked thread-context service for pending setup bundles. */
+    if (!_va_in_isr() && !_va_irqs_masked())
+    {
+        uint64_t now = (((uint64_t)_va_ts_ovf) << VA_TS_SOURCE_BITS) | _va_ts_last;
+        _va_bundle.service_ts = (now != 0u) ? now : 1u;
+#if VA_RAMBUF_ATTACH_BUNDLE
+        if (_va_rambuf_poll_host(now))
+            _va_bundle.due = true;
+#endif
+        _va_emit_due_bundle();
+    }
+#endif
 }
 
 VA_BufferStats_t VA_GetBufferStats(void)
@@ -1254,6 +1414,12 @@ void VA_EmitSetupBundle(void)
 {
     if (!VA_IS_INIT)
         return;
+#if VA_METADATA
+    /* Names are maintained as they change. Explicit legacy service calls
+       also stay bounded in this mode. */
+    VA_ATOMIC(_va_metadata_poll());
+    return;
+#endif
 
 #if VA_TRANSPORT_IS_ITM
     /* Re-arm a stalled ITM pipe: one bounded retry per bundle period. */
@@ -1574,6 +1740,10 @@ static void _va_release_task(int idx)
 {
     if (idx < 0)
         return;
+#if VA_METADATA
+    if (_va_metadata_running == taskMap[idx].id) _va_metadata_running = 0;
+    _va_metadata_remove(taskMap[idx].id, true);
+#endif
     taskMap[idx].active = false;
     taskMap[idx].handle = NULL;
     if (_va_task_cache_idx == idx)
@@ -1771,6 +1941,9 @@ static void _va_release_queue_object(int idx)
 {
     if (idx < 0)
         return;
+#if VA_METADATA
+    _va_metadata_remove(queueObjectMap[idx].id, false);
+#endif
     queueObjectMap[idx].active = false;
     queueObjectMap[idx].handle = NULL;
     if (_va_qobj_cache_idx == idx)
@@ -1946,6 +2119,11 @@ void va_taskswitchedout(void *taskHandle)
             uint32_t stack_total = va_adapter_get_total_stack_size(taskHandle);
             if (stack_total > 0)
             {
+#if VA_METADATA
+                /* A requested checkpoint may have followed switch-out. Do
+                   not reuse a timestamp from before that attach boundary. */
+                now = _va_get_timestamp_unlocked();
+#endif
                 _va_send_stack_usage_packet(id, now, stack_used, stack_total);
                 taskMap[idx].lastStackEmitTs = now;
                 taskMap[idx].hasStackSample  = true;
@@ -2508,15 +2686,18 @@ void va_logQueueObjectGive(void *queueObject, uint32_t timeout)
 
     _va_service_pending_bundle();
     VA_CS_ENTER();
-    uint8_t id = _va_find_queue_object_id(queueObject);
+    int idx = _va_find_queue_object_index(queueObject);
+    uint8_t id = idx >= 0 ? queueObjectMap[idx].id : 0;
     if (id == 0)
     {
         VA_QueueObjectType_t new_type = va_adapter_get_queue_object_type(queueObject);
         id = _va_assign_queue_object_id(queueObject, NULL, new_type);
+        idx = _va_find_queue_object_index(queueObject);
     }
 
     /* Authoritative check on the STORED type (the only gate on Zephyr). */
-    VA_QueueObjectType_t type = _va_get_stored_queue_object_type(queueObject);
+    VA_QueueObjectType_t type = idx >= 0 ? queueObjectMap[idx].type
+                                       : va_adapter_get_queue_object_type(queueObject);
     if (_va_type_emits_events(type))
         _va_send_event_packet(VA_EVENT_FLAG_START_END | _va_event_type_for_object(type),
                               id, _va_get_timestamp_unlocked());
@@ -2536,14 +2717,17 @@ void va_logQueueObjectTake(void *queueObject, uint32_t timeout)
 
     _va_service_pending_bundle();
     VA_CS_ENTER();
-    uint8_t id = _va_find_queue_object_id(queueObject);
+    int idx = _va_find_queue_object_index(queueObject);
+    uint8_t id = idx >= 0 ? queueObjectMap[idx].id : 0;
     if (id == 0)
     {
         VA_QueueObjectType_t new_type = va_adapter_get_queue_object_type(queueObject);
         id = _va_assign_queue_object_id(queueObject, NULL, new_type);
+        idx = _va_find_queue_object_index(queueObject);
     }
 
-    VA_QueueObjectType_t type = _va_get_stored_queue_object_type(queueObject);
+    VA_QueueObjectType_t type = idx >= 0 ? queueObjectMap[idx].type
+                                       : va_adapter_get_queue_object_type(queueObject);
     if (_va_type_emits_events(type))
         _va_send_event_packet(_va_event_type_for_object(type), id, _va_get_timestamp_unlocked());
     VA_CS_EXIT();
@@ -2994,14 +3178,39 @@ void VA_Init(uint32_t cpu_freq)
 #endif
 
     _va_seq = 0;
+#if VA_METADATA
+    _VA_METADATA.magic[0] = 0;
+    __DMB();
+    memset(&_VA_METADATA, 0, sizeof(_VA_METADATA));
+    _VA_METADATA.version = 1;
+    _VA_METADATA.tableAddr = (uint32_t)(uintptr_t)_va_metadata_bytes;
+    _VA_METADATA.capacity = VA_METADATA_SIZE;
+    _va_metadata_running = 0;
+    _va_metadata_last_checkpoint = 0;
+    /* At most two seconds, always below half a 32-bit wire-clock wrap. */
+    _va_metadata_heartbeat = 2u * (uint64_t)_va_tick_hz;
+    if (_va_metadata_heartbeat > 0x7fffffffu) _va_metadata_heartbeat = 0x7fffffffu;
+#endif
 
-#if VA_AUTO_SETUP_INTERVAL_MS > 0
-    _va_bundle.last_ts  = 0;
-    _va_bundle.emitting = false;
-    _va_bundle.due      = false;
+#if VA_BUNDLE_SERVICE
+    _va_bundle.last_ts    = 0;
+    _va_bundle.emitting   = false;
+    _va_bundle.due        = false;
+    _va_bundle.service_ts = 0;
     /* Bundle interval in ticks; the 64-bit extended-timestamp compare in
        _va_emit_packet needs no wrap clamp. */
     _va_bundle.interval = ((uint64_t)_va_tick_hz / 1000) * VA_AUTO_SETUP_INTERVAL_MS;
+    /* Hooks defer to a thread-context VA_TickOverflowCheck() caller seen
+       within two bundle periods (two seconds with the periodic bundle off). */
+    _va_bundle.defer_ticks = (_va_bundle.interval != 0u)
+                               ? 2u * _va_bundle.interval
+                               : 2u * (uint64_t)_va_tick_hz;
+#endif
+#if VA_RAMBUF_ATTACH_BUNDLE
+    _va_rambuf_seen_rd     = 0;      /* the control block below starts at 0 */
+    _va_rambuf_consume_ts  = 0;
+    _va_rambuf_host_active = false;
+    _va_rambuf_idle_ticks  = ((uint64_t)_va_tick_hz / 1000) * VA_RAMBUF_HOST_IDLE_MS;
 #endif
 
 #if VA_HAS_RTOS && VA_TRACE_STACK_USAGE
@@ -3129,6 +3338,9 @@ void VA_Init(uint32_t cpu_freq)
     _VA_RAMBUF.rdOff          = 0;
     _VA_RAMBUF.droppedPackets = 0;
     _VA_RAMBUF.flags          = VA_RAMBUF_MODE;
+#if VA_METADATA
+    _VA_RAMBUF.flags |= 0x100u; /* ELF-assisted metadata protocol required */
+#endif
     _VA_RAMBUF.cpuFreqHz      = _va_tick_hz;
     _VA_RAMBUF.wireVersion    = (uint8_t)VA_WIRE_VERSION;
     _VA_RAMBUF.tsBytes        = (uint8_t)VA_TIMESTAMP_BYTES;
@@ -3216,6 +3428,12 @@ void VA_Init(uint32_t cpu_freq)
     _va_send_setup_packet(VA_SETUP_OS_INFO, 0, "BareMetal");
 #endif
 
+#if VA_METADATA
+    __DMB();
+    for (int i = 15; i >= 0; --i)
+        _VA_METADATA.magic[i] = "ViewAlyzerMD01\0\0"[i];
+    __DMB();
+#endif
     VA_CS_EXIT();
 }
 

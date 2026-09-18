@@ -138,10 +138,13 @@ void ADC_IRQHandler(void)
 
 ## Long-Running Sessions
 
-If the target can run for a long time before the host connects, call these periodically from a safe context:
+Call `VA_TickOverflowCheck()` periodically from the main loop for quiet-time
+timer rollover and idle attachment requests. See the
+[API reference](../docs/api/api.md#va_tickoverflowcheck) for service intervals.
 
-- `VA_TickOverflowCheck()` to keep timestamp rollover handling correct
-- `VA_EmitSetupBundle()` if you want the host to recover task, trace, and object maps after a late attach
+Default RAM capture uses [RAM metadata](../docs/api/ram-metadata.md) and the
+matching firmware ELF. It does not need `VA_EmitSetupBundle()`. With metadata
+disabled, periodic service also handles automatic setup retransmission.
 
 ## Custom Transport
 

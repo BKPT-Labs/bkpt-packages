@@ -29,6 +29,27 @@ menuconfig VIEWALYZER
 
 if VIEWALYZER
 
+config VIEWALYZER_METADATA
+	bool "RAM metadata for ELF-assisted hot attach"
+	depends on VIEWALYZER_TRANSPORT_RAMBUF && !VIEWALYZER_BUFFERED
+	depends on !VIEWALYZER_RAMBUF_WRAP && !VIEWALYZER_RAMBUF_BLOCK && !VIEWALYZER_SNAPSHOT
+	default y
+	help
+	  Keep names and configuration in probe-visible RAM. ViewAlyzer-RS
+	  reads the table using the firmware ELF and requests a small checkpoint.
+	  Disables full periodic setup retransmissions. Call VA_TickOverflowCheck
+	  regularly even while otherwise idle to service requests and time wraps.
+
+config VIEWALYZER_METADATA_SIZE
+	int "Metadata table bytes"
+	depends on VIEWALYZER_METADATA
+	range 128 65536
+	default 2048
+	help
+	  Additional RAM, plus a 64-byte descriptor. A full table is reported as
+	  an attach error instead of silently omitting names. On cached cores,
+	  place recorder shared memory in non-cacheable, probe-visible RAM.
+
 # Hidden: true when ANY enabled category needs thread ids and names, even if
 # thread switch EVENTS are off. Mutex contention, sleep, and stack usage all
 # name threads, so registration (and the kernel support it needs) has to
@@ -481,6 +502,29 @@ config VIEWALYZER_RAMBUF_BUSY_IDLE
 	  keep PM sleep states disabled (or verify clean captures with your
 	  PM policy active).
 
+config VIEWALYZER_RAMBUF_SETUP_ON_ATTACH
+	bool "Emit the setup bundle when a host starts draining the ring"
+	default y
+	depends on VIEWALYZER_TRANSPORT_RAMBUF
+	depends on !VIEWALYZER_RAMBUF_WRAP && !VIEWALYZER_METADATA
+	help
+	  Only the host writes the ring's read offset, so the recorder can
+	  tell when a reader attaches (or skips the stale backlog) and
+	  re-emit the sync marker and setup packets once, from the thread
+	  that calls VA_TickOverflowCheck(). With
+	  VIEWALYZER_AUTO_SETUP_INTERVAL_MS=0 this gives setup packets only
+	  at VA_Init and on attach, with no periodic retransmission.
+
+config VIEWALYZER_RAMBUF_HOST_IDLE_MS
+	int "Host considered detached after this many ms without draining"
+	default 1000
+	range 100 60000
+	depends on VIEWALYZER_RAMBUF_SETUP_ON_ATTACH
+	help
+	  A host that leaves pending ring data unconsumed for this long is
+	  treated as gone; the next drain counts as a new attach and gets a
+	  setup bundle. An empty ring is not evidence either way.
+
 config VIEWALYZER_AUTO_SETUP_INTERVAL_MS
 	int "Auto setup bundle re-emit interval (ms)"
 	default 2000
@@ -490,5 +534,6 @@ config VIEWALYZER_AUTO_SETUP_INTERVAL_MS
 	  re-emits the sync marker and setup packets. This helps the host
 	  application resync if it connects mid-session. Set to 0 to disable
 	  automatic re-emission.
+	  Ignored when VIEWALYZER_METADATA is enabled.
 
 endif

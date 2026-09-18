@@ -190,6 +190,20 @@
 #error "ViewAlyzer: VA_SNAPSHOT with VA_RAMBUF_MODE_WRAP would create two identical snapshot rings - use one or the other"
 #endif
 
+/* ── Derived setup-bundle scheduling flags ──────────────────────────
+   Attach-triggered bundles need a consuming host, so they exist only for
+   the live (non-WRAP) RAM-buffer ring. The bundle service machinery is
+   compiled in when either trigger can queue a bundle. */
+#define VA_RAMBUF_ATTACH_BUNDLE (VA_TRANSPORT_IS_RAMBUF && (VA_RAMBUF_SETUP_ON_ATTACH) && !VA_PM_VIA_TRANSPORT && !VA_METADATA)
+#define VA_BUNDLE_SERVICE       (!VA_METADATA && (((VA_AUTO_SETUP_INTERVAL_MS) > 0) || VA_RAMBUF_ATTACH_BUNDLE))
+
+#if VA_METADATA && (!VA_TRANSPORT_IS_RAMBUF || VA_TRANSPORT_BUFFERED || VA_RAMBUF_MODE != VA_RAMBUF_MODE_DROP || VA_PM_RING)
+#error "ViewAlyzer: VA_METADATA requires direct DROP-mode RAM_BUFFER without a snapshot tee"
+#endif
+#if VA_METADATA && (VA_METADATA_SIZE < 128 || VA_METADATA_SIZE > 65536 || VA_RAMBUF_SIZE < 64)
+#error "ViewAlyzer: VA_METADATA needs 128..65536 metadata bytes and at least 64 ring bytes"
+#endif
+
 #if VA_PM_RING && (VA_MAX_LOG_STRING_LEN > 242)
 /* Snapshot ring frames carry a 1-byte length prefix, so a packet must fit in
    255 bytes: 12 bytes of header + seq + VA_MAX_LOG_STRING_LEN payload. */

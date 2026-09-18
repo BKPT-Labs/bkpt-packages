@@ -255,6 +255,36 @@
 #define VA_RAMBUF_BUSY_IDLE 1
 #endif
 
+/* Emit the setup bundle once when a host starts draining the ring. Only
+   the host ever writes rdOff, so rdOff moving after a quiet stretch means
+   a reader attached (readers that skip the stale backlog move it too).
+   The bundle is queued for the next thread-context VA_TickOverflowCheck()
+   or log call, exactly like the periodic one. With
+   VA_AUTO_SETUP_INTERVAL_MS=0 this yields setup packets only at VA_Init
+   and on attach: no periodic retransmission at all, the same model as a
+   host-started recorder. Not used in VA_RAMBUF_MODE_WRAP (snapshot readers
+   do not consume). 1 = on, 0 = off. */
+#ifndef VA_RAMBUF_SETUP_ON_ATTACH
+#define VA_RAMBUF_SETUP_ON_ATTACH 1
+#endif
+
+/* A host that stops consuming for this long while data is pending counts
+   as detached; the next consumption is a new attach and gets a bundle. */
+#ifndef VA_RAMBUF_HOST_IDLE_MS
+#define VA_RAMBUF_HOST_IDLE_MS 1000
+#endif
+
+/* RAM metadata: on for direct DROP-mode RAM_BUFFER without a snapshot tee.
+   Set to 0 for setup-bundle capture. See docs/api/ram-metadata.md. */
+#ifndef VA_METADATA
+#define VA_METADATA ((VA_TRANSPORT == RAM_BUFFER) && !VA_TRANSPORT_BUFFERED && \
+                     (VA_RAMBUF_MODE == VA_RAMBUF_MODE_DROP) && !VA_SNAPSHOT)
+#endif
+/* Metadata table capacity in bytes. */
+#ifndef VA_METADATA_SIZE
+#define VA_METADATA_SIZE 2048u
+#endif
+
 /* ── Snapshot (post-mortem) ring ───────────────────────────────────── */
 
 /* Optional second RAM ring that keeps the most recent trace window for
@@ -429,18 +459,11 @@
 #endif
 
 #ifndef VA_AUTO_SETUP_INTERVAL_MS
-#define VA_AUTO_SETUP_INTERVAL_MS 2000 /* Re-emit sync + setup packets at this interval (ms). 0 = off. */
+#define VA_AUTO_SETUP_INTERVAL_MS 2000 /* Setup-bundle interval (ms); ignored with VA_METADATA. 0 = off. */
 #endif
 
-/* Width of the timestamp field on the wire (NOT the tick-source width -
-   that is VA_TIMER_BITS above). Always 32: the low 32 bits of the extended
-   tick count wrap periodically (2^32 / tick rate: ~25 s at a 170 MHz
-   CYCCNT; slower custom timers only widen it) and the host reconstructs
-   the full 64-bit value from packet ordering.
-   VA_AUTO_SETUP_INTERVAL_MS must stay well below the wrap period so the host
-   never misses a wrap (a sync/bundle guarantees at least one packet per
-   interval); 2000 ms gives a >12x margin at 170 MHz. Not a knob: any other
-   value is a compile error. */
+/* Wire timestamp width, fixed at 32 bits. See docs/api/configuration.md
+   for timer wrap periods and periodic service requirements. */
 #ifndef VA_TIMESTAMP_BITS
 #define VA_TIMESTAMP_BITS 32
 #endif

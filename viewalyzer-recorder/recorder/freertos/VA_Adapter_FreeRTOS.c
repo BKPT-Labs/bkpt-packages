@@ -4,7 +4,7 @@
  *
  * Contains everything that depends on FreeRTOS internals:
  *   - Queue-type detection (QueueDefinitionMirror hack)
- *   - Stack-usage calculation via uxTaskGetStackHighWaterMark
+ *   - Exact word-wise stack-usage calculation, with RTOS API fallback
  *   - Mutex-contention detection via xSemaphoreGetMutexHolder
  *
  * This file is compiled ONLY when VA_RTOS_SELECT == VA_RTOS_FREERTOS.
@@ -121,8 +121,30 @@ VA_QueueObjectType_t va_adapter_get_queue_object_type(void *handle)
 uint32_t va_adapter_calculate_stack_usage(void *taskHandle)
 {
 #if (INCLUDE_uxTaskGetStackHighWaterMark == 1)
-    uint32_t free_stack_words = uxTaskGetStackHighWaterMark((TaskHandle_t)taskHandle);
     int idx = _va_find_task_index(taskHandle);
+    uint32_t free_stack_words;
+#if (portSTACK_GROWTH < 0)
+    /* Scan standard FreeRTOS fill within known bounds, in whole stack words. */
+    if (sizeof(StackType_t) == sizeof(uint32_t) && idx >= 0 &&
+        taskMap[idx].pxStack != NULL && taskMap[idx].ulStackDepth > 0 &&
+        ((uintptr_t)taskMap[idx].pxStack % sizeof(uint32_t)) == 0)
+    {
+        const uint8_t *stack = (const uint8_t *)taskMap[idx].pxStack;
+        free_stack_words = 0;
+        while (free_stack_words < taskMap[idx].ulStackDepth)
+        {
+            uint32_t fill;
+            memcpy(&fill, stack + free_stack_words * sizeof(fill), sizeof(fill));
+            if (fill != UINT32_C(0xa5a5a5a5))
+                break;
+            ++free_stack_words;
+        }
+        if (free_stack_words == taskMap[idx].ulStackDepth)
+            free_stack_words = uxTaskGetStackHighWaterMark((TaskHandle_t)taskHandle);
+    }
+    else
+#endif
+        free_stack_words = uxTaskGetStackHighWaterMark((TaskHandle_t)taskHandle);
     if (idx >= 0 && taskMap[idx].ulStackDepth > 0)
     {
         uint32_t used_stack_words = taskMap[idx].ulStackDepth - free_stack_words;

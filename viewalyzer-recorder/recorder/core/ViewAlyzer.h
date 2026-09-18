@@ -32,7 +32,7 @@
    the string and packed forms derive from them. */
 #define VA_RECORDER_VERSION_MAJOR 1
 #define VA_RECORDER_VERSION_MINOR 1
-#define VA_RECORDER_VERSION_PATCH 4
+#define VA_RECORDER_VERSION_PATCH 5
 
 #define VA_VERSION_STR2_(x) #x
 #define VA_VERSION_STR_(x)  VA_VERSION_STR2_(x)
@@ -275,8 +275,8 @@ typedef uint32_t (*VA_TimestampFn)(void);
 #else
     void VA_Init(uint32_t cpu_freq);
 #endif
-    void VA_EmitSetupBundle(void);    /* re-emit sync marker + all setup packets (call periodically, e.g. every 2-5 s) */
-    void VA_TickOverflowCheck(void);  /* call more often than the tick counter wraps: DWT every 1-10 s; 16-bit timers wrap in ms (see VA_TIMER_BITS) */
+    void VA_EmitSetupBundle(void);    /* Explicit setup service; see docs/api/api.md. */
+    void VA_TickOverflowCheck(void);  /* Periodic recorder service; see docs/api/api.md for cadence. */
     /* Bounded buffered service; ISR, masked and overlapping calls do nothing. */
     void VA_Drain(void);
     /* Buffered queue and saturating loss totals since VA_Init; zero in direct mode. */

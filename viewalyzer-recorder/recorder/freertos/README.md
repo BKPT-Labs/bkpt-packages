@@ -26,11 +26,14 @@ v11 verified), single-core only (SMP builds are rejected at compile time).
 `k_work`-style deferred-work tracing is a Zephyr-only category and is
 reported off on FreeRTOS builds.
 
-One operational requirement: call `VA_TickOverflowCheck()` periodically
-from THREAD context (a housekeeping loop is fine). Every FreeRTOS kernel
-trace hook runs in ISR or critical-section context, where the recorder
-must defer its periodic setup bundle - without a thread-context recorder
-call, late-attaching hosts never receive names.
+Call `VA_TickOverflowCheck()` periodically from an unmasked application task.
+Events handle counter rollover automatically; periodic service covers quiet
+gaps and idle attachment requests. The adapter does not create a service task.
+See [service intervals](../docs/api/api.md#va_tickoverflowcheck).
+
+Default RAM capture uses [RAM metadata](../docs/api/ram-metadata.md) and requires
+the matching ELF in ViewAlyzer-RS. No periodic `VA_EmitSetupBundle()` call is
+needed. Set `VA_METADATA=0` to use setup-bundle capture.
 
 ## Files
 
@@ -153,6 +156,19 @@ These options affect how much detail the adapter can provide:
 - `INCLUDE_xSemaphoreGetMutexHolder=1` or `INCLUDE_xQueueGetMutexHolder=1` enables mutex contention ownership detection
 
 If those options are off, the recorder still works, but the missing data stays unavailable.
+
+## Stack scanning
+
+For aligned, downward-growing 32-bit stacks with known bounds, the recorder checks the standard FreeRTOS
+`0xA5` fill one word at a time. A change to any byte stops the scan, preserving
+the same whole-word high-water result as `uxTaskGetStackHighWaterMark()`.
+Stack packets, their units and the sampling schedule are unchanged.
+
+Unknown bounds, other stack widths or directions, unaligned bases and a scan
+that reaches the recorded bound fall back to the RTOS API. The existing
+`INCLUDE_uxTaskGetStackHighWaterMark` requirement still applies. There is no
+scanner-selection setting. `VA_TRACE_STACK_USAGE=0` disables
+stack measurements entirely. Zephyr and bare-metal behavior is unaffected.
 
 ## Object Names, Recursive Mutexes, and Late Init
 
