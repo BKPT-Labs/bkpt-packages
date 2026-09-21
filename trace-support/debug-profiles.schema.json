@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "BKPT debug integration profiles",
-  "description": "Schema for the additive debug_profiles property in trace-support.json. Describes topology identity only; does not authorize hardware accesses or configure CTI.",
+  "description": "Additive debug identity and target reset policies. Reset requires a confirmed live topology, retained debug/reset catch and bounded read-only boot predicates. No CTI or programming.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -154,6 +154,137 @@
           },
           "comment": {
             "type": "string"
+          },
+          "reset": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "schema",
+              "method",
+              "scope",
+              "issuer",
+              "debug_retained",
+              "delayed_reset_catch",
+              "timeout_ms",
+              "cores"
+            ],
+            "properties": {
+              "schema": {
+                "const": 1
+              },
+              "method": {
+                "const": "sysresetreq"
+              },
+              "scope": {
+                "const": "target"
+              },
+              "issuer": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 63
+              },
+              "debug_retained": {
+                "const": true
+              },
+              "delayed_reset_catch": {
+                "const": true
+              },
+              "timeout_ms": {
+                "type": "integer",
+                "minimum": 100,
+                "maximum": 10000
+              },
+              "cores": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 16,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "boot_held"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 63
+                    },
+                    "boot_held": {
+                      "type": "array",
+                      "maxItems": 4,
+                      "description": "All predicates must match to establish a held boot. Empty means no documented boot hold. Read failure is unavailable, never boot held.",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "ap",
+                          "address",
+                          "mask",
+                          "value"
+                        ],
+                        "properties": {
+                          "ap": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 7
+                          },
+                          "address": {
+                            "anyOf": [
+                              {
+                                "type": "integer",
+                                "minimum": 0,
+                                "maximum": 4294967295
+                              },
+                              {
+                                "type": "string",
+                                "pattern": "^0x[0-9a-fA-F]{1,8}$"
+                              }
+                            ]
+                          },
+                          "mask": {
+                            "anyOf": [
+                              {
+                                "type": "integer",
+                                "minimum": 0,
+                                "maximum": 4294967295
+                              },
+                              {
+                                "type": "string",
+                                "pattern": "^0x[0-9a-fA-F]{1,8}$"
+                              }
+                            ]
+                          },
+                          "value": {
+                            "anyOf": [
+                              {
+                                "type": "integer",
+                                "minimum": 0,
+                                "maximum": 4294967295
+                              },
+                              {
+                                "type": "string",
+                                "pattern": "^0x[0-9a-fA-F]{1,8}$"
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "sources": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "comment": {
+                "type": "string"
+              }
+            }
           }
         }
       }
