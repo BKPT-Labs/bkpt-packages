@@ -527,6 +527,49 @@
   ],
   "debug_profiles": {
     "schema": 1,
+    "discovery_guards": [
+      {
+        "rom": {
+          "ap": 2,
+          "base": "0xE00E0000",
+          "designer": "0x020",
+          "part": "0x450"
+        },
+        "components": [
+          {
+            "base": "0xE00E3000",
+            "ready": {
+              "ap": 2,
+              "address": "0xE00E1004",
+              "mask": "0x00500000",
+              "value": "0x00500000"
+            }
+          },
+          {
+            "base": "0xE00E4000",
+            "ready": {
+              "ap": 2,
+              "address": "0xE00E1004",
+              "mask": "0x00500000",
+              "value": "0x00500000"
+            }
+          },
+          {
+            "base": "0xE00F0000",
+            "ready": {
+              "ap": 2,
+              "address": "0xE00E1004",
+              "mask": "0x00200000",
+              "value": "0x00200000"
+            }
+          }
+        ],
+        "sources": [
+          "ST RM0399 Rev 3 sections 63.1.4, 63.5.1 and 63.6: debug clock domains, system ROM tables and DBGMCU_CR."
+        ],
+        "comment": "Presence in a ROM table is not proof that a debug domain is clocked. Read DBGMCU_CR through the APB debug alias before touching these children; defer them without writes when the required clocks are disabled or unreadable."
+      }
+    ],
     "profiles": [
       {
         "id": "stm32h7x5-x7",
@@ -606,7 +649,90 @@
         "sources": [
           "https://www.st.com/resource/en/application_note/an5286-stm32h7x5x7-dualcore-microcontroller-debugging-stmicroelectronics.pdf"
         ],
-        "comment": "A ROM part of 0x450 alone also matches single-core STM32H7. Confirm only when both architectural core identities are observed. Missing AP3 is a possible profile, not an assertion that a second core exists. CTI routes require separately verified integration data."
+        "comment": "A ROM part of 0x450 alone also matches single-core STM32H7. Confirm only when both architectural core identities are observed. Missing AP3 is a possible profile, not an assertion that a second core exists. CTI routes require separately verified integration data.",
+        "swo": {
+          "schema": 1,
+          "mode": "single-source",
+          "clock_core": "cm7",
+          "tpiu": false,
+          "route": {
+            "ap": 2,
+            "address": "0xE00E4000",
+            "mask": "0x00000003"
+          },
+          "cores": [
+            {
+              "id": "cm7",
+              "value": "0x00000001"
+            },
+            {
+              "id": "cm4",
+              "value": "0x00000002"
+            }
+          ],
+          "init": [
+            {
+              "ap": 2,
+              "address": "0xE00E1004",
+              "mask": "0x00700000",
+              "value": "0x00700000"
+            },
+            {
+              "ap": 2,
+              "address": "0xE00E4FB0",
+              "mask": "0xFFFFFFFF",
+              "value": "0xC5ACCE55",
+              "write_only": true
+            },
+            {
+              "ap": 2,
+              "address": "0xE00E3FB0",
+              "mask": "0xFFFFFFFF",
+              "value": "0xC5ACCE55",
+              "write_only": true
+            },
+            {
+              "ap": 2,
+              "address": "0xE00E30F0",
+              "mask": "0x00000003",
+              "value": "0x00000002"
+            },
+            {
+              "ap": 2,
+              "address": "0xE00E3010",
+              "mask": "0x00000FFF",
+              "value": "$prescaler"
+            },
+            {
+              "ap": 0,
+              "address": "0x580244E0",
+              "mask": "0x00000002",
+              "value": "0x00000002"
+            },
+            {
+              "ap": 0,
+              "address": "0x58020400",
+              "mask": "0x000000C0",
+              "value": "0x00000080"
+            },
+            {
+              "ap": 0,
+              "address": "0x58020408",
+              "mask": "0x000000C0",
+              "value": "0x000000C0"
+            },
+            {
+              "ap": 0,
+              "address": "0x58020420",
+              "mask": "0x0000F000",
+              "value": "0x00000000"
+            }
+          ],
+          "sources": [
+            "https://www.st.com/resource/en/reference_manual/rm0399-stm32h745755-and-stm32h747757-advanced-armbased-32bit-mcus-stmicroelectronics.pdf#page=3341"
+          ],
+          "comment": "RM0399 sections 63.4, 63.5.1 and 63.5.8: APB-AP2 uses debug aliases 0xE00Exxxx, not the CPU-visible 0x5C00xxxx map. SWTF input 0 is M7 and input 1 is M4. Raw SWO has no formatter or source identity; exactly one input may be selected. Its clock is the M7 clock."
+        }
       }
     ]
   }

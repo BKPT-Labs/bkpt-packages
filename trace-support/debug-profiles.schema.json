@@ -285,6 +285,348 @@
                 "type": "string"
               }
             }
+          },
+          "swo": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "schema",
+              "mode",
+              "clock_core",
+              "tpiu",
+              "route",
+              "cores",
+              "init"
+            ],
+            "properties": {
+              "schema": {
+                "const": 1
+              },
+              "mode": {
+                "const": "single-source"
+              },
+              "clock_core": {
+                "type": "string"
+              },
+              "tpiu": {
+                "type": "boolean"
+              },
+              "route": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "ap",
+                  "address",
+                  "mask"
+                ],
+                "properties": {
+                  "ap": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 7
+                  },
+                  "address": {
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 4294967295
+                      },
+                      {
+                        "type": "string",
+                        "pattern": "^0x[0-9a-fA-F]{1,8}$"
+                      }
+                    ]
+                  },
+                  "mask": {
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 4294967295
+                      },
+                      {
+                        "type": "string",
+                        "pattern": "^0x[0-9a-fA-F]{1,8}$"
+                      }
+                    ]
+                  }
+                }
+              },
+              "cores": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 16,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "value"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "anyOf": [
+                        {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 4294967295
+                        },
+                        {
+                          "type": "string",
+                          "pattern": "^0x[0-9a-fA-F]{1,8}$"
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "init": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 16,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "ap",
+                    "address",
+                    "mask",
+                    "value"
+                  ],
+                  "properties": {
+                    "ap": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 7
+                    },
+                    "address": {
+                      "anyOf": [
+                        {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 4294967295
+                        },
+                        {
+                          "type": "string",
+                          "pattern": "^0x[0-9a-fA-F]{1,8}$"
+                        }
+                      ]
+                    },
+                    "mask": {
+                      "anyOf": [
+                        {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 4294967295
+                        },
+                        {
+                          "type": "string",
+                          "pattern": "^0x[0-9a-fA-F]{1,8}$"
+                        }
+                      ]
+                    },
+                    "value": {
+                      "anyOf": [
+                        {
+                          "anyOf": [
+                            {
+                              "type": "integer",
+                              "minimum": 0,
+                              "maximum": 4294967295
+                            },
+                            {
+                              "type": "string",
+                              "pattern": "^0x[0-9a-fA-F]{1,8}$"
+                            }
+                          ]
+                        },
+                        {
+                          "const": "$prescaler"
+                        }
+                      ]
+                    },
+                    "write_only": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              },
+              "sources": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "comment": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "discovery_guards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "rom",
+          "components"
+        ],
+        "properties": {
+          "rom": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "ap",
+              "base",
+              "designer",
+              "part"
+            ],
+            "properties": {
+              "ap": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 7
+              },
+              "base": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 4294967295
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^0x[0-9a-fA-F]{1,8}$"
+                  }
+                ]
+              },
+              "designer": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 4294967295
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^0x[0-9a-fA-F]{1,8}$"
+                  }
+                ]
+              },
+              "part": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 4294967295
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^0x[0-9a-fA-F]{1,8}$"
+                  }
+                ]
+              }
+            }
+          },
+          "components": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 16,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "base",
+                "ready"
+              ],
+              "properties": {
+                "base": {
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 4294967295
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^0x[0-9a-fA-F]{1,8}$"
+                    }
+                  ]
+                },
+                "ready": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "ap",
+                    "address",
+                    "mask",
+                    "value"
+                  ],
+                  "properties": {
+                    "ap": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 7
+                    },
+                    "address": {
+                      "anyOf": [
+                        {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 4294967295
+                        },
+                        {
+                          "type": "string",
+                          "pattern": "^0x[0-9a-fA-F]{1,8}$"
+                        }
+                      ]
+                    },
+                    "mask": {
+                      "anyOf": [
+                        {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 4294967295
+                        },
+                        {
+                          "type": "string",
+                          "pattern": "^0x[0-9a-fA-F]{1,8}$"
+                        }
+                      ]
+                    },
+                    "value": {
+                      "anyOf": [
+                        {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 4294967295
+                        },
+                        {
+                          "type": "string",
+                          "pattern": "^0x[0-9a-fA-F]{1,8}$"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "comment": {
+            "type": "string"
           }
         }
       }
