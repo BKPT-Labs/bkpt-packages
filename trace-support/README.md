@@ -1,5 +1,17 @@
 # Trace source clocks
 
+Revision 15 adds `debug_profiles`, independently versioned at schema 1. Its
+shape is defined by `debug-profiles.schema.json`. These profiles describe core
+access paths and identity requirements; they do not configure CTI or write
+device registers. The ordered `devices` trace rows are unchanged.
+
+The STM32H7x5/x7 profile requires both the M7 on AP0 and M4 on AP3 before it
+is confirmed. The ROM family part `0x450` also occurs on single-core H7 parts,
+so a family-only match remains a suggestion. A missing core must not be
+fabricated from the catalog. Multiple matching profiles are ambiguous.
+Consumers without debug-profile support continue to use the trace rows;
+installing this data alone does not enable multicore debugging.
+
 Revision 14 routes the STM32C562 trace gate through system AP0, matched by device ID `0x44E` at
 `0x44024000`. It enables DBGMCU trace clocks, the SWO pin and debug during
 stop/standby through `0x44024004`, then uses the standard Cortex-M TPIU.
