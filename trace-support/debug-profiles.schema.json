@@ -1,0 +1,635 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BKPT debug integration profiles",
+  "description": "Additive debug identity and target reset policies. Reset requires a confirmed live topology, retained debug/reset catch and bounded read-only boot predicates. No CTI or programming.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "profiles"
+  ],
+  "properties": {
+    "schema": {
+      "const": 1
+    },
+    "profiles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "label",
+          "match",
+          "cores"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 63
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 95
+          },
+          "match": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "rom"
+            ],
+            "properties": {
+              "rom": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "ap",
+                  "designer",
+                  "part"
+                ],
+                "properties": {
+                  "ap": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 7
+                  },
+                  "designer": {
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 2047
+                      },
+                      {
+                        "type": "string",
+                        "pattern": "^0x(?:[0-7][0-9a-fA-F]{2}|[0-9a-fA-F]{1,2})$"
+                      }
+                    ]
+                  },
+                  "part": {
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 4095
+                      },
+                      {
+                        "type": "string",
+                        "pattern": "^0x[0-9a-fA-F]{1,3}$"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "cores": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 16,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "label",
+                "ap",
+                "scs_base",
+                "cpuid_part"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 63
+                },
+                "label": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 63
+                },
+                "ap": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 7
+                },
+                "scs_base": {
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 4294963200,
+                      "multipleOf": 4096
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^0x[0-9a-fA-F]{5}000$"
+                    }
+                  ]
+                },
+                "cpuid_part": {
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 4095
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^0x[0-9a-fA-F]{1,3}$"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri"
+            }
+          },
+          "comment": {
+            "type": "string"
+          },
+          "reset": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "schema",
+              "method",
+              "scope",
+              "issuer",
+              "debug_retained",
+              "delayed_reset_catch",
+              "timeout_ms",
+              "cores"
+            ],
+            "properties": {
+              "schema": {
+                "const": 1
+              },
+              "method": {
+                "const": "sysresetreq"
+              },
+              "scope": {
+                "const": "target"
+              },
+              "issuer": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 63
+              },
+              "debug_retained": {
+                "const": true
+              },
+              "delayed_reset_catch": {
+                "const": true
+              },
+              "timeout_ms": {
+                "type": "integer",
+                "minimum": 100,
+                "maximum": 10000
+              },
+              "cores": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 16,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "boot_held"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 63
+                    },
+                    "boot_held": {
+                      "type": "array",
+                      "maxItems": 4,
+                      "description": "All predicates must match to establish a held boot. Empty means no documented boot hold. Read failure is unavailable, never boot held.",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "ap",
+                          "address",
+                          "mask",
+                          "value"
+                        ],
+                        "properties": {
+                          "ap": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 7
+                          },
+                          "address": {
+                            "anyOf": [
+                              {
+                                "type": "integer",
+                                "minimum": 0,
+                                "maximum": 4294967295
+                              },
+                              {
+                                "type": "string",
+                                "pattern": "^0x[0-9a-fA-F]{1,8}$"
+                              }
+                            ]
+                          },
+                          "mask": {
+                            "anyOf": [
+                              {
+                                "type": "integer",
+                                "minimum": 0,
+                                "maximum": 4294967295
+                              },
+                              {
+                                "type": "string",
+                                "pattern": "^0x[0-9a-fA-F]{1,8}$"
+                              }
+                            ]
+                          },
+                          "value": {
+                            "anyOf": [
+                              {
+                                "type": "integer",
+                                "minimum": 0,
+                                "maximum": 4294967295
+                              },
+                              {
+                                "type": "string",
+                                "pattern": "^0x[0-9a-fA-F]{1,8}$"
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "sources": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "comment": {
+                "type": "string"
+              }
+            }
+          },
+          "swo": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "schema",
+              "mode",
+              "clock_core",
+              "tpiu",
+              "route",
+              "cores",
+              "init"
+            ],
+            "properties": {
+              "schema": {
+                "const": 1
+              },
+              "mode": {
+                "const": "single-source"
+              },
+              "clock_core": {
+                "type": "string"
+              },
+              "tpiu": {
+                "type": "boolean"
+              },
+              "route": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "ap",
+                  "address",
+                  "mask"
+                ],
+                "properties": {
+                  "ap": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 7
+                  },
+                  "address": {
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 4294967295
+                      },
+                      {
+                        "type": "string",
+                        "pattern": "^0x[0-9a-fA-F]{1,8}$"
+                      }
+                    ]
+                  },
+                  "mask": {
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 4294967295
+                      },
+                      {
+                        "type": "string",
+                        "pattern": "^0x[0-9a-fA-F]{1,8}$"
+                      }
+                    ]
+                  }
+                }
+              },
+              "cores": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 16,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "value"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "anyOf": [
+                        {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 4294967295
+                        },
+                        {
+                          "type": "string",
+                          "pattern": "^0x[0-9a-fA-F]{1,8}$"
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "init": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 16,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "ap",
+                    "address",
+                    "mask",
+                    "value"
+                  ],
+                  "properties": {
+                    "ap": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 7
+                    },
+                    "address": {
+                      "anyOf": [
+                        {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 4294967295
+                        },
+                        {
+                          "type": "string",
+                          "pattern": "^0x[0-9a-fA-F]{1,8}$"
+                        }
+                      ]
+                    },
+                    "mask": {
+                      "anyOf": [
+                        {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 4294967295
+                        },
+                        {
+                          "type": "string",
+                          "pattern": "^0x[0-9a-fA-F]{1,8}$"
+                        }
+                      ]
+                    },
+                    "value": {
+                      "anyOf": [
+                        {
+                          "anyOf": [
+                            {
+                              "type": "integer",
+                              "minimum": 0,
+                              "maximum": 4294967295
+                            },
+                            {
+                              "type": "string",
+                              "pattern": "^0x[0-9a-fA-F]{1,8}$"
+                            }
+                          ]
+                        },
+                        {
+                          "const": "$prescaler"
+                        }
+                      ]
+                    },
+                    "write_only": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              },
+              "sources": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "comment": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "discovery_guards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "rom",
+          "components"
+        ],
+        "properties": {
+          "rom": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "ap",
+              "base",
+              "designer",
+              "part"
+            ],
+            "properties": {
+              "ap": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 7
+              },
+              "base": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 4294967295
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^0x[0-9a-fA-F]{1,8}$"
+                  }
+                ]
+              },
+              "designer": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 4294967295
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^0x[0-9a-fA-F]{1,8}$"
+                  }
+                ]
+              },
+              "part": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 4294967295
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^0x[0-9a-fA-F]{1,8}$"
+                  }
+                ]
+              }
+            }
+          },
+          "components": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 16,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "base",
+                "ready"
+              ],
+              "properties": {
+                "base": {
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 4294967295
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^0x[0-9a-fA-F]{1,8}$"
+                    }
+                  ]
+                },
+                "ready": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "ap",
+                    "address",
+                    "mask",
+                    "value"
+                  ],
+                  "properties": {
+                    "ap": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 7
+                    },
+                    "address": {
+                      "anyOf": [
+                        {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 4294967295
+                        },
+                        {
+                          "type": "string",
+                          "pattern": "^0x[0-9a-fA-F]{1,8}$"
+                        }
+                      ]
+                    },
+                    "mask": {
+                      "anyOf": [
+                        {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 4294967295
+                        },
+                        {
+                          "type": "string",
+                          "pattern": "^0x[0-9a-fA-F]{1,8}$"
+                        }
+                      ]
+                    },
+                    "value": {
+                      "anyOf": [
+                        {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 4294967295
+                        },
+                        {
+                          "type": "string",
+                          "pattern": "^0x[0-9a-fA-F]{1,8}$"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "comment": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

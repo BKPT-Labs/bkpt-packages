@@ -27,7 +27,7 @@
       "id": "trace-support",
       "kind": "component",
       "name": "Trace Support",
-      "rev": "1",
+      "rev": "2",
       "manifest": "trace-support/manifest.json"
     }
   ]

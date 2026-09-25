@@ -2,8 +2,8 @@
   "$schema": "https://opendatasheet.org/schema/v0.1/trace-support.schema.json",
   "spec_version": "0.1",
   "type": "trace-support",
-  "rev": 14,
-  "updated_utc": "2026-09-11",
+  "rev": 16,
+  "updated_utc": "2026-09-21",
   "comment": "CANONICAL debugger-side trace bring-up catalog (bkpt-packages/trace-support). Consumers bundle a snapshot at build/dev time (the ViewAlyzer app never fetches at runtime; a future app fetch would come from this repo). Offline user override: <userAppData>/ViewAlyzer/trace-support.json (same shape). Rows group parts sharing a vendor debug-domain map. Device ID allowlists identify the known parts in each group; an arbitrary nonzero value at the same address is not sufficient vendor identification. Unknown IDs require catalog validation before vendor-specific initialization is enabled. Its init ops then run through a read-modify-write interpreter: {addr, set} = write literal, {addr, or} = OR bits in, {addr, insert, mask} = (old & ~mask) | (insert & mask). The token $prescaler normally resolves to (cpu-clock-hz / swo-freq-hz) - 1. A row-level swo_clock_div makes both the probe receiver and $prescaler use cpu-clock-hz / swo_clock_div; an individual op may override that with src-clock-div. tpiu:false means the row replaces the standard ARM TPIU programming (parts with their own SWO block). Optional per-row keys: onchip = the vacore_capture --probeless profile token for the family (Auto chip selection in the on-chip trace flow; absent = generic discovery), note = a one-line caveat logged when the row matches (for example: SWO bring-up not catalogued for this family yet). Rows are probed IN ORDER and the first match wins; keep more specific layouts before broader groups.",
   "devices": [
     {
@@ -524,5 +524,216 @@
       ],
       "onchip": "generic"
     }
-  ]
+  ],
+  "debug_profiles": {
+    "schema": 1,
+    "discovery_guards": [
+      {
+        "rom": {
+          "ap": 2,
+          "base": "0xE00E0000",
+          "designer": "0x020",
+          "part": "0x450"
+        },
+        "components": [
+          {
+            "base": "0xE00E3000",
+            "ready": {
+              "ap": 2,
+              "address": "0xE00E1004",
+              "mask": "0x00500000",
+              "value": "0x00500000"
+            }
+          },
+          {
+            "base": "0xE00E4000",
+            "ready": {
+              "ap": 2,
+              "address": "0xE00E1004",
+              "mask": "0x00500000",
+              "value": "0x00500000"
+            }
+          },
+          {
+            "base": "0xE00F0000",
+            "ready": {
+              "ap": 2,
+              "address": "0xE00E1004",
+              "mask": "0x00200000",
+              "value": "0x00200000"
+            }
+          }
+        ],
+        "sources": [
+          "ST RM0399 Rev 3 sections 63.1.4, 63.5.1 and 63.6: debug clock domains, system ROM tables and DBGMCU_CR."
+        ],
+        "comment": "Presence in a ROM table is not proof that a debug domain is clocked. Read DBGMCU_CR through the APB debug alias before touching these children; defer them without writes when the required clocks are disabled or unreadable."
+      }
+    ],
+    "profiles": [
+      {
+        "id": "stm32h7x5-x7",
+        "label": "STM32H745/755/747/757",
+        "match": {
+          "rom": {
+            "ap": 0,
+            "designer": "0x020",
+            "part": "0x450"
+          }
+        },
+        "cores": [
+          {
+            "id": "cm7",
+            "label": "Cortex-M7",
+            "ap": 0,
+            "scs_base": "0xE000E000",
+            "cpuid_part": "0xC27"
+          },
+          {
+            "id": "cm4",
+            "label": "Cortex-M4",
+            "ap": 3,
+            "scs_base": "0xE000E000",
+            "cpuid_part": "0xC24"
+          }
+        ],
+        "reset": {
+          "schema": 1,
+          "method": "sysresetreq",
+          "scope": "target",
+          "issuer": "cm7",
+          "debug_retained": true,
+          "delayed_reset_catch": true,
+          "timeout_ms": 2000,
+          "cores": [
+            {
+              "id": "cm7",
+              "boot_held": [
+                {
+                  "ap": 0,
+                  "address": "0x5200201C",
+                  "mask": "0x00C00000",
+                  "value": "0x00400000"
+                },
+                {
+                  "ap": 0,
+                  "address": "0x580244A0",
+                  "mask": "0x00000004",
+                  "value": "0x00000000"
+                }
+              ]
+            },
+            {
+              "id": "cm4",
+              "boot_held": [
+                {
+                  "ap": 0,
+                  "address": "0x5200201C",
+                  "mask": "0x00400000",
+                  "value": "0x00000000"
+                },
+                {
+                  "ap": 0,
+                  "address": "0x580244A0",
+                  "mask": "0x00000008",
+                  "value": "0x00000000"
+                }
+              ]
+            }
+          ],
+          "sources": [
+            "ST RM0399 Rev 3 sections 4.9.8, 9.4.2, 9.4.7, 9.7.36, 63.3.3; Arm DDI 0403E.e C1.4.1"
+          ],
+          "comment": "One SYSRESETREQ resets both CPUs; system reset retains debug. Read-only hold-boot predicates include the both-option-bits-clear M7 fallback. Do not write option bytes or BOOT_Cx. Delayed reset catch and retained comparators validated on H755 M7/AP0 and M4/AP3 with BootCM7_CM4Gated firmware."
+        },
+        "sources": [
+          "https://www.st.com/resource/en/application_note/an5286-stm32h7x5x7-dualcore-microcontroller-debugging-stmicroelectronics.pdf"
+        ],
+        "comment": "A ROM part of 0x450 alone also matches single-core STM32H7. Confirm only when both architectural core identities are observed. Missing AP3 is a possible profile, not an assertion that a second core exists. CTI routes require separately verified integration data.",
+        "swo": {
+          "schema": 1,
+          "mode": "single-source",
+          "clock_core": "cm7",
+          "tpiu": false,
+          "route": {
+            "ap": 2,
+            "address": "0xE00E4000",
+            "mask": "0x00000003"
+          },
+          "cores": [
+            {
+              "id": "cm7",
+              "value": "0x00000001"
+            },
+            {
+              "id": "cm4",
+              "value": "0x00000002"
+            }
+          ],
+          "init": [
+            {
+              "ap": 2,
+              "address": "0xE00E1004",
+              "mask": "0x00700000",
+              "value": "0x00700000"
+            },
+            {
+              "ap": 2,
+              "address": "0xE00E4FB0",
+              "mask": "0xFFFFFFFF",
+              "value": "0xC5ACCE55",
+              "write_only": true
+            },
+            {
+              "ap": 2,
+              "address": "0xE00E3FB0",
+              "mask": "0xFFFFFFFF",
+              "value": "0xC5ACCE55",
+              "write_only": true
+            },
+            {
+              "ap": 2,
+              "address": "0xE00E30F0",
+              "mask": "0x00000003",
+              "value": "0x00000002"
+            },
+            {
+              "ap": 2,
+              "address": "0xE00E3010",
+              "mask": "0x00000FFF",
+              "value": "$prescaler"
+            },
+            {
+              "ap": 0,
+              "address": "0x580244E0",
+              "mask": "0x00000002",
+              "value": "0x00000002"
+            },
+            {
+              "ap": 0,
+              "address": "0x58020400",
+              "mask": "0x000000C0",
+              "value": "0x00000080"
+            },
+            {
+              "ap": 0,
+              "address": "0x58020408",
+              "mask": "0x000000C0",
+              "value": "0x000000C0"
+            },
+            {
+              "ap": 0,
+              "address": "0x58020420",
+              "mask": "0x0000F000",
+              "value": "0x00000000"
+            }
+          ],
+          "sources": [
+            "https://www.st.com/resource/en/reference_manual/rm0399-stm32h745755-and-stm32h747757-advanced-armbased-32bit-mcus-stmicroelectronics.pdf#page=3341"
+          ],
+          "comment": "RM0399 sections 63.4, 63.5.1 and 63.5.8: APB-AP2 uses debug aliases 0xE00Exxxx, not the CPU-visible 0x5C00xxxx map. SWTF input 0 is M7 and input 1 is M4. Raw SWO has no formatter or source identity; exactly one input may be selected. Its clock is the M7 clock."
+        }
+      }
+    ]
+  }
 }
