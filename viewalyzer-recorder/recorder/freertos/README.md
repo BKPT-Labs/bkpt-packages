@@ -239,6 +239,29 @@ VA_EVENT_END(1);
 
 That is usually the best balance: let the adapter capture scheduler behavior automatically, then add user traces only around application-specific work.
 
+## Scheduler and buffer tracing
+
+`VA_TRACE_TASK_STATES` defaults to `VA_TRACE_TASKS`. Existing scheduler hooks
+record ready/blocked/sleep/suspend transitions and set/inherit/disinherit priority
+changes, retaining both effective and base priorities. Object blocking hooks
+identify queue, mutex, semaphore, notification, event-group and buffer waits.
+
+`VA_TRACE_STREAM_BUFFERS` defaults to `VA_TRACE_DEFAULT` and covers stream and
+message buffers, including partial transfers, failed operations, reset, capacity,
+requested/transferred byte counts and ISR context. Internal notification waits
+retain the outer buffer wait reason. Both categories require
+`INCLUDE_xTaskGetCurrentTaskHandle=1`; the hook header supplies it if unset.
+
+The legacy stream hooks do not fire on every API exit. In particular, receiving
+a message into a destination smaller than that message can return zero without
+a receive/failure hook. Absence of an event is not proof of success. Buffer
+creation failures have no object identity and are not represented as resources.
+
+Use the matching ViewAlyzer-RS build: Timeline and Details show scheduler data;
+Comms **Resources** shows buffer activity without assuming one send matches one
+receive. New event/metadata codes require the updated viewer. The kernel remains
+unmodified; use the existing pre-10.4 or 10.4+ integration header as appropriate.
+
 ## Related Docs
 
 - [../README.md](../README.md)

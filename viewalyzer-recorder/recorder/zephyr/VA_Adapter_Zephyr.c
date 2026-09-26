@@ -236,7 +236,7 @@ void sys_trace_thread_switched_in_user(void)
     k_tid_t cur = k_current_get();
     if (_va_find_task_id((void *)cur) == 0)
         va_zephyr_register_thread(cur);
-#if VA_TRACE_TASKS
+#if VA_TRACE_TASKS || VA_TRACE_TASK_STATES
     va_taskswitchedin((void *)cur);
 #endif
 }
@@ -437,12 +437,20 @@ void viewalyzer_zephyr_sem_take_exit(struct k_sem *sem, k_timeout_t timeout, int
 
 /* ── Message queue tracing dispatch (called from sys_port_trace macros) ─── */
 
+#if VA_HAS_QUEUE_DETAILS
+void viewalyzer_zephyr_msgq_detail(struct k_msgq *msgq, uint8_t op, int ret);
+void viewalyzer_zephyr_unbounded(void *queue, uint8_t op, uint32_t count);
+#endif
+
 #if VA_TRACE_QUEUES
 void viewalyzer_zephyr_msgq_init(struct k_msgq *msgq)
 {
     if (!VA_IsInit())
         return;
     va_zephyr_ensure_object_type((void *)msgq, VA_OBJECT_TYPE_QUEUE, "Queue");
+#if VA_HAS_QUEUE_DETAILS
+    viewalyzer_zephyr_msgq_detail(msgq, VA_QUEUE_INIT, 0);
+#endif
 }
 
 void viewalyzer_zephyr_msgq_put_enter(struct k_msgq *msgq, k_timeout_t timeout)
@@ -469,6 +477,9 @@ void viewalyzer_zephyr_msgq_put_exit(struct k_msgq *msgq, k_timeout_t timeout, i
         va_logQueueObjectGive((void *)msgq, va_zephyr_timeout_to_ms(timeout));
     else
         va_logObjectOpFailedTyped((void *)msgq, VA_OBJECT_TYPE_QUEUE, true, 0);
+#if VA_HAS_QUEUE_DETAILS
+    viewalyzer_zephyr_msgq_detail(msgq, VA_QUEUE_BACK, ret);
+#endif
 }
 
 void viewalyzer_zephyr_msgq_get_enter(struct k_msgq *msgq, k_timeout_t timeout)
@@ -495,6 +506,9 @@ void viewalyzer_zephyr_msgq_get_exit(struct k_msgq *msgq, k_timeout_t timeout, i
         va_logQueueObjectTake((void *)msgq, va_zephyr_timeout_to_ms(timeout));
     else
         va_logObjectOpFailedTyped((void *)msgq, VA_OBJECT_TYPE_QUEUE, false, 0);
+#if VA_HAS_QUEUE_DETAILS
+    viewalyzer_zephyr_msgq_detail(msgq, VA_QUEUE_RECEIVE, ret);
+#endif
 }
 #endif
 
@@ -508,6 +522,9 @@ void viewalyzer_zephyr_fifo_init(struct k_fifo *fifo)
     if (!VA_IsInit())
         return;
     va_zephyr_ensure_object_type((void *)fifo, VA_OBJECT_TYPE_QUEUE, "FifoQueue");
+#if VA_HAS_QUEUE_DETAILS
+    viewalyzer_zephyr_unbounded(fifo, VA_QUEUE_INIT, 0);
+#endif
 }
 
 void viewalyzer_zephyr_fifo_put(struct k_fifo *fifo)
@@ -516,6 +533,9 @@ void viewalyzer_zephyr_fifo_put(struct k_fifo *fifo)
         return;
     va_zephyr_ensure_object_type((void *)fifo, VA_OBJECT_TYPE_QUEUE, "FifoQueue");
     va_logQueueObjectGive((void *)fifo, 0);
+#if VA_HAS_QUEUE_DETAILS
+    viewalyzer_zephyr_unbounded(fifo, VA_QUEUE_BACK, 1);
+#endif
 }
 
 void viewalyzer_zephyr_fifo_alloc_put(struct k_fifo *fifo, int ret)
@@ -526,10 +546,17 @@ void viewalyzer_zephyr_fifo_alloc_put(struct k_fifo *fifo, int ret)
 
 void viewalyzer_zephyr_fifo_get(struct k_fifo *fifo, void *ret)
 {
+#if VA_HAS_QUEUE_DETAILS
+    if (VA_IsInit() && ret == NULL)
+        viewalyzer_zephyr_unbounded(fifo, VA_QUEUE_RECEIVE_FAILED, 0);
+#endif
     if (!VA_IsInit() || ret == NULL)
         return;
     va_zephyr_ensure_object_type((void *)fifo, VA_OBJECT_TYPE_QUEUE, "FifoQueue");
     va_logQueueObjectTake((void *)fifo, 0);
+#if VA_HAS_QUEUE_DETAILS
+    viewalyzer_zephyr_unbounded(fifo, VA_QUEUE_RECEIVE, 1);
+#endif
 }
 
 void viewalyzer_zephyr_lifo_init(struct k_lifo *lifo)
@@ -537,6 +564,9 @@ void viewalyzer_zephyr_lifo_init(struct k_lifo *lifo)
     if (!VA_IsInit())
         return;
     va_zephyr_ensure_object_type((void *)lifo, VA_OBJECT_TYPE_QUEUE, "LifoQueue");
+#if VA_HAS_QUEUE_DETAILS
+    viewalyzer_zephyr_unbounded(lifo, VA_QUEUE_INIT, 0);
+#endif
 }
 
 void viewalyzer_zephyr_lifo_put(struct k_lifo *lifo)
@@ -545,6 +575,9 @@ void viewalyzer_zephyr_lifo_put(struct k_lifo *lifo)
         return;
     va_zephyr_ensure_object_type((void *)lifo, VA_OBJECT_TYPE_QUEUE, "LifoQueue");
     va_logQueueObjectGive((void *)lifo, 0);
+#if VA_HAS_QUEUE_DETAILS
+    viewalyzer_zephyr_unbounded(lifo, VA_QUEUE_LIFO, 1);
+#endif
 }
 
 void viewalyzer_zephyr_lifo_alloc_put(struct k_lifo *lifo, int ret)
@@ -555,10 +588,17 @@ void viewalyzer_zephyr_lifo_alloc_put(struct k_lifo *lifo, int ret)
 
 void viewalyzer_zephyr_lifo_get(struct k_lifo *lifo, void *ret)
 {
+#if VA_HAS_QUEUE_DETAILS
+    if (VA_IsInit() && ret == NULL)
+        viewalyzer_zephyr_unbounded(lifo, VA_QUEUE_RECEIVE_FAILED, 0);
+#endif
     if (!VA_IsInit() || ret == NULL)
         return;
     va_zephyr_ensure_object_type((void *)lifo, VA_OBJECT_TYPE_QUEUE, "LifoQueue");
     va_logQueueObjectTake((void *)lifo, 0);
+#if VA_HAS_QUEUE_DETAILS
+    viewalyzer_zephyr_unbounded(lifo, VA_QUEUE_RECEIVE, 1);
+#endif
 }
 #endif /* VA_TRACE_QUEUES */
 
@@ -642,7 +682,7 @@ void viewalyzer_zephyr_work_cancel_delayable(struct k_work_delayable *dwork)
 
 /* ── Sleep tracing dispatch (k_sleep / k_msleep / k_usleep) ──────── */
 
-#if VA_TRACE_SLEEP
+#if VA_TRACE_SLEEP || VA_TRACE_TASK_STATES
 /* Suspend/resume ride the sleep events: the suspend-to-resume window shows
    as one sleep period on the suspended thread. The resume point fires
    before the kernel checks whether the thread was actually suspended, so a
@@ -651,6 +691,7 @@ void viewalyzer_zephyr_thread_suspend(struct k_thread *thread)
 {
     if (!VA_IsInit())
         return;
+    va_logTaskState(thread, VA_TASK_SUSPENDED);
     va_logSleepEnter((void *)thread);
 }
 
@@ -666,6 +707,8 @@ void viewalyzer_zephyr_thread_sleep_enter(k_timeout_t timeout)
     ARG_UNUSED(timeout);
     if (!VA_IsInit())
         return;
+    if (!K_TIMEOUT_EQ(timeout, K_NO_WAIT))
+        va_logTaskState(k_current_get(), VA_TASK_SLEEPING);
     va_logSleepEnter((void *)k_current_get());
 }
 
@@ -675,6 +718,7 @@ void viewalyzer_zephyr_thread_sleep_exit(k_timeout_t timeout, int ret)
     ARG_UNUSED(ret);
     if (!VA_IsInit())
         return;
+    va_logTaskState(k_current_get(), VA_TASK_RUNNING);
     va_logSleepExit((void *)k_current_get());
 }
 
@@ -683,6 +727,8 @@ void viewalyzer_zephyr_thread_msleep_enter(int32_t ms)
     ARG_UNUSED(ms);
     if (!VA_IsInit())
         return;
+    if (ms > 0)
+        va_logTaskState(k_current_get(), VA_TASK_SLEEPING);
     va_logSleepEnter((void *)k_current_get());
 }
 
@@ -692,6 +738,7 @@ void viewalyzer_zephyr_thread_msleep_exit(int32_t ms, int ret)
     ARG_UNUSED(ret);
     if (!VA_IsInit())
         return;
+    va_logTaskState(k_current_get(), VA_TASK_RUNNING);
     va_logSleepExit((void *)k_current_get());
 }
 
@@ -700,6 +747,8 @@ void viewalyzer_zephyr_thread_usleep_enter(int32_t us)
     ARG_UNUSED(us);
     if (!VA_IsInit())
         return;
+    if (us > 0)
+        va_logTaskState(k_current_get(), VA_TASK_SLEEPING);
     va_logSleepEnter((void *)k_current_get());
 }
 
@@ -709,6 +758,7 @@ void viewalyzer_zephyr_thread_usleep_exit(int32_t us, int ret)
     ARG_UNUSED(ret);
     if (!VA_IsInit())
         return;
+    va_logTaskState(k_current_get(), VA_TASK_RUNNING);
     va_logSleepExit((void *)k_current_get());
 }
 #endif
@@ -872,6 +922,186 @@ void viewalyzer_zephyr_pm_system_suspend_exit(uint32_t ticks, uint8_t state)
     if (!VA_IsInit())
         return;
     va_logPMSuspendExit(state);
+}
+#endif
+
+#if VA_TRACE_TASK_STATES
+void viewalyzer_zephyr_sched_state(struct k_thread *thread, VA_TaskState_t state)
+{
+    if (!VA_IsInit()) return;
+    va_zephyr_register_thread(thread);
+    va_logTaskState(thread, state);
+    if (state == VA_TASK_READY) va_clearTaskWait(thread);
+}
+
+void viewalyzer_zephyr_priority(struct k_thread *thread, int prio)
+{
+    if (!VA_IsInit()) return;
+    va_zephyr_register_thread(thread);
+    /* This hook covers both explicit changes and mutex inheritance. Zephyr
+       does not expose a task-wide base priority or the cause at this site. */
+    va_logTaskPriority(thread, prio, INT32_MIN, 0);
+}
+
+void viewalyzer_zephyr_wait(void *object, VA_QueueObjectType_t type,
+                           VA_WaitReason_t reason, uint32_t detail)
+{
+    if (!VA_IsInit() || k_is_in_isr()) return;
+    va_zephyr_register_thread(k_current_get());
+    va_logTaskWait(k_current_get(), reason, object, type, detail);
+}
+
+void viewalyzer_zephyr_wait_end(void)
+{
+    if (!k_is_in_isr()) va_clearTaskWait(k_current_get());
+}
+#else
+#define viewalyzer_zephyr_wait(o, t, r, d) ((void)0)
+#define viewalyzer_zephyr_wait_end() ((void)0)
+#endif
+
+#if VA_TRACE_TIMERS && VA_TRACE_TIMER_CALLBACKS && defined(VA_ZEPHYR_HAS_TIMER_CALLBACKS)
+void viewalyzer_zephyr_timer_callback(struct k_timer *timer, bool enter, bool stop)
+{
+    va_logTimerCallback(timer, enter, stop,
+        stop ? (void *)timer->stop_fn : (void *)timer->expiry_fn);
+}
+#endif
+
+#if VA_NEEDS_RTOS_OPERATIONS
+static void va_zephyr_operation(void *object, VA_QueueObjectType_t type, uint8_t event,
+                                VA_RtosOperation_t op, uint32_t value, uint32_t detail)
+{
+    if (!VA_IsInit()) return;
+    uint16_t exception = (uint16_t)__get_IPSR();
+    if (exception == 0) va_zephyr_register_thread(k_current_get());
+    va_logRtosOperation(object, type, event, op, value, detail,
+                        exception == 0 ? k_current_get() : NULL, exception);
+}
+#endif
+
+#if VA_HAS_QUEUE_DETAILS
+void viewalyzer_zephyr_msgq_detail(struct k_msgq *msgq, uint8_t op, int ret)
+{
+    if (!VA_IsInit()) return;
+    if (ret != 0) op = op == VA_QUEUE_RECEIVE ? VA_QUEUE_RECEIVE_FAILED :
+                       op == VA_QUEUE_PEEK ? VA_QUEUE_PEEK_FAILED : VA_QUEUE_SEND_FAILED;
+    va_logRtosObjectInfo(msgq, VA_OBJECT_TYPE_QUEUE, msgq->max_msgs, msgq->msg_size);
+    /* Purge hook is before the assignment, under the kernel's spinlock. */
+    uint32_t used = op == VA_QUEUE_RESET ? 0 : msgq->used_msgs;
+    va_zephyr_operation(msgq, VA_OBJECT_TYPE_QUEUE, VA_EVENT_QUEUE_DETAILS,
+        (VA_RtosOperation_t)op, used, 1);
+}
+
+void viewalyzer_zephyr_unbounded(void *queue, uint8_t op, uint32_t count)
+{
+    if (!VA_IsInit()) return;
+    /* No O(n) queue traversal or guessed kernel layout. A failed get observes
+       empty; other operations cannot safely establish occupancy after wakeup. */
+    va_zephyr_operation(queue, VA_OBJECT_TYPE_QUEUE, VA_EVENT_QUEUE_DETAILS,
+        (VA_RtosOperation_t)op,
+        (op == VA_QUEUE_INIT || op == VA_QUEUE_RECEIVE_FAILED) ? 0 : UINT32_MAX, count);
+}
+
+void viewalyzer_zephyr_fifo_batch(struct k_fifo *fifo, void *head, void *tail)
+{
+    if (!VA_IsInit()) return;
+    /* The caller still owns the intrusive list at ENTER. Bound recorder work;
+       UINT32_MAX means an uncounted remainder, never a fabricated one-item put. */
+    uint32_t count = 0;
+    void *node = head;
+    while (node != NULL && count < 256) {
+        ++count;
+        if (node == tail) { node = NULL; break; }
+        node = *(void **)node;
+    }
+    viewalyzer_zephyr_unbounded(fifo, VA_QUEUE_BATCH, node == NULL ? count : UINT32_MAX);
+}
+#endif
+
+#if VA_HAS_EVENT_FLAG_DETAILS
+void viewalyzer_zephyr_flags(struct k_event *event, uint8_t op, uint32_t bits, uint32_t mask)
+{
+    va_zephyr_operation(event, VA_OBJECT_TYPE_EVENTFLAG, VA_EVENT_FLAG_DETAILS,
+        (VA_RtosOperation_t)op, bits, mask);
+}
+#endif
+
+#if VA_TRACE_MEM_SLABS || VA_TRACE_TASK_STATES
+void viewalyzer_zephyr_slab(struct k_mem_slab *slab, uint8_t operation, int ret)
+{
+    if (!VA_IsInit()) return;
+    if (operation == VA_OP_WAIT_BEGIN) {
+        viewalyzer_zephyr_wait(slab, VA_OBJECT_TYPE_MEM_SLAB, VA_WAIT_MEM_SLAB, 0);
+        return;
+    }
+    if (operation == VA_OP_ALLOC) viewalyzer_zephyr_wait_end();
+#if VA_TRACE_MEM_SLABS
+    va_logRtosObjectInfo(slab, VA_OBJECT_TYPE_MEM_SLAB,
+                         slab->info.num_blocks, slab->info.block_size);
+    if (operation != 0)
+        va_zephyr_operation(slab, VA_OBJECT_TYPE_MEM_SLAB, VA_EVENT_MEM_SLAB,
+            ret != 0 ? VA_OP_ALLOC_FAILED : (VA_RtosOperation_t)operation,
+            slab->info.num_used, (uint32_t)ret);
+#else
+    ARG_UNUSED(ret);
+#endif
+}
+#endif
+
+#if VA_TRACE_CONDVARS || VA_TRACE_TASK_STATES
+void viewalyzer_zephyr_condvar(struct k_condvar *condvar, uint8_t operation,
+                              int ret, struct k_mutex *mutex, k_timeout_t timeout)
+{
+    if (!VA_IsInit()) return;
+    if (operation == VA_OP_WAIT_BEGIN)
+        viewalyzer_zephyr_wait(condvar, VA_OBJECT_TYPE_CONDVAR, VA_WAIT_CONDVAR,
+                               (uint32_t)(uintptr_t)mutex);
+    if (operation == VA_OP_WAIT_END) viewalyzer_zephyr_wait_end();
+#if VA_TRACE_CONDVARS
+    if (operation == 0)
+        va_logQueueObjectCreateTyped(condvar, NULL, VA_OBJECT_TYPE_CONDVAR);
+    else
+        va_zephyr_operation(condvar, VA_OBJECT_TYPE_CONDVAR, VA_EVENT_CONDVAR,
+            (VA_RtosOperation_t)operation,
+            operation == VA_OP_WAIT_BEGIN ? (uint32_t)(uintptr_t)mutex : (uint32_t)ret,
+            operation == VA_OP_WAIT_BEGIN ? va_zephyr_timeout_to_ms(timeout) : 0);
+#else
+    ARG_UNUSED(ret); ARG_UNUSED(mutex); ARG_UNUSED(timeout);
+#endif
+}
+#endif
+
+#if VA_TRACE_POLL || VA_TRACE_TASK_STATES
+void viewalyzer_zephyr_poll(struct k_poll_event *events, int count, bool enter, int ret)
+{
+    if (!VA_IsInit()) return;
+    if (enter)
+        viewalyzer_zephyr_wait(NULL, VA_OBJECT_TYPE_POLL_SIGNAL, VA_WAIT_POLL,
+                               (uint32_t)(uintptr_t)events);
+    else
+        viewalyzer_zephyr_wait_end();
+#if VA_TRACE_POLL
+    va_zephyr_operation(NULL, VA_OBJECT_TYPE_POLL_SIGNAL, VA_EVENT_POLL,
+        enter ? VA_OP_WAIT_BEGIN : VA_OP_WAIT_END,
+        (uint32_t)(uintptr_t)events, enter ? (uint32_t)count : (uint32_t)ret);
+#else
+    ARG_UNUSED(count); ARG_UNUSED(ret);
+#endif
+}
+
+void viewalyzer_zephyr_poll_signal(struct k_poll_signal *sig, uint8_t operation, int ret)
+{
+#if VA_TRACE_POLL
+    if (!VA_IsInit()) return;
+    if (operation == 0)
+        va_logQueueObjectCreateTyped(sig, NULL, VA_OBJECT_TYPE_POLL_SIGNAL);
+    else
+        va_zephyr_operation(sig, VA_OBJECT_TYPE_POLL_SIGNAL, VA_EVENT_POLL,
+            (VA_RtosOperation_t)operation, (uint32_t)sig->result, (uint32_t)ret);
+#else
+    ARG_UNUSED(sig); ARG_UNUSED(operation); ARG_UNUSED(ret);
+#endif
 }
 #endif
 

@@ -1539,6 +1539,14 @@ void VA_EmitSetupBundle(void)
             continue;
 
         VA_ATOMIC(_va_send_setup_packet(_va_get_setup_packet_type(otype), oid, oname));
+        VA_ATOMIC(_va_send_object_info_packet(oid, VA_OBJINFO_OBJECT_TYPE, (uint32_t)otype));
+#if VA_NEEDS_RTOS_OPERATIONS
+        VA_ATOMIC(
+            if (queueObjectMap[i].active && queueObjectMap[i].id == oid) {
+                _va_send_object_info_packet(oid, VA_OBJINFO_CAPACITY, queueObjectMap[i].capacity);
+                _va_send_object_info_packet(oid, VA_OBJINFO_ELEMENT_SIZE, queueObjectMap[i].elementSize);
+            });
+#endif
         VA_ATOMIC(_va_send_object_info_packet(oid, VA_OBJINFO_OBJECT_ADDR,
                                               (uint32_t)(uintptr_t)ohandle));
 #if VA_HAS_RTOS && VA_TRACE_RTOS_HEAPS
@@ -1703,15 +1711,21 @@ uint8_t _va_assign_task_id(void *handle, const char *name)
     uint8_t new_id = next_task_id++;
     taskMap[empty_slot].active = true;
     taskMap[empty_slot].handle = handle;
+#if VA_TRACE_TASK_STATES
+    taskMap[empty_slot].state = 0;
+    taskMap[empty_slot].waitReason = 0;
+    taskMap[empty_slot].waitObject = 0;
+    taskMap[empty_slot].waitDetail = 0;
+#endif
     taskMap[empty_slot].id = new_id;
 #if VA_TRACE_TASK_NOTIFICATIONS
     taskMap[empty_slot].last_notifier = NULL;
 #endif
-#if VA_TRACE_TASKS
+#if VA_TRACE_TASKS || VA_TRACE_TASK_STATES
     taskMap[empty_slot].uxPriority = g_task_uxPriority;
     taskMap[empty_slot].uxBasePriority = g_task_uxBasePriority;
 #endif
-#if VA_TRACE_TASKS || VA_TRACE_STACK_USAGE
+#if VA_TRACE_TASKS || VA_TRACE_TASK_STATES || VA_TRACE_STACK_USAGE
     taskMap[empty_slot].ulStackDepth = g_task_ulStackDepth;
 #endif
 #if VA_TRACE_STACK_USAGE
@@ -1771,6 +1785,11 @@ const char *_va_get_object_type_name(VA_QueueObjectType_t type)
     case VA_OBJECT_TYPE_TIMER:           return "Timer";
     case VA_OBJECT_TYPE_HEAP:            return "Heap";
     case VA_OBJECT_TYPE_POWER_MGMT:      return "PowerMgmt";
+    case VA_OBJECT_TYPE_STREAM_BUFFER:   return "StreamBuffer";
+    case VA_OBJECT_TYPE_MESSAGE_BUFFER:  return "MessageBuffer";
+    case VA_OBJECT_TYPE_MEM_SLAB:        return "MemorySlab";
+    case VA_OBJECT_TYPE_CONDVAR:         return "Condvar";
+    case VA_OBJECT_TYPE_POLL_SIGNAL:     return "PollSignal";
     default:                             return "Unknown";
     }
 }
@@ -1882,6 +1901,10 @@ uint8_t _va_assign_queue_object_id(void *handle, const char *name, VA_QueueObjec
     queueObjectMap[empty_slot].handle = handle;
     queueObjectMap[empty_slot].id = new_id;
     queueObjectMap[empty_slot].type = type;
+#if VA_NEEDS_RTOS_OPERATIONS
+    queueObjectMap[empty_slot].capacity = 0;
+    queueObjectMap[empty_slot].elementSize = 0;
+#endif
 #if VA_HAS_RTOS && VA_TRACE_RTOS_HEAPS
     queueObjectMap[empty_slot].heapCapacity = 0;
 #endif
@@ -1900,6 +1923,7 @@ uint8_t _va_assign_queue_object_id(void *handle, const char *name, VA_QueueObjec
     }
 
     _va_send_setup_packet(_va_get_setup_packet_type(type), new_id, queueObjectMap[empty_slot].name);
+    _va_send_object_info_packet(new_id, VA_OBJINFO_OBJECT_TYPE, (uint32_t)type);
     /* The handle address lets hosts name statically-defined objects from
        the ELF (heap-allocated handles simply resolve to nothing). */
     _va_send_object_info_packet(new_id, VA_OBJINFO_OBJECT_ADDR,
@@ -1921,6 +1945,11 @@ static inline bool _va_type_emits_events(VA_QueueObjectType_t type)
     case VA_OBJECT_TYPE_HEAP:            return (VA_TRACE_RTOS_HEAPS != 0);
     case VA_OBJECT_TYPE_POWER_MGMT:      return (VA_TRACE_PM != 0);
     case VA_OBJECT_TYPE_EVENTFLAG:       return (VA_TRACE_EVENT_FLAGS != 0);
+    case VA_OBJECT_TYPE_STREAM_BUFFER:
+    case VA_OBJECT_TYPE_MESSAGE_BUFFER:  return (VA_TRACE_STREAM_BUFFERS != 0);
+    case VA_OBJECT_TYPE_MEM_SLAB:        return (VA_TRACE_MEM_SLABS != 0);
+    case VA_OBJECT_TYPE_CONDVAR:         return (VA_TRACE_CONDVARS != 0);
+    case VA_OBJECT_TYPE_POLL_SIGNAL:     return (VA_TRACE_POLL != 0);
     case VA_OBJECT_TYPE_QUEUE:
     default:                             return (VA_TRACE_QUEUES != 0);
     }
@@ -1930,6 +1959,10 @@ static inline bool _va_type_emits_events(VA_QueueObjectType_t type)
    packet references the mutex by object id. */
 static inline bool _va_type_needs_registry(VA_QueueObjectType_t type)
 {
+#if VA_TRACE_TASK_STATES
+    (void)type;
+    return true;
+#endif
     if (type == VA_OBJECT_TYPE_MUTEX || type == VA_OBJECT_TYPE_RECURSIVE_MUTEX)
         return (VA_TRACE_MUTEXES != 0) || (VA_TRACE_MUTEX_CONTENTION != 0);
     return _va_type_emits_events(type);
@@ -2051,6 +2084,7 @@ void va_taskdeleted(void *taskHandle)
     if (taskHandle == NULL)
         return;
     VA_CS_ENTER();
+    va_logTaskState(taskHandle, VA_TASK_DELETED);
     _va_release_task(_va_find_task_index(taskHandle));
     VA_CS_EXIT();
 }
@@ -2077,6 +2111,7 @@ void va_taskrenamed(void *taskHandle, const char *name)
 #if VA_NEEDS_SWITCH_HOOK
 void va_taskswitchedin(void *taskHandle)
 {
+    va_logTaskState(taskHandle, VA_TASK_RUNNING);
 #if VA_NEEDS_TASK_SWITCH_EVENTS
     /* Scheduler (PendSV/ISR) context - no bundle service here. */
     VA_CS_ENTER();
@@ -2102,6 +2137,14 @@ void va_taskswitchedout(void *taskHandle)
 
 #if VA_NEEDS_TASK_SWITCH_EVENTS
     _va_send_event_packet(VA_EVENT_TASK_SWITCH, id, now);
+#endif
+
+#if VA_TRACE_TASK_STATES
+    VA_ATOMIC(
+        int state_idx = _va_find_task_index(taskHandle);
+        if (state_idx >= 0 && taskMap[state_idx].state == VA_TASK_RUNNING)
+            va_logTaskState(taskHandle, VA_TASK_READY);
+    );
 #endif
 
 #if VA_TRACE_STACK_USAGE
@@ -2502,6 +2545,8 @@ void va_updateQueueObjectType(void *queueObject, const char *typeHint)
 
         queueObjectMap[idx].type = type;
 
+        _va_send_object_info_packet(queueObjectMap[idx].id, VA_OBJINFO_OBJECT_TYPE, (uint32_t)type);
+
         char descriptiveName[VA_MAX_TASK_NAME_LEN];
         const char *finalName = NULL;
 
@@ -2756,6 +2801,7 @@ void va_logQueueObjectCreateTyped(void *queueObject, const char *name, VA_QueueO
             _va_send_setup_packet(_va_get_setup_packet_type(type),
                                   queueObjectMap[idx].id, queueObjectMap[idx].name);
         }
+        _va_send_object_info_packet(queueObjectMap[idx].id, VA_OBJINFO_OBJECT_TYPE, (uint32_t)type);
     }
     else
     {
@@ -2870,7 +2916,7 @@ void va_logEventFlagWaitEnd(void *flagObject, uint32_t bits)
 #endif /* VA_TRACE_EVENT_FLAGS */
 
 /* ── Two-value events (timer arm, deferred work) ─────────────────── */
-#if VA_HAS_RTOS && (VA_TRACE_TIMERS || VA_TRACE_WORK)
+#if VA_HAS_RTOS && (VA_TRACE_TIMERS || VA_TRACE_WORK || VA_TRACE_TASK_STATES)
 
 /* [type][seq?][id][ts][v1(4)][v2(4)], both values little-endian. */
 static void _va_send_dual_u32_packet(uint8_t type_byte, uint8_t id,
@@ -2894,6 +2940,167 @@ static void _va_send_dual_u32_packet(uint8_t type_byte, uint8_t id,
 }
 
 #endif /* VA_TRACE_TIMERS || VA_TRACE_WORK */
+
+#if VA_HAS_RTOS && (VA_TRACE_TASK_STATES || VA_NEEDS_RTOS_OPERATIONS || VA_HAS_NOTIFICATION_DETAILS)
+static void _va_send_rtos_packet(uint8_t code, uint8_t id, uint32_t a, uint32_t b, uint32_t c)
+{
+    uint8_t packet[2 + VA_SEQ_BYTES + VA_TIMESTAMP_BYTES + 12];
+    uint32_t p = 0;
+    packet[p++] = code;
+    p += VA_SEQ_BYTES;
+    packet[p++] = id;
+    p += _va_put_ts(&packet[p], _va_get_timestamp_unlocked());
+    const uint32_t values[3] = {a, b, c};
+    for (unsigned v = 0; v < 3; ++v)
+        for (unsigned shift = 0; shift < 32; shift += 8)
+            packet[p++] = (uint8_t)(values[v] >> shift);
+    _va_emit_packet(packet, p);
+}
+#endif
+
+#if VA_HAS_RTOS && VA_TRACE_TASK_STATES
+void va_logTaskState(void *task, VA_TaskState_t state)
+{
+    if (!VA_IS_INIT || task == NULL) return;
+    VA_CS_ENTER();
+    int idx = _va_find_task_index(task);
+    if (idx >= 0) {
+        VA_TaskMapEntry_t *entry = &taskMap[idx];
+        /* Generic pend must not erase a known sleep/suspend reason. */
+        if (state == VA_TASK_BLOCKED &&
+            (entry->state == VA_TASK_SLEEPING || entry->state == VA_TASK_SUSPENDED)) {
+            VA_CS_EXIT();
+            return;
+        }
+        if (entry->state != state && state != VA_TASK_RUNNING) {
+            uint32_t reason = state == VA_TASK_BLOCKED ? entry->waitReason : 0;
+            uint32_t object = state == VA_TASK_BLOCKED ? entry->waitObject : 0;
+            _va_send_dual_u32_packet(VA_EVENT_TASK_STATE, entry->id,
+                (uint32_t)state | (reason << 8) | (object << 16),
+                state == VA_TASK_BLOCKED ? entry->waitDetail : 0,
+                _va_get_timestamp_unlocked());
+        }
+        entry->state = (uint8_t)state;
+        /* Wait metadata survives READY until the operation returns: stream
+           buffers may internally wait on a notification more than once. */
+    }
+    VA_CS_EXIT();
+}
+
+void va_logTaskWait(void *task, VA_WaitReason_t reason, void *object,
+                    VA_QueueObjectType_t type, uint32_t detail)
+{
+    if (!VA_IS_INIT || task == NULL) return;
+    VA_CS_ENTER();
+    int idx = _va_find_task_index(task);
+    if (idx >= 0) {
+        VA_TaskMapEntry_t *entry = &taskMap[idx];
+        /* FreeRTOS implements buffer waits using notifications. Preserve
+           the outer operation as the user-visible reason. */
+        if (!(reason == VA_WAIT_NOTIFICATION &&
+              (entry->waitReason == VA_WAIT_STREAM_SEND || entry->waitReason == VA_WAIT_STREAM_RECEIVE))) {
+            entry->waitReason = (uint8_t)reason;
+            entry->waitObject = object != NULL ? _va_assign_queue_object_id(object, NULL, type) : 0;
+            entry->waitDetail = detail;
+        }
+    }
+    VA_CS_EXIT();
+}
+
+void va_clearTaskWait(void *task)
+{
+    if (!VA_IS_INIT) return;
+    VA_CS_ENTER();
+    int idx = _va_find_task_index(task);
+    if (idx >= 0) {
+        taskMap[idx].waitReason = 0;
+        taskMap[idx].waitObject = 0;
+        taskMap[idx].waitDetail = 0;
+    }
+    VA_CS_EXIT();
+}
+
+void va_logTaskPriority(void *task, int32_t effective, int32_t base, uint32_t cause)
+{
+    if (!VA_IS_INIT) return;
+    VA_CS_ENTER();
+    int idx = _va_find_task_index(task);
+    if (idx >= 0) {
+        taskMap[idx].uxPriority = (uint32_t)effective;
+        taskMap[idx].uxBasePriority = (uint32_t)base;
+        _va_send_rtos_packet(VA_EVENT_TASK_PRIORITY, taskMap[idx].id,
+            (uint32_t)effective, taskMap[idx].uxBasePriority, cause);
+    }
+    VA_CS_EXIT();
+}
+#endif
+
+#if VA_HAS_NOTIFICATION_DETAILS
+void va_logNotifyDetail(void *destination, void *sender, uint16_t exception,
+                        uint8_t operation, uint32_t value, uint32_t index)
+{
+    if (!VA_IS_INIT || destination == NULL) return;
+    VA_CS_ENTER();
+    uint8_t id = _va_find_task_id(destination);
+    uint8_t source = exception == 0 ? _va_find_task_id(sender) : 0;
+    if (id != 0)
+        _va_send_rtos_packet(VA_EVENT_NOTIFY_DETAILS, id, (uint32_t)operation |
+            ((uint32_t)source << 8) | ((uint32_t)exception << 16), value, index);
+    VA_CS_EXIT();
+}
+#endif
+
+#if VA_NEEDS_RTOS_OPERATIONS
+void va_logRtosObjectInfo(void *object, VA_QueueObjectType_t type,
+                          uint32_t capacity, uint32_t elementSize)
+{
+    if (!VA_IS_INIT || object == NULL || !_va_type_emits_events(type)) return;
+    VA_CS_ENTER();
+    uint8_t id = _va_assign_queue_object_id(object, NULL, type);
+    int idx = _va_find_queue_object_index(object);
+    if (idx >= 0) {
+        if (queueObjectMap[idx].capacity != capacity) {
+            queueObjectMap[idx].capacity = capacity;
+            _va_send_object_info_packet(id, VA_OBJINFO_CAPACITY, capacity);
+        }
+        if (queueObjectMap[idx].elementSize != elementSize) {
+            queueObjectMap[idx].elementSize = elementSize;
+            _va_send_object_info_packet(id, VA_OBJINFO_ELEMENT_SIZE, elementSize);
+        }
+    }
+    VA_CS_EXIT();
+}
+
+void va_logRtosOperation(void *object, VA_QueueObjectType_t type, uint8_t event,
+                         VA_RtosOperation_t operation, uint32_t value, uint32_t detail,
+                         void *task, uint16_t exception)
+{
+    if (!VA_IS_INIT || !_va_type_emits_events(type)) return;
+    VA_CS_ENTER();
+    uint8_t taskId = exception == 0 ? _va_find_task_id(task) : 0;
+    /* Poll waits belong to a task, not an ephemeral stack-allocated array. */
+    uint8_t id = (event == VA_EVENT_POLL &&
+                  (operation == VA_OP_WAIT_BEGIN || operation == VA_OP_WAIT_END))
+        ? taskId : _va_assign_queue_object_id(object, NULL, type);
+    if (id != 0)
+        _va_send_rtos_packet(event, id, (uint32_t)operation | ((uint32_t)taskId << 8) |
+                             ((uint32_t)exception << 16), value, detail);
+    VA_CS_EXIT();
+}
+#endif
+
+#if VA_HAS_RTOS && VA_TRACE_TIMERS && VA_TRACE_TIMER_CALLBACKS
+void va_logTimerCallback(void *timer, bool enter, bool stop, void *handler)
+{
+    if (!VA_IS_INIT || timer == NULL) return;
+    VA_CS_ENTER();
+    uint8_t id = _va_assign_queue_object_id(timer, NULL, VA_OBJECT_TYPE_TIMER);
+    if (id != 0)
+        _va_send_dual_u32_packet(VA_EVENT_TIMER_CALLBACK | (enter ? VA_EVENT_FLAG_START_END : 0),
+            id, stop ? 1 : 0, (uint32_t)(uintptr_t)handler, _va_get_timestamp_unlocked());
+    VA_CS_EXIT();
+}
+#endif
 
 /* ── Timer arm (duration/period payload) ─────────────────────────── */
 #if VA_HAS_RTOS && VA_TRACE_TIMERS

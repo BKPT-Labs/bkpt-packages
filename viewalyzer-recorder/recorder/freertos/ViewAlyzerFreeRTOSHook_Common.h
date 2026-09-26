@@ -55,6 +55,14 @@
 #error "ViewAlyzer: FreeRTOS SMP (configNUMBER_OF_CORES > 1) is not supported"
 #endif
 
+#if VA_TRACE_TASK_STATES || VA_TRACE_STREAM_BUFFERS || VA_HAS_QUEUE_DETAILS || VA_HAS_EVENT_FLAG_DETAILS || VA_HAS_NOTIFICATION_DETAILS
+#ifndef INCLUDE_xTaskGetCurrentTaskHandle
+#define INCLUDE_xTaskGetCurrentTaskHandle 1
+#elif INCLUDE_xTaskGetCurrentTaskHandle != 1
+#error "ViewAlyzer: scheduler/buffer tracing requires INCLUDE_xTaskGetCurrentTaskHandle=1"
+#endif
+#endif
+
 /* Suggested FreeRTOS config: gives traceTASK_CREATE a real stack depth. */
 #ifndef configRECORD_STACK_HIGH_ADDRESS
 #define configRECORD_STACK_HIGH_ADDRESS 1
@@ -68,6 +76,29 @@
 #ifndef INCLUDE_uxTaskGetStackHighWaterMark
 #define INCLUDE_uxTaskGetStackHighWaterMark 1
 #endif
+#endif
+
+#if VA_HAS_QUEUE_DETAILS || VA_HAS_EVENT_FLAG_DETAILS || VA_HAS_NOTIFICATION_DETAILS
+#ifdef __cplusplus
+extern "C" {
+#endif
+void va_freertos_queue_detail(void *queue, uint8_t operation, uint32_t used,
+                               uint32_t capacity, uint32_t itemSize, uint32_t detail);
+void va_freertos_flags(void *group, uint8_t operation, uint32_t bits, uint32_t mask);
+void va_freertos_notify(void *destination, void *sender, uint8_t operation,
+                        uint32_t value, uint32_t index);
+#ifdef __cplusplus
+}
+#endif
+#endif
+#if VA_HAS_QUEUE_DETAILS
+/* Native Queue_t fields are read only in queue.c, under its own lock.
+   SEND/RECEIVE hooks precede the count update. Full sends are overwrites. */
+#define VA_FREERTOS_QUEUE(q, op, used, arg) \
+    va_freertos_queue_detail((q), (op), (uint32_t)(used), (uint32_t)(q)->uxLength, \
+                             (uint32_t)(q)->uxItemSize, (uint32_t)(arg))
+#else
+#define VA_FREERTOS_QUEUE(q, op, used, arg) ((void)0)
 #endif
 
 /* Each section refuses to stomp (or be stomped by) another trace tool's
@@ -143,7 +174,8 @@ void va_freertos_taskswitchedin(void *taskHandle);
 /* traceQUEUE_CREATE fires for mutexes/semaphores too; the recorder
    registers first and corrects the type on traceCREATE_MUTEX. */
 #define traceQUEUE_CREATE(pxNewQueue) \
-    va_logQueueObjectCreateWithType((pxNewQueue), "Queue")
+    do { va_logQueueObjectCreateWithType((pxNewQueue), "Queue"); \
+         VA_FREERTOS_QUEUE((pxNewQueue), VA_QUEUE_INIT, (pxNewQueue)->uxMessagesWaiting, 0); } while (0)
 
 /* vQueueDelete fires this for queues, mutexes, and semaphores alike;
    the slot is freed so a recycled handle cannot inherit the old name. */
@@ -154,16 +186,20 @@ void va_freertos_taskswitchedin(void *taskHandle);
     va_updateQueueObjectType((pxNewMutex), "Mutex")
 
 #define traceQUEUE_SEND(pxQueue) \
-    va_logQueueObjectGive((pxQueue), xTicksToWait)
+    do { va_logQueueObjectGive((pxQueue), 0); \
+         VA_FREERTOS_QUEUE((pxQueue), VA_QUEUE_SEND, ((pxQueue)->uxMessagesWaiting < (pxQueue)->uxLength ? (pxQueue)->uxMessagesWaiting + 1 : (pxQueue)->uxLength), 1); } while (0)
 
 #define traceQUEUE_SEND_FROM_ISR(pxQueue) \
-    va_logQueueObjectGive((pxQueue), 0)
+    do { va_logQueueObjectGive((pxQueue), 0); \
+         VA_FREERTOS_QUEUE((pxQueue), VA_QUEUE_SEND, ((pxQueue)->uxMessagesWaiting < (pxQueue)->uxLength ? (pxQueue)->uxMessagesWaiting + 1 : (pxQueue)->uxLength), 1); } while (0)
 
 #define traceQUEUE_RECEIVE(pxQueue) \
-    va_logQueueObjectTake((pxQueue), xTicksToWait)
+    do { va_logQueueObjectTake((pxQueue), 0); \
+         VA_FREERTOS_QUEUE((pxQueue), VA_QUEUE_RECEIVE, ((pxQueue)->uxMessagesWaiting - 1), 1); } while (0)
 
 #define traceQUEUE_RECEIVE_FROM_ISR(pxQueue) \
-    va_logQueueObjectTake((pxQueue), 0)
+    do { va_logQueueObjectTake((pxQueue), 0); \
+         VA_FREERTOS_QUEUE((pxQueue), VA_QUEUE_RECEIVE, ((pxQueue)->uxMessagesWaiting - 1), 1); } while (0)
 
 /* User-assigned names from vQueueAddToRegistry() replace the auto-generated
    ones. */
@@ -184,10 +220,14 @@ void va_freertos_taskswitchedin(void *taskHandle);
 #if defined(traceQUEUE_SEND_FAILED) || defined(traceQUEUE_RECEIVE_FAILED)
 #error "ViewAlyzer: a queue failed-op trace macro is already defined - another trace tool is installed in this FreeRTOSConfig.h"
 #endif
-#define traceQUEUE_SEND_FAILED(pxQueue)             va_logQueueObjectOpFailed((pxQueue), true, 0)
-#define traceQUEUE_SEND_FROM_ISR_FAILED(pxQueue)    va_logQueueObjectOpFailed((pxQueue), true, 0)
-#define traceQUEUE_RECEIVE_FAILED(pxQueue)          va_logQueueObjectOpFailed((pxQueue), false, 0)
-#define traceQUEUE_RECEIVE_FROM_ISR_FAILED(pxQueue) va_logQueueObjectOpFailed((pxQueue), false, 0)
+#define traceQUEUE_SEND_FAILED(pxQueue)             do { va_logQueueObjectOpFailed((pxQueue), true, 0); \
+    VA_FREERTOS_QUEUE((pxQueue), VA_QUEUE_SEND_FAILED, (pxQueue)->uxMessagesWaiting, 0); } while (0)
+#define traceQUEUE_SEND_FROM_ISR_FAILED(pxQueue)    do { va_logQueueObjectOpFailed((pxQueue), true, 0); \
+    VA_FREERTOS_QUEUE((pxQueue), VA_QUEUE_SEND_FAILED, (pxQueue)->uxMessagesWaiting, 0); } while (0)
+#define traceQUEUE_RECEIVE_FAILED(pxQueue)          do { va_logQueueObjectOpFailed((pxQueue), false, 0); \
+    VA_FREERTOS_QUEUE((pxQueue), VA_QUEUE_RECEIVE_FAILED, (pxQueue)->uxMessagesWaiting, 0); } while (0)
+#define traceQUEUE_RECEIVE_FROM_ISR_FAILED(pxQueue) do { va_logQueueObjectOpFailed((pxQueue), false, 0); \
+    VA_FREERTOS_QUEUE((pxQueue), VA_QUEUE_RECEIVE_FAILED, (pxQueue)->uxMessagesWaiting, 0); } while (0)
 
 /* The recursive variants stay silent: their final failed take also runs
    traceQUEUE_RECEIVE_FAILED through the shared path. */
@@ -198,6 +238,25 @@ void va_freertos_taskswitchedin(void *taskHandle);
 /* Covered by traceQUEUE_CREATE (created through xQueueGenericCreate). */
 #define traceCREATE_COUNTING_SEMAPHORE() ((void)0)
 #define traceCREATE_BINARY_SEMAPHORE()   ((void)0)
+
+#if VA_HAS_QUEUE_DETAILS
+#if defined(traceQUEUE_PEEK) || defined(traceQUEUE_PEEK_FROM_ISR) || defined(traceQUEUE_PEEK_FAILED) || defined(traceQUEUE_PEEK_FROM_ISR_FAILED) || defined(traceENTER_xQueueGenericSend) || defined(traceENTER_xQueueGenericSendFromISR) || defined(traceRETURN_xQueueGenericReset)
+#error "ViewAlyzer: detailed queue trace macro already defined"
+#endif
+#define traceQUEUE_PEEK(q) VA_FREERTOS_QUEUE(q, VA_QUEUE_PEEK, (q)->uxMessagesWaiting, 0)
+#define traceQUEUE_PEEK_FROM_ISR(q) traceQUEUE_PEEK(q)
+#define traceQUEUE_PEEK_FAILED(q) VA_FREERTOS_QUEUE(q, VA_QUEUE_PEEK_FAILED, (q)->uxMessagesWaiting, 0)
+#define traceQUEUE_PEEK_FROM_ISR_FAILED(q) traceQUEUE_PEEK_FAILED(q)
+/* FreeRTOS 11 invokes these stock hooks. Earlier kernels simply never call
+   them; do not wrap the public APIs or guess copy position at shared hooks. */
+#define traceENTER_xQueueGenericSend(q, item, ticks, pos) \
+    VA_FREERTOS_QUEUE(((Queue_t *)(q)), VA_QUEUE_SEND_BEGIN, UINT32_MAX, pos)
+#define traceENTER_xQueueGenericSendFromISR(q, item, woken, pos) \
+    VA_FREERTOS_QUEUE(((Queue_t *)(q)), VA_QUEUE_SEND_BEGIN, UINT32_MAX, pos)
+#define traceRETURN_xQueueGenericReset(result) \
+    do { if ((result) == pdPASS && xNewQueue == pdFALSE) \
+        VA_FREERTOS_QUEUE(pxQueue, VA_QUEUE_RESET, pxQueue->uxMessagesWaiting, 0); } while (0)
+#endif
 
 #endif /* VA_NEEDS_SYNC_HOOKS */
 
@@ -286,13 +345,48 @@ void va_freertos_timer_expired(void *timer);
 #define traceEVENT_GROUP_SYNC_END(xEventGroup, uxBitsToSet, uxBitsToWaitFor, xTimeoutOccurred) \
     traceEVENT_GROUP_WAIT_BITS_END(xEventGroup, uxBitsToWaitFor, xTimeoutOccurred)
 
+#if VA_HAS_EVENT_FLAG_DETAILS
+#if defined(traceEVENT_GROUP_CLEAR_BITS) || defined(traceEVENT_GROUP_CLEAR_BITS_FROM_ISR)
+#error "ViewAlyzer: event-group clear trace macro already defined"
+#endif
+#define traceEVENT_GROUP_CLEAR_BITS(group, bits) \
+    va_freertos_flags((group), VA_FLAGS_CLEAR, 0, (bits))
+/* 11.x's return hook supplies a final value without dereferencing the group. */
+#if defined(traceRETURN_xEventGroupSetBits)
+#error "ViewAlyzer: event-group return trace macro already defined"
+#endif
+#define traceRETURN_xEventGroupSetBits(result) \
+    va_freertos_flags(xEventGroup, VA_FLAGS_SNAPSHOT, (result), 0)
+#define traceEVENT_GROUP_CLEAR_BITS_FROM_ISR(group, bits) \
+    va_freertos_flags((group), VA_FLAGS_CLEAR_DEFERRED, 0, (bits))
+#undef traceEVENT_GROUP_SET_BITS
+#define traceEVENT_GROUP_SET_BITS(group, bits) \
+    do { va_logEventFlagSet((group), (bits)); \
+         va_freertos_flags((group), VA_FLAGS_SET, (bits), (bits)); } while (0)
+#undef traceEVENT_GROUP_SET_BITS_FROM_ISR
+#define traceEVENT_GROUP_SET_BITS_FROM_ISR(group, bits) \
+    va_freertos_flags((group), VA_FLAGS_SET_DEFERRED, 0, (bits))
+#undef traceEVENT_GROUP_WAIT_BITS_END
+#define traceEVENT_GROUP_WAIT_BITS_END(group, bits, timedOut) \
+    do { \
+        va_freertos_flags((group), ((xWaitForAllBits ? (uxReturn & (bits)) == (bits) : (uxReturn & (bits)) != 0) ? VA_FLAGS_WAIT_OK : VA_FLAGS_WAIT_TIMEOUT) | \
+            (xWaitForAllBits ? VA_FLAGS_ALL : 0) | (xClearOnExit ? VA_FLAGS_CLEAR_ON_EXIT : 0), uxReturn, (bits)); \
+    } while (0)
+#undef traceEVENT_GROUP_SYNC_END
+#define traceEVENT_GROUP_SYNC_END(group, setBits, waitBits, timedOut) \
+    do { \
+        va_freertos_flags((group), (((uxReturn & (waitBits)) == (waitBits)) ? VA_FLAGS_WAIT_OK : VA_FLAGS_WAIT_TIMEOUT) | \
+            VA_FLAGS_ALL | VA_FLAGS_CLEAR_ON_EXIT, uxReturn, (waitBits)); \
+    } while (0)
+#endif
+
 #endif /* VA_TRACE_EVENT_FLAGS */
 
 /* ── Sleep (vTaskDelay / vTaskDelayUntil / suspend / resume) ─────── */
 /* Delay and suspend have no exit trace point in the kernel; the sleep is
    closed at the task's next switch-in (delay expiry) or at the resume call.
    Blocking on queues or mutexes is deliberately NOT counted as sleep. */
-#if VA_TRACE_SLEEP
+#if VA_TRACE_SLEEP || VA_TRACE_TASK_STATES
 #if defined(traceTASK_DELAY) || defined(traceTASK_DELAY_UNTIL) || defined(traceTASK_SUSPEND) \
     || defined(traceTASK_RESUME) || defined(traceTASK_RESUME_FROM_ISR)
 #error "ViewAlyzer: a delay/suspend trace macro is already defined - another trace tool is installed in this FreeRTOSConfig.h"
@@ -307,13 +401,13 @@ void va_freertos_sleep_exit(void *taskHandle);
 }
 #endif
 
-#define traceTASK_DELAY() va_freertos_sleep_enter((void *)pxCurrentTCB)
+#define traceTASK_DELAY() do { va_logTaskState((void *)pxCurrentTCB, VA_TASK_SLEEPING); va_freertos_sleep_enter((void *)pxCurrentTCB); } while (0)
 /* Variadic: FreeRTOS v9 invokes this with no argument, v10+ with the wake
    time. Neither is needed. */
-#define traceTASK_DELAY_UNTIL(...) va_freertos_sleep_enter((void *)pxCurrentTCB)
+#define traceTASK_DELAY_UNTIL(...) traceTASK_DELAY()
 /* The kernel resolves the handle before these fire, so pxTCB is never NULL
    (a NULL argument means "the current task"). */
-#define traceTASK_SUSPEND(pxTaskToSuspend)        va_freertos_sleep_enter((void *)(pxTaskToSuspend))
+#define traceTASK_SUSPEND(pxTaskToSuspend) do { va_logTaskState((void *)(pxTaskToSuspend), VA_TASK_SUSPENDED); va_freertos_sleep_enter((void *)(pxTaskToSuspend)); } while (0)
 #define traceTASK_RESUME(pxTaskToResume)          va_freertos_sleep_exit((void *)(pxTaskToResume))
 #define traceTASK_RESUME_FROM_ISR(pxTaskToResume) va_freertos_sleep_exit((void *)(pxTaskToResume))
 
@@ -354,6 +448,104 @@ void va_freertos_heap_free(void *address, uint32_t size);
 #define traceLOW_POWER_IDLE_BEGIN() va_logPMSuspendEnter()
 #define traceLOW_POWER_IDLE_END()   va_logPMSuspendExit(0)
 #endif /* VA_TRACE_PM */
+
+
+/* Scheduler state is independent of successful synchronization traffic. */
+#if VA_TRACE_TASK_STATES
+#if defined(traceMOVED_TASK_TO_READY_STATE) || defined(traceTASK_PRIORITY_SET) || defined(traceTASK_PRIORITY_INHERIT) || defined(traceTASK_PRIORITY_DISINHERIT)
+#error "ViewAlyzer: scheduler trace macros are already defined"
+#endif
+#ifdef __cplusplus
+extern "C" {
+#endif
+void va_freertos_task_ready(void *task, const char *name, uint32_t priority, uint32_t base);
+void va_freertos_block(void *object, bool send);
+void va_freertos_wait(VA_WaitReason_t reason, void *object, VA_QueueObjectType_t type, uint32_t detail);
+#ifdef __cplusplus
+}
+#endif
+#if configUSE_MUTEXES == 1
+#define VA_FREERTOS_BASE(t) ((t)->uxBasePriority)
+/* vTaskPrioritySet changed its inherited-priority rule in FreeRTOS 11.
+   Expand the version at the hook call: task.h defines it AFTER config.h. */
+#define VA_FREERTOS_SET_EFFECTIVE(t, p) (((t)->uxPriority == (t)->uxBasePriority || (tskKERNEL_VERSION_MAJOR >= 11 && (p) > (t)->uxPriority)) ? (p) : (t)->uxPriority)
+#else
+#define VA_FREERTOS_BASE(t) ((t)->uxPriority)
+#define VA_FREERTOS_SET_EFFECTIVE(t, p) (p)
+#endif
+#define traceMOVED_TASK_TO_READY_STATE(t) va_freertos_task_ready((void *)(t), (t)->pcTaskName, (t)->uxPriority, VA_FREERTOS_BASE(t))
+#define traceTASK_PRIORITY_SET(t, p) va_logTaskPriority((void *)(t), (int32_t)VA_FREERTOS_SET_EFFECTIVE(t, p), (int32_t)(p), 1)
+#define traceTASK_PRIORITY_INHERIT(t, p) va_logTaskPriority((void *)(t), (int32_t)(p), (int32_t)VA_FREERTOS_BASE(t), 2)
+#define traceTASK_PRIORITY_DISINHERIT(t, p) va_logTaskPriority((void *)(t), (int32_t)(p), (int32_t)VA_FREERTOS_BASE(t), 3)
+#if defined(traceBLOCKING_ON_QUEUE_SEND) || defined(traceBLOCKING_ON_QUEUE_PEEK)
+#error "ViewAlyzer: queue blocking trace macros are already defined"
+#endif
+/* The receive hook below also preserves the existing contention event. */
+#if !VA_NEEDS_BLOCKING_HOOK && defined(traceBLOCKING_ON_QUEUE_RECEIVE)
+#error "ViewAlyzer: queue receive blocking trace macro is already defined"
+#endif
+#undef traceBLOCKING_ON_QUEUE_RECEIVE
+#define traceBLOCKING_ON_QUEUE_RECEIVE(q) do { va_freertos_block((void *)(q), false); va_logQueueObjectBlocking((void *)(q)); } while (0)
+#define traceBLOCKING_ON_QUEUE_SEND(q) va_freertos_block((void *)(q), true)
+#define traceBLOCKING_ON_QUEUE_PEEK(q) va_freertos_block((void *)(q), false)
+#if defined(traceEVENT_GROUP_WAIT_BITS_BLOCK) || defined(traceEVENT_GROUP_SYNC_BLOCK)
+#error "ViewAlyzer: event-group blocking trace macros are already defined"
+#endif
+#define traceEVENT_GROUP_WAIT_BITS_BLOCK(g, bits) va_freertos_wait(VA_WAIT_EVENT_FLAGS, (void *)(g), VA_OBJECT_TYPE_EVENTFLAG, (uint32_t)(bits))
+#define traceEVENT_GROUP_SYNC_BLOCK(g, set, wait) va_freertos_wait(VA_WAIT_EVENT_FLAGS, (void *)(g), VA_OBJECT_TYPE_EVENTFLAG, (uint32_t)(wait))
+#endif
+
+#if VA_HAS_EVENT_FLAG_DETAILS
+#if VA_TRACE_TASK_STATES
+#undef traceEVENT_GROUP_WAIT_BITS_BLOCK
+#undef traceEVENT_GROUP_SYNC_BLOCK
+#define VA_FLAGS_BLOCK_STATE(g, bits) va_freertos_wait(VA_WAIT_EVENT_FLAGS, (g), VA_OBJECT_TYPE_EVENTFLAG, (bits))
+#else
+#if defined(traceEVENT_GROUP_WAIT_BITS_BLOCK) || defined(traceEVENT_GROUP_SYNC_BLOCK)
+#error "ViewAlyzer: event-group block trace macro already defined"
+#endif
+#define VA_FLAGS_BLOCK_STATE(g, bits) ((void)0)
+#endif
+#define traceEVENT_GROUP_WAIT_BITS_BLOCK(g, bits) \
+    do { VA_FLAGS_BLOCK_STATE(g, bits); \
+        va_freertos_flags(g, VA_FLAGS_WAIT_BEGIN | (xWaitForAllBits ? VA_FLAGS_ALL : 0) | \
+            (xClearOnExit ? VA_FLAGS_CLEAR_ON_EXIT : 0), 0, bits); } while (0)
+#define traceEVENT_GROUP_SYNC_BLOCK(g, set, wait) \
+    do { VA_FLAGS_BLOCK_STATE(g, wait); \
+        va_freertos_flags(g, VA_FLAGS_WAIT_BEGIN | VA_FLAGS_ALL | VA_FLAGS_CLEAR_ON_EXIT, 0, wait); } while (0)
+#endif
+
+/* stream_buffer.c calls these hooks for both stream and message buffers.
+   Native fields are read HERE, inside the kernel TU, never through a guessed
+   structure layout in the adapter. xLength includes the ring's spare byte. */
+#if VA_TRACE_STREAM_BUFFERS || VA_TRACE_TASK_STATES
+#if defined(traceSTREAM_BUFFER_CREATE) || defined(traceSTREAM_BUFFER_SEND) || defined(traceSTREAM_BUFFER_RECEIVE) || defined(traceBLOCKING_ON_STREAM_BUFFER_SEND) || defined(traceBLOCKING_ON_STREAM_BUFFER_RECEIVE)
+#error "ViewAlyzer: stream-buffer trace macros are already defined"
+#endif
+#ifdef __cplusplus
+extern "C" {
+#endif
+void va_freertos_stream(void *buffer, bool message, uint32_t capacity,
+                        uint8_t operation, uint32_t transferred, uint32_t requested);
+#ifdef __cplusplus
+}
+#endif
+#define VA_FREERTOS_STREAM(b, op, n, requested) \
+    va_freertos_stream((void *)(b), ((((StreamBuffer_t *)(b))->ucFlags & sbFLAGS_IS_MESSAGE_BUFFER) != 0), \
+        (uint32_t)(((StreamBuffer_t *)(b))->xLength - 1), (op), (uint32_t)(n), (uint32_t)(requested))
+#define traceSTREAM_BUFFER_CREATE(b, type) VA_FREERTOS_STREAM(b, 0, 0, 0)
+#define traceSTREAM_BUFFER_DELETE(b) va_logQueueObjectDelete((void *)(b))
+#define traceSTREAM_BUFFER_RESET(b) VA_FREERTOS_STREAM(b, VA_OP_RESET, 0, 0)
+#define traceSTREAM_BUFFER_RESET_FROM_ISR(b) VA_FREERTOS_STREAM(b, VA_OP_RESET, 0, 0)
+#define traceSTREAM_BUFFER_SEND(b, n) VA_FREERTOS_STREAM(b, VA_OP_SEND, n, xDataLengthBytes)
+#define traceSTREAM_BUFFER_SEND_FAILED(b) VA_FREERTOS_STREAM(b, VA_OP_SEND_FAILED, 0, xDataLengthBytes)
+#define traceSTREAM_BUFFER_SEND_FROM_ISR(b, n) VA_FREERTOS_STREAM(b, (n) != 0 ? VA_OP_SEND : VA_OP_SEND_FAILED, n, xDataLengthBytes)
+#define traceSTREAM_BUFFER_RECEIVE(b, n) VA_FREERTOS_STREAM(b, VA_OP_RECEIVE, n, xBufferLengthBytes)
+#define traceSTREAM_BUFFER_RECEIVE_FAILED(b) VA_FREERTOS_STREAM(b, VA_OP_RECEIVE_FAILED, 0, xBufferLengthBytes)
+#define traceSTREAM_BUFFER_RECEIVE_FROM_ISR(b, n) VA_FREERTOS_STREAM(b, (n) != 0 ? VA_OP_RECEIVE : VA_OP_RECEIVE_FAILED, n, xBufferLengthBytes)
+#define traceBLOCKING_ON_STREAM_BUFFER_SEND(b) VA_FREERTOS_STREAM(b, VA_OP_WAIT_BEGIN, 0, xDataLengthBytes)
+#define traceBLOCKING_ON_STREAM_BUFFER_RECEIVE(b) VA_FREERTOS_STREAM(b, VA_OP_WAIT_BEGIN, 1, xBufferLengthBytes)
+#endif
 
 #endif /* VA_ENABLED && VA_RTOS_FREERTOS */
 

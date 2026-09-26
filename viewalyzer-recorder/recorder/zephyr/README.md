@@ -235,6 +235,31 @@ control_loop();
 VA_EVENT_END(1);
 ```
 
+## Scheduler and resource tracing
+
+`CONFIG_VIEWALYZER_TRACE_TASK_STATES` follows thread tracing by default. It
+records ready, blocked, sleeping and suspended transitions, object wait reasons,
+and effective-priority changes. Zephyr's shared priority hook does not identify
+the original base priority or distinguish inheritance from an explicit change;
+the viewer reports those fields as unknown.
+
+`CONFIG_VIEWALYZER_TRACE_MEM_SLABS`, `_TRACE_CONDVARS`, and `_TRACE_POLL`
+enable slab usage/allocation failures, condition-variable waits/signals/broadcasts,
+and poll waits/signals. They default on. Poll waits belong to the calling thread;
+the event-array address is diagnostic data, not a persistent kernel object.
+These use existing kernel hooks; applications need no wrappers or kernel edits.
+
+Timer tracing measures expiry and stop callback entry/exit on Zephyr 4.4.2.
+Set `CONFIG_VIEWALYZER_TRACE_TIMER_CALLBACKS=n` to keep timer lifecycle tracing
+without these additional callback packets (for example, in fixed HIL baselines).
+The checked 4.1.99 baseline, 4.2.2 and 4.3.1 lack those hooks: they retain arm/stop
+tracing, with no measured callback duration. Work-handler execution is not added.
+
+Use the matching ViewAlyzer-RS build for the new packets. Timeline shows state
+strips, Details shows waits and priorities, Timers shows callback measurements,
+and Comms **Resources** shows slabs, condition variables and poll operations.
+Old viewer builds cannot decode the added event and metadata codes.
+
 ## Related Docs
 
 - [../README.md](../README.md)

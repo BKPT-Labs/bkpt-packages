@@ -25,7 +25,7 @@
 #include <zephyr/version.h>
 
 /* Dependency-free, so safe inside Zephyr's own kernel TUs. */
-#include "ViewAlyzerConfig.h"
+#include "ViewAlyzer.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -88,7 +88,7 @@ void viewalyzer_zephyr_work_cancel(struct k_work *work);
 void viewalyzer_zephyr_work_cancel_delayable(struct k_work_delayable *dwork);
 #endif
 
-#if VA_TRACE_SLEEP
+#if VA_TRACE_SLEEP || VA_TRACE_TASK_STATES
 void viewalyzer_zephyr_thread_suspend(struct k_thread *thread);
 void viewalyzer_zephyr_thread_resume(struct k_thread *thread);
 void viewalyzer_zephyr_thread_sleep_enter(k_timeout_t timeout);
@@ -232,7 +232,7 @@ void viewalyzer_zephyr_pm_system_suspend_exit(uint32_t ticks, uint8_t state);
 #define sys_port_trace_k_work_cancel_delayable_sync_exit(dwork, sync, ret) viewalyzer_zephyr_work_cancel_delayable(dwork)
 #endif
 
-#if VA_TRACE_SLEEP
+#if VA_TRACE_SLEEP || VA_TRACE_TASK_STATES
 /* Suspend/resume ride the sleep events: the suspend-to-resume window shows
    as a sleep period on the suspended thread, same as the FreeRTOS adapter. */
 #undef  sys_port_trace_k_thread_suspend_enter
@@ -313,6 +313,168 @@ void viewalyzer_zephyr_pm_system_suspend_exit(uint32_t ticks, uint8_t state);
 #define sys_port_trace_pm_system_suspend_enter(ticks) viewalyzer_zephyr_pm_system_suspend_enter(ticks)
 #undef  sys_port_trace_pm_system_suspend_exit
 #define sys_port_trace_pm_system_suspend_exit(ticks, state) viewalyzer_zephyr_pm_system_suspend_exit(ticks, state)
+#endif
+
+#ifdef __cplusplus
+}
+#endif
+
+
+/* Only stock trace points are overridden here. No kernel patch is needed. */
+#ifdef __cplusplus
+extern "C" {
+#endif
+#if VA_TRACE_TASK_STATES
+void viewalyzer_zephyr_sched_state(struct k_thread *thread, VA_TaskState_t state);
+void viewalyzer_zephyr_priority(struct k_thread *thread, int prio);
+void viewalyzer_zephyr_wait(void *object, VA_QueueObjectType_t type, VA_WaitReason_t reason, uint32_t detail);
+void viewalyzer_zephyr_wait_end(void);
+#undef sys_port_trace_k_thread_sched_ready
+#define sys_port_trace_k_thread_sched_ready(thread) viewalyzer_zephyr_sched_state(thread, VA_TASK_READY)
+#undef sys_port_trace_k_thread_sched_pend
+#define sys_port_trace_k_thread_sched_pend(thread) viewalyzer_zephyr_sched_state(thread, VA_TASK_BLOCKED)
+#undef sys_port_trace_k_thread_sched_priority_set
+#define sys_port_trace_k_thread_sched_priority_set(thread, prio) viewalyzer_zephyr_priority(thread, prio)
+#undef sys_port_trace_k_thread_join_blocking
+#define sys_port_trace_k_thread_join_blocking(thread, timeout) viewalyzer_zephyr_wait(NULL, VA_OBJECT_TYPE_QUEUE, VA_WAIT_JOIN, (uint32_t)(uintptr_t)(thread))
+#undef sys_port_trace_k_thread_join_exit
+#define sys_port_trace_k_thread_join_exit(thread, timeout, ret) viewalyzer_zephyr_wait_end()
+#endif
+#if VA_TRACE_TIMERS && VA_TRACE_TIMER_CALLBACKS && defined(sys_port_trace_k_timer_expiry_enter)
+#define VA_ZEPHYR_HAS_TIMER_CALLBACKS 1
+void viewalyzer_zephyr_timer_callback(struct k_timer *timer, bool enter, bool stop);
+#undef sys_port_trace_k_timer_expiry_enter
+#define sys_port_trace_k_timer_expiry_enter(timer) viewalyzer_zephyr_timer_callback(timer, true, false)
+#undef sys_port_trace_k_timer_expiry_exit
+#define sys_port_trace_k_timer_expiry_exit(timer) viewalyzer_zephyr_timer_callback(timer, false, false)
+#undef sys_port_trace_k_timer_stop_fn_expiry_enter
+#define sys_port_trace_k_timer_stop_fn_expiry_enter(timer) viewalyzer_zephyr_timer_callback(timer, true, true)
+#undef sys_port_trace_k_timer_stop_fn_expiry_exit
+#define sys_port_trace_k_timer_stop_fn_expiry_exit(timer) viewalyzer_zephyr_timer_callback(timer, false, true)
+#endif
+#if VA_TRACE_MEM_SLABS || VA_TRACE_TASK_STATES
+void viewalyzer_zephyr_slab(struct k_mem_slab *slab, uint8_t operation, int ret);
+#undef sys_port_trace_k_mem_slab_init
+#define sys_port_trace_k_mem_slab_init(slab, rc) do { if ((rc) == 0) viewalyzer_zephyr_slab(slab, 0, 0); } while (0)
+#undef sys_port_trace_k_mem_slab_alloc_blocking
+#define sys_port_trace_k_mem_slab_alloc_blocking(slab, timeout) viewalyzer_zephyr_slab(slab, VA_OP_WAIT_BEGIN, 0)
+#undef sys_port_trace_k_mem_slab_alloc_exit
+#define sys_port_trace_k_mem_slab_alloc_exit(slab, timeout, ret) viewalyzer_zephyr_slab(slab, VA_OP_ALLOC, ret)
+#undef sys_port_trace_k_mem_slab_free_exit
+#define sys_port_trace_k_mem_slab_free_exit(slab) viewalyzer_zephyr_slab(slab, VA_OP_FREE, 0)
+#endif
+#if VA_TRACE_CONDVARS || VA_TRACE_TASK_STATES
+void viewalyzer_zephyr_condvar(struct k_condvar *condvar, uint8_t operation, int ret, struct k_mutex *mutex, k_timeout_t timeout);
+#undef sys_port_trace_k_condvar_init
+#define sys_port_trace_k_condvar_init(condvar, ret) do { if ((ret) == 0) viewalyzer_zephyr_condvar(condvar, 0, 0, NULL, K_NO_WAIT); } while (0)
+#undef sys_port_trace_k_condvar_wait_enter
+#undef sys_port_trace_k_condvar_wait_exit
+/* 4.3 added timeout to these hook signatures. The older call sites have
+   the same mutex/timeout function arguments in scope. */
+#if ZEPHYR_VERSION_CODE >= ZEPHYR_VERSION(4, 3, 0)
+#define sys_port_trace_k_condvar_wait_enter(condvar, timeout) viewalyzer_zephyr_condvar(condvar, VA_OP_WAIT_BEGIN, 0, mutex, timeout)
+#define sys_port_trace_k_condvar_wait_exit(condvar, timeout, ret) viewalyzer_zephyr_condvar(condvar, VA_OP_WAIT_END, ret, mutex, timeout)
+#else
+#define sys_port_trace_k_condvar_wait_enter(condvar) viewalyzer_zephyr_condvar(condvar, VA_OP_WAIT_BEGIN, 0, mutex, timeout)
+#define sys_port_trace_k_condvar_wait_exit(condvar, ret) viewalyzer_zephyr_condvar(condvar, VA_OP_WAIT_END, ret, mutex, timeout)
+#endif
+#undef sys_port_trace_k_condvar_signal_exit
+#define sys_port_trace_k_condvar_signal_exit(condvar, ret) viewalyzer_zephyr_condvar(condvar, VA_OP_SIGNAL, ret, NULL, K_NO_WAIT)
+#undef sys_port_trace_k_condvar_broadcast_exit
+#define sys_port_trace_k_condvar_broadcast_exit(condvar, ret) viewalyzer_zephyr_condvar(condvar, VA_OP_BROADCAST, ret, NULL, K_NO_WAIT)
+#endif
+#if VA_TRACE_POLL || VA_TRACE_TASK_STATES
+void viewalyzer_zephyr_poll(struct k_poll_event *events, int count, bool enter, int ret);
+void viewalyzer_zephyr_poll_signal(struct k_poll_signal *sig, uint8_t operation, int ret);
+#undef sys_port_trace_k_poll_api_poll_enter
+/* num_events is a kernel function argument on all supported anchors. */
+#define sys_port_trace_k_poll_api_poll_enter(events) viewalyzer_zephyr_poll(events, num_events, true, 0)
+#undef sys_port_trace_k_poll_api_poll_exit
+#define sys_port_trace_k_poll_api_poll_exit(events, ret) viewalyzer_zephyr_poll(events, num_events, false, ret)
+#undef sys_port_trace_k_poll_api_signal_init
+#define sys_port_trace_k_poll_api_signal_init(sig) viewalyzer_zephyr_poll_signal(sig, 0, 0)
+#undef sys_port_trace_k_poll_api_signal_reset
+#define sys_port_trace_k_poll_api_signal_reset(sig) viewalyzer_zephyr_poll_signal(sig, VA_OP_RESET, 0)
+#undef sys_port_trace_k_poll_api_signal_raise
+#define sys_port_trace_k_poll_api_signal_raise(sig, ret) viewalyzer_zephyr_poll_signal(sig, VA_OP_SIGNAL, ret)
+#endif
+
+#if VA_TRACE_TASK_STATES
+#undef sys_port_trace_k_mutex_lock_blocking
+#if VA_TRACE_MUTEXES || VA_TRACE_MUTEX_CONTENTION
+#define sys_port_trace_k_mutex_lock_blocking(mutex, timeout) do { viewalyzer_zephyr_wait(mutex, VA_OBJECT_TYPE_MUTEX, VA_WAIT_MUTEX, 0); viewalyzer_zephyr_mutex_lock_blocking(mutex, timeout); } while (0)
+#else
+#define sys_port_trace_k_mutex_lock_blocking(mutex, timeout) viewalyzer_zephyr_wait(mutex, VA_OBJECT_TYPE_MUTEX, VA_WAIT_MUTEX, 0)
+#endif
+#undef sys_port_trace_k_sem_take_blocking
+#if VA_TRACE_SEMAPHORES
+#define sys_port_trace_k_sem_take_blocking(sem, timeout) do { viewalyzer_zephyr_wait(sem, VA_OBJECT_TYPE_COUNTING_SEM, VA_WAIT_SEMAPHORE, 0); viewalyzer_zephyr_sem_take_blocking(sem, timeout); } while (0)
+#else
+#define sys_port_trace_k_sem_take_blocking(sem, timeout) viewalyzer_zephyr_wait(sem, VA_OBJECT_TYPE_COUNTING_SEM, VA_WAIT_SEMAPHORE, 0)
+#endif
+#undef sys_port_trace_k_msgq_put_blocking
+#if VA_TRACE_QUEUES
+#define sys_port_trace_k_msgq_put_blocking(msgq, timeout) do { viewalyzer_zephyr_wait(msgq, VA_OBJECT_TYPE_QUEUE, VA_WAIT_QUEUE_SEND, 0); viewalyzer_zephyr_msgq_put_blocking(msgq, timeout); } while (0)
+#else
+#define sys_port_trace_k_msgq_put_blocking(msgq, timeout) viewalyzer_zephyr_wait(msgq, VA_OBJECT_TYPE_QUEUE, VA_WAIT_QUEUE_SEND, 0)
+#endif
+#undef sys_port_trace_k_msgq_get_blocking
+#if VA_TRACE_QUEUES
+#define sys_port_trace_k_msgq_get_blocking(msgq, timeout) do { viewalyzer_zephyr_wait(msgq, VA_OBJECT_TYPE_QUEUE, VA_WAIT_QUEUE_RECEIVE, 0); viewalyzer_zephyr_msgq_get_blocking(msgq, timeout); } while (0)
+#else
+#define sys_port_trace_k_msgq_get_blocking(msgq, timeout) viewalyzer_zephyr_wait(msgq, VA_OBJECT_TYPE_QUEUE, VA_WAIT_QUEUE_RECEIVE, 0)
+#endif
+#undef sys_port_trace_k_event_wait_blocking
+#define sys_port_trace_k_event_wait_blocking(event, events, options, timeout) viewalyzer_zephyr_wait(event, VA_OBJECT_TYPE_EVENTFLAG, VA_WAIT_EVENT_FLAGS, events)
+#endif
+
+/* Optional IPC detail layer. Base hooks retain their existing stream when
+   these switches are off. No application wrappers or kernel patches needed. */
+#if VA_HAS_QUEUE_DETAILS
+void viewalyzer_zephyr_msgq_detail(struct k_msgq *msgq, uint8_t op, int ret);
+void viewalyzer_zephyr_unbounded(void *queue, uint8_t op, uint32_t count);
+void viewalyzer_zephyr_fifo_batch(struct k_fifo *fifo, void *head, void *tail);
+#undef sys_port_trace_k_msgq_peek
+#define sys_port_trace_k_msgq_peek(msgq, ret) viewalyzer_zephyr_msgq_detail(msgq, VA_QUEUE_PEEK, ret)
+#undef sys_port_trace_k_msgq_purge
+#define sys_port_trace_k_msgq_purge(msgq) viewalyzer_zephyr_msgq_detail(msgq, VA_QUEUE_RESET, 0)
+#if defined(sys_port_trace_k_msgq_put_front_exit)
+#undef sys_port_trace_k_msgq_put_front_exit
+#define sys_port_trace_k_msgq_put_front_exit(msgq, timeout, ret) viewalyzer_zephyr_msgq_detail(msgq, VA_QUEUE_FRONT, ret)
+#endif
+#undef sys_port_trace_k_fifo_put_list_enter
+#define sys_port_trace_k_fifo_put_list_enter(fifo, head, tail) viewalyzer_zephyr_fifo_batch(fifo, head, tail)
+#undef sys_port_trace_k_fifo_put_slist_enter
+#define sys_port_trace_k_fifo_put_slist_enter(fifo, list) viewalyzer_zephyr_fifo_batch(fifo, sys_slist_peek_head(list), sys_slist_peek_tail(list))
+#undef sys_port_trace_k_fifo_put_list_exit
+#define sys_port_trace_k_fifo_put_list_exit(fifo, head, tail) ((void)0)
+#undef sys_port_trace_k_fifo_put_slist_exit
+#define sys_port_trace_k_fifo_put_slist_exit(fifo, list) ((void)0)
+#endif
+
+#if VA_HAS_EVENT_FLAG_DETAILS
+void viewalyzer_zephyr_flags(struct k_event *event, uint8_t op, uint32_t bits, uint32_t mask);
+/* Stock options are stable across the supported kernels: bit 0 all, bit 1
+   reset; 4.4 adds bit 2 clear-on-receive. Older kernels never set bit 2. */
+#define VA_ZEPHYR_EVENT_OPTIONS(o) (((o) & 1 ? VA_FLAGS_ALL : 0) | \
+    ((o) & 2 ? VA_FLAGS_RESET_ON_ENTRY : 0) | ((o) & 4 ? VA_FLAGS_CLEAR_ON_EXIT : 0))
+#undef sys_port_trace_k_event_init
+#define sys_port_trace_k_event_init(event) \
+    do { viewalyzer_zephyr_event_init(event); viewalyzer_zephyr_flags(event, VA_FLAGS_SNAPSHOT, 0, 0); } while (0)
+#undef sys_port_trace_k_event_post_enter
+#define sys_port_trace_k_event_post_enter(event, bits, mask) \
+    viewalyzer_zephyr_flags(event, (bits) == 0 ? VA_FLAGS_CLEAR : VA_FLAGS_SET, bits, mask)
+#undef sys_port_trace_k_event_post_exit
+#define sys_port_trace_k_event_post_exit(event, bits, mask) \
+    viewalyzer_zephyr_flags(event, VA_FLAGS_SNAPSHOT, (event)->events, 0)
+#undef sys_port_trace_k_event_wait_enter
+#define sys_port_trace_k_event_wait_enter(event, bits, opts, timeout) \
+    viewalyzer_zephyr_flags(event, VA_FLAGS_WAIT_BEGIN | VA_ZEPHYR_EVENT_OPTIONS(opts), (event)->events, bits)
+#undef sys_port_trace_k_event_wait_exit
+#define sys_port_trace_k_event_wait_exit(event, bits, ret) \
+    do { viewalyzer_zephyr_flags(event, ((ret) != 0 ? VA_FLAGS_WAIT_OK : VA_FLAGS_WAIT_TIMEOUT) | \
+             VA_ZEPHYR_EVENT_OPTIONS(options), ret, bits); \
+         viewalyzer_zephyr_flags(event, VA_FLAGS_SNAPSHOT, (event)->events, 0); } while (0)
 #endif
 
 #ifdef __cplusplus

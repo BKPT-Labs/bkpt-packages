@@ -157,6 +157,50 @@ config VIEWALYZER_TRACE_THREADS
 	  ids and names are still registered when this is off but another
 	  category (stack usage, mutex contention, sleep) needs them.
 
+config VIEWALYZER_TRACE_QUEUE_DETAILS
+	bool "Trace queue details"
+	depends on VIEWALYZER_TRACE_MESSAGE_QUEUES
+	select VIEWALYZER_NEEDS_THREAD_REGISTRY
+	default n
+	help
+	  Record detailed IPC observations. Adds trace traffic; leave disabled
+	  for comparisons with existing overhead baselines.
+
+config VIEWALYZER_TRACE_EVENT_FLAG_DETAILS
+	bool "Trace event flag details"
+	depends on VIEWALYZER_TRACE_EVENT_FLAGS
+	select VIEWALYZER_NEEDS_THREAD_REGISTRY
+	default n
+	help
+	  Record detailed IPC observations. Adds trace traffic; leave disabled
+	  for comparisons with existing overhead baselines.
+
+config VIEWALYZER_TRACE_TASK_STATES
+	bool "Trace ready/blocked states, wait reasons and priorities"
+	default VIEWALYZER_TRACE_THREADS
+	select TRACING_MUTEX
+	select TRACING_SEMAPHORE
+	select TRACING_MESSAGE_QUEUE
+	select TRACING_MEMORY_SLAB
+	select TRACING_CONDVAR
+	select TRACING_POLLING
+	select TRACING_EVENT
+
+config VIEWALYZER_TRACE_MEM_SLABS
+	bool "Trace memory slabs"
+	default y
+	select TRACING_MEMORY_SLAB
+
+config VIEWALYZER_TRACE_CONDVARS
+	bool "Trace condition variables"
+	default y
+	select TRACING_CONDVAR
+
+config VIEWALYZER_TRACE_POLL
+	bool "Trace poll waits and signals"
+	default y
+	select TRACING_POLLING
+
 config VIEWALYZER_TRACE_ISRS
 	bool "Trace ISRs"
 	default y
@@ -219,6 +263,15 @@ config VIEWALYZER_TRACE_TIMERS
 	  Emit init/start/stop events when threads create, arm, or cancel
 	  kernel timers.  Allows the viewer to display timer lifecycle on
 	  the event table and timeline.
+
+config VIEWALYZER_TRACE_TIMER_CALLBACKS
+	bool "Trace timer expiry and stop handler spans"
+	default y
+	depends on VIEWALYZER_TRACE_TIMERS
+	help
+	  Emit callback enter/exit events on Zephyr versions that provide the
+	  stock timer handler hooks. Disable to retain timer init/start/stop
+	  tracing without adding callback packets to a baseline workload.
 
 config VIEWALYZER_TRACE_HEAPS
 	bool "Trace kernel heaps (k_heap alloc/free)"

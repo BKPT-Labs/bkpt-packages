@@ -61,6 +61,7 @@ if(CONFIG_VIEWALYZER)
     VA_TRACE_WORK=$<IF:$<BOOL:${CONFIG_VIEWALYZER_TRACE_WORK}>,1,0>
     VA_TRACE_SLEEP=$<IF:$<BOOL:${CONFIG_VIEWALYZER_TRACE_SLEEP}>,1,0>
     VA_TRACE_TIMERS=$<IF:$<BOOL:${CONFIG_VIEWALYZER_TRACE_TIMERS}>,1,0>
+    VA_TRACE_TIMER_CALLBACKS=$<IF:$<BOOL:${CONFIG_VIEWALYZER_TRACE_TIMER_CALLBACKS}>,1,0>
     VA_TRACE_RTOS_HEAPS=$<IF:$<BOOL:${CONFIG_VIEWALYZER_TRACE_HEAPS}>,1,0>
     VA_TRACE_PM=$<IF:$<BOOL:${CONFIG_VIEWALYZER_TRACE_PM}>,1,0>
     VA_TRACE_USER_VALUES=$<IF:$<BOOL:${CONFIG_VIEWALYZER_TRACE_USER_VALUES}>,1,0>
@@ -73,6 +74,14 @@ if(CONFIG_VIEWALYZER)
     # Zephyr has no task-notification concept, so the category is reported
     # off rather than claiming a capability the build can never deliver.
     VA_TRACE_TASK_NOTIFICATIONS=0
+    VA_TRACE_STREAM_BUFFERS=0
+    VA_TRACE_TASK_STATES=$<IF:$<BOOL:${CONFIG_VIEWALYZER_TRACE_TASK_STATES}>,1,0>
+    VA_TRACE_MEM_SLABS=$<IF:$<BOOL:${CONFIG_VIEWALYZER_TRACE_MEM_SLABS}>,1,0>
+    VA_TRACE_CONDVARS=$<IF:$<BOOL:${CONFIG_VIEWALYZER_TRACE_CONDVARS}>,1,0>
+    VA_TRACE_QUEUE_DETAILS=$<IF:$<BOOL:${CONFIG_VIEWALYZER_TRACE_QUEUE_DETAILS}>,1,0>
+    VA_TRACE_EVENT_FLAG_DETAILS=$<IF:$<BOOL:${CONFIG_VIEWALYZER_TRACE_EVENT_FLAG_DETAILS}>,1,0>
+    VA_TRACE_POLL=$<IF:$<BOOL:${CONFIG_VIEWALYZER_TRACE_POLL}>,1,0>
+
   )
 
   if(CONFIG_VIEWALYZER_TS_CUSTOM_TIMER)
@@ -157,6 +166,9 @@ if(CONFIG_VIEWALYZER)
   target_include_directories(zephyr_interface BEFORE INTERFACE
     ${VIEWALYZER_MODULE_DIR}/zephyr
   )
+  # kernel.h includes our version-gated hooks even while offsets are built.
+  # Ensure version.h exists on a pristine parallel build, before that TU.
+  add_dependencies(zephyr_interface version_h)
 
   zephyr_include_directories(
     ${VIEWALYZER_MODULE_DIR}/core

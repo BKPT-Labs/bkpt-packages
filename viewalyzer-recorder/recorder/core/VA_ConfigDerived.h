@@ -105,6 +105,35 @@
 #error "ViewAlyzer: VA_TRACE_HEAP_METRICS must be 0 or 1"
 #endif
 
+#if !VA_CHECK_BOOL(VA_TRACE_TASK_STATES)
+#error "ViewAlyzer: VA_TRACE_TASK_STATES must be 0 or 1"
+#endif
+#if !VA_CHECK_BOOL(VA_TRACE_TIMER_CALLBACKS)
+#error "ViewAlyzer: VA_TRACE_TIMER_CALLBACKS must be 0 or 1"
+#endif
+#if !VA_CHECK_BOOL(VA_TRACE_STREAM_BUFFERS)
+#error "ViewAlyzer: VA_TRACE_STREAM_BUFFERS must be 0 or 1"
+#endif
+#if !VA_CHECK_BOOL(VA_TRACE_MEM_SLABS)
+#error "ViewAlyzer: VA_TRACE_MEM_SLABS must be 0 or 1"
+#endif
+#if !VA_CHECK_BOOL(VA_TRACE_CONDVARS)
+#error "ViewAlyzer: VA_TRACE_CONDVARS must be 0 or 1"
+#endif
+#if !VA_CHECK_BOOL(VA_TRACE_POLL)
+#error "ViewAlyzer: VA_TRACE_POLL must be 0 or 1"
+#endif
+
+#if !VA_CHECK_BOOL(VA_TRACE_QUEUE_DETAILS)
+#error "ViewAlyzer: VA_TRACE_QUEUE_DETAILS must be 0 or 1"
+#endif
+#if !VA_CHECK_BOOL(VA_TRACE_NOTIFICATION_DETAILS)
+#error "ViewAlyzer: VA_TRACE_NOTIFICATION_DETAILS must be 0 or 1"
+#endif
+#if !VA_CHECK_BOOL(VA_TRACE_EVENT_FLAG_DETAILS)
+#error "ViewAlyzer: VA_TRACE_EVENT_FLAG_DETAILS must be 0 or 1"
+#endif
+
 #if VA_TIMESTAMP_BITS != 32
 #error "ViewAlyzer: VA_TIMESTAMP_BITS must be 32 (the wire format has exactly one timestamp width)"
 #endif
@@ -254,20 +283,27 @@
    task ids, so the object and the tasks must still be registered even though
    no MUTEX events are ever emitted. */
 
+#define VA_HAS_QUEUE_DETAILS (VA_HAS_RTOS && VA_TRACE_QUEUES && VA_TRACE_QUEUE_DETAILS)
+#define VA_HAS_NOTIFICATION_DETAILS ((VA_RTOS_SELECT == VA_RTOS_FREERTOS) && VA_TRACE_TASK_NOTIFICATIONS && VA_TRACE_NOTIFICATION_DETAILS)
+#define VA_HAS_EVENT_FLAG_DETAILS (VA_HAS_RTOS && VA_TRACE_EVENT_FLAGS && VA_TRACE_EVENT_FLAG_DETAILS)
+
 /* Task ids and names are needed by anything that names a task. */
 #define VA_NEEDS_TASK_REGISTRY (VA_HAS_RTOS && (VA_TRACE_TASKS               \
                                              || VA_TRACE_TASK_NOTIFICATIONS  \
                                              || VA_TRACE_STACK_USAGE         \
                                              || VA_TRACE_MUTEX_CONTENTION    \
-                                             || VA_TRACE_SLEEP))
+                                             || VA_TRACE_SLEEP || VA_TRACE_TASK_STATES \
+                                             || VA_TRACE_STREAM_BUFFERS || VA_TRACE_MEM_SLABS \
+                                             || VA_TRACE_CONDVARS || VA_TRACE_POLL \
+                                             || VA_HAS_QUEUE_DETAILS || VA_HAS_EVENT_FLAG_DETAILS))
 
-/* Only VA_TRACE_TASKS puts switch events on the wire ... */
-#define VA_NEEDS_TASK_SWITCH_EVENTS (VA_HAS_RTOS && VA_TRACE_TASKS)
+/* Task tracing and scheduler-state reconstruction need switch events ... */
+#define VA_NEEDS_TASK_SWITCH_EVENTS (VA_HAS_RTOS && (VA_TRACE_TASKS || VA_TRACE_TASK_STATES))
 
 /* ... but stack usage is sampled on switch-OUT, so the switch hook itself
    must still be installed when only stack usage is on. FreeRTOS sleep also
    needs it: a delayed task's sleep EXIT is detected at its next switch-in. */
-#define VA_NEEDS_SWITCH_HOOK (VA_HAS_RTOS && (VA_TRACE_TASKS || VA_TRACE_STACK_USAGE \
+#define VA_NEEDS_SWITCH_HOOK (VA_HAS_RTOS && (VA_TRACE_TASKS || VA_TRACE_TASK_STATES || VA_TRACE_STACK_USAGE \
                               || ((VA_RTOS_SELECT == VA_RTOS_FREERTOS) && VA_TRACE_SLEEP)))
 
 /* Sync-object ids and names. */
@@ -278,7 +314,10 @@
                                                || VA_TRACE_EVENT_FLAGS       \
                                                || VA_TRACE_TIMERS            \
                                                || VA_TRACE_RTOS_HEAPS        \
-                                               || VA_TRACE_PM))
+                                               || VA_TRACE_PM || VA_TRACE_TASK_STATES \
+                                               || VA_TRACE_STREAM_BUFFERS || VA_TRACE_MEM_SLABS \
+                                               || VA_TRACE_CONDVARS || VA_TRACE_POLL \
+                                             || VA_HAS_QUEUE_DETAILS || VA_HAS_EVENT_FLAG_DETAILS))
 
 /* FreeRTOS routes ALL non-recursive mutex and semaphore traffic through the
    shared traceQUEUE_SEND / traceQUEUE_RECEIVE hooks (traceGIVE_MUTEX and
@@ -289,10 +328,12 @@
 #define VA_NEEDS_SYNC_HOOKS (VA_HAS_RTOS && (VA_TRACE_MUTEXES          \
                                           || VA_TRACE_MUTEX_CONTENTION \
                                           || VA_TRACE_SEMAPHORES       \
-                                          || VA_TRACE_QUEUES))
+                                          || VA_TRACE_QUEUES || VA_TRACE_TASK_STATES))
 
 /* traceBLOCKING_ON_QUEUE_RECEIVE exists solely to sample the mutex holder. */
 #define VA_NEEDS_BLOCKING_HOOK (VA_HAS_RTOS && VA_TRACE_MUTEX_CONTENTION)
+#define VA_NEEDS_RTOS_OPERATIONS (VA_HAS_RTOS && (VA_TRACE_STREAM_BUFFERS || VA_TRACE_MEM_SLABS || VA_TRACE_CONDVARS || VA_TRACE_POLL \
+                                             || VA_HAS_QUEUE_DETAILS || VA_HAS_EVENT_FLAG_DETAILS))
 
 /* True when the adapter can classify a sync object from its native handle
    alone - cheaply, and without touching the recorder's registry. FreeRTOS
@@ -342,6 +383,14 @@
 #define VA_CAT_BIT_HEAP_METRICS       17u
 #define VA_CAT_BIT_EVENT_FLAGS        18u
 #define VA_CAT_BIT_WORK               19u
+#define VA_CAT_BIT_TASK_STATES        20u
+#define VA_CAT_BIT_STREAM_BUFFERS     21u
+#define VA_CAT_BIT_MEM_SLABS          22u
+#define VA_CAT_BIT_CONDVARS           23u
+#define VA_CAT_BIT_POLL               24u
+#define VA_CAT_BIT_QUEUE_DETAILS      25u
+#define VA_CAT_BIT_NOTIFICATION_DETAILS 26u
+#define VA_CAT_BIT_EVENT_FLAG_DETAILS 27u
 
 /* The mask reports what this build can actually EMIT, not the raw knobs:
    RTOS categories are off on bare metal, task notifications exist only on
@@ -370,7 +419,15 @@
    | ((uint32_t)(VA_TRACE_COUNTERS           != 0) << VA_CAT_BIT_COUNTERS)           \
    | ((uint32_t)(VA_TRACE_HEAP_METRICS       != 0) << VA_CAT_BIT_HEAP_METRICS)       \
    | ((uint32_t)VA_CAT_RTOS_(VA_TRACE_EVENT_FLAGS)        << VA_CAT_BIT_EVENT_FLAGS)     \
-   | ((uint32_t)VA_CAT_ZEPHYR_(VA_TRACE_WORK)             << VA_CAT_BIT_WORK))
+   | ((uint32_t)VA_CAT_ZEPHYR_(VA_TRACE_WORK)             << VA_CAT_BIT_WORK) \
+   | ((uint32_t)VA_CAT_RTOS_(VA_TRACE_TASK_STATES) << VA_CAT_BIT_TASK_STATES) \
+   | ((uint32_t)VA_CAT_FREERTOS_(VA_TRACE_STREAM_BUFFERS) << VA_CAT_BIT_STREAM_BUFFERS) \
+   | ((uint32_t)VA_CAT_ZEPHYR_(VA_TRACE_MEM_SLABS) << VA_CAT_BIT_MEM_SLABS) \
+   | ((uint32_t)VA_CAT_ZEPHYR_(VA_TRACE_CONDVARS) << VA_CAT_BIT_CONDVARS) \
+   | ((uint32_t)VA_CAT_ZEPHYR_(VA_TRACE_POLL) << VA_CAT_BIT_POLL) \
+   | ((uint32_t)VA_HAS_QUEUE_DETAILS << VA_CAT_BIT_QUEUE_DETAILS) \
+   | ((uint32_t)VA_HAS_NOTIFICATION_DETAILS << VA_CAT_BIT_NOTIFICATION_DETAILS) \
+   | ((uint32_t)VA_HAS_EVENT_FLAG_DETAILS << VA_CAT_BIT_EVENT_FLAG_DETAILS))
 
 /* Flag groups carried by VA_SETUP_CONFIG_FLAGS (0x77). The packet is
    [code][seq][group(1)][value(4, little-endian)]. Hosts must skip groups

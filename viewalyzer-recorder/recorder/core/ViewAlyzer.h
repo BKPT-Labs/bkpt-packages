@@ -31,8 +31,8 @@
    breaking wire/API change. The three numeric parts are the source of truth;
    the string and packed forms derive from them. */
 #define VA_RECORDER_VERSION_MAJOR 1
-#define VA_RECORDER_VERSION_MINOR 1
-#define VA_RECORDER_VERSION_PATCH 5
+#define VA_RECORDER_VERSION_MINOR 2
+#define VA_RECORDER_VERSION_PATCH 0
 
 #define VA_VERSION_STR2_(x) #x
 #define VA_VERSION_STR_(x)  VA_VERSION_STR2_(x)
@@ -177,6 +177,52 @@ typedef uint32_t (*VA_TimestampFn)(void);
    first expected fire is arm + duration, later ones repeat at period. */
 #define VA_EVENT_TIMER_ARM        0x1B
 
+/* Extended RTOS events, append-only. Timestamp and id use the usual layout.
+   TASK_STATE: [state:8, reason:8, sync-object-id:8, reserved:8][detail:u32].
+   TASK_PRIORITY: [effective:i32][base:i32][cause:u32]. INT32_MIN = unknown base.
+   TIMER_CALLBACK: [kind:u32 (0 expiry, 1 stop)][handler-address:u32]; START/END.
+   Resource operations: [operation:8, task-id:8, exception:16][value:u32][detail:u32].
+   Values are documented beside VA_RtosOperation_t below. */
+#define VA_EVENT_TASK_STATE       0x1C
+#define VA_EVENT_TASK_PRIORITY    0x1D
+#define VA_EVENT_TIMER_CALLBACK   0x1E
+#define VA_EVENT_STREAM_BUFFER    0x1F
+#define VA_EVENT_MEM_SLAB         0x20
+#define VA_EVENT_CONDVAR          0x21
+#define VA_EVENT_POLL             0x22
+#define VA_EVENT_QUEUE_DETAILS    0x23
+#define VA_EVENT_NOTIFY_DETAILS   0x24
+#define VA_EVENT_FLAG_DETAILS     0x25
+
+/* IPC packets share [operation:8, task-id:8, exception:16][value:u32][detail:u32].
+   Queue: id=queue, value=observed used slots (UINT32_MAX=unavailable), detail=
+   batch size, or copy position for SEND_BEGIN (0 back, 1 front, 2 overwrite).
+   Capacity/element size use OBJECT_INFO. Unbounded queues have capacity 0.
+   Legacy FreeRTOS SEND has unknown ordering; a preceding SEND_BEGIN refines it.
+   Notification: id=destination task, task-id=sender, value=notification value,
+   detail=full 32-bit index. WAIT_CLEAR carries the exit mask instead of value.
+   Flags: id=event group, value=observed/returned bits, detail=operation mask.
+   SET/CLEAR are pre-mutation observations; only SNAPSHOT establishes state.
+   Wait operation high bits: ALL=0x10, CLEAR=0x20, RESET=0x40. */
+enum {
+    VA_QUEUE_SEND = 1, VA_QUEUE_RECEIVE, VA_QUEUE_SEND_FAILED, VA_QUEUE_RECEIVE_FAILED,
+    VA_QUEUE_RESET, VA_QUEUE_PEEK, VA_QUEUE_PEEK_FAILED, VA_QUEUE_FRONT,
+    VA_QUEUE_OVERWRITE, VA_QUEUE_BATCH, VA_QUEUE_INIT, VA_QUEUE_BACK,
+    VA_QUEUE_LIFO, VA_QUEUE_SEND_BEGIN
+};
+enum {
+    VA_NOTIFY_NO_ACTION = 1, VA_NOTIFY_SET_BITS, VA_NOTIFY_INCREMENT,
+    VA_NOTIFY_OVERWRITE, VA_NOTIFY_NO_OVERWRITE, VA_NOTIFY_FAILED,
+    VA_NOTIFY_WAIT_OK, VA_NOTIFY_WAIT_TIMEOUT, VA_NOTIFY_TAKE_CLEAR,
+    VA_NOTIFY_TAKE_DECREMENT, VA_NOTIFY_TAKE_TIMEOUT, VA_NOTIFY_WAIT_CLEAR,
+    VA_NOTIFY_WAIT_BEGIN
+};
+enum {
+    VA_FLAGS_SET = 1, VA_FLAGS_CLEAR, VA_FLAGS_SNAPSHOT, VA_FLAGS_WAIT_BEGIN,
+    VA_FLAGS_WAIT_OK, VA_FLAGS_WAIT_TIMEOUT, VA_FLAGS_SET_DEFERRED, VA_FLAGS_CLEAR_DEFERRED,
+    VA_FLAGS_ALL = 0x10, VA_FLAGS_CLEAR_ON_EXIT = 0x20, VA_FLAGS_RESET_ON_ENTRY = 0x40
+};
+
 
 /* --- Setup Message Codes --- */
 #define VA_SETUP_TASK_MAP          0x70
@@ -208,6 +254,9 @@ typedef uint32_t (*VA_TimestampFn)(void);
                                              address, so hosts can name
                                              statically-defined objects from
                                              the ELF's data symbols */
+#define VA_OBJINFO_OBJECT_TYPE     0x03   /* VA_QueueObjectType_t */
+#define VA_OBJINFO_CAPACITY        0x04   /* bytes for buffers, blocks for slabs */
+#define VA_OBJINFO_ELEMENT_SIZE    0x05   /* slab block size in bytes */
 
     typedef enum
     {
@@ -244,8 +293,41 @@ typedef uint32_t (*VA_TimestampFn)(void);
         VA_OBJECT_TYPE_TIMER           = 5,
         VA_OBJECT_TYPE_HEAP            = 6,
         VA_OBJECT_TYPE_POWER_MGMT      = 7,
-        VA_OBJECT_TYPE_EVENTFLAG       = 8
+        VA_OBJECT_TYPE_EVENTFLAG       = 8,
+        VA_OBJECT_TYPE_STREAM_BUFFER   = 9,
+        VA_OBJECT_TYPE_MESSAGE_BUFFER  = 10,
+        VA_OBJECT_TYPE_MEM_SLAB        = 11,
+        VA_OBJECT_TYPE_CONDVAR         = 12,
+        VA_OBJECT_TYPE_POLL_SIGNAL     = 13
     } VA_QueueObjectType_t;
+
+    typedef enum {
+        VA_TASK_READY = 1, VA_TASK_RUNNING, VA_TASK_BLOCKED,
+        VA_TASK_SLEEPING, VA_TASK_SUSPENDED, VA_TASK_DELETED
+    } VA_TaskState_t;
+    typedef enum {
+        VA_WAIT_UNKNOWN = 0, VA_WAIT_MUTEX, VA_WAIT_SEMAPHORE,
+        VA_WAIT_QUEUE_SEND, VA_WAIT_QUEUE_RECEIVE, VA_WAIT_NOTIFICATION,
+        VA_WAIT_EVENT_FLAGS, VA_WAIT_STREAM_SEND, VA_WAIT_STREAM_RECEIVE,
+        VA_WAIT_MEM_SLAB, VA_WAIT_CONDVAR, VA_WAIT_POLL, VA_WAIT_JOIN,
+        VA_WAIT_TIMER, VA_WAIT_HEAP
+    } VA_WaitReason_t;
+    typedef enum {
+        /* Buffer SEND/RECEIVE: value=bytes transferred, detail=bytes requested.
+           FAILED: value=0, detail=requested. RESET: both zero.
+           Slab ALLOC/FREE: value=blocks in use, detail=0 / signed result.
+           Condvar WAIT_BEGIN: value=mutex address, detail=timeout ms;
+           WAIT_END: value=signed return, detail=0; BROADCAST: value=woken.
+           Poll WAIT_BEGIN/END: id is task, value=event-array address,
+           detail=event count / signed result. Poll SIGNAL: value=result,
+           detail=signed return. */
+        VA_OP_SEND = 1, VA_OP_RECEIVE, VA_OP_SEND_FAILED, VA_OP_RECEIVE_FAILED,
+        VA_OP_RESET, VA_OP_ALLOC, VA_OP_FREE, VA_OP_ALLOC_FAILED,
+        VA_OP_WAIT_BEGIN, VA_OP_WAIT_END, VA_OP_SIGNAL, VA_OP_BROADCAST
+    } VA_RtosOperation_t;
+
+/* Priority cause: 0=effective update (Zephyr), 1=explicit set,
+   2=inherit, 3=disinherit. Zephyr has no separate inheritance hook. */
 
 /* --- Static ISR IDs --- */
 #define VA_ISR_ID_SYSTICK 1
@@ -414,6 +496,42 @@ typedef uint32_t (*VA_TimestampFn)(void);
 #endif
 
 /* ── Task notifications ──────────────────────────────────────── */
+/* Scheduler and resource instrumentation supplied by RTOS adapters. */
+#if VA_HAS_RTOS && VA_TRACE_TASK_STATES
+void va_logTaskState(void *task, VA_TaskState_t state);
+void va_logTaskWait(void *task, VA_WaitReason_t reason, void *object,
+                    VA_QueueObjectType_t type, uint32_t detail);
+void va_clearTaskWait(void *task);
+void va_logTaskPriority(void *task, int32_t effective, int32_t base, uint32_t cause);
+#else
+#define va_logTaskState(t, s) VA_DISCARD_ARGS(t, s)
+#define va_logTaskWait(t, r, o, k, d) (VA_DISCARD_3(t, r, o), VA_DISCARD_2(k, d))
+#define va_clearTaskWait(t) VA_DISCARD_ARGS(t)
+#define va_logTaskPriority(t, e, b, c) (VA_DISCARD_2(t, e), VA_DISCARD_2(b, c))
+#endif
+#if VA_HAS_RTOS && VA_TRACE_TIMERS && VA_TRACE_TIMER_CALLBACKS
+void va_logTimerCallback(void *timer, bool enter, bool stop, void *handler);
+#else
+#define va_logTimerCallback(t, e, s, h) (VA_DISCARD_2(t, e), VA_DISCARD_2(s, h))
+#endif
+#if VA_HAS_NOTIFICATION_DETAILS
+void va_logNotifyDetail(void *destination, void *sender, uint16_t exception,
+                        uint8_t operation, uint32_t value, uint32_t index);
+#else
+#define va_logNotifyDetail(d, s, e, o, v, i) (VA_DISCARD_3(d, s, e), VA_DISCARD_3(o, v, i))
+#endif
+
+#if VA_NEEDS_RTOS_OPERATIONS
+void va_logRtosOperation(void *object, VA_QueueObjectType_t type, uint8_t event,
+                         VA_RtosOperation_t operation, uint32_t value, uint32_t detail,
+                         void *task, uint16_t exception);
+void va_logRtosObjectInfo(void *object, VA_QueueObjectType_t type,
+                          uint32_t capacity, uint32_t elementSize);
+#else
+#define va_logRtosOperation(o, k, e, p, v, d, t, i) (VA_DISCARD_3(o, k, e), VA_DISCARD_3(p, v, d), VA_DISCARD_2(t, i))
+#define va_logRtosObjectInfo(o, k, c, s) (VA_DISCARD_2(o, k), VA_DISCARD_2(c, s))
+#endif
+
 #if VA_HAS_RTOS && VA_TRACE_TASK_NOTIFICATIONS
     void va_logtasknotifygive(void *srcHandle, void *destHandle, uint32_t value);
     void va_logtasknotifytake(void *taskHandle, uint32_t value);
@@ -565,6 +683,15 @@ typedef uint32_t (*VA_TimestampFn)(void);
 #endif
 
 #else /* VA_ENABLED == 0 - the whole recorder compiles away */
+#define va_logTaskState(t, s) VA_DISCARD_ARGS(t, s)
+#define va_logTaskWait(t, r, o, k, d) (VA_DISCARD_3(t, r, o), VA_DISCARD_2(k, d))
+#define va_clearTaskWait(t) VA_DISCARD_ARGS(t)
+#define va_logTaskPriority(t, e, b, c) (VA_DISCARD_2(t, e), VA_DISCARD_2(b, c))
+#define va_logTimerCallback(t, e, s, h) (VA_DISCARD_2(t, e), VA_DISCARD_2(s, h))
+#define va_logNotifyDetail(d, s, e, o, v, i) (VA_DISCARD_3(d, s, e), VA_DISCARD_3(o, v, i))
+#define va_logRtosOperation(o, k, e, p, v, d, t, i) (VA_DISCARD_3(o, k, e), VA_DISCARD_3(p, v, d), VA_DISCARD_2(t, i))
+#define va_logRtosObjectInfo(o, k, c, s) (VA_DISCARD_2(o, k), VA_DISCARD_2(c, s))
+
 
 /* Same contract as a disabled category: the call still compiles, its
    arguments are NOT evaluated, and they still count as used so a build with

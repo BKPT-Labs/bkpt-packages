@@ -71,14 +71,18 @@ typedef struct {
     uint8_t  id;                            /* ViewAlyzer internal ID                 */
     char     name[VA_MAX_TASK_NAME_LEN];
     bool     active;
+#if VA_TRACE_TASK_STATES
+    uint8_t state, waitReason, waitObject;
+    uint32_t waitDetail;
+#endif
 #if VA_TRACE_TASK_NOTIFICATIONS
     void    *last_notifier;                 /* For notification tracking              */
 #endif
-#if VA_TRACE_TASKS
+#if VA_TRACE_TASKS || VA_TRACE_TASK_STATES
     uint32_t uxPriority;                    /* TASK_CREATE payload                    */
     uint32_t uxBasePriority;
 #endif
-#if VA_TRACE_TASKS || VA_TRACE_STACK_USAGE
+#if VA_TRACE_TASKS || VA_TRACE_TASK_STATES || VA_TRACE_STACK_USAGE
     uint32_t ulStackDepth;                  /* total stack, in the adapter's units     */
 #endif
 #if VA_TRACE_STACK_USAGE
@@ -105,6 +109,9 @@ typedef struct {
     char                name[VA_MAX_TASK_NAME_LEN];
     VA_QueueObjectType_t type;
     bool                active;
+#if VA_NEEDS_RTOS_OPERATIONS
+    uint32_t capacity, elementSize;
+#endif
 #if VA_HAS_RTOS && VA_TRACE_RTOS_HEAPS
     uint32_t            heapCapacity;    /* bytes; 0 = unknown. Re-emitted with
                                             each setup bundle so late-attaching

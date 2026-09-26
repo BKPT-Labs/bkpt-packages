@@ -177,7 +177,7 @@ uint32_t va_adapter_get_total_stack_size(void *taskHandle)
 
 /* ── Sleep (traceTASK_DELAY / suspend / resume) ──────────────────── */
 
-#if VA_TRACE_SLEEP
+#if VA_TRACE_SLEEP || VA_TRACE_TASK_STATES
 /* The sleeping flag makes enter/exit idempotent: a resume of a task that
    never slept emits nothing, and a resumed task's switch-in does not emit
    a second exit. */
@@ -185,6 +185,7 @@ void va_freertos_sleep_enter(void *taskHandle)
 {
     if (!VA_IsInit() || taskHandle == NULL)
         return;
+#if VA_TRACE_SLEEP
     bool emit = false;
     VA_CS_ENTER();
     int idx = _va_find_task_index(taskHandle);
@@ -196,12 +197,14 @@ void va_freertos_sleep_enter(void *taskHandle)
     VA_CS_EXIT();
     if (emit)
         va_logSleepEnter(taskHandle);
+#endif
 }
 
 void va_freertos_sleep_exit(void *taskHandle)
 {
     if (!VA_IsInit() || taskHandle == NULL)
         return;
+#if VA_TRACE_SLEEP
     bool emit = false;
     VA_CS_ENTER();
     int idx = _va_find_task_index(taskHandle);
@@ -213,6 +216,7 @@ void va_freertos_sleep_exit(void *taskHandle)
     VA_CS_EXIT();
     if (emit)
         va_logSleepExit(taskHandle);
+#endif
 }
 #endif /* VA_TRACE_SLEEP */
 
@@ -426,5 +430,131 @@ void va_adapter_check_mutex_contention(void *queueObject, uint8_t queue_va_id)
    translation unit something so strict toolchains do not warn about an
    empty object file. */
 const char va_adapter_freertos_present = 1;
+
+#if VA_TRACE_TASK_STATES
+void va_freertos_task_ready(void *task, const char *name, uint32_t priority, uint32_t base)
+{
+    if (!VA_IsInit()) return;
+    VA_CS_ENTER();
+    int idx = _va_find_task_index(task);
+    if (idx < 0) {
+        g_task_pxStack = NULL;
+        g_task_pxEndOfStack = NULL;
+        g_task_ulStackDepth = 0;
+        g_task_uxPriority = priority;
+        g_task_uxBasePriority = base;
+        va_taskcreated(task, name);
+        idx = _va_find_task_index(task);
+    }
+    /* Reordering a running task after a priority change is not a wakeup. */
+    if (idx >= 0 && taskMap[idx].state != VA_TASK_RUNNING)
+        va_logTaskState(task, VA_TASK_READY);
+    VA_CS_EXIT();
+}
+
+void va_freertos_wait(VA_WaitReason_t reason, void *object, VA_QueueObjectType_t type, uint32_t detail)
+{
+    if (!VA_IsInit()) return;
+    void *task = (void *)xTaskGetCurrentTaskHandle();
+    va_logTaskWait(task, reason, object, type, detail);
+    va_logTaskState(task, VA_TASK_BLOCKED);
+}
+
+void va_freertos_block(void *object, bool send)
+{
+    if (!VA_IsInit()) return;
+    VA_QueueObjectType_t type = va_adapter_get_queue_object_type(object);
+    VA_WaitReason_t reason = send ? VA_WAIT_QUEUE_SEND : VA_WAIT_QUEUE_RECEIVE;
+    if (type == VA_OBJECT_TYPE_MUTEX || type == VA_OBJECT_TYPE_RECURSIVE_MUTEX)
+        reason = VA_WAIT_MUTEX;
+    else if (type == VA_OBJECT_TYPE_BINARY_SEM || type == VA_OBJECT_TYPE_COUNTING_SEM)
+        reason = VA_WAIT_SEMAPHORE;
+    va_freertos_wait(reason, object, type, 0);
+}
+#endif
+
+#if VA_TRACE_STREAM_BUFFERS || VA_TRACE_TASK_STATES
+void va_freertos_stream(void *buffer, bool message, uint32_t capacity,
+                        uint8_t operation, uint32_t transferred, uint32_t requested)
+{
+    if (!VA_IsInit()) return;
+    VA_QueueObjectType_t type = message ? VA_OBJECT_TYPE_MESSAGE_BUFFER : VA_OBJECT_TYPE_STREAM_BUFFER;
+    uint16_t exception = (uint16_t)__get_IPSR();
+    void *task = exception == 0 ? (void *)xTaskGetCurrentTaskHandle() : NULL;
+#if VA_TRACE_STREAM_BUFFERS
+    /* Buffer-only builds may have no switch hook to register a task that
+       existed before VA_Init. Its name is still needed for attribution. */
+    if (task != NULL && _va_find_task_id(task) == 0) {
+        VA_ATOMIC(
+            g_task_pxStack = NULL;
+            g_task_pxEndOfStack = NULL;
+            g_task_ulStackDepth = 0;
+            g_task_uxPriority = 0;
+            g_task_uxBasePriority = 0;
+            va_taskcreated(task, pcTaskGetName((TaskHandle_t)task)));
+    }
+#endif
+#if VA_TRACE_TASK_STATES
+    if (operation == VA_OP_WAIT_BEGIN) {
+        va_freertos_wait(transferred == 0 ? VA_WAIT_STREAM_SEND : VA_WAIT_STREAM_RECEIVE,
+                         buffer, type, requested);
+        return;
+    }
+    if (task != NULL && operation != 0) va_clearTaskWait(task);
+#endif
+#if VA_TRACE_STREAM_BUFFERS
+    va_logRtosObjectInfo(buffer, type, capacity, message ? (uint32_t)sizeof(configMESSAGE_BUFFER_LENGTH_TYPE) : 1);
+    if (operation != 0 && operation != VA_OP_WAIT_BEGIN)
+        va_logRtosOperation(buffer, type, VA_EVENT_STREAM_BUFFER,
+            (VA_RtosOperation_t)operation, transferred, requested, task, exception);
+#else
+    (void)capacity; (void)requested;
+#endif
+}
+#endif
+
+#if VA_HAS_QUEUE_DETAILS || VA_HAS_EVENT_FLAG_DETAILS || VA_HAS_NOTIFICATION_DETAILS
+static void *va_freertos_detail_task(void)
+{
+    if (__get_IPSR() != 0) return NULL;
+    void *task = (void *)xTaskGetCurrentTaskHandle();
+    if (VA_IsInit() && task != NULL && _va_find_task_id(task) == 0) {
+        VA_ATOMIC(
+            g_task_pxStack = NULL; g_task_pxEndOfStack = NULL; g_task_ulStackDepth = 0;
+            g_task_uxPriority = 0; g_task_uxBasePriority = 0;
+            va_taskcreated(task, pcTaskGetName((TaskHandle_t)task)));
+    }
+    return task;
+}
+#endif
+#if VA_HAS_QUEUE_DETAILS
+void va_freertos_queue_detail(void *queue, uint8_t operation, uint32_t used,
+                               uint32_t capacity, uint32_t itemSize, uint32_t detail)
+{
+    if (!VA_IsInit() || itemSize == 0) return; /* shared hooks also see semaphores */
+    void *task = va_freertos_detail_task();
+    va_logRtosObjectInfo(queue, VA_OBJECT_TYPE_QUEUE, capacity, itemSize);
+    va_logRtosOperation(queue, VA_OBJECT_TYPE_QUEUE, VA_EVENT_QUEUE_DETAILS,
+        (VA_RtosOperation_t)operation, used, detail, task, (uint16_t)__get_IPSR());
+}
+#endif
+#if VA_HAS_EVENT_FLAG_DETAILS
+void va_freertos_flags(void *group, uint8_t operation, uint32_t bits, uint32_t mask)
+{
+    if (!VA_IsInit()) return;
+    void *task = va_freertos_detail_task();
+    va_logRtosOperation(group, VA_OBJECT_TYPE_EVENTFLAG, VA_EVENT_FLAG_DETAILS,
+        (VA_RtosOperation_t)operation, bits, mask, task, (uint16_t)__get_IPSR());
+}
+#endif
+#if VA_HAS_NOTIFICATION_DETAILS
+void va_freertos_notify(void *destination, void *sender, uint8_t operation,
+                        uint32_t value, uint32_t index)
+{
+    if (!VA_IsInit()) return;
+    (void)va_freertos_detail_task();
+    va_logNotifyDetail(destination, sender, (uint16_t)__get_IPSR(), operation, value, index);
+}
+#endif
 
 #endif /* VA_ENABLED && VA_RTOS_FREERTOS */

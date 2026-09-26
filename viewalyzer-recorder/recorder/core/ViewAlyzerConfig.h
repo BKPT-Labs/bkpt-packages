@@ -108,6 +108,34 @@
 #ifndef VA_TRACE_TASKS
 #define VA_TRACE_TASKS              VA_TRACE_DEFAULT /* Task switch + create, task name map */
 #endif
+#ifndef VA_TRACE_TASK_STATES
+#define VA_TRACE_TASK_STATES VA_TRACE_TASKS /* Ready/blocked, wait reasons and priorities */
+#endif
+#ifndef VA_TRACE_STREAM_BUFFERS
+#define VA_TRACE_STREAM_BUFFERS VA_TRACE_DEFAULT /* FreeRTOS stream/message buffers */
+#endif
+#ifndef VA_TRACE_MEM_SLABS
+#define VA_TRACE_MEM_SLABS VA_TRACE_DEFAULT /* Zephyr fixed-block allocators */
+#endif
+#ifndef VA_TRACE_CONDVARS
+#define VA_TRACE_CONDVARS VA_TRACE_DEFAULT /* Zephyr condition variables */
+#endif
+/* Detailed IPC snapshots are opt-in: they add packets to the base hooks.
+   Keep these disabled when comparing existing trace-overhead baselines. */
+#ifndef VA_TRACE_QUEUE_DETAILS
+#define VA_TRACE_QUEUE_DETAILS 0
+#endif
+#ifndef VA_TRACE_NOTIFICATION_DETAILS
+#define VA_TRACE_NOTIFICATION_DETAILS 0
+#endif
+#ifndef VA_TRACE_EVENT_FLAG_DETAILS
+#define VA_TRACE_EVENT_FLAG_DETAILS 0
+#endif
+
+#ifndef VA_TRACE_POLL
+#define VA_TRACE_POLL VA_TRACE_DEFAULT /* Zephyr poll waits and signals */
+#endif
+
 #ifndef VA_TRACE_TASK_NOTIFICATIONS
 #define VA_TRACE_TASK_NOTIFICATIONS VA_TRACE_DEFAULT /* FreeRTOS task notifications */
 #endif
@@ -142,6 +170,13 @@
 #endif
 #ifndef VA_TRACE_TIMERS
 #define VA_TRACE_TIMERS             VA_TRACE_DEFAULT /* Kernel timers */
+#endif
+/* Timer callback entry/exit spans require VA_TRACE_TIMERS and stock kernel
+ * hooks. Currently implemented by the Zephyr adapter only; on FreeRTOS or
+ * older Zephyr kernels this adds no automatic events. FreeRTOS timer expiry
+ * events remain controlled by VA_TRACE_TIMERS. */
+#ifndef VA_TRACE_TIMER_CALLBACKS
+#define VA_TRACE_TIMER_CALLBACKS    VA_TRACE_TIMERS
 #endif
 #ifndef VA_TRACE_RTOS_HEAPS
 #define VA_TRACE_RTOS_HEAPS         VA_TRACE_DEFAULT /* Kernel allocator alloc/free/fail */

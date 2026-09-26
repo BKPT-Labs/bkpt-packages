@@ -42,6 +42,7 @@
 
 /* Scheduling */
 /* #define VA_TRACE_TASKS              1 */
+/* #define VA_TRACE_TASK_STATES        1 */
 /* #define VA_TRACE_TASK_NOTIFICATIONS 1 */
 /* #define VA_TRACE_STACK_USAGE        1 */
 /* #define VA_TRACE_ISRS               1 */
@@ -51,10 +52,15 @@
 /* #define VA_TRACE_MUTEX_CONTENTION   1 */
 /* #define VA_TRACE_SEMAPHORES         1 */
 /* #define VA_TRACE_QUEUES             1 */
+/* #define VA_TRACE_STREAM_BUFFERS     1 */
+/* #define VA_TRACE_MEM_SLABS          1 */
+/* #define VA_TRACE_CONDVARS           1 */
+/* #define VA_TRACE_POLL               1 */
 /* #define VA_TRACE_EVENT_FLAGS        1 */
 /* #define VA_TRACE_WORK               1 */
 /* #define VA_TRACE_SLEEP              1 */
 /* #define VA_TRACE_TIMERS             1 */
+/* #define VA_TRACE_TIMER_CALLBACKS    1 */ /* Requires VA_TRACE_TIMERS; Zephyr handler spans */
 /* #define VA_TRACE_RTOS_HEAPS         1 */
 /* #define VA_TRACE_PM                 1 */
 
