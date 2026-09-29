@@ -1,5 +1,11 @@
 # Trace source clocks
 
+Revision 17 adds the STM32H72x/H73x debug profile (ROM part `0x483`, M7 on
+AP0) and read-only guards for its clock-gated D1 debug ROM and SWO on AP2.
+Discovery defers them when their clock bits are clear or unreadable. A confirmed
+M7 identity permits the existing SYSRESETREQ policy even when optional trace
+discovery is deferred. It does not turn on clocks or weaken reset verification.
+
 Revision 15 adds `debug_profiles`, independently versioned at schema 1. Its
 shape is defined by `debug-profiles.schema.json`. These profiles describe core
 access paths and identity requirements; they do not configure CTI or write

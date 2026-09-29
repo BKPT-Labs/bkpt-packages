@@ -2,8 +2,8 @@
   "$schema": "https://opendatasheet.org/schema/v0.1/trace-support.schema.json",
   "spec_version": "0.1",
   "type": "trace-support",
-  "rev": 16,
-  "updated_utc": "2026-09-21",
+  "rev": 17,
+  "updated_utc": "2026-09-29",
   "comment": "CANONICAL debugger-side trace bring-up catalog (bkpt-packages/trace-support). Consumers bundle a snapshot at build/dev time (the ViewAlyzer app never fetches at runtime; a future app fetch would come from this repo). Offline user override: <userAppData>/ViewAlyzer/trace-support.json (same shape). Rows group parts sharing a vendor debug-domain map. Device ID allowlists identify the known parts in each group; an arbitrary nonzero value at the same address is not sufficient vendor identification. Unknown IDs require catalog validation before vendor-specific initialization is enabled. Its init ops then run through a read-modify-write interpreter: {addr, set} = write literal, {addr, or} = OR bits in, {addr, insert, mask} = (old & ~mask) | (insert & mask). The token $prescaler normally resolves to (cpu-clock-hz / swo-freq-hz) - 1. A row-level swo_clock_div makes both the probe receiver and $prescaler use cpu-clock-hz / swo_clock_div; an individual op may override that with src-clock-div. tpiu:false means the row replaces the standard ARM TPIU programming (parts with their own SWO block). Optional per-row keys: onchip = the vacore_capture --probeless profile token for the family (Auto chip selection in the on-chip trace flow; absent = generic discovery), note = a one-line caveat logged when the row matches (for example: SWO bring-up not catalogued for this family yet). Rows are probed IN ORDER and the first match wins; keep more specific layouts before broader groups.",
   "devices": [
     {
@@ -533,6 +533,38 @@
           "ap": 2,
           "base": "0xE00E0000",
           "designer": "0x020",
+          "part": "0x483"
+        },
+        "components": [
+          {
+            "base": "0xE00E3000",
+            "ready": {
+              "ap": 2,
+              "address": "0xE00E1004",
+              "mask": "0x00500000",
+              "value": "0x00500000"
+            }
+          },
+          {
+            "base": "0xE00F0000",
+            "ready": {
+              "ap": 2,
+              "address": "0xE00E1004",
+              "mask": "0x00200000",
+              "value": "0x00200000"
+            }
+          }
+        ],
+        "sources": [
+          "https://www.st.com/resource/en/reference_manual/rm0468-stm32h723733-stm32h725735-and-stm32h730-value-line-advanced-armbased-32bit-mcus-stmicroelectronics.pdf"
+        ],
+        "comment": "The D1 debug ROM needs DBGMCU_CR.D1DBGCKEN; SWO needs the D3 debug and trace clocks. Read prerequisites through the AP2 debug alias and defer unclocked children without changing clocks."
+      },
+      {
+        "rom": {
+          "ap": 2,
+          "base": "0xE00E0000",
+          "designer": "0x020",
           "part": "0x450"
         },
         "components": [
@@ -571,6 +603,49 @@
       }
     ],
     "profiles": [
+      {
+        "id": "stm32h72x-h73x",
+        "label": "STM32H723/733/725/735/730",
+        "match": {
+          "rom": {
+            "ap": 0,
+            "designer": "0x020",
+            "part": "0x483"
+          }
+        },
+        "cores": [
+          {
+            "id": "cm7",
+            "label": "Cortex-M7",
+            "ap": 0,
+            "scs_base": "0xE000E000",
+            "cpuid_part": "0xC27"
+          }
+        ],
+        "reset": {
+          "schema": 1,
+          "method": "sysresetreq",
+          "scope": "target",
+          "issuer": "cm7",
+          "debug_retained": true,
+          "delayed_reset_catch": true,
+          "timeout_ms": 2000,
+          "cores": [
+            {
+              "id": "cm7",
+              "boot_held": []
+            }
+          ],
+          "sources": [
+            "https://www.st.com/resource/en/reference_manual/rm0468-stm32h723733-stm32h725735-and-stm32h730-value-line-advanced-armbased-32bit-mcus-stmicroelectronics.pdf"
+          ],
+          "comment": "System reset uses the observed M7 and retains debug. Optional clock-gated trace infrastructure does not add another CPU or require trace initialization for reset. The target owner still checks reset catch and resource retention."
+        },
+        "sources": [
+          "https://www.st.com/resource/en/reference_manual/rm0468-stm32h723733-stm32h725735-and-stm32h730-value-line-advanced-armbased-32bit-mcus-stmicroelectronics.pdf"
+        ],
+        "comment": "Confirm the 0x483 ROM integration together with the M7 on AP0. A missing or conflicting core identity cannot establish reset support."
+      },
       {
         "id": "stm32h7x5-x7",
         "label": "STM32H745/755/747/757",
