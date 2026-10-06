@@ -31,7 +31,7 @@
    breaking wire/API change. The three numeric parts are the source of truth;
    the string and packed forms derive from them. */
 #define VA_RECORDER_VERSION_MAJOR 1
-#define VA_RECORDER_VERSION_MINOR 2
+#define VA_RECORDER_VERSION_MINOR 3
 #define VA_RECORDER_VERSION_PATCH 0
 
 #define VA_VERSION_STR2_(x) #x
