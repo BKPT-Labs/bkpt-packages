@@ -121,7 +121,9 @@ extern "C" void va_freertos_taskswitchedin(void *taskHandle);
 void va_freertos_taskswitchedin(void *taskHandle);
 #endif
 
-#define traceTASK_SWITCHED_IN() va_freertos_taskswitchedin((void *)pxCurrentTCB)
+#define traceTASK_SWITCHED_IN() \
+    do { VA_FREERTOS_ENSURE_TASK_METADATA(pxCurrentTCB); \
+         va_freertos_taskswitchedin((void *)pxCurrentTCB); } while (0)
 #define traceTASK_SWITCHED_OUT() va_taskswitchedout((void *)pxCurrentTCB)
 #endif
 
@@ -135,22 +137,46 @@ void va_freertos_taskswitchedin(void *taskHandle);
 
 #if (configRECORD_STACK_HIGH_ADDRESS == 1)
 #define VA_CALCULATE_STACK_DEPTH(pxTCB) \
-    g_task_ulStackDepth = (uint32_t)((pxTCB)->pxEndOfStack - (pxTCB)->pxStack)
+    do { \
+        size_t va_words = (size_t)((pxTCB)->pxEndOfStack - (pxTCB)->pxStack) + 1u; \
+        g_task_ulStackDepth = va_words <= UINT32_MAX / sizeof(*(pxTCB)->pxStack) \
+            ? (uint32_t)(va_words * sizeof(*(pxTCB)->pxStack)) : 0; \
+        g_task_pxEndOfStack = (pxTCB)->pxEndOfStack; \
+    } while (0)
 #else
 #define VA_CALCULATE_STACK_DEPTH(pxTCB) \
     g_task_ulStackDepth = 0
 #endif
 
-#define traceTASK_CREATE(pxNewTCB)                                   \
+#ifdef __cplusplus
+extern "C" {
+#endif
+bool va_freertos_task_needs_metadata(void *taskHandle);
+void va_freertos_task_metadata(void *taskHandle, const char *name);
+#ifdef __cplusplus
+}
+#endif
+#if configUSE_MUTEXES == 1
+#define VA_FREERTOS_TASK_BASE(t) ((t)->uxBasePriority)
+#else
+#define VA_FREERTOS_TASK_BASE(t) ((t)->uxPriority)
+#endif
+
+#define VA_FREERTOS_CAPTURE_TASK_METADATA(pxNewTCB)                  \
     do                                                               \
     {                                                                \
         g_task_pxStack = (pxNewTCB)->pxStack;                        \
         g_task_uxPriority = (pxNewTCB)->uxPriority;                  \
         g_task_pxEndOfStack = NULL;                                  \
-        g_task_uxBasePriority = (pxNewTCB)->uxPriority;              \
+        g_task_uxBasePriority = VA_FREERTOS_TASK_BASE(pxNewTCB);      \
         VA_CALCULATE_STACK_DEPTH(pxNewTCB);                          \
-        va_taskcreated((void *)(pxNewTCB), pcTaskGetName(pxNewTCB));  \
+        va_freertos_task_metadata((void *)(pxNewTCB), (pxNewTCB)->pcTaskName); \
     } while (0)
+
+#define VA_FREERTOS_ENSURE_TASK_METADATA(t) \
+    do { if (va_freertos_task_needs_metadata((void *)(t))) \
+        VA_FREERTOS_CAPTURE_TASK_METADATA(t); } while (0)
+#define traceTASK_CREATE(t) VA_FREERTOS_ENSURE_TASK_METADATA(t)
 
 /* Frees the registry slot so a recycled TCB address cannot inherit the
    dead task's identity. */
@@ -271,21 +297,20 @@ void va_freertos_taskswitchedin(void *taskHandle);
 #endif
 
 /* ── Software timers ─────────────────────────────────────────────── */
-/* A timer arms as a give (start/reset/period change) and closes as a take
-   (expiry or stop), so a one-shot timer's give-to-take pairing is its armed
-   window. COMMAND_SEND is hooked rather than COMMAND_RECEIVED: it fires in
-   the requesting context at the moment of the request, including the
-   FromISR variants, and only when the command was accepted (xReturn). */
+/* Observe accepted commands when the daemon processes them. Expiries have
+   their own event; a stop from a callback must never look like an expiry. */
 #if VA_TRACE_TIMERS
-#if defined(traceTIMER_CREATE) || defined(traceTIMER_COMMAND_SEND) || defined(traceTIMER_EXPIRED)
+#if defined(traceTIMER_CREATE) || defined(traceTIMER_COMMAND_RECEIVED) || defined(traceTIMER_COMMAND_SEND) || defined(traceTIMER_EXPIRED)
 #error "ViewAlyzer: a timer trace macro is already defined - another trace tool is installed in this FreeRTOSConfig.h"
 #endif
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-void va_freertos_timer_command(void *timer, int32_t commandId, uint32_t optionalValue);
-void va_freertos_timer_expired(void *timer);
+void va_freertos_timer_command(void *timer, int32_t commandId, uint32_t optionalValue,
+                               uint32_t periodTicks);
+void va_freertos_timer_expired(void *timer, void *handler, const char *hookFunction);
+void va_freertos_timer_request(void *timer, int32_t commandId, int32_t accepted);
 #ifdef __cplusplus
 }
 #endif
@@ -293,18 +318,15 @@ void va_freertos_timer_expired(void *timer);
 #define traceTIMER_CREATE(pxNewTimer) \
     va_logQueueObjectCreateTyped((void *)(pxNewTimer), (pxNewTimer)->pcTimerName, VA_OBJECT_TYPE_TIMER)
 
-/* xOptionalValue rides along: for the change-period commands it carries the
-   NEW period in ticks, which the kernel has only queued at this point. */
-#define traceTIMER_COMMAND_SEND(xTimer, xCommandID, xOptionalValue, xReturn)          \
-    do                                                                                \
-    {                                                                                 \
-        if ((xReturn) != pdFAIL)                                                      \
-            va_freertos_timer_command((void *)(xTimer), (int32_t)(xCommandID),        \
-                                      (uint32_t)(xOptionalValue));                    \
-    } while (0)
+#define traceTIMER_COMMAND_RECEIVED(pxTimer, xCommandID, xCommandValue) \
+    va_freertos_timer_command((void *)(pxTimer), (int32_t)(xCommandID), (uint32_t)(xCommandValue), \
+        (uint32_t)((pxTimer)->xTimerPeriodInTicks))
+
+#define traceTIMER_COMMAND_SEND(pxTimer, xCommandID, xOptionalValue, xReturn) \
+    va_freertos_timer_request((void *)(pxTimer), (int32_t)(xCommandID), (int32_t)(xReturn))
 
 #define traceTIMER_EXPIRED(pxTimer) \
-    va_freertos_timer_expired((void *)(pxTimer))
+    va_freertos_timer_expired((void *)(pxTimer), (void *)((pxTimer)->pxCallbackFunction), __func__)
 
 #endif /* VA_TRACE_TIMERS */
 
@@ -414,10 +436,10 @@ void va_freertos_sleep_exit(void *taskHandle);
 #endif /* VA_TRACE_SLEEP */
 
 /* ── Kernel heap (pvPortMalloc / vPortFree) ──────────────────────── */
-/* The reported value is bytes allocated since tracing started (a running
-   total from the trace hook sizes), which works identically across every
-   heap_n scheme; allocations made before VA_Init are not counted. A NULL
-   return reports a failed allocation with the requested size. */
+/* Set VA_FREERTOS_HEAP_SCHEME to the linked heap_n.c. Measurements use the
+   post-operation free-byte counter and an established usable capacity, never
+   a sum of requested sizes. A failure's size is the kernel hook size (possibly
+   including allocator overhead, or zero for an overflowing request). */
 #if VA_TRACE_RTOS_HEAPS
 #if defined(traceMALLOC) || defined(traceFREE)
 #error "ViewAlyzer: a heap trace macro is already defined - another trace tool is installed in this FreeRTOSConfig.h"
@@ -433,7 +455,13 @@ void va_freertos_heap_free(void *address, uint32_t size);
 #endif
 
 #define traceMALLOC(pvAddress, uiSize) va_freertos_heap_alloc((pvAddress), (uint32_t)(uiSize))
+#if VA_FREERTOS_HEAP_SCHEME == 0 || VA_FREERTOS_HEAP_SCHEME == 3
+/* libc's hook runs after free(), when even evaluating the pointer is unsafe.
+   No portable free-byte measurement exists for these schemes. */
+#define traceFREE(pvAddress, uiSize)   ((void)0)
+#else
 #define traceFREE(pvAddress, uiSize)   va_freertos_heap_free((pvAddress), (uint32_t)(uiSize))
+#endif
 
 #endif /* VA_TRACE_RTOS_HEAPS */
 
@@ -473,7 +501,8 @@ void va_freertos_wait(VA_WaitReason_t reason, void *object, VA_QueueObjectType_t
 #define VA_FREERTOS_BASE(t) ((t)->uxPriority)
 #define VA_FREERTOS_SET_EFFECTIVE(t, p) (p)
 #endif
-#define traceMOVED_TASK_TO_READY_STATE(t) va_freertos_task_ready((void *)(t), (t)->pcTaskName, (t)->uxPriority, VA_FREERTOS_BASE(t))
+#define traceMOVED_TASK_TO_READY_STATE(t) \
+    va_freertos_task_ready((void *)(t), (t)->pcTaskName, (t)->uxPriority, VA_FREERTOS_BASE(t))
 #define traceTASK_PRIORITY_SET(t, p) va_logTaskPriority((void *)(t), (int32_t)VA_FREERTOS_SET_EFFECTIVE(t, p), (int32_t)(p), 1)
 #define traceTASK_PRIORITY_INHERIT(t, p) va_logTaskPriority((void *)(t), (int32_t)(p), (int32_t)VA_FREERTOS_BASE(t), 2)
 #define traceTASK_PRIORITY_DISINHERIT(t, p) va_logTaskPriority((void *)(t), (int32_t)(p), (int32_t)VA_FREERTOS_BASE(t), 3)

@@ -37,6 +37,12 @@
 extern "C" {
 #endif
 
+#if VA_TRACE_RTOS_HEAPS && VA_FREERTOS_HEAP_SCHEME == 5
+/* Include this header and use this wrapper instead of vPortDefineHeapRegions
+ * to record the exact usable capacity, including region alignment losses. */
+void VA_FreeRTOSDefineHeapRegions(const HeapRegion_t *regions);
+#endif
+
 /*
  * The adapter interface functions are declared in ViewAlyzer.h under
  * the VA_HAS_RTOS guard.  This file provides the FreeRTOS-specific

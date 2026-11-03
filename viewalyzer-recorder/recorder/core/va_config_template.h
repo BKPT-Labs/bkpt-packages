@@ -28,7 +28,8 @@
 /* #define VA_ENABLED 1 */
 
 /* Usually supplied by the build system; Zephyr uses Kconfig. */
-/* Options: VA_RTOS_NONE | VA_RTOS_FREERTOS | VA_RTOS_ZEPHYR */
+/* Options: VA_RTOS_NONE | VA_RTOS_FREERTOS | VA_RTOS_ZEPHYR |
+ *          VA_RTOS_THREADX | VA_RTOS_RTX5 */
 /* #define VA_RTOS_SELECT VA_RTOS_NONE */
 
 /* --------------------------------------------------------------------------

@@ -45,6 +45,11 @@
 #include <zephyr/sys/sys_heap.h>
 #include <string.h>
 
+/* The wire identifies one running task and has no CPU id. */
+#if defined(CONFIG_SMP) && CONFIG_SMP
+#error "ViewAlyzer: Zephyr SMP is not supported; use CONFIG_SMP=n for single-core trace accounting"
+#endif
+
 /* Zephyr routes trace points to exactly one backend; without this one every
    hook below is dead code and captures come back empty. */
 #if !defined(CONFIG_TRACING_USER)
@@ -101,15 +106,16 @@ uint32_t va_adapter_calculate_stack_usage(void *taskHandle)
     if (ret == 0)
     {
         int idx = _va_find_task_index(taskHandle);
-        if (idx >= 0 && taskMap[idx].ulStackDepth > 0)
+        if (idx >= 0 && taskMap[idx].ulStackDepth > 0 && unused <= taskMap[idx].ulStackDepth)
         {
             /* ulStackDepth is in bytes for Zephyr (set during registration) */
             uint32_t used = taskMap[idx].ulStackDepth - (uint32_t)unused;
             return used;
         }
-        return (uint32_t)unused;
     }
-    return 0;
+    /* The API can reject an unavailable/current stack. Never turn that into
+       a zero-used sample; core emission rejects used > total. */
+    return UINT32_MAX;
 }
 
 uint32_t va_adapter_get_total_stack_size(void *taskHandle)
@@ -127,15 +133,15 @@ uint32_t va_adapter_get_total_stack_size(void *taskHandle)
 /* ── Adapter interface - mutex contention ────────────────────────── */
 
 #if VA_NEEDS_BLOCKING_HOOK
-void va_adapter_check_mutex_contention(void *queueObject, uint8_t queue_va_id)
+void va_adapter_check_mutex_contention(void *queueObject, uint16_t queue_va_id)
 {
     struct k_mutex *m = (struct k_mutex *)queueObject;
     k_tid_t holder = m->owner;
     if (holder != NULL)
     {
         k_tid_t waiter = k_current_get();
-        uint8_t waiting_id = _va_find_task_id((void *)waiter);
-        uint8_t holder_id  = _va_find_task_id((void *)holder);
+        uint16_t waiting_id = _va_find_task_id((void *)waiter);
+        uint16_t holder_id  = _va_find_task_id((void *)holder);
         if (waiting_id != 0 && holder_id != 0 && waiting_id != holder_id)
         {
             _va_send_mutex_contention_packet(queue_va_id, waiting_id, holder_id, _va_get_timestamp());
@@ -147,7 +153,7 @@ void va_adapter_check_mutex_contention(void *queueObject, uint8_t queue_va_id)
 /* ── Thread → ViewAlyzer ID registration helper ──────────────────── */
 
 #if VA_NEEDS_TASK_REGISTRY
-static void va_zephyr_register_thread(k_tid_t tid)
+static void va_zephyr_register_thread(k_tid_t tid, int at_creation)
 {
     const char *name = k_thread_name_get(tid);
     if (name == NULL || name[0] == '\0')
@@ -162,7 +168,9 @@ static void va_zephyr_register_thread(k_tid_t tid)
         g_task_pxStack       = NULL;
         g_task_pxEndOfStack  = NULL;
         g_task_uxPriority    = (uint32_t)k_thread_priority_get(tid);
-        g_task_uxBasePriority = g_task_uxPriority;
+        /* Zephyr exposes current effective priority, not a task-wide base.
+           Only creation proves that this thread has not inherited a boost. */
+        g_task_uxBasePriority = at_creation ? g_task_uxPriority : (uint32_t)INT32_MIN;
 #if defined(CONFIG_THREAD_STACK_INFO)
         g_task_ulStackDepth  = tid->stack_info.size;
 #else
@@ -178,7 +186,7 @@ static void va_zephyr_register_thread(k_tid_t tid)
 static void va_zephyr_foreach_cb(const struct k_thread *thread, void *user_data)
 {
     ARG_UNUSED(user_data);
-    va_zephyr_register_thread((k_tid_t)thread);
+    va_zephyr_register_thread((k_tid_t)thread, 0);
 }
 
 void VA_Zephyr_RegisterExistingThreads(void)
@@ -194,7 +202,7 @@ void sys_trace_thread_create_user(struct k_thread *thread)
 {
     if (!VA_IsInit())
         return;
-    va_zephyr_register_thread((k_tid_t)thread);
+    va_zephyr_register_thread((k_tid_t)thread, 1);
 }
 
 /* Frees the registry slot so a new thread at a recycled address cannot
@@ -224,7 +232,7 @@ void sys_trace_thread_name_set_user(struct k_thread *thread)
     if (name == NULL || name[0] == '\0')
         return;
     if (_va_find_task_id((void *)thread) == 0)
-        va_zephyr_register_thread((k_tid_t)thread);
+        va_zephyr_register_thread((k_tid_t)thread, 0);
     else
         va_taskrenamed((void *)thread, name);
 }
@@ -235,7 +243,7 @@ void sys_trace_thread_switched_in_user(void)
         return;
     k_tid_t cur = k_current_get();
     if (_va_find_task_id((void *)cur) == 0)
-        va_zephyr_register_thread(cur);
+        va_zephyr_register_thread(cur, 0);
 #if VA_TRACE_TASKS || VA_TRACE_TASK_STATES
     va_taskswitchedin((void *)cur);
 #endif
@@ -336,16 +344,31 @@ void viewalyzer_zephyr_mutex_lock_exit(struct k_mutex *mutex, k_timeout_t timeou
     if (!VA_IsInit())
         return;
     va_zephyr_ensure_object_type((void *)mutex, VA_OBJECT_TYPE_MUTEX, "Mutex");
-    if (ret == 0)
-        va_logQueueObjectTake((void *)mutex, va_zephyr_timeout_to_ms(timeout));
-    else
-        va_logObjectOpFailedTyped((void *)mutex, VA_OBJECT_TYPE_MUTEX, false, 0);
+    if (ret == 0) {
+        /* Only the first acquisition changes ownership. A successful nested
+           lock returns through this same hook with lock_count > 1. */
+        if (mutex->owner == k_current_get() && mutex->lock_count == 1U)
+            va_logSyncActor(mutex, VA_OBJECT_TYPE_MUTEX, 0, k_current_get(), 0);
+    } else {
+        va_logSyncActor(mutex, VA_OBJECT_TYPE_MUTEX, 2, k_current_get(), 0);
+    }
 #endif
 }
 
 void viewalyzer_zephyr_mutex_unlock_enter(struct k_mutex *mutex)
 {
-    (void)mutex;
+    ARG_UNUSED(mutex);
+#if VA_TRACE_MUTEXES
+    if (!VA_IsInit()) return;
+    /* Zephyr may reschedule to the next owner BEFORE unlock_exit.
+       Observe a valid final release here, while the caller still owns it.
+       Only this owning thread can change its recursion count. Failed and
+       inner unlocks must not create ownership transitions. */
+    if (mutex->owner == k_current_get() && mutex->lock_count == 1U) {
+        va_zephyr_ensure_object_type(mutex, VA_OBJECT_TYPE_MUTEX, "Mutex");
+        va_logSyncActor(mutex, VA_OBJECT_TYPE_MUTEX, 1, k_current_get(), 0);
+    }
+#endif
 }
 
 void viewalyzer_zephyr_mutex_unlock_exit(struct k_mutex *mutex, int ret)
@@ -353,10 +376,10 @@ void viewalyzer_zephyr_mutex_unlock_exit(struct k_mutex *mutex, int ret)
     ARG_UNUSED(mutex);
     ARG_UNUSED(ret);
 #if VA_TRACE_MUTEXES
-    if (!VA_IsInit() || ret != 0)
+    if (!VA_IsInit() || ret == 0)
         return;
     va_zephyr_ensure_object_type((void *)mutex, VA_OBJECT_TYPE_MUTEX, "Mutex");
-    va_logQueueObjectGive((void *)mutex, 0);
+    va_logSyncActor(mutex, VA_OBJECT_TYPE_MUTEX, 3, k_current_get(), 0);
 #endif
 }
 #endif /* VA_TRACE_MUTEXES || VA_TRACE_MUTEX_CONTENTION */
@@ -775,13 +798,27 @@ void viewalyzer_zephyr_timer_init(struct k_timer *timer)
 
 void viewalyzer_zephyr_timer_start(struct k_timer *timer, k_timeout_t duration, k_timeout_t period)
 {
-    if (!VA_IsInit())
+    if (!VA_IsInit() || K_TIMEOUT_EQ(duration, K_FOREVER))
         return;
     va_zephyr_ensure_object_type((void *)timer, VA_OBJECT_TYPE_TIMER, "Timer");
-    va_logQueueObjectGive((void *)timer, va_zephyr_timeout_to_ms(duration));
-    /* K_NO_WAIT period maps to 0 = one-shot. */
-    va_logTimerArm((void *)timer, va_zephyr_timeout_to_ms(duration),
-                   va_zephyr_timeout_to_ms(period));
+    /* This hook precedes the kernel lock and arm. Preserve that limitation:
+       the request timestamp is not proof of the timer's actual deadline. */
+    VA_CS_ENTER();
+    int64_t ticks = duration.ticks;
+    uint8_t flags = VA_TIMER_REQUEST_HOOK;
+#if VA_TRACE_TIMER_CALLBACKS && defined(VA_ZEPHYR_HAS_TIMER_CALLBACKS)
+    if (timer->expiry_fn != NULL) flags |= VA_TIMER_EVERY_EXPIRY_TRACED;
+#endif
+    if (ticks < 0) ticks = Z_TICK_ABS(ticks) - k_uptime_ticks();
+    if (ticks < 1) ticks = 1; /* past absolute time / K_NO_WAIT: next tick */
+    uint32_t reload = 0;
+    if (!K_TIMEOUT_EQ(period, K_FOREVER) && !K_TIMEOUT_EQ(period, K_NO_WAIT)) {
+        if (period.ticks < 0 || (uint64_t)period.ticks > UINT32_MAX)
+            flags |= VA_TIMER_RELOAD_UNKNOWN;
+        else reload = (uint32_t)period.ticks;
+    }
+    va_logTimerArmTicks(timer, ticks, reload, CONFIG_SYS_CLOCK_TICKS_PER_SEC, flags);
+    VA_CS_EXIT();
 }
 
 void viewalyzer_zephyr_timer_stop(struct k_timer *timer)
@@ -871,11 +908,9 @@ void viewalyzer_zephyr_heap_alloc_exit_impl(struct k_heap *heap, uint32_t alloc_
     struct sys_memory_stats stats;
     if (sys_heap_runtime_stats_get(&heap->heap, &stats) == 0)
         va_logHeapAlloc((void *)heap, (uint32_t)stats.allocated_bytes);
-    else
-        va_logHeapAlloc((void *)heap, alloc_bytes);
-#else
-    va_logHeapAlloc((void *)heap, alloc_bytes);
 #endif
+    /* Without runtime statistics there is no total-usage observation. The
+       allocation's requested size is not the heap's allocated-byte total. */
 }
 
 void viewalyzer_zephyr_heap_free(struct k_heap *heap)
@@ -889,10 +924,6 @@ void viewalyzer_zephyr_heap_free(struct k_heap *heap)
     struct sys_memory_stats stats;
     if (sys_heap_runtime_stats_get(&heap->heap, &stats) == 0)
         va_logHeapFree((void *)heap, (uint32_t)stats.allocated_bytes);
-    else
-        va_logHeapFree((void *)heap, 0);
-#else
-    va_logHeapFree((void *)heap, 0);
 #endif
 }
 
@@ -929,7 +960,7 @@ void viewalyzer_zephyr_pm_system_suspend_exit(uint32_t ticks, uint8_t state)
 void viewalyzer_zephyr_sched_state(struct k_thread *thread, VA_TaskState_t state)
 {
     if (!VA_IsInit()) return;
-    va_zephyr_register_thread(thread);
+    va_zephyr_register_thread(thread, 0);
     va_logTaskState(thread, state);
     if (state == VA_TASK_READY) va_clearTaskWait(thread);
 }
@@ -937,7 +968,7 @@ void viewalyzer_zephyr_sched_state(struct k_thread *thread, VA_TaskState_t state
 void viewalyzer_zephyr_priority(struct k_thread *thread, int prio)
 {
     if (!VA_IsInit()) return;
-    va_zephyr_register_thread(thread);
+    va_zephyr_register_thread(thread, 0);
     /* This hook covers both explicit changes and mutex inheritance. Zephyr
        does not expose a task-wide base priority or the cause at this site. */
     va_logTaskPriority(thread, prio, INT32_MIN, 0);
@@ -947,7 +978,7 @@ void viewalyzer_zephyr_wait(void *object, VA_QueueObjectType_t type,
                            VA_WaitReason_t reason, uint32_t detail)
 {
     if (!VA_IsInit() || k_is_in_isr()) return;
-    va_zephyr_register_thread(k_current_get());
+    va_zephyr_register_thread(k_current_get(), 0);
     va_logTaskWait(k_current_get(), reason, object, type, detail);
 }
 
@@ -974,7 +1005,7 @@ static void va_zephyr_operation(void *object, VA_QueueObjectType_t type, uint8_t
 {
     if (!VA_IsInit()) return;
     uint16_t exception = (uint16_t)__get_IPSR();
-    if (exception == 0) va_zephyr_register_thread(k_current_get());
+    if (exception == 0) va_zephyr_register_thread(k_current_get(), 0);
     va_logRtosOperation(object, type, event, op, value, detail,
                         exception == 0 ? k_current_get() : NULL, exception);
 }

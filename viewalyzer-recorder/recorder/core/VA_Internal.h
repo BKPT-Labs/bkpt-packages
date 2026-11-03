@@ -67,31 +67,47 @@ extern "C" {
    cost no .bss. */
 #if VA_NEEDS_TASK_REGISTRY
 typedef struct {
-    void    *handle;                        /* Generic pointer to TCB / thread struct */
-    uint8_t  id;                            /* ViewAlyzer internal ID                 */
-    char     name[VA_MAX_TASK_NAME_LEN];
-    bool     active;
-#if VA_TRACE_TASK_STATES
-    uint8_t state, waitReason, waitObject;
-    uint32_t waitDetail;
+    /* Group naturally aligned fields before the byte fields. This private
+       layout is shared by source-built adapters, never read by the host. */
+#if VA_TRACE_STACK_USAGE
+    uint64_t lastStackEmitTs;               /* last sample attempt, even if unavailable */
 #endif
+    void    *handle;                        /* Generic pointer to TCB / thread struct */
 #if VA_TRACE_TASK_NOTIFICATIONS
-    void    *last_notifier;                 /* For notification tracking              */
+    uint16_t  last_notifier;                 /* Pinned sender slot + 1, not its wire ID */
+#endif
+#if VA_TRACE_STACK_USAGE
+    /* Stack monitoring - adapters populate these during task create */
+    void    *pxStack;
+    void    *pxEndOfStack;
+#endif
+#if VA_TRACE_TASK_STATES
+    uint32_t waitDetail;
 #endif
 #if VA_TRACE_TASKS || VA_TRACE_TASK_STATES
     uint32_t uxPriority;                    /* TASK_CREATE payload                    */
     uint32_t uxBasePriority;
 #endif
 #if VA_TRACE_TASKS || VA_TRACE_TASK_STATES || VA_TRACE_STACK_USAGE
-    uint32_t ulStackDepth;                  /* total stack, in the adapter's units     */
+    uint32_t ulStackDepth;                  /* usable stack bytes, all adapters        */
+#endif
+    uint32_t generation;
+    uint16_t references; /* deferred notification readers */
+#if (VA_RTOS_SELECT == VA_RTOS_THREADX) && VA_NEEDS_OBJECT_REGISTRY
+    uint8_t heldObjects[(VA_MAX_SYNC_OBJECTS + 7) / 8]; /* nested API references */
+#endif
+    uint16_t  id;                            /* sixteen-bit wire ID; never a RAM index */
+    char     name[VA_MAX_TASK_NAME_LEN];
+    bool     active;
+#if VA_RTOS_SELECT == VA_RTOS_FREERTOS
+    bool     hasNativeTaskMetadata;         /* kernel TCB fields captured, even if size unknown */
+#endif
+#if VA_TRACE_TASK_STATES
+    uint8_t state, waitReason;
+    uint16_t waitObject;
 #endif
 #if VA_TRACE_STACK_USAGE
-    /* Stack monitoring - adapters populate these during task create */
-    void    *pxStack;
-    void    *pxEndOfStack;
-    /* Stack-usage heartbeat pacing (see va_taskswitchedout) */
-    uint64_t lastStackEmitTs;               /* cycle count of last emission   */
-    bool     hasStackSample;                /* false until first emission     */
+    bool     hasStackSample;                /* false until first sample attempt */
 #endif
 #if (VA_RTOS_SELECT == VA_RTOS_FREERTOS) && VA_TRACE_SLEEP
     /* FreeRTOS has no delay/suspend EXIT trace point; the flag carries the
@@ -105,7 +121,9 @@ typedef struct {
 #if VA_NEEDS_OBJECT_REGISTRY
 typedef struct {
     void               *handle;
-    uint8_t             id;
+    uint32_t            generation;
+    uint16_t            references;
+    uint16_t             id;
     char                name[VA_MAX_TASK_NAME_LEN];
     VA_QueueObjectType_t type;
     bool                active;
@@ -125,14 +143,14 @@ extern volatile bool      VA_IS_INIT;
 
 #if VA_NEEDS_TASK_REGISTRY
 extern VA_TaskMapEntry_t  taskMap[VA_MAX_TASKS];
-extern uint8_t            next_task_id;
+extern uint16_t            next_task_id;
 /* The g_task_* creation scratch globals are declared in ViewAlyzer.h - the
    FreeRTOS hook header needs them and cannot include this file. */
 #endif
 
 #if VA_NEEDS_OBJECT_REGISTRY
 extern VA_QueueObjectMapEntry_t queueObjectMap[VA_MAX_SYNC_OBJECTS];
-extern uint8_t                  next_queue_object_id;
+extern uint16_t                  next_queue_object_id;
 #endif
 
 /* ── Packet emission helpers (defined in ViewAlyzer.c) ──────────── */
@@ -151,9 +169,9 @@ void _va_service_pending_bundle(void);
    overwritten here - builders must lay packets out as [type][seq][rest...]
    and never pass read-only storage. */
 void _va_emit_packet(uint8_t *data, uint32_t length);
-void _va_send_event_packet(uint8_t type_byte, uint8_t id, uint64_t timestamp);
-void _va_send_setup_packet(uint8_t setupCode, uint8_t id, const char *name);
-void _va_send_data_event_packet(uint8_t type_byte, uint8_t id, uint32_t value, uint64_t timestamp);
+void _va_send_event_packet(uint8_t type_byte, uint16_t id, uint64_t timestamp);
+void _va_send_setup_packet(uint8_t setupCode, uint16_t id, const char *name);
+void _va_send_data_event_packet(uint8_t type_byte, uint16_t id, uint32_t value, uint64_t timestamp);
 
 #if VA_NEEDS_USER_TRACE_REGISTRY
 void _va_send_user_setup_packet(uint8_t id, uint8_t type, const char *name);
@@ -164,16 +182,16 @@ void _va_send_float_event_packet(uint8_t id, float value, uint64_t timestamp);
 void _va_send_user_toggle_event_packet(uint8_t id, VA_UserToggleState_t state, uint64_t timestamp);
 #endif
 #if VA_HAS_RTOS && VA_TRACE_TASK_NOTIFICATIONS
-void _va_send_notification_event_packet(uint8_t type_byte, uint8_t id, uint8_t other_id, uint32_t value, uint64_t timestamp);
+void _va_send_notification_event_packet(uint8_t type_byte, uint16_t id, uint16_t other_id, uint32_t value, uint64_t timestamp);
 #endif
 #if VA_NEEDS_BLOCKING_HOOK
-void _va_send_mutex_contention_packet(uint8_t mutex_id, uint8_t waiting_task_id, uint8_t holder_task_id, uint64_t timestamp);
+void _va_send_mutex_contention_packet(uint16_t mutex_id, uint16_t waiting_task_id, uint16_t holder_task_id, uint64_t timestamp);
 #endif
 #if VA_NEEDS_TASK_SWITCH_EVENTS
-void _va_send_task_create_packet(uint8_t id, uint64_t timestamp, uint32_t priority, uint32_t base_priority, uint32_t stack_size);
+void _va_send_task_create_packet(uint16_t id, uint64_t timestamp, uint32_t priority, uint32_t base_priority, uint32_t stack_size);
 #endif
 #if VA_HAS_RTOS && VA_TRACE_STACK_USAGE
-void _va_send_stack_usage_packet(uint8_t id, uint64_t timestamp, uint32_t stack_used, uint32_t stack_total);
+void _va_send_stack_usage_packet(uint16_t id, uint64_t timestamp, uint32_t stack_used, uint32_t stack_total);
 #endif
 #if VA_TRACE_HEAP_METRICS
 void _va_send_heap_setup_packet(uint8_t id, const char *name, uint32_t totalSize);
@@ -181,18 +199,28 @@ void _va_send_heap_setup_packet(uint8_t id, const char *name, uint32_t totalSize
 
 /* ── Generic map helpers (defined in ViewAlyzer.c) ──────────────── */
 #if VA_NEEDS_TASK_REGISTRY
-uint8_t _va_find_task_id(void *handle);
+uint16_t _va_find_task_id(void *handle);
 int     _va_find_task_index(void *handle);
-uint8_t _va_assign_task_id(void *handle, const char *name);
+uint16_t _va_assign_task_id(void *handle, const char *name);
 #endif
 
 #if VA_NEEDS_OBJECT_REGISTRY
-uint8_t              _va_find_queue_object_id(void *handle);
+uint16_t              _va_find_queue_object_id(void *handle);
 int                  _va_find_queue_object_index(void *handle);
-uint8_t              _va_assign_queue_object_id(void *handle, const char *name, VA_QueueObjectType_t type);
+uint16_t              _va_assign_queue_object_id(void *handle, const char *name, VA_QueueObjectType_t type);
 const char          *_va_get_object_type_name(VA_QueueObjectType_t type);
 uint8_t              _va_get_setup_packet_type(VA_QueueObjectType_t type);
 VA_QueueObjectType_t _va_get_stored_queue_object_type(void *handle);
+uint16_t _va_hold_object_reference(void *task, void *object, bool *owned);
+bool _va_has_object_reference(void *task, uint16_t slot, uint16_t id, uint32_t generation);
+void _va_release_object_reference(void *task, uint16_t slot);
+void _va_clear_object_reference(void *task);
+void _va_logObjectOpFailedId(uint16_t id, VA_QueueObjectType_t type, bool giveSide, uint32_t detail);
+#if VA_NEEDS_RTOS_OPERATIONS
+void _va_logRtosOperationId(uint16_t id, VA_QueueObjectType_t type, uint8_t event,
+                           uint8_t operation, uint32_t value, uint32_t detail,
+                           void *task, uint16_t exception);
+#endif
 #endif
 
 #ifdef __cplusplus

@@ -4,7 +4,7 @@
 menuconfig VIEWALYZER
 	bool "ViewAlyzer Trace Recorder"
 	default n
-	depends on CPU_CORTEX_M
+	depends on CPU_CORTEX_M && !SMP
 	select TRACING
 	help
 	  Enable the ViewAlyzer binary trace recorder for Zephyr.
@@ -56,7 +56,7 @@ config VIEWALYZER_METADATA_SIZE
 # survive independently of CONFIG_VIEWALYZER_TRACE_THREADS.
 config VIEWALYZER_NEEDS_THREAD_REGISTRY
 	bool
-	default y if VIEWALYZER_TRACE_THREADS || VIEWALYZER_STACK_USAGE || \
+	default y if VIEWALYZER_TRACE_THREADS || VIEWALYZER_STACK_USAGE || VIEWALYZER_TRACE_MUTEXES || \
 		     VIEWALYZER_TRACE_MUTEX_CONTENTION || VIEWALYZER_TRACE_SLEEP
 	select TRACING_THREAD
 	select THREAD_MONITOR
@@ -442,6 +442,7 @@ config VIEWALYZER_RTT_CHANNEL
 	depends on VIEWALYZER_TRANSPORT_RTT
 	help
 	  SEGGER RTT up-buffer channel used by the recorder.
+	  Must be below SEGGER_RTT_MAX_NUM_UP_BUFFERS in the vendor configuration.
 
 config VIEWALYZER_CONFIGURE_RTT
 	bool "Configure the RTT up-buffer in VA_Init()"
@@ -458,8 +459,10 @@ config VIEWALYZER_RTT_BUFFER_SIZE
 	range 0 65535
 	depends on VIEWALYZER_TRANSPORT_RTT && VIEWALYZER_CONFIGURE_RTT
 	help
-	  Size of the recorder-owned RTT up-buffer. Set to 0 to use the RTT
-	  control block without providing a dedicated buffer.
+	  Size of the recorder-owned RTT up-buffer for channels above 0; these
+	  channels require at least 2 bytes. Channel 0 uses SEGGER's compile-time
+	  buffer and ignores this size. Disable VIEWALYZER_CONFIGURE_RTT when
+	  the application owns and configures the selected channel's buffer.
 
 config VIEWALYZER_RAMBUF_SIZE
 	int "RAM buffer size (bytes)"

@@ -73,10 +73,14 @@
 #define VA_RTOS_NONE     0            /* Bare metal: user traces / ISR logging only */
 #define VA_RTOS_FREERTOS 1
 #define VA_RTOS_ZEPHYR   2
-#define VA_RTOS_THREADX  3            /* Reserved for future */
+#define VA_RTOS_THREADX  3            /* ThreadX 6.4 / 6.5 single-core */
+#define VA_RTOS_RTX5     4            /* Arm CMSIS-RTX 5.9.1 single-core */
 
 #ifndef VA_RTOS_SELECT
 #define VA_RTOS_SELECT VA_RTOS_NONE
+#endif
+#if (VA_RTOS_SELECT < VA_RTOS_NONE) || (VA_RTOS_SELECT > VA_RTOS_RTX5)
+#error "ViewAlyzer: unsupported VA_RTOS_SELECT"
 #endif
 
 /* ── Trace categories ──────────────────────────────────────────────── */
@@ -181,6 +185,14 @@
 #ifndef VA_TRACE_RTOS_HEAPS
 #define VA_TRACE_RTOS_HEAPS         VA_TRACE_DEFAULT /* Kernel allocator alloc/free/fail */
 #endif
+/* Select the actual linked heap_n.c. 0 = custom/unknown, 3 = libc: only
+ * failures are observed; neither has a portable used/capacity measurement. */
+#ifndef VA_FREERTOS_HEAP_SCHEME
+#define VA_FREERTOS_HEAP_SCHEME 0
+#endif
+#if VA_FREERTOS_HEAP_SCHEME < 0 || VA_FREERTOS_HEAP_SCHEME > 5
+#error "ViewAlyzer: VA_FREERTOS_HEAP_SCHEME must be 0..5"
+#endif
 #ifndef VA_TRACE_PM
 #define VA_TRACE_PM                 VA_TRACE_DEFAULT /* Power-management suspend/resume */
 #endif
@@ -231,7 +243,7 @@
 #define VA_CONFIGURE_RTT 1            /* 1 = recorder configures the channel; 0 = you init RTT yourself */
 #endif
 #ifndef VA_RTT_BUFFER_SIZE
-#define VA_RTT_BUFFER_SIZE 4096u      /* Bytes reserved for the RTT up-buffer */
+#define VA_RTT_BUFFER_SIZE 4096u      /* Configured channels > 0 only; at least 2 bytes */
 #endif
 /* RTT buffering mode. The default, NO_BLOCK_SKIP, never stalls the
    firmware: when the RTT buffer is full a packet is skipped WHOLE (the
@@ -394,12 +406,22 @@
 #endif
 
 /* ── Registry sizes ────────────────────────────────────────────────── */
+/* These limits allocate RAM for simultaneously live or retained objects.
+   They do not limit lifetime creations: wire IDs advance through 1..65535
+   before wrapping, skipping IDs still held by live or retained entries. */
 
 #ifndef VA_MAX_TASKS
-#define VA_MAX_TASKS          16      /* RTOS task/thread slots */
+#define VA_MAX_TASKS          16      /* Live tasks plus retired notification senders
+                                       retained until consumption/replacement */
+#endif
+#if VA_MAX_TASKS < 1 || VA_MAX_TASKS > 65535
+#error "VA_MAX_TASKS must be in 1..65535 (concurrent task slots)"
 #endif
 #ifndef VA_MAX_SYNC_OBJECTS
 #define VA_MAX_SYNC_OBJECTS   64      /* Mutexes, semaphores, queues, timers, heaps */
+#endif
+#if VA_MAX_SYNC_OBJECTS < 1 || VA_MAX_SYNC_OBJECTS > 65535
+#error "VA_MAX_SYNC_OBJECTS must be in 1..65535 (live objects plus pending deleted waits)"
 #endif
 #ifndef VA_MAX_USER_EVENTS
 #define VA_MAX_USER_EVENTS    16      /* VA_RegisterUserEvent() spans/events */

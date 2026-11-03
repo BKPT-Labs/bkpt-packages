@@ -162,13 +162,17 @@ If those options are off, the recorder still works, but the missing data stays u
 For aligned, downward-growing 32-bit stacks with known bounds, the recorder checks the standard FreeRTOS
 `0xA5` fill one word at a time. A change to any byte stops the scan, preserving
 the same whole-word high-water result as `uxTaskGetStackHighWaterMark()`.
-Stack packets, their units and the sampling schedule are unchanged.
+Stack metadata and samples use bytes. Task creation uses packet `0x2B`, replacing
+the old native-word `0x03` payload. The inclusive usable bound comes from the TCB;
+port alignment can exclude padding from the original allocation.
 
-Unknown bounds, other stack widths or directions, unaligned bases and a scan
-that reaches the recorded bound fall back to the RTOS API. The existing
+Other stack widths or directions and unaligned bases use the native RTOS API,
+converting its free element count with `sizeof(StackType_t)`. A bounded scan
+stops at the bound. Unknown bounds or an invalid API result produce no sample.
+The existing
 `INCLUDE_uxTaskGetStackHighWaterMark` requirement still applies. There is no
 scanner-selection setting. `VA_TRACE_STACK_USAGE=0` disables
-stack measurements entirely. Zephyr and bare-metal behavior is unaffected.
+stack measurements entirely.
 
 ## Object Names, Recursive Mutexes, and Late Init
 
@@ -177,10 +181,23 @@ stack measurements entirely. Zephyr and bare-metal behavior is unaffected.
 - Recursive mutexes appear as one take at first acquisition and one give at
   final release. Nested takes and gives change no ownership and emit
   nothing; a timed-out take emits no take event, only a failed-op event.
-- Tasks created before `VA_Init()` are registered lazily on their first
-  switch-in. They keep their real names, but their priority and stack size
-  are unknown (reported as 0) and they get no stack-usage samples - call
-  `VA_Init()` before creating tasks to get full data.
+- Tasks created before `VA_Init()` are registered lazily at a ready/switch hook.
+  The hook reads the TCB directly to capture their real name, effective/base
+  priorities and usable stack bound, including tasks first named by an object
+  operation. No locking priority getter runs in the scheduler path.
+
+## Heap measurements
+
+Set `VA_FREERTOS_HEAP_SCHEME` to the actual linked `heap_1` through `heap_5`
+implementation. The default `0` leaves byte usage and capacity unknown and still
+records allocation failures; `heap_3` also has no portable pool-usage measurement.
+For `heap_5`, use `VA_FreeRTOSDefineHeapRegions()` when defining regions so the
+recorder knows their usable capacity. Without that wrapper, capacity remains
+unknown until an observed empty allocator establishes it.
+
+Used bytes are allocator pool consumption, including block overhead and alignment
+slack, rather than the sum of requested application payload sizes. Capacity is
+usable allocator space after region alignment and bookkeeping reservations.
 
 ## Startup Sequence
 

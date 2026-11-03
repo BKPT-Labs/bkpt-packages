@@ -14,7 +14,7 @@ VA_RAMBUF_ATTRIBUTES VA_MetadataControl_t _VA_METADATA __attribute__((aligned(4)
 static VA_RAMBUF_ATTRIBUTES uint8_t _va_metadata_bytes[VA_METADATA_SIZE];
 static uint64_t _va_metadata_last_checkpoint;
 static uint64_t _va_metadata_heartbeat;
-static uint8_t _va_metadata_running;
+static uint16_t _va_metadata_running;
 static void _va_metadata_request(uint32_t request) __attribute__((noinline));
 static inline void _va_metadata_poll(void)
 {
@@ -63,9 +63,12 @@ static __attribute__((noinline)) void _va_metadata_store(const uint8_t *data, ui
     {
         uint32_t n = _va_metadata_length(off);
         const uint8_t *p = &_va_metadata_bytes[off + 2];
-        bool same = (p[0] == data[0] || (_va_metadata_object_name(p[0]) && _va_metadata_object_name(data[0]))) && p[2] == data[2];
+        bool lifetime = (data[0] & VA_EVENT_TYPE_MASK) == VA_EVENT_SYNC_LIFETIME;
+        bool same = (p[0] == data[0] || (lifetime && (p[0] & VA_EVENT_TYPE_MASK) == VA_EVENT_SYNC_LIFETIME) ||
+                    (_va_metadata_object_name(p[0]) && _va_metadata_object_name(data[0]))) && p[2] == data[2] &&
+                    (!_va_setup_has_wide_id(data[0]) || p[3] == data[3]);
         if (same && data[0] == VA_SETUP_OBJECT_INFO)
-            same = p[3] == data[3];
+            same = p[4] == data[4];
         if (same && data[0] == VA_SETUP_INFO)
             same = (n == length && memcmp(p + 3, data + 3, length - 3) == 0) ||
                    (n >= 8u && length >= 8u && memcmp(p + 4, "CLK:", 4) == 0 && memcmp(data + 4, "CLK:", 4) == 0);
@@ -86,14 +89,16 @@ static __attribute__((noinline)) void _va_metadata_store(const uint8_t *data, ui
     _va_metadata_bytes[off + 1] = (uint8_t)(length >> 8);
     memcpy(&_va_metadata_bytes[off + 2], data, length);
     _va_metadata_bytes[off + 3] = 0;
-    if (data[0] == VA_EVENT_TASK_CREATE)
-        memset(&_va_metadata_bytes[off + 5], 0, 4);
+    if (data[0] == VA_EVENT_TASK_CREATE || (data[0] & VA_EVENT_TYPE_MASK) == VA_EVENT_SYNC_LIFETIME)
+        memset(&_va_metadata_bytes[off + 6], 0, 4);
     _VA_METADATA.used = used - old + length + 2;
     _va_metadata_end();
 }
 
 #if VA_NEEDS_TASK_REGISTRY || VA_NEEDS_OBJECT_REGISTRY
-static void _va_metadata_remove(uint8_t id, bool task)
+/* Retired tasks may retain identity for a pending notification, but must not
+   be reported as live creations to a late-attaching host. */
+static void _va_metadata_remove(uint16_t id, bool task, bool retainIdentity)
 {
     uint32_t off = 0;
     _va_metadata_begin();
@@ -101,9 +106,12 @@ static void _va_metadata_remove(uint8_t id, bool task)
     {
         uint32_t n = _va_metadata_length(off) + 2;
         uint8_t *p = &_va_metadata_bytes[off + 2];
-        bool match = task ? (p[0] == VA_SETUP_TASK_MAP || p[0] == VA_EVENT_TASK_CREATE)
-                          : (_va_metadata_object_name(p[0]) || p[0] == VA_SETUP_OBJECT_INFO);
-        if (match && p[2] == id)
+        bool taskGeneration = p[0] == VA_SETUP_OBJECT_INFO && p[4] == VA_OBJINFO_TASK_GENERATION;
+        bool match = task ? (p[0] == VA_SETUP_TASK_MAP || p[0] == VA_EVENT_TASK_CREATE || taskGeneration)
+                          : (_va_metadata_object_name(p[0]) || (p[0] == VA_SETUP_OBJECT_INFO && !taskGeneration) ||
+                             (p[0] & VA_EVENT_TYPE_MASK) == VA_EVENT_SYNC_LIFETIME);
+        if (retainIdentity) match = p[0] == VA_EVENT_TASK_CREATE;
+        if (match && (uint16_t)(p[2] | ((uint16_t)p[3] << 8)) == id)
         {
             memmove(&_va_metadata_bytes[off], &_va_metadata_bytes[off + n], _VA_METADATA.used - off - n);
             _VA_METADATA.used -= n;

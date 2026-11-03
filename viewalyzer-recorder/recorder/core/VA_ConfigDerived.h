@@ -139,12 +139,12 @@
 #endif
 #define VA_TIMESTAMP_BYTES (VA_TIMESTAMP_BITS / 8)
 
-/* The per-packet sequence byte is part of the wire format, not a knob: it is
-   the host's ground truth for loss detection (any gap in the rolling 8-bit
-   sequence is exactly that many packets lost, which timestamps alone can
-   never prove). Costs 1 byte per packet. */
+/* Wire format 1 always includes one sequence byte per packet. The host uses
+   rolling sequence gaps and absolute checkpoints to count packet loss.
+   VA_SEQ_COUNTER is retained for old overrides set to 1, not as an on/off
+   option. Removing this guard would not remove the byte or its increment. */
 #if defined(VA_SEQ_COUNTER) && (VA_SEQ_COUNTER != 1)
-#error "ViewAlyzer: VA_SEQ_COUNTER is not configurable; sequence bytes are part of the wire format"
+#error "ViewAlyzer: wire format 1 requires VA_SEQ_COUNTER=1; remove the VA_SEQ_COUNTER override or set it to 1 (see docs/api/configuration.md)"
 #endif
 #ifndef VA_SEQ_COUNTER
 #define VA_SEQ_COUNTER 1
@@ -283,18 +283,24 @@
    task ids, so the object and the tasks must still be registered even though
    no MUTEX events are ever emitted. */
 
-#define VA_HAS_QUEUE_DETAILS (VA_HAS_RTOS && VA_TRACE_QUEUES && VA_TRACE_QUEUE_DETAILS)
+/* RTX completes another thread's operations inside the waker's context.
+   Its explicit actors are required for correct attribution, not optional detail. */
+#define VA_HAS_QUEUE_DETAILS (VA_HAS_RTOS && VA_TRACE_QUEUES && (VA_TRACE_QUEUE_DETAILS || (VA_RTOS_SELECT == VA_RTOS_RTX5)))
 #define VA_HAS_NOTIFICATION_DETAILS ((VA_RTOS_SELECT == VA_RTOS_FREERTOS) && VA_TRACE_TASK_NOTIFICATIONS && VA_TRACE_NOTIFICATION_DETAILS)
-#define VA_HAS_EVENT_FLAG_DETAILS (VA_HAS_RTOS && VA_TRACE_EVENT_FLAGS && VA_TRACE_EVENT_FLAG_DETAILS)
+#define VA_HAS_THREAD_FLAG_DETAILS ((VA_RTOS_SELECT == VA_RTOS_RTX5) && VA_TRACE_TASK_NOTIFICATIONS)
+#define VA_HAS_EVENT_FLAG_DETAILS (VA_HAS_RTOS && VA_TRACE_EVENT_FLAGS && (VA_TRACE_EVENT_FLAG_DETAILS || (VA_RTOS_SELECT == VA_RTOS_RTX5)))
 
 /* Task ids and names are needed by anything that names a task. */
-#define VA_NEEDS_TASK_REGISTRY (VA_HAS_RTOS && (VA_TRACE_TASKS               \
-                                             || VA_TRACE_TASK_NOTIFICATIONS  \
+#define VA_NEEDS_TASK_REGISTRY (VA_HAS_RTOS && (((VA_RTOS_SELECT == VA_RTOS_ZEPHYR) && VA_TRACE_MUTEXES) || VA_TRACE_TASKS               \
+                                             || VA_TRACE_TASK_NOTIFICATIONS || VA_TRACE_TIMERS \
                                              || VA_TRACE_STACK_USAGE         \
                                              || VA_TRACE_MUTEX_CONTENTION    \
                                              || VA_TRACE_SLEEP || VA_TRACE_TASK_STATES \
                                              || VA_TRACE_STREAM_BUFFERS || VA_TRACE_MEM_SLABS \
                                              || VA_TRACE_CONDVARS || VA_TRACE_POLL \
+                                             || (((VA_RTOS_SELECT == VA_RTOS_THREADX) || (VA_RTOS_SELECT == VA_RTOS_RTX5)) && (VA_TRACE_MUTEXES || VA_TRACE_SEMAPHORES)) \
+                                             || ((VA_RTOS_SELECT == VA_RTOS_RTX5) && (VA_TRACE_QUEUES || VA_TRACE_EVENT_FLAGS)) \
+                                             || ((VA_RTOS_SELECT == VA_RTOS_THREADX) && (VA_TRACE_QUEUES || VA_TRACE_EVENT_FLAGS || VA_TRACE_RTOS_HEAPS)) \
                                              || VA_HAS_QUEUE_DETAILS || VA_HAS_EVENT_FLAG_DETAILS))
 
 /* Task tracing and scheduler-state reconstruction need switch events ... */
@@ -304,7 +310,7 @@
    must still be installed when only stack usage is on. FreeRTOS sleep also
    needs it: a delayed task's sleep EXIT is detected at its next switch-in. */
 #define VA_NEEDS_SWITCH_HOOK (VA_HAS_RTOS && (VA_TRACE_TASKS || VA_TRACE_TASK_STATES || VA_TRACE_STACK_USAGE \
-                              || ((VA_RTOS_SELECT == VA_RTOS_FREERTOS) && VA_TRACE_SLEEP)))
+                              || (((VA_RTOS_SELECT == VA_RTOS_FREERTOS) || (VA_RTOS_SELECT == VA_RTOS_THREADX) || (VA_RTOS_SELECT == VA_RTOS_RTX5)) && VA_TRACE_SLEEP)))
 
 /* Sync-object ids and names. */
 #define VA_NEEDS_OBJECT_REGISTRY (VA_HAS_RTOS && (VA_TRACE_MUTEXES           \
@@ -411,7 +417,7 @@
    | ((uint32_t)VA_CAT_RTOS_(VA_TRACE_SLEEP)              << VA_CAT_BIT_SLEEP)              \
    | ((uint32_t)VA_CAT_RTOS_(VA_TRACE_TIMERS)             << VA_CAT_BIT_TIMERS)             \
    | ((uint32_t)VA_CAT_RTOS_(VA_TRACE_RTOS_HEAPS)         << VA_CAT_BIT_RTOS_HEAPS)         \
-   | ((uint32_t)VA_CAT_RTOS_(VA_TRACE_PM)                 << VA_CAT_BIT_PM)                 \
+   | ((uint32_t)(VA_CAT_RTOS_(VA_TRACE_PM) && (VA_RTOS_SELECT != VA_RTOS_THREADX) && (VA_RTOS_SELECT != VA_RTOS_RTX5)) << VA_CAT_BIT_PM) \
    | ((uint32_t)(VA_TRACE_USER_VALUES        != 0) << VA_CAT_BIT_USER_VALUES)        \
    | ((uint32_t)(VA_TRACE_USER_EVENTS        != 0) << VA_CAT_BIT_USER_EVENTS)        \
    | ((uint32_t)(VA_TRACE_STRINGS            != 0) << VA_CAT_BIT_STRINGS)            \
@@ -422,7 +428,7 @@
    | ((uint32_t)VA_CAT_ZEPHYR_(VA_TRACE_WORK)             << VA_CAT_BIT_WORK) \
    | ((uint32_t)VA_CAT_RTOS_(VA_TRACE_TASK_STATES) << VA_CAT_BIT_TASK_STATES) \
    | ((uint32_t)VA_CAT_FREERTOS_(VA_TRACE_STREAM_BUFFERS) << VA_CAT_BIT_STREAM_BUFFERS) \
-   | ((uint32_t)VA_CAT_ZEPHYR_(VA_TRACE_MEM_SLABS) << VA_CAT_BIT_MEM_SLABS) \
+   | ((uint32_t)(((VA_RTOS_SELECT == VA_RTOS_ZEPHYR) || (VA_RTOS_SELECT == VA_RTOS_THREADX) || (VA_RTOS_SELECT == VA_RTOS_RTX5)) && VA_TRACE_MEM_SLABS) << VA_CAT_BIT_MEM_SLABS) \
    | ((uint32_t)VA_CAT_ZEPHYR_(VA_TRACE_CONDVARS) << VA_CAT_BIT_CONDVARS) \
    | ((uint32_t)VA_CAT_ZEPHYR_(VA_TRACE_POLL) << VA_CAT_BIT_POLL) \
    | ((uint32_t)VA_HAS_QUEUE_DETAILS << VA_CAT_BIT_QUEUE_DETAILS) \
@@ -453,12 +459,15 @@
 /* Built with VA_ALLOWED_TO_DISABLE_INTERRUPTS=0 (single-execution-context
    contract): lets a host label such captures. */
 #define VA_BUILD_BIT_NO_CS       5u
+/* Registration/deletion and metadata carry explicit sync-object state. */
+#define VA_BUILD_BIT_SYNC_LIFETIMES 6u
 
 #define VA_BUILD_FLAGS                                                        \
     (((uint32_t)(VA_HAS_RTOS == 0)          << VA_BUILD_BIT_NO_RTOS)          \
    | ((uint32_t)(VA_TRANSPORT_BUFFERED != 0) << VA_BUILD_BIT_BUFFERED)        \
    | ((uint32_t)(VA_SEQ_COUNTER != 0)        << VA_BUILD_BIT_SEQ_COUNTER)     \
    | ((uint32_t)(VA_TS_IS_CUSTOM != 0)       << VA_BUILD_BIT_TIMER_TS)        \
-   | ((uint32_t)(VA_ALLOWED_TO_DISABLE_INTERRUPTS == 0) << VA_BUILD_BIT_NO_CS))
+   | ((uint32_t)(VA_ALLOWED_TO_DISABLE_INTERRUPTS == 0) << VA_BUILD_BIT_NO_CS) \
+   | ((uint32_t)(VA_NEEDS_OBJECT_REGISTRY != 0) << VA_BUILD_BIT_SYNC_LIFETIMES))
 
 #endif /* VA_CONFIG_DERIVED_H */

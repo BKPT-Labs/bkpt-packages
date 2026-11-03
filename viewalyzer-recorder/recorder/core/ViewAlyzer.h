@@ -32,7 +32,7 @@
    the string and packed forms derive from them. */
 #define VA_RECORDER_VERSION_MAJOR 1
 #define VA_RECORDER_VERSION_MINOR 3
-#define VA_RECORDER_VERSION_PATCH 1
+#define VA_RECORDER_VERSION_PATCH 2
 
 #define VA_VERSION_STR2_(x) #x
 #define VA_VERSION_STR_(x)  VA_VERSION_STR2_(x)
@@ -49,10 +49,11 @@
 
 /* Wire protocol id, decoupled from the recorder version above. Encoded in
    the sync marker (byte 3 binary, bytes 8-9 ASCII) and the ring control
-   blocks. Format 1 = 32-bit timestamps + per-packet sequence bytes. Bumps
+   blocks. Format 2 widens task/sync IDs to 16 bits; timestamps and sequence
+   bytes retain their format-1 widths. Bumps
    only on a breaking framing change; additive event/setup codes do NOT bump
    it (hosts gate on the category mask and packet presence instead). */
-#define VA_WIRE_VERSION 1
+#define VA_WIRE_VERSION 2
 
 #include "ViewAlyzerConfig.h"
 #include <stdint.h>
@@ -71,10 +72,10 @@ extern "C"
 #define VA_CONTROL_TEXT_CAPACITY VA_PACKET_MAX_(VA_MAX_TASK_NAME_LEN, VA_CONTROL_TEXT_MIN_CAPACITY)
 #define VA_SETUP_TEXT_CAPACITY VA_CONTROL_TEXT_CAPACITY
 
-/* Largest raw packet across ALL shapes, before COBS. Fixed task creation
-   has three uint32 fields; heap setup has the largest named header.
+/* Largest raw packet across ALL shapes, before COBS. Extended operations
+   carry a 16-bit object and actor; heap setup has the largest named header.
    Keep these independent: small logs must still allow full-sized metadata. */
-#define VA_MAX_FIXED_PACKET_SIZE (2u + VA_SEQ_BYTES + VA_TIMESTAMP_BYTES + 12u)
+#define VA_MAX_FIXED_PACKET_SIZE (4u + VA_SEQ_BYTES + VA_TIMESTAMP_BYTES + 12u)
 #if VA_TRANSPORT_BUFFERED
 /* DROP: plus ten decimal digits is transport metadata, independent of logs. */
 #define VA_STRING_PAYLOAD_CAPACITY VA_PACKET_MAX_(VA_MAX_LOG_STRING_LEN, 15u)
@@ -131,7 +132,7 @@ typedef uint32_t (*VA_TimestampFn)(void);
 #define VA_EVENT_FLAG_START_END   0x80
 #define VA_EVENT_TASK_SWITCH      0x01
 #define VA_EVENT_ISR              0x02
-#define VA_EVENT_TASK_CREATE      0x03
+#define VA_EVENT_TASK_CREATE      0x2B /* priority, base priority, stack BYTES; 0x03 was native units */
 #define VA_EVENT_USER_TRACE       0x04
 #define VA_EVENT_TASK_NOTIFY      0x05
 #define VA_EVENT_SEMAPHORE        0x06
@@ -176,11 +177,30 @@ typedef uint32_t (*VA_TimestampFn)(void);
    timestamp is [duration_ms(4)][period_ms(4)]. period 0 = one-shot; the
    first expected fire is arm + duration, later ones repeat at period. */
 #define VA_EVENT_TIMER_ARM        0x1B
+#define VA_EVENT_TIMER_ARM_TICKS  0x29
+#define VA_EVENT_TIMER_REQUEST    0x2A
+/* Sync-object state at this timestamp: START = active, clear = retired.
+   Uses the ordinary compact object-id/timestamp envelope. ID zero is
+   reserved for host-synthesized complete metadata snapshot boundaries. */
+#define VA_EVENT_SYNC_LIFETIME    0x2C
+/* TIMER_ARM_TICKS flags: signed duration, unknown reload/schedule, or a
+   request hook before the kernel commits the arm. Never infer missing data. */
+#define VA_TIMER_DURATION_NEGATIVE 0x01u
+#define VA_TIMER_RELOAD_UNKNOWN    0x02u
+#define VA_TIMER_SCHEDULE_UNKNOWN  0x04u
+#define VA_TIMER_REQUEST_HOOK      0x08u
+#define VA_TIMER_RELOAD_AFTER_CALLBACK 0x10u
+#define VA_TIMER_EVERY_EXPIRY_TRACED 0x20u
+#define VA_TIMER_CALLBACKS_CAN_REMAIN_QUEUED 0x40u
+#define VA_TIMER_EXPIRY_TIMESTAMP_UNCERTAIN 0x80u
 
 /* Extended RTOS events, append-only. Timestamp and id use the usual layout.
    TASK_STATE: [state:8, reason:8, sync-object-id:8, reserved:8][detail:u32].
-   TASK_PRIORITY: [effective:i32][base:i32][cause:u32]. INT32_MIN = unknown base.
-   TIMER_CALLBACK: [kind:u32 (0 expiry, 1 stop)][handler-address:u32]; START/END.
+   TASK_PRIORITY: [effective:i32][base:i32][cause:u32]. INT32_MIN = unknown.
+   TIMER_CALLBACK: [kind:u32][handler-address:u32]; START/END.
+   Kinds: 0 explicit callback boundary, 1 stop callback boundary, 2 expiry
+   before callback, 3 expiry after callback, 4 catch-up expiry emitted out of
+   deadline order, 5 expiry with unknown hook position/order.
    Resource operations: [operation:8, task-id:8, exception:16][value:u32][detail:u32].
    Values are documented beside VA_RtosOperation_t below. */
 #define VA_EVENT_TASK_STATE       0x1C
@@ -193,6 +213,16 @@ typedef uint32_t (*VA_TimestampFn)(void);
 #define VA_EVENT_QUEUE_DETAILS    0x23
 #define VA_EVENT_NOTIFY_DETAILS   0x24
 #define VA_EVENT_FLAG_DETAILS     0x25
+#define VA_EVENT_MUTEX_ACTOR      0x26
+#define VA_EVENT_SEMAPHORE_ACTOR  0x27
+/* Thread-owned flags: id=destination task, payload as FLAG_DETAILS. No
+   sync-object slot is consumed. Actor and wait masks are always explicit. */
+#define VA_EVENT_THREAD_FLAG_DETAILS 0x28
+/* Compact explicit sync completion: [type][seq][object][task][operation]
+   [exception:u16][timestamp:u32]. Actor 0/exception 0 means unknown, never
+   infer the interrupted thread. Operations: take=0, give=1, failed take=2,
+   failed give=3. These packets do not use the START_END flag. */
+#define VA_OP_EXPLICIT_ACTOR 0x80u
 
 /* IPC packets share [operation:8, task-id:8, exception:16][value:u32][detail:u32].
    Queue: id=queue, value=observed used slots (UINT32_MAX=unavailable), detail=
@@ -232,7 +262,7 @@ enum {
 #define VA_SETUP_MUTEX_MAP         0x74
 #define VA_SETUP_QUEUE_MAP         0x75
 #define VA_SETUP_USER_EVENT_MAP    0x76
-/* Typed flags packet: [0x77][seq?][group(1)][value(4, little-endian)].
+/* Typed flags packet: [0x77][seq][group(1)][value(4, little-endian)].
    Groups are VA_FLAG_GROUP_* in ViewAlyzerConfig.h. Unlike every other setup
    code this one carries no name string. */
 #define VA_SETUP_CONFIG_FLAGS      0x77
@@ -242,7 +272,7 @@ enum {
 #define VA_SETUP_TIMER_MAP         0x7B
 #define VA_SETUP_HEAP_MAP          0x7C
 #define VA_SETUP_PM_MAP            0x7D
-/* Typed per-object info: [0x7E][seq?][id(1)][kind(1)][value(4, LE)].
+/* Typed per-object info: [0x7E][seq][id(1)][kind(1)][value(4, LE)].
    id is in the SYNC-OBJECT id space (unlike VA_SETUP_HEAP_INFO, whose id
    space is the manual heap gauges). Fixed length, no name string. */
 #define VA_SETUP_OBJECT_INFO       0x7E
@@ -256,6 +286,11 @@ enum {
                                              the ELF's data symbols */
 #define VA_OBJINFO_OBJECT_TYPE     0x03   /* VA_QueueObjectType_t */
 #define VA_OBJINFO_CAPACITY        0x04   /* bytes for buffers, blocks for slabs */
+/* Lifetime markers precede names/events. A generation is the namespace
+   wrap epoch stored at allocation, not the RAM slot generation. The pair
+   (wire ID, epoch) identifies a lifetime; retained IDs are skipped at wrap. */
+#define VA_OBJINFO_TASK_GENERATION 0x06
+#define VA_OBJINFO_SYNC_GENERATION 0x07
 #define VA_OBJINFO_ELEMENT_SIZE    0x05   /* slab block size in bytes */
 
     typedef enum
@@ -480,7 +515,7 @@ enum {
     extern volatile void     *g_task_pxEndOfStack;
     extern volatile uint32_t  g_task_uxPriority;
     extern volatile uint32_t  g_task_uxBasePriority;
-    extern volatile uint32_t  g_task_ulStackDepth;
+    extern volatile uint32_t  g_task_ulStackDepth; /* usable stack bytes, all adapters */
 #else
 #define va_taskcreated(h, n) VA_DISCARD_ARGS(h, n)
 #define va_taskdeleted(h)    VA_DISCARD_ARGS(h)
@@ -521,6 +556,13 @@ void va_logNotifyDetail(void *destination, void *sender, uint16_t exception,
 #define va_logNotifyDetail(d, s, e, o, v, i) (VA_DISCARD_3(d, s, e), VA_DISCARD_3(o, v, i))
 #endif
 
+#if VA_HAS_THREAD_FLAG_DETAILS
+void va_logThreadFlagDetail(void *destination, void *actor, uint16_t exception,
+                           uint8_t operation, uint32_t value, uint32_t mask);
+#else
+#define va_logThreadFlagDetail(d, s, e, o, v, m) (VA_DISCARD_3(d, s, e), VA_DISCARD_3(o, v, m))
+#endif
+
 #if VA_NEEDS_RTOS_OPERATIONS
 void va_logRtosOperation(void *object, VA_QueueObjectType_t type, uint8_t event,
                          VA_RtosOperation_t operation, uint32_t value, uint32_t detail,
@@ -530,6 +572,13 @@ void va_logRtosObjectInfo(void *object, VA_QueueObjectType_t type,
 #else
 #define va_logRtosOperation(o, k, e, p, v, d, t, i) (VA_DISCARD_3(o, k, e), VA_DISCARD_3(p, v, d), VA_DISCARD_2(t, i))
 #define va_logRtosObjectInfo(o, k, c, s) (VA_DISCARD_2(o, k), VA_DISCARD_2(c, s))
+#endif
+
+#if ((VA_RTOS_SELECT == VA_RTOS_RTX5) && (VA_TRACE_MUTEXES || VA_TRACE_SEMAPHORES)) || ((VA_RTOS_SELECT == VA_RTOS_ZEPHYR) && VA_TRACE_MUTEXES)
+void va_logSyncActor(void *object, VA_QueueObjectType_t type, uint8_t operation,
+                     void *task, uint16_t exception);
+#else
+#define va_logSyncActor(o, k, p, t, e) (VA_DISCARD_3(o, k, p), VA_DISCARD_2(t, e))
 #endif
 
 #if VA_HAS_RTOS && VA_TRACE_TASK_NOTIFICATIONS
@@ -620,12 +669,30 @@ void va_logRtosObjectInfo(void *object, VA_QueueObjectType_t type,
 
 /* ── Timer arm (duration/period at k_timer_start / xTimerStart) ──── */
 #if VA_HAS_RTOS && VA_TRACE_TIMERS
-    /** Emitted by the adapters when a timer is armed, alongside the Timer
-     *  give event. periodMs 0 = one-shot. */
+    /** Legacy millisecond event. Current host scheduling requires the tick
+     *  event below; re-record with a current adapter for schedule metrics. */
     void va_logTimerArm(void *timerObject, uint32_t durationMs, uint32_t periodMs);
+    /** One self-contained arm observation, with no accompanying give.
+     *  Signed duration permits already-overdue FreeRTOS commands. Period 0
+     *  means one-shot only when VA_TIMER_RELOAD_UNKNOWN is clear. */
+    void va_logTimerArmTicks(void *timerObject, int64_t durationTicks,
+                             uint32_t periodTicks, uint32_t tickHz, uint8_t flags);
+    /* Accepted asynchronous request; never a schedule/expiry. Caller and
+       operation only: the target may already be deleted when this returns. */
+    void va_logTimerRequest(void *timerObject, uint8_t operation,
+                            void *task, uint16_t exception);
+    void va_logTimerExpiry(void *timerObject, void *handler);
+    /* Kind 2: before callback; 3: after callback (entry time unknown);
+       4: before callback in a catch-up batch emitted out of deadline order;
+       5: expiry observed, hook position and callback ordering unknown. */
+    void va_logTimerExpiryObserved(void *timerObject, void *handler, uint8_t kind);
 #else
 #define va_logTimerArm(timerObject, durationMs, periodMs) \
     VA_DISCARD_ARGS(timerObject, durationMs, periodMs)
+#define va_logTimerArmTicks(t, d, p, h, f) (VA_DISCARD_ARGS(t, d, p), VA_DISCARD_2(h, f))
+#define va_logTimerRequest(t, o, a, e) (VA_DISCARD_2(t, o), VA_DISCARD_2(a, e))
+#define va_logTimerExpiry(t, h) VA_DISCARD_2(t, h)
+#define va_logTimerExpiryObserved(t, h, k) VA_DISCARD_ARGS(t, h, k)
 #endif
 
 /* ── Deferred work (Zephyr k_work family) ────────────────────────── */
@@ -679,7 +746,7 @@ void va_logRtosObjectInfo(void *object, VA_QueueObjectType_t type,
     /** Detect mutex contention and emit a contention packet if applicable.
      *  Called from va_logQueueObjectBlocking().
      */
-    void va_adapter_check_mutex_contention(void *queueObject, uint8_t queue_va_id);
+    void va_adapter_check_mutex_contention(void *queueObject, uint16_t queue_va_id);
 #endif
 
 #else /* VA_ENABLED == 0 - the whole recorder compiles away */
@@ -689,6 +756,7 @@ void va_logRtosObjectInfo(void *object, VA_QueueObjectType_t type,
 #define va_logTaskPriority(t, e, b, c) (VA_DISCARD_2(t, e), VA_DISCARD_2(b, c))
 #define va_logTimerCallback(t, e, s, h) (VA_DISCARD_2(t, e), VA_DISCARD_2(s, h))
 #define va_logNotifyDetail(d, s, e, o, v, i) (VA_DISCARD_3(d, s, e), VA_DISCARD_3(o, v, i))
+#define va_logThreadFlagDetail(d, s, e, o, v, m) (VA_DISCARD_3(d, s, e), VA_DISCARD_3(o, v, m))
 #define va_logRtosOperation(o, k, e, p, v, d, t, i) (VA_DISCARD_3(o, k, e), VA_DISCARD_3(p, v, d), VA_DISCARD_2(t, i))
 #define va_logRtosObjectInfo(o, k, c, s) (VA_DISCARD_2(o, k), VA_DISCARD_2(c, s))
 
@@ -751,6 +819,10 @@ static inline VA_BufferStats_t VA_GetBufferStats(void)
 #define va_logWorkArm(handler, delayMs) VA_DISCARD_ARGS(handler, delayMs)
 #define va_logWorkCancel(handler) VA_DISCARD_ARGS(handler)
 #define va_logTimerArm(timerObject, durationMs, periodMs) VA_DISCARD_ARGS(timerObject, durationMs, periodMs)
+#define va_logTimerArmTicks(t, d, p, h, f) (VA_DISCARD_ARGS(t, d, p), VA_DISCARD_2(h, f))
+#define va_logTimerRequest(t, o, a, e) (VA_DISCARD_2(t, o), VA_DISCARD_2(a, e))
+#define va_logTimerExpiry(t, h) VA_DISCARD_2(t, h)
+#define va_logTimerExpiryObserved(t, h, k) VA_DISCARD_ARGS(t, h, k)
 #define va_logQueueObjectBlocking(queueObject) VA_DISCARD_ARGS(queueObject)
 #define va_logHeapAlloc(heapObject, allocBytes) VA_DISCARD_ARGS(heapObject, allocBytes)
 #define va_logHeapFree(heapObject, allocatedBytes) VA_DISCARD_ARGS(heapObject, allocatedBytes)
