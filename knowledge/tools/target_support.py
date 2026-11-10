@@ -28,6 +28,8 @@ import pathlib
 import shutil
 import sys
 
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+
 
 def sha256(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
@@ -128,6 +130,9 @@ def corpus_overlay(catalog, recipe, manifest, hashes):
         raise SystemExit("the foundation is for another SDK or HAL than the board this one is modelled on")
     if any(scope["id"] == target["board"] for scope in catalog["scopes"]):
         raise SystemExit(f"the catalog already knows board {target['board']}")
+    packages = {m["parent"] for m in catalog["memberships"] if m["child"] == target["part"] and kinds[m["parent"]] == "package"}
+    if packages - {target["package"]}:
+        raise SystemExit(f"the catalog knows part {target['part']} in package {sorted(packages)}, not {target['package']}")
     for identifier, kind, name in ((target["part"], "part", target["part"]), (target["package"], "package", target["package"]),
                                    (target["board"], "board", spec["board"]["name"])):
         if identifier not in kinds:
@@ -183,6 +188,10 @@ def main():
     if arguments.out.exists():
         raise SystemExit("refusing to write into an existing directory")
     recipe, folder = load(arguments.recipe), arguments.recipe.parent
+    # Nothing is written for a recipe that does not compose: composition is
+    # what ties the part to its package and the board description to both.
+    import compose_target
+    compose_target.compose(arguments.recipe, arguments.source_root)
     inventory_config = load(folder / recipe["inventory"])
     record = load(folder / recipe["foundation"])
     base = arguments.source_root / inventory_config["foundation_manifest"]

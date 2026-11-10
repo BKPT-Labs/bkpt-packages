@@ -287,6 +287,13 @@ def foundation(target, inventory_config, recipe, config, source_root, record=Non
     return False
 
 
+def states(stated, needed):
+    """Every needed member is stated with the needed value. The owner may say more."""
+    if isinstance(needed, dict):
+        return isinstance(stated, dict) and all(key in stated and states(stated[key], value) for key, value in needed.items())
+    return type(stated) is type(needed) and stated == needed
+
+
 def board_statements(record, board, source_root):
     """A derived foundation runs the captured startup on another board, so the
     owner of that board must state what the startup depends on. A value that
@@ -298,7 +305,7 @@ def board_statements(record, board, source_root):
     if description is None:
         raise SystemExit("this foundation needs statements only a board declared by its owner can make")
     for key, value in needed.items():
-        if description.get(key) != value:
+        if not states(description.get(key), value):
             raise SystemExit(f"the foundation needs the board to declare {key} as {json.dumps(value)}; "
                              f"its description says {json.dumps(description.get(key))}")
 

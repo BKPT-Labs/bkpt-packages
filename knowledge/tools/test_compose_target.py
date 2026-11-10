@@ -295,9 +295,12 @@ class Foundations(unittest.TestCase):
     def test_the_board_must_state_what_a_derived_foundation_depends_on(self):
         needs = {"board_declares": {"clock": {"source": "crystal", "frequency_hz": 24000000}}}
         self.statements({"clock": {"source": "crystal", "frequency_hz": 24000000}}, needs)
+        self.statements({"clock": {"source": "crystal", "frequency_hz": 24000000, "tolerance_ppm": 20}}, needs)
         self.statements({}, {})
         compose.board_statements(None, None, pathlib.Path("."))
-        for description in ({}, {"clock": {"source": "bypass", "frequency_hz": 24000000}}, {"clock": {"source": "crystal", "frequency_hz": 8000000}}):
+        for description in ({}, {"clock": {"source": "bypass", "frequency_hz": 24000000}}, {"clock": {"source": "crystal", "frequency_hz": 8000000}},
+                            {"clock": {"source": "crystal"}}, {"clock": {"source": "crystal", "frequency_hz": "24000000"}},
+                            {"clock": {"source": "crystal", "frequency_hz": 24000000.5}}, {"clock": "crystal"}):
             with self.assertRaises(SystemExit, msg=description) as refused:
                 self.statements(description, needs)
             self.assertIn("clock", str(refused.exception))
@@ -393,6 +396,12 @@ class Corpus(unittest.TestCase):
             self.overlay(self.overlay())
         with self.assertRaises(SystemExit):
             self.overlay(manifest={**self.MANIFEST, "sdk": "sdk-2"})
+        # A part the catalog already knows in another package cannot gain a second one.
+        known = copy.deepcopy(self.RECIPE)
+        known["target"]["part"] = "PART-R"
+        with self.assertRaises(SystemExit) as refused:
+            self.overlay(recipe=known)
+        self.assertIn("BIG", str(refused.exception))
         clash = copy.deepcopy(self.CATALOG)
         clash["scopes"].append({"id": "SMALL", "kind": "part", "name": "SMALL"})
         with self.assertRaises(SystemExit):
