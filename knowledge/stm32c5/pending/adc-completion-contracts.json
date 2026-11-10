@@ -3,11 +3,11 @@
   "qualification": "pending_not_runtime_admitted",
   "original": {
     "uri": "research://c5-reference/adc-completion-contracts.json",
-    "sha256": "a86699d5e457a9e2ea3d0538d8fbf28d32bf2640ba2e32839fc5268c3f02eee3"
+    "sha256": "f7b4f23e6630521109419c05a3b8004733fdd392fb3723ff464c0eb7515d1535"
   },
   "transform": {
     "removed_vendor_fields": {
-      "text": 209
+      "text": 210
     },
     "paths": "logical source URIs; no source identity or review promotion",
     "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
@@ -1215,6 +1215,12 @@
         "start_line": 504,
         "end_line": 504,
         "sha256": "2b1ba96e0a14db0d6c6aacdd53f29d4dd3b674f7dccf2e42b167852e9524ad23"
+      },
+      "LL.gain_div": {
+        "source": "LL_ADC",
+        "start_line": 278,
+        "end_line": 278,
+        "sha256": "e09bab5cac5455b16784ab349418a2c872c6552a546d2ff995a5c5a4cc9783ef"
       }
     },
     "stable_adc_binding": {
@@ -3148,7 +3154,7 @@
         138.5,
         288.5
       ],
-      "sampling_qualification": "Conflicting timing sources; not resolved by matching total12bit minimum16cycles",
+      "sampling_qualification": "Conflicting timing sources; not resolved by matching total 12bit minimum 16 cycles",
       "DMNGT_raw": {
         "0": "DR",
         "1": "DMA_one_shot",
@@ -3186,7 +3192,7 @@
         14,
         15
       ],
-      "oversampling_ratio_encoding": "raw0..1023 means1..1024; exact injected JOVSE conflict retained",
+      "oversampling_ratio_encoding": "raw 0..1023 means 1..1024; exact injected JOVSE conflict retained",
       "calibration_factor": [
         0,
         127
@@ -3309,7 +3315,7 @@
     "contracts": [
       {
         "id": "single_instance_boundary",
-        "detail": "C542 has ADC1 only and one instance per ADC12_COMMON. Exclude ADC2/3, multimode conversion/data packing, differential inputs, parallel injected oversampling and family channel17 examples. Residual dual fields and ADC_MULTI_INSTANCE_MASTER referencing ADC2 do not admit those instances. ADC_OR atD0 is all reserved in RM and absent from the exact struct.",
+        "detail": "C542 has ADC1 only and one instance per ADC12_COMMON. Exclude ADC2/3, multimode conversion/data packing, differential inputs, parallel injected oversampling and family channel17 examples. Residual dual fields and ADC_MULTI_INSTANCE_MASTER referencing ADC2 do not admit those instances. ADC_OR at 0x0D0 is all reserved in RM and absent from the exact struct.",
         "evidence": [
           "header.exact_instance",
           "header.instance_count",
@@ -3382,7 +3388,7 @@
       },
       {
         "id": "DMA_transaction",
-        "detail": "Only regularDR DMA exactrequest0 on eitherLPDMA. DMNGT01one-shot stops requests at last acknowledgement, freezesDR, aborts in-flight conversions and resets sequence perRM. DMNGT11continuous requests requires matching controller lifecycle. PreserveFIFO offersSREQ at1 word/BREQ at4 words, four-beat burst; overwrite mode excludesburst and may skip data. OVRMOD0 overrun blocksDMA; clearingOVR alone is not restored rank/coherency proof. FIFO can continue requests until empty;ADSTP stops requests even with residualFIFO. Buffer reachability/alignment/width/publication/latecallbacks remainDMA-controller gates.",
+        "detail": "Only regular DR DMA, exact request 0 on either LPDMA. DMNGT=01 one-shot: the ADC stops generating DMA requests once the DMA reaches its last transfer (DMA_LACK), even if a new conversion has started (RM p598). RM p599 then states literally that when all transfers configured in the DMA controller are complete, the ADC data register content is frozen, all ongoing conversions are aborted with the partial result discarded, the scan sequence is stopped and reset, and the DMA and ADC are stopped. DMNGT=11 continuous requests require a matching controller lifecycle. Preserve mode FIFO offers SREQ at 1 word and BREQ at 4 words, four-beat burst; overwrite mode excludes burst and may skip data. With OVRMOD=0 an overrun blocks DMA; clearing OVR alone is not restored rank or coherency proof. The FIFO can continue requests until empty; ADSTP stops requests even with residual FIFO content. Buffer reachability, alignment, width, publication and late callbacks remain DMA-controller gates.",
         "evidence": [
           "RM0522:p596",
           "RM0522:p598",
@@ -3433,7 +3439,7 @@
       },
       {
         "id": "internal_measurements",
-        "detail": "Temperature is channel12, VREFINT channel13. Enable paths with ADEN=0 and respect startup and sampling separately. DS temperature startup maximum25.2us, sampling minimum13us; VREF buffer maximum4.4us, sampling minimum4.3us. Factory temperature calibration uses30C/140C at3.3V, halfwords08FFF814/818; LL VREF calibration is a halfword at08FFF810 at3.3V. VREF formula is3.3V*cal/measured; temperature needs reference-voltage correction. Normalize shifted/oversampled/signed data first and reject zero denominators or invalid calibration data. Junction temperature is not ambient temperature.",
+        "detail": "Temperature is channel 12, VREFINT channel 13. Enable the paths with ADEN=0 and respect startup and sampling separately. DS temperature startup maximum 25.2 us, sampling minimum 13 us; VREF buffer startup maximum 4.4 us, sampling minimum 4.3 us. Factory temperature calibration is taken at 30 C and 140 C and stored as halfwords at 0x08FFF814 and 0x08FFF818; the LL VREFINT calibration is a halfword at 0x08FFF810. The calibration condition is named differently by the two sources: the DS calibration rows give 'VDDA = 3.3 V' (the 'measured at VDDA = 3.3 V +/- 10 mV' footnote belongs to the temperature V30 row on DS p81 only; the VREFINT_CAL row on DS p53 carries no tolerance footnote) while the LL comments give 'Vref+ = 3300 mV (tolerance +/- 10 mV)'. Do not assume VDDA and VREF+ are tied on this LQFP64 board; the reference the formula uses must be the one actually applied. The VREF formula is 3.3 V * cal / measured; temperature needs reference-voltage correction. Normalize shifted, oversampled or signed data first and reject zero denominators or invalid calibration data. Junction temperature is not ambient temperature.",
         "evidence": [
           "RM0522:p629",
           "RM0522:p630",
@@ -3484,35 +3490,43 @@
     "source_derived_SDK_gates": [
       {
         "id": "activation_failure_state",
-        "detail": "HAL Start publishes ACTIVE (and JAUTO injected ACTIVE) before activation; activation errors leave those states. If ADEN is already1, activate skips all readiness/startup checks and cannot prove ADRDY or stabilization. Normal enable uses approximate SystemCoreClock busy waits rather than LDORDY; timeout requires an advancing HAL tick. Calibration temporarily disables without deep-power-down when global state is CALIB, then reenables; failure leaves CALIB. Start does not calibrate automatically.",
+        "detail": "HAL_ADC_Start first checks the sampling mode: when the injected group is IDLE and the sampling mode is not normal it returns HAL_ERROR with the global state still IDLE (hal_adc 3371-3377). Otherwise it publishes ACTIVE (and JAUTO injected ACTIVE) before activation, and an activation error leaves those states (3381-3392). If ADEN is already 1, adc_activate skips every readiness and startup step and returns HAL_OK, so it cannot prove ADRDY or stabilization (5843). On the normal enable path (ADEN=0) the regulator stabilization wait is ADC_DELAY_US, an approximate SystemCoreClock busy loop (238-244), and it runs only when the regulator was found disabled (5845-5854); when the regulator is already enabled there is no stabilization wait at all. ADRDY is then polled against the HAL tick with ADC_ENABLE_TIMEOUT_MS = 2 (204, 5870-5893), so that timeout needs an advancing tick, and after an ADRDY timeout the internal-channel stabilization delay still runs (5895-5913). LDORDY is not read anywhere in stm32c5xx_hal_adc.c. HAL_ADC_Calibrate publishes CALIB and calls adc_calibrate, which calls adc_deactivate and then LL_ADC_StartCalibration with no ADEN check (6014-6019). When calibration completes without timeout it waits a short CPU-cycle delay and re-enables the ADC through adc_activate (6037-6050). adc_deactivate disables without deep power-down when the global state is CALIB, but it returns HAL_OK immediately when ADDIS is already pending, with ADEN still 1 (5943-5945, 5995). On that path HAL does not verify the ADEN=0 precondition that RM p572-573 requires before ADCAL; the hardware effect is not established here. A calibration failure leaves the global state at CALIB (3472-3475). Start does not calibrate automatically. Source-conditional; not observed on hardware.",
         "evidence": [
           "HAL.activate_public",
           "HAL.activate",
           "HAL.calibrate_public",
           "HAL.calibrate",
-          "HAL.timing"
+          "HAL.timing",
+          "HAL.deactivate",
+          "RM0522:p572",
+          "RM0522:p573"
         ]
       },
       {
         "id": "stop_not_quiescence",
-        "detail": "HAL Stop calls deactivate then unconditionally clears flags, disables interrupts and publishes IDLE, including on error. Deactivate returns OK without waiting if ADDIS is already set or ADEN already cleared. Deepest power-down is entered only on its enabled/not-pending successful path. Normal successful Stop loses analog calibration through deep-power-down; Start does not restore it. Regular/injected Stop publish IDLE even after timeout. Software IDLE is not physical quiescence.",
+        "detail": "HAL_ADC_Stop calls adc_deactivate and then unconditionally clears flags, disables interrupts and publishes IDLE, including on error (3432-3443). adc_deactivate returns HAL_OK without waiting when ADDIS is already set or ADEN is already cleared (5943-5945). Deep power-down is entered only when all three hold: the disable path was taken (ADEN set, ADDIS not pending), it succeeded, and the global state is not CALIB (5977-5985). A normal successful Stop therefore loses the analog calibration through deep power-down, and Start does not restore it. Composition: Stop can return HAL_OK and publish IDLE while ADEN=1 and ADDIS is still pending; the next HAL_ADC_Start then sees ADEN=1, skips every readiness check in adc_activate (5843) and returns HAL_OK on an ADC that is still disabling. Regular and injected Stop publish IDLE even after a timeout. Software IDLE is not physical quiescence. Source-conditional; not observed on hardware.",
         "evidence": [
           "HAL.stop_public",
           "HAL.deactivate",
           "HAL.REG_stop",
           "HAL.INJ_stop_poll_read",
           "HAL.stop_lowlevel",
-          "RM0522:p572"
+          "RM0522:p572",
+          "HAL.activate",
+          "HAL.activate_public"
         ]
       },
       {
         "id": "deinit_incomplete_teardown",
-        "detail": "DeInit attempts stops only when global state is ACTIVE and group state is ACTIVE, ignores errors, uses plain regular Stop rather than DMA Stop, nulls the DMA link, then publishes RESET. It does not abort DMA, reset registers, reset RCC, disable the bus clock or restore common paths/sequence/offset/watchdog configuration. ACTIVE_SILENT can bypass the regular group stop. Late DMA callbacks still use their ADC parent: do not reuse the handle/buffer until controller and interrupt drain are proven.",
+        "detail": "HAL_ADC_DeInit acts only when the global state is ACTIVE (860). Inside that branch each group stop is called only when that group's state is ACTIVE (862-870), while HAL_ADC_Stop is called unconditionally (872); every return value is discarded. It uses the plain regular Stop, not the DMA Stop, nulls the DMA link (876) and publishes RESET (928-931). When the global state is CALIB, which HAL_ADC_Calibrate leaves behind on failure, DeInit runs no stop at all: it nulls hdma_reg and publishes RESET while the ADC may still be enabled or calibrating. With the regular group in ACTIVE_SILENT the regular stop is skipped; adc_deactivate inside HAL_ADC_Stop then returns HAL_ERROR if ADSTART is still set (5948-5951), yet Stop still clears flags, disables interrupts and publishes IDLE, DeInit publishes RESET, and the DMA transfer is left running. DeInit does not abort DMA, reset registers, reset RCC, disable the bus clock or restore common paths, sequence, offset or watchdog configuration. Late DMA callbacks still use their ADC parent: do not reuse the handle or buffer until controller and interrupt drain are proven. Source-conditional; not observed on hardware.",
         "evidence": [
           "HAL.deinit",
           "HAL.DMA_callbacks",
           "HAL.DMA_stop",
-          "HAL.linkDMA"
+          "HAL.linkDMA",
+          "HAL.stop_public",
+          "HAL.deactivate",
+          "HAL.calibrate_public"
         ]
       },
       {
@@ -3532,7 +3546,7 @@
       },
       {
         "id": "unit_conversion_not_sequence_idle",
-        "detail": "HAL CONV_UNIT derives from software trigger/single mode, not sequence length. EOC/JEOC IRQ or poll publishes group IDLE on the first unitary completion even if a multi-rank sequence continues. Start uses software state gates plus LL commands; TrigNext checks the start bit but not pending EOC/JEOC. Independently establish physical quiescence and flag ownership. RM582 forbids software ADSTART while EOC remains set.",
+        "detail": "HAL CONV_UNIT is derived per group and never from the sequence length: the regular group gets it only for a software trigger combined with single (non-continuous) mode (1180-1183), the injected group for a software trigger alone (1285-1287). An EOC/JEOC interrupt or poll publishes group IDLE on the first unitary completion even if a multi-rank sequence continues. Start uses software state gates plus LL commands; TrigNext checks the start bit but not a pending EOC/JEOC. Independently establish physical quiescence and flag ownership. RM p582 forbids software ADSTART while EOC remains set.",
         "evidence": [
           "HAL.REG_config",
           "HAL.INJ_config",
@@ -3545,7 +3559,7 @@
       },
       {
         "id": "DMA_start_side_effects",
-        "detail": "DMA start replaces callback slots, changes group state and starts DMA before setting DMNGT, clearing flags and starting ADC. Failure restores group IDLE but not callback slots. Unlimited transfer is selected only for linked-list circular mode; otherwise one-shot. OVR IRQ is enabled even in SILENT mode; its circular restriction is debug-only. Interrupt enables accumulate. Optional EOC IRQ can publish IDLE while DMA remains active. size_byte is passed through without ADC format/alignment/count composition checks; CPU reads must not compete with DMA.",
+        "detail": "DMA start replaces the error, half-complete and complete callback slots of the linked DMA handle (3791-3793), changes the group state and starts DMA before it sets DMNGT, clears flags and starts the ADC. It never sets p_xfer_abort_cb; that slot is written only by DMA Stop. Failure restores group IDLE but not the callback slots (the overwritten slots are HAL-internal, so the practical effect is small). ADSTART is issued unconditionally at the end of the success path (3859): the only ADC enable or state checks before it are debug assertions (3768-3769). Unlimited transfer is selected only for linked-list circular mode; otherwise one-shot. The OVR interrupt is enabled even in SILENT mode, and the SILENT circular restriction is a debug assertion only (3801). Interrupt enables accumulate. An optional EOC interrupt can publish IDLE while DMA remains active. size_byte is passed through without ADC format, alignment or count composition checks; CPU reads must not compete with DMA.",
         "evidence": [
           "HAL.DMA_start",
           "HAL.linkDMA",
@@ -3555,10 +3569,11 @@
       },
       {
         "id": "DMA_stop_and_callbacks",
-        "detail": "DMA Stop first attempts ADC Stop, then sets DMNGT to DR even after timeout. SILENT ignores blocking abort status and invokes the stop callback; Abort_IT failure also invokes it. Return status describes only ADC Stop. The stop callback unconditionally publishes regular IDLE before the user callback, without an epoch check. Successful asynchronous abort requires completion before reuse. Regular interrupts are disabled after abort/callback handling, so reentrant restart can have its interrupts disabled afterward. Half/complete callbacks do not publish IDLE; DMA error callback neither records last_error_codes nor halts ADC nor changes state.",
+        "detail": "DMA Stop first attempts the ADC regular stop, then sets DMNGT to DR even after a timeout. SILENT ignores the blocking abort status and invokes the stop callback; an Abort_IT failure also invokes it. The return status describes only the ADC stop. hadc->hdma_reg is dereferenced with no NULL check (4003-4012), so DMA Stop after DeInit (which nulls the link) dereferences NULL unless a debug state assertion stops it first. The stop callback unconditionally publishes regular IDLE before the user callback, without an epoch check. A successful asynchronous abort requires completion before reuse. Regular interrupts are disabled after the abort and callback handling, so a reentrant restart can have its interrupts disabled afterward. Half and complete callbacks do not publish IDLE; the DMA error callback neither records last_error_codes nor halts the ADC nor changes state. The bound callback excerpt also contains adc_mm_reg_dma_data_transfer_stop_callback under ADC_MULTIMODE_SUPPORT (5790-5807); that multimode code is outside the ADC1-only scope of this file and no claim is made about it.",
         "evidence": [
           "HAL.DMA_stop",
-          "HAL.DMA_callbacks"
+          "HAL.DMA_callbacks",
+          "HAL.deinit"
         ]
       },
       {
@@ -3578,7 +3593,7 @@
       },
       {
         "id": "postprocessing_bounds",
-        "detail": "HAL checks signed/unsigned saturation independently, admitting both enabled even with assertions, contrary to RM. Offset22bit validation occurs before reduced-resolution left shifts by2/4/6; LL writes the result unmasked, so asserted-valid large offsets can write reserved OFR bits. Enforce post-scaling range and resolution/oversampling constraints. HAL gain0..3999 per mille becomes floor(x*4096/1000); unity disables GCOMP. No gain input-width or ROVSM composition check exists. SetCalibrationFactor has no numeric bound even with assertions; its unmasked LL write requires independent0..127 validation.",
+        "detail": "HAL checks signed and unsigned saturation independently (621-626, 2341-2342), admitting both enabled even with assertions, contrary to RM. The 22-bit offset validation happens before the reduced-resolution left shifts by 2/4/6; LL writes the result unmasked, so asserted-valid large offsets can write reserved OFR bits. Enforce the post-scaling range and the resolution and oversampling constraints. The offset setter writes the channel first, then the level, then sign and the two saturation bits (2351-2378), so the register briefly holds the new level with the old POSOFF/SSAT/USAT; the only guard is a software-state debug assertion, which is not proof that the hardware is idle. HAL gain 0..3999 per mille becomes floor(x*4096/1000); 1000 gives 4096 and clears GCOMP. A gain of 0 is accepted (IS_ADC_GAIN_COMPENSATION is only an upper bound, 550) and yields coefficient 0 with GCOMP=1 (LL 2819-2821), a degenerate setting that multiplies every result by zero. There is no gain input-width or ROVSM composition check. The getter is not the inverse of the setter: it converts the coefficient back and adds 1 to every nonzero non-unity result to compensate rounding (1790-1795). In the post-processing setter the debug assertions dereference p_config (1733-1734) ahead of the USE_HAL_CHECK_PARAM NULL test (1740-1744); with assertions enabled the non-NULL assertion at 1732 runs first. SDK documentation errors, recorded as such: the exact header places GCOMP at bit 31 of the ADC_GCOMP register (header 2033-2035) while the LL rmtoll comment names 'CFGR2 GCOMP', and the getter comment gives Max_Data=16393 although the 14-bit coefficient field (0x3FFF) tops out at 16383 (LL 2826-2830). SetCalibrationFactor has no numeric bound even with assertions; its unmasked LL write requires independent 0..127 validation.",
         "evidence": [
           "HAL.value_guards",
           "HAL.offset_config",
@@ -3590,7 +3605,10 @@
           "HAL.calibration_getset",
           "LL.calibration_write",
           "RM0522:p595",
-          "RM0522:p596"
+          "RM0522:p596",
+          "LL.gain_div",
+          "HAL.timing",
+          "header.fields"
         ]
       },
       {
@@ -3609,7 +3627,7 @@
       },
       {
         "id": "temperature_delay_and_format",
-        "detail": "LL uses25us against the DS25.2us maximum. Busy-loop overhead may cover the difference; no measured shortfall is claimed. The internal-source delay only runs in the ADEN=0 activation branch. Channel configuration does not enforce temperature13us/VREF4.3us minimum sampling. LL temperature calculation guards equal factory calibration values but does not normalize arbitrary gain/offset/oversampling/shift formats or validate physical reference conditions.",
+        "detail": "LL uses 25 us for temperature-sensor stabilization against the DS maximum of 25.2 us. Busy-loop overhead may cover the difference; no measured shortfall is claimed. LL uses 5 us for VREFINT stabilization against the DS tstart_vrefint maximum of 4.4 us, which is conservative and consistent. The internal-source delay only runs in the ADEN=0 activation branch. Channel configuration does not enforce the 13 us temperature or 4.3 us VREFINT minimum sampling. The LL temperature calculation guards equal factory calibration values but does not normalize arbitrary gain, offset, oversampling or shift formats or validate physical reference conditions.",
         "evidence": [
           "LL.delay_constants",
           "HAL.activate",
@@ -3636,7 +3654,7 @@
     "conflicts": [
       {
         "id": "sampling_timing",
-        "detail": "RM577/588 use integer sampling3..289 and SAR=N+1 cycles; DS77/78 use2.5..288.5 and SAR=N+1.5. Minimum12bit total16cycles agrees but sampling aperture does not. DS76 lists6bit4.5Msps; DS79 graph says3.6Msps at36MHz, agreeing with RM10cycles. Neither4.5Msps nor half-cycle sampling is operationally admitted.",
+        "detail": "RM577/588 use integer sampling 3..289 and SAR=N+1 cycles; DS77/78 use 2.5..288.5 and SAR=N+1.5. Minimum 12bit total 16 cycles agrees but sampling aperture does not. DS76 lists 6bit 4.5Msps; DS79 graph says 3.6Msps at 36MHz, agreeing with RM 10 cycles. Neither 4.5Msps nor half-cycle sampling is operationally admitted.",
         "evidence": [
           "RM0522:p577",
           "RM0522:p588",
@@ -3707,7 +3725,7 @@
       },
       {
         "id": "clock_reset",
-        "detail": "RCC_CCIPR2 reset0 implies ADCDACSEL0/HCLK, but316 labels raw1/PSIS the default. Shared ADC/DAC change prohibitions apply; require actual readback and qualified source. Hash-bound RCC getter/divider/gate limitations remain.",
+        "detail": "RCC_CCIPR2 reset 0 implies ADCDACSEL 0/HCLK, but 316 labels raw 1/PSIS the default. Shared ADC/DAC change prohibitions apply; require actual readback and qualified source. Hash-bound RCC getter/divider/gate limitations remain.",
         "evidence": [
           "RM0522:p315",
           "RM0522:p316"
@@ -3715,7 +3733,7 @@
       }
     ],
     "open_gates": [
-      "Independent and official Claude review of this supplement; source integrity is not semantic acceptance",
+      "Corrections from the split restart review (adc-completion-review-r2.json part A and adc-completion-review-r2b.json part B, both of snapshot a86699d5e457) and the minor corrections of adc-completion-corrections-review-a.json and adc-completion-corrections-review-b.json (both of snapshot 122dea1ae3f0) are applied in this snapshot, except part B finding 1 of the restart review, which RM p599 refutes and the correction review confirmed as rightly rejected. Acceptance of any snapshot is recorded only in external receipts bound to that snapshot's file hash; source integrity is not semantic acceptance.",
       "All stableADC conflicts/gates remain; no executable domain or full compositional closure",
       "PhysicalADC/DMA stop, reset, IRQ/NVIC drain, sharedDACclock ownership and buffer publication",
       "Clock/startup/sampling/electrical measurements with exact board/pad/VREF and compiler conditions",

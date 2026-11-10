@@ -3,11 +3,11 @@
   "qualification": "pending_not_runtime_admitted",
   "original": {
     "uri": "research://c5-reference/usart-contracts.json",
-    "sha256": "544322016b5455b5c3722ceedb411a5de8e63881399e3a00466b9220090922cb"
+    "sha256": "b536ae229c92612f1cad02fd7d0b4098516130c902750cd38de033771135db8d"
   },
   "transform": {
     "removed_vendor_fields": {
-      "text": 193
+      "text": 196
     },
     "paths": "logical source URIs; no source identity or review promotion",
     "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
@@ -1151,6 +1151,24 @@
         "start_line": 14320,
         "end_line": 14394,
         "sha256": "a2b634a29d7267d918eb1b7b1a1cd206311d635bde849e2bf1b4b7805f539b28"
+      },
+      "HAL_UART.baud_assert": {
+        "source": "HAL_UART",
+        "start_line": 284,
+        "end_line": 290,
+        "sha256": "994d839da6007b7cbbf2d4a9ae459c93f11fdfc15bee4e09ff0411571204aa4d"
+      },
+      "LL_USART.prescaler_table": {
+        "source": "LL_USART",
+        "start_line": 45,
+        "end_line": 64,
+        "sha256": "32ff0c53f09fbe28ed4324a0fe054c7a6d8416d83320cd25e2478585af149a80"
+      },
+      "HAL_USART.enable_timeout_const": {
+        "source": "HAL_USART",
+        "start_line": 178,
+        "end_line": 178,
+        "sha256": "10ed4055806fc27d1015b7db0596074efcda4a792090bced7c8f2187337069d5"
       }
     },
     "contracts": [
@@ -1453,7 +1471,7 @@
       },
       {
         "id": "enable_ack_gate",
-        "detail": "UART CheckEnabled checks ACK only when it initially enablesUE; an already-enabled instance returns without that ACK proof. USART CheckEnabled enablesUE only if initially off and delegates to CheckCommunicationReady. The synchronousRX/duplex polling andIT wrappers call CheckCommunicationReady directly: that function checks ACK only for currently enabled TE/RE and does not setUE or required directions. It can returnOK with both directions disabled; requested operation readiness is not validated. Busy-loop timeout depends onSystemCoreClock and zero initialcount underflows before testing. Timeout does not restore prior hardware state. Neither helper proves measuredbaud/clock.",
+        "detail": "UART CheckEnabled checks ACK only when it initially enables UE; an already-enabled instance returns without that ACK proof. USART_CheckEnabledState enables UE only if it was off and then delegates to USART_CheckCommunicationReady (hal_usart 4316-4320). The synchronous RX and duplex polling and IT wrappers call USART_CheckCommunicationReady directly. That function tests TEACK only when TE is currently set and REACK only when RE is currently set, and it never sets UE, TE or RE. With TE=0 and RE=0 it returns HAL_OK whatever UE is, so readiness for the requested operation is not validated; the polling waits that follow then run until the caller timeout, or without bound when the timeout is HAL_MAX_DELAY (4394). A master receive with TE=0 produces no clock (RM p1828) and can only time out. Busy-loop budget: count = USART_ENABLE_TIMEOUT_MS (100) * (SystemCoreClock / 8 / 1000), and each pass decrements count and tests it for zero before reading the flag (4341-4351 and 4360-4370). The formula yields multiples of 100, so the degenerate value is 0 when SystemCoreClock is below 8000: the first decrement wraps to 0xFFFFFFFF and the loop becomes an effectively unbounded wait, not an immediate timeout. A count of 1 would time out before the flag is ever read, but the formula cannot produce 1. A TEACK timeout returns before REACK is examined. Each caller listed here restores IDLE and converts the helper's HAL_TIMEOUT into HAL_ERROR: RX polling (2230-2233), duplex polling (2362-2365), RX IT (2593-2596), duplex IT (2680-2684) and the transmit entry points (2122-2125, 2509-2512, 2552-2555). The list is not exhaustive: usart-final-review.json identified eight more direct callers with the same pattern (the IT_Opt and DMA entry points at 2638, 2726, 2766, 2812, 2854, 2904, 2949 and 3002) and the HAL_USART_SetConfig path through USART_CheckEnabledState (885-888), which returns HAL_ERROR without a new IDLE write because IDLE was set earlier; those sites are not all bound as excerpts in this file. In every listed case a caller cannot tell an ACK timeout from other errors. A timeout does not restore prior hardware state. Neither helper proves measured baud or clock. Source-conditional; not observed on hardware.",
         "evidence": [
           "HAL_UART.enable",
           "HAL_USART.enable_wait",
@@ -1461,7 +1479,9 @@
           "HAL_USART.rx_poll_full",
           "HAL_USART.duplex_poll_full",
           "HAL_USART.rx_IT_wrappers",
-          "HAL_USART.duplex_IT_wrappers"
+          "HAL_USART.duplex_IT_wrappers",
+          "HAL_USART.enable_timeout_const",
+          "RM0522:p1828"
         ]
       },
       {
@@ -1555,7 +1575,7 @@
       },
       {
         "id": "USART_RX_duplex_polling_boundaries",
-        "detail": "Receive-only synchronous master sends0x0F dummy data throughTDR to produceCK before eachRX wait; slave emits no dummy here. BothRX andduplex use one tick origin for the complete polling operation and9-bit/no-parity elements require2*size_byte bufferbytes. These loops do not classifyPE/FE/NE/ORE/UDR as transfer errors and do not wait finalTC after receiving requestedcount. RX-only slave clearsUDR and flushesTX only on successful tail; timeout returnsIDLE without that cleanup or proving clocks/transmit queues quiescent. Duplex primes oneTX forsize1 orslave then writes remainingTX/readRX; completion condition followsRX count, not a finalTC proof. Require peer/frame alignment and explicit wire completion before role/buffer reuse.",
+        "detail": "Receive-only synchronous master writes dummy data to TDR to produce CK before each RX wait. The dummy is LL_USART_TransmitData8(USART_DUMMY_DATA) with the constant 0xF (hal_usart 175, 2278): the peer sees real frames carrying 0x0F, sent as 0x00F in 9-bit frames, with the parity bit replacing the MSB when parity is enabled and bit order following MSBFIRST. It is not a silent wire. A receive-only slave writes nothing to TDR in this path, but with TE=1 its TX pin still drives underrun fill for each clocked frame (RM p1829-1830; whether the fill is zeros or the last data is the recorded source conflict slave_clock_and_underrun), so the slave side is not silent either. Both RX and duplex polling use one tick origin for the whole operation, and 9-bit no-parity elements need 2*size_byte buffer bytes. These loops do not classify PE/FE/NE/ORE/UDR as transfer errors and do not wait for a final TC after the requested count is received. Receive polling clears UDR and flushes TX for a slave only on its success tail (2304-2308), and transmit polling clears TC and ORE and flushes RX and TX on its success tail (2174-2179). The duplex polling success path (2474-2477) performs none of this: no slave UDR clear, no TX or RX flush and no ORE clear. Every timeout return publishes IDLE without that cleanup and without proving clocks or transmit queues quiescent. If the word-width mask computation fails, both polling functions return HAL_ERROR after the handle sizes and counts were already written (2253-2261, 2388-2398); there is no rollback. Duplex primes one TX element for size 1 or slave mode (2401), then writes remaining TX and reads RX; its completion condition follows the RX count, not a final TC proof. Require peer and frame alignment and explicit wire completion before role or buffer reuse. Source-conditional; not observed on hardware.",
         "evidence": [
           "HAL_USART.rx_poll_full",
           "HAL_USART.duplex_poll_full",
@@ -1565,12 +1585,13 @@
           "RM0522:p1827",
           "RM0522:p1828",
           "RM0522:p1829",
-          "RM0522:p1830"
+          "RM0522:p1830",
+          "HAL_USART.tx_poll"
         ]
       },
       {
         "id": "USART_RX_IT_dummy_publication",
-        "detail": "RXIT andduplex wrappers publishACTIVE and perform directACK checks before initializing helper pointers/counts. RXIT enablesEIE andRXNEIE/RXFTIE before optionalRXFF and master dummy writes. Master starts with one dummy orRXthreshold-count dummies, without checkingTXE/TXFNF before each write; subsequentRXISR sends more dummy data. This assumes correctTX direction/CK configuration and available transmit capacity, not a receive-only silentwire operation. PendingRX/errorIRQ can preempt startup before its final dummy/options writes and callbacks can change ownership. Invalidword-width mask returnsIDLE after cached pointers/counts changed; no transactionalrollback.",
+        "detail": "RX IT and duplex wrappers publish ACTIVE and perform direct ACK checks before initializing helper pointers and counts. RX IT enables EIE and RXNEIE/RXFTIE before the optional RXFF enable and the master dummy writes. A master starts with one dummy or RX-threshold-count dummies, without checking TXE/TXFNF before each write; the subsequent RX ISR sends more dummy data. This assumes correct TX direction and CK configuration and available transmit capacity; it is not a receive-only silent-wire operation. A pending RX or error IRQ can preempt startup before its final dummy and option writes, and callbacks can change ownership. An invalid word-width mask returns IDLE after cached pointers and counts changed; there is no transactional rollback. Author addition after usart-sdk-review (not part of that review's findings, submitted for independent check): at receive-only completion the 8-bit non-FIFO RX ISR clears slave UDR and flushes TX only when USE_HAL_USART_FIFO is compiled in (4624-4631), while the 16-bit variant does so unconditionally (4716-4721). Source-conditional; not observed on hardware.",
         "evidence": [
           "HAL_USART.rx_IT_wrappers",
           "HAL_USART.duplex_IT_wrappers",
@@ -1584,12 +1605,14 @@
       },
       {
         "id": "USART_duplex_nonFIFO_completion_order",
-        "detail": "Non-FIFO RXISR completion checksTCIE==0, TXFTIE==0 andtx_xfer_count==0 but does not checkTXEIE or actualTC. If finalRXIRQ is serviced after the last TDR write but before the nextTXE handler observeszero and enablesTCIE, RXISR can publishIDLE and duplexcallback without finalTC handling. With no callback restart, laterTXE handler can enableTCIE and EndTransmit seesrx_count0 and may invoke duplexcompletion again. Conditional interrupt ordering, not observed duplicate callback. EndTransmit also disablesEIE before checking whetherRX is still pending, reducing error interrupt coverage for a duplex tail. Require one transfer-generation owner and distinct peripheralwireTC proof.",
+        "detail": "Non-FIFO RX ISR completion in duplex tests TCIE==0, TXFTIE==0 and tx_xfer_count==0 but not TXEIE or the actual TC flag (hal_usart 4644, 4734). It clears only p_rx_isr (4617, 4709), so the TX handler stays installed with TXEIE still enabled. The TX handler enables TCIE only on a later TXE pass that observes count 0 (4423-4427), and when no error is pending the IRQ handler services RX and returns before it looks at TXE (3370-3378). USART_EndTransmit_IT tests only rx_xfer_count==0 in its duplex branch, not the state (5134). Consequence: if the final RX interrupt is serviced after the last TDR write but before the TXE pass that would enable TCIE, the RX ISR publishes IDLE and calls the TxRx-complete callback; the stale TXE pass then enables TCIE and EndTransmit can publish IDLE and call the TxRx-complete callback a second time. Timing, stated conservatively: in the normal order the TXE that follows the last data write is serviced about one frame before the final RXNE, so this ordering needs TXE service to be delayed by roughly one frame or more (preemption, masked interrupts, or ISR cost above the frame time at high synchronous bit rates). The final RXNE means the last frame has already shifted, so what the source shows is completion published early in software and possibly twice, not a proven early completion on the wire. Ordinary duplex tail: USART_EndTransmit_IT disables the error interrupt (EIE, 5112) before it tests whether RX is still pending (5134), so whenever TC is serviced while rx_xfer_count is nonzero the rest of the duplex receive runs with EIE off and reduced error interrupt coverage. Restart case: if the completion callback starts a receive-only interrupt transfer, the stale TXE pass still enables TCIE and EndTransmit then disables the new transfer's error interrupt (EIE, 5112) and clears p_tx_isr (5115) while taking neither completion branch. With EIE off and RXNEIE on, a pending UDR (set at the start of a slave frame when TDR was not loaded, RM p1829-1830) makes the error snapshot nonzero, which skips the no-error RX dispatch (3367); UDR is then not classified because that branch requires EIE (3430), no error code is produced and the handler returns without calling the RX ISR (3446-3461, 3538). TXE and TC interrupts are disabled by then, so RXNE stays pending and the interrupt re-enters without progress. FE and NE would follow the same path, but whether they can occur in synchronous mode is not established from the pages read. Conditional interrupt ordering derived from source; no duplicate callback or stuck interrupt was observed. Require one transfer-generation owner and a distinct peripheral wire TC proof.",
         "evidence": [
           "HAL_USART.rx_ISR_full",
           "HAL_USART.tx_ISR_full",
           "HAL_USART.end_transmit_IT",
-          "HAL_USART.IRQ_full"
+          "HAL_USART.IRQ_full",
+          "RM0522:p1829",
+          "RM0522:p1830"
         ]
       },
       {
@@ -1606,12 +1629,16 @@
       },
       {
         "id": "USART_FIFO_duplex_tail_dummy",
-        "detail": "After either synchronous FIFO RX handler switches a short remainder to non-FIFO service, it sends a dummy when tx_xfer_count==0 and modeMASTER, without requiring RX_ACTIVE rather thanTX_RX_ACTIVE and without proving queuedTX empty. In duplex with all payload already queued but someRX pending, this can add an unrequested clock/data frame. Actual trigger depends on FIFO thresholds, IRQ order and queue state; no runtime occurrence is asserted. RX-only master tail uses this dummy intentionally.",
+        "detail": "After either synchronous FIFO RX handler switches a short remainder to non-FIFO service, it sends a dummy when tx_xfer_count==0 and the mode is MASTER (hal_usart 4900, 5051), without requiring RX_ACTIVE rather than TX_RX_ACTIVE and without proving the queued TX empty. Duplex case: with all payload already queued but some RX pending, this adds one unrequested 0x0F frame and clock. The data received for that extra frame stays unread once RXNEIE is disabled at completion (4611) and can surface as stale data or ORE in the next transfer. This is reachable whenever FIFO mode is on, size is at least the RX quota, size modulo quota is nonzero and TX finishes queueing first; it is conditional on those inputs, not rare by construction. Receive-only case: the tail dummy is intended there, but it depends on a count the receive path never writes. USART_Start_Receive_IT initializes the RX buffer, size, count and ISR pointer only (5253-5257) and leaves tx_xfer_count as the previous transfer left it. For size_byte of at least 1, the TXE-wait timeouts always return with tx_xfer_count nonzero: transmit polling (2149-2152) and duplex polling, both its priming wait (2404-2407) and its loop wait (2430-2433). The duplex RX-wait timeout (2452-2455) leaves it nonzero only when it fires before the last TX element was written. The transmit polling TC-wait timeout (2167-2170) does not, because the loop has already counted tx_xfer_count down to 0. Other writers of tx_xfer_count were not enumerated for this gate. With a nonzero stale count the tail condition fails, no dummy is written, no clock is generated for the remainder (RM p1828), and the interrupt-mode receive never completes because it has no timeout. Source-conditional; no runtime occurrence is asserted.",
         "evidence": [
           "HAL_USART.rx_FIFO8_full",
           "HAL_USART.rx_FIFO16_full",
           "HAL_USART.duplex_IT_start",
-          "RM0522:p1828"
+          "RM0522:p1828",
+          "HAL_USART.rx_IT_start",
+          "HAL_USART.rx_ISR_full",
+          "HAL_USART.tx_poll",
+          "HAL_USART.duplex_poll_full"
         ]
       },
       {
@@ -1638,7 +1665,7 @@
       },
       {
         "id": "IRDA_exact_mode_and_timing_gate",
-        "detail": "Exactheader admitsIrDA onUSART1/2 UART4/5 and excludesLPUART1; it remains a half-duplex protocol usingTX andRX pins, not the single-wireHDSEL mode. UART IRDA configuration setsIREN, clearsLINEN/CLKEN/STOP/SCEN/HDSEL, forcesoversampling16 andone stopbit. Genericbaud assertion permits much more thanRM1836 maximum115.2kbaud; neither configuration nor ordinary sharedtransfer helpers establishRM1837 pulsefilter/lowpowerfrequency limits or minimum10ms TX-to-RX setup. PSCnonzero<=255 is onlydebugasserted. Clockgetter0 returnsHAL_ERROR afterUE disable and registerchanges without restoreenable; success andsoftwareIDLE are not protocol/electrical admission. Bounds andmutualexclusion require exactIrDA policy before genericUART APIs.",
+        "detail": "The exact header admits IrDA on USART1/2 and UART4/5 and excludes LPUART1; it remains a half-duplex protocol using the TX and RX pins, not the single-wire HDSEL mode. UART IrDA configuration sets IREN and clears LINEN/CLKEN/STOP/SCEN/HDSEL (ll_usart 3124-3127), which matches RM p1836, and forces oversampling 16 and one stop bit (hal_uart 1597-1599). The generic baud check IS_UART_BAUD_RATE admits up to 18,000,000 (hal_uart 290) against the 115.2 kbaud SIR limit of RM p1836, and neither configuration nor the ordinary shared transfer helpers establish the RM p1837 pulse-filter and low-power frequency limits or the minimum 10 ms TX-to-RX setup. The only runtime checks in the configuration path are the NULL p_config test under USE_HAL_CHECK_PARAM (1573-1577) and the zero kernel clock test (1611-1618). Every guard listed here is a debug assertion only: IS_IRDA_INSTANCE (1572, 1682, 1729), baud (1579), clock prescaler (1580), IrDA PSC nonzero and at most 255 (434, 1582), the handle state checks (1588-1590) and the BRR range (1614). In a release build a baud rate of 0 reaches LL_USART_DIV_SAMPLING16, which divides by the baud rate (ll_usart 580-582); clock_prescaler is used directly as the index into the 16-entry USART_PRESCALER_TAB (ll_usart 46-64, 581), so a value above 15 reads outside the table; and the BRR write truncates the divider to 16 bits (1620) with no range rejection. A kernel clock of 0 returns HAL_ERROR after UE was disabled and registers changed, without re-enabling (1592-1618). Success and software IDLE are not protocol or electrical admission. Bounds and mutual exclusion need an exact IrDA policy before the generic UART APIs are used. Source-conditional; not observed on hardware.",
         "evidence": [
           "header.mode_applicability",
           "HAL_UART.IRDA_full",
@@ -1646,12 +1673,15 @@
           "LL_USART.IRDA_config",
           "HAL_UART.UE_macros",
           "RM0522:p1836",
-          "RM0522:p1837"
+          "RM0522:p1837",
+          "HAL_UART.baud_assert",
+          "LL_USART.baud_macro",
+          "LL_USART.prescaler_table"
         ]
       },
       {
         "id": "smartcard_exact_mode_and_transition_gate",
-        "detail": "Exactheader admits smartcard onlyUSART1/2; UART4/5 andLPUART1 have no smartcard admission despite sharedregister layout. Init instance check isdebugonly. SetConfig usesLL to force9-bitframe+parity+oversampling16 andSCEN, clocks/guard/retry, but does not clear priorLINEN/HDSEL/IREN asRM1832requires. A mode handoff fromUARTIrDA/halfduplex therefore needs explicit reset/cleanup and exclusiveinstance ownership; success does not prove compatible priorstate. Zero kernelclock is assertion-only here (unlikeIRDA expliciterror), and setter modifiesconfiguration before that check; no runtime rollback/readiness proof. This bounded read coversInit/SetConfig andLL configuration only: complete smartcardIRQ/transfer/DMA/retry/TCBGT lifecycle remains unreviewed, withRM1833 distinguishingTCguardtime andTCBGT.",
+        "detail": "The exact header admits smartcard only on USART1/2 (header 14393-14394); UART4/5 and LPUART1 have no smartcard admission despite the shared register layout. The Init instance check is debug-only (hal_smartcard 519) and the SetConfig state check is debug-only (685). SetConfig uses LL to force a 9-bit frame with parity, oversampling 16 and SCEN (ll_usart 898-903) and programs clock, guard time and retry, but it does not clear a prior LINEN, HDSEL or IREN as RM p1832 requires. A mode handoff from UART IrDA or half-duplex therefore needs an explicit reset or cleanup and exclusive instance ownership; success does not prove a compatible prior state. The configuration writes (690-698) happen before the zero-kernel-clock assertion (701), which is assertion-only here, unlike the explicit IrDA error return. LL_USART_SetBaudRate has no guard for a zero clock, and an invalid prescaler or a zero baud rate silently leaves BRR unchanged (ll_usart 2053-2061) while SetConfig still returns HAL_OK (703-712). SetConfig never sets TE or RE, and it re-enables UE only when UE was already on at entry (688, 708, macros 401-423), so a first configuration leaves the instance disabled and returns HAL_OK with state IDLE. There is no runtime rollback or readiness proof. This bounded read covers Init, SetConfig and the LL configuration only: the complete smartcard IRQ, transfer, DMA, retry and TCBGT lifecycle remains unreviewed, with RM p1833 distinguishing TC guard time and TCBGT. Source-conditional; not observed on hardware.",
         "evidence": [
           "header.mode_applicability",
           "HAL_SMARTCARD.init",
@@ -1746,7 +1776,7 @@
       }
     ],
     "open_gates": [
-      "Claude review and independent Codex regression/source review pending; this candidate is not accepted or published.",
+      "Corrections required by usart-sdk-review.json (review of snapshot 544322016b54) by usart-corrections-review.json (review of snapshot e559fcf120b3) and by usart-final-review.json (review of snapshot edbab6d9cbc9) are applied in this snapshot. Acceptance of any snapshot is recorded only in external receipts bound to that snapshot's file hash; this candidate is not published and has no operational admission.",
       "No production implementation, build, execution, hardware observation, electrical qualification, interrupt installation or protocol interoperability established.",
       "Resolve listed source conflicts and verify exact silicon revision/errata, board routing, oscillator tolerances and transceiver timing before operational admission.",
       "Define shared-instance and pad/clock/DMA ownership, generation-safe callbacks, rollback and quiescence proof; HAL IDLE/OK and callback occurrence are insufficient.",

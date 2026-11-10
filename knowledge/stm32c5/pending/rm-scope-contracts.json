@@ -3,11 +3,11 @@
   "qualification": "pending_not_runtime_admitted",
   "original": {
     "uri": "research://c5-reference/rm-scope-contracts.json",
-    "sha256": "d27569fcf4eaf2d8284a1d841f161118fc30970f8815f70a3bf4810855d1254a"
+    "sha256": "b555b2d7c0c2fbf3dc2060597351600d16e66f73a60b2c73d6b4926aa02d84e7"
   },
   "transform": {
     "removed_vendor_fields": {
-      "text": 25
+      "text": 27
     },
     "paths": "logical source URIs; no source identity or review promotion",
     "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
@@ -163,43 +163,63 @@
       },
       "header.instances": {
         "source": "header",
-        "start_line": 1335,
-        "end_line": 1446,
-        "sha256": "49fb27f6388e4fac01a81a95c9e7c0f16a7762b8b8e5c3156ffc705019132372"
+        "start_line": 1300,
+        "end_line": 1379,
+        "sha256": "21ea1aa4490331b9257a8498185686d262e2abdd5f2bcfea06e5c1de53c111fc"
+      },
+      "RM0522:p103": {
+        "source": "RM0522",
+        "page": 103,
+        "sha256": "2ba64237b7d4e9c3cca7c5e9e569d31bf6e03a36bf40d35df09ae3066c71b4b9"
+      },
+      "RM0522:p362": {
+        "source": "RM0522",
+        "page": 362,
+        "sha256": "07e376d167e34ce592b600a0d789776f502cf11cb978ffd056d90b80d4fdad69"
       }
     },
     "contracts": [
       {
         "id": "explicit_family_scope",
-        "detail": "XSPI,DLYB,CCB,SAES and PKA chapters explicitly restrict applicability to C59x/C5A3 variants. These are exclusions, not missing C542 runtime features. Generic HAL macros, residue or family registers must not instantiate them.",
+        "detail": "The XSPI, DLYB, CCB and SAES chapters each state on their first page that they apply only to the STM32C59x/C5Ax (C5A3) devices. The PKA chapter states that it applies entirely to STM32C5A3xx and partly (ECDSA signature verification only) to STM32C59xxx; STM32C542 is excluded because it is not named there, not because of an explicit negative statement. The exact STM32C53x/542 column of the RM Table 3 memory map confirms each one: XSPI1 and DLYBXS1 (p94) and CCB, PKA and SAES (p95) are all marked '- - X'. These are exclusions, not missing C542 runtime features. Generic HAL macros, residue or family registers must not instantiate them.",
         "evidence": [
           "RM0522:p497",
           "RM0522:p555",
           "RM0522:p747",
           "RM0522:p839",
-          "RM0522:p916"
-        ]
-      },
-      {
-        "id": "exact_ethernet_scope",
-        "detail": "Ethernet is absent in the exact C53x/542 bus topology and memory aperture columns. Retain absence despite the common manual Ethernet chapter; do not infer a MAC/PHY, DMA owner or pin routes from chapter presence.",
-        "evidence": [
-          "RM0522:p87",
-          "RM0522:p88",
+          "RM0522:p916",
           "RM0522:p94",
           "RM0522:p95",
-          "DS15135:p4",
-          "DS15135:p5",
           "header.instances"
         ]
       },
       {
+        "id": "exact_ethernet_scope",
+        "detail": "Ethernet is absent for the exact device in the RM master table and memory-map columns. RM p87 Table 1 lists the Ethernet MAC master as '- - X(1)' across STM32C53x/542, STM32C55x/562 and STM32C59x/5A3; the text extraction of that row is ambiguous on its own (three tokens for the columns), so the rendered page is bound as a visual check and shows '-' in the STM32C53x/542 column. RM p96 Table 3 lists the ETHERNET MAC aperture 0x4002 8000 to 0x4002 93FF as '- - X'. The exact header declares no ETH instance in its peripheral declaration block. Retain the absence despite the common-manual Ethernet chapter; do not infer a MAC/PHY, DMA owner or pin routes from chapter presence.",
+        "evidence": [
+          "RM0522:p87",
+          "RM0522:p96",
+          "DS15135:p4",
+          "DS15135:p5",
+          "header.instances"
+        ],
+        "visual_check": {
+          "path": "research://c5-reference/memory-rm87.png",
+          "sha256": "bdf379032fb210f21f8770efaf8ffe907e249144bad94508e816e3f9996a5fab",
+          "finding": "RM p87 Table 1 row 'Ethernet MAC' shows '-' in the STM32C53x/542 column, '-' in STM32C55x/562 and 'X(1)' in STM32C59x/5A3. Same render already pinned by memory-bus-contracts.json.",
+          "source": "RM0522",
+          "page": 87,
+          "source_sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009"
+        }
+      },
+      {
         "id": "timer_family_filter",
-        "detail": "Exact instantiated timers are TIM1/2/6/7/8/12/15 and LPTIM1. TIM3/4/5/16/17 signal names in family connection tables do not instantiate them. Exclude dedicated TIM16/17 register pages1452-1482, but retain shared TIM15 functional pages and exact filtering within them.",
+        "detail": "Exact instantiated timers are TIM1/2/6/7/8/12/15 and LPTIM1: the header peripheral declaration block (lines 1300-1379) declares exactly those, and DS p20 Table 6 lists TIM1/TIM8, TIM2/TIM12/TIM15 and TIM6/TIM7. The exact STM32C53x/542 column of RM Table 3 excludes the others: TIM16 and TIM17 are '- X X' (p96), TIM5 is '- X X' and TIM3 and TIM4 are '- - X' (p97). TIM3/4/5/16/17 signal names in family connection tables do not instantiate them. Exclude the dedicated TIM16/17 register pages 1452-1482, but retain the shared TIM15 functional pages and filter exactly within them.",
         "evidence": [
           "DS15135:p20",
-          "DS15135:p21",
           "header.instances",
+          "RM0522:p96",
+          "RM0522:p97",
           "RM0522:p1452",
           "RM0522:p1482"
         ]
@@ -213,6 +233,14 @@
           "DS15135:p20",
           "DS15135:p21"
         ]
+      },
+      {
+        "id": "family_only_subsections_in_retained_chapters",
+        "detail": "Two subsections inside chapters that are otherwise retained for the exact device are family-only and are filtered out: RM p103 section 3.4 Secure storage ('applies only to STM32C59xx and STM32C5Axx devices') and RM p362 section 12.5.3 SBS_NEXTHDPLCR ('applies only to STM32C59xx/C5Axx devices'). The exact header contains no NEXTHDPL symbol (full-file search at the pinned hash), which is consistent with the second filter. The page range that section 3.4 spans beyond its first page was not audited here; only the section-start statements are bound. Whole-page inclusion of p103 and p362 does not admit these subsections.",
+        "evidence": [
+          "RM0522:p103",
+          "RM0522:p362"
+        ]
       }
     ],
     "conflicts": [],
@@ -222,9 +250,14 @@
         "first_page": 497,
         "last_page": 554,
         "state": "excluded_exact_C542_peripheral",
-        "reason": "Chapter explicitly limited to C59x/C5A3.",
+        "reason": "First page states the section applies only to STM32C59xx/C5Axx devices; RM p94 Table 3 row XSPI1 is '- - X' in the exact STM32C53x/542 column order.",
         "evidence": [
-          "RM0522:p497"
+          "RM0522:p497",
+          "RM0522:p94"
+        ],
+        "boundary_evidence": [
+          "RM0522:p497",
+          "RM0522:p554"
         ]
       },
       {
@@ -232,9 +265,14 @@
         "first_page": 555,
         "last_page": 560,
         "state": "excluded_exact_C542_peripheral",
-        "reason": "Chapter explicitly limited to C59x/C5A3.",
+        "reason": "First page states the section applies only to STM32C59xx/C5Axx devices; RM p94 Table 3 row DLYBXS1 is '- - X'.",
         "evidence": [
-          "RM0522:p555"
+          "RM0522:p555",
+          "RM0522:p94"
+        ],
+        "boundary_evidence": [
+          "RM0522:p555",
+          "RM0522:p560"
         ]
       },
       {
@@ -242,9 +280,14 @@
         "first_page": 747,
         "last_page": 772,
         "state": "excluded_exact_C542_peripheral",
-        "reason": "Chapter explicitly limited to C59x/C5A3.",
+        "reason": "First page states the section only applies to STM32C59x/5A3 products; RM p95 Table 3 row CCB is '- - X'.",
         "evidence": [
-          "RM0522:p747"
+          "RM0522:p747",
+          "RM0522:p95"
+        ],
+        "boundary_evidence": [
+          "RM0522:p747",
+          "RM0522:p772"
         ]
       },
       {
@@ -252,9 +295,14 @@
         "first_page": 839,
         "last_page": 892,
         "state": "excluded_exact_C542_peripheral",
-        "reason": "Chapter explicitly limited to C59x/C5A3.",
+        "reason": "First page states the section only applies to STM32C59x/5A3 products; RM p95 Table 3 row SAES is '- - X'.",
         "evidence": [
-          "RM0522:p839"
+          "RM0522:p839",
+          "RM0522:p95"
+        ],
+        "boundary_evidence": [
+          "RM0522:p839",
+          "RM0522:p892"
         ]
       },
       {
@@ -262,9 +310,14 @@
         "first_page": 916,
         "last_page": 954,
         "state": "excluded_exact_C542_peripheral",
-        "reason": "Chapter explicitly limited to C59x/C5A3.",
+        "reason": "First page states the section applies entirely to STM32C5A3xx and partly (ECDSA signature verification) to STM32C59xxx; STM32C542 is not named. RM p95 Table 3 row PKA is '- - X', which is the exact-column confirmation.",
         "evidence": [
-          "RM0522:p916"
+          "RM0522:p916",
+          "RM0522:p95"
+        ],
+        "boundary_evidence": [
+          "RM0522:p916",
+          "RM0522:p954"
         ]
       },
       {
@@ -272,12 +325,16 @@
         "first_page": 1452,
         "last_page": 1482,
         "state": "excluded_exact_C542_peripheral",
-        "reason": "Exact datasheet/header timer inventory excludes TIM16/17; shared functional chapter is retained.",
+        "reason": "RM p96 Table 3 marks TIM16 and TIM17 '- X X' (absent in the STM32C53x/542 column); DS p20 Table 6 and the header declaration block list no TIM16/17. The shared functional chapter is retained.",
         "evidence": [
+          "RM0522:p96",
           "DS15135:p20",
-          "DS15135:p21",
           "header.instances",
           "RM0522:p1452"
+        ],
+        "boundary_evidence": [
+          "RM0522:p1452",
+          "RM0522:p1482"
         ]
       },
       {
@@ -285,20 +342,34 @@
         "first_page": 2133,
         "last_page": 2412,
         "state": "excluded_exact_C542_peripheral",
-        "reason": "Exact RM C53x/542 bus master/slave columns exclude Ethernet; header has no ETH instance. Chapter alone does not establish presence.",
+        "reason": "RM p87 Table 1 (master table, visually checked) and RM p96 Table 3 (memory-map aperture) mark Ethernet MAC absent in the STM32C53x/542 column; the header declares no ETH instance. The chapter alone does not establish presence.",
         "evidence": [
           "RM0522:p87",
-          "RM0522:p88",
-          "RM0522:p94",
-          "RM0522:p95",
-          "header.instances"
+          "RM0522:p96",
+          "header.instances",
+          "RM0522:p2133"
+        ],
+        "boundary_evidence": [
+          "RM0522:p2133",
+          "RM0522:p2412"
         ]
       }
     ],
     "open_gates": [
-      "Independent source review pending.",
+      "Citation corrections required by rm-scope-review.json (review of snapshot d27569fcf4ea) are applied in this snapshot. Acceptance of any snapshot is recorded only in external receipts bound to that snapshot's file hash.",
       "No operational implementation, catalog promotion, build, hardware, timing or electrical qualification.",
-      "Page-level audit excludes introductory/front matter1-84 and post-body revision/reference pages after2557; document identity remains bound by full PDF hash."
+      "Page-level audit excludes introductory/front matter1-84 and post-body revision/reference pages after2557; document identity remains bound by full PDF hash.",
+      "RM p88 and DS p21 stay bound as context pages only; no contract relies on them for an absence claim. Excluded chapter content was not read for semantics."
+    ],
+    "visual_checks": [
+      {
+        "path": "research://c5-reference/memory-rm87.png",
+        "sha256": "bdf379032fb210f21f8770efaf8ffe907e249144bad94508e816e3f9996a5fab",
+        "finding": "RM p87 Table 1 row 'Ethernet MAC' shows '-' in the STM32C53x/542 column, '-' in STM32C55x/562 and 'X(1)' in STM32C59x/5A3. Same render already pinned by memory-bus-contracts.json.",
+        "source": "RM0522",
+        "page": 87,
+        "source_sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009"
+      }
     ]
   }
 }

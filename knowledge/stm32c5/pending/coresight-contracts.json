@@ -3,7 +3,7 @@
   "qualification": "pending_not_runtime_admitted",
   "original": {
     "uri": "research://c5-reference/coresight-contracts.json",
-    "sha256": "772b5742b3e34b1a06f50e63e45cc72cbd05698565e9d71566ee00b2cfe1afd6"
+    "sha256": "4a191da848370a609dae3618ee5970d2d3525ecf7b014d79413a6331ebb4ad42"
   },
   "transform": {
     "removed_vendor_fields": {
@@ -20,7 +20,7 @@
     "build": "not_tested",
     "hardware": "not_observed",
     "schema": "bkpt.external.coresight.contracts.v1",
-    "review": "Independent source and regression review pending.",
+    "review": "coresight-review-r2a.json and coresight-review-r2b.json reviewed snapshot 5c5eae7dcc25 in two bounded parts, coresight-review-r2c.json reviewed snapshot 05940dcf7c5e and coresight-review-r2d.json reviewed snapshot 91aa22cf4d31; their corrections are included in this snapshot. Acceptance of any snapshot is recorded only in external receipts bound to that snapshot's file hash.",
     "scope": "Exact STM32C542RCT6 source-only CoreSight transport, topology, DWT, ITM, BPU, ETM, TPIU and CTI. No debug connection, memory access, authentication, reset, trace capture or executable profile is authorized. DBGMCU freeze/low-power details and CPU/NVIC/MPU semantics remain separately owned candidates.",
     "chapter_audit": {
       "pages_read": [
@@ -156,7 +156,7 @@
         2542,
         2557
       ],
-      "qualification": "Full extracted RM49.1 through49.11 read, including CTI map continuation on2539; this is not full architecture, register-field, protocol, debugger implementation or hardware qualification. Figure/bit-cell visual reconciliation remains open. Referenced Arm architecture/TRM documents were not available in this bounded pinned-source review."
+      "qualification": "Full extracted RM49.1 through49.11 read, including CTI map continuation on2539; this is not full architecture, register-field, protocol, debugger implementation or hardware qualification. Figure 749 on RM2526 was visually checked for the CTI trigger numbering only; all other figure and bit-cell visual reconciliation remains open. Referenced Arm architecture/TRM documents were not available in this bounded pinned-source review."
     },
     "sources": {
       "RM0522": {
@@ -1041,7 +1041,7 @@
       },
       {
         "id": "ITM_port_state_and_ownership",
-        "detail": "ITM has32 stimulus ports; a write generates a trace packet whereas a read reports state, not prior stimulus data. FIFO_READY is bit0; DISABLE is bit1. TPR groups eight ports per privilege bit. Software, DWT and timestamp packets share arbitration and FIFO, with software highest priority. Timestamp is21-bit and prescaled1/4/16/64. TRACEBUSID must be nonzero and unique for multiple sources; ITM BUSY is not receiver confirmation. STALLENA can stall CPU to preserve hardware trace instead of dropping packets, affecting execution.",
+        "detail": "ITM has32 stimulus ports; a write generates a trace packet whereas a read reports state, not prior stimulus data. FIFO_READY is bit0; DISABLE is bit1. TPR groups eight ports per privilege bit. Software, DWT and timestamp packets share arbitration and FIFO, with software highest priority. Timestamp is21-bit and prescaled1/4/16/64. When multi-source trace is in use the debugger must write a nonzero TRACEBUSID, and each trace source in the system needs a different identifier (RM2474); ITM BUSY is not receiver confirmation. STALLENA can stall CPU to preserve hardware trace instead of dropping packets, affecting execution.",
         "evidence": [
           "RM0522:p2472",
           "RM0522:p2473",
@@ -1051,7 +1051,7 @@
       },
       {
         "id": "BPU_comparator_owner",
-        "detail": "Eight instruction-address comparators at0x008+4*n, n0..7, with address bits31:1 and enable bit0. Global enable changes require KEY=1 or write is ignored. These are shared debugger resources, not eight application-owned breakpoints; a candidate must reserve slots and coordinate halt/monitor effects rather than assuming a write is passive.",
+        "detail": "Eight instruction-address comparators at0x008+4*n, n0..7, with address bits31:1 and enable bit0. RM2482 KEY: a write to the control register is ignored unless KEY is written as 1, which covers every control-register write and not only global enable changes; RM2482 prints the register name there as FPB_CTRLR while RM2481 titles it BPU_CTRLR. These are shared debugger resources, not eight application-owned breakpoints; a candidate must reserve slots and coordinate halt/monitor effects rather than assuming a write is passive.",
         "evidence": [
           "RM0522:p2481",
           "RM0522:p2482",
@@ -1060,7 +1060,7 @@
       },
       {
         "id": "ETM_exact_exclusions",
-        "detail": "RM explicitly configures ETM instruction trace only: data values/addresses, contextID, VMID, address comparator pairs, data comparators and sequencer states are not implemented in the listed ID registers. Four DWT comparator inputs, four external inputs, one reduced-function counter, one single-shot control and two resource-selection pairs are reported. Two events and two-entry return stack are documented. Generic selector field width does not admit nonexistent resources; unavailable Arm ETM programming/decoder details remain gates.",
+        "detail": "RM explicitly configures ETM instruction trace only: data values/addresses, contextID, VMID, address comparator pairs, data comparators and sequencer states are reported as not implemented or not supported in the listed ID registers. Four DWT comparator inputs, four external inputs (with zero external input selectors, see conflict ETM_external_input_selectors), one reduced-function counter, one single-shot control and two resource-selection pairs are reported. Two events and two-entry return stack are documented. Generic selector field width does not admit nonexistent resources; unavailable Arm ETM programming/decoder details remain gates.",
         "evidence": [
           "RM0522:p2488",
           "RM0522:p2494",
@@ -1119,7 +1119,7 @@
       },
       {
         "id": "exact_package_and_single_owner",
-        "detail": "Thirteen literal DEBUG package records are copied unchanged and hash-linked. PA13/PA14 SWD/JTAG aliases share the same pads, PB3 SWO/JTDO share a pad and SWO is documented only with SWD, and all trace/debug alternatives require common pin ownership with other consumers. Parallel trace pads PE2/PC1/PC8/PD2/PC12 are bonded on LQFP64. GPIO AF, DBGMCU TRACE_IOEN/TRACE_EN/mode, TPIU, upstream sources and receiver are separate gates; no board path/population or electrical qualification is inferred.",
+        "detail": "Thirteen literal DEBUG package records are copied unchanged and hash-linked. PA13/PA14 SWD/JTAG aliases share the same pads, PB3 SWO/JTDO share a pad and SWO is documented only with SWD, and all trace/debug alternatives require common pin ownership with other consumers. The parallel trace signals have LQFP64 pad records in the hash-bound package descriptor (TRACECLK PE2 pad 1, TRACED0 PC1 pad 9, TRACED1 PC8 pad 39, TRACED2 PD2 pad 54, TRACED3 PC12 pad 53); this is descriptor membership, not an observed bond or board connection. GPIO AF, DBGMCU TRACE_IOEN/TRACE_EN/mode, TPIU, upstream sources and receiver are separate gates; no board path/population or electrical qualification is inferred.",
         "evidence": [
           "RM0522:p2414",
           "RM0522:p2415",
@@ -1219,6 +1219,7 @@
         "id": "ITM_map_overlap_and_generic_fields",
         "detail": "Table590 lists stimulus0..31 through07C but also starts reserved range at07C. It labels DEVARCH ARCHPART[3:0] versus detail11:0. Generic CMSIS defines GTSFREQ bits11:10 although RM reserves15:10; integration registers are also excluded by RM reserved span. Preserve conflicts rather than granting generic feature support.",
         "evidence": [
+          "RM0522:p2474",
           "RM0522:p2475",
           "RM0522:p2476",
           "RM0522:p2480",
@@ -1238,12 +1239,14 @@
       },
       {
         "id": "ETM_security_and_reset_reserved_bits",
-        "detail": "ETM_VICTLR describes EXLEVEL_S secure state despite RM always-nonsecure statement; do not infer secure trace. IDR0 reset0x280006E1 sets bits27 and0 described reserved; IDR1 reset0x4100F421 sets bits15:12 described reserved. Raw resets remain source literals, not synthesized writable initialization images or observed silicon values.",
+        "detail": "ETM_VICTLR (RM2493) describes EXLEVEL_S as per-exception-level trace enables 'in secure state', and ETM_IDR3 (RM2499) reports EXLEVEL_S 0x9 'Privilege levels thread and handler implemented', while the only non-secure statement in the bound pages is a device-level remark inside the DWT CYCDISS bit description (RM2457: 'STM32C5 always in non-secure state'); the RM does not state that the trace unit itself is always non-secure. RM2506 reports secure noninvasive debug as disabled (SNID 0x2). Do not infer secure trace. IDR0 reset0x280006E1 sets bits27 and0 described reserved; IDR1 reset0x4100F421 sets bits15:12 described reserved. Raw resets remain source literals, not synthesized writable initialization images or observed silicon values.",
         "evidence": [
           "RM0522:p2457",
           "RM0522:p2493",
           "RM0522:p2497",
-          "RM0522:p2498"
+          "RM0522:p2498",
+          "RM0522:p2499",
+          "RM0522:p2506"
         ]
       },
       {
@@ -1278,7 +1281,16 @@
         "evidence": [
           "RM0522:p2526",
           "RM0522:p2527"
-        ]
+        ],
+        "visual_check": {
+          "path": "research://c5-reference/coresight-rm2526.png",
+          "sha256": "e2c471d24b3acbf2daee535257d0350644eb7b817efb313e16ef717e47ba6d54",
+          "source": "RM0522",
+          "page": 2526,
+          "source_sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+          "render_recipe": "Rendered and retained by the paused authoring worker; recipe not recorded. Page header 'Debug support (DBG) RM0522' and footer '2526/2572 RM0522 Rev 1' are visible in the image.",
+          "finding": "Figure 749 draws ETMEXTIN0, ETMEXTIN1, ETMEXTIN2 and ETMEXTIN3 on the arrows aligned with TRIGOUT4, TRIGOUT5, TRIGOUT6 and TRIGOUT7, EDBGRQ with TRIGOUT0 and DBGRESTART with TRIGOUT1; TRIGOUT2 and TRIGOUT3 do not appear in the figure. On the input side the figure agrees with Table 594 on the same page (TRIGIN0 HALTED, TRIGIN1..3 ETMTRIGGER0..2, TRIGIN4..5 ETMTRIGOUT0..1). The image confirms the figure side of conflict CTI_output_numbering; it does not decide which numbering is right. Inspected by the author; no other figure or bit cell is covered."
+        }
       },
       {
         "id": "CTI_channel0_and_PIDR0",
@@ -1287,6 +1299,22 @@
           "RM0522:p2529",
           "RM0522:p2535",
           "RM0522:p2539"
+        ]
+      },
+      {
+        "id": "AP_IDR_CLASS_encoding",
+        "detail": "RM2436 describes APx_IDR bits 16:13 as CLASS[3:0] with the single listed value '0x1: MEM-AP'. The documented reset values disagree with that value: 0x54770002 (AP0) and 0x84770001 (AP1) on RM2436, and the two Table582 map rows on RM2438 (binaries 0101010001110111000 and 1000010001110111000 for bits 31:13). Both map rows are literally labelled AP0_IDR; attributing the second row to AP1 is an inference from its value matching the AP1 reset literal, and the repeated label is itself recorded in conflict AP_list_map_and_address_formula. All of these literals set bit 16 and clear bits 15:13, so a four-bit field at 16:13 reads 0b1000 = 0x8 for both access ports, not 0x1. Every other field of the same literals decodes exactly as the field text says (REVISION 0x5/0x8, JEDECBANK 0x4, JEDECCODE 0x3B, reserved 12:8 zero, IDENTITY 0x02 APB-AP for AP0 and 0x01 AHB-AP for AP1), so the disagreement is confined to the CLASS value. Whether the '0x1' is a typo or a different bit-order convention cannot be decided from the pinned sources; the Arm debug interface reference that would arbitrate is not pinned. Preserve both the field text and the reset literals; do not synthesize an expected IDR from the field text, and do not use either value as an identity check. No AP read is authorized or was performed.",
+        "evidence": [
+          "RM0522:p2436",
+          "RM0522:p2438"
+        ]
+      },
+      {
+        "id": "ETM_external_input_selectors",
+        "detail": "RM2501 ETM_IDR5 states NUMEXTINSEL[2:0] = 0x0 'No external input selectors implemented' next to NUMEXTIN[8:0] = 0x004 'Four external inputs implemented'. The resource selection registers on RM2501 and RM2502 nevertheless define GROUP 0x0 as 'External input selectors (select 0-3)'. The pinned sources do not say whether group 0 then selects the four external inputs directly or is unusable. Keep both texts; resource group 0 is not admitted as an available selection, and no CTI-to-ETM external input route is derived from it.",
+        "evidence": [
+          "RM0522:p2501",
+          "RM0522:p2502"
         ]
       }
     ],
@@ -1372,6 +1400,11 @@
           "RM0522:p2424",
           "RM0522:p2428",
           "RM0522:p2429"
+        ],
+        "notes": [
+          "RM2424 Table579 footnote 1: 'Access to the AP ABORT register from the JTAG-DP is done using the ABORT instruction.' The write entry at offset 0x0 (DP_ABORTR) must therefore not be read as transport-neutral.",
+          "Reset values are not transcribed in this map except DP_DPIDR; the other DP register resets stay in the bound RM pages 2424-2430 and are not asserted here.",
+          "RM2428 titles DP_RESENDR 'DP event status register' while RM2424 Table579 describes it as returning the value of the last AP read or DP_RDBUFF read for a corrupted read transfer; both printed forms are kept."
         ]
       },
       "AP": {
@@ -1425,7 +1458,16 @@
           "RM0522:p2436",
           "RM0522:p2437",
           "RM0522:p2438"
-        ]
+        ],
+        "IDR_CLASS_disputed": {
+          "field_position": "bits 16:13",
+          "field_text_value": "0x1 MEM-AP",
+          "reset_literal_value": {
+            "AP0": "0x8",
+            "AP1": "0x8"
+          },
+          "conflict": "AP_IDR_CLASS_encoding"
+        }
       },
       "topology": {
         "system_ROM": "0xE00E0000",
@@ -1657,7 +1699,8 @@
           "RM0522:p2501",
           "RM0522:p2502",
           "RM0522:p2505"
-        ]
+        ],
+        "resource_GROUP_0_status": "disputed_not_admitted: literal GROUP 0x0 text kept above; ETM_IDR5 reports zero external input selectors; see conflict ETM_external_input_selectors"
       },
       "TPIU": {
         "supported_port_widths": [
@@ -2220,6 +2263,17 @@
       "Trace delivery, bandwidth, stalls, overflow/loss, receiver configuration, timing and electrical operation remain untested.",
       "No actual identity/revision, security state, connection, build or target behavior was observed; low-power/freeze source contracts remain separate.",
       "Chapter reading and integrity verification do not close device coverage or certify exhaustive register/bit-cell transcription."
+    ],
+    "visual_checks": [
+      {
+        "path": "research://c5-reference/coresight-rm2526.png",
+        "sha256": "e2c471d24b3acbf2daee535257d0350644eb7b817efb313e16ef717e47ba6d54",
+        "source": "RM0522",
+        "page": 2526,
+        "source_sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "render_recipe": "Rendered and retained by the paused authoring worker; recipe not recorded. Page header 'Debug support (DBG) RM0522' and footer '2526/2572 RM0522 Rev 1' are visible in the image.",
+        "finding": "Figure 749 draws ETMEXTIN0, ETMEXTIN1, ETMEXTIN2 and ETMEXTIN3 on the arrows aligned with TRIGOUT4, TRIGOUT5, TRIGOUT6 and TRIGOUT7, EDBGRQ with TRIGOUT0 and DBGRESTART with TRIGOUT1; TRIGOUT2 and TRIGOUT3 do not appear in the figure. On the input side the figure agrees with Table 594 on the same page (TRIGIN0 HALTED, TRIGIN1..3 ETMTRIGGER0..2, TRIGIN4..5 ETMTRIGOUT0..1). The image confirms the figure side of conflict CTI_output_numbering; it does not decide which numbering is right. Inspected by the author; no other figure or bit cell is covered."
+      }
     ]
   }
 }

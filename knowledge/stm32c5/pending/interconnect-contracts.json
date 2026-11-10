@@ -3,11 +3,11 @@
   "qualification": "pending_not_runtime_admitted",
   "original": {
     "uri": "research://c5-reference/interconnect-contracts.json",
-    "sha256": "a55a0016a154396698f2394dd1dacff34ebb7df6d9747d4168f82fca47c957ed"
+    "sha256": "e8318c674b9dc91dbda82c54a329c3c67a3807e02415843a5357d827309c9925"
   },
   "transform": {
     "removed_vendor_fields": {
-      "text": 57
+      "text": 60
     },
     "paths": "logical source URIs; no source identity or review promotion",
     "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
@@ -20,7 +20,7 @@
     "build": "not_tested",
     "hardware": "not_observed",
     "schema": "bkpt.external.interconnect.contracts.v1",
-    "review": "Official interconnect-review.json and independent root source review completed for earlier snapshot; source-validated corrections included, with no runtime admission. Final correction review remains open.",
+    "review": "interconnect-review.json reviewed snapshot 904b734641e5 and interconnect-corrections-review.json reviewed snapshot a55a0016a154 and interconnect-final-review.json reviewed snapshot f68b395ef374; the corrections they required are included in this snapshot, with no runtime admission. Acceptance of any snapshot is recorded only in external receipts bound to that snapshot's file hash.",
     "scope": "Full RM0522 chapter13 pages371–381 read. Literal family matrices filtered against exact C542 declarations; no executable interconnect profile or whole-device closure.",
     "chapter_audit": {
       "pages_read": [
@@ -391,6 +391,23 @@
         "start_line": 167,
         "end_line": 175,
         "sha256": "6d027c1f38767a174c68622eec30f254c1aff3de5063c3f917dcfe19f20803f9"
+      },
+      "RM0522:p1139": {
+        "source": "RM0522",
+        "page": 1139,
+        "sha256": "0f14250eba81e23c3c3c40e87b30aeb152a3de0115059ad86433b1b430a99e47"
+      },
+      "LL.TIM2_ETR": {
+        "source": "LL_TIM",
+        "start_line": 1019,
+        "end_line": 1027,
+        "sha256": "c763899893d2bbbd809d24d0b0186ac1d571054dbd93e77396d5ed7142d91f78"
+      },
+      "LL.TIM2_OCREF_CLR": {
+        "source": "LL_TIM",
+        "start_line": 1940,
+        "end_line": 1947,
+        "sha256": "fc3766c35a56654fa856db8c44fe07c91cfcf8ac35c2aed1e08c36e8167f66a6"
       }
     },
     "contracts": [
@@ -518,7 +535,7 @@
     "conflicts": [
       {
         "id": "TIM2_TI2_FDCAN_signal",
-        "detail": "Table85 RM375 connects fdcan1_rxeof_evt to TIM2 tim_ti2_in7; timer Table311 RM1138 instead names fdcan1_txeof_evt. Preserve RX versus TX disagreement; do not normalize silently. LL TIM2 TI2 FDCAN1 TXEOF agrees with the local timer chapter, while TI1 uses RXEOF. This is not a second FDCAN2 source on TI1/TI2; separate TIM2 TI3/TI4 inputs carry FDCAN2 events.",
+        "detail": "Table85 RM375 connects fdcan1_rxeof_evt to TIM2 tim_ti2_in7; timer Table311 RM1138 instead names fdcan1_txeof_evt. Preserve RX versus TX disagreement; do not normalize silently. LL agrees with the local timer chapter: ll_tim.h line 1663 defines LL_TIM_TIM2_TI2_FDCAN1_TXEOF_EVT for TI2, while line 1649 defines LL_TIM_TIM2_TI1_FDCAN1_RXEOF_EVT for TI1 (both inside the bound range 1637-1690). This is not a second FDCAN2 source on TI1/TI2; separate TIM2 TI3/TI4 inputs carry FDCAN2 events.",
         "evidence": [
           "RM0522:p375",
           "RM0522:p1138",
@@ -537,7 +554,7 @@
       },
       {
         "id": "summary_vs_details",
-        "detail": "Table84 marks I3C-to-TIM12, TIM2-to-LPDMA1/2 and COMP-to-LPTIM1/LPDMA1/2 as no interconnect, while Table85 supplies I3C1 IBI acknowledge, TIM2 TRGO and COMP1 paths. A summary dash is not silently replaced by a runtime edge; retain both source levels. Additional exact-endpoint discrepancies: LPDMA1-to-LPTIM1 is a summary dash, but Table85 generic LPDMA trigger5 is identified as LPDMA1 channel1 TC by Table369; LSI-to-DAC is a dash while Table85 DAC hold clock names ck_lsi OR ck_lse. TIM2_CH2-to-TIM2 TI2 input0 versus the summary diagonal dash is an external-channel/default-input scope difference, not evidence of internal self-trigger routing.",
+        "detail": "Table84 marks I3C-to-TIM12, TIM2-to-LPDMA1/2 and COMP-to-LPTIM1/LPDMA1/2 as no interconnect, while Table85 supplies I3C1 IBI acknowledge, TIM2 TRGO and COMP1 paths. A summary dash is not silently replaced by a runtime edge; retain both source levels. Additional exact-endpoint discrepancies: LPDMA1-to-LPTIM1 is a summary dash, but Table85 generic LPDMA trigger5 is identified as LPDMA1 channel1 TC by Table369; LSI-to-DAC is a dash while Table85 DAC hold clock names ck_lsi OR ck_lse. TIM2_CH2-to-TIM2 TI2 input0 (T85.p375.r18) also differs from the summary diagonal dash. Inference, not source text: this reads as the timer's own external channel on its default input, a scope difference between the two tables, and it is not evidence of internal self-trigger routing. The source itself gives no explanation, so the difference is retained as an unexplained summary/detail difference.",
         "evidence": [
           "RM0522:p372",
           "RM0522:p377",
@@ -560,7 +577,7 @@
       },
       {
         "id": "detail_inventory_omissions",
-        "detail": "Chapter13 is not an exhaustive exact route inventory. Local tables additionally list COMP2 to TIM1/TIM8 TI1 input2, break comparator2, break2 comparator2 and OCREF clear1; TIM2 TI1 input2 and TI4 input2; TIM12 TI1 input2; TIM15 TI1 input2; LPTIM1 input2 mux1. TIM2 TI3 input7 FDCAN2 RXEOF and TI4 input7 FDCAN2 TXEOF are distinct from TIM2 TI1/TI2 FDCAN1. Local TIM15 FDCAN2 input6 conflicts with LL selector7. DAC EXTI9 and LPTIM GPIO/default routes are also omitted. Separate SDK-only candidates COMP2 DMA selector36 and TIM15 COMP2 break are not promoted to RM-supported routing. TIM1/TIM8 COMP2 ETR2 conflicts with RM reserved encoding. All additions require destination-specific contracts and COMP revision gating.",
+        "detail": "Chapter13 is not an exhaustive exact route inventory. Local tables additionally list COMP2 to TIM1/TIM8 TI1 input2, break comparator2, break2 comparator2 and OCREF clear1; TIM2 TI1 input2 and TI4 input2; TIM12 TI1 input2; TIM15 TI1 input2; LPTIM1 input2 mux1. TIM2 TI3 input7 FDCAN2 RXEOF and TI4 input7 FDCAN2 TXEOF are distinct from TIM2 TI1/TI2 FDCAN1. Local TIM15 FDCAN2 input6 conflicts with LL selector7. TIM2 also has two COMP2 routes in its own chapter that Table85 does not list: RM1139 Table315 tim_etr2 comp2_out and Table316 tim_ocref_clr1 comp2_out. The text extraction gives two tokens for four timer columns, so the column was read from the rendered page: comp2_out sits in the TIM2 column and TIM3/TIM4/TIM5 share one Reserved cell. LL agrees with the RM for TIM2 (LL_TIM_TIM2_ETR_IN_COMP2_OUT is TIM_AF1_ETRSEL_1, raw selector 2; LL_TIM_TIM2_OCREF_CLR_INT_COMP2_OUT is TIM_AF2_OCRSEL_0), unlike the TIM1/TIM8 ETR2 case, which stays a conflict. Further rows omitted from Table85, listed individually: DAC RM676 Table158 dac_chx_trg12 exti9 (external pin); LPTIM1 RM1487 GPIO default inputs Table369 lptim_ext_trig0, Table370 lptim_in1_mux0, Table371 lptim_in2_mux0 and Table372 lptim_ic1_mux0. Of the remaining RM1487 rows, lptim_ext_trig1 to 7, lptim_in1_mux1 and lptim_ic1_mux1 to 3 do have Table85 rows on RM378; lptim_in2_mux1 comp2_out does not and is the LPTIM1 input2 mux1 omission already listed above; lptim_in2_mux2 and lptim_in2_mux3 are Reserved. This list is finite for the pages cited and is not a claim that no other local-table row is missing. Separate SDK-only candidates COMP2 DMA selector36 and TIM15 COMP2 break are not promoted to RM-supported routing. TIM1/TIM8 COMP2 ETR2 conflicts with RM reserved encoding. All additions require destination-specific contracts and COMP revision gating.",
         "evidence": [
           "RM0522:p375",
           "RM0522:p377",
@@ -580,8 +597,20 @@
           "LL.TIM2_TI",
           "LL.TIM15_break",
           "LL.DMA_requests_triggers",
-          "ES0676:p6"
-        ]
+          "ES0676:p6",
+          "RM0522:p1139",
+          "LL.TIM2_ETR",
+          "LL.TIM2_OCREF_CLR"
+        ],
+        "visual_check": {
+          "path": "research://c5-reference/interconnect-rm1139.png",
+          "sha256": "b59c222129d9c398bcacdefceaac58e4ff0b7d36b4bf4a827e1f2b8519dfaa8a",
+          "source": "RM0522",
+          "page": 1139,
+          "source_sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+          "render_recipe": "PyMuPDF 1.28.2 page.get_pixmap(dpi=150) of PDF page 1139; page footer 1139/2572 checked",
+          "scope": "Merged-cell column placement in Table 315 and Table 316 only: tim_etr2 shows comp2_out in the TIM2 column and one merged Reserved cell across TIM3/TIM4/TIM5; tim_ocref_clr1 shows comp2_out in the TIM2 column and one merged Reserved cell across TIM3/TIM4/TIM5. Inspected by the author; no other page or row is covered by this image."
+        }
       },
       {
         "id": "DMA_signal_and_inventory",
@@ -8220,7 +8249,7 @@
         "method": "extract_tables default line-grid extraction; exact header width/order assertions; rotated destination headings reversed and checked against explicit column order; destination-only merged cells forward-filled within each page; original cells retained",
         "source": "RM0522",
         "source_sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
-        "visual_confirmation": "Partial: RM372 retained image inspected for column order and named summary conflicts; all244 detail rows and RM373 remain text/grid checked only."
+        "visual_confirmation": "Partial: RM372 retained image inspected for column order and named summary conflicts; RM1139 retained image inspected for the Table315/316 COMP2 column placement only; all 244 detail rows and RM373 remain text/grid checked only."
       },
       "qualification": "Literal finite source rows and presence filtering only. No selector writes, clock admission, GPIO assignment or runtime integration.",
       "non_peripheral_source_presence": {
@@ -8398,6 +8427,15 @@
         "source": "RM0522",
         "page": 372,
         "scope": "Retained root-rendered image inspected by author and independent root reviewer: destination order and named summary dash/class conflicts. Not an exhaustive visual audit of all244 detail rows or p373."
+      },
+      {
+        "path": "research://c5-reference/interconnect-rm1139.png",
+        "sha256": "b59c222129d9c398bcacdefceaac58e4ff0b7d36b4bf4a827e1f2b8519dfaa8a",
+        "source": "RM0522",
+        "page": 1139,
+        "source_sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "render_recipe": "PyMuPDF 1.28.2 page.get_pixmap(dpi=150) of PDF page 1139; page footer 1139/2572 checked",
+        "scope": "Merged-cell column placement in Table 315 and Table 316 only: tim_etr2 shows comp2_out in the TIM2 column and one merged Reserved cell across TIM3/TIM4/TIM5; tim_ocref_clr1 shows comp2_out in the TIM2 column and one merged Reserved cell across TIM3/TIM4/TIM5. Inspected by the author; no other page or row is covered by this image."
       }
     ]
   }
