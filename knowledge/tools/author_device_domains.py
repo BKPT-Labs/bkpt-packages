@@ -29,10 +29,6 @@ import author_device_inventory as inventory  # noqa: E402
 import json  # noqa: E402
 
 
-def pin_name(pad):
-    return f'P{pad["port"]}{pad["index"]}'
-
-
 def find(records, identifier):
     matches = [record for record in records if record["id"] == identifier]
     if len(matches) != 1:
@@ -97,10 +93,13 @@ class Domains:
         self.source_root = source_root
         self.value = graph.value
         self.prefix = inventory_config["resource_prefix"]
+        self.pad_template = inventory_config["pad_name"]
         self.conditions = inventory_config["conditions"]
         self.target = find(self.value["targets"], inventory_config["target"])
         for record in config["sources"]:
             data = (source_root / record["path"]).read_bytes()
+            if record.get("sha256", inventory.sha256(data)) != inventory.sha256(data):
+                raise SystemExit(f"source {record['id']} differs from the hash the configuration pins")
             pinned = {**record, "sha256": inventory.sha256(data)}
             pinned = {key: pinned[key] for key in ("id", "path", "sha256", "revision", "authority")}
             if any(existing["id"] == record["id"] for existing in self.value["sources"]):
@@ -121,6 +120,9 @@ class Domains:
         self.signals = [value for _, _, value, _ in inventory.children(pinout, "signals")]
         self.blocks = None
 
+    def pad_name(self, pad):
+        return self.pad_template.format(port=pad["port"], index=pad["index"])
+
     def source(self, identifier):
         """A source the graph already pins, opened on first use."""
         if identifier not in self.sources:
@@ -133,8 +135,9 @@ class Domains:
     def policy(self, name):
         line = self.config["policy"]["lines"][name]
         text = self.policy_source.lines[line - 1]
-        return self.graph.cite(f"policy3-{name}", self.policy_source, line, line,
-                               "BKPT policy, version 3: " + text.split(":", 1)[0] + ". Authored engineering policy, not a manufacturer statement.")
+        policy = self.config["policy"]
+        return self.graph.cite(f"{policy['evidence_prefix']}-{name}", self.policy_source, line, line,
+                               f"{policy['label']}: " + text.split(":", 1)[0] + ". Authored engineering policy, not a manufacturer statement.")
 
     def resource(self, name):
         return find(self.value["resources"], f"{self.prefix}.{name}")
@@ -155,13 +158,17 @@ class Domains:
                 pad = self.positions.get(member["pin"])
                 if pad not in self.pads:
                     continue
-                pin = pin_name(self.pads[pad])
+                pin = self.pad_name(self.pads[pad])
                 if pin in nets:
                     raise SystemExit(f"pad {pin} is on two board nets")
                 others = sorted({m["reference"] for m in value["net"] if m["reference"] != spec["device_reference"]})
                 nets[pin] = (start, end, value["netLabel"], others)
-        if set(nets) != {pin_name(pad) for pad in self.pads.values()}:
+        if set(nets) != {self.pad_name(pad) for pad in self.pads.values()}:
             raise SystemExit("a configurable pad has no board net")
+        unknown = sorted((set(spec["reserved_nets"]) | set(spec["excluded_nets"])) - {label for _, _, label, _ in nets.values()})
+        if unknown:
+            # A misspelt net would silently leave its pad open for allocation.
+            raise SystemExit(f"configured nets {unknown} join no configurable pad")
         self.eligible, self.net_cite = [], {}
         reservations = {record["resource"] for record in self.target["reservations"]}
         for pin, (start, end, label, others) in sorted(nets.items()):
@@ -255,7 +262,7 @@ class Domains:
         source = self.source(spec["exti_source"])
         features = spec.get("feature_pads", {})
         pins = [*self.allocatable(capability["id"]), *features]
-        pads = {pin_name(pad): pad for pad in self.pads.values()}
+        pads = {self.pad_name(pad): pad for pad in self.pads.values()}
 
         def symbol(template, pad):
             text = template.format(port=pad["port"], index=pad["index"])
@@ -332,17 +339,25 @@ class Domains:
                         raise SystemExit(f"signal {signal} has two values of {attribute}")
                 if "symbol_source" in spec:
                     cites[value] = self.graph.cite_symbol("inv-mark", self.source(spec["symbol_source"]), value)
-            count = {}
+            for sentence in text.split(". "):
+                defined = re.search(r"^(.*) (?:are|is) ([A-Za-z_][A-Za-z0-9_]*)$", sentence.rstrip("."))
+                if defined and defined.group(2) not in spec["values"] \
+                        and re.search(r"\b[A-Z][A-Z0-9]*_[A-Z0-9_]+\b", defined.group(1)):
+                    raise SystemExit(f"policy defines {attribute} {defined.group(2)} but the configuration does not")
+            count, seen = {}, set()
             for edge in self.value["edges"]:
-                value = values.get(edge.get("attributes", {}).get("signal")) if edge["relation"] == "signal" else None
+                signal = edge.get("attributes", {}).get("signal") if edge["relation"] == "signal" else None
+                value = values.get(signal)
                 if value is None:
                     continue
                 if edge["attributes"].setdefault(attribute, value) != value:
                     raise SystemExit(f"{edge['id']} already has another {attribute}")
                 extend(edge, [rule, *([cites[value]] if value in cites else [])])
                 count[value] = count.get(value, 0) + 1
-            if set(count) != set(spec["values"]):
-                raise SystemExit(f"a configured {attribute} marks no route")
+                seen.add(signal)
+            missing = sorted(set(values) - seen)
+            if missing:
+                raise SystemExit(f"configured signals {missing} have no route to mark with {attribute}")
             for value, routes in count.items():
                 marked[f"{attribute}={value}"] = routes
         return marked
@@ -371,13 +386,13 @@ class Domains:
         for controller, symbols in spec["controllers"].items():
             found = {key: template.format(NAME=instance, DIRECTION=direction.upper()) for key, (_, template) in symbols.items()}
             low = self.source(symbols["ll"][0])
-            start, _, _ = inventory.declaration(low, found["ll"])
-            value = re.fullmatch(rf"#define\s+{found['ll']}\s+(\d+)U\b.*", low.lines[start - 1].strip())
+            _, declared, _ = inventory.declaration(low, found["ll"])
+            value = re.fullmatch(rf"#define\s+{found['ll']}\s+(\d+)U\b.*", low.lines[declared - 1].strip())
             if not value or value.group(1) != selector:
                 raise SystemExit(f"{found['ll']} does not carry selector {selector}")
             high = self.source(symbols["hal"][0])
-            start, _, _ = inventory.declaration(high, found["hal"])
-            if not re.match(rf"\s*{found['hal']}\s*=\s*{found['ll']}\s*,", high.lines[start - 1]):
+            _, declared, _ = inventory.declaration(high, found["hal"])
+            if not re.match(rf"\s*{found['hal']}\s*=\s*{found['ll']}\s*,", high.lines[declared - 1]):
                 raise SystemExit(f"{found['hal']} is not defined as {found['ll']}")
             names[controller] = (low, found["ll"], high, found["hal"])
         return table, line, selector, names
@@ -393,6 +408,9 @@ class Domains:
         attributes = {"peripheral": instance, "direction": direction, "selector": selector}
         for controller, (_, _, _, high_name) in names.items():
             attributes[f"hal_request_{controller.lower()}"] = high_name
+        clash = sorted(set(spec["attributes"]) & set(attributes))
+        if clash:
+            raise SystemExit(f"configured request attributes {clash} would replace values read from the sources")
         attributes.update(spec["attributes"])
         owner = f"{self.prefix}.{instance}"
         owner_edge = f"{instance}.{direction}_request.{instance}.{direction}.request"
@@ -405,7 +423,7 @@ class Domains:
         routes = {f"{instance}.{direction}.request.routes_to.{self.name(record['id'])}": record["id"] for record in channels}
         if identifier in self.graph.resource_ids:
             existing = find(self.value["resources"], identifier)
-            if existing["attributes"] != attributes or existing["kind"] != spec["kind"]:
+            if existing["attributes"] != attributes or existing["kind"] != spec["kind"] or existing["capacity"] != 1:
                 raise SystemExit(f"{identifier}: the recorded request disagrees with the table and SDK definitions")
             edges = {edge["id"]: edge for edge in self.value["edges"]}
             expected = {owner_edge: (owner, identifier, f"{direction}_request"),
@@ -473,7 +491,7 @@ class Domains:
                 excerpt = cited.excerpt(start, end)
                 for template in names:
                     name = template.format(instance=instance, lower=instance.lower())
-                    if not re.search(re.escape(name) + r"(?![A-Za-z0-9_])", excerpt):
+                    if not re.search(r"(?<![A-Za-z0-9])" + re.escape(name) + r"(?![A-Za-z0-9_])", excerpt):
                         raise SystemExit(f"{instance}: {symbol} does not refer to {name}")
             record = self.resource(instance)
             if record["kind"] == description["unpromoted_kind"]:
@@ -546,6 +564,9 @@ class Domains:
                     raise SystemExit(f"{capability['id']}.{role}: no single reviewed resource to keep as first choice")
                 record["prefer"] = reviewed
                 record["attributes"] = {} if role == instance["role"] else dict(marker)
+                first = find(self.value["resources"], reviewed[0])
+                if any(first["attributes"].get(key) != value for key, value in record["attributes"].items()):
+                    raise SystemExit(f"{capability['id']}.{role}: the reviewed {self.name(reviewed[0])} is outside the new domain")
             for role, binding in spec["roles"].items():
                 links = [link for link in capability["links"] if link["from"] == binding["from"] and link["to"] == role]
                 if len(links) != 1:
@@ -607,9 +628,20 @@ class Domains:
         stray = sorted({self.name(edge["from"]) for edge in found if edge["from"] not in covered})
         if stray:
             raise SystemExit(f"function {function} is routed from uncovered instances {stray}")
-        found = [edge for edge in found if self.name(edge["to"]) in self.eligible]
+        excluded = spec.get("excluded_pads", [])
+        text = self.policy_text(spec["policy"])
+        for pin in excluded:
+            # The policy line must name every pad it keeps out of the allocation.
+            if not re.search(rf"(?<![A-Za-z0-9_]){re.escape(pin)}(?![A-Za-z0-9_])", text):
+                raise SystemExit(f"{spec['capability']}: the policy does not exclude {pin}")
+        marker = spec["pad_attribute"]
+        found = [edge for edge in found if self.name(edge["to"]) in self.eligible and self.name(edge["to"]) not in excluded]
         if not found:
             raise SystemExit(f"no eligible route carries {function}")
+        for pin in sorted({self.name(edge["to"]) for edge in found}):
+            record = self.resource(pin)
+            record["attributes"].update(marker)
+            extend(record, [rule])
         cites = []
         symbol_spec = spec.get("alternate_symbol")
         for edge in found:
@@ -621,7 +653,8 @@ class Domains:
                 alternate = edge["attributes"]["alternate"]
                 text = symbol_spec["symbol"].format(alternate=alternate.replace(symbol_spec["split"], symbol_spec["split"] + "_", 1))
                 cite = self.graph.cite_symbol("inv-alternate", self.source(symbol_spec["source"]), text)
-                edge["attributes"]["alternate_symbol"] = text
+                if edge["attributes"].setdefault("alternate_symbol", text) != text:
+                    raise SystemExit(f"{edge['id']} already has another alternate_symbol")
                 extend(edge, [cite])
                 if cite not in cites:
                     cites.append(cite)
@@ -636,7 +669,7 @@ class Domains:
             "id": spec["capability"], "target": self.graph.target, "description": spec["description"], "parameters": {},
             "roles": [
                 {"id": spec["instance_role"], "kind": kind, "attributes": {}, "parameter_attributes": {}, "count": 1},
-                {"id": "pad", "kind": "pin", "attributes": dict(self.config["general_attribute"]), "parameter_attributes": {}, "count": 1},
+                {"id": "pad", "kind": "pin", "attributes": dict(marker), "parameter_attributes": {}, "count": 1},
             ],
             "links": [{"from": spec["instance_role"], "to": "pad", "relation": "signal", "attributes": {"function": function}}],
             "implementations": [spec["card"]], "parameter_constraints": [], "domain_complete": False,

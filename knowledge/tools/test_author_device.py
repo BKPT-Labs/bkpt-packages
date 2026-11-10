@@ -46,6 +46,22 @@ class Declarations(unittest.TestCase):
     def test_a_function_is_cited_with_its_documentation_and_body(self):
         text = "/**\n  * @brief Enable the port clock.\n  */\n__STATIC_INLINE void Enable(void)\n{\n  on();\n}\n"
         self.assertEqual(inventory.declaration(source(text), "Enable"), (1, 7, "definition"))
+        same_line = "int F(void) {\n  return 0;\n}\nint G(void); /* note */\nint H(void);\n"
+        self.assertEqual(inventory.declaration(source(same_line), "F"), (1, 3, "definition"))
+        self.assertEqual(inventory.declaration(source(same_line), "G"), (4, 4, "prototype"))
+
+    def test_a_banner_above_a_macro_is_not_its_description(self):
+        text = "/* ### Module config ### */\n#define USE_MODULE 0U\n/*! Instance two */\n  SECOND = BASE2,\n"
+        self.assertEqual(inventory.declaration(source(text), "USE_MODULE"), (2, 2, "value"))
+        self.assertEqual(inventory.declaration(source(text), "SECOND"), (3, 4, "value"))
+
+    def test_one_evidence_id_names_one_place(self):
+        graph = inventory.Graph({"evidence": [], "resources": [], "edges": []}, "board", {})
+        first, second = source("int Init(void);\n", "header"), source("int Init(void)\n{\n}\n", "body")
+        graph.cite_symbol("api", first, "Init")
+        graph.cite_symbol("api", first, "Init")
+        with self.assertRaises(SystemExit):
+            graph.cite_symbol("api", second, "Init")
 
     def test_a_prototype_is_not_a_definition_and_takes_no_unrelated_comment(self):
         text = "#endif /* OTHER */\nint Set(int source);\n/**\n  * @brief Get it.\n  */\nint Get(int a,\n        int b);\n"
@@ -174,7 +190,8 @@ def domains_under_test(functions=None, low=LOW, high=HIGH, table=TABLE):
     subject.sources, subject.value, subject.prefix, subject.conditions = sources, base, "PART", {}
     subject.policy_source = sources["policy"]
     subject.config = {
-        "policy": {"source": "policy", "lines": {"functions": 1, "requests": 2, "symbols": 3, "general": 4, "allocation": 5}},
+        "policy": {"source": "policy", "label": "Policy", "evidence_prefix": "policy3",
+                   "lines": {"functions": 1, "requests": 2, "symbols": 3, "general": 4, "allocation": 5}},
         "general_attribute": {"allocation": "general"},
         "route_marks": [{"attribute": "function", "policy": "functions", "values": functions or {
             "bus_clock": ["BUS1_CLK", "BUS2_CLK"], "bus_tx": ["BUS1_TX"]}}],
@@ -233,20 +250,40 @@ class Functions(unittest.TestCase):
         edge = subject.value["edges"][0]
         self.assertEqual(edge["attributes"]["channel_symbol"], "LL_DMA1_REQUEST_BUS2_RX")
         self.assertEqual(edge["evidence"], ["policy3-symbols", "inv-mark-LL_DMA1_REQUEST_BUS2_RX"])
-        subject.config["route_marks"][0]["values"] = {"NOT_DECLARED": ["BUS1_CLK"]}
-        with self.assertRaises(SystemExit):
+        # The policy and configuration still agree; only the SDK declaration is gone.
+        absent = domains_under_test(low=LOW.replace("#define LL_DMA1_REQUEST_BUS2_RX 4U /*!< rx */\n", ""))
+        absent.config["route_marks"] = subject.config["route_marks"]
+        with self.assertRaises(SystemExit) as refused:
+            absent.route_marks()
+        self.assertIn("expected one declaration", str(refused.exception))
+
+    def test_a_value_the_policy_defines_must_be_configured(self):
+        with self.assertRaises(SystemExit) as refused:
+            domains_under_test({"bus_clock": ["BUS1_CLK", "BUS2_CLK"]}).route_marks()
+        self.assertIn("bus_tx", str(refused.exception))
+
+    def test_every_configured_signal_must_have_a_route(self):
+        subject = domains_under_test()
+        subject.value["edges"] = [edge for edge in subject.value["edges"] if edge["attributes"]["signal"] != "BUS2_CLK"]
+        with self.assertRaises(SystemExit) as refused:
             subject.route_marks()
+        self.assertIn("BUS2_CLK", str(refused.exception))
 
 
 class Allocations(unittest.TestCase):
     SPEC = {"capability": "bus_clock_pin", "card": "card.bus-clock", "policy": "allocation", "function": "bus_clock",
             "instance_kind": "bus", "instance_role": "bus", "route_attributes": ["signal"],
+            "pad_attribute": {"bus_clock_pad": "true"},
             "description": "Allocate.", "guidance": "Allocation only."}
 
-    def allocated(self, eligible, **changes):
+    def allocated(self, eligible, prepare=None, **changes):
         subject = domains_under_test()
         subject.eligible = eligible
+        subject.value["resources"] += [{"id": f"PART.{pin}", "kind": "pin", "attributes": {}, "evidence": []}
+                                       for pin in ("PA1", "PA2")]
         subject.route_marks()
+        if prepare:
+            prepare(subject)
         return subject, subject.allocation({**self.SPEC, **changes})
 
     def test_only_eligible_pads_of_covered_instances_are_offered(self):
@@ -256,7 +293,31 @@ class Allocations(unittest.TestCase):
         self.assertEqual(capability["links"], [{"from": "bus", "to": "pad", "relation": "signal",
                                                 "attributes": {"function": "bus_clock"}}])
         self.assertEqual([role["kind"] for role in capability["roles"]], ["bus", "pin"])
+        self.assertEqual(capability["roles"][1]["attributes"], {"bus_clock_pad": "true"})
+        marked = {r["id"]: r["attributes"] for r in subject.value["resources"] if r["kind"] == "pin"}
+        self.assertEqual(marked, {"PART.PA1": {"bus_clock_pad": "true"}, "PART.PA2": {}})
         self.assertEqual(subject.value["implementations"][0]["edits"], [])
+
+    def test_an_excluded_pad_is_not_offered_and_must_be_named_by_the_policy(self):
+        with self.assertRaises(SystemExit) as refused:
+            self.allocated(["PA1", "PA2"], excluded_pads=["PA2"])
+        self.assertIn("does not exclude PA2", str(refused.exception))
+        subject = domains_under_test()
+        policy = POLICY.replace("Allocation: authored.", "Allocation: authored. PA2 is outside this rule.")
+        subject.sources["policy"] = subject.policy_source = source(policy, "policy")
+        subject.eligible = ["PA1", "PA2"]
+        subject.value["resources"] += [{"id": f"PART.{pin}", "kind": "pin", "attributes": {}, "evidence": []}
+                                       for pin in ("PA1", "PA2")]
+        subject.route_marks()
+        self.assertEqual(subject.allocation({**self.SPEC, "excluded_pads": ["PA2"]}), ["BUS1:PA1"])
+
+    def test_a_route_value_another_stage_wrote_is_never_replaced(self):
+        def conflicting(subject):
+            subject.value["edges"][0]["attributes"].update(alternate="AF1", alternate_symbol="OTHER")
+        with self.assertRaises(SystemExit) as refused:
+            self.allocated(["PA1"], prepare=conflicting,
+                           alternate_symbol={"source": "low", "symbol": "LL_DMA1_REQUEST_BUS2_RX", "split": "AF"})
+        self.assertIn("another alternate_symbol", str(refused.exception))
 
     def test_an_allocation_with_nothing_to_offer_or_a_missing_value_is_refused(self):
         with self.assertRaises(SystemExit):
@@ -302,9 +363,27 @@ class Requests(unittest.TestCase):
         with self.assertRaises(SystemExit):
             subject.request("BUS2", "rx")
         record["attributes"]["selector"] = "4"
+        record["capacity"] = 2
+        with self.assertRaises(SystemExit):
+            subject.request("BUS2", "rx")
+        record["capacity"] = 1
         subject.value["edges"] = [edge for edge in subject.value["edges"] if not edge["id"].endswith("routes_to.CH1")]
         with self.assertRaises(SystemExit):
             subject.request("BUS2", "rx")
+
+    def test_configuration_cannot_replace_a_value_read_from_the_sources(self):
+        subject = domains_under_test()
+        subject.config["dma_requests"]["attributes"] = {"selector": "99"}
+        with self.assertRaises(SystemExit) as refused:
+            subject.request("BUS2", "rx")
+        self.assertIn("would replace", str(refused.exception))
+
+    def test_a_description_above_the_definition_does_not_hide_its_selector(self):
+        low = "/** rx request */\n#define LL_DMA1_REQUEST_BUS2_RX 4U\n#define LL_DMA1_REQUEST_BUS2_TX 5U /*!< tx */\n"
+        high = "  /** rx */\n  HAL_DMA1_REQUEST_BUS2_RX = LL_DMA1_REQUEST_BUS2_RX,\n" + HIGH.split("\n", 1)[1]
+        subject = domains_under_test(low=low, high=high)
+        record = next(r for r in subject.value["resources"] if r["id"] == subject.request("BUS2", "rx"))
+        self.assertEqual(record["attributes"]["selector"], "4")
 
 
 class Instances(unittest.TestCase):
@@ -325,6 +404,18 @@ class Instances(unittest.TestCase):
         self.assertEqual((record["kind"], record["attributes"]), ("serial_bus", {"hal_request": "HAL_DMA1_REQUEST_BUS2_RX"}))
         with self.assertRaises(SystemExit):
             self.promoted("BUS1", None)
+
+    def test_a_longer_instance_name_does_not_satisfy_the_check(self):
+        subject = domains_under_test(high=HIGH.replace("LL_DMA1_REQUEST_BUS2_RX,", "XLL_DMA1_REQUEST_BUS2_RX,"))
+        subject.sources["svd"] = source(SVD, "svd")
+        subject.blocks = None
+        subject.config["device_description"] = {"source": "svd", "unpromoted_kind": "bus"}
+        subject.config["instances"] = [{
+            "instance": "BUS2", "kind": "serial_bus", "layout_of": "BUS1", "policy": "general",
+            "symbols": {"hal_request": ["high", "HAL_DMA1_REQUEST_BUS2_RX", "LL_DMA1_REQUEST_{instance}_RX"]}}]
+        with self.assertRaises(SystemExit) as refused:
+            subject.instances()
+        self.assertIn("does not refer to", str(refused.exception))
 
     def test_the_configured_layout_must_match_the_description(self):
         with self.assertRaises(SystemExit):

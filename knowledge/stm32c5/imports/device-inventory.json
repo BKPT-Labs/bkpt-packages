@@ -7,6 +7,7 @@
   },
   "target": "NUCLEO-C542RC",
   "resource_prefix": "STM32C542RCT6",
+  "pad_name": "P{port}{index}",
   "conditions": {
     "foundation_profile": "c5-hal2-minimal-1",
     "operation_mode": "run"

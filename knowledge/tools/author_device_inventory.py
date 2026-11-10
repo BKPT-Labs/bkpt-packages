@@ -123,7 +123,8 @@ def declaration(source: Source, symbol: str):
     line, is_function = matches[0]
     if not is_function:
         above = source.lines[line - 2].strip() if line >= 2 else ""
-        if "/*" not in source.lines[line - 1] and above.startswith("/*") and above.endswith("*/"):
+        # A banner or separator comment is not a description of the next line.
+        if "/*" not in source.lines[line - 1] and above.startswith(("/**", "/*!")) and above.endswith("*/"):
             return line - 1, line, "value"
         return line, line, "value"
     start = line
@@ -133,16 +134,17 @@ def declaration(source: Source, symbol: str):
             start -= 1
     end = line
     while end <= len(source.lines):
-        text = source.lines[end - 1].rstrip()
-        if text.endswith(";"):
-            kind = "prototype"
-            break
-        if text == "{":
+        text = re.sub(r"\s*(?:/\*.*?\*/|//.*)\s*$", "", source.lines[end - 1]).rstrip()
+        if text.endswith("{"):
+            # The body opens on its own line or at the end of the signature.
             kind = "definition"
             while end < len(source.lines) and source.lines[end - 1] != "}":
                 end += 1
             if source.lines[end - 1] != "}":
                 raise SystemExit(f"{source.id}: no end of {symbol}")
+            break
+        if text.endswith(";"):
+            kind = "prototype"
             break
         end += 1
     else:
@@ -164,6 +166,9 @@ class Graph:
 
     def cite(self, identifier, source, start, end, statement):
         if identifier in self.evidence_ids:
+            existing = next(record for record in self.value["evidence"] if record["id"] == identifier)
+            if (existing["source"], existing["start_line"], existing["end_line"]) != (source.id, start, end):
+                raise SystemExit(f"evidence {identifier} already cites another place")
             return identifier
         if not re.fullmatch(r"[A-Za-z0-9_.:-]{1,128}", identifier):
             raise SystemExit(f"invalid evidence id {identifier!r}")
@@ -255,7 +260,7 @@ def pins_and_routes(graph: Graph, config, sources):
     for start, end, value, name in children(pinout, "die_pads"):
         pad_blocks[name] = (start, end, value)
         if value["type"] == "gpio":
-            pad_names[name] = f'P{value["port"]}{value["index"]}'
+            pad_names[name] = config["pad_name"].format(port=value["port"], index=value["index"])
     if len(set(pad_names.values())) != len(pad_names):
         raise SystemExit("two pads share one port and index")
     signals = list(children(pinout, "signals"))
