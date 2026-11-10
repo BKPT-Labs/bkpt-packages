@@ -96,8 +96,18 @@ the lines it came from.
 | --- | --- |
 | `author_device_inventory.py` | Transcribes pins, signal routes and interrupts from the manufacturer's pinout descriptor, device header and vector table. An inventory records what is declared, not what is usable |
 | `author_device_domains.py` | Decides what a capability may use: allocation rules from the board netlist, instances checked against the device description, DMA request lines checked against the reference manual and the SDK, and the capabilities that are widened or added |
+| `compose_target.py` | Builds one target from layers that vary independently: the reviewed graph, the part and its package descriptor, and the board as its own file (from a netlist, or declared by its owner). Facts tied to the old part, package or board are relocated, replaced or dropped by a decision the recipe states |
+| `descriptor.py` | Reads a manufacturer JSON descriptor while keeping the lines of every value, so a derived record can cite them |
 | `package_candidate.py` | Places a generated graph in a package as a candidate, with the list of every source it pins. BKPT-authored sources are copied in; manufacturer sources are listed by hash only |
 | `test_author_device.py` | Checks for the tools on small synthetic sources |
+
+A capability covers a peripheral class, not a list of instance names. A class is a
+peripheral type and IP version as the manufacturer's peripherals descriptor names
+them. The descriptor also gives each instance its bus, interrupt, DMA requests and
+the role of each signal, and the limitations descriptor says what a given part
+lacks. A second part or package of the same die is therefore a recipe under
+`stm32c5/targets/` and, when the board differs, a board file under
+`stm32c5/boards/`, with no new chip configuration.
 
 The chip-specific inputs are `stm32c5/imports/device-inventory.json` and
 `device-domains.json`, together with the policy text the domains configuration

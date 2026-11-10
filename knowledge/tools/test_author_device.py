@@ -9,6 +9,8 @@ import unittest
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import author_device_domains as domains  # noqa: E402
+import descriptor  # noqa: E402
+import json  # noqa: E402
 import author_device_inventory as inventory  # noqa: E402
 
 
@@ -198,7 +200,7 @@ def domains_under_test(functions=None, low=LOW, high=HIGH, table=TABLE):
             "bus_clock": ["BUS1_CLK", "BUS2_CLK"], "bus_tx": ["BUS1_TX"]}}],
         "dma_requests": {
             "policy": "requests", "kind": "request", "channel_kind": "channel",
-            "table": {"source": "table", "row": "{selector} {name}_{direction}_dma"},
+            "table": {"source": "table", "row": "{selector} {request}"},
             "controllers": {"DMA1": {"ll": ["low", "LL_DMA1_REQUEST_{NAME}_{DIRECTION}"],
                                      "hal": ["high", "HAL_DMA1_REQUEST_{NAME}_{DIRECTION}"]}},
             "attributes": {"ownership_policy": "one"}, "evidence": [], "channel_evidence": [],
@@ -339,7 +341,7 @@ class Allocations(unittest.TestCase):
 class Requests(unittest.TestCase):
     def test_a_request_line_needs_table_and_definitions_to_agree(self):
         subject = domains_under_test()
-        identifier = subject.request("BUS2", "rx")
+        identifier = subject.request("BUS2", "rx", "bus2_rx_dma")
         record = next(r for r in subject.value["resources"] if r["id"] == identifier)
         self.assertEqual(record["attributes"], {"peripheral": "BUS2", "direction": "rx", "selector": "4",
                                                 "hal_request_dma1": "HAL_DMA1_REQUEST_BUS2_RX", "ownership_policy": "one"})
@@ -348,86 +350,154 @@ class Requests(unittest.TestCase):
 
     def test_a_disagreeing_or_unrelated_definition_is_refused(self):
         with self.assertRaises(SystemExit):
-            domains_under_test(low=LOW.replace("RX 4U", "RX 6U")).request("BUS2", "rx")
+            domains_under_test(low=LOW.replace("RX 4U", "RX 6U")).request("BUS2", "rx", "bus2_rx_dma")
         with self.assertRaises(SystemExit):
-            domains_under_test(high=HIGH.replace("= LL_DMA1_REQUEST_BUS2_RX,", "= 4,")).request("BUS2", "rx")
+            domains_under_test(high=HIGH.replace("= LL_DMA1_REQUEST_BUS2_RX,", "= 4,")).request("BUS2", "rx", "bus2_rx_dma")
         with self.assertRaises(SystemExit):
-            domains_under_test(table=TABLE + "9 bus2_rx_dma\n").request("BUS2", "rx")
+            domains_under_test(table=TABLE + "9 bus2_rx_dma\n").request("BUS2", "rx", "bus2_rx_dma")
 
     def test_a_route_needs_its_channel_controller_checked(self):
         subject = domains_under_test()
         subject.value["resources"][1]["attributes"]["controller"] = "DMA2"
         with self.assertRaises(SystemExit):
-            subject.request("BUS2", "rx")
+            subject.request("BUS2", "rx", "bus2_rx_dma")
 
     def test_a_recorded_request_is_held_to_the_same_facts(self):
         subject = domains_under_test()
-        identifier = subject.request("BUS2", "rx")
+        identifier = subject.request("BUS2", "rx", "bus2_rx_dma")
         counts = (len(subject.value["resources"]), len(subject.value["edges"]), len(subject.value["evidence"]))
-        self.assertEqual(subject.request("BUS2", "rx"), identifier)
+        self.assertEqual(subject.request("BUS2", "rx", "bus2_rx_dma"), identifier)
         self.assertEqual(counts, (len(subject.value["resources"]), len(subject.value["edges"]), len(subject.value["evidence"])))
         record = next(r for r in subject.value["resources"] if r["id"] == identifier)
         record["attributes"]["selector"] = "99"
         with self.assertRaises(SystemExit):
-            subject.request("BUS2", "rx")
+            subject.request("BUS2", "rx", "bus2_rx_dma")
         record["attributes"]["selector"] = "4"
         record["capacity"] = 2
         with self.assertRaises(SystemExit):
-            subject.request("BUS2", "rx")
+            subject.request("BUS2", "rx", "bus2_rx_dma")
         record["capacity"] = 1
         subject.value["edges"] = [edge for edge in subject.value["edges"] if not edge["id"].endswith("routes_to.CH1")]
         with self.assertRaises(SystemExit):
-            subject.request("BUS2", "rx")
+            subject.request("BUS2", "rx", "bus2_rx_dma")
 
     def test_configuration_cannot_replace_a_value_read_from_the_sources(self):
         subject = domains_under_test()
         subject.config["dma_requests"]["attributes"] = {"selector": "99"}
         with self.assertRaises(SystemExit) as refused:
-            subject.request("BUS2", "rx")
+            subject.request("BUS2", "rx", "bus2_rx_dma")
         self.assertIn("would replace", str(refused.exception))
 
     def test_a_description_above_the_definition_does_not_hide_its_selector(self):
         low = "/** rx request */\n#define LL_DMA1_REQUEST_BUS2_RX 4U\n#define LL_DMA1_REQUEST_BUS2_TX 5U /*!< tx */\n"
         high = "  /** rx */\n  HAL_DMA1_REQUEST_BUS2_RX = LL_DMA1_REQUEST_BUS2_RX,\n" + HIGH.split("\n", 1)[1]
         subject = domains_under_test(low=low, high=high)
-        record = next(r for r in subject.value["resources"] if r["id"] == subject.request("BUS2", "rx"))
+        record = next(r for r in subject.value["resources"] if r["id"] == subject.request("BUS2", "rx", "bus2_rx_dma"))
         self.assertEqual(record["attributes"]["selector"], "4")
 
 
-class Instances(unittest.TestCase):
-    def promoted(self, instance, layout_of):
-        subject = domains_under_test()
-        subject.sources["svd"] = source(SVD, "svd")
-        subject.blocks = None
-        subject.config["device_description"] = {"source": "svd", "unpromoted_kind": "bus"}
-        subject.config["instances"] = [{
-            "instance": instance, "kind": "serial_bus", "layout_of": layout_of, "policy": "general",
-            "symbols": {"hal_request": ["high", "HAL_DMA1_REQUEST_BUS2_RX", "LL_DMA1_REQUEST_{instance}_RX"]}}]
-        return subject, subject.instances()
+def peripheral(name, version=1.0, kind="bus"):
+    return {"busMapping": [{"connections": ["APB1"], "mode": "slave"}], "digitalName": "ip_bus",
+            "interconnect": [
+                {"id": "Global", "instance": name, "ip_signal": "GLOBAL", "source": name, "type": "interrupt"},
+                {"id": "RX", "instance": name, "ip_signal": "rx", "source": f"{name.lower()}_rx_dma", "type": "dma request"}],
+            "name": name, "peripheralType": kind, "peripheralVersionNum": version,
+            "pinout_signals": [{"id": "CLK", "name": f"{name}_CLK"}, {"id": "TX", "name": f"{name}_TX"}],
+            "protocols": [{"signals": [{"signal": f"{name}_CLK", "type": "CLK"}, {"signal": f"{name}_TX", "type": "TX"}],
+                           "type": "Wire"}]}
 
-    def test_a_symbol_must_name_the_instance_it_is_given_to(self):
-        subject, promoted = self.promoted("BUS2", "BUS1")
+
+CLASS = {"kind": "serial_bus", "policy": "general",
+         "ip": {"types": ["bus"], "digitalName": "ip_bus", "versions": [1.0]},
+         "bus_clock": {"APB1": "PCLK1"},
+         "symbols": {"hal_request": ["high", "HAL_DMA1_REQUEST_{instance}_RX", "LL_DMA1_REQUEST_{instance}_RX"]},
+         "interrupt": "GLOBAL", "requests": {"rx": "rx"},
+         "roles": {"policy": "roles", "protocol": "Wire", "functions": {"CLK": "bus_clock"}},
+         "signal_marks": [{"id": "T(X)", "policy": "general", "attributes": {"lane": "lane-{0}"}}]}
+
+
+def classes_under_test(peripherals=None, die="D1", part="PART-X", high=HIGH, cls=CLASS):
+    subject = domains_under_test(high=high)
+    peripherals = peripherals or [peripheral("BUS1"), peripheral("BUS2"), peripheral("BUS3", 2.0),
+                                  peripheral("BUS4"), peripheral("SLOW1", kind="slow")]
+    subject.sources.update(
+        svd=source(SVD, "svd"),
+        peripherals=source(json.dumps({"peripherals": peripherals}, indent=1, sort_keys=True), "peripherals"),
+        limitations=source(json.dumps({"limitations": {"PART-X": {"removed_peripherals": ["BUS1"]}}}, indent=1), "limitations"),
+        pinout=source(json.dumps({"characteristics": {"die_name": "D1"}}, indent=1), "pinout"),
+        listing=source('<variant Dvariant="PART-X"/>\n<variant Dvariant="PART-Y"/>\n', "listing"),
+        policy=source(POLICY + "Roles: in the Wire protocol CLK is bus_clock.\n", "policy"))
+    subject.policy_source = subject.sources["policy"]
+    subject.config["policy"]["lines"]["roles"] = 6
+    subject.blocks = None
+    subject.target = {"id": "board", "part": part, "evidence": [], "reservations": []}
+    subject.value["resources"].append({"id": "PART.BUS2.irq", "kind": "interrupt", "attributes": {"irq_number": "8"}, "evidence": []})
+    subject.config["device_description"] = {"source": "svd", "unpromoted_kind": "bus"}
+    subject.config["peripherals"] = {"source": "peripherals", "limitations": "limitations", "pinout": "pinout", "die": die,
+                                     "part_listing": {"source": "listing", "pattern": 'Dvariant="{part}"'}}
+    subject.config["instance_classes"] = [cls]
+    return subject
+
+
+class Descriptors(unittest.TestCase):
+    def test_every_value_remembers_the_lines_it_occupies(self):
+        text = '{\n "list": [\n  {\n   "name": "a }",\n   "n": 1.5\n  },\n  7\n ],\n "flag": true\n}\n'
+        root = descriptor.parse(source(text))
+        self.assertEqual(root.value, {"list": [{"name": "a }", "n": 1.5}, 7], "flag": True})
+        self.assertEqual((root["list"].start, root["list"].end), (2, 8))
+        first = root["list"][0]
+        self.assertEqual((first.start, first.end, first["n"].start, first["name"].value), (3, 6, 5, "a }"))
+        self.assertEqual((root["flag"].start, root.get("absent")), (9, None))
+
+    def test_a_repeated_member_or_trailing_text_is_refused(self):
+        for text in ('{"a": 1, "a": 2}', '{"a": 1} x', '{"a": '):
+            with self.assertRaises(SystemExit, msg=text):
+                descriptor.parse(source(text))
+
+
+class Classes(unittest.TestCase):
+    def test_a_class_covers_what_the_descriptor_declares_and_reports_the_rest(self):
+        subject = classes_under_test()
+        promoted, skipped = subject.classes()
         self.assertEqual(promoted, ["BUS2"])
+        self.assertEqual(skipped, {"BUS1": "removed for this part", "BUS3": "IP version 2.0 is not covered",
+                                   "BUS4": "no signal of it is bonded in this package"})
         record = next(r for r in subject.value["resources"] if r["id"] == "PART.BUS2")
         self.assertEqual((record["kind"], record["attributes"]), ("serial_bus", {"hal_request": "HAL_DMA1_REQUEST_BUS2_RX"}))
-        with self.assertRaises(SystemExit):
-            self.promoted("BUS1", None)
+        self.assertEqual(record["evidence"][:4], ["declared-BUS2", "declared-ip-BUS2", "declared-bus-BUS2", "described-BUS2"])
+        edges = {edge["id"]: edge for edge in subject.value["edges"]}
+        self.assertEqual(edges["BUS2.raises_interrupt.BUS2.irq"]["evidence"][0], "declared-interrupt-BUS2-GLOBAL")
+        self.assertEqual(edges["route.BUS2_CLK.PA2"]["attributes"]["function"], "bus_clock")
+        self.assertNotIn("function", edges["route.BUS1_CLK.PA1"]["attributes"])
+        request = next(r for r in subject.value["resources"] if r["id"] == "PART.BUS2.rx.request")
+        self.assertEqual((request["attributes"]["selector"], request["evidence"][0]), ("4", "declared-dma-request-BUS2-rx"))
+        self.assertEqual(subject.unbonded, {"BUS2_TX"})
 
-    def test_a_longer_instance_name_does_not_satisfy_the_check(self):
-        subject = domains_under_test(high=HIGH.replace("LL_DMA1_REQUEST_BUS2_RX,", "XLL_DMA1_REQUEST_BUS2_RX,"))
-        subject.sources["svd"] = source(SVD, "svd")
-        subject.blocks = None
-        subject.config["device_description"] = {"source": "svd", "unpromoted_kind": "bus"}
-        subject.config["instances"] = [{
-            "instance": "BUS2", "kind": "serial_bus", "layout_of": "BUS1", "policy": "general",
-            "symbols": {"hal_request": ["high", "HAL_DMA1_REQUEST_BUS2_RX", "LL_DMA1_REQUEST_{instance}_RX"]}}]
+    def test_the_package_die_and_the_part_must_be_the_ones_configured(self):
         with self.assertRaises(SystemExit) as refused:
-            subject.instances()
+            classes_under_test(die="D2").classes()
+        self.assertIn("die D1", str(refused.exception))
+        with self.assertRaises(SystemExit):
+            classes_under_test(part="PART-Z").classes()
+
+    def test_a_part_without_listed_removals_keeps_every_instance(self):
+        subject = classes_under_test(part="PART-Y", high=HIGH + "  HAL_DMA1_REQUEST_BUS1_RX = LL_DMA1_REQUEST_BUS1_RX, /*!< rx */\n")
+        subject.value["resources"].append({"id": "PART.BUS1.irq", "kind": "interrupt", "attributes": {"irq_number": "7"}, "evidence": []})
+        subject.sources["table"] = source(TABLE + "2 bus1_rx_dma\n", "table")
+        subject.sources["low"] = source(LOW + "#define LL_DMA1_REQUEST_BUS1_RX 2U /*!< rx */\n", "low")
+        promoted, skipped = subject.classes()
+        self.assertEqual((promoted, sorted(skipped)), (["BUS1", "BUS2"], ["BUS3", "BUS4"]))
+
+    def test_a_symbol_must_name_the_instance_it_is_given_to(self):
+        with self.assertRaises(SystemExit) as refused:
+            classes_under_test(high=HIGH.replace("LL_DMA1_REQUEST_BUS2_RX,", "XLL_DMA1_REQUEST_BUS2_RX,")).classes()
         self.assertIn("does not refer to", str(refused.exception))
 
-    def test_the_configured_layout_must_match_the_description(self):
-        with self.assertRaises(SystemExit):
-            self.promoted("BUS2", None)
+    def test_a_role_the_policy_does_not_state_is_refused(self):
+        cls = {**CLASS, "roles": {**CLASS["roles"], "functions": {"CLK": "bus_clock", "TX": "bus_data"}}}
+        with self.assertRaises(SystemExit) as refused:
+            classes_under_test(cls=cls).classes()
+        self.assertIn("TX is bus_data", str(refused.exception))
 
 
 if __name__ == "__main__":

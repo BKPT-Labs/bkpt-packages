@@ -26,6 +26,7 @@ import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import author_device_inventory as inventory  # noqa: E402
+import descriptor  # noqa: E402
 import json  # noqa: E402
 
 
@@ -430,13 +431,13 @@ class Domains:
             raise SystemExit(f"device description has no peripheral {instance}")
         return self.blocks[instance]
 
-    def request_facts(self, instance, direction):
+    def request_facts(self, instance, direction, request):
         """What the sources say about one DMA request line: its table row and
         selector, and per controller the SDK names that carry that selector.
         Refuses unless the table and every controller's definitions agree."""
         spec = self.config["dma_requests"]
         table = self.source(spec["table"]["source"])
-        row = re.escape(spec["table"]["row"].format(selector="@", name=instance.lower(), direction=direction))
+        row = re.escape(spec["table"]["row"].format(selector="@", request=request))
         pattern = re.compile("^" + row.replace("@", r"(\d+)") + r"\s*$")
         rows = [(number, match.group(1)) for number, line in enumerate(table.lines, 1)
                 if (match := pattern.match(line))]
@@ -458,14 +459,14 @@ class Domains:
             names[controller] = (low, found["ll"], high, found["hal"])
         return table, line, selector, names
 
-    def request(self, instance, direction):
+    def request(self, instance, direction, request, cited=()):
         """One DMA request line, recorded only when the manual's table and the
         SDK definitions for every controller agree on its selector. A line the
         base already records is held to the same facts instead of being
         trusted: a base that changed underneath is refused, not preserved."""
         spec = self.config["dma_requests"]
         identifier = f"{self.prefix}.{instance}.{direction}.request"
-        table, line, selector, names = self.request_facts(instance, direction)
+        table, line, selector, names = self.request_facts(instance, direction, request)
         attributes = {"peripheral": instance, "direction": direction, "selector": selector}
         for controller, (_, _, _, high_name) in names.items():
             attributes[f"hal_request_{controller.lower()}"] = high_name
@@ -500,7 +501,8 @@ class Domains:
         for low, low_name, high, high_name in names.values():
             evidence += [self.graph.cite_symbol("inv-request", low, low_name),
                          self.graph.cite_symbol("inv-request", high, high_name)]
-        self.graph.resource(identifier, spec["kind"], attributes, self.conditions, [*evidence, rule, *spec["evidence"]])
+        self.graph.resource(identifier, spec["kind"], attributes, self.conditions,
+                            [*cited, *evidence, rule, *spec["evidence"]])
         self.graph.edge(owner_edge, owner, identifier, f"{direction}_request", None, self.conditions, [evidence[0], rule])
         selection = spec["channel_selection"]
         select = self.graph.cite(selection["id"], self.source(selection["source"]), selection["start"], selection["end"],
@@ -510,7 +512,7 @@ class Domains:
                             [evidence[0], select, *spec["channel_evidence"]])
         return identifier
 
-    def interrupt(self, instance, name, block, source, record, rule):
+    def interrupt(self, instance, name, block, source, record, rule, cited=()):
         """Join an instance to the interrupt its description declares."""
         irq = self.resource(f"{name}.irq")
         declared = [entry for entry in block["interrupts"] if entry["value"] == irq["attributes"]["irq_number"]]
@@ -522,53 +524,171 @@ class Domains:
                 f"described-irq-{instance}", source, declared[0]["start"], declared[0]["end"],
                 f"Device description declares interrupt {declared[0]['value']} inside peripheral {instance}.")
             self.graph.edge(identifier, record["id"], irq["id"], "raises_interrupt", None, self.conditions,
-                            [cite, f"inv-irq-{name}", rule])
+                            [*cited, cite, f"inv-irq-{name}", rule])
 
-    def instances(self):
-        """Promote described instances to a kind a profile can allocate."""
-        description = self.config["device_description"]
-        source = self.source(description["source"])
-        promoted = []
-        for spec in self.config["instances"]:
-            instance, rule = spec["instance"], self.policy(spec["policy"])
-            block = self.described(instance)
-            if block["derived"] != spec.get("layout_of"):
-                raise SystemExit(f"{instance}: device description derives its layout from {block['derived']}, "
-                                 f"configuration says {spec.get('layout_of')}")
-            layout = f" with the register layout of {block['derived']}" if block["derived"] else " with its own register layout"
-            evidence = [self.graph.cite(
-                f"described-{instance}", source, block["start"], block["name_line"],
-                f"Device description declares peripheral {instance}{layout}. A layout statement, not proof of identical behaviour, clocks or errata."),
-                rule, *spec.get("evidence", [])]
-            attributes = dict(spec.get("attributes", {}))
-            for attribute, (source_id, symbol, *names) in spec["symbols"].items():
-                attributes[attribute] = symbol
-                cited = self.source(source_id)
-                evidence.append(self.graph.cite_symbol("inv-instance", cited, symbol))
-                # A symbol that exists but belongs to another instance would
-                # pass an existence check, so the excerpt must also name what
-                # the configuration says it refers to.
-                start, end, _ = inventory.declaration(cited, symbol)
-                excerpt = cited.excerpt(start, end)
-                for template in names:
-                    name = template.format(instance=instance, lower=instance.lower())
-                    if not re.search(r"(?<![A-Za-z0-9])" + re.escape(name) + r"(?![A-Za-z0-9_])", excerpt):
-                        raise SystemExit(f"{instance}: {symbol} does not refer to {name}")
-            record = self.resource(instance)
-            if record["kind"] == description["unpromoted_kind"]:
-                record["kind"] = spec["kind"]
-                promoted.append(instance)
-            elif record["kind"] != spec["kind"]:
-                raise SystemExit(f"{instance} is already a {record['kind']}")
-            inventory.complete(record, attributes, evidence)
-            if "capacity" in spec:
-                # One physical unit that several allocations may name at once.
-                record["capacity"] = spec["capacity"]
-            if "interrupt" in spec:
-                self.interrupt(instance, spec["interrupt"], block, source, record, rule)
-            for direction in spec.get("requests", []):
-                self.request(instance, direction)
-        return promoted
+    def symbol(self, prefix, source_id, symbol, owner, agree=None):
+        """Cite an SDK symbol where it is declared. A symbol that exists but
+        belongs to something else would pass an existence check, so the cited
+        lines must also name what the configuration says it refers to."""
+        cited = self.source(source_id)
+        cite = self.graph.cite_symbol(prefix, cited, symbol)
+        if agree:
+            start, end, _ = inventory.declaration(cited, symbol)
+            if not re.search(r"(?<![A-Za-z0-9])" + re.escape(agree) + r"(?![A-Za-z0-9_])", cited.excerpt(start, end)):
+                raise SystemExit(f"{owner}: {symbol} does not refer to {agree}")
+        return cite
+
+    def mark(self, signal, attributes, evidence):
+        """Write authored attributes on every route of one signal. A value
+        another rule already wrote is never replaced."""
+        routes = [edge for edge in self.value["edges"]
+                  if edge["relation"] == "signal" and edge.get("attributes", {}).get("signal") == signal]
+        for edge in routes:
+            for key, value in attributes.items():
+                if edge["attributes"].setdefault(key, value) != value:
+                    raise SystemExit(f"{edge['id']} already has another {key}")
+            extend(edge, evidence)
+        if not routes:
+            # A signal belongs to the die; this package bonds none of its pads.
+            self.unbonded.add(signal)
+        return len(routes)
+
+    def removed(self, spec):
+        """Peripherals the manufacturer removes for exactly this part. A part
+        the pack description does not list is refused, so a misspelt part
+        cannot pass as a part without removals."""
+        part = self.target["part"]
+        listing = spec["part_listing"]
+        self.source(listing["source"]).find(re.escape(listing["pattern"].format(part=part)))
+        located = descriptor.parse(self.source(spec["limitations"]))["limitations"]
+        entry = located.get(part)
+        if entry is None:
+            return {}
+        cite = self.graph.cite(f"limited-{part}", self.source(spec["limitations"]), entry.start, entry.end,
+                               f"Limitations descriptor lists what is removed for {part}.")
+        return {name: cite for name in entry.value["removed_peripherals"]}
+
+    def classes(self):
+        """Promote every instance of a covered peripheral class.
+
+        A class is a peripheral type and IP version as the manufacturer's
+        peripherals descriptor names them, not a list of instance names. The
+        descriptor also gives each instance its bus, its interrupt, its DMA
+        requests and the role of each signal; SDK symbols are formed from the
+        class's templates and checked against their declarations. An instance
+        the part removes, or whose signals this package does not bond, is
+        reported and left alone."""
+        spec = self.config["peripherals"]
+        source = self.source(spec["source"])
+        pinout = descriptor.parse(self.source(spec["pinout"]))
+        die = pinout["characteristics"].value["die_name"]
+        if die != spec["die"]:
+            raise SystemExit(f"this package is die {die}; the peripherals descriptor configured is for die {spec['die']}")
+        entries = {entry.value["name"]: entry for entry in descriptor.parse(source)["peripherals"]}
+        removed = self.removed(spec)
+        promoted, skipped = [], {}
+        for cls in self.config["instance_classes"]:
+            ip = cls["ip"]
+            for name, entry in entries.items():
+                value = entry.value
+                if value.get("peripheralType") not in ip["types"] or value.get("digitalName") != ip["digitalName"]:
+                    continue
+                identifiers = {signal["id"] for signal in value.get("pinout_signals", [])}
+                if not identifiers & set(cls.get("needs_signals", identifiers or {None})):
+                    continue
+                if value.get("peripheralVersionNum") not in ip["versions"]:
+                    skipped[name] = f"IP version {value.get('peripheralVersionNum')} is not covered"
+                elif name in removed:
+                    skipped[name] = "removed for this part"
+                elif f"{self.prefix}.{name}" not in self.graph.resource_ids:
+                    skipped[name] = "no signal of it is bonded in this package"
+                else:
+                    self.promote(name, cls, entry, source)
+                    promoted.append(name)
+        return promoted, skipped
+
+    def promote(self, name, cls, entry, source):
+        value, rule = entry.value, self.policy(cls["policy"])
+        description = self.source(self.config["device_description"]["source"])
+        number = re.search(r"(\d+)$", name)
+        fields = {"instance": name, "lower": name.lower(), "number": number.group(1) if number else ""}
+        evidence = [
+            self.graph.cite(f"declared-{name}", source, entry["name"].start, entry["peripheralVersionNum"].end,
+                            f"Peripherals descriptor declares {name} with type {value['peripheralType']} and IP version {value['peripheralVersionNum']}."),
+            self.graph.cite(f"declared-ip-{name}", source, entry["digitalName"].start, entry["digitalName"].end,
+                            f"Peripherals descriptor names the IP of {name} as {value['digitalName']}."),
+        ]
+        if entry["peripheralVersionNum"].end - entry["name"].start > 3:
+            raise SystemExit(f"{name}: the descriptor does not state name, type and version together")
+        if "bus_clock" in cls:
+            buses = [bus for mapping in value["busMapping"] for bus in mapping["connections"]]
+            if len(buses) != 1 or buses[0] not in cls["bus_clock"]:
+                raise SystemExit(f"{name}: the descriptor places it on {buses}, which the class does not cover")
+            fields["bus_clock"] = cls["bus_clock"][buses[0]]
+            evidence.append(self.graph.cite(
+                f"declared-bus-{name}", source, entry["busMapping"].start, entry["busMapping"].end,
+                f"Peripherals descriptor places {name} on bus {buses[0]}."))
+        block = self.described(name)
+        layout = f" with the register layout of {block['derived']}" if block["derived"] else " with its own register layout"
+        evidence += [self.graph.cite(
+            f"described-{name}", description, block["start"], block["name_line"],
+            f"Device description declares peripheral {name}{layout}. A layout statement, not proof of identical behaviour, clocks or errata."),
+            rule, *cls.get("evidence", [])]
+        attributes = dict(cls.get("attributes", {}))
+        for attribute, (source_id, symbol, *agree) in cls["symbols"].items():
+            attributes[attribute] = symbol.format(**fields)
+            evidence.append(self.symbol("inv-instance", source_id, attributes[attribute], name,
+                                        agree[0].format(**fields) if agree else None))
+        record = self.resource(name)
+        if record["kind"] == self.config["device_description"]["unpromoted_kind"]:
+            record["kind"] = cls["kind"]
+        elif record["kind"] != cls["kind"]:
+            raise SystemExit(f"{name} is already a {record['kind']}")
+        inventory.complete(record, attributes, evidence)
+
+        def link(kind, signal):
+            found = [item for item in entry["interconnect"] if item.value["type"] == kind and item.value["ip_signal"] == signal]
+            if len(found) != 1:
+                raise SystemExit(f"{name}: expected one {kind} {signal} in the descriptor, found {len(found)}")
+            cite = self.graph.cite(f"declared-{kind.replace(' ', '-')}-{name}-{signal}", source, found[0].start, found[0].end,
+                                   f"Peripherals descriptor connects the {signal} {kind} of {name} to {found[0].value['source']}.")
+            return found[0].value["source"], cite
+
+        if "interrupt" in cls:
+            interrupt, cite = link("interrupt", cls["interrupt"])
+            self.interrupt(name, interrupt, block, description, record, rule, [cite])
+        for direction, signal in cls.get("requests", {}).items():
+            request, cite = link("dma request", signal)
+            self.request(name, direction, request, [cite])
+        if "roles" in cls:
+            roles = cls["roles"]
+            role_rule, text = self.policy(roles["policy"]), self.policy_text(roles["policy"])
+            protocols = [item for item in entry["protocols"] if item.value["type"] == roles["protocol"]]
+            if len(protocols) != 1:
+                raise SystemExit(f"{name}: expected one {roles['protocol']} protocol in the descriptor, found {len(protocols)}")
+            for kind, function in roles["functions"].items():
+                if not re.search(r"(?<![A-Za-z0-9_])" + re.escape(f"{kind} is {function}") + r"(?![A-Za-z0-9_])", text):
+                    raise SystemExit(f"the policy does not say that {kind} is {function}")
+            for signal in protocols[0]["signals"]:
+                function = roles["functions"].get(signal.value["type"])
+                if function:
+                    cite = self.graph.cite(
+                        f"declared-role-{signal.value['signal']}", source, signal.start, signal.end,
+                        f"Peripherals descriptor types signal {signal.value['signal']} as {signal.value['type']} in the {roles['protocol']} protocol of {name}.")
+                    self.mark(signal.value["signal"], {"function": function}, [cite, role_rule])
+        for spec in cls.get("signal_marks", []):
+            mark_rule = self.policy(spec["policy"])
+            for signal in entry["pinout_signals"]:
+                match = re.fullmatch(spec["id"], signal.value["id"])
+                if not match:
+                    continue
+                marks = {key: template.format(*match.groups()) for key, template in spec["attributes"].items()}
+                cites = [self.graph.cite(
+                    f"declared-signal-{signal.value['name']}", source, signal.start, signal.end,
+                    f"Peripherals descriptor declares signal {signal.value['name']} of {name} with identifier {signal.value['id']}."), mark_rule]
+                for key, (source_id, agree) in spec.get("symbols", {}).items():
+                    cites.append(self.symbol("inv-mark", source_id, marks[key], signal.value["name"], agree.format(*match.groups())))
+                self.mark(signal.value["name"], marks, cites)
 
     def profile(self, spec):
         """Let a capability take a covered instance and each of its signals on
@@ -719,6 +839,9 @@ class Domains:
                 extend(edge, [cite])
                 if cite not in cites:
                     cites.append(cite)
+        if spec.get("share_instance"):
+            for instance in sorted({edge["from"] for edge in found}):
+                find(self.value["resources"], instance)["capacity"] = len({edge["to"] for edge in found if edge["from"] == instance})
         symbols = [self.graph.cite_symbol("inv-api", self.source(source), symbol) for source, symbol in spec.get("symbols", [])]
         quoted = [self.graph.cite(entry["id"], self.source(entry["source"]), entry["start"], entry["end"], entry["statement"])
                   for entry in spec.get("cites", [])]
@@ -767,13 +890,16 @@ def run(graph, sources, summary, inventory_config, config, source_root):
     summary["gpio_output_pads"] = domains.gpio_output()
     summary["gpio_interrupt_pads"] = domains.gpio_interrupt()
     domains.templates()
-    summary["route_marks"] = domains.route_marks()
-    if domains.unbonded:
-        summary["unbonded_signals"] = sorted(domains.unbonded)
-    summary["promoted_instances"] = domains.instances()
+    if config.get("route_marks"):
+        summary["route_marks"] = domains.route_marks()
+    summary["promoted_instances"], skipped = domains.classes()
+    if skipped:
+        summary["instances_not_promoted"] = skipped
     summary["profiles"] = [domains.profile(spec) for spec in config["profiles"]]
     summary["allocations"] = {spec["capability"]: domains.allocation(spec) for spec in config.get("allocations", [])}
     summary["reservations"] = [domains.name(record["resource"]) for record in domains.target["reservations"]]
+    if domains.unbonded:
+        summary["unbonded_signals"] = sorted(domains.unbonded)
     return summary
 
 

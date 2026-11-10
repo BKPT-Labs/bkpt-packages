@@ -2,9 +2,9 @@
   "schema": 1,
   "sources": [
     {
-      "id": "policy-v3",
-      "path": "architecture/sources/bkpt-capability-policy-v3.txt",
-      "revision": "version 3 candidate",
+      "id": "policy-v4",
+      "path": "architecture/sources/bkpt-capability-policy-v4.txt",
+      "revision": "version 4 candidate",
       "authority": "bkpt_engineering_policy_candidate"
     },
     {
@@ -48,12 +48,24 @@
       "path": "sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_sbs.h",
       "revision": "HAL2 pack 2.1.0",
       "authority": "manufacturer_sdk"
+    },
+    {
+      "id": "peripherals-descriptor",
+      "path": "architecture/sources/stm32c5-dfp-2.1.0/peripherals/D44F_peripherals.json",
+      "revision": "ST DFP 2.1.0, die 44F",
+      "authority": "manufacturer_machine_readable"
+    },
+    {
+      "id": "limitations-descriptor",
+      "path": "architecture/sources/stm32c5-dfp-2.1.0/limitations/D44F_limitations.json",
+      "revision": "ST DFP 2.1.0, die 44F",
+      "authority": "manufacturer_machine_readable"
     }
   ],
   "policy": {
-    "source": "policy-v3",
-    "label": "BKPT policy, version 3",
-    "evidence_prefix": "policy3",
+    "source": "policy-v4",
+    "label": "BKPT policy, version 4",
+    "evidence_prefix": "policy4",
     "lines": {
       "inventory": 4,
       "debug": 5,
@@ -71,9 +83,7 @@
       "dma_requests": 17,
       "user_button": 18,
       "timer_channels": 19,
-      "timer_channel_symbols": 20,
-      "analog_inputs": 21,
-      "analog_channel_symbols": 22
+      "analog_inputs": 20
     }
   },
   "board": {
@@ -124,8 +134,20 @@
           "board_feature": "user_button"
         },
         "circuit": [
-          {"net": "3V3", "member": ["B1", "3"]},
-          {"net": "GND", "member": ["R13", "1"]}
+          {
+            "net": "3V3",
+            "member": [
+              "B1",
+              "3"
+            ]
+          },
+          {
+            "net": "GND",
+            "member": [
+              "R13",
+              "1"
+            ]
+          }
         ]
       }
     },
@@ -158,66 +180,19 @@
       "statement": "Exact source-bound UART API declarations."
     }
   ],
-  "route_marks": [
-    {
-      "attribute": "function",
-      "policy": "functions",
-      "values": {
-        "spi_sck": ["SPI1_SCK", "SPI2_SCK"],
-        "spi_miso": ["SPI1_MISO", "SPI2_MISO"],
-        "spi_mosi": ["SPI1_MOSI", "SPI2_MOSI"],
-        "uart_tx": ["USART1_TX", "USART2_TX", "UART4_TX", "UART5_TX"],
-        "uart_rx": ["USART1_RX", "USART2_RX", "UART4_RX", "UART5_RX"]
-      }
-    },
-    {
-      "attribute": "function",
-      "policy": "timer_channels",
-      "values": {
-        "timer_channel": ["TIM1_CH1", "TIM1_CH2", "TIM1_CH3", "TIM1_CH4", "TIM2_CH1", "TIM2_CH2", "TIM2_CH3", "TIM2_CH4", "TIM8_CH1", "TIM8_CH2", "TIM8_CH3", "TIM8_CH4", "TIM12_CH1", "TIM12_CH2", "TIM15_CH1", "TIM15_CH2"]
-      }
-    },
-    {
-      "attribute": "channel_symbol",
-      "policy": "timer_channel_symbols",
-      "symbol_source": "tim-h",
-      "values": {
-        "HAL_TIM_CHANNEL_1": ["TIM1_CH1", "TIM2_CH1", "TIM8_CH1", "TIM12_CH1", "TIM15_CH1"],
-        "HAL_TIM_CHANNEL_2": ["TIM1_CH2", "TIM2_CH2", "TIM8_CH2", "TIM12_CH2", "TIM15_CH2"],
-        "HAL_TIM_CHANNEL_3": ["TIM1_CH3", "TIM2_CH3", "TIM8_CH3"],
-        "HAL_TIM_CHANNEL_4": ["TIM1_CH4", "TIM2_CH4", "TIM8_CH4"]
-      }
-    },
-    {
-      "attribute": "function",
-      "policy": "analog_inputs",
-      "values": {
-        "adc_input": ["ADC1_IN0", "ADC1_IN1", "ADC1_IN2", "ADC1_IN3", "ADC1_IN4", "ADC1_IN5", "ADC1_IN6", "ADC1_IN7", "ADC1_IN8", "ADC1_IN9", "ADC1_IN10", "ADC1_IN11"]
-      }
-    },
-    {
-      "attribute": "channel_symbol",
-      "policy": "analog_channel_symbols",
-      "symbol_source": "adc-h",
-      "values": {
-        "HAL_ADC_CHANNEL_0": ["ADC1_IN0"],
-        "HAL_ADC_CHANNEL_1": ["ADC1_IN1"],
-        "HAL_ADC_CHANNEL_2": ["ADC1_IN2"],
-        "HAL_ADC_CHANNEL_3": ["ADC1_IN3"],
-        "HAL_ADC_CHANNEL_4": ["ADC1_IN4"],
-        "HAL_ADC_CHANNEL_5": ["ADC1_IN5"],
-        "HAL_ADC_CHANNEL_6": ["ADC1_IN6"],
-        "HAL_ADC_CHANNEL_7": ["ADC1_IN7"],
-        "HAL_ADC_CHANNEL_8": ["ADC1_IN8"],
-        "HAL_ADC_CHANNEL_9": ["ADC1_IN9"],
-        "HAL_ADC_CHANNEL_10": ["ADC1_IN10"],
-        "HAL_ADC_CHANNEL_11": ["ADC1_IN11"]
-      }
-    }
-  ],
   "device_description": {
     "source": "device-description",
     "unpromoted_kind": "descriptor_instance"
+  },
+  "peripherals": {
+    "source": "peripherals-descriptor",
+    "limitations": "limitations-descriptor",
+    "pinout": "pinout",
+    "die": "44F",
+    "part_listing": {
+      "source": "dfp",
+      "pattern": "Dvariant=\"{part}\""
+    }
   },
   "dma_requests": {
     "policy": "dma_requests",
@@ -225,22 +200,37 @@
     "channel_kind": "dma_channel",
     "table": {
       "source": "rm-dma",
-      "row": "{selector} {name}_{direction}_dma"
+      "row": "{selector} {request}"
     },
     "controllers": {
       "LPDMA1": {
-        "ll": ["dma-ll", "LL_LPDMA1_REQUEST_{NAME}_{DIRECTION}"],
-        "hal": ["dma-h", "HAL_LPDMA1_REQUEST_{NAME}_{DIRECTION}"]
+        "ll": [
+          "dma-ll",
+          "LL_LPDMA1_REQUEST_{NAME}_{DIRECTION}"
+        ],
+        "hal": [
+          "dma-h",
+          "HAL_LPDMA1_REQUEST_{NAME}_{DIRECTION}"
+        ]
       },
       "LPDMA2": {
-        "ll": ["dma-ll", "LL_LPDMA2_REQUEST_{NAME}_{DIRECTION}"],
-        "hal": ["dma-h", "HAL_LPDMA2_REQUEST_{NAME}_{DIRECTION}"]
+        "ll": [
+          "dma-ll",
+          "LL_LPDMA2_REQUEST_{NAME}_{DIRECTION}"
+        ],
+        "hal": [
+          "dma-h",
+          "HAL_LPDMA2_REQUEST_{NAME}_{DIRECTION}"
+        ]
       }
     },
     "attributes": {
       "ownership_policy": "one_active_channel_per_request"
     },
-    "evidence": ["rm-dma-410", "component-dma-request-forward"],
+    "evidence": [
+      "rm-dma-410",
+      "component-dma-request-forward"
+    ],
     "channel_selection": {
       "id": "rm-dma-request-selection",
       "source": "rm-dma",
@@ -248,198 +238,256 @@
       "end": 99,
       "statement": "RM0522 section 14.3.4: a peripheral request is assigned to a channel x through the REQSEL field of that channel's transfer register 2, provided SWREQ is 0, and the request table gives the mapping. Text extraction."
     },
-    "channel_evidence": ["rm-dma-383"]
+    "channel_evidence": [
+      "rm-dma-383"
+    ]
   },
-  "instances": [
+  "instance_classes": [
     {
-      "instance": "TIM1",
       "kind": "channel_timer",
       "policy": "timer_channels",
+      "ip": {
+        "types": [
+          "tim"
+        ],
+        "digitalName": "c7amba_gptimer2",
+        "versions": [
+          5.0
+        ]
+      },
+      "needs_signals": [
+        "CH1",
+        "CH2",
+        "CH3",
+        "CH4"
+      ],
       "symbols": {
-        "hal_instance": ["tim-h", "HAL_TIM1", "{instance}_BASE"],
-        "clock_enable_api": ["rcc-h", "HAL_RCC_TIM1_EnableClock", "PERIPH_{instance}"]
+        "hal_instance": [
+          "tim-h",
+          "HAL_{instance}",
+          "{instance}_BASE"
+        ],
+        "clock_enable_api": [
+          "rcc-h",
+          "HAL_RCC_{instance}_EnableClock",
+          "PERIPH_{instance}"
+        ]
       },
       "attributes": {
         "ownership_policy": "exclusive"
-      }
-    },
-    {
-      "instance": "TIM2",
-      "kind": "channel_timer",
-      "policy": "timer_channels",
-      "symbols": {
-        "hal_instance": ["tim-h", "HAL_TIM2", "{instance}_BASE"],
-        "clock_enable_api": ["rcc-h", "HAL_RCC_TIM2_EnableClock", "PERIPH_{instance}"]
       },
-      "attributes": {
-        "ownership_policy": "exclusive"
-      }
+      "signal_marks": [
+        {
+          "id": "CH([1-4])",
+          "policy": "timer_channels",
+          "attributes": {
+            "function": "timer_channel",
+            "channel_symbol": "HAL_TIM_CHANNEL_{0}"
+          },
+          "symbols": {
+            "channel_symbol": [
+              "tim-h",
+              "channel {0}"
+            ]
+          }
+        }
+      ]
     },
     {
-      "instance": "TIM8",
-      "kind": "channel_timer",
-      "policy": "timer_channels",
-      "symbols": {
-        "hal_instance": ["tim-h", "HAL_TIM8", "{instance}_BASE"],
-        "clock_enable_api": ["rcc-h", "HAL_RCC_TIM8_EnableClock", "PERIPH_{instance}"]
-      },
-      "attributes": {
-        "ownership_policy": "exclusive"
-      }
-    },
-    {
-      "instance": "TIM12",
-      "kind": "channel_timer",
-      "policy": "timer_channels",
-      "symbols": {
-        "hal_instance": ["tim-h", "HAL_TIM12", "{instance}_BASE"],
-        "clock_enable_api": ["rcc-h", "HAL_RCC_TIM12_EnableClock", "PERIPH_{instance}"]
-      },
-      "attributes": {
-        "ownership_policy": "exclusive"
-      }
-    },
-    {
-      "instance": "TIM15",
-      "kind": "channel_timer",
-      "policy": "timer_channels",
-      "symbols": {
-        "hal_instance": ["tim-h", "HAL_TIM15", "{instance}_BASE"],
-        "clock_enable_api": ["rcc-h", "HAL_RCC_TIM15_EnableClock", "PERIPH_{instance}"]
-      },
-      "attributes": {
-        "ownership_policy": "exclusive"
-      }
-    },
-    {
-      "instance": "ADC1",
       "kind": "analog_converter",
       "policy": "analog_inputs",
+      "ip": {
+        "types": [
+          "adc"
+        ],
+        "digitalName": "c7amba_aditf6",
+        "versions": [
+          3.0
+        ]
+      },
       "symbols": {
-        "hal_instance": ["adc-h", "HAL_ADC1", "{instance}_BASE"],
-        "clock_enable_api": ["rcc-h", "HAL_RCC_ADC12_EnableClock", "PERIPH_ADC12"]
+        "hal_instance": [
+          "adc-h",
+          "HAL_{instance}",
+          "{instance}_BASE"
+        ],
+        "clock_enable_api": [
+          "rcc-h",
+          "HAL_RCC_ADC12_EnableClock",
+          "PERIPH_ADC12"
+        ]
       },
       "attributes": {
         "ownership_policy": "shared_by_analog_input_allocations"
       },
-      "capacity": 10
+      "signal_marks": [
+        {
+          "id": "IN([0-9]+)",
+          "policy": "analog_inputs",
+          "attributes": {
+            "function": "adc_input",
+            "channel_symbol": "HAL_ADC_CHANNEL_{0}"
+          },
+          "symbols": {
+            "channel_symbol": [
+              "adc-h",
+              "ADCx_IN{0}"
+            ]
+          }
+        }
+      ]
     },
     {
-      "instance": "SPI1",
       "kind": "synchronous_serial",
       "policy": "spi_instances",
-      "symbols": {
-        "hal_instance": ["spi-h", "HAL_SPI1", "{instance}_BASE"],
-        "clock_enable_api": ["rcc-h", "HAL_RCC_SPI1_EnableClock", "PERIPH_{instance}"],
-        "kernel_clock_api": ["rcc-c", "HAL_RCC_SPI1_SetKernelClkSource", "hal_rcc_{lower}_clk_src_t"],
-        "kernel_clock_source": ["rcc-h", "HAL_RCC_SPI1_CLK_SRC_PCLK2", "{instance} kernel clock"]
+      "ip": {
+        "types": [
+          "spi"
+        ],
+        "digitalName": "c7amba_spi2s3",
+        "versions": [
+          2.3
+        ]
       },
-      "interrupt": "SPI1",
-      "requests": ["rx", "tx"]
-    },
-    {
-      "instance": "SPI2",
-      "kind": "synchronous_serial",
-      "layout_of": "SPI1",
-      "policy": "spi_instances",
+      "bus_clock": {
+        "APB1": "PCLK1",
+        "APB2": "PCLK2"
+      },
       "symbols": {
-        "hal_instance": ["spi-h", "HAL_SPI2", "{instance}_BASE"],
-        "clock_enable_api": ["rcc-h", "HAL_RCC_SPI2_EnableClock", "PERIPH_{instance}"],
-        "kernel_clock_api": ["rcc-c", "HAL_RCC_SPI2_SetKernelClkSource", "hal_rcc_{lower}_clk_src_t"],
-        "kernel_clock_source": ["rcc-h", "HAL_RCC_SPI2_CLK_SRC_PCLK1", "{instance} kernel clock"]
+        "hal_instance": [
+          "spi-h",
+          "HAL_{instance}",
+          "{instance}_BASE"
+        ],
+        "clock_enable_api": [
+          "rcc-h",
+          "HAL_RCC_{instance}_EnableClock",
+          "PERIPH_{instance}"
+        ],
+        "kernel_clock_api": [
+          "rcc-c",
+          "HAL_RCC_{instance}_SetKernelClkSource",
+          "hal_rcc_{lower}_clk_src_t"
+        ],
+        "kernel_clock_source": [
+          "rcc-h",
+          "HAL_RCC_{instance}_CLK_SRC_{bus_clock}",
+          "{instance} kernel clock"
+        ]
       },
       "attributes": {
         "ownership_policy": "exclusive"
       },
-      "evidence": ["preset-clock", "transfer-rate-policy"],
-      "interrupt": "SPI2",
-      "requests": ["rx", "tx"]
+      "evidence": [
+        "preset-clock",
+        "transfer-rate-policy"
+      ],
+      "interrupt": "GLOBAL",
+      "requests": {
+        "rx": "rx",
+        "tx": "tx"
+      },
+      "roles": {
+        "policy": "functions",
+        "protocol": "SPI",
+        "functions": {
+          "CLK": "spi_sck",
+          "MISO": "spi_miso",
+          "MOSI": "spi_mosi"
+        }
+      }
     },
     {
-      "instance": "USART1",
       "kind": "serial",
       "policy": "uart_instances",
+      "ip": {
+        "types": [
+          "usart",
+          "uart"
+        ],
+        "digitalName": "c7amba_sci3",
+        "versions": [
+          3.4
+        ]
+      },
+      "bus_clock": {
+        "APB1": "PCLK1",
+        "APB2": "PCLK2"
+      },
       "symbols": {
-        "hal_instance": ["uart-h", "HAL_UART1", "{instance}_BASE"],
-        "clock_enable_api": ["rcc-h", "HAL_RCC_USART1_EnableClock", "PERIPH_{instance}"],
-        "kernel_clock_api": ["rcc-c", "HAL_RCC_USART1_SetKernelClkSource", "hal_rcc_{lower}_clk_src_t"],
-        "kernel_clock_source": ["rcc-h", "HAL_RCC_USART1_CLK_SRC_PCLK2", "{instance} kernel clock"],
-        "peripheral_symbol": ["device-header", "USART1", "{instance}_BASE"]
+        "hal_instance": [
+          "uart-h",
+          "HAL_UART{number}",
+          "{instance}_BASE"
+        ],
+        "clock_enable_api": [
+          "rcc-h",
+          "HAL_RCC_{instance}_EnableClock",
+          "PERIPH_{instance}"
+        ],
+        "kernel_clock_api": [
+          "rcc-c",
+          "HAL_RCC_{instance}_SetKernelClkSource",
+          "hal_rcc_{lower}_clk_src_t"
+        ],
+        "kernel_clock_source": [
+          "rcc-h",
+          "HAL_RCC_{instance}_CLK_SRC_{bus_clock}",
+          "{instance} kernel clock"
+        ],
+        "peripheral_symbol": [
+          "device-header",
+          "{instance}",
+          "{instance}_BASE"
+        ]
       },
       "attributes": {
         "ownership_policy": "exclusive"
       },
-      "evidence": ["preset-clock"],
-      "interrupt": "USART1",
-      "requests": ["rx", "tx"]
-    },
-    {
-      "instance": "USART2",
-      "kind": "serial",
-      "layout_of": "USART1",
-      "policy": "uart_instances",
-      "symbols": {
-        "hal_instance": ["uart-h", "HAL_UART2", "{instance}_BASE"],
-        "clock_enable_api": ["rcc-h", "HAL_RCC_USART2_EnableClock", "PERIPH_{instance}"],
-        "kernel_clock_api": ["rcc-c", "HAL_RCC_USART2_SetKernelClkSource", "hal_rcc_{lower}_clk_src_t"],
-        "kernel_clock_source": ["rcc-h", "HAL_RCC_USART2_CLK_SRC_PCLK1", "{instance} kernel clock"],
-        "peripheral_symbol": ["device-header", "USART2", "{instance}_BASE"]
+      "evidence": [
+        "preset-clock"
+      ],
+      "interrupt": "GLOBAL",
+      "requests": {
+        "rx": "rx",
+        "tx": "tx"
       },
-      "evidence": ["preset-clock"],
-      "interrupt": "USART2",
-      "requests": ["rx", "tx"]
-    },
-    {
-      "instance": "UART4",
-      "kind": "serial",
-      "layout_of": "USART1",
-      "policy": "uart_instances",
-      "symbols": {
-        "hal_instance": ["uart-h", "HAL_UART4", "{instance}_BASE"],
-        "clock_enable_api": ["rcc-h", "HAL_RCC_UART4_EnableClock", "PERIPH_{instance}"],
-        "kernel_clock_api": ["rcc-c", "HAL_RCC_UART4_SetKernelClkSource", "hal_rcc_{lower}_clk_src_t"],
-        "kernel_clock_source": ["rcc-h", "HAL_RCC_UART4_CLK_SRC_PCLK1", "{instance} kernel clock"],
-        "peripheral_symbol": ["device-header", "UART4", "{instance}_BASE"]
-      },
-      "attributes": {
-        "ownership_policy": "exclusive"
-      },
-      "evidence": ["preset-clock"],
-      "interrupt": "UART4",
-      "requests": ["rx", "tx"]
-    },
-    {
-      "instance": "UART5",
-      "kind": "serial",
-      "layout_of": "USART1",
-      "policy": "uart_instances",
-      "symbols": {
-        "hal_instance": ["uart-h", "HAL_UART5", "{instance}_BASE"],
-        "clock_enable_api": ["rcc-h", "HAL_RCC_UART5_EnableClock", "PERIPH_{instance}"],
-        "kernel_clock_api": ["rcc-c", "HAL_RCC_UART5_SetKernelClkSource", "hal_rcc_{lower}_clk_src_t"],
-        "kernel_clock_source": ["rcc-h", "HAL_RCC_UART5_CLK_SRC_PCLK1", "{instance} kernel clock"],
-        "peripheral_symbol": ["device-header", "UART5", "{instance}_BASE"]
-      },
-      "attributes": {
-        "ownership_policy": "exclusive"
-      },
-      "evidence": ["preset-clock"],
-      "interrupt": "UART5",
-      "requests": ["rx", "tx"]
+      "roles": {
+        "policy": "functions",
+        "protocol": "Serial",
+        "functions": {
+          "TX": "uart_tx",
+          "RX": "uart_rx"
+        }
+      }
     }
   ],
   "profiles": [
     {
-      "capabilities": ["spi_transfer_operation"],
+      "capabilities": [
+        "spi_transfer_operation"
+      ],
       "policy": "spi_pins",
       "instance": {
         "role": "bus",
         "policy": "spi_instances"
       },
       "roles": {
-        "sck": {"from": "bus", "function": "spi_sck", "binding": "sck_alternate"},
-        "miso": {"from": "bus", "function": "spi_miso", "binding": "miso_alternate"},
-        "mosi": {"from": "bus", "function": "spi_mosi", "binding": "mosi_alternate"}
+        "sck": {
+          "from": "bus",
+          "function": "spi_sck",
+          "binding": "sck_alternate"
+        },
+        "miso": {
+          "from": "bus",
+          "function": "spi_miso",
+          "binding": "miso_alternate"
+        },
+        "mosi": {
+          "from": "bus",
+          "function": "spi_mosi",
+          "binding": "mosi_alternate"
+        }
       },
       "alternate_symbol": {
         "source": "gpio-h",
@@ -458,10 +506,26 @@
         {
           "card": "hal2.spi-transfer-operation",
           "bindings": {
-            "bus_name": {"type": "resource_attribute", "role": "bus", "attribute": "instance"},
-            "sck_name": {"type": "resource_attribute", "role": "sck", "attribute": "pin"},
-            "miso_name": {"type": "resource_attribute", "role": "miso", "attribute": "pin"},
-            "mosi_name": {"type": "resource_attribute", "role": "mosi", "attribute": "pin"}
+            "bus_name": {
+              "type": "resource_attribute",
+              "role": "bus",
+              "attribute": "instance"
+            },
+            "sck_name": {
+              "type": "resource_attribute",
+              "role": "sck",
+              "attribute": "pin"
+            },
+            "miso_name": {
+              "type": "resource_attribute",
+              "role": "miso",
+              "attribute": "pin"
+            },
+            "mosi_name": {
+              "type": "resource_attribute",
+              "role": "mosi",
+              "attribute": "pin"
+            }
           },
           "templates": {
             "exti-spi-header": "instances-spi-h"
@@ -488,7 +552,9 @@
       ]
     },
     {
-      "capabilities": ["uart_transfer_operation"],
+      "capabilities": [
+        "uart_transfer_operation"
+      ],
       "policy": "uart_pins",
       "instance": {
         "role": "serial",
@@ -502,8 +568,16 @@
         "PA3": "console"
       },
       "roles": {
-        "tx_pin": {"from": "serial", "function": "uart_tx", "binding": "tx_pin_alternate"},
-        "rx_pin": {"from": "serial", "function": "uart_rx", "binding": "rx_pin_alternate"}
+        "tx_pin": {
+          "from": "serial",
+          "function": "uart_tx",
+          "binding": "tx_pin_alternate"
+        },
+        "rx_pin": {
+          "from": "serial",
+          "function": "uart_rx",
+          "binding": "rx_pin_alternate"
+        }
       },
       "alternate_symbol": {
         "source": "gpio-h",
@@ -517,26 +591,83 @@
             "Managed serialized UART DMA on USART1, USART2, UART4 or UART5, with TX and RX on any allowed routed pad:"
           ]
         ],
-        "implementations_remove": ["hal2.uart-init"]
+        "implementations_remove": [
+          "hal2.uart-init"
+        ]
       },
       "cards": [
         {
           "card": "hal2.uart-transfer-operation",
-          "bindings_remove": ["handle_accessor", "handle_header"],
+          "bindings_remove": [
+            "handle_accessor",
+            "handle_header"
+          ],
           "bindings": {
-            "peripheral_instance": {"type": "resource_attribute", "role": "serial", "attribute": "hal_instance"},
-            "peripheral_clock": {"type": "resource_attribute", "role": "serial", "attribute": "clock_enable_api"},
-            "kernel_clock_api": {"type": "resource_attribute", "role": "serial", "attribute": "kernel_clock_api"},
-            "kernel_clock_source": {"type": "resource_attribute", "role": "serial", "attribute": "kernel_clock_source"},
-            "serial_name": {"type": "resource_attribute", "role": "serial", "attribute": "instance"},
-            "tx_pin_clock": {"type": "resource_attribute", "role": "tx_pin", "attribute": "clock_enable_api"},
-            "tx_pin_port": {"type": "resource_attribute", "role": "tx_pin", "attribute": "port_symbol"},
-            "tx_pin_symbol": {"type": "resource_attribute", "role": "tx_pin", "attribute": "pin_symbol"},
-            "tx_pin_name": {"type": "resource_attribute", "role": "tx_pin", "attribute": "pin"},
-            "rx_pin_clock": {"type": "resource_attribute", "role": "rx_pin", "attribute": "clock_enable_api"},
-            "rx_pin_port": {"type": "resource_attribute", "role": "rx_pin", "attribute": "port_symbol"},
-            "rx_pin_symbol": {"type": "resource_attribute", "role": "rx_pin", "attribute": "pin_symbol"},
-            "rx_pin_name": {"type": "resource_attribute", "role": "rx_pin", "attribute": "pin"}
+            "peripheral_instance": {
+              "type": "resource_attribute",
+              "role": "serial",
+              "attribute": "hal_instance"
+            },
+            "peripheral_clock": {
+              "type": "resource_attribute",
+              "role": "serial",
+              "attribute": "clock_enable_api"
+            },
+            "kernel_clock_api": {
+              "type": "resource_attribute",
+              "role": "serial",
+              "attribute": "kernel_clock_api"
+            },
+            "kernel_clock_source": {
+              "type": "resource_attribute",
+              "role": "serial",
+              "attribute": "kernel_clock_source"
+            },
+            "serial_name": {
+              "type": "resource_attribute",
+              "role": "serial",
+              "attribute": "instance"
+            },
+            "tx_pin_clock": {
+              "type": "resource_attribute",
+              "role": "tx_pin",
+              "attribute": "clock_enable_api"
+            },
+            "tx_pin_port": {
+              "type": "resource_attribute",
+              "role": "tx_pin",
+              "attribute": "port_symbol"
+            },
+            "tx_pin_symbol": {
+              "type": "resource_attribute",
+              "role": "tx_pin",
+              "attribute": "pin_symbol"
+            },
+            "tx_pin_name": {
+              "type": "resource_attribute",
+              "role": "tx_pin",
+              "attribute": "pin"
+            },
+            "rx_pin_clock": {
+              "type": "resource_attribute",
+              "role": "rx_pin",
+              "attribute": "clock_enable_api"
+            },
+            "rx_pin_port": {
+              "type": "resource_attribute",
+              "role": "rx_pin",
+              "attribute": "port_symbol"
+            },
+            "rx_pin_symbol": {
+              "type": "resource_attribute",
+              "role": "rx_pin",
+              "attribute": "pin_symbol"
+            },
+            "rx_pin_name": {
+              "type": "resource_attribute",
+              "role": "rx_pin",
+              "attribute": "pin"
+            }
           },
           "templates": {
             "idle-rx-uart-h": "instances-uart-h",
@@ -557,14 +688,26 @@
             ]
           },
           "interface_sources": {
-            "declarations": ["instances-uart-api"]
+            "declarations": [
+              "instances-uart-api"
+            ]
           },
-          "evidence_remove": ["component-uart-foundation-accessor"],
-          "symbols": [
-            ["uart-c", "HAL_UART_Init"],
-            ["uart-c", "HAL_UART_SetConfig"]
+          "evidence_remove": [
+            "component-uart-foundation-accessor"
           ],
-          "evidence": ["preset-uart"]
+          "symbols": [
+            [
+              "uart-c",
+              "HAL_UART_Init"
+            ],
+            [
+              "uart-c",
+              "HAL_UART_SetConfig"
+            ]
+          ],
+          "evidence": [
+            "preset-uart"
+          ]
         }
       ]
     }
@@ -580,7 +723,10 @@
       "pad_attribute": {
         "timer_channel_pad": "true"
       },
-      "route_attributes": ["alternate", "channel_symbol"],
+      "route_attributes": [
+        "alternate",
+        "channel_symbol"
+      ],
       "alternate_symbol": {
         "source": "gpio-h",
         "symbol": "HAL_GPIO_{alternate}",
@@ -589,9 +735,18 @@
       "description": "Allocate one timer of TIM1, TIM2, TIM8, TIM12 or TIM15 and a pad one of its channels is routed to, for PWM, output compare or input capture written by the application. Allocation only: no code is generated and the timer is not shared.",
       "guidance": "Allocation only; no component is generated. resource_bindings gives the timer's hal_instance and clock_enable_api, the pad's port_symbol, pin_symbol and clock_enable_api, and under routes the selected signal with its alternate_symbol and channel_symbol. The application enables the TIM module if no other selected card does (USE_HAL_TIM_MODULE in generated/hal/stm32c5xx_hal_conf.h and stm32c5xx_drivers/hal/stm32c5xx_hal_tim.c in CMakeLists.txt), enables both clocks, initializes the pad with mode HAL_GPIO_MODE_ALTERNATE and the route's alternate_symbol, and drives the channel through the SDK TIM API in stm32c5xx_hal_tim.h starting from HAL_TIM_Init with the allocated hal_instance. Period, duty, polarity, compare or capture mode, complementary outputs, dead time and break are application decisions. One counter serves all channels, so the allocation takes the whole timer. No timing, electrical or errata qualification.",
       "symbols": [
-        ["tim-c", "HAL_TIM_Init"],
-        ["gpio-h", "HAL_GPIO_MODE_ALTERNATE"],
-        ["preset-conf", "USE_HAL_TIM_MODULE"]
+        [
+          "tim-c",
+          "HAL_TIM_Init"
+        ],
+        [
+          "gpio-h",
+          "HAL_GPIO_MODE_ALTERNATE"
+        ],
+        [
+          "preset-conf",
+          "USE_HAL_TIM_MODULE"
+        ]
       ]
     },
     {
@@ -604,19 +759,48 @@
       "pad_attribute": {
         "analog_input_pad": "true"
       },
-      "excluded_pads": ["PC4", "PC5", "PB0", "PB1"],
-      "route_attributes": ["channel_symbol"],
-      "description": "Allocate a pad routed to an external input of ADC1 for analog conversion written by the application. Allocation only: no code is generated; the converter is shared by up to ten such allocations. Pads that need the SBS pin remap are not offered.",
+      "excluded_pads": [
+        "PC4",
+        "PC5",
+        "PB0",
+        "PB1"
+      ],
+      "route_attributes": [
+        "channel_symbol"
+      ],
+      "description": "Allocate a pad routed to an external input of ADC1 for analog conversion written by the application. Allocation only: no code is generated; the converter is shared, one allocation per offered input. Pads that need the SBS pin remap are not offered.",
       "guidance": "Allocation only; no component is generated. resource_bindings gives the converter's hal_instance and clock_enable_api, the pad's port_symbol, pin_symbol and clock_enable_api, and under routes the selected signal with its channel_symbol. The application enables the ADC module (USE_HAL_ADC_MODULE in generated/hal/stm32c5xx_hal_conf.h and stm32c5xx_drivers/hal/stm32c5xx_hal_adc.c in CMakeLists.txt), enables both clocks, initializes the pad with mode HAL_GPIO_MODE_ANALOG, and configures and reads the converter through the SDK ADC API in stm32c5xx_hal_adc.h starting from HAL_ADC_Init with the allocated hal_instance. The converter is one shared unit: sequencing of several inputs, sampling time, calibration, reference voltage and accuracy are application decisions. Internal channels, injected and differential conversion are not covered. Only the pad each input uses at reset is offered: PC4, PC5, PB0 and PB1 need the SBS pin remap and are excluded, so no remap is required. No electrical or errata qualification.",
       "symbols": [
-        ["adc-h", "HAL_ADC_Init"],
-        ["gpio-h", "HAL_GPIO_MODE_ANALOG"],
-        ["preset-conf", "USE_HAL_ADC_MODULE"],
-        ["sbs-h", "HAL_SBS_REMAP_ADC_IN2_TO_PC4"],
-        ["sbs-h", "HAL_SBS_REMAP_ADC_IN5_TO_PC5"],
-        ["sbs-h", "HAL_SBS_REMAP_ADC_IN6_TO_PB0"],
-        ["sbs-h", "HAL_SBS_REMAP_ADC_IN7_TO_PB1"]
-      ]
+        [
+          "adc-h",
+          "HAL_ADC_Init"
+        ],
+        [
+          "gpio-h",
+          "HAL_GPIO_MODE_ANALOG"
+        ],
+        [
+          "preset-conf",
+          "USE_HAL_ADC_MODULE"
+        ],
+        [
+          "sbs-h",
+          "HAL_SBS_REMAP_ADC_IN2_TO_PC4"
+        ],
+        [
+          "sbs-h",
+          "HAL_SBS_REMAP_ADC_IN5_TO_PC5"
+        ],
+        [
+          "sbs-h",
+          "HAL_SBS_REMAP_ADC_IN6_TO_PB0"
+        ],
+        [
+          "sbs-h",
+          "HAL_SBS_REMAP_ADC_IN7_TO_PB1"
+        ]
+      ],
+      "share_instance": true
     }
   ],
   "assumption": "General allocation follows the board netlist: solder-bridge state, connector use and external circuits are not verified.",
