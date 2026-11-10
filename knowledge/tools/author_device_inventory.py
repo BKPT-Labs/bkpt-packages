@@ -104,10 +104,14 @@ def children(source: Source, key: str):
 def declaration(source: Source, symbol: str):
     """The lines that declare an SDK symbol, with what the source says about it.
 
-    An enumerator or macro is one line carrying its own description. A function
-    is cited from its documentation comment to the end of its body, so the
-    excerpt states what the function does and not only that the name exists.
-    Returns (start_line, end_line, is_function)."""
+    Returns (start_line, end_line, kind):
+    "value": an enumerator or macro, one line carrying its own description, or
+        two when the description is a one-line comment directly above it;
+    "prototype": a function declared without a body;
+    "definition": a function cited through the end of its body.
+    A function is cited from its documentation comment when one ends on the
+    line above. Only a comment block that closes on its own line counts, so a
+    trailing remark on a preprocessor line is never mistaken for one."""
     name = re.escape(symbol)
     value = re.compile(rf"^\s*(?:#define\s+{name}\b|{name}\s*=)")
     function = re.compile(
@@ -118,21 +122,34 @@ def declaration(source: Source, symbol: str):
         raise SystemExit(f"{source.id}: expected one declaration of {symbol}, found {len(matches)}")
     line, is_function = matches[0]
     if not is_function:
-        return line, line, False
+        above = source.lines[line - 2].strip() if line >= 2 else ""
+        if "/*" not in source.lines[line - 1] and above.startswith("/*") and above.endswith("*/"):
+            return line - 1, line, "value"
+        return line, line, "value"
     start = line
-    if line >= 2 and source.lines[line - 2].strip().endswith("*/"):
+    if line >= 2 and source.lines[line - 2].strip() == "*/":
         start = line - 1
         while start > 1 and not source.lines[start - 1].lstrip().startswith("/*"):
             start -= 1
     end = line
-    if not source.lines[line - 1].rstrip().endswith(";"):
-        while end < len(source.lines) and source.lines[end - 1] != "}":
-            end += 1
-        if source.lines[end - 1] != "}":
-            raise SystemExit(f"{source.id}: no end of {symbol}")
+    while end <= len(source.lines):
+        text = source.lines[end - 1].rstrip()
+        if text.endswith(";"):
+            kind = "prototype"
+            break
+        if text == "{":
+            kind = "definition"
+            while end < len(source.lines) and source.lines[end - 1] != "}":
+                end += 1
+            if source.lines[end - 1] != "}":
+                raise SystemExit(f"{source.id}: no end of {symbol}")
+            break
+        end += 1
+    else:
+        raise SystemExit(f"{source.id}: no end of the declaration of {symbol}")
     if end - start >= 400:
         raise SystemExit(f"{source.id}: declaration of {symbol} is too long to cite")
-    return start, end, True
+    return start, end, kind
 
 
 class Graph:
@@ -164,9 +181,16 @@ class Graph:
         return identifier
 
     def cite_symbol(self, prefix, source, symbol):
-        start, end, is_function = declaration(source, symbol)
-        statement = (f"SDK source documents and defines {symbol} in these lines."
-                     if is_function else f"SDK source declares {symbol} on this line with its description.")
+        start, end, kind = declaration(source, symbol)
+        described = any("/*" in line for line in source.lines[start - 1:end])
+        if kind == "definition":
+            statement = (f"SDK source documents and defines {symbol} in these lines." if described
+                         else f"SDK source defines {symbol} in these lines.")
+        elif kind == "prototype":
+            statement = f"SDK header declares the prototype of {symbol}; the excerpt does not contain its definition."
+        else:
+            statement = (f"SDK source declares {symbol} with its description." if described
+                         else f"SDK source declares {symbol} on this line; the line carries no description.")
         return self.cite(f"{prefix}-{symbol}", source, start, end, statement)
 
     def resource(self, identifier, kind, attributes, conditions, evidence):

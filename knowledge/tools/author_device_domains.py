@@ -175,7 +175,11 @@ class Domains:
                 rule = self.policy(spec["reserved_nets"][label])
                 extend(record, [cite, rule])
                 extend(self.target, [cite, rule])
-                if record["id"] not in reservations:
+                held = [entry for entry in self.target["reservations"] if entry["resource"] == record["id"]]
+                if any(entry["adoptable_by"] for entry in held):
+                    # The policy forbids adoption; a base that allows it is not ours to keep.
+                    raise SystemExit(f"{pin} is reserved by policy but the base lets a capability adopt it")
+                if not held:
                     self.target["reservations"].append({"resource": record["id"], "count": 1, "adoptable_by": []})
                 continue
             if label in spec["excluded_nets"]:
@@ -302,33 +306,45 @@ class Domains:
             self.graph.cite(spec["id"], source, start, end, spec["statement"])
             find(self.value["evidence"], spec["id"])["role"] = "template"
 
-    def route_functions(self):
-        """Mark each listed signal route with the role it plays in a profile.
+    def route_marks(self):
+        """Give listed signal routes an authored attribute, such as the role a
+        signal plays in a profile or the SDK symbol of its channel.
 
-        The policy line is the authority: for every function its sentence must
-        name exactly the signals configured here."""
-        spec = self.config["route_functions"]
-        rule, text = self.policy(spec["policy"]), self.policy_text(spec["policy"])
-        functions, marked = {}, {}
-        for function, signals in spec["functions"].items():
-            sentences = [sentence for sentence in text.split(". ")
-                         if sentence.endswith((f" are {function}", f" is {function}"))]
-            if len(sentences) != 1:
-                raise SystemExit(f"policy does not define function {function} exactly once")
-            stated = set(re.findall(r"\b[A-Z][A-Z0-9]*_[A-Z0-9_]+\b", sentences[0]))
-            if stated != set(signals):
-                raise SystemExit(f"function {function}: policy names {sorted(stated)}, configuration {sorted(signals)}")
-            for signal in signals:
-                if functions.setdefault(signal, function) != function:
-                    raise SystemExit(f"signal {signal} has two functions")
-        for edge in self.value["edges"]:
-            function = functions.get(edge.get("attributes", {}).get("signal")) if edge["relation"] == "signal" else None
-            if function:
-                edge["attributes"]["function"] = function
-                extend(edge, [rule])
-                marked[function] = marked.get(function, 0) + 1
-        if set(marked) != set(spec["functions"]):
-            raise SystemExit("a configured function marks no route")
+        The policy line is the authority: for every value its sentence must
+        name exactly the signals configured here. A value that is an SDK
+        symbol is also cited where the SDK declares it."""
+        marked = {}
+        for spec in self.config["route_marks"]:
+            attribute = spec["attribute"]
+            rule, text = self.policy(spec["policy"]), self.policy_text(spec["policy"])
+            values, cites = {}, {}
+            for value, signals in spec["values"].items():
+                sentences = [sentence.rstrip(".") for sentence in text.split(". ")
+                             if sentence.rstrip(".").endswith((f" are {value}", f" is {value}"))]
+                if len(sentences) != 1:
+                    raise SystemExit(f"policy does not define {attribute} {value} exactly once")
+                subject = sentences[0].rsplit(" ", 2)[0]
+                stated = set(re.findall(r"\b[A-Z][A-Z0-9]*_[A-Z0-9_]+\b", subject))
+                if stated != set(signals):
+                    raise SystemExit(f"{attribute} {value}: policy names {sorted(stated)}, configuration {sorted(signals)}")
+                for signal in signals:
+                    if values.setdefault(signal, value) != value:
+                        raise SystemExit(f"signal {signal} has two values of {attribute}")
+                if "symbol_source" in spec:
+                    cites[value] = self.graph.cite_symbol("inv-mark", self.source(spec["symbol_source"]), value)
+            count = {}
+            for edge in self.value["edges"]:
+                value = values.get(edge.get("attributes", {}).get("signal")) if edge["relation"] == "signal" else None
+                if value is None:
+                    continue
+                if edge["attributes"].setdefault(attribute, value) != value:
+                    raise SystemExit(f"{edge['id']} already has another {attribute}")
+                extend(edge, [rule, *([cites[value]] if value in cites else [])])
+                count[value] = count.get(value, 0) + 1
+            if set(count) != set(spec["values"]):
+                raise SystemExit(f"a configured {attribute} marks no route")
+            for value, routes in count.items():
+                marked[f"{attribute}={value}"] = routes
         return marked
 
     def described(self, instance):
@@ -338,14 +354,11 @@ class Domains:
             raise SystemExit(f"device description has no peripheral {instance}")
         return self.blocks[instance]
 
-    def request(self, instance, direction):
-        """One DMA request line, recorded only when the manual's table and the
-        SDK definitions for every controller agree on its selector."""
+    def request_facts(self, instance, direction):
+        """What the sources say about one DMA request line: its table row and
+        selector, and per controller the SDK names that carry that selector.
+        Refuses unless the table and every controller's definitions agree."""
         spec = self.config["dma_requests"]
-        identifier = f"{self.prefix}.{instance}.{direction}.request"
-        if identifier in self.graph.resource_ids:
-            return identifier
-        rule = self.policy(spec["policy"])
         table = self.source(spec["table"]["source"])
         row = re.escape(spec["table"]["row"].format(selector="@", name=instance.lower(), direction=direction))
         pattern = re.compile("^" + row.replace("@", r"(\d+)") + r"\s*$")
@@ -354,34 +367,83 @@ class Domains:
         if len(rows) != 1:
             raise SystemExit(f"{table.id}: expected one request row for {instance} {direction}, found {len(rows)}")
         line, selector = rows[0]
+        names = {}
+        for controller, symbols in spec["controllers"].items():
+            found = {key: template.format(NAME=instance, DIRECTION=direction.upper()) for key, (_, template) in symbols.items()}
+            low = self.source(symbols["ll"][0])
+            start, _, _ = inventory.declaration(low, found["ll"])
+            value = re.fullmatch(rf"#define\s+{found['ll']}\s+(\d+)U\b.*", low.lines[start - 1].strip())
+            if not value or value.group(1) != selector:
+                raise SystemExit(f"{found['ll']} does not carry selector {selector}")
+            high = self.source(symbols["hal"][0])
+            start, _, _ = inventory.declaration(high, found["hal"])
+            if not re.match(rf"\s*{found['hal']}\s*=\s*{found['ll']}\s*,", high.lines[start - 1]):
+                raise SystemExit(f"{found['hal']} is not defined as {found['ll']}")
+            names[controller] = (low, found["ll"], high, found["hal"])
+        return table, line, selector, names
+
+    def request(self, instance, direction):
+        """One DMA request line, recorded only when the manual's table and the
+        SDK definitions for every controller agree on its selector. A line the
+        base already records is held to the same facts instead of being
+        trusted: a base that changed underneath is refused, not preserved."""
+        spec = self.config["dma_requests"]
+        identifier = f"{self.prefix}.{instance}.{direction}.request"
+        table, line, selector, names = self.request_facts(instance, direction)
+        attributes = {"peripheral": instance, "direction": direction, "selector": selector}
+        for controller, (_, _, _, high_name) in names.items():
+            attributes[f"hal_request_{controller.lower()}"] = high_name
+        attributes.update(spec["attributes"])
+        owner = f"{self.prefix}.{instance}"
+        owner_edge = f"{instance}.{direction}_request.{instance}.{direction}.request"
+        channels = sorted((record for record in self.value["resources"] if record["kind"] == spec["channel_kind"]),
+                          key=lambda record: record["id"])
+        unverified = sorted({record["attributes"]["controller"] for record in channels} - set(names))
+        if unverified:
+            # A route may only reach a channel whose controller's definitions were checked.
+            raise SystemExit(f"request definitions are not configured for controllers {unverified}")
+        routes = {f"{instance}.{direction}.request.routes_to.{self.name(record['id'])}": record["id"] for record in channels}
+        if identifier in self.graph.resource_ids:
+            existing = find(self.value["resources"], identifier)
+            if existing["attributes"] != attributes or existing["kind"] != spec["kind"]:
+                raise SystemExit(f"{identifier}: the recorded request disagrees with the table and SDK definitions")
+            edges = {edge["id"]: edge for edge in self.value["edges"]}
+            expected = {owner_edge: (owner, identifier, f"{direction}_request"),
+                        **{edge: (identifier, channel, "routes_to") for edge, channel in routes.items()}}
+            for edge, ends in expected.items():
+                if edge not in edges or (edges[edge]["from"], edges[edge]["to"], edges[edge]["relation"]) != ends:
+                    raise SystemExit(f"{identifier}: recorded route {edge} is missing or different")
+            return identifier
+        rule = self.policy(spec["policy"])
         evidence = [self.graph.cite(
             f"request-row-{instance}-{direction}", table, line, line,
             f"Reference manual request table row: selector {selector} is the {instance} {direction} request. A text extraction of the table; the row is quoted, the table layout is not visually validated.")]
-        attributes = {"peripheral": instance, "direction": direction, "selector": selector}
-        for controller, symbols in spec["controllers"].items():
-            names = {key: template.format(NAME=instance, DIRECTION=direction.upper()) for key, (_, template) in symbols.items()}
-            low = self.source(symbols["ll"][0])
-            start, _, _ = inventory.declaration(low, names["ll"])
-            value = re.fullmatch(rf"#define\s+{names['ll']}\s+(\d+)U\b.*", low.lines[start - 1].strip())
-            if not value or value.group(1) != selector:
-                raise SystemExit(f"{names['ll']} does not carry selector {selector}")
-            high = self.source(symbols["hal"][0])
-            start, _, _ = inventory.declaration(high, names["hal"])
-            if not re.match(rf"\s*{names['hal']}\s*=\s*{names['ll']}\s*,", high.lines[start - 1]):
-                raise SystemExit(f"{names['hal']} is not defined as {names['ll']}")
-            evidence += [self.graph.cite_symbol("inv-request", low, names["ll"]),
-                         self.graph.cite_symbol("inv-request", high, names["hal"])]
-            attributes[f"hal_request_{controller.lower()}"] = names["hal"]
-        attributes.update(spec["attributes"])
+        for low, low_name, high, high_name in names.values():
+            evidence += [self.graph.cite_symbol("inv-request", low, low_name),
+                         self.graph.cite_symbol("inv-request", high, high_name)]
         self.graph.resource(identifier, spec["kind"], attributes, self.conditions, [*evidence, rule, *spec["evidence"]])
-        owner = f"{self.prefix}.{instance}"
-        self.graph.edge(f"{instance}.{direction}_request.{instance}.{direction}.request", owner, identifier,
-                        f"{direction}_request", None, self.conditions, [evidence[0], rule])
-        channels = sorted(record["id"] for record in self.value["resources"] if record["kind"] == spec["channel_kind"])
-        for channel in channels:
-            self.graph.edge(f"{instance}.{direction}.request.routes_to.{self.name(channel)}", identifier, channel,
-                            "routes_to", None, self.conditions, [evidence[0], *spec["channel_evidence"]])
+        self.graph.edge(owner_edge, owner, identifier, f"{direction}_request", None, self.conditions, [evidence[0], rule])
+        selection = spec["channel_selection"]
+        select = self.graph.cite(selection["id"], self.source(selection["source"]), selection["start"], selection["end"],
+                                 selection["statement"])
+        for edge, channel in routes.items():
+            self.graph.edge(edge, identifier, channel, "routes_to", None, self.conditions,
+                            [evidence[0], select, *spec["channel_evidence"]])
         return identifier
+
+    def interrupt(self, instance, name, block, source, record, rule):
+        """Join an instance to the interrupt its description declares."""
+        irq = self.resource(f"{name}.irq")
+        declared = [entry for entry in block["interrupts"] if entry["value"] == irq["attributes"]["irq_number"]]
+        if len(declared) != 1:
+            raise SystemExit(f"{instance}: device description does not declare interrupt {irq['attributes']['irq_number']} exactly once")
+        identifier = f"{instance}.raises_interrupt.{name}.irq"
+        if identifier not in self.graph.edge_ids:
+            cite = self.graph.cite(
+                f"described-irq-{instance}", source, declared[0]["start"], declared[0]["end"],
+                f"Device description declares interrupt {declared[0]['value']} inside peripheral {instance}.")
+            self.graph.edge(identifier, record["id"], irq["id"], "raises_interrupt", None, self.conditions,
+                            [cite, f"inv-irq-{name}", rule])
 
     def instances(self):
         """Promote described instances to a kind a profile can allocate."""
@@ -400,9 +462,19 @@ class Domains:
                 f"Device description declares peripheral {instance}{layout}. A layout statement, not proof of identical behaviour, clocks or errata."),
                 rule, *spec.get("evidence", [])]
             attributes = dict(spec.get("attributes", {}))
-            for attribute, (source_id, symbol) in spec["symbols"].items():
+            for attribute, (source_id, symbol, *names) in spec["symbols"].items():
                 attributes[attribute] = symbol
-                evidence.append(self.graph.cite_symbol("inv-instance", self.source(source_id), symbol))
+                cited = self.source(source_id)
+                evidence.append(self.graph.cite_symbol("inv-instance", cited, symbol))
+                # A symbol that exists but belongs to another instance would
+                # pass an existence check, so the excerpt must also name what
+                # the configuration says it refers to.
+                start, end, _ = inventory.declaration(cited, symbol)
+                excerpt = cited.excerpt(start, end)
+                for template in names:
+                    name = template.format(instance=instance, lower=instance.lower())
+                    if not re.search(re.escape(name) + r"(?![A-Za-z0-9_])", excerpt):
+                        raise SystemExit(f"{instance}: {symbol} does not refer to {name}")
             record = self.resource(instance)
             if record["kind"] == description["unpromoted_kind"]:
                 record["kind"] = spec["kind"]
@@ -410,18 +482,12 @@ class Domains:
             elif record["kind"] != spec["kind"]:
                 raise SystemExit(f"{instance} is already a {record['kind']}")
             inventory.complete(record, attributes, evidence)
-            irq = self.resource(f"{spec['interrupt']}.irq")
-            declared = [entry for entry in block["interrupts"] if entry["value"] == irq["attributes"]["irq_number"]]
-            if len(declared) != 1:
-                raise SystemExit(f"{instance}: device description does not declare interrupt {irq['attributes']['irq_number']} exactly once")
-            identifier = f"{instance}.raises_interrupt.{spec['interrupt']}.irq"
-            if identifier not in self.graph.edge_ids:
-                cite = self.graph.cite(
-                    f"described-irq-{instance}", source, declared[0]["start"], declared[0]["end"],
-                    f"Device description declares interrupt {declared[0]['value']} inside peripheral {instance}.")
-                self.graph.edge(identifier, record["id"], irq["id"], "raises_interrupt", None, self.conditions,
-                                [cite, f"inv-irq-{spec['interrupt']}", rule])
-            for direction in spec["requests"]:
+            if "capacity" in spec:
+                # One physical unit that several allocations may name at once.
+                record["capacity"] = spec["capacity"]
+            if "interrupt" in spec:
+                self.interrupt(instance, spec["interrupt"], block, source, record, rule)
+            for direction in spec.get("requests", []):
                 self.request(instance, direction)
         return promoted
 
@@ -526,6 +592,63 @@ class Domains:
                 for role, found in routes.items()}
 
 
+    def allocation(self, spec):
+        """A capability that allocates an instance and a routed pad without
+        generating code. The application writes the driver calls from the
+        symbols the allocation returns, so the card says what is and is not
+        decided and cites where each symbol is declared."""
+        rule, general = self.policy(spec["policy"]), self.policy("general")
+        function, kind = spec["function"], spec["instance_kind"]
+        covered = {record["id"] for record in self.value["resources"] if record["kind"] == kind}
+        if not covered:
+            raise SystemExit(f"{spec['capability']}: no {kind} instance")
+        found = [edge for edge in self.value["edges"]
+                 if edge["relation"] == "signal" and edge.get("attributes", {}).get("function") == function]
+        stray = sorted({self.name(edge["from"]) for edge in found if edge["from"] not in covered})
+        if stray:
+            raise SystemExit(f"function {function} is routed from uncovered instances {stray}")
+        found = [edge for edge in found if self.name(edge["to"]) in self.eligible]
+        if not found:
+            raise SystemExit(f"no eligible route carries {function}")
+        cites = []
+        symbol_spec = spec.get("alternate_symbol")
+        for edge in found:
+            for attribute in spec["route_attributes"]:
+                if attribute not in edge["attributes"]:
+                    raise SystemExit(f"{edge['id']} lacks {attribute}")
+            if symbol_spec:
+                # The SDK name of the selector, stated on the route it belongs to.
+                alternate = edge["attributes"]["alternate"]
+                text = symbol_spec["symbol"].format(alternate=alternate.replace(symbol_spec["split"], symbol_spec["split"] + "_", 1))
+                cite = self.graph.cite_symbol("inv-alternate", self.source(symbol_spec["source"]), text)
+                edge["attributes"]["alternate_symbol"] = text
+                extend(edge, [cite])
+                if cite not in cites:
+                    cites.append(cite)
+        symbols = [self.graph.cite_symbol("inv-api", self.source(source), symbol) for source, symbol in spec.get("symbols", [])]
+        quoted = [self.graph.cite(entry["id"], self.source(entry["source"]), entry["start"], entry["end"], entry["statement"])
+                  for entry in spec.get("cites", [])]
+        evidence = [rule, general, *symbols, *quoted, *spec.get("evidence", [])]
+        for records, identifier in ((self.value["capabilities"], spec["capability"]), (self.value["implementations"], spec["card"])):
+            if any(record["id"] == identifier for record in records):
+                raise SystemExit(f"{identifier} already exists")
+        self.value["capabilities"].append({
+            "id": spec["capability"], "target": self.graph.target, "description": spec["description"], "parameters": {},
+            "roles": [
+                {"id": spec["instance_role"], "kind": kind, "attributes": {}, "parameter_attributes": {}, "count": 1},
+                {"id": "pad", "kind": "pin", "attributes": dict(self.config["general_attribute"]), "parameter_attributes": {}, "count": 1},
+            ],
+            "links": [{"from": spec["instance_role"], "to": "pad", "relation": "signal", "attributes": {"function": function}}],
+            "implementations": [spec["card"]], "parameter_constraints": [], "domain_complete": False,
+            "closure_evidence": [], "evidence": list(evidence),
+        })
+        self.value["implementations"].append({
+            "id": spec["card"], "target": self.graph.target, "guidance": spec["guidance"],
+            "evidence": [*evidence, *cites], "edits": [],
+        })
+        return sorted({f"{self.name(edge['from'])}:{self.name(edge['to'])}" for edge in found})
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("--inventory", type=pathlib.Path, required=True)
@@ -544,9 +667,10 @@ def main():
     summary["gpio_output_pads"] = domains.gpio_output()
     summary["gpio_interrupt_pads"] = domains.gpio_interrupt()
     domains.templates()
-    summary["function_routes"] = domains.route_functions()
+    summary["route_marks"] = domains.route_marks()
     summary["promoted_instances"] = domains.instances()
     summary["profiles"] = [domains.profile(spec) for spec in config["profiles"]]
+    summary["allocations"] = {spec["capability"]: domains.allocation(spec) for spec in config.get("allocations", [])}
     summary["reservations"] = [domains.name(record["resource"]) for record in domains.target["reservations"]]
     inventory.write(graph, arguments.out, summary)
 

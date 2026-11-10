@@ -45,12 +45,29 @@ def interrupts(header=HEADER, startup=STARTUP):
 class Declarations(unittest.TestCase):
     def test_a_function_is_cited_with_its_documentation_and_body(self):
         text = "/**\n  * @brief Enable the port clock.\n  */\n__STATIC_INLINE void Enable(void)\n{\n  on();\n}\n"
-        self.assertEqual(inventory.declaration(source(text), "Enable"), (1, 7, True))
+        self.assertEqual(inventory.declaration(source(text), "Enable"), (1, 7, "definition"))
+
+    def test_a_prototype_is_not_a_definition_and_takes_no_unrelated_comment(self):
+        text = "#endif /* OTHER */\nint Set(int source);\n/**\n  * @brief Get it.\n  */\nint Get(int a,\n        int b);\n"
+        self.assertEqual(inventory.declaration(source(text), "Set"), (2, 2, "prototype"))
+        self.assertEqual(inventory.declaration(source(text), "Get"), (3, 7, "prototype"))
+        graph = inventory.Graph({"evidence": [], "resources": [], "edges": []}, "board", {})
+        graph.cite_symbol("api", source(text), "Set")
+        self.assertIn("does not contain its definition", graph.value["evidence"][0]["statement"])
 
     def test_an_enumerator_and_a_macro_are_one_line(self):
         text = "typedef enum\n{\n  PORT_A = BASE, /*!< port A */\n} port_t;\n#define PIN_5 LL_PIN_5 /*!< pin 5 */\n"
-        self.assertEqual(inventory.declaration(source(text), "PORT_A"), (3, 3, False))
-        self.assertEqual(inventory.declaration(source(text), "PIN_5"), (5, 5, False))
+        self.assertEqual(inventory.declaration(source(text), "PORT_A"), (3, 3, "value"))
+        self.assertEqual(inventory.declaration(source(text), "PIN_5"), (5, 5, "value"))
+
+    def test_a_one_line_comment_above_an_undescribed_enumerator_is_cited_with_it(self):
+        text = "typedef enum\n{\n  /** Channel 1 */\n  CH_1 = 0U,\n\n  CH_2 = 1U,\n  /** not for the next */\n  CH_3 = 2U, /*!< own */\n} ch_t;\n"
+        self.assertEqual(inventory.declaration(source(text), "CH_1"), (3, 4, "value"))
+        self.assertEqual(inventory.declaration(source(text), "CH_2"), (6, 6, "value"))
+        self.assertEqual(inventory.declaration(source(text), "CH_3"), (8, 8, "value"))
+        graph = inventory.Graph({"evidence": [], "resources": [], "edges": []}, "board", {})
+        graph.cite_symbol("mark", source(text), "CH_2")
+        self.assertIn("carries no description", graph.value["evidence"][0]["statement"])
 
     def test_a_call_is_not_a_declaration(self):
         for text in ("  return Enable();\n", "return Enable();\n", "  Enable();\n", "if (Enable()) { }\n"):
@@ -124,7 +141,11 @@ SVD = """<device>
   </peripherals>
 </device>
 """
-POLICY = "Functions: authored. BUS1_CLK and BUS2_CLK are bus_clock. BUS1_TX is bus_tx. Nothing else.\nRequests: authored.\n"
+POLICY = ("Functions: authored. BUS1_CLK and BUS2_CLK are bus_clock. BUS1_TX is bus_tx. Nothing else.\n"
+          "Requests: authored.\n"
+          "Symbols: BUS1_CLK is LL_DMA1_REQUEST_BUS2_RX.\n"
+          "General: authored.\n"
+          "Allocation: authored.\n")
 TABLE = "request table\n4 bus2_rx_dma\n5 bus2_tx_dma\n"
 LOW = "#define LL_DMA1_REQUEST_BUS2_RX 4U /*!< rx */\n#define LL_DMA1_REQUEST_BUS2_TX 5U /*!< tx */\n"
 HIGH = "  HAL_DMA1_REQUEST_BUS2_RX = LL_DMA1_REQUEST_BUS2_RX, /*!< rx */\n  HAL_DMA1_REQUEST_BUS2_TX = LL_DMA1_REQUEST_BUS2_TX, /*!< tx */\n"
@@ -143,22 +164,28 @@ def domains_under_test(functions=None, low=LOW, high=HIGH, table=TABLE):
          "attributes": {"signal": "BUS1_TX"}, "evidence": []},
         {"id": "route.BUS1_RX.PA4", "relation": "signal", "from": "PART.BUS1", "to": "PART.PA4",
          "attributes": {"signal": "BUS1_RX"}, "evidence": []}],
-        "resources": [{"id": "PART.CH0", "kind": "channel", "attributes": {}, "evidence": []},
-                      {"id": "PART.CH1", "kind": "channel", "attributes": {}, "evidence": []}]}
+        "resources": [{"id": "PART.CH0", "kind": "channel", "attributes": {"controller": "DMA1"}, "evidence": []},
+                      {"id": "PART.CH1", "kind": "channel", "attributes": {"controller": "DMA1"}, "evidence": []},
+                      {"id": "PART.BUS1", "kind": "bus", "attributes": {}, "evidence": []},
+                      {"id": "PART.BUS2", "kind": "bus", "attributes": {}, "evidence": []}],
+        "capabilities": [], "implementations": []}
     subject = object.__new__(domains.Domains)
     subject.graph = inventory.Graph(base, "board", sources)
     subject.sources, subject.value, subject.prefix, subject.conditions = sources, base, "PART", {}
     subject.policy_source = sources["policy"]
     subject.config = {
-        "policy": {"source": "policy", "lines": {"functions": 1, "requests": 2}},
-        "route_functions": {"policy": "functions", "functions": functions or {
-            "bus_clock": ["BUS1_CLK", "BUS2_CLK"], "bus_tx": ["BUS1_TX"]}},
+        "policy": {"source": "policy", "lines": {"functions": 1, "requests": 2, "symbols": 3, "general": 4, "allocation": 5}},
+        "general_attribute": {"allocation": "general"},
+        "route_marks": [{"attribute": "function", "policy": "functions", "values": functions or {
+            "bus_clock": ["BUS1_CLK", "BUS2_CLK"], "bus_tx": ["BUS1_TX"]}}],
         "dma_requests": {
             "policy": "requests", "kind": "request", "channel_kind": "channel",
             "table": {"source": "table", "row": "{selector} {name}_{direction}_dma"},
             "controllers": {"DMA1": {"ll": ["low", "LL_DMA1_REQUEST_{NAME}_{DIRECTION}"],
                                      "hal": ["high", "HAL_DMA1_REQUEST_{NAME}_{DIRECTION}"]}},
-            "attributes": {"ownership_policy": "one"}, "evidence": [], "channel_evidence": []}}
+            "attributes": {"ownership_policy": "one"}, "evidence": [], "channel_evidence": [],
+            "channel_selection": {"id": "selection", "source": "table", "start": 1, "end": 1,
+                                  "statement": "A request is selected per channel."}}}
     return subject
 
 
@@ -186,7 +213,7 @@ class Restated(unittest.TestCase):
 class Functions(unittest.TestCase):
     def test_only_the_signals_the_policy_names_are_marked(self):
         subject = domains_under_test()
-        self.assertEqual(subject.route_functions(), {"bus_clock": 2, "bus_tx": 1})
+        self.assertEqual(subject.route_marks(), {"function=bus_clock": 2, "function=bus_tx": 1})
         marked = {edge["id"]: edge["attributes"].get("function") for edge in subject.value["edges"]}
         self.assertEqual(marked, {"route.BUS1_CLK.PA1": "bus_clock", "route.BUS2_CLK.PA2": "bus_clock",
                                   "route.BUS1_TX.PA3": "bus_tx", "route.BUS1_RX.PA4": None})
@@ -196,7 +223,48 @@ class Functions(unittest.TestCase):
                           {"bus_clock": ["BUS1_CLK", "BUS2_CLK"], "bus_tx": ["BUS1_TX", "BUS1_RX"]},
                           {"bus_clock": ["BUS1_CLK", "BUS2_CLK"], "bus_rx": ["BUS1_RX"]}):
             with self.assertRaises(SystemExit, msg=functions):
-                domains_under_test(functions).route_functions()
+                domains_under_test(functions).route_marks()
+
+    def test_a_symbol_value_is_cited_where_the_sdk_declares_it(self):
+        subject = domains_under_test()
+        subject.config["route_marks"] = [{"attribute": "channel_symbol", "policy": "symbols", "symbol_source": "low",
+                                          "values": {"LL_DMA1_REQUEST_BUS2_RX": ["BUS1_CLK"]}}]
+        self.assertEqual(subject.route_marks(), {"channel_symbol=LL_DMA1_REQUEST_BUS2_RX": 1})
+        edge = subject.value["edges"][0]
+        self.assertEqual(edge["attributes"]["channel_symbol"], "LL_DMA1_REQUEST_BUS2_RX")
+        self.assertEqual(edge["evidence"], ["policy3-symbols", "inv-mark-LL_DMA1_REQUEST_BUS2_RX"])
+        subject.config["route_marks"][0]["values"] = {"NOT_DECLARED": ["BUS1_CLK"]}
+        with self.assertRaises(SystemExit):
+            subject.route_marks()
+
+
+class Allocations(unittest.TestCase):
+    SPEC = {"capability": "bus_clock_pin", "card": "card.bus-clock", "policy": "allocation", "function": "bus_clock",
+            "instance_kind": "bus", "instance_role": "bus", "route_attributes": ["signal"],
+            "description": "Allocate.", "guidance": "Allocation only."}
+
+    def allocated(self, eligible, **changes):
+        subject = domains_under_test()
+        subject.eligible = eligible
+        subject.route_marks()
+        return subject, subject.allocation({**self.SPEC, **changes})
+
+    def test_only_eligible_pads_of_covered_instances_are_offered(self):
+        subject, routes = self.allocated(["PA1"])
+        self.assertEqual(routes, ["BUS1:PA1"])
+        capability = subject.value["capabilities"][0]
+        self.assertEqual(capability["links"], [{"from": "bus", "to": "pad", "relation": "signal",
+                                                "attributes": {"function": "bus_clock"}}])
+        self.assertEqual([role["kind"] for role in capability["roles"]], ["bus", "pin"])
+        self.assertEqual(subject.value["implementations"][0]["edits"], [])
+
+    def test_an_allocation_with_nothing_to_offer_or_a_missing_value_is_refused(self):
+        with self.assertRaises(SystemExit):
+            self.allocated([])
+        with self.assertRaises(SystemExit):
+            self.allocated(["PA1"], route_attributes=["channel_symbol"])
+        with self.assertRaises(SystemExit):
+            self.allocated(["PA1"], instance_kind="converter")
 
 
 class Requests(unittest.TestCase):
@@ -216,6 +284,51 @@ class Requests(unittest.TestCase):
             domains_under_test(high=HIGH.replace("= LL_DMA1_REQUEST_BUS2_RX,", "= 4,")).request("BUS2", "rx")
         with self.assertRaises(SystemExit):
             domains_under_test(table=TABLE + "9 bus2_rx_dma\n").request("BUS2", "rx")
+
+    def test_a_route_needs_its_channel_controller_checked(self):
+        subject = domains_under_test()
+        subject.value["resources"][1]["attributes"]["controller"] = "DMA2"
+        with self.assertRaises(SystemExit):
+            subject.request("BUS2", "rx")
+
+    def test_a_recorded_request_is_held_to_the_same_facts(self):
+        subject = domains_under_test()
+        identifier = subject.request("BUS2", "rx")
+        counts = (len(subject.value["resources"]), len(subject.value["edges"]), len(subject.value["evidence"]))
+        self.assertEqual(subject.request("BUS2", "rx"), identifier)
+        self.assertEqual(counts, (len(subject.value["resources"]), len(subject.value["edges"]), len(subject.value["evidence"])))
+        record = next(r for r in subject.value["resources"] if r["id"] == identifier)
+        record["attributes"]["selector"] = "99"
+        with self.assertRaises(SystemExit):
+            subject.request("BUS2", "rx")
+        record["attributes"]["selector"] = "4"
+        subject.value["edges"] = [edge for edge in subject.value["edges"] if not edge["id"].endswith("routes_to.CH1")]
+        with self.assertRaises(SystemExit):
+            subject.request("BUS2", "rx")
+
+
+class Instances(unittest.TestCase):
+    def promoted(self, instance, layout_of):
+        subject = domains_under_test()
+        subject.sources["svd"] = source(SVD, "svd")
+        subject.blocks = None
+        subject.config["device_description"] = {"source": "svd", "unpromoted_kind": "bus"}
+        subject.config["instances"] = [{
+            "instance": instance, "kind": "serial_bus", "layout_of": layout_of, "policy": "general",
+            "symbols": {"hal_request": ["high", "HAL_DMA1_REQUEST_BUS2_RX", "LL_DMA1_REQUEST_{instance}_RX"]}}]
+        return subject, subject.instances()
+
+    def test_a_symbol_must_name_the_instance_it_is_given_to(self):
+        subject, promoted = self.promoted("BUS2", "BUS1")
+        self.assertEqual(promoted, ["BUS2"])
+        record = next(r for r in subject.value["resources"] if r["id"] == "PART.BUS2")
+        self.assertEqual((record["kind"], record["attributes"]), ("serial_bus", {"hal_request": "HAL_DMA1_REQUEST_BUS2_RX"}))
+        with self.assertRaises(SystemExit):
+            self.promoted("BUS1", None)
+
+    def test_the_configured_layout_must_match_the_description(self):
+        with self.assertRaises(SystemExit):
+            self.promoted("BUS2", None)
 
 
 if __name__ == "__main__":
