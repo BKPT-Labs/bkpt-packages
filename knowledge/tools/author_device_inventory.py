@@ -404,7 +404,12 @@ def build(config_path: pathlib.Path, source_root: pathlib.Path):
     base_bytes = (config_path.parent / config["base"]["path"]).read_bytes()
     if sha256(base_bytes) != config["base"]["sha256"]:
         raise SystemExit("base graph differs from the configured hash")
-    base = json.loads(base_bytes)
+    return build_from(config, json.loads(base_bytes), source_root)
+
+
+def build_from(config, base, source_root: pathlib.Path):
+    """The inventory stage over a graph already loaded, and possibly already
+    moved to another part and package by a composing tool."""
     base["schema"], base["id"] = 4, config["id"]
     wanted = {config["pinout"]["source"], config["interrupts"]["header"], config["interrupts"]["startup"],
               *(spec["source"] for spec in config["gpio_symbols"].values())}

@@ -1,0 +1,73 @@
+{
+  "schema": 1,
+  "id": "stm32c542cc-lqfp48-declared-v1",
+  "inventory": "../imports/device-inventory.json",
+  "domains": "../imports/device-domains.json",
+  "board": "../boards/declared-stm32c542cc-lqfp48.json",
+  "target": {
+    "id": "STM32C542CC-LQFP48",
+    "board": "declared-stm32c542cc-lqfp48",
+    "part": "STM32C542CCT6",
+    "package": "LQFP48",
+    "resource_prefix": "STM32C542CCT6"
+  },
+  "package": {
+    "pinout": {
+      "path": "architecture/sources/stm32c5-dfp-2.1.0/pinout/STM32C5(3-4)2C(B-C)Tx_pinout.json",
+      "revision": "ST DFP 2.1.0, LQFP48"
+    }
+  },
+  "scoped_evidence": {
+    "board-identity": "drop",
+    "pinout-metadata": "restate",
+    "pin-bonds": {
+      "replace": [
+        "inv-bond-PA2",
+        "inv-bond-PA3",
+        "inv-bond-PA5"
+      ]
+    },
+    "dma-pa4-bond": {
+      "replace": [
+        "inv-bond-PA4"
+      ]
+    },
+    "uart-pins": {
+      "replace": [
+        "inv-signal-USART2_TX-PA2",
+        "inv-signal-USART2_RX-PA3"
+      ]
+    }
+  },
+  "restate": {
+    "assumptions": [
+      [
+        "Nominal NUC542RC$KR1/MB2213 B02 metadata does not establish the connected board revision, solder bridges or silicon cut.",
+        "The board is described by its owner. Its revision, its population and the silicon cut are not established."
+      ],
+      [
+        "Managed SPI/UART expand finite source-reviewed configuration domains; failure is terminal. Physical buffer release does not certify device or wire recovery. Only NUCLEO-C542RC/LQFP64 and captured nominal144MHz PCLK1/PCLK2 are covered. No hardware qualification.",
+        "Managed SPI/UART expand finite source-reviewed configuration domains; failure is terminal. Physical buffer release does not certify device or wire recovery. Only STM32C542CCT6/LQFP48 on the declared board and captured nominal144MHz PCLK1/PCLK2 are covered. No hardware qualification."
+      ]
+    ],
+    "evidence": {
+      "identity": {
+        "device": "STM32C542CC",
+        "statement": "Device entry STM32C542CC declares the STM32C542xx compile define, its memory map and its variants, among them STM32C542CCT6 in LQFP48."
+      },
+      "pinout-metadata": {
+        "lines": [
+          1,
+          9
+        ],
+        "statement": "Descriptor declares pinout schema 1.0.0, package LQFP48 and die name 44F; aggregate I/O counts are not reconciled."
+      },
+      "transfer-pin-PB8": {
+        "statement": "Exact mapped LQFP48 pinout declares I2C1_SCL on PB8 AF4; datasheet separately establishes FT_f pad."
+      },
+      "transfer-pin-PB9": {
+        "statement": "Exact mapped LQFP48 pinout declares I2C1_SDA on PB9 AF4; datasheet separately establishes FT_f pad."
+      }
+    }
+  }
+}

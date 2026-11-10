@@ -119,6 +119,7 @@ class Domains:
             self.positions.setdefault(value["position"], value["die_pad"])
         self.signals = [value for _, _, value, _ in inventory.children(pinout, "signals")]
         self.blocks = None
+        self.unbonded = set()
 
     def pad_name(self, pad):
         return self.pad_template.format(port=pad["port"], index=pad["index"])
@@ -129,14 +130,23 @@ class Domains:
             self.sources[identifier] = inventory.Source(find(self.value["sources"], identifier), self.source_root)
         return self.sources[identifier]
 
+    def policy_entry(self, name):
+        """A rule about the board comes from the board's own policy text when
+        the board brings one; every other rule from the chip family's."""
+        board = self.config.get("board_policy")
+        if board and name in board["lines"]:
+            return board, self.source(board["source"])
+        return self.config["policy"], self.policy_source
+
     def policy_text(self, name):
-        return self.policy_source.lines[self.config["policy"]["lines"][name] - 1]
+        policy, source = self.policy_entry(name)
+        return source.lines[policy["lines"][name] - 1]
 
     def policy(self, name):
-        line = self.config["policy"]["lines"][name]
-        text = self.policy_source.lines[line - 1]
-        policy = self.config["policy"]
-        return self.graph.cite(f"{policy['evidence_prefix']}-{name}", self.policy_source, line, line,
+        policy, source = self.policy_entry(name)
+        line = policy["lines"][name]
+        text = source.lines[line - 1]
+        return self.graph.cite(f"{policy['evidence_prefix']}-{name}", source, line, line,
                                f"{policy['label']}: " + text.split(":", 1)[0] + ". Authored engineering policy, not a manufacturer statement.")
 
     def resource(self, name):
@@ -146,8 +156,72 @@ class Domains:
         return identifier.split(".", 1)[1]
 
     def board(self):
-        """Classify every configurable pad by what its board net carries."""
+        """Decide which pads the board leaves free, from its netlist or from a
+        description its owner declares, then restate what that changes."""
         spec = self.config["board"]
+        if spec.get("kind", "netlist") == "declared":
+            self.declared_board(spec)
+        else:
+            self.netlist_board(spec)
+        for old, new in self.config.get("assumption_replacements", []):
+            # A reviewed assumption that names the old, narrower domain is restated.
+            if self.target["assumptions"].count(old) != 1:
+                raise SystemExit("assumption to restate not found exactly once")
+            self.target["assumptions"][self.target["assumptions"].index(old)] = new
+        self.target["assumptions"].append(self.config["assumption"])
+        if len(self.target["assumptions"]) > 16:
+            raise SystemExit("too many target assumptions")
+
+    def reserve(self, pin, record, evidence):
+        """A pad the base occupies and no capability may adopt."""
+        extend(record, evidence)
+        extend(self.target, evidence)
+        held = [entry for entry in self.target["reservations"] if entry["resource"] == record["id"]]
+        if any(entry["adoptable_by"] for entry in held):
+            # The policy forbids adoption; a base that allows it is not ours to keep.
+            raise SystemExit(f"{pin} is reserved by policy but the base lets a capability adopt it")
+        if not held:
+            self.target["reservations"].append({"resource": record["id"], "count": 1, "adoptable_by": []})
+
+    def declared_board(self, spec):
+        """A board described by its owner: the pads it occupies, the pads it
+        keeps out, and its statement that every other pad is free. Nothing in
+        it is checked against a schematic, and each citation says so."""
+        description = self.source(spec["source"])
+        stated = json.loads("\n".join(description.lines))
+        names = {self.pad_name(pad) for pad in self.pads.values()}
+        reserved, excluded = stated["reserved"], stated["excluded"]
+        if set(reserved) & set(excluded):
+            raise SystemExit("the board description both reserves and excludes a pad")
+        unknown = sorted((set(reserved) | set(excluded)) - names)
+        if unknown:
+            raise SystemExit(f"the board description names pads this package does not bond: {unknown}")
+        rule_line = description.find(r'^\s*"eligible"\s*:')
+        self.eligible, self.net_cite = [], {}
+        for pin in sorted(names):
+            record = self.resource(pin)
+            if pin in reserved or pin in excluded:
+                line = description.find(rf'^\s*"{pin}"\s*:')
+                cite = self.graph.cite(
+                    f"board-{pin}", description, line, line,
+                    f"The board description, written by the board's owner, states the use of pad {pin}. Not checked against a schematic or a populated board.")
+                self.net_cite[pin] = cite
+                rule = self.policy(reserved.get(pin) or excluded[pin])
+                if pin in reserved:
+                    self.reserve(pin, record, [cite, rule])
+                else:
+                    extend(record, [cite, rule])
+                continue
+            cite = self.graph.cite(
+                "board-eligible", description, rule_line, rule_line,
+                "The board description states that every pad it does not name is free. The owner's statement, not a verified fact.")
+            self.net_cite[pin] = cite
+            record["attributes"].update(self.config["general_attribute"])
+            extend(record, [cite, self.policy("general")])
+            self.eligible.append(pin)
+
+    def netlist_board(self, spec):
+        """Classify every configurable pad by what its board net carries."""
         netlist = self.sources[spec["source"]]
         passive = re.compile(spec["passive_members"])
         nets = {}
@@ -179,15 +253,7 @@ class Domains:
             self.net_cite[pin] = cite
             record = self.resource(pin)
             if label in spec["reserved_nets"]:
-                rule = self.policy(spec["reserved_nets"][label])
-                extend(record, [cite, rule])
-                extend(self.target, [cite, rule])
-                held = [entry for entry in self.target["reservations"] if entry["resource"] == record["id"]]
-                if any(entry["adoptable_by"] for entry in held):
-                    # The policy forbids adoption; a base that allows it is not ours to keep.
-                    raise SystemExit(f"{pin} is reserved by policy but the base lets a capability adopt it")
-                if not held:
-                    self.target["reservations"].append({"resource": record["id"], "count": 1, "adoptable_by": []})
+                self.reserve(pin, record, [cite, self.policy(spec["reserved_nets"][label])])
                 continue
             if label in spec["excluded_nets"]:
                 extend(record, [cite, self.policy(spec["excluded_nets"][label])])
@@ -198,14 +264,6 @@ class Domains:
                 self.eligible.append(pin)
             else:
                 extend(record, [cite, self.policy("general")])
-        for old, new in self.config.get("assumption_replacements", []):
-            # A reviewed assumption that names the old, narrower domain is restated.
-            if self.target["assumptions"].count(old) != 1:
-                raise SystemExit("assumption to restate not found exactly once")
-            self.target["assumptions"][self.target["assumptions"].index(old)] = new
-        self.target["assumptions"].append(self.config["assumption"])
-        if len(self.target["assumptions"]) > 16:
-            raise SystemExit("too many target assumptions")
 
     def net_member(self, label, reference, pin):
         """Cite one member of a board net, from the net's label to that member."""
@@ -356,8 +414,11 @@ class Domains:
                 count[value] = count.get(value, 0) + 1
                 seen.add(signal)
             missing = sorted(set(values) - seen)
-            if missing:
+            if missing and self.config.get("unbonded_signals") != "report":
                 raise SystemExit(f"configured signals {missing} have no route to mark with {attribute}")
+            # A signal belongs to the die; a smaller package of the same die
+            # bonds fewer of them. A composed target reports those instead.
+            self.unbonded.update(missing)
             for value, routes in count.items():
                 marked[f"{attribute}={value}"] = routes
         return marked
@@ -694,18 +755,26 @@ def main():
     graph, sources, summary = inventory.build(arguments.inventory, arguments.source_root)
     inventory_config = json.loads(arguments.inventory.read_text(encoding="utf-8"))
     config = json.loads(arguments.domains.read_text(encoding="utf-8"))
-    domains = Domains(graph, sources, inventory_config, config, arguments.source_root)
+    run(graph, sources, summary, inventory_config, config, arguments.source_root)
+    inventory.write(graph, arguments.out, summary)
+
+
+def run(graph, sources, summary, inventory_config, config, source_root):
+    """The domains stage over a graph the inventory stage has filled."""
+    domains = Domains(graph, sources, inventory_config, config, source_root)
     domains.board()
     summary["general_allocation_pads"] = len(domains.eligible)
     summary["gpio_output_pads"] = domains.gpio_output()
     summary["gpio_interrupt_pads"] = domains.gpio_interrupt()
     domains.templates()
     summary["route_marks"] = domains.route_marks()
+    if domains.unbonded:
+        summary["unbonded_signals"] = sorted(domains.unbonded)
     summary["promoted_instances"] = domains.instances()
     summary["profiles"] = [domains.profile(spec) for spec in config["profiles"]]
     summary["allocations"] = {spec["capability"]: domains.allocation(spec) for spec in config.get("allocations", [])}
     summary["reservations"] = [domains.name(record["resource"]) for record in domains.target["reservations"]]
-    inventory.write(graph, arguments.out, summary)
+    return summary
 
 
 if __name__ == "__main__":

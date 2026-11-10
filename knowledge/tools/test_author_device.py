@@ -189,6 +189,7 @@ def domains_under_test(functions=None, low=LOW, high=HIGH, table=TABLE):
     subject.graph = inventory.Graph(base, "board", sources)
     subject.sources, subject.value, subject.prefix, subject.conditions = sources, base, "PART", {}
     subject.policy_source = sources["policy"]
+    subject.unbonded = set()
     subject.config = {
         "policy": {"source": "policy", "label": "Policy", "evidence_prefix": "policy3",
                    "lines": {"functions": 1, "requests": 2, "symbols": 3, "general": 4, "allocation": 5}},
@@ -268,6 +269,13 @@ class Functions(unittest.TestCase):
         with self.assertRaises(SystemExit) as refused:
             subject.route_marks()
         self.assertIn("BUS2_CLK", str(refused.exception))
+
+    def test_a_smaller_package_reports_the_signals_it_does_not_bond(self):
+        subject = domains_under_test()
+        subject.config["unbonded_signals"] = "report"
+        subject.value["edges"] = [edge for edge in subject.value["edges"] if edge["attributes"]["signal"] != "BUS2_CLK"]
+        self.assertEqual(subject.route_marks(), {"function=bus_clock": 1, "function=bus_tx": 1})
+        self.assertEqual(subject.unbonded, {"BUS2_CLK"})
 
 
 class Allocations(unittest.TestCase):
