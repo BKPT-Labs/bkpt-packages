@@ -12,6 +12,30 @@
       "path": "firmware/sources/st/c5/pack-2.1.0/netlist.json",
       "revision": "ST board pack 2.1.0; MB2213 B02",
       "authority": "manufacturer_machine_readable"
+    },
+    {
+      "id": "device-description",
+      "path": "firmware/sources/st/c5/pack-2.1.0/device.svd",
+      "revision": "ST board pack 2.1.0",
+      "authority": "manufacturer_machine_readable"
+    },
+    {
+      "id": "instances-spi-h-source",
+      "path": "architecture/sources/bkpt-hal2-instances-v1/spi-operation.h.in",
+      "revision": "version 1 candidate",
+      "authority": "BKPT authored integration artifact"
+    },
+    {
+      "id": "instances-uart-h-source",
+      "path": "architecture/sources/bkpt-hal2-instances-v1/uart-operation.h.in",
+      "revision": "version 1 candidate",
+      "authority": "BKPT authored integration artifact"
+    },
+    {
+      "id": "instances-uart-c-source",
+      "path": "architecture/sources/bkpt-hal2-instances-v1/uart-operation.c.in",
+      "revision": "version 1 candidate",
+      "authority": "BKPT authored integration artifact"
     }
   ],
   "policy": {
@@ -25,7 +49,13 @@
       "console": 9,
       "gpio_output": 10,
       "gpio_interrupt": 11,
-      "spi_pins": 12
+      "spi_pins": 12,
+      "functions": 13,
+      "spi_instances": 14,
+      "uart_instances": 15,
+      "uart_pins": 16,
+      "dma_requests": 17,
+      "user_button": 18
     }
   },
   "board": {
@@ -61,7 +91,7 @@
   "gpio_interrupt": {
     "capability": "gpio_input_interrupt",
     "card": "hal2.gpio-input-interrupt",
-    "description": "Exclusive GPIO input with a dedicated external-line CPU interrupt on any pad eligible for general allocation; explicit edge and pull, bounded callback, start, stop and restart. One external line serves the same pad index on every port.",
+    "description": "Exclusive GPIO input with a dedicated external-line CPU interrupt on any pad eligible for general allocation or on the board user button pad; explicit edge and pull, bounded callback, start, stop and restart. One external line serves the same pad index on every port.",
     "exti_source": "exti-h",
     "port_symbol": "HAL_EXTI_GPIO{port}",
     "line_symbol": "HAL_EXTI_LINE_{index}",
@@ -69,44 +99,329 @@
       "exti-mux"
     ],
     "interrupt": "EXTI{index}",
+    "feature_pads": {
+      "PC13": {
+        "policy": "user_button",
+        "attributes": {
+          "board_feature": "user_button"
+        },
+        "circuit": [
+          {"net": "3V3", "member": ["B1", "3"]},
+          {"net": "GND", "member": ["R13", "1"]}
+        ]
+      }
+    },
     "interrupt_attributes": {
       "function": "gpio_interrupt",
       "priority": "5"
     }
   },
-  "signal_pins": [
+  "templates": [
     {
-      "capabilities": [
-        "spi_controller_dma",
-        "spi_transfer_operation"
-      ],
-      "cards": [
-        "hal2.spi-dma",
-        "hal2.spi-transfer-operation"
-      ],
+      "id": "instances-spi-h",
+      "source": "instances-spi-h-source",
+      "statement": "Authored SPI header with unchanged API; the scope comment names the allocated instance and pads instead of a fixed SPI1. Not manufacturer evidence."
+    },
+    {
+      "id": "instances-uart-h",
+      "source": "instances-uart-h-source",
+      "statement": "Authored UART public API and receive contract, unchanged; the scope comment names the allocated instance and pads instead of the adopted USART2. Not manufacturer evidence."
+    },
+    {
+      "id": "instances-uart-c",
+      "source": "instances-uart-c-source",
+      "statement": "Authored UART adapter with a private handle: it initializes the allocated instance, kernel clock and pads itself in the order of the captured USART2 configuration, then the reviewed DMA, IRQ and lifecycle code follows unchanged."
+    },
+    {
+      "id": "instances-uart-api",
+      "source": "instances-uart-h-source",
+      "start": 48,
+      "end": 53,
+      "statement": "Exact source-bound UART API declarations."
+    }
+  ],
+  "route_functions": {
+    "policy": "functions",
+    "functions": {
+      "spi_sck": ["SPI1_SCK", "SPI2_SCK"],
+      "spi_miso": ["SPI1_MISO", "SPI2_MISO"],
+      "spi_mosi": ["SPI1_MOSI", "SPI2_MOSI"],
+      "uart_tx": ["USART1_TX", "USART2_TX", "UART4_TX", "UART5_TX"],
+      "uart_rx": ["USART1_RX", "USART2_RX", "UART4_RX", "UART5_RX"]
+    }
+  },
+  "device_description": {
+    "source": "device-description",
+    "unpromoted_kind": "descriptor_instance"
+  },
+  "dma_requests": {
+    "policy": "dma_requests",
+    "kind": "dma_request",
+    "channel_kind": "dma_channel",
+    "table": {
+      "source": "rm-dma",
+      "row": "{selector} {name}_{direction}_dma"
+    },
+    "controllers": {
+      "LPDMA1": {
+        "ll": ["dma-ll", "LL_LPDMA1_REQUEST_{NAME}_{DIRECTION}"],
+        "hal": ["dma-h", "HAL_LPDMA1_REQUEST_{NAME}_{DIRECTION}"]
+      },
+      "LPDMA2": {
+        "ll": ["dma-ll", "LL_LPDMA2_REQUEST_{NAME}_{DIRECTION}"],
+        "hal": ["dma-h", "HAL_LPDMA2_REQUEST_{NAME}_{DIRECTION}"]
+      }
+    },
+    "attributes": {
+      "ownership_policy": "one_active_channel_per_request"
+    },
+    "evidence": ["rm-dma-410", "component-dma-request-forward"],
+    "channel_evidence": ["rm-dma-383"]
+  },
+  "instances": [
+    {
+      "instance": "SPI1",
+      "kind": "synchronous_serial",
+      "policy": "spi_instances",
+      "symbols": {
+        "hal_instance": ["spi-h", "HAL_SPI1"],
+        "clock_enable_api": ["rcc-h", "HAL_RCC_SPI1_EnableClock"],
+        "kernel_clock_api": ["rcc-h", "HAL_RCC_SPI1_SetKernelClkSource"],
+        "kernel_clock_source": ["rcc-h", "HAL_RCC_SPI1_CLK_SRC_PCLK2"]
+      },
+      "interrupt": "SPI1",
+      "requests": ["rx", "tx"]
+    },
+    {
+      "instance": "SPI2",
+      "kind": "synchronous_serial",
+      "layout_of": "SPI1",
+      "policy": "spi_instances",
+      "symbols": {
+        "hal_instance": ["spi-h", "HAL_SPI2"],
+        "clock_enable_api": ["rcc-h", "HAL_RCC_SPI2_EnableClock"],
+        "kernel_clock_api": ["rcc-h", "HAL_RCC_SPI2_SetKernelClkSource"],
+        "kernel_clock_source": ["rcc-h", "HAL_RCC_SPI2_CLK_SRC_PCLK1"]
+      },
+      "attributes": {
+        "ownership_policy": "exclusive"
+      },
+      "evidence": ["preset-clock", "transfer-rate-policy"],
+      "interrupt": "SPI2",
+      "requests": ["rx", "tx"]
+    },
+    {
+      "instance": "USART1",
+      "kind": "serial",
+      "policy": "uart_instances",
+      "symbols": {
+        "hal_instance": ["uart-h", "HAL_UART1"],
+        "clock_enable_api": ["rcc-h", "HAL_RCC_USART1_EnableClock"],
+        "kernel_clock_api": ["rcc-h", "HAL_RCC_USART1_SetKernelClkSource"],
+        "kernel_clock_source": ["rcc-h", "HAL_RCC_USART1_CLK_SRC_PCLK2"],
+        "peripheral_symbol": ["device-header", "USART1"]
+      },
+      "attributes": {
+        "ownership_policy": "exclusive"
+      },
+      "evidence": ["preset-clock"],
+      "interrupt": "USART1",
+      "requests": ["rx", "tx"]
+    },
+    {
+      "instance": "USART2",
+      "kind": "serial",
+      "layout_of": "USART1",
+      "policy": "uart_instances",
+      "symbols": {
+        "hal_instance": ["uart-h", "HAL_UART2"],
+        "clock_enable_api": ["rcc-h", "HAL_RCC_USART2_EnableClock"],
+        "kernel_clock_api": ["rcc-h", "HAL_RCC_USART2_SetKernelClkSource"],
+        "kernel_clock_source": ["rcc-h", "HAL_RCC_USART2_CLK_SRC_PCLK1"],
+        "peripheral_symbol": ["device-header", "USART2"]
+      },
+      "evidence": ["preset-clock"],
+      "interrupt": "USART2",
+      "requests": ["rx", "tx"]
+    },
+    {
+      "instance": "UART4",
+      "kind": "serial",
+      "layout_of": "USART1",
+      "policy": "uart_instances",
+      "symbols": {
+        "hal_instance": ["uart-h", "HAL_UART4"],
+        "clock_enable_api": ["rcc-h", "HAL_RCC_UART4_EnableClock"],
+        "kernel_clock_api": ["rcc-h", "HAL_RCC_UART4_SetKernelClkSource"],
+        "kernel_clock_source": ["rcc-h", "HAL_RCC_UART4_CLK_SRC_PCLK1"],
+        "peripheral_symbol": ["device-header", "UART4"]
+      },
+      "attributes": {
+        "ownership_policy": "exclusive"
+      },
+      "evidence": ["preset-clock"],
+      "interrupt": "UART4",
+      "requests": ["rx", "tx"]
+    },
+    {
+      "instance": "UART5",
+      "kind": "serial",
+      "layout_of": "USART1",
+      "policy": "uart_instances",
+      "symbols": {
+        "hal_instance": ["uart-h", "HAL_UART5"],
+        "clock_enable_api": ["rcc-h", "HAL_RCC_UART5_EnableClock"],
+        "kernel_clock_api": ["rcc-h", "HAL_RCC_UART5_SetKernelClkSource"],
+        "kernel_clock_source": ["rcc-h", "HAL_RCC_UART5_CLK_SRC_PCLK1"],
+        "peripheral_symbol": ["device-header", "UART5"]
+      },
+      "attributes": {
+        "ownership_policy": "exclusive"
+      },
+      "evidence": ["preset-clock"],
+      "interrupt": "UART5",
+      "requests": ["rx", "tx"]
+    }
+  ],
+  "profiles": [
+    {
+      "capabilities": ["spi_transfer_operation"],
       "policy": "spi_pins",
+      "instance": {
+        "role": "bus",
+        "policy": "spi_instances"
+      },
       "roles": {
-        "sck": {
-          "from": "bus",
-          "signal": "SPI1_SCK",
-          "binding": "sck_alternate"
-        },
-        "miso": {
-          "from": "bus",
-          "signal": "SPI1_MISO",
-          "binding": "miso_alternate"
-        },
-        "mosi": {
-          "from": "bus",
-          "signal": "SPI1_MOSI",
-          "binding": "mosi_alternate"
-        }
+        "sck": {"from": "bus", "function": "spi_sck", "binding": "sck_alternate"},
+        "miso": {"from": "bus", "function": "spi_miso", "binding": "miso_alternate"},
+        "mosi": {"from": "bus", "function": "spi_mosi", "binding": "mosi_alternate"}
       },
       "alternate_symbol": {
         "source": "gpio-h",
         "symbol": "HAL_GPIO_{alternate}",
         "split": "AF"
-      }
+      },
+      "capability": {
+        "description": [
+          [
+            "Managed finite SPI1 full-duplex DMA with modes0..3 and five nominal rates <=9MHz.",
+            "Managed finite full-duplex DMA on SPI1 or SPI2 with modes0..3 and five nominal rates <=9MHz; SCK, MISO and MOSI on any eligible routed pad."
+          ]
+        ]
+      },
+      "cards": [
+        {
+          "card": "hal2.spi-transfer-operation",
+          "bindings": {
+            "bus_name": {"type": "resource_attribute", "role": "bus", "attribute": "instance"},
+            "sck_name": {"type": "resource_attribute", "role": "sck", "attribute": "pin"},
+            "miso_name": {"type": "resource_attribute", "role": "miso", "attribute": "pin"},
+            "mosi_name": {"type": "resource_attribute", "role": "mosi", "attribute": "pin"}
+          },
+          "templates": {
+            "exti-spi-header": "instances-spi-h"
+          },
+          "guidance": [
+            [
+              "Managed finite SPI1 full-duplex DMA with modes0..3 and five nominal rates <=9MHz.",
+              "Managed finite full-duplex DMA on SPI1 or SPI2 with modes0..3 and five nominal rates <=9MHz; SCK, MISO and MOSI on any eligible routed pad."
+            ],
+            [
+              "SPI1 master full-duplex, 8-bit MSB-first, modes0..3, selected nominal parameter serial_clock_hzHz under 144MHz PCLK2.",
+              "Master full-duplex on the allocated instance and pads, which the rendered interface names; 8-bit MSB-first, modes0..3, selected nominal parameter serial_clock_hzHz under the captured 144MHz kernel clock."
+            ]
+          ],
+          "interface": {
+            "scope": [
+              [
+                "SPI1 master full-duplex, 8-bit MSB-first, modes0..3, selected nominal {{serial_clock_hz}}Hz under 144MHz PCLK2.",
+                "{{bus_name}} master full-duplex on SCK {{sck_name}}, MISO {{miso_name}}, MOSI {{mosi_name}}; 8-bit MSB-first, modes0..3, selected nominal {{serial_clock_hz}}Hz under the captured 144MHz kernel clock."
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "capabilities": ["uart_transfer_operation"],
+      "policy": "uart_pins",
+      "instance": {
+        "role": "serial",
+        "policy": "uart_instances"
+      },
+      "pad_attribute": {
+        "uart_pad": "true"
+      },
+      "extra_pads": {
+        "PA2": "console",
+        "PA3": "console"
+      },
+      "roles": {
+        "tx_pin": {"from": "serial", "function": "uart_tx", "binding": "tx_pin_alternate"},
+        "rx_pin": {"from": "serial", "function": "uart_rx", "binding": "rx_pin_alternate"}
+      },
+      "alternate_symbol": {
+        "source": "gpio-h",
+        "symbol": "HAL_GPIO_{alternate}",
+        "split": "AF"
+      },
+      "capability": {
+        "description": [
+          [
+            "Managed serialized USART2 DMA:",
+            "Managed serialized UART DMA on USART1, USART2, UART4 or UART5, with TX and RX on any allowed routed pad:"
+          ]
+        ],
+        "implementations_remove": ["hal2.uart-init"]
+      },
+      "cards": [
+        {
+          "card": "hal2.uart-transfer-operation",
+          "bindings_remove": ["handle_accessor", "handle_header"],
+          "bindings": {
+            "peripheral_instance": {"type": "resource_attribute", "role": "serial", "attribute": "hal_instance"},
+            "peripheral_clock": {"type": "resource_attribute", "role": "serial", "attribute": "clock_enable_api"},
+            "kernel_clock_api": {"type": "resource_attribute", "role": "serial", "attribute": "kernel_clock_api"},
+            "kernel_clock_source": {"type": "resource_attribute", "role": "serial", "attribute": "kernel_clock_source"},
+            "serial_name": {"type": "resource_attribute", "role": "serial", "attribute": "instance"},
+            "tx_pin_clock": {"type": "resource_attribute", "role": "tx_pin", "attribute": "clock_enable_api"},
+            "tx_pin_port": {"type": "resource_attribute", "role": "tx_pin", "attribute": "port_symbol"},
+            "tx_pin_symbol": {"type": "resource_attribute", "role": "tx_pin", "attribute": "pin_symbol"},
+            "tx_pin_name": {"type": "resource_attribute", "role": "tx_pin", "attribute": "pin"},
+            "rx_pin_clock": {"type": "resource_attribute", "role": "rx_pin", "attribute": "clock_enable_api"},
+            "rx_pin_port": {"type": "resource_attribute", "role": "rx_pin", "attribute": "port_symbol"},
+            "rx_pin_symbol": {"type": "resource_attribute", "role": "rx_pin", "attribute": "pin_symbol"},
+            "rx_pin_name": {"type": "resource_attribute", "role": "rx_pin", "attribute": "pin"}
+          },
+          "templates": {
+            "idle-rx-uart-h": "instances-uart-h",
+            "idle-rx-uart-c": "instances-uart-c"
+          },
+          "guidance": [
+            [
+              "Managed serialized USART2 DMA:",
+              "Managed serialized UART DMA on USART1, USART2, UART4 or UART5, with TX and RX on any allowed routed pad and a handle private to the unit:"
+            ]
+          ],
+          "interface": {
+            "scope": [
+              [
+                "Exclusive adopted USART2, selected nominal {{baud_rate}}baud, 8N1, PA2/PA3 AF7, PCLK1/144MHz, oversampling16. One TX or RX operation at a time; both channels reserved. No concurrent basic_stdio, foundation handle accessor or raw HAL access.",
+                "Exclusive {{serial_name}} with a private handle, TX {{tx_pin_name}}, RX {{rx_pin_name}}; selected nominal {{baud_rate}}baud, 8N1, oversampling16, kernel clock from the captured 144MHz bus clock. One TX or RX operation at a time; both channels reserved. No concurrent basic_stdio, foundation UART handle or raw HAL access on this instance."
+              ]
+            ]
+          },
+          "interface_sources": {
+            "declarations": ["instances-uart-api"]
+          },
+          "evidence_remove": ["component-uart-foundation-accessor"],
+          "symbols": [
+            ["uart-c", "HAL_UART_Init"],
+            ["uart-c", "HAL_UART_SetConfig"]
+          ],
+          "evidence": ["preset-uart"]
+        }
+      ]
     }
   ],
   "assumption": "General allocation follows the board netlist: solder-bridge state, connector use and external circuits are not verified.",
