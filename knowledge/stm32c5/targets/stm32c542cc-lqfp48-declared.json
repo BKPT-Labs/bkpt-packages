@@ -70,5 +70,8 @@
       }
     }
   },
-  "allocation_only": true
+  "foundation": {
+    "id": "c5-hal2-minimal-c542cc",
+    "manifest": "evaluations/bkpt-ai/c5-device-coverage/foundations/c5-hal2-minimal-c542cc-1/manifest.json"
+  }
 }

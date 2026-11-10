@@ -183,6 +183,49 @@ class Retargeted(unittest.TestCase):
             subject.restate()
 
 
+class Foundations(unittest.TestCase):
+    def check(self, manifest, recipe, target=None):
+        import json
+        import tempfile
+        with tempfile.TemporaryDirectory() as folder:
+            root = pathlib.Path(folder)
+            data = json.dumps(manifest).encode("utf-8")
+            (root / "manifest.json").write_bytes(data)
+            target = target or {"part": "PART-C", "board": "mine", "sdk": "sdk-1", "foundation": "base",
+                                "foundation_sha256": inventory.sha256(data)}
+            config = {"assumption": "Declared."}
+            result = compose.foundation(target, {"foundation_manifest": "manifest.json"}, recipe, config, root)
+            return result, target, config
+
+    BASE = {"id": "base", "sdk": "sdk-1", "parts": ["PART-R"], "boards": ["OLD"]}
+
+    def test_a_target_no_foundation_lists_must_say_it_cannot_be_built(self):
+        with self.assertRaises(SystemExit):
+            self.check(self.BASE, {})
+        buildable, _, config = self.check(self.BASE, {"allocation_only": True})
+        self.assertFalse(buildable)
+        self.assertIn("cannot be materialized or built", config["assumption"])
+
+    def test_a_listed_target_is_buildable_and_cannot_be_called_allocation_only(self):
+        listed = {**self.BASE, "parts": ["PART-C"], "boards": []}
+        self.assertTrue(self.check(listed, {})[0])
+        with self.assertRaises(SystemExit):
+            self.check(listed, {"allocation_only": True})
+
+    def test_a_recipe_may_name_the_foundation_of_its_own_part(self):
+        own = {"id": "sibling", "sdk": "sdk-1", "parts": ["PART-C"], "boards": ["mine"]}
+        target = {"part": "PART-C", "board": "mine", "sdk": "sdk-1", "foundation": "base", "foundation_sha256": "old"}
+        buildable, target, _ = self.check(own, {"foundation": {"id": "sibling", "manifest": "manifest.json"}}, target)
+        self.assertTrue(buildable)
+        self.assertEqual(target["foundation"], "sibling")
+        self.assertNotEqual(target["foundation_sha256"], "old")
+        for wrong in ({"id": "other", "manifest": "manifest.json"},):
+            with self.assertRaises(SystemExit):
+                self.check(own, {"foundation": wrong}, dict(target))
+        with self.assertRaises(SystemExit):
+            self.check({**own, "sdk": "sdk-2"}, {"foundation": {"id": "sibling", "manifest": "manifest.json"}}, dict(target))
+
+
 class Boards(unittest.TestCase):
     CONFIG = {"sources": [{"id": "policy"}, {"id": "netlist"}, {"id": "peripherals"}], "board": {"source": "netlist"},
               "board_rules": ["debug", "general", "console", "button"],

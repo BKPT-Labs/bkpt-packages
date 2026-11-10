@@ -252,14 +252,23 @@ class Retarget:
 
 
 def foundation(target, inventory_config, recipe, config, source_root):
-    """The graph names a project foundation by hash. A part or board that
-    foundation does not list can be allocated and never built, and the target
-    must say so instead of looking buildable."""
-    path = source_root / inventory_config["foundation_manifest"]
-    if inventory.sha256(path.read_bytes()) != target["foundation_sha256"]:
-        raise SystemExit("the configured foundation manifest is not the one the graph names")
+    """The graph names a project foundation by hash. A recipe may name the
+    foundation of its own part and board: the same captured startup and clock
+    profile under another identity. A part or board no foundation lists can be
+    allocated and never built, and the target must say so instead of looking
+    buildable."""
+    own = recipe.get("foundation")
+    path = source_root / (own["manifest"] if own else inventory_config["foundation_manifest"])
     manifest = load(path)
-    if target["part"] in manifest["parts"] and target["board"] in manifest["boards"]:
+    if own:
+        # The engine checks the graph against the foundation by this id and hash.
+        if manifest["id"] != own["id"] or manifest["sdk"] != target["sdk"]:
+            raise SystemExit("the recipe's foundation is not the manifest it points at, or is for another SDK")
+        target.update(foundation=manifest["id"], foundation_sha256=inventory.sha256(path.read_bytes()))
+    if inventory.sha256(path.read_bytes()) != target["foundation_sha256"] or manifest["id"] != target["foundation"]:
+        raise SystemExit("the configured foundation manifest is not the one the graph names")
+    # A foundation that names no board serves every board of its parts.
+    if target["part"] in manifest["parts"] and (not manifest["boards"] or target["board"] in manifest["boards"]):
         if recipe.get("allocation_only"):
             raise SystemExit("the foundation lists this part and board; the recipe must not call the target allocation only")
         return True
