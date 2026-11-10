@@ -33,6 +33,11 @@ class Located:
 def parse(source) -> Located:
     """Parse a pinned source (anything with `.id` and `.lines`) as JSON."""
     text = "\n".join(source.lines)
+    try:
+        # The located reader below is lenient; strict JSON is checked first.
+        json.loads(text)
+    except ValueError as error:
+        raise SystemExit(f"{source.id}: not valid JSON: {error}")
     starts = [0]
     for index, character in enumerate(text):
         if character == "\n":

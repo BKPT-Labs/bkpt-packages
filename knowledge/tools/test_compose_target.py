@@ -43,7 +43,7 @@ BASE = {
     "implementations": [{"id": "card", "target": "OLD", "evidence": ["kept"]}],
 }
 RECIPE = {"target": {"id": "NEW", "board": "mine", "part": "PART-C", "package": "SMALL", "resource_prefix": "PART-C"}}
-INVENTORY = {"resource_prefix": "PART-R", "target": "OLD"}
+INVENTORY = {"resource_prefix": "PART-R", "target": "OLD", "pinout": {"source": "pinout", "identifying": ["die_pad"]}}
 SMALL = '{\n  "die_pads": {\n    "PA1": {\n      "type": "gpio", "port": "A", "index": 1\n    }\n  }\n}\n'
 
 
@@ -55,10 +55,17 @@ def retargeted(recipe=RECIPE):
 
 class Relocated(unittest.TestCase):
     def test_cited_lines_are_found_only_when_they_appear_exactly_once(self):
-        old = source("a\nPA5 {\n  x\n}\nz\n")
-        self.assertEqual(compose.relocate(evidence(2, 4), old, source("q\nq\nPA5 {\n  x\n}\n")), 3)
-        self.assertIsNone(compose.relocate(evidence(2, 4), old, source("PA5 {\n  y\n}\n")))
-        self.assertIsNone(compose.relocate(evidence(2, 4), old, source("PA5 {\n  x\n}\nPA5 {\n  x\n}\n")))
+        old = source('a\n{\n  "die_pad": "PA5",\n  "id": "AF5"\n}\nz\n')
+        block = '{\n  "die_pad": "PA5",\n  "id": "AF5"\n}\n'
+        self.assertEqual(compose.relocate(evidence(2, 5), old, source("q\nq\n" + block), ["die_pad"]), 3)
+        self.assertIsNone(compose.relocate(evidence(2, 5), old, source(block.replace("AF5", "AF6")), ["die_pad"]))
+        self.assertIsNone(compose.relocate(evidence(2, 5), old, source(block + block), ["die_pad"]))
+
+    def test_lines_that_do_not_say_what_they_are_about_cannot_move(self):
+        old = source('{\n  "die_pad": "PA5",\n  "position": "15"\n}\n')
+        other = source('{\n  "die_pad": "PB9",\n  "position": "15"\n}\n')
+        self.assertIsNone(compose.relocate(evidence(3, 3), old, other, ["die_pad"]))
+        self.assertIsNone(compose.relocate(evidence(1, 4), old, other, ["die_pad"]))
 
 
 class Retargeted(unittest.TestCase):
@@ -85,6 +92,25 @@ class Retargeted(unittest.TestCase):
         self.assertNotIn("package_position", value["resources"][1]["attributes"])
         self.assertEqual(subject.report["removed_pads"], ["PA9"])
 
+    def test_a_capability_that_needs_a_removed_pad_must_be_dropped_by_name(self):
+        def fixed(recipe):
+            subject = retargeted(recipe)
+            subject.value["capabilities"].append({
+                "id": "fixed", "target": "NEW", "evidence": ["kept"], "parameters": {}, "implementations": ["only-fixed"],
+                "roles": [{"id": "pin", "kind": "pin", "attributes": {"pin": "PA9"}}]})
+            subject.value["capabilities"][0]["implementations"] = ["card"]
+            subject.value["implementations"].append({"id": "only-fixed", "target": "NEW", "evidence": ["kept"]})
+            subject.pads(source(SMALL), "P{port}{index}")
+            return subject
+        with self.assertRaises(SystemExit) as refused:
+            fixed(RECIPE)
+        self.assertIn("fixed", str(refused.exception))
+        subject = fixed({**RECIPE, "drop_capabilities": ["fixed"]})
+        self.assertEqual([c["id"] for c in subject.value["capabilities"]], ["output"])
+        self.assertEqual([c["id"] for c in subject.value["implementations"]], ["card"])
+        with self.assertRaises(SystemExit):
+            fixed({**RECIPE, "drop_capabilities": ["fixed", "output"]})
+
     def test_a_dropped_citation_must_not_leave_a_record_without_a_source(self):
         subject = retargeted()
         subject.drop("board-only")
@@ -92,6 +118,34 @@ class Retargeted(unittest.TestCase):
         with self.assertRaises(SystemExit) as refused:
             subject.settle()
         self.assertIn("PART-C.PA9", str(refused.exception))
+
+    def test_a_service_left_without_a_source_is_refused_too(self):
+        subject = retargeted()
+        subject.value["targets"][0]["services"] = [{"id": "timebase", "evidence": ["board-only"]}]
+        subject.value["resources"][2]["evidence"].append("kept")
+        subject.drop("board-only")
+        with self.assertRaises(SystemExit) as refused:
+            subject.settle()
+        self.assertIn("timebase", str(refused.exception))
+
+    def test_a_record_that_left_the_graph_takes_its_pending_replacement_with_it(self):
+        subject = retargeted()
+        subject.drop("board-only", ["never-made"])
+        subject.pads(source(SMALL), "P{port}{index}")
+        subject.value["targets"][0]["evidence"].append("kept")
+        with self.assertRaises(SystemExit) as refused:
+            subject.settle()
+        self.assertIn("never-made", str(refused.exception))
+        subject.pending = {key: value for key, value in subject.pending.items() if key[0] != "targets"}
+        subject.settle()
+
+    def test_sources_nothing_cites_any_more_leave_the_graph(self):
+        subject = retargeted()
+        subject.value["sources"] = [{"id": "manual"}, {"id": "board"}]
+        subject.drop("board-only", None)
+        subject.value["resources"][2]["evidence"].append("kept")
+        subject.settle()
+        self.assertEqual(subject.value["sources"], [{"id": "manual"}])
 
     def test_a_replacement_is_added_once_it_exists_and_refused_when_it_does_not(self):
         subject = retargeted()
@@ -112,7 +166,8 @@ class Retargeted(unittest.TestCase):
 
 
 class Boards(unittest.TestCase):
-    CONFIG = {"sources": [{"id": "policy"}, {"id": "netlist"}], "board": {"source": "netlist"},
+    CONFIG = {"sources": [{"id": "policy"}, {"id": "netlist"}, {"id": "peripherals"}], "board": {"source": "netlist"},
+              "board_rules": ["debug", "general", "console", "button"],
               "gpio_interrupt": {"feature_pads": {"PC13": {}}},
               "profiles": [{"capabilities": ["uart"], "extra_pads": {"PA2": "console"}}],
               "assumption": "Follows the netlist.", "assumption_replacements": [["a", "b"]]}
@@ -121,7 +176,7 @@ class Boards(unittest.TestCase):
         config = copy.deepcopy(self.CONFIG)
         compose.apply_board(config, {"schema": 1, "sources": [{"id": "description"}], "policy": {"lines": {}},
                                      "board": {"kind": "declared", "source": "description"}, "assumption": "Declared."})
-        self.assertEqual([entry["id"] for entry in config["sources"]], ["policy", "description"])
+        self.assertEqual([entry["id"] for entry in config["sources"]], ["policy", "peripherals", "description"])
         self.assertEqual(config["gpio_interrupt"]["feature_pads"], {})
         self.assertNotIn("extra_pads", config["profiles"][0])
         self.assertEqual((config["assumption"], config["assumption_replacements"]), ("Declared.", [["a", "b"]]))
@@ -131,9 +186,23 @@ class Boards(unittest.TestCase):
             with self.assertRaises(SystemExit, msg=key):
                 compose.apply_board(copy.deepcopy(self.CONFIG), {"board": {}, "assumption": "x", key: []})
 
-    def declared(self, description):
+    def test_a_board_cannot_replace_a_chip_source_bring_a_chip_rule_or_write_a_chip_fact(self):
+        board = {"board": {"kind": "declared", "source": "description"}, "assumption": "Declared."}
+        feature = {"policy": "button", "attributes": {"board_feature": "button"}, "circuit": [{"net": "3V3", "member": ["B1", "3"]}]}
+        compose.apply_board(copy.deepcopy(self.CONFIG), {**board, "feature_pads": {"PC13": feature}})
+        for change in ({"sources": [{"id": "peripherals"}]},
+                       {"sources": [{"id": "pinout"}]},
+                       {"policy": {"lines": {"functions": 3}}},
+                       {"profile_pads": {"uart": {"PA2": "functions"}}},
+                       {"feature_pads": {"PC13": {**feature, "attributes": {"port_symbol": "HAL_GPIOA"}}}},
+                       {"feature_pads": {"PC13": {**feature, "policy": "functions"}}},
+                       {"feature_pads": {"PC13": {**feature, "circuit": []}}}):
+            with self.assertRaises(SystemExit, msg=change):
+                compose.apply_board(copy.deepcopy(self.CONFIG), {**board, **change}, {"pinout"})
+
+    def declared(self, description, withheld=()):
         subject = object.__new__(domains.Domains)
-        sources = {"description": source(description, "description"),
+        sources = {"description": source(description, "description"), "notes": source("PH2 keeps its state.\n", "notes"),
                    "policy": source("Debug: reserved.\nGeneral: free.\nBoot: kept out.\n", "policy")}
         base = {"evidence": [], "edges": [], "resources": [
             {"id": f"PART.{pin}", "kind": "pin", "attributes": {}, "evidence": []} for pin in ("PA1", "PA13", "PH2")]}
@@ -145,11 +214,14 @@ class Boards(unittest.TestCase):
         subject.config = {"general_attribute": {"allocation": "general"},
                           "policy": {"source": "policy", "label": "Policy", "evidence_prefix": "p",
                                      "lines": {"debug": 1, "general": 2, "boot": 3}}}
+        if withheld:
+            subject.config["withheld_pads"] = {"policy": "boot", "pads": list(withheld), "cite": {
+                "id": "datasheet-note", "source": "notes", "start": 1, "end": 1, "statement": "The pad keeps its state."}}
         subject.declared_board({"kind": "declared", "source": "description"})
         return subject
 
     def test_a_declared_board_reserves_excludes_and_frees_the_rest(self):
-        subject = self.declared('{\n  "eligible": "the rest",\n  "reserved": {\n    "PA13": "debug"\n  },\n'
+        subject = self.declared('{\n  "unlisted_pads": "free",\n  "reserved": {\n    "PA13": "debug"\n  },\n'
                                 '  "excluded": {\n    "PH2": "boot"\n  }\n}\n')
         self.assertEqual(subject.eligible, ["PA1"])
         self.assertEqual(subject.target["reservations"], [{"resource": "PART.PA13", "count": 1, "adoptable_by": []}])
@@ -159,8 +231,33 @@ class Boards(unittest.TestCase):
 
     def test_a_declared_board_cannot_name_a_pad_the_package_does_not_bond(self):
         with self.assertRaises(SystemExit) as refused:
-            self.declared('{\n  "eligible": "the rest",\n  "reserved": {\n    "PB7": "debug"\n  },\n  "excluded": {}\n}\n')
+            self.declared('{\n  "unlisted_pads": "free",\n  "reserved": {\n    "PB7": "debug"\n  },\n  "excluded": {}\n}\n')
         self.assertIn("PB7", str(refused.exception))
+
+    def test_a_declared_board_frees_unnamed_pads_only_when_it_says_so_in_the_one_understood_way(self):
+        for statement in ('"unlisted_pads": "unavailable"', '"unlisted_pads": false', '"eligible": "the rest"',
+                          '"unlisted_pads": "free",\n  "note": "but not PA1"'):
+            with self.assertRaises(SystemExit, msg=statement):
+                self.declared('{\n  ' + statement + ',\n  "reserved": {},\n  "excluded": {}\n}\n')
+
+    def test_a_pad_the_chip_withholds_stays_out_whatever_the_board_says(self):
+        subject = self.declared('{\n  "unlisted_pads": "free",\n  "reserved": {\n    "PA13": "debug"\n  },\n  "excluded": {}\n}\n',
+                                withheld=["PH2"])
+        self.assertEqual(subject.eligible, ["PA1"])
+        record = next(r for r in subject.value["resources"] if r["id"] == "PART.PH2")
+        self.assertEqual((record["attributes"], record["evidence"]), ({}, ["p-boot", "datasheet-note", "board-eligible"]))
+
+    def test_the_board_must_reserve_every_pad_the_foundation_uses(self):
+        subject = self.declared('{\n  "unlisted_pads": "free",\n  "reserved": {\n    "PA13": "debug"\n  },\n  "excluded": {}\n}\n')
+        subject.value["edges"] = [
+            {"id": "route.SWDIO.PA13", "relation": "signal", "to": "PART.PA13", "attributes": {"signal": "SWDIO"}},
+            {"id": "route.OSC.PA1", "relation": "signal", "to": "PART.PA1", "attributes": {"signal": "OSC"}}]
+        subject.config["foundation_signals"] = {"policy": "debug", "signals": ["SWDIO"]}
+        subject.foundation_pads()
+        subject.config["foundation_signals"]["signals"] = ["SWDIO", "OSC"]
+        with self.assertRaises(SystemExit) as refused:
+            subject.foundation_pads()
+        self.assertIn("OSC on PA1", str(refused.exception))
 
 
 if __name__ == "__main__":

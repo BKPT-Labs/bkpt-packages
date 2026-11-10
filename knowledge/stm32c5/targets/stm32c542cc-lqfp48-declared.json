@@ -69,5 +69,6 @@
         "statement": "Exact mapped LQFP48 pinout declares I2C1_SDA on PB9 AF4; datasheet separately establishes FT_f pad."
       }
     }
-  }
+  },
+  "allocation_only": true
 }

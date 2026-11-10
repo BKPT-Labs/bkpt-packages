@@ -191,7 +191,7 @@ def domains_under_test(functions=None, low=LOW, high=HIGH, table=TABLE):
     subject.graph = inventory.Graph(base, "board", sources)
     subject.sources, subject.value, subject.prefix, subject.conditions = sources, base, "PART", {}
     subject.policy_source = sources["policy"]
-    subject.unbonded = set()
+    subject.unbonded, subject.composed, subject.narrowed = set(), False, []
     subject.config = {
         "policy": {"source": "policy", "label": "Policy", "evidence_prefix": "policy3",
                    "lines": {"functions": 1, "requests": 2, "symbols": 3, "general": 4, "allocation": 5}},
@@ -274,7 +274,7 @@ class Functions(unittest.TestCase):
 
     def test_a_smaller_package_reports_the_signals_it_does_not_bond(self):
         subject = domains_under_test()
-        subject.config["unbonded_signals"] = "report"
+        subject.composed = True
         subject.value["edges"] = [edge for edge in subject.value["edges"] if edge["attributes"]["signal"] != "BUS2_CLK"]
         self.assertEqual(subject.route_marks(), {"function=bus_clock": 1, "function=bus_tx": 1})
         self.assertEqual(subject.unbonded, {"BUS2_CLK"})
@@ -416,25 +416,54 @@ CLASS = {"kind": "serial_bus", "policy": "general",
          "signal_marks": [{"id": "T(X)", "policy": "general", "attributes": {"lane": "lane-{0}"}}]}
 
 
-def classes_under_test(peripherals=None, die="D1", part="PART-X", high=HIGH, cls=CLASS):
+PACK = """<subFamily DsubFamily="ONE">
+  <descriptor schemaType="peripherals" path="Descriptors/peripherals/D1_peripherals.json"/>
+  <descriptor schemaType="limitations" path="Descriptors/limitations/D1_limitations.json"/>
+  <device Dname="PART">
+    <feature type="QFP" name="QFP 48 7x7 mm" n="48"/>
+    <variant Dvariant="PART-X">
+      <descriptor schemaType="pinout" path="Descriptors/pinout/PART_48_pinout.json"/>
+    </variant>
+    <variant Dvariant="PART-Y">
+      <feature type="Temp" n="-40" m="85"/>
+    </variant>
+  </device>
+</subFamily>
+<subFamily DsubFamily="TWO">
+  <descriptor schemaType="peripherals" path="Descriptors/peripherals/D2_peripherals.json"/>
+  <descriptor schemaType="limitations" path="Descriptors/limitations/D2_limitations.json"/>
+  <device Dname="OTHER">
+    <feature type="QFP" name="QFP 48 7x7 mm" n="48"/>
+    <variant Dvariant="OTHER-X">
+    </variant>
+  </device>
+</subFamily>
+"""
+
+
+def classes_under_test(peripherals=None, descriptor_file="D1_peripherals.json", part="PART-X", high=HIGH, cls=CLASS):
     subject = domains_under_test(high=high)
     peripherals = peripherals or [peripheral("BUS1"), peripheral("BUS2"), peripheral("BUS3", 2.0),
                                   peripheral("BUS4"), peripheral("SLOW1", kind="slow")]
     subject.sources.update(
         svd=source(SVD, "svd"),
         peripherals=source(json.dumps({"peripherals": peripherals}, indent=1, sort_keys=True), "peripherals"),
-        limitations=source(json.dumps({"limitations": {"PART-X": {"removed_peripherals": ["BUS1"]}}}, indent=1), "limitations"),
-        pinout=source(json.dumps({"characteristics": {"die_name": "D1"}}, indent=1), "pinout"),
-        listing=source('<variant Dvariant="PART-X"/>\n<variant Dvariant="PART-Y"/>\n', "listing"),
+        limitations=source(json.dumps({"limitations": {"PART-X": {"removed_peripherals": ["BUS1"]},
+                                                      "PART-Y": {"removed_peripherals": []},
+                                                      "OTHER-X": {"removed_peripherals": []}}}, indent=1), "limitations"),
+        pinout=source(json.dumps({"characteristics": {"die_name": "D1", "package_name": "QFP48"}}, indent=1), "pinout"),
+        listing=source(PACK, "listing"),
         policy=source(POLICY + "Roles: in the Wire protocol CLK is bus_clock.\n", "policy"))
     subject.policy_source = subject.sources["policy"]
     subject.config["policy"]["lines"]["roles"] = 6
     subject.blocks = None
-    subject.target = {"id": "board", "part": part, "evidence": [], "reservations": []}
+    subject.target = {"id": "board", "part": part, "package": "QFP48", "evidence": [], "reservations": []}
+    subject.value["sources"] = [{"id": "peripherals", "path": "pack/" + descriptor_file},
+                                {"id": "limitations", "path": "pack/D1_limitations.json"}]
     subject.value["resources"].append({"id": "PART.BUS2.irq", "kind": "interrupt", "attributes": {"irq_number": "8"}, "evidence": []})
     subject.config["device_description"] = {"source": "svd", "unpromoted_kind": "bus"}
-    subject.config["peripherals"] = {"source": "peripherals", "limitations": "limitations", "pinout": "pinout", "die": die,
-                                     "part_listing": {"source": "listing", "pattern": 'Dvariant="{part}"'}}
+    subject.config["peripherals"] = {"source": "peripherals", "limitations": "limitations", "pinout": "pinout",
+                                     "pack_description": "listing", "die_in_path": "{die}_"}
     subject.config["instance_classes"] = [cls]
     return subject
 
@@ -450,7 +479,7 @@ class Descriptors(unittest.TestCase):
         self.assertEqual((root["flag"].start, root.get("absent")), (9, None))
 
     def test_a_repeated_member_or_trailing_text_is_refused(self):
-        for text in ('{"a": 1, "a": 2}', '{"a": 1} x', '{"a": '):
+        for text in ('{"a": 1, "a": 2}', '{"a": 1} x', '{"a": ', '[01]', '[1 2]', '[1,]', '{"a": 1 "b": 2}', '{1: 2}'):
             with self.assertRaises(SystemExit, msg=text):
                 descriptor.parse(source(text))
 
@@ -473,12 +502,33 @@ class Classes(unittest.TestCase):
         self.assertEqual((request["attributes"]["selector"], request["evidence"][0]), ("4", "declared-dma-request-BUS2-rx"))
         self.assertEqual(subject.unbonded, {"BUS2_TX"})
 
-    def test_the_package_die_and_the_part_must_be_the_ones_configured(self):
-        with self.assertRaises(SystemExit) as refused:
-            classes_under_test(die="D2").classes()
-        self.assertIn("die D1", str(refused.exception))
+    def test_the_pack_must_tie_the_part_to_the_package_and_descriptors_in_use(self):
         with self.assertRaises(SystemExit):
             classes_under_test(part="PART-Z").classes()
+        with self.assertRaises(SystemExit) as refused:
+            classes_under_test(part="OTHER-X").classes()
+        self.assertIn("peripherals descriptor D1_peripherals.json", str(refused.exception))
+        with self.assertRaises(SystemExit) as refused:
+            classes_under_test(descriptor_file="D2_peripherals.json").classes()
+        self.assertIn("D2_peripherals.json", str(refused.exception))
+        subject = classes_under_test()
+        subject.target["package"] = "QFP64"
+        with self.assertRaises(SystemExit) as refused:
+            subject.classes()
+        self.assertIn("QFP64", str(refused.exception))
+        subject = classes_under_test()
+        subject.config["peripherals"]["pinout_file"] = "PART_64_pinout.json"
+        with self.assertRaises(SystemExit) as refused:
+            subject.classes()
+        self.assertIn("PART_64_pinout.json", str(refused.exception))
+
+    def test_a_part_the_limitations_do_not_list_is_unknown_not_unrestricted(self):
+        subject = classes_under_test()
+        subject.sources["limitations"] = source(json.dumps({"limitations": {"PART-Y": {"removed_peripherals": []}}}, indent=1),
+                                                "limitations")
+        with self.assertRaises(SystemExit) as refused:
+            subject.classes()
+        self.assertIn("does not list PART-X", str(refused.exception))
 
     def test_a_part_without_listed_removals_keeps_every_instance(self):
         subject = classes_under_test(part="PART-Y", high=HIGH + "  HAL_DMA1_REQUEST_BUS1_RX = LL_DMA1_REQUEST_BUS1_RX, /*!< rx */\n")

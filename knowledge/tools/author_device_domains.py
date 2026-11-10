@@ -121,6 +121,8 @@ class Domains:
         self.signals = [value for _, _, value, _ in inventory.children(pinout, "signals")]
         self.blocks = None
         self.unbonded = set()
+        self.composed = bool(config.get("composed"))
+        self.narrowed = []
 
     def pad_name(self, pad):
         return self.pad_template.format(port=pad["port"], index=pad["index"])
@@ -184,6 +186,35 @@ class Domains:
         if not held:
             self.target["reservations"].append({"resource": record["id"], "count": 1, "adoptable_by": []})
 
+    def withheld(self, pin, record):
+        """A pad the chip family keeps out of general allocation on every
+        board, with the manufacturer statement that is the reason."""
+        spec = self.config.get("withheld_pads")
+        if not spec or pin not in spec["pads"]:
+            return False
+        cite = spec["cite"]
+        extend(record, [self.policy(spec["policy"]),
+                        self.graph.cite(cite["id"], self.source(cite["source"]), cite["start"], cite["end"], cite["statement"])])
+        return True
+
+    def foundation_pads(self):
+        """Pads the project foundation uses must be reserved by whatever board
+        is applied. A board may add restrictions; it cannot omit these."""
+        spec = self.config.get("foundation_signals")
+        if not spec:
+            return
+        rule = self.policy(spec["policy"])
+        reserved = {entry["resource"] for entry in self.target["reservations"] if not entry["adoptable_by"]}
+        for signal in spec["signals"]:
+            pads = sorted(edge["to"] for edge in self.value["edges"]
+                          if edge["relation"] == "signal" and edge["attributes"]["signal"] == signal)
+            if not pads:
+                raise SystemExit(f"the foundation needs {signal}, which this package does not route")
+            missing = [self.name(pad) for pad in pads if pad not in reserved]
+            if missing:
+                raise SystemExit(f"the foundation needs {signal} on {', '.join(missing)}; the board does not reserve it")
+        extend(self.target, [rule])
+
     def declared_board(self, spec):
         """A board described by its owner: the pads it occupies, the pads it
         keeps out, and its statement that every other pad is free. Nothing in
@@ -197,7 +228,11 @@ class Domains:
         unknown = sorted((set(reserved) | set(excluded)) - names)
         if unknown:
             raise SystemExit(f"the board description names pads this package does not bond: {unknown}")
-        rule_line = description.find(r'^\s*"eligible"\s*:')
+        if stated.get("unlisted_pads") != "free" or set(stated) - {"board", "unlisted_pads", "reserved", "excluded"}:
+            # Only one statement about unnamed pads is understood. Anything
+            # else is refused, never read as permission.
+            raise SystemExit('a board description must say "unlisted_pads": "free" and nothing this tool does not understand')
+        rule_line = description.find(r'^\s*"unlisted_pads"\s*:')
         self.eligible, self.net_cite = [], {}
         for pin in sorted(names):
             record = self.resource(pin)
@@ -217,6 +252,9 @@ class Domains:
                 "board-eligible", description, rule_line, rule_line,
                 "The board description states that every pad it does not name is free. The owner's statement, not a verified fact.")
             self.net_cite[pin] = cite
+            if self.withheld(pin, record):
+                extend(record, [cite])
+                continue
             record["attributes"].update(self.config["general_attribute"])
             extend(record, [cite, self.policy("general")])
             self.eligible.append(pin)
@@ -259,7 +297,9 @@ class Domains:
             if label in spec["excluded_nets"]:
                 extend(record, [cite, self.policy(spec["excluded_nets"][label])])
                 continue
-            if all(passive.fullmatch(reference) for reference in others):
+            if self.withheld(pin, record):
+                extend(record, [cite])
+            elif all(passive.fullmatch(reference) for reference in others):
                 record["attributes"].update(self.config["general_attribute"])
                 extend(record, [cite, self.policy("general")])
                 self.eligible.append(pin)
@@ -291,9 +331,16 @@ class Domains:
         """Keep the reviewed order of existing choices, then add the rest."""
         values = capability["parameters"][parameter]["values"]
         missing = [pin for pin in values if pin not in pins]
-        if missing:
+        if missing and not self.composed:
             raise SystemExit(f"{capability['id']}: reviewed choices left the domain: {missing}")
+        if missing:
+            # Another package or board may withhold a reviewed choice; the
+            # rest of the domain still stands, and the loss is reported.
+            values[:] = [pin for pin in values if pin in pins]
+            self.narrowed.append(f"{capability['id']}.{parameter} lost {', '.join(missing)}")
         values.extend(pin for pin in pins if pin not in values)
+        if not values:
+            raise SystemExit(f"{capability['id']}: no choice is left for {parameter}")
         if len(values) > 128:
             raise SystemExit("choice domain exceeds 128 values")
 
@@ -415,7 +462,7 @@ class Domains:
                 count[value] = count.get(value, 0) + 1
                 seen.add(signal)
             missing = sorted(set(values) - seen)
-            if missing and self.config.get("unbonded_signals") != "report":
+            if missing and not self.composed:
                 raise SystemExit(f"configured signals {missing} have no route to mark with {attribute}")
             # A signal belongs to the die; a smaller package of the same die
             # bonds fewer of them. A composed target reports those instead.
@@ -558,15 +605,75 @@ class Domains:
         the pack description does not list is refused, so a misspelt part
         cannot pass as a part without removals."""
         part = self.target["part"]
-        listing = spec["part_listing"]
-        self.source(listing["source"]).find(re.escape(listing["pattern"].format(part=part)))
         located = descriptor.parse(self.source(spec["limitations"]))["limitations"]
         entry = located.get(part)
         if entry is None:
-            return {}
+            # The descriptor lists unrestricted parts with empty removals, so
+            # an absent part is unknown, not unrestricted.
+            raise SystemExit(f"the limitations descriptor does not list {part}")
         cite = self.graph.cite(f"limited-{part}", self.source(spec["limitations"]), entry.start, entry.end,
                                f"Limitations descriptor lists what is removed for {part}.")
         return {name: cite for name in entry.value["removed_peripherals"]}
+
+    def pack(self, spec):
+        """The pack description is what ties a part to its package and to the
+        descriptors of its die. Every input in use must be the one the pack
+        names for this part; a part merely present in the pack is not enough."""
+        pack, part = self.source(spec["pack_description"]), self.target["part"]
+        variant = pack.find(re.escape(f'<variant Dvariant="{part}">'))
+        close = next(n for n in range(variant, len(pack.lines) + 1) if pack.lines[n - 1].strip() == "</variant>")
+        # What a variant does not state itself, its device entry states for
+        # all its variants; the other variants' own lines are not this part's.
+        first = max(n for n in range(1, variant) if "<device " in pack.lines[n - 1])
+        last = next(n for n in range(variant, len(pack.lines) + 1) if pack.lines[n - 1].strip() == "</device>")
+        shared, inside = [], False
+        for line in pack.lines[first - 1:last]:
+            inside = inside or "<variant " in line
+            if not inside:
+                shared.append(line)
+            inside = inside and "</variant>" not in line
+        block = "\n".join([*pack.lines[variant - 1:close], *shared])
+        package = re.search(r'<feature type="[A-Za-z]+" name="([A-Za-z]+) (\d+)', block)
+        pinout = descriptor.parse(self.source(spec["pinout"]))["characteristics"].value
+        if not package or package.group(1) + package.group(2) != self.target["package"] \
+                or pinout["package_name"] != self.target["package"]:
+            raise SystemExit(f"the pack and the pinout descriptor do not both give {part} the package {self.target['package']}")
+        named = re.search(r'schemaType="pinout" path="[^"]*/([^"/]+)"', block)
+        if "pinout_file" in spec and (not named or named.group(1) != spec["pinout_file"]):
+            raise SystemExit(f"the pack does not give {part} the pinout descriptor {spec['pinout_file']}")
+        opened = max(n for n in range(1, variant) if "<subFamily " in pack.lines[n - 1])
+        closed = next(n for n in range(variant, len(pack.lines) + 1) if "</subFamily>" in pack.lines[n - 1])
+        family = "\n".join(pack.lines[opened - 1:closed])
+        for kind, key in (("peripherals", "source"), ("limitations", "limitations")):
+            name = pathlib.PurePosixPath(find(self.value["sources"], spec[key])["path"]).name
+            if not re.search(rf'schemaType="{kind}" path="[^"]*/{re.escape(name)}"', family):
+                raise SystemExit(f"the pack does not give {part} the {kind} descriptor {name}")
+        if spec["die_in_path"].format(die=pinout["die_name"]) not in find(self.value["sources"], spec["source"])["path"]:
+            raise SystemExit(f"this package is die {pinout['die_name']}; the peripherals descriptor is for another die")
+        self.graph.cite(f"pack-variant-{part}", pack, variant, close,
+                        f"Pack description declares variant {part} with its package and pinout descriptor.")
+        extend(self.target, [f"pack-variant-{part}"])
+
+    def supersede(self):
+        """Older policy texts limit themselves to one part, package, board and
+        a few pads. Records that still cite them for what they say about
+        ownership also cite the rule that replaces those limits."""
+        spec = self.config.get("supersedes")
+        if not spec:
+            return
+        rule = self.policy(spec["policy"])
+        for section in ("targets", "resources", "edges", "capabilities", "implementations"):
+            for record in self.value[section]:
+                for holder in [record, *record.get("services", [])]:
+                    if set(spec["evidence"]) & set(holder["evidence"]):
+                        extend(holder, [rule])
+
+    def restatements(self):
+        """Card wording a widening made untrue, restated by exact replacement."""
+        for spec in self.config.get("restatements", []):
+            card = find(self.value["implementations"], spec["implementation"])
+            card["guidance"] = restate(card["id"], card["guidance"], spec["guidance"])
+            extend(card, [self.policy(spec["policy"])])
 
     def classes(self):
         """Promote every instance of a covered peripheral class.
@@ -580,10 +687,7 @@ class Domains:
         reported and left alone."""
         spec = self.config["peripherals"]
         source = self.source(spec["source"])
-        pinout = descriptor.parse(self.source(spec["pinout"]))
-        die = pinout["characteristics"].value["die_name"]
-        if die != spec["die"]:
-            raise SystemExit(f"this package is die {die}; the peripherals descriptor configured is for die {spec['die']}")
+        self.pack(spec)
         entries = {entry.value["name"]: entry for entry in descriptor.parse(source)["peripherals"]}
         removed = self.removed(spec)
         promoted, skipped = [], {}
@@ -741,13 +845,17 @@ class Domains:
                             if resource["kind"] == record["kind"] and record["attributes"]
                             and all(resource["attributes"].get(key) == value
                                     for key, value in record["attributes"].items())]
-                if len(reviewed) != 1:
-                    raise SystemExit(f"{capability['id']}.{role}: no single reviewed resource to keep as first choice")
-                record["prefer"] = reviewed
                 record["attributes"] = {} if role == instance["role"] else dict(marker)
-                first = find(self.value["resources"], reviewed[0])
-                if any(first["attributes"].get(key) != value for key, value in record["attributes"].items()):
-                    raise SystemExit(f"{capability['id']}.{role}: the reviewed {self.name(reviewed[0])} is outside the new domain")
+                kept = [name for name in reviewed
+                        if all(find(self.value["resources"], name)["attributes"].get(key) == value
+                               for key, value in record["attributes"].items())]
+                if len(reviewed) == 1 and kept:
+                    record["prefer"] = kept
+                elif self.composed and len(reviewed) <= 1:
+                    # The reviewed first choice is not available on this package or board.
+                    self.narrowed.append(f"{capability['id']}.{role} has no reviewed first choice here")
+                else:
+                    raise SystemExit(f"{capability['id']}.{role}: no single reviewed resource in the new domain to keep as first choice")
             for role, binding in spec["roles"].items():
                 links = [link for link in capability["links"] if link["from"] == binding["from"] and link["to"] == role]
                 if len(links) != 1:
@@ -886,6 +994,7 @@ def run(graph, sources, summary, inventory_config, config, source_root):
     """The domains stage over a graph the inventory stage has filled."""
     domains = Domains(graph, sources, inventory_config, config, source_root)
     domains.board()
+    domains.foundation_pads()
     summary["general_allocation_pads"] = len(domains.eligible)
     summary["gpio_output_pads"] = domains.gpio_output()
     summary["gpio_interrupt_pads"] = domains.gpio_interrupt()
@@ -898,8 +1007,12 @@ def run(graph, sources, summary, inventory_config, config, source_root):
     summary["profiles"] = [domains.profile(spec) for spec in config["profiles"]]
     summary["allocations"] = {spec["capability"]: domains.allocation(spec) for spec in config.get("allocations", [])}
     summary["reservations"] = [domains.name(record["resource"]) for record in domains.target["reservations"]]
+    domains.restatements()
+    domains.supersede()
     if domains.unbonded:
         summary["unbonded_signals"] = sorted(domains.unbonded)
+    if domains.narrowed:
+        summary["narrowed"] = domains.narrowed
     return summary
 
 

@@ -8,12 +8,14 @@
   "target": "NUCLEO-C542RC",
   "resource_prefix": "STM32C542RCT6",
   "pad_name": "P{port}{index}",
+  "foundation_manifest": "evaluations/bkpt-ai/workflow-efficiency/candidate/foundations/c5-hal2-minimal-1/manifest.json",
   "conditions": {
     "foundation_profile": "c5-hal2-minimal-1",
     "operation_mode": "run"
   },
   "pinout": {
-    "source": "pinout"
+    "source": "pinout",
+    "identifying": ["die_pad"]
   },
   "excluded_signals": [
     {

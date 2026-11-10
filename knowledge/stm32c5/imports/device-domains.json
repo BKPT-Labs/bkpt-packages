@@ -60,6 +60,12 @@
       "path": "architecture/sources/stm32c5-dfp-2.1.0/limitations/D44F_limitations.json",
       "revision": "ST DFP 2.1.0, die 44F",
       "authority": "manufacturer_machine_readable"
+    },
+    {
+      "id": "datasheet-pin-notes",
+      "path": "architecture/sources/documents/DS15135-rev2-page45-pin-notes-extracted.txt",
+      "revision": "DS15135 Rev 2, page 45",
+      "authority": "manufacturer_document_text_extraction"
     }
   ],
   "policy": {
@@ -83,9 +89,20 @@
       "dma_requests": 17,
       "user_button": 18,
       "timer_channels": 19,
-      "analog_inputs": 20
+      "analog_inputs": 20,
+      "backup_domain": 21,
+      "supersedes": 22,
+      "foundation_pads": 23
     }
   },
+  "board_rules": [
+    "debug",
+    "clock",
+    "general",
+    "boot",
+    "console",
+    "user_button"
+  ],
   "board": {
     "source": "board-netlist",
     "device_reference": "U1",
@@ -105,6 +122,30 @@
   "general_attribute": {
     "allocation": "general"
   },
+  "withheld_pads": {
+    "policy": "backup_domain",
+    "pads": [
+      "PC13",
+      "PC14",
+      "PC15"
+    ],
+    "cite": {
+      "id": "ds-backup-domain-pads",
+      "source": "datasheet-pin-notes",
+      "start": 6,
+      "end": 8,
+      "statement": "DS15135 page 45 notes: PC13, PC14 and PC15 depend on RTC registers that a system reset does not clear, and toggling PC13 can disturb a crystal on PC14 and PC15. Text extraction of the notes under the pin table."
+    }
+  },
+  "foundation_signals": {
+    "policy": "foundation_pads",
+    "signals": [
+      "DEBUG_SWDIO",
+      "DEBUG_SWCLK",
+      "RCC_OSC_IN",
+      "RCC_OSC_OUT"
+    ]
+  },
   "gpio_output": {
     "capability": "gpio_output",
     "card": "hal2.gpio-output",
@@ -119,7 +160,7 @@
   "gpio_interrupt": {
     "capability": "gpio_input_interrupt",
     "card": "hal2.gpio-input-interrupt",
-    "description": "Exclusive GPIO input with a dedicated external-line CPU interrupt on any pad eligible for general allocation or on the board user button pad; explicit edge and pull, bounded callback, start, stop and restart. One external line serves the same pad index on every port.",
+    "description": "Exclusive GPIO input with a dedicated external-line CPU interrupt on any pad eligible for general allocation, or on a pad the board names for this use; explicit edge and pull, bounded callback, start, stop and restart. One external line serves the same pad index on every port.",
     "exti_source": "exti-h",
     "port_symbol": "HAL_EXTI_GPIO{port}",
     "line_symbol": "HAL_EXTI_LINE_{index}",
@@ -188,11 +229,8 @@
     "source": "peripherals-descriptor",
     "limitations": "limitations-descriptor",
     "pinout": "pinout",
-    "die": "44F",
-    "part_listing": {
-      "source": "dfp",
-      "pattern": "Dvariant=\"{part}\""
-    }
+    "pack_description": "dfp",
+    "die_in_path": "D{die}_"
   },
   "dma_requests": {
     "policy": "dma_requests",
@@ -801,6 +839,25 @@
         ]
       ],
       "share_instance": true
+    }
+  ],
+  "supersedes": {
+    "policy": "supersedes",
+    "evidence": [
+      "policy-domain",
+      "exti-policy"
+    ]
+  },
+  "restatements": [
+    {
+      "implementation": "hal2.uart-init",
+      "policy": "uart_instances",
+      "guidance": [
+        [
+          "All raw and managed UART profiles reference this shared card; absence means no UART initialization.",
+          "The fixed UART profiles reference this shared card. The managed UART transfer profile initializes a private handle of its own and does not use it. Absence means the captured handle is not initialized."
+        ]
+      ]
     }
   ],
   "assumption": "General allocation follows the board netlist: solder-bridge state, connector use and external circuits are not verified.",
