@@ -86,6 +86,29 @@ automatic package installer yet.
 Reviewed files and their review records are immutable: changing a reviewed graph
 means publishing a new one with a new review, never editing in place.
 
+## Generating a whole-device graph
+
+`tools/` holds the generators that widen a reviewed graph to a whole device. They
+read only pinned sources and a configuration, and every record they write cites
+the lines it came from.
+
+| Tool | What it does |
+| --- | --- |
+| `author_device_inventory.py` | Transcribes pins, signal routes and interrupts from the manufacturer's pinout descriptor, device header and vector table. An inventory records what is declared, not what is usable |
+| `author_device_domains.py` | Decides what a capability may use: allocation rules from the board netlist, instances checked against the device description, DMA request lines checked against the reference manual and the SDK, and the capabilities that are widened or added |
+| `package_candidate.py` | Places a generated graph in a package as a candidate, with the list of every source it pins. BKPT-authored sources are copied in; manufacturer sources are listed by hash only |
+| `test_author_device.py` | Checks for the tools on small synthetic sources |
+
+The chip-specific inputs are `stm32c5/imports/device-inventory.json` and
+`device-domains.json`, together with the policy text the domains configuration
+cites line by line. A rule that is BKPT's own decision, such as which pads may be
+allocated, lives in that policy text and is cited as policy, never as a
+manufacturer statement.
+
+`stm32c5/candidates/device-coverage/` is the output for the STM32C542 on the
+NUCLEO-C542RC: 16 capability profiles on top of the reviewed workflow-efficiency
+graph. It is a candidate. It has no review record and is not accepted.
+
 ## Licensing and third-party content
 
 Files written by BKPT carry the SPDX identifier `LicenseRef-BKPT-Proprietary`.

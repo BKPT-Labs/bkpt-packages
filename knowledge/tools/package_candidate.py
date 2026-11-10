@@ -84,11 +84,15 @@ def main():
         shutil.copyfile(arguments.review, target / "accepted.review.json")
     # Listing a candidate in the manifest does not activate it.
     manifest_path = arguments.package / "knowledge-pack.json"
-    pack = json.loads(manifest_path.read_text(encoding="utf-8"))
+    original = manifest_path.read_bytes().decode("utf-8")
+    pack = json.loads(original)
     listed = f"candidates/{arguments.name}/candidate.json"
     if listed not in pack["candidates"]:
         pack["candidates"].append(listed)
-        manifest_path.write_text(json.dumps(pack, indent=2) + "\n", encoding="utf-8", newline="\n")
+        # Keep the manifest's own line endings so the change is one line.
+        ending = "\r\n" if "\r\n" in original else "\n"
+        text = json.dumps(pack, indent=2) + "\n"
+        manifest_path.write_bytes(text.replace("\n", ending).encode("utf-8"))
     print(json.dumps({"candidate": str(target), "sha256": sha256(data), "owned": len(inputs["owned"]),
                       "external": len(inputs["external"]), "copied": len(copies), "accepted": bool(arguments.review)}, indent=1))
 

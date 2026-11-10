@@ -62,6 +62,7 @@
     "review": "architecture/accepted.review.json"
   },
   "candidates": [
-    "candidates/workflow-efficiency/candidate.json"
+    "candidates/workflow-efficiency/candidate.json",
+    "candidates/device-coverage/candidate.json"
   ]
 }
