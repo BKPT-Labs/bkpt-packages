@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "id": "c5-hal2-minimal-c542cc",
+  "directory": "c5-hal2-minimal-c542cc-1",
+  "base": {
+    "id": "c5-hal2-minimal",
+    "sha256": "1ad793e28e0d712ba6ec6e9eca69594113958bd8061c06d34669c04483974e8e"
+  },
+  "parts": [
+    "STM32C542CCT6"
+  ],
+  "boards": [
+    "declared-stm32c542cc-lqfp48"
+  ],
+  "build_values": {
+    "board": "NUCLEO-C542RC"
+  },
+  "configuration": [
+    "Sibling of c5-hal2-minimal-1 for STM32C542CCT6: every file is byte-identical. Both parts select the STM32C542xx device header, the same startup file and the same 256 KiB flash and 64 KiB RAM linker script. Only this manifest's identity, part, board and literal preset name differ. The captured clock setup needs the same external 24 MHz source."
+  ],
+  "provenance": {
+    "uri": "bkpt-foundation://c5-hal2-minimal-1",
+    "revision": "sibling-part-1",
+    "locator": "manifest.json of the foundation this one copies; files unchanged"
+  },
+  "board_declares": {
+    "clock": {
+      "source": "crystal",
+      "frequency_hz": 24000000
+    }
+  },
+  "notes": [
+    "The captured start-up enables the high-speed external oscillator in crystal mode and derives 144 MHz from a 24 MHz reference. A board with a clock signal instead of a crystal, or another frequency, needs another foundation.",
+    "The preset name and cmake/target.cmake keep the name and revision of the board the files were captured on. They are labels of the capture; no board support code is compiled into the base."
+  ],
+  "sha256": "ff64d35ef8b7be7584c5c6f34fe15430cad1867ff1d1426d8c3dfa4e8d9d7f22"
+}

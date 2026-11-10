@@ -228,10 +228,15 @@ class Domains:
         unknown = sorted((set(reserved) | set(excluded)) - names)
         if unknown:
             raise SystemExit(f"the board description names pads this package does not bond: {unknown}")
-        if stated.get("unlisted_pads") != "free" or set(stated) - {"board", "unlisted_pads", "reserved", "excluded"}:
+        if stated.get("unlisted_pads") != "free" or set(stated) - {
+                "board", "description", "part", "package", "clock", "unlisted_pads", "reserved", "excluded"}:
             # Only one statement about unnamed pads is understood. Anything
             # else is refused, never read as permission.
             raise SystemExit('a board description must say "unlisted_pads": "free" and nothing this tool does not understand')
+        # A description is written for one board carrying one exact part.
+        for key in ("board", "part", "package"):
+            if stated.get(key) != self.target[key]:
+                raise SystemExit(f"the board description is for {key} {stated.get(key)}, not {self.target[key]}")
         rule_line = description.find(r'^\s*"unlisted_pads"\s*:')
         self.eligible, self.net_cite = [], {}
         for pin in sorted(names):

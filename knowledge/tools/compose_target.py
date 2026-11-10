@@ -32,6 +32,7 @@ import sys
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import author_device_domains as domains  # noqa: E402
 import author_device_inventory as inventory  # noqa: E402
+import target_support as support  # noqa: E402
 
 SECTIONS = ("targets", "resources", "edges", "capabilities", "implementations")
 
@@ -251,33 +252,55 @@ class Retarget:
         self.value["sources"] = [source for source in self.value["sources"] if source["id"] in cited]
 
 
-def foundation(target, inventory_config, recipe, config, source_root):
-    """The graph names a project foundation by hash. A recipe may name the
-    foundation of its own part and board: the same captured startup and clock
-    profile under another identity. A part or board no foundation lists can be
-    allocated and never built, and the target must say so instead of looking
-    buildable."""
-    own = recipe.get("foundation")
-    path = source_root / (own["manifest"] if own else inventory_config["foundation_manifest"])
-    manifest = load(path)
-    if own:
+def foundation(target, inventory_config, recipe, config, source_root, record=None):
+    """The reviewed graph names a project foundation by hash, and every clock
+    and startup claim in it was reviewed against that foundation's files. A
+    recipe may give a derivation record: the same files under the identity of
+    its own part and board. The derived manifest is computed here from the
+    reviewed base, so a foundation with other bytes cannot take its place. A
+    part or board no foundation lists can be allocated and never built, and
+    the target must say so instead of looking buildable."""
+    data = (source_root / inventory_config["foundation_manifest"]).read_bytes()
+    manifest = json.loads(data)
+    if inventory.sha256(data) != target["foundation_sha256"] or manifest["id"] != target["foundation"]:
+        raise SystemExit("the configured foundation manifest is not the one the reviewed graph names")
+    if record:
+        data = support.derive_foundation(record, data)
+        manifest = json.loads(data)
         # The engine checks the graph against the foundation by this id and hash.
-        if manifest["id"] != own["id"] or manifest["sdk"] != target["sdk"]:
-            raise SystemExit("the recipe's foundation is not the manifest it points at, or is for another SDK")
-        target.update(foundation=manifest["id"], foundation_sha256=inventory.sha256(path.read_bytes()))
-    if inventory.sha256(path.read_bytes()) != target["foundation_sha256"] or manifest["id"] != target["foundation"]:
-        raise SystemExit("the configured foundation manifest is not the one the graph names")
+        target.update(foundation=manifest["id"], foundation_sha256=inventory.sha256(data))
+    if manifest["sdk"] != target["sdk"]:
+        raise SystemExit(f"foundation {manifest['id']} is for another SDK than the target")
     # A foundation that names no board serves every board of its parts.
-    if target["part"] in manifest["parts"] and (not manifest["boards"] or target["board"] in manifest["boards"]):
+    missing = [f"{kind} {target[kind]}" for kind, listed in (("part", manifest["parts"]), ("board", manifest["boards"] or [target["board"]]))
+               if target[kind] not in listed]
+    if not missing:
         if recipe.get("allocation_only"):
             raise SystemExit("the foundation lists this part and board; the recipe must not call the target allocation only")
         return True
-    if not recipe.get("allocation_only"):
-        raise SystemExit(f"foundation {manifest['id']} lists neither part {target['part']} nor board {target['board']}; "
-                         "the recipe must state that this target is allocation only")
+    if record or not recipe.get("allocation_only"):
+        raise SystemExit(f"foundation {manifest['id']} does not list {' or '.join(missing)}; "
+                         + ("its derivation record is for another target" if record
+                            else "the recipe must state that this target is allocation only"))
     config["assumption"] += (" No project foundation lists this part and board: the target can be allocated and cannot be"
                              " materialized or built until one does.")
     return False
+
+
+def board_statements(record, board, source_root):
+    """A derived foundation runs the captured startup on another board, so the
+    owner of that board must state what the startup depends on. A value that
+    is absent or different is refused; nothing is assumed from the pads."""
+    needed = (record or {}).get("board_declares")
+    if not needed:
+        return
+    description, _ = support.description_of(board, source_root) if board else (None, None)
+    if description is None:
+        raise SystemExit("this foundation needs statements only a board declared by its owner can make")
+    for key, value in needed.items():
+        if description.get(key) != value:
+            raise SystemExit(f"the foundation needs the board to declare {key} as {json.dumps(value)}; "
+                             f"its description says {json.dumps(description.get(key))}")
 
 
 def apply_board(config, board, reserved_sources=()):
@@ -341,10 +364,13 @@ def compose(recipe_path: pathlib.Path, source_root: pathlib.Path):
         config["composed"] = True
         config["peripherals"]["pinout_file"] = pathlib.PurePosixPath(recipe["package"]["pinout"]["path"]).name
     inventory_config["id"] = recipe["id"]
-    if "board" in recipe:
-        apply_board(config, load(folder / recipe["board"]), {source["id"] for source in base["sources"]})
+    board = load(folder / recipe["board"]) if "board" in recipe else None
+    if board:
+        apply_board(config, board, {source["id"] for source in base["sources"]})
     target = next(record for record in base["targets"] if record["id"] == inventory_config["target"])
-    buildable = foundation(target, inventory_config, recipe, config, source_root)
+    record = load(folder / recipe["foundation"]) if "foundation" in recipe else None
+    buildable = foundation(target, inventory_config, recipe, config, source_root, record)
+    board_statements(record, board, source_root)
     graph, sources, summary = inventory.build_from(inventory_config, base, source_root)
     domains.run(graph, sources, summary, inventory_config, config, source_root)
     summary["buildable"] = buildable

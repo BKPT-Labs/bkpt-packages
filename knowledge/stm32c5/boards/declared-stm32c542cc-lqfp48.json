@@ -3,8 +3,8 @@
   "sources": [
     {
       "id": "board-description",
-      "path": "architecture/sources/boards/stm32c542cc-lqfp48-declared-v1.json",
-      "revision": "version 1, worked example",
+      "path": "architecture/sources/boards/stm32c542cc-lqfp48-declared-v2.json",
+      "revision": "version 2, worked example",
       "authority": "bkpt_declared_board_example"
     },
     {

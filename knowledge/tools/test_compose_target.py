@@ -4,14 +4,17 @@
 Run: python -B -m unittest knowledge/tools/test_compose_target.py
 """
 import copy
+import json
 import pathlib
 import sys
+import tempfile
 import unittest
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import author_device_domains as domains  # noqa: E402
 import author_device_inventory as inventory  # noqa: E402
 import compose_target as compose  # noqa: E402
+import target_support as support  # noqa: E402
 
 
 def source(text, identifier="synthetic"):
@@ -184,9 +187,25 @@ class Retargeted(unittest.TestCase):
 
 
 class Foundations(unittest.TestCase):
-    def check(self, manifest, recipe, target=None):
-        import json
-        import tempfile
+    BASE = {"id": "base", "sdk": "sdk-1", "hal": "HAL", "parts": ["PART-R"], "boards": ["OLD"],
+            "build": {"artifact": "{{name}}.elf", "configure": ["--preset", "debug_{{board}}"]},
+            "configuration": ["Captured."], "provenance": [{"uri": "capture"}],
+            "files": [{"source": "clock.c", "sha256": inventory.sha256(b"clock")},
+                      {"source": "sdk.h", "sha256": "0" * 64, "root": "sdk"}]}
+
+    def record(self, data, parts=("PART-C",), boards=("mine",)):
+        """A derivation record and, built independently of the tool, the manifest it must give."""
+        expected = {**json.loads(data), "id": "sibling", "parts": list(parts), "boards": list(boards),
+                    "build": {"artifact": "{{name}}.elf", "configure": ["--preset", "debug_OLD"]},
+                    "configuration": ["Captured.", "Same files."],
+                    "provenance": [{"uri": "capture"}, {"uri": "base", "revision": "1", "sha256": inventory.sha256(data),
+                                                        "locator": "manifest.json"}]}
+        digest = inventory.sha256((json.dumps(expected, indent=2) + "\n").encode("utf-8"))
+        return {"schema": 1, "id": "sibling", "directory": "sibling-1", "base": {"id": "base", "sha256": inventory.sha256(data)},
+                "parts": list(parts), "boards": list(boards), "build_values": {"board": "OLD"}, "configuration": ["Same files."],
+                "provenance": {"uri": "base", "revision": "1", "locator": "manifest.json"}, "sha256": digest}, expected
+
+    def check(self, manifest, recipe, record=None, target=None):
         with tempfile.TemporaryDirectory() as folder:
             root = pathlib.Path(folder)
             data = json.dumps(manifest).encode("utf-8")
@@ -194,36 +213,194 @@ class Foundations(unittest.TestCase):
             target = target or {"part": "PART-C", "board": "mine", "sdk": "sdk-1", "foundation": "base",
                                 "foundation_sha256": inventory.sha256(data)}
             config = {"assumption": "Declared."}
-            result = compose.foundation(target, {"foundation_manifest": "manifest.json"}, recipe, config, root)
+            result = compose.foundation(target, {"foundation_manifest": "manifest.json"}, recipe, config, root, record)
             return result, target, config
 
-    BASE = {"id": "base", "sdk": "sdk-1", "parts": ["PART-R"], "boards": ["OLD"]}
-
     def test_a_target_no_foundation_lists_must_say_it_cannot_be_built(self):
-        with self.assertRaises(SystemExit):
+        with self.assertRaises(SystemExit) as refused:
             self.check(self.BASE, {})
+        self.assertIn("does not list part PART-C or board mine", str(refused.exception))
         buildable, _, config = self.check(self.BASE, {"allocation_only": True})
         self.assertFalse(buildable)
         self.assertIn("cannot be materialized or built", config["assumption"])
+
+    def test_the_refusal_names_only_what_the_foundation_does_not_list(self):
+        for manifest, named, unnamed in (({**self.BASE, "parts": ["PART-C"]}, "board mine", "PART-C"),
+                                         ({**self.BASE, "boards": ["mine"]}, "part PART-C", "board mine")):
+            with self.assertRaises(SystemExit) as refused:
+                self.check(manifest, {})
+            self.assertIn(named, str(refused.exception))
+            self.assertNotIn(unnamed, str(refused.exception))
+            self.assertFalse(self.check(manifest, {"allocation_only": True})[0])
 
     def test_a_listed_target_is_buildable_and_cannot_be_called_allocation_only(self):
         listed = {**self.BASE, "parts": ["PART-C"], "boards": []}
         self.assertTrue(self.check(listed, {})[0])
         with self.assertRaises(SystemExit):
             self.check(listed, {"allocation_only": True})
-
-    def test_a_recipe_may_name_the_foundation_of_its_own_part(self):
-        own = {"id": "sibling", "sdk": "sdk-1", "parts": ["PART-C"], "boards": ["mine"]}
-        target = {"part": "PART-C", "board": "mine", "sdk": "sdk-1", "foundation": "base", "foundation_sha256": "old"}
-        buildable, target, _ = self.check(own, {"foundation": {"id": "sibling", "manifest": "manifest.json"}}, target)
-        self.assertTrue(buildable)
-        self.assertEqual(target["foundation"], "sibling")
-        self.assertNotEqual(target["foundation_sha256"], "old")
-        for wrong in ({"id": "other", "manifest": "manifest.json"},):
-            with self.assertRaises(SystemExit):
-                self.check(own, {"foundation": wrong}, dict(target))
         with self.assertRaises(SystemExit):
-            self.check({**own, "sdk": "sdk-2"}, {"foundation": {"id": "sibling", "manifest": "manifest.json"}}, dict(target))
+            self.check({**listed, "sdk": "sdk-2"}, {})
+
+    def test_the_base_must_be_the_one_the_reviewed_graph_names(self):
+        data = json.dumps(self.BASE).encode("utf-8")
+        for target in ({"foundation": "base", "foundation_sha256": "0" * 64}, {"foundation": "other", "foundation_sha256": inventory.sha256(data)}):
+            with self.assertRaises(SystemExit) as refused:
+                self.check(self.BASE, {}, None, {"part": "PART-R", "board": "OLD", "sdk": "sdk-1", **target})
+            self.assertIn("reviewed graph", str(refused.exception))
+
+    def test_a_derived_foundation_is_the_base_under_another_identity(self):
+        data = json.dumps(self.BASE).encode("utf-8")
+        record, expected = self.record(data)
+        derived = support.derive_foundation(record, data)
+        self.assertEqual(json.loads(derived), expected)
+        self.assertEqual(json.loads(derived)["files"], self.BASE["files"])
+        buildable, target, _ = self.check(self.BASE, {}, record)
+        self.assertTrue(buildable)
+        self.assertEqual((target["foundation"], target["foundation_sha256"]), ("sibling", record["sha256"]))
+        self.assertEqual(record["sha256"], inventory.sha256(derived))
+
+    def test_a_foundation_with_other_bytes_cannot_take_the_place_of_the_reviewed_one(self):
+        data = json.dumps(self.BASE).encode("utf-8")
+        record, _ = self.record(data)
+        reviewed = {"part": "PART-C", "board": "mine", "sdk": "sdk-1", "foundation": "base", "foundation_sha256": inventory.sha256(data)}
+        # An unedited clock file changed and its manifest hash was updated to match.
+        drifted = {**self.BASE, "files": [{"source": "clock.c", "sha256": inventory.sha256(b"another clock")}, self.BASE["files"][1]]}
+        with self.assertRaises(SystemExit) as refused:
+            self.check(drifted, {}, record, dict(reviewed))
+        self.assertIn("reviewed graph", str(refused.exception))
+        with self.assertRaises(SystemExit):
+            support.derive_foundation(record, json.dumps(drifted).encode("utf-8"))
+        for change in ({"sha256": "0" * 64}, {"configuration": ["Other words."]}, {"build_values": {"board": "NEW"}},
+                       {"base": {"id": "other", "sha256": inventory.sha256(data)}}, {"files": []}, {"id": "base"}, {"boards": []}):
+            with self.assertRaises(SystemExit, msg=change):
+                support.derive_foundation({**record, **change}, data)
+
+    def test_a_derivation_for_another_target_is_refused_even_as_allocation_only(self):
+        data = json.dumps(self.BASE).encode("utf-8")
+        for change, named in (({"parts": ["PART-X"]}, "part PART-C"), ({"boards": ["theirs"]}, "board mine")):
+            changed, _ = self.record(data, **change)
+            for recipe in ({}, {"allocation_only": True}):
+                with self.assertRaises(SystemExit) as refused:
+                    self.check(self.BASE, recipe, changed)
+                self.assertIn(named, str(refused.exception))
+                self.assertIn("another target", str(refused.exception))
+
+    def statements(self, description, record, kind="declared"):
+        with tempfile.TemporaryDirectory() as folder:
+            root = pathlib.Path(folder)
+            (root / "board.json").write_text(json.dumps(description), encoding="utf-8")
+            board = {"board": {"kind": kind, "source": "description"}, "sources": [{"id": "description", "path": "board.json"}]}
+            compose.board_statements(record, board, root)
+
+    def test_the_board_must_state_what_a_derived_foundation_depends_on(self):
+        needs = {"board_declares": {"clock": {"source": "crystal", "frequency_hz": 24000000}}}
+        self.statements({"clock": {"source": "crystal", "frequency_hz": 24000000}}, needs)
+        self.statements({}, {})
+        compose.board_statements(None, None, pathlib.Path("."))
+        for description in ({}, {"clock": {"source": "bypass", "frequency_hz": 24000000}}, {"clock": {"source": "crystal", "frequency_hz": 8000000}}):
+            with self.assertRaises(SystemExit, msg=description) as refused:
+                self.statements(description, needs)
+            self.assertIn("clock", str(refused.exception))
+        with self.assertRaises(SystemExit):
+            self.statements({"clock": {"source": "crystal", "frequency_hz": 24000000}}, needs, kind="netlist")
+        with self.assertRaises(SystemExit):
+            compose.board_statements(needs, None, pathlib.Path("."))
+
+    def test_an_installed_tree_holds_the_base_and_each_derived_foundation_with_checked_files(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = pathlib.Path(folder)
+            (root / "base-1").mkdir()
+            data = json.dumps(self.BASE).encode("utf-8")
+            (root / "base-1/manifest.json").write_bytes(data)
+            (root / "base-1/clock.c").write_bytes(b"clock")
+            (root / "base-1/capture-receipt.json").write_bytes(b"{}")
+            record, _ = self.record(data)
+            index = support.install_foundations(root / "base-1/manifest.json", [record], root / "out")
+            self.assertEqual([(entry["id"], entry["manifest"], entry["sha256"], entry["parts"]) for entry in index["packages"]],
+                             [("base", "base-1/manifest.json", inventory.sha256(data), ["PART-R"]),
+                              ("sibling", "sibling-1/manifest.json", record["sha256"], ["PART-C"])])
+            self.assertEqual(json.loads((root / "out/index.json").read_text(encoding="utf-8")), index)
+            for directory in ("base-1", "sibling-1"):
+                self.assertEqual((root / "out" / directory / "clock.c").read_bytes(), b"clock")
+                self.assertTrue((root / "out" / directory / "capture-receipt.json").exists())
+            self.assertEqual(inventory.sha256((root / "out/sibling-1/manifest.json").read_bytes()), record["sha256"])
+            (root / "base-1/clock.c").write_bytes(b"another clock")
+            with self.assertRaises(SystemExit) as refused:
+                support.install_foundations(root / "base-1/manifest.json", [record], root / "again")
+            self.assertIn("clock.c", str(refused.exception))
+            self.assertFalse((root / "again").exists())
+            with self.assertRaises(SystemExit):
+                support.install_foundations(root / "base-1/manifest.json", [{**record, "directory": "base-1"}], root / "third")
+
+
+class Corpus(unittest.TestCase):
+    CATALOG = {
+        "scopes": [{"id": "FAMILY", "kind": "family", "name": "FAMILY"}, {"id": "DEVICE", "kind": "device", "name": "DEVICE"},
+                   {"id": "PART-R", "kind": "part", "name": "PART-R"}, {"id": "BIG", "kind": "package", "name": "BIG"},
+                   {"id": "OLD", "kind": "board", "name": "OLD"}],
+        "memberships": [{"child": "DEVICE", "parent": "FAMILY", "evidence": "pack"}, {"child": "PART-R", "parent": "DEVICE", "evidence": "pack"},
+                        {"child": "PART-R", "parent": "BIG", "evidence": "pinout"}, {"child": "OLD", "parent": "PART-R", "evidence": "kit"}],
+        "sources": [{"id": "pack", "scopes": ["FAMILY", "DEVICE"]},
+                    {"id": "pinout", "kind": "pins", "path": "big.json", "sha256": "b", "uri": "pack://vendor/pinout/big.json",
+                     "revision": "1", "authority": "vendor", "scopes": ["PART-R"], "options": {"package": "BIG"}}],
+        "boards": [{"id": "OLD", "part": "PART-R", "family": "FAMILY", "package": "BIG", "hal": "HAL", "sdk": "sdk-1", "source": "kit",
+                    "backend": {"id": "generator", "version": "1", "options": {"pack": "kit"}}, "build": {}, "bindings": {"led": "PA5"}}]}
+    RECIPE = {"target": {"board": "mine", "part": "PART-C", "package": "SMALL"},
+              "package": {"pinout": {"path": "descriptors/small pinout.json"}},
+              "corpus": {"like_board": "OLD", "pack_description": "pack", "backend_version": "foundation-1",
+                         "pinout": {"id": "pinout-small", "like": "pinout", "path": "small.json"},
+                         "board": {"id": "mine-description", "path": "boards/mine.json", "uri": "board://mine/1", "revision": "1",
+                                   "authority": "community", "name": "Mine"}}}
+    MANIFEST = {"sdk": "sdk-1", "hal": "HAL", "build": {"configure": ["--preset", "debug_OLD"]}}
+
+    def overlay(self, catalog=None, recipe=None, manifest=None):
+        return support.corpus_overlay(catalog or self.CATALOG, recipe or self.RECIPE, manifest or self.MANIFEST,
+                                      {"pinout": "p", "board": "d"})
+
+    def test_a_board_joins_the_catalog_with_its_scopes_memberships_and_sources(self):
+        before = copy.deepcopy(self.CATALOG)
+        catalog = self.overlay()
+        self.assertEqual(self.CATALOG, before)
+        self.assertEqual([scope for scope in catalog["scopes"] if scope not in before["scopes"]],
+                         [{"id": "PART-C", "kind": "part", "name": "PART-C"}, {"id": "SMALL", "kind": "package", "name": "SMALL"},
+                          {"id": "mine", "kind": "board", "name": "Mine"}])
+        # The pack description joins the ordering code to its device and package; the owner speaks for the board alone.
+        self.assertEqual(catalog["memberships"][4:], [
+            {"child": "PART-C", "parent": "DEVICE", "evidence": "pack"}, {"child": "PART-C", "parent": "SMALL", "evidence": "pack"},
+            {"child": "mine", "parent": "PART-C", "evidence": "mine-description"}])
+        self.assertEqual(catalog["sources"][0]["scopes"], ["FAMILY", "DEVICE", "PART-C"])
+        self.assertEqual(catalog["sources"][2], {
+            "id": "pinout-small", "kind": "pins", "path": "small.json", "sha256": "p", "uri": "pack://vendor/pinout/small pinout.json",
+            "revision": "1", "authority": "vendor", "scopes": ["PART-C"], "options": {"package": "SMALL"}})
+        self.assertEqual((catalog["sources"][3]["scopes"], catalog["sources"][3]["sha256"], catalog["sources"][3]["authority"]),
+                         (["mine"], "d", "community"))
+        self.assertEqual(catalog["boards"][1], {
+            "id": "mine", "part": "PART-C", "family": "FAMILY", "package": "SMALL", "hal": "HAL", "sdk": "sdk-1",
+            "source": "mine-description", "backend": {"id": "template", "version": "foundation-1", "options": {}},
+            "build": {"configure": ["--preset", "debug_OLD"]}, "bindings": {}})
+
+    def test_a_second_board_of_a_known_part_adds_only_itself(self):
+        once = self.overlay()
+        recipe = copy.deepcopy(self.RECIPE)
+        recipe["target"]["board"] = "second"
+        recipe["corpus"]["pinout"]["id"], recipe["corpus"]["board"]["id"] = "pinout-small-2", "second-description"
+        twice = self.overlay(once, recipe)
+        self.assertEqual([scope["id"] for scope in twice["scopes"]][-4:], ["PART-C", "SMALL", "mine", "second"])
+        self.assertEqual(twice["memberships"][len(once["memberships"]):], [{"child": "second", "parent": "PART-C", "evidence": "second-description"}])
+
+    def test_what_does_not_fit_the_catalog_is_refused(self):
+        with self.assertRaises(SystemExit):
+            self.overlay(self.overlay())
+        with self.assertRaises(SystemExit):
+            self.overlay(manifest={**self.MANIFEST, "sdk": "sdk-2"})
+        clash = copy.deepcopy(self.CATALOG)
+        clash["scopes"].append({"id": "SMALL", "kind": "part", "name": "SMALL"})
+        with self.assertRaises(SystemExit):
+            self.overlay(clash)
+        orphan = copy.deepcopy(self.CATALOG)
+        orphan["sources"][0]["scopes"] = ["FAMILY"]
+        with self.assertRaises(SystemExit):
+            self.overlay(orphan)
 
 
 class Boards(unittest.TestCase):
@@ -261,8 +438,9 @@ class Boards(unittest.TestCase):
             with self.assertRaises(SystemExit, msg=change):
                 compose.apply_board(copy.deepcopy(self.CONFIG), {**board, **change}, {"pinout"})
 
-    def declared(self, description, withheld=()):
+    def declared(self, description, withheld=(), identity='"board": "mine",\n  "part": "PART-C",\n  "package": "SMALL",\n  '):
         subject = object.__new__(domains.Domains)
+        description = description.replace("{\n  ", "{\n  " + identity, 1)
         sources = {"description": source(description, "description"), "notes": source("PH2 keeps its state.\n", "notes"),
                    "policy": source("Debug: reserved.\nGeneral: free.\nBoot: kept out.\n", "policy")}
         base = {"evidence": [], "edges": [], "resources": [
@@ -270,7 +448,7 @@ class Boards(unittest.TestCase):
         subject.graph = inventory.Graph(base, "board", sources)
         subject.sources, subject.value, subject.prefix, subject.pad_template = sources, base, "PART", "P{port}{index}"
         subject.pads = {name: {"port": name[1], "index": int(name[2:])} for name in ("PA1", "PA13", "PH2")}
-        subject.target = {"id": "board", "evidence": [], "reservations": []}
+        subject.target = {"id": "board", "board": "mine", "part": "PART-C", "package": "SMALL", "evidence": [], "reservations": []}
         subject.policy_source = sources["policy"]
         subject.config = {"general_attribute": {"allocation": "general"},
                           "policy": {"source": "policy", "label": "Policy", "evidence_prefix": "p",
@@ -289,6 +467,16 @@ class Boards(unittest.TestCase):
         attributes = {record["id"]: record["attributes"] for record in subject.value["resources"]}
         self.assertEqual(attributes, {"PART.PA1": {"allocation": "general"}, "PART.PA13": {}, "PART.PH2": {}})
         self.assertEqual(subject.value["resources"][2]["evidence"], ["board-PH2", "p-boot"])
+
+    def test_a_description_is_for_one_board_carrying_one_exact_part(self):
+        body = '"unlisted_pads": "free",\n  "reserved": {},\n  "excluded": {}\n}\n'
+        self.declared('{\n  "description": "Worked example.",\n  "clock": {\n    "source": "crystal"\n  },\n  ' + body)
+        for identity, named in (('', "board"), ('"board": "mine",\n  "part": "PART",\n  "package": "SMALL",\n  ', "part PART"),
+                                ('"board": "theirs",\n  "part": "PART-C",\n  "package": "SMALL",\n  ', "board theirs"),
+                                ('"board": "mine",\n  "part": "PART-C",\n  "package": "BIG",\n  ', "package BIG")):
+            with self.assertRaises(SystemExit, msg=identity) as refused:
+                self.declared("{\n  " + body, identity=identity)
+            self.assertIn(named, str(refused.exception))
 
     def test_a_declared_board_cannot_name_a_pad_the_package_does_not_bond(self):
         with self.assertRaises(SystemExit) as refused:

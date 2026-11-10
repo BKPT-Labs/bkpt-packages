@@ -97,6 +97,7 @@ the lines it came from.
 | `author_device_inventory.py` | Transcribes pins, signal routes and interrupts from the manufacturer's pinout descriptor, device header and vector table. An inventory records what is declared, not what is usable |
 | `author_device_domains.py` | Decides what a capability may use: allocation rules from the board netlist, instances checked against the device description, DMA request lines checked against the reference manual and the SDK, and the capabilities that are widened or added |
 | `compose_target.py` | Builds one target from layers that vary independently: the reviewed graph, the part and its package descriptor, and the board as its own file (from a netlist, or declared by its owner). Facts tied to the old part, package or board are relocated, replaced or dropped by a decision the recipe states |
+| `target_support.py` | Gives a composed target what it needs besides its graph: a project foundation derived from the reviewed base under the identity of its own part and board, and an entry for the board in the knowledge corpus. Both come from the recipe; the foundation's files are the base's, checked by hash while they are copied |
 | `descriptor.py` | Reads a manufacturer JSON descriptor while keeping the lines of every value, so a derived record can cite them |
 | `package_candidate.py` | Places a generated graph in a package as a candidate, with the list of every source it pins. BKPT-authored sources are copied in; manufacturer sources are listed by hash only |
 | `test_author_device.py` | Checks for the tools on small synthetic sources |
@@ -108,6 +109,17 @@ the role of each signal, and the limitations descriptor says what a given part
 lacks. A second part or package of the same die is therefore a recipe under
 `stm32c5/targets/` and, when the board differs, a board file under
 `stm32c5/boards/`, with no new chip configuration.
+
+A target that shares the base's start-up files gets its foundation from a
+derivation record under `stm32c5/foundations/`. The record states the new
+identity and pins two hashes: the base manifest's and the derived manifest's.
+`compose_target.py` computes the derived manifest from the base the reviewed
+graph names, so a foundation with other bytes cannot stand in for it. The
+record also lists what the board's owner must declare for that start-up to
+work, such as the clock source and its frequency; a description that does not
+say so is refused. A board description names its board, exact part and package.
+The foundation files themselves contain manufacturer code and stay outside the
+package: `target_support.py` installs them from your copy of the base.
 
 The chip-specific inputs are `stm32c5/imports/device-inventory.json` and
 `device-domains.json`, together with the policy text the domains configuration

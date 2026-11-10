@@ -70,8 +70,24 @@
       }
     }
   },
-  "foundation": {
-    "id": "c5-hal2-minimal-c542cc",
-    "manifest": "evaluations/bkpt-ai/c5-device-coverage/foundations/c5-hal2-minimal-c542cc-1/manifest.json"
+  "foundation": "../foundations/c5-hal2-minimal-c542cc.json",
+  "corpus": {
+    "catalog": "../catalog/stm32c5.json",
+    "like_board": "NUCLEO-C542RC",
+    "pack_description": "dfp",
+    "backend_version": "foundation-1",
+    "pinout": {
+      "id": "pinout-lqfp48",
+      "like": "pinout",
+      "path": "st/c5/pack-2.1.0/pinout-lqfp48.json"
+    },
+    "board": {
+      "id": "declared-board-c542cc",
+      "path": "boards/stm32c542cc-lqfp48-declared-v2.json",
+      "uri": "bkpt-board://declared/stm32c542cc-lqfp48/2",
+      "revision": "version 2, worked example",
+      "authority": "community",
+      "name": "STM32C542CCT6 in LQFP48 on an owner-declared board"
+    }
   }
 }
