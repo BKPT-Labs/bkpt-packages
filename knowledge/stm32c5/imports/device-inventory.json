@@ -15,7 +15,7 @@
   },
   "pinout": {
     "source": "pinout",
-    "identifying": ["die_pad"]
+    "identifying": ["name", "instance", "die_pad"]
   },
   "excluded_signals": [
     {

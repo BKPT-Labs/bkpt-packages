@@ -479,7 +479,8 @@ class Descriptors(unittest.TestCase):
         self.assertEqual((root["flag"].start, root.get("absent")), (9, None))
 
     def test_a_repeated_member_or_trailing_text_is_refused(self):
-        for text in ('{"a": 1, "a": 2}', '{"a": 1} x', '{"a": ', '[01]', '[1 2]', '[1,]', '{"a": 1 "b": 2}', '{1: 2}'):
+        for text in ('{"a": 1, "a": 2}', '{"a": 1} x', '{"a": ', '[01]', '[1 2]', '[1,]', '{"a": 1 "b": 2}', '{1: 2}',
+                     '[NaN]', '[Infinity]', '[-Infinity]'):
             with self.assertRaises(SystemExit, msg=text):
                 descriptor.parse(source(text))
 

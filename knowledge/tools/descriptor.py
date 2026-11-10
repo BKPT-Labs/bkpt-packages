@@ -12,6 +12,10 @@ _SCALAR = json.JSONDecoder()
 _SPACE = " \t\r\n"
 
 
+def _not_json(name):
+    raise ValueError(f"{name} is not a JSON value")
+
+
 class Located:
     """A JSON value and the lines it spans. `items` holds the located members
     of an object (by key) or of an array (by position)."""
@@ -35,7 +39,7 @@ def parse(source) -> Located:
     text = "\n".join(source.lines)
     try:
         # The located reader below is lenient; strict JSON is checked first.
-        json.loads(text)
+        json.loads(text, parse_constant=_not_json)
     except ValueError as error:
         raise SystemExit(f"{source.id}: not valid JSON: {error}")
     starts = [0]

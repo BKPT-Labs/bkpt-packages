@@ -43,7 +43,8 @@ BASE = {
     "implementations": [{"id": "card", "target": "OLD", "evidence": ["kept"]}],
 }
 RECIPE = {"target": {"id": "NEW", "board": "mine", "part": "PART-C", "package": "SMALL", "resource_prefix": "PART-C"}}
-INVENTORY = {"resource_prefix": "PART-R", "target": "OLD", "pinout": {"source": "pinout", "identifying": ["die_pad"]}}
+INVENTORY = {"resource_prefix": "PART-R", "target": "OLD",
+             "pinout": {"source": "pinout", "identifying": ["name", "die_pad"]}}
 SMALL = '{\n  "die_pads": {\n    "PA1": {\n      "type": "gpio", "port": "A", "index": 1\n    }\n  }\n}\n'
 
 
@@ -55,17 +56,23 @@ def retargeted(recipe=RECIPE):
 
 class Relocated(unittest.TestCase):
     def test_cited_lines_are_found_only_when_they_appear_exactly_once(self):
-        old = source('a\n{\n  "die_pad": "PA5",\n  "id": "AF5"\n}\nz\n')
-        block = '{\n  "die_pad": "PA5",\n  "id": "AF5"\n}\n'
-        self.assertEqual(compose.relocate(evidence(2, 5), old, source("q\nq\n" + block), ["die_pad"]), 3)
-        self.assertIsNone(compose.relocate(evidence(2, 5), old, source(block.replace("AF5", "AF6")), ["die_pad"]))
-        self.assertIsNone(compose.relocate(evidence(2, 5), old, source(block + block), ["die_pad"]))
+        old = source('a\n{\n  "name": "BUS1_CLK",\n  "die_pad": "PA5",\n  "id": "AF5"\n}\nz\n')
+        block = '{\n  "name": "BUS1_CLK",\n  "die_pad": "PA5",\n  "id": "AF5"\n}\n'
+        keys = ["name", "die_pad"]
+        self.assertEqual(compose.relocate(evidence(2, 6), old, source("q\nq\n" + block), keys), 3)
+        self.assertIsNone(compose.relocate(evidence(2, 6), old, source(block.replace("AF5", "AF6")), keys))
+        self.assertIsNone(compose.relocate(evidence(2, 6), old, source(block + block), keys))
 
     def test_lines_that_do_not_say_what_they_are_about_cannot_move(self):
         old = source('{\n  "die_pad": "PA5",\n  "position": "15"\n}\n')
         other = source('{\n  "die_pad": "PB9",\n  "position": "15"\n}\n')
         self.assertIsNone(compose.relocate(evidence(3, 3), old, other, ["die_pad"]))
         self.assertIsNone(compose.relocate(evidence(1, 4), old, other, ["die_pad"]))
+        # The same pad and selector under another signal is another fact.
+        first = source('{\n  "name": "BUS1_CLK",\n  "die_pad": "PA5",\n  "id": "AF5"\n}\n')
+        second = source('{\n  "name": "BUS2_CLK",\n  "die_pad": "PA5",\n  "id": "AF5"\n}\n')
+        self.assertEqual(compose.relocate(evidence(3, 4), first, second, ["die_pad"]), 3)
+        self.assertIsNone(compose.relocate(evidence(3, 4), first, second, ["name", "die_pad"]))
 
 
 class Retargeted(unittest.TestCase):
@@ -110,6 +117,17 @@ class Retargeted(unittest.TestCase):
         self.assertEqual([c["id"] for c in subject.value["implementations"]], ["card"])
         with self.assertRaises(SystemExit):
             fixed({**RECIPE, "drop_capabilities": ["fixed", "output"]})
+
+    def test_a_role_that_selects_a_removed_pad_by_any_attribute_counts_as_needing_it(self):
+        subject = retargeted()
+        subject.value["resources"][2]["attributes"].update(port_symbol="PORT_A", pin_symbol="PIN_9")
+        subject.value["capabilities"].append({
+            "id": "by-symbol", "target": "NEW", "evidence": ["kept"], "parameters": {}, "implementations": ["card"],
+            "roles": [{"id": "pin", "kind": "pin", "attributes": {"port_symbol": "PORT_A", "pin_symbol": "PIN_9"}}]})
+        subject.value["capabilities"][0]["implementations"] = ["card"]
+        with self.assertRaises(SystemExit) as refused:
+            subject.pads(source(SMALL), "P{port}{index}")
+        self.assertIn("by-symbol", str(refused.exception))
 
     def test_a_dropped_citation_must_not_leave_a_record_without_a_source(self):
         subject = retargeted()

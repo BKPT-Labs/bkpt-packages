@@ -44,11 +44,11 @@ def relocate(evidence, old: inventory.Source, new: inventory.Source, identifying
     """Find the cited lines, unchanged, in another descriptor. One match or none.
 
     Only lines that say what they are about can move: the excerpt must carry
-    one of the descriptor's identifying members, such as the pad. A fragment
-    without it, such as a lone position, can reappear under another pad and
-    mean something else."""
+    every identifying member of the record, such as signal name, instance and
+    pad. A fragment without them, such as a pad with its selector, can
+    reappear under another signal and mean something else."""
     wanted = old.lines[evidence["start_line"] - 1:evidence["end_line"]]
-    if not any(line.lstrip().startswith(f'"{key}"') for line in wanted for key in identifying):
+    if not all(any(line.lstrip().startswith(f'"{key}"') for line in wanted) for key in identifying):
         return None
     span = len(wanted)
     found = [index + 1 for index in range(len(new.lines) - span + 1) if new.lines[index:index + span] == wanted]
@@ -160,6 +160,15 @@ class Retarget:
         must drop it by name. Bond positions always leave."""
         bonded = {pad_name.format(port=value["port"], index=value["index"])
                   for _, _, value, _ in inventory.children(pinout, "die_pads") if value["type"] == "gpio"}
+        def selected(role):
+            """Pads a role with a fixed selector can take, however it names them."""
+            if role.get("kind") != "pin" or not role.get("attributes"):
+                return None
+            return {record["id"] for record in self.value["resources"] if record["kind"] == "pin"
+                    and all(record["attributes"].get(key) == value for key, value in role["attributes"].items())}
+
+        before = {(capability["id"], role["id"]): selected(role)
+                  for capability in self.value["capabilities"] for role in capability["roles"]}
         gone = set()
         for record in self.value["resources"]:
             if record["kind"] != "pin":
@@ -172,8 +181,9 @@ class Retarget:
         self.target["reservations"] = [r for r in self.target["reservations"] if r["resource"] not in gone]
         names = {identifier.split(".", 1)[1] for identifier in gone}
         dropped = set(self.recipe.get("drop_capabilities", []))
-        needing = sorted(capability["id"] for capability in self.value["capabilities"]
-                         if any(role.get("attributes", {}).get("pin") in names for role in capability["roles"]))
+        # A role that could take a pad before and can take none now, whether
+        # it named the pad or selected it by any other attribute.
+        needing = sorted({capability for (capability, _), pads in before.items() if pads and pads <= gone})
         if set(needing) - dropped:
             raise SystemExit(f"capabilities {sorted(set(needing) - dropped)} need pads this package does not bond "
                              f"({sorted(names)}); the recipe must drop them")
