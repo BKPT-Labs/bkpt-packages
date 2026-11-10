@@ -1,0 +1,119 @@
+{
+  "schema": 1,
+  "sources": [
+    {
+      "id": "policy-v3",
+      "path": "architecture/sources/bkpt-capability-policy-v3.txt",
+      "revision": "version 3 candidate",
+      "authority": "bkpt_engineering_policy_candidate"
+    },
+    {
+      "id": "board-netlist",
+      "path": "firmware/sources/st/c5/pack-2.1.0/netlist.json",
+      "revision": "ST board pack 2.1.0; MB2213 B02",
+      "authority": "manufacturer_machine_readable"
+    }
+  ],
+  "policy": {
+    "source": "policy-v3",
+    "lines": {
+      "inventory": 4,
+      "debug": 5,
+      "clock": 6,
+      "general": 7,
+      "boot": 8,
+      "console": 9,
+      "gpio_output": 10,
+      "gpio_interrupt": 11,
+      "spi_pins": 12
+    }
+  },
+  "board": {
+    "source": "board-netlist",
+    "device_reference": "U1",
+    "passive_members": "(CN|SB)[0-9]+",
+    "reserved_nets": {
+      "DBG.SWDIO": "debug",
+      "DBG.SWCLK": "debug",
+      "OSC_IN": "clock",
+      "OSC_OUT": "clock"
+    },
+    "excluded_nets": {
+      "PH2_BOOT0": "boot",
+      "PA2": "console",
+      "PA3": "console"
+    }
+  },
+  "general_attribute": {
+    "allocation": "general"
+  },
+  "gpio_output": {
+    "capability": "gpio_output",
+    "card": "hal2.gpio-output",
+    "description": "Allocate a GPIO output on any pad eligible for general allocation. The application initializes the selected pad; external load and device-select behavior is an application requirement.",
+    "guidance": [
+      [
+        "Both PA5 and PA4 require initialization of the selected pin.",
+        "Every selectable pad requires initialization of the selected pin."
+      ]
+    ]
+  },
+  "gpio_interrupt": {
+    "capability": "gpio_input_interrupt",
+    "card": "hal2.gpio-input-interrupt",
+    "description": "Exclusive GPIO input with a dedicated external-line CPU interrupt on any pad eligible for general allocation; explicit edge and pull, bounded callback, start, stop and restart. One external line serves the same pad index on every port.",
+    "exti_source": "exti-h",
+    "port_symbol": "HAL_EXTI_GPIO{port}",
+    "line_symbol": "HAL_EXTI_LINE_{index}",
+    "line_evidence": [
+      "exti-mux"
+    ],
+    "interrupt": "EXTI{index}",
+    "interrupt_attributes": {
+      "function": "gpio_interrupt",
+      "priority": "5"
+    }
+  },
+  "signal_pins": [
+    {
+      "capabilities": [
+        "spi_controller_dma",
+        "spi_transfer_operation"
+      ],
+      "cards": [
+        "hal2.spi-dma",
+        "hal2.spi-transfer-operation"
+      ],
+      "policy": "spi_pins",
+      "roles": {
+        "sck": {
+          "from": "bus",
+          "signal": "SPI1_SCK",
+          "binding": "sck_alternate"
+        },
+        "miso": {
+          "from": "bus",
+          "signal": "SPI1_MISO",
+          "binding": "miso_alternate"
+        },
+        "mosi": {
+          "from": "bus",
+          "signal": "SPI1_MOSI",
+          "binding": "mosi_alternate"
+        }
+      },
+      "alternate_symbol": {
+        "source": "gpio-h",
+        "symbol": "HAL_GPIO_{alternate}",
+        "split": "AF"
+      }
+    }
+  ],
+  "assumption": "General allocation follows the board netlist: solder-bridge state, connector use and external circuits are not verified.",
+  "assumption_replacements": [
+    [
+      "GPIO interrupt composition covers PA4/PA5 CPU delivery only, with exclusive physical EXTI4/5 ownership across any consumers. Pending edge flags can coalesce. No complete EXTI/errata/electrical, shared-line or DMA-trigger coverage.",
+      "GPIO interrupt composition covers CPU delivery only, with exclusive ownership of each physical external line across any consumers. Pending edge flags can coalesce. No complete EXTI/errata/electrical, shared-line or DMA-trigger coverage."
+    ]
+  ]
+}

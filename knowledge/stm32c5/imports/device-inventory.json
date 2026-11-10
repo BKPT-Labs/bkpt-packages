@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "id": "stm32c5-device-v1",
+  "base": {
+    "path": "../candidates/workflow-efficiency/accepted.json",
+    "sha256": "69e0402c5d98d358464be3d1ba629668acb544f1ff92121da6efcc22f2c20928"
+  },
+  "target": "NUCLEO-C542RC",
+  "resource_prefix": "STM32C542RCT6",
+  "conditions": {
+    "foundation_profile": "c5-hal2-minimal-1",
+    "operation_mode": "run"
+  },
+  "pinout": {
+    "source": "pinout"
+  },
+  "excluded_signals": [
+    {
+      "signal": "DAC1_OUT2",
+      "pad": "PA5",
+      "reason": "The descriptor names DAC1_OUT2 on PA5 while datasheet DS15135 page 40 names DAC2_OUT1. Unresolved source conflict; no route is published until it is settled."
+    }
+  ],
+  "gpio_symbols": {
+    "port": {
+      "source": "gpio-h",
+      "symbol": "HAL_GPIO{port}"
+    },
+    "pin": {
+      "source": "gpio-h",
+      "symbol": "HAL_GPIO_PIN_{index}"
+    },
+    "clock": {
+      "source": "rcc-h",
+      "symbol": "HAL_RCC_GPIO{port}_EnableClock"
+    }
+  },
+  "interrupts": {
+    "header": "device-header",
+    "startup": "startup",
+    "enum_type": "IRQn_Type",
+    "symbol_suffix": "_IRQn",
+    "handler_suffix": "_IRQHandler",
+    "last_core_vector": "SysTick_Handler"
+  },
+  "assumption": "Inventory pins, signal routes and interrupts transcribe machine-readable descriptors: they record what is declared, not electrical behaviour, board wiring or a usable capability."
+}
