@@ -1,0 +1,600 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/sbs-contracts.json",
+    "sha256": "a2fa7a7b12683ff778719b8f07d2b550c8d7d252ed02538ea5e6a8245e51a341"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 38
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "schema": "bkpt.external.sbs.contracts.v1",
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "review": "Bounded source candidate; independent semantic review pending",
+    "sources": {
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "family": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c5xx.h",
+        "sha256": "61a0b8c2674d9e817d70aa8d2693339273f4283694f8ab5f8dca077bb69913f7"
+      },
+      "HAL": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_sbs.c",
+        "sha256": "c5d8b6994e6322973b5920223231649887e24b58620257ce7c95ab18a13df365"
+      },
+      "LL": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_sbs.h",
+        "sha256": "cf4cb1682f9f928a186b675ad220772f51f2160f401ad65ea7d99f3b9d937258"
+      },
+      "RCC": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_rcc.h",
+        "sha256": "29fb6354087a8ebed46e7d8bce100659d733df9c1b03c7dee35a1215dc2cefd5"
+      },
+      "HAL_H": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_sbs.h",
+        "sha256": "4c4390119e21f77bad0a5914a0c94ec7d9edf636cc3086cd8f489b4ebf5bc342"
+      }
+    },
+    "evidence": {
+      "RM0522:p357": {
+        "source": "RM0522",
+        "page": 357,
+        "text_sha256": "cce3a5da49617353317b1c8536c8ca6279803efe24b94661f991b9ff5f9aa3cc"
+      },
+      "RM0522:p358": {
+        "source": "RM0522",
+        "page": 358,
+        "text_sha256": "5f560d9fc234e184a10a239cd97c5c205f52fe7730574fd6c1fb6e5d62d97551"
+      },
+      "RM0522:p359": {
+        "source": "RM0522",
+        "page": 359,
+        "text_sha256": "c084464447df34f9caf45084f6d31289fa1b718af31a8254948e39df7de80b6c"
+      },
+      "RM0522:p360": {
+        "source": "RM0522",
+        "page": 360,
+        "text_sha256": "730bb9e1c80274b844bbac83c87176f39b31d6c776746d2de916014568fb8cb4"
+      },
+      "RM0522:p361": {
+        "source": "RM0522",
+        "page": 361,
+        "text_sha256": "b8565e6f9f65e0bc07cf6876c6817573dde7fe8049fae91a6a90d4fd532a0625"
+      },
+      "RM0522:p362": {
+        "source": "RM0522",
+        "page": 362,
+        "text_sha256": "07e376d167e34ce592b600a0d789776f502cf11cb978ffd056d90b80d4fdad69"
+      },
+      "RM0522:p363": {
+        "source": "RM0522",
+        "page": 363,
+        "text_sha256": "94f3972bff47c4d4901b139e2ac57d07a667055969da72821deb752f7f3adaed"
+      },
+      "RM0522:p364": {
+        "source": "RM0522",
+        "page": 364,
+        "text_sha256": "e6edc69b1ea4b6385068fdcc6606ad75002d9c836e715cd513f63c8798471209"
+      },
+      "RM0522:p365": {
+        "source": "RM0522",
+        "page": 365,
+        "text_sha256": "d61ffec609cfc3774139ea58351596063c77d8b21bb971ca99b5a7405ef20087"
+      },
+      "RM0522:p366": {
+        "source": "RM0522",
+        "page": 366,
+        "text_sha256": "dcdacb9df86ce6942a77426c7d4604ac53c33497df113c5a3e4f285cf2863ec1"
+      },
+      "RM0522:p367": {
+        "source": "RM0522",
+        "page": 367,
+        "text_sha256": "573ed25a8f531d258293c1f6db3c83a7689df689c0d71208f5f1a2c24ee001ff"
+      },
+      "RM0522:p368": {
+        "source": "RM0522",
+        "page": 368,
+        "text_sha256": "f400e954f6a2cdc7d1135b74ee149db475e4de7039f22d7f7ba22a09f31b9849"
+      },
+      "RM0522:p369": {
+        "source": "RM0522",
+        "page": 369,
+        "text_sha256": "a917513817c4b86016de5673de3bd5b68d08f7a4b5bf9853e659f91cb40de94a"
+      },
+      "RM0522:p370": {
+        "source": "RM0522",
+        "page": 370,
+        "text_sha256": "229f8cebc2ecc5981770ad6a1f56fae603cf771cef4efd7b3a58b8a7c8326bf5"
+      },
+      "header.layout": {
+        "source": "header",
+        "start_line": 864,
+        "end_line": 886,
+        "text_sha256": "86ad278abaeab9dd70f5d5d0f6e8522bb5043b2bd2f41c4d4d3caf54f85475b2"
+      },
+      "header.base": {
+        "source": "header",
+        "start_line": 1155,
+        "end_line": 1218,
+        "text_sha256": "1827f4e3c79b963809c4d6813c4c565cada50ee15a39504626820920a0a3e3e0"
+      },
+      "header.bits": {
+        "source": "header",
+        "start_line": 10414,
+        "end_line": 10548,
+        "text_sha256": "8a543797d8ef9abaf447d9fc6362498342d3438cee4c930dc4e72143da796924"
+      },
+      "header.reset": {
+        "source": "header",
+        "start_line": 9038,
+        "end_line": 9044,
+        "text_sha256": "957a3779287986c9194c7bfa63f6eaca696e047ac31296f38dc6fc7014ae8c7b"
+      },
+      "header.clock": {
+        "source": "header",
+        "start_line": 9186,
+        "end_line": 9192,
+        "text_sha256": "21467da5e72fc434d00c72535cea29d29b1c96511a263a118ae95fa717477f97"
+      },
+      "HAL.guards": {
+        "source": "HAL",
+        "start_line": 179,
+        "end_line": 287,
+        "text_sha256": "eb11d8acf0c3f050c5a7e7232d255741ba671f25aee4dccd64dca03b7c812561"
+      },
+      "HAL.clock_note": {
+        "source": "HAL",
+        "start_line": 56,
+        "end_line": 62,
+        "text_sha256": "690bdd558c33393ffdb4cde26defcb41a467aac083184696468332c8abdf0569"
+      },
+      "HAL.FPU_break": {
+        "source": "HAL",
+        "start_line": 308,
+        "end_line": 412,
+        "text_sha256": "cd2497af6ebc71b65f25b0c55e1ff8d120ae4a1ba30aaef2a26ea5587a838013"
+      },
+      "HAL.compensation": {
+        "source": "HAL",
+        "start_line": 430,
+        "end_line": 584,
+        "text_sha256": "ed4903235adb30cda6b617342641797c4cf140ee40749009b8a656be8b6e679a"
+      },
+      "HAL.hdpl": {
+        "source": "HAL",
+        "start_line": 637,
+        "end_line": 698,
+        "text_sha256": "451a933344241316602a6a715bb7bf55941a68699e62cdc8db38d65de7d22466"
+      },
+      "HAL.lock": {
+        "source": "HAL",
+        "start_line": 713,
+        "end_line": 737,
+        "text_sha256": "0e2afefd9a0c4723b67bb70d69dfde0864f21e9164bb3a60b2755806e6f95da4"
+      },
+      "HAL.remap": {
+        "source": "HAL",
+        "start_line": 830,
+        "end_line": 889,
+        "text_sha256": "50065016f2f7e0d951325480ffd56f62186bdb25b6c8ab6358624c322964f23d"
+      },
+      "LL.constants": {
+        "source": "LL",
+        "start_line": 40,
+        "end_line": 180,
+        "text_sha256": "3a517507dfe69de758b47be15f33c4e977b8683eb6fa6558f7aa1ba51b0576a2"
+      },
+      "LL.hdpl": {
+        "source": "LL",
+        "start_line": 248,
+        "end_line": 306,
+        "text_sha256": "6481dcb148f2b5e73f7a1356b32cb8e12a67f25b650fe67d13528adb2c0774ed"
+      },
+      "LL.flags": {
+        "source": "LL",
+        "start_line": 751,
+        "end_line": 814,
+        "text_sha256": "5b8f9163f34a464663d2a49484a2f68ecd6df86e03ca3ed4cfc554b895d909d0"
+      },
+      "LL.compensation": {
+        "source": "LL",
+        "start_line": 824,
+        "end_line": 1140,
+        "text_sha256": "ec0409d57437e0fe2718c7b06a3fe9ef2f79bc1312cdb546a4821872f9862ac5"
+      },
+      "LL.break": {
+        "source": "LL",
+        "start_line": 1147,
+        "end_line": 1197,
+        "text_sha256": "75c7d0e4ce6dab992445625d741d26feadb6e4c3bd0bffd4ddd6aa71c9afbca8"
+      },
+      "LL.lock": {
+        "source": "LL",
+        "start_line": 1206,
+        "end_line": 1281,
+        "text_sha256": "90eecbc6c836885f79fc6916e100316846b4f2c94ffd101b4a6b6b28be16c34c"
+      },
+      "LL.NMI": {
+        "source": "LL",
+        "start_line": 1288,
+        "end_line": 1320,
+        "text_sha256": "18f625d0d19bbb25d661c91bc6d6d96d9246b14314372eacee2f9da739444b48"
+      },
+      "family.macros": {
+        "source": "family",
+        "start_line": 121,
+        "end_line": 140,
+        "text_sha256": "11038865f48e90cd274c2ea531051f2248b10ff794f0f94346b369a172fc067c"
+      },
+      "RCC.reset": {
+        "source": "RCC",
+        "start_line": 3673,
+        "end_line": 3680,
+        "text_sha256": "2d60baa72691a3cfd52175203c5f78edbcafcebbfdaa60d9b9bcab5a994e426e"
+      },
+      "header.break": {
+        "source": "header",
+        "start_line": 14173,
+        "end_line": 14175,
+        "text_sha256": "18371ee4acf91c97b21ebf19deb5832947502ee583723218e57796445b4f59ea"
+      },
+      "HAL.types": {
+        "source": "HAL_H",
+        "start_line": 70,
+        "end_line": 200,
+        "text_sha256": "63c9068e34e112bacc2a4b681c829129b976353f1190d400d2d2b8c9ba42e3e9"
+      },
+      "HAL.clear": {
+        "source": "HAL_H",
+        "start_line": 311,
+        "end_line": 327,
+        "text_sha256": "1abf4b37722b4afdc052ffba2d5b214d758243ad1055f6ea2d01efd0aba99614"
+      }
+    },
+    "scope": "Exact SBS registers and bounded HAL/LL source contracts. No boot/security, electrical compensation, reset or runtime operations authorized. FLASH/TAMP/CPU boot dependencies remain open.",
+    "finite_source_maps": {
+      "base_hex": "0x44000400",
+      "dedicated_IRQ": null,
+      "HDPL_codes": {
+        "1": "0x51",
+        "2": "0x8A",
+        "3": "0x6F"
+      },
+      "HDPL_increment": "0x6A",
+      "HDPL_no_increment": "0xB4",
+      "ADC_remap_bits": {
+        "IN2": 0,
+        "IN5": 1,
+        "IN6": 2,
+        "IN7": 3
+      },
+      "FPU_IE_bits": {
+        "invalid": 0,
+        "divide_by_zero": 1,
+        "underflow": 2,
+        "overflow": 3,
+        "input_abnormal": 4,
+        "inexact": 5
+      },
+      "CFGR2_bits": {
+        "CLL": 0,
+        "SEL": 1,
+        "PVDL": 2,
+        "ECCL": 3
+      },
+      "CLCKR_bits": {
+        "LOCKVTOR": 0,
+        "LOCKMPU": 1
+      },
+      "compensation": {
+        "cell_mask": 1,
+        "EN": 0,
+        "CS": 1,
+        "RDY": 8,
+        "NMOS_bits": [
+          0,
+          3
+        ],
+        "PMOS_bits": [
+          4,
+          7
+        ],
+        "codes": [
+          0,
+          15
+        ],
+        "CS0": "cell",
+        "CS1": "software"
+      },
+      "excluded": [
+        "NEXTHDPLCR/SAES secure storage (C59/C5A only)",
+        "Ethernet PMCR fields (absent exact header)",
+        "TIM16/17 break recipients (absent exact instances)"
+      ],
+      "evidence": [
+        "header.base",
+        "header.bits",
+        "header.layout",
+        "LL.constants",
+        "RM0522:p361",
+        "RM0522:p362",
+        "RM0522:p363",
+        "RM0522:p364",
+        "RM0522:p368"
+      ]
+    },
+    "registers": [
+      {
+        "name": "HDPLCR",
+        "offset": "0x010",
+        "reset": "0xB4"
+      },
+      {
+        "name": "HDPLSR",
+        "offset": "0x014",
+        "reset": "0x51"
+      },
+      {
+        "name": "PMCR",
+        "offset": "0x100",
+        "reset": "0x80000000 (RM prose; reserved-bit conflict)"
+      },
+      {
+        "name": "FPUIMR",
+        "offset": "0x104",
+        "reset": "0x1F"
+      },
+      {
+        "name": "MESR",
+        "offset": "0x108",
+        "reset": "unknown bits 0/16; retained across system reset"
+      },
+      {
+        "name": "CCCSR",
+        "offset": "0x110",
+        "reset": "0x2"
+      },
+      {
+        "name": "CCVALR",
+        "offset": "0x114",
+        "reset": "unknown low byte"
+      },
+      {
+        "name": "CCSWCR",
+        "offset": "0x118",
+        "reset": "0x78"
+      },
+      {
+        "name": "CFGR2",
+        "offset": "0x120",
+        "reset": "0"
+      },
+      {
+        "name": "CLCKR",
+        "offset": "0x144",
+        "reset": "0"
+      },
+      {
+        "name": "ECCNMIR",
+        "offset": "0x14C",
+        "reset": "0"
+      }
+    ],
+    "contracts": [
+      {
+        "id": "hdpl",
+        "detail": "HDPL progresses monotonically 1 to 2 to 3 and saturates at 3. Write recommended 0x6A, then independently read status before subsequent action. RM states every value other than 0xB4 can increment. Table81 layout suggests unknown encodings map to level3, but its layout is not visually confirmed and the neighboring secure-storage section is family-specific. Unknown codes are not admitted; treating them as restrictive is a policy, not proven status decoding. Reset/boot policy must be established before use.",
+        "evidence": [
+          "RM0522:p359",
+          "RM0522:p360",
+          "RM0522:p361",
+          "RM0522:p362"
+        ]
+      },
+      {
+        "id": "compensation_readiness",
+        "detail": "The single VDDIO cell requires HSI enabled. EN does not imply RDY. Use measured cell code only after RDY; CS selects live cell or software code. Reset selects software 0x78 (PMOS7/NMOS8) with cell disabled. Codes are finite bitfields, not qualified slew rates or electrical settings. Clock/pin/rail ownership and voltage limits remain open.",
+        "evidence": [
+          "RM0522:p358",
+          "RM0522:p359",
+          "RM0522:p365",
+          "RM0522:p366",
+          "RM0522:p367"
+        ]
+      },
+      {
+        "id": "ADC_shared_remap",
+        "detail": "Bits 0..3 select ADC1 IN2 PA2/PC4, IN5 PA5/PC5, IN6 PA6/PB0, IN7 PA7/PB1. These are shared channel selectors, not independent simultaneous pins. Package and ADC candidate dependencies remain unchanged.",
+        "evidence": [
+          "RM0522:p363",
+          "RM0522:p364",
+          "HAL.remap"
+        ]
+      },
+      {
+        "id": "FPU_masks",
+        "detail": "FPUIMR is privileged-only; reset enables five conditions and disables inexact. SBS has no dedicated IRQ; this is FPU interrupt masking and does not establish CPU/NVIC delivery or clear exception state.",
+        "evidence": [
+          "RM0522:p361",
+          "RM0522:p364",
+          "HAL.FPU_break"
+        ]
+      },
+      {
+        "id": "break_locks",
+        "detail": "CFGR2 CLL/SEL/PVDL are set-only until system reset; PVDL also makes PVD enable/threshold read-only. ECCL is software-clearable despite its lock name. Exact recipient candidates are TIM1/8/15, not family TIM16/17. Per-timer break configuration, flags and reaction remain unqualified.",
+        "evidence": [
+          "RM0522:p367",
+          "RM0522:p368",
+          "HAL.FPU_break",
+          "header.break",
+          "RM0522:p361",
+          "HAL.types"
+        ]
+      },
+      {
+        "id": "core_lock",
+        "detail": "CLCKR privileged-only, unprivileged RAZ/WI. LOCKVTOR/LOCKMPU set-only until system reset. RM names MPU_CTRL/RNR/RBAR; full architecture MPU register coverage and actual writes taking effect require separate review. Do not lock as part of discovery.",
+        "evidence": [
+          "RM0522:p368",
+          "LL.lock"
+        ]
+      },
+      {
+        "id": "NMI_policy",
+        "detail": "ECCNMIR bit0=1 masks NMI for flash data-part double ECC errors; bit0=0 enables that path. It is privileged-only and does not establish instruction-fetch behavior or RAMCFG NMI policy.",
+        "evidence": [
+          "RM0522:p369",
+          "LL.NMI"
+        ]
+      },
+      {
+        "id": "erase_status",
+        "detail": "MESR bits0 MCLR and16 IPMEE are W1C and not affected by system reset. MCLR marks SRAM2 plus ICACHE erase completion; IPMEE marks ICACHE erase completion. After software clear, zero alone does not prove erase remains ongoing. Preserve status evidence and ownership before clearing.",
+        "evidence": [
+          "RM0522:p365",
+          "LL.flags"
+        ]
+      },
+      {
+        "id": "clock_reset",
+        "detail": "Exact header/API identify APB3 clock and reset bit1, while RM358 says AHB configuration port. Peripheral reset API exists but does not by itself establish scope over temporal isolation, system-reset-only locks or retained MESR. Do not assume reset reverses every protection state. RM358 also mentions debug-configuration reset controlled in DBGMCU; its exact scope remains unresolved.",
+        "evidence": [
+          "RM0522:p358",
+          "header.clock",
+          "header.reset",
+          "HAL.clock_note",
+          "RCC.reset",
+          "RM0522:p357"
+        ]
+      }
+    ],
+    "source_derived_SDK_gates": [
+      {
+        "id": "MESR_RMW_W1C",
+        "detail": "LL ClearFlag_IPMEE, ClearFlag_MCLR and ClearFlag use STM32_SET_BIT, a read-modify-write. If both flags read as one, clearing either writes both ones and clears both under RM W1C semantics. Read and preserve all pending evidence; generic HAL/LL clear does not isolate selected flag. Source-derived conditional effect, not hardware observation.",
+        "evidence": [
+          "LL.flags",
+          "family.macros",
+          "RM0522:p365",
+          "HAL.clear"
+        ]
+      },
+      {
+        "id": "HDPL_no_readback",
+        "detail": "HAL SetHDPLevelValue accepts only adjacent 1->2 or 2->3, returns error for same-level or skipping, and returns HAL_OK immediately after increment write without the required post-write status check. Serialize monotonic transition and read status independently before continuing. Unknown status codes cannot satisfy either branch and return HAL_ERROR. The read-then-write sequence is not atomic against another transition owner.",
+        "evidence": [
+          "HAL.hdpl",
+          "LL.hdpl",
+          "RM0522:p360",
+          "HAL.types"
+        ]
+      },
+      {
+        "id": "compensation_timeout",
+        "detail": "EnableCompensationCell sets EN then polls RDY using an iteration budget 50*(SystemCoreClock/1000)+1, not a measured 50ms deadline. It does not enable/check HSI, ensure the SBS clock, or undo EN on HAL_ERROR. HAL_OK reports RDY, not CS source selection or electrical suitability.",
+        "evidence": [
+          "HAL.compensation",
+          "HAL.guards",
+          "RM0522:p359"
+        ]
+      },
+      {
+        "id": "compensation_setters",
+        "detail": "Code-source setter does not check RDY before selecting cell. Value getters do not check RDY. Software PMOS/NMOS codes have only debug range checks; unmasked LL writes can spill outside their 4-bit fields. GetConfig output pointers are debug-asserted only. Establish valid pointers, cell mask=1, code range0..15, clock and readiness separately.",
+        "evidence": [
+          "HAL.compensation",
+          "LL.compensation",
+          "RM0522:p366"
+        ]
+      },
+      {
+        "id": "lock_and_remap_readback",
+        "detail": "Break/CPU-lock/remap functions generally write without ownership or readback; debug assertions do not enforce privilege, lock state or ADC inactivity. DisableBreak only asserts ECCL but release calls can attempt clearing set-only fields without success feedback. Shared configuration updates require serialized owners. Unprivileged CLCKR writes are ignored and its reads return zero, so the getter can appear unlocked. That RAZ/WI behavior is not generalized to FPUIMR/ECCNMIR.",
+        "evidence": [
+          "HAL.FPU_break",
+          "HAL.lock",
+          "HAL.remap",
+          "LL.break",
+          "LL.lock",
+          "RM0522:p368"
+        ]
+      }
+    ],
+    "conflicts": [
+      {
+        "id": "HDPL_reset_prose",
+        "detail": "RM358 describes counter0..3 resetting to zero only software reset/POR; RM359..362 specify1..3, system reset and reset code0x51. Preserve discrepancy rather than admitting level0.",
+        "evidence": [
+          "RM0522:p358",
+          "RM0522:p359",
+          "RM0522:p360",
+          "RM0522:p362"
+        ]
+      },
+      {
+        "id": "PMCR_reserved_reset",
+        "detail": "RM363 declares PMCR reset0x80000000 while bit31 reserved; Table83 reset rendering shows zero listed fields and exact header only ADC bits0..3. Preserve upper reserved state, do not invent writable bit31.",
+        "evidence": [
+          "RM0522:p363",
+          "RM0522:p369",
+          "header.bits"
+        ]
+      },
+      {
+        "id": "MESR_reset_table",
+        "detail": "RM365 gives0x000X000X and not-system-reset bits; table370 renders zeros. Do not infer current cleared/complete state from the table alone.",
+        "evidence": [
+          "RM0522:p365",
+          "RM0522:p370"
+        ]
+      },
+      {
+        "id": "clock_bus",
+        "detail": "RM358 AHB-port wording differs from exact APB3 address/enable/reset and SDK APB3 guidance. Physical clock and reset dependencies remain unresolved.",
+        "evidence": [
+          "RM0522:p358",
+          "header.base",
+          "header.clock",
+          "header.reset",
+          "HAL.clock_note"
+        ]
+      },
+      {
+        "id": "break_disable_docs",
+        "detail": "LL DisableTIMBreakInputs parameter prose advertises SRAM ECC, but only flash ECCL is software-clearable in RM; HAL disable guard restricts to flash ECC. HAL enable notes call reset hardware reset, while RM specifies system reset for CLL/SEL/PVDL. Preserve exact reset-scope uncertainty.",
+        "evidence": [
+          "LL.break",
+          "HAL.FPU_break",
+          "RM0522:p367",
+          "RM0522:p368"
+        ]
+      }
+    ],
+    "open_gates": [
+      "Full FLASH/boot/option-byte/CPU/TAMP dependency review",
+      "Datasheet compensation electrical range and performance qualification",
+      "Actual privilege, clock, protection state and reset scope",
+      "SVD completeness and independent semantic review",
+      "No executable security or reset profile; accepted catalog unchanged"
+    ]
+  }
+}

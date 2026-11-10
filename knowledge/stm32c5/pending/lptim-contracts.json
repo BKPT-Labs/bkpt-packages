@@ -1,0 +1,1778 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/lptim-contracts.json",
+    "sha256": "eb68f46202a10c85bd7ddbd02c7c26989b18015d330dd1aa37c2f86f09c5e864"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 108
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "schema": "bkpt.external.lptim.contracts.v1",
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "review": "Independent source and regression review pending.",
+    "scope": "Exact LPTIM1 only. Full RM chapter 36 pages 1483 through 1527 read; selected HAL/LL paths audited. Chapter reading and integrity checks are not full semantic, timing, compiler or hardware qualification. No executable profiles or accepted catalog changes.",
+    "sources": {
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "HAL": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_lptim.c",
+        "sha256": "8ac4ca16f037cd491750739ad4a4a50fd92b69be0807439b8c4fd78bbaced341"
+      },
+      "HAL_H": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_lptim.h",
+        "sha256": "237053d2c70d15b565ceca157132f2c152a1a3f7dec4d494bde34b6f8d05d0f1"
+      },
+      "LL": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_lptim.h",
+        "sha256": "18b68578745ef999917869346bc7946306e00a3774e96381a332fd788d016ffd"
+      },
+      "LL_DMA": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_dma.h",
+        "sha256": "0983050fda989d6c7577c49e52df21ed71055b48490017c20080b7b6e072dacd"
+      },
+      "family": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c5xx.h",
+        "sha256": "61a0b8c2674d9e817d70aa8d2693339273f4283694f8ab5f8dca077bb69913f7"
+      },
+      "HAL_core": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal.c",
+        "sha256": "35d1ff092e0b8db45bf679f4cf56be4bf8fdce32a26682101cb75ac2dca28114"
+      },
+      "package_routes": {
+        "path": "research://c5-reference/package-routes.json",
+        "sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288"
+      },
+      "errata": {
+        "path": "research://c5-reference/errata.json",
+        "sha256": "821c22f796a9ff723afee534fe5943c2b0506325ec871d890706d94414316416"
+      },
+      "sdk_lifecycle": {
+        "path": "research://c5-reference/sdk-lifecycle.json",
+        "sha256": "09c4f0f44f862065fa5164ae937b15923e9b702455aae1dc1e215a9ef7783c4c"
+      },
+      "dma_routing": {
+        "path": "research://c5-reference/dma-routing.json",
+        "sha256": "6f5d4d59950941a32d983ccc0907dda996415c9fd201cce9b2e8777bd86ae41d"
+      },
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "DS15135": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pdf",
+        "sha256": "1a3555f799297774a95978ab343ebc1f45ab9ef58d0dcf3600dec4fabed9355c",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pages.json",
+        "extraction_sha256": "b14b965adb6c1545edbca0e56b3c504e7ecc3a94bda197350ce2757b5a3d55dc"
+      },
+      "ES0676": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pdf",
+        "sha256": "a5463827337bcdbd3e5f2e0912a56307d78b568e5631b21cc9a25899c7d4a5e6",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pages.json",
+        "extraction_sha256": "2ab1b19e42b53e22ff5f3b98f6ed9a5f98f3b7b61a617abc3bb3b7fc050d1cb3"
+      }
+    },
+    "evidence": {
+      "RM0522:p1483": {
+        "source": "RM0522",
+        "page": 1483,
+        "sha256": "8aefb90a0680910b8c3627a360da26977a3e5c0257dd880bd1750ea017188ae8"
+      },
+      "RM0522:p1484": {
+        "source": "RM0522",
+        "page": 1484,
+        "sha256": "bae2cb8840cc93d25c14e55b0ba5f4d276a2d85052c60e46a8e8ac436666a6ba"
+      },
+      "RM0522:p1485": {
+        "source": "RM0522",
+        "page": 1485,
+        "sha256": "e3a9e973bb62147f224db2c29d353bbe6c6399b788a039011fff079aff1983a7"
+      },
+      "RM0522:p1486": {
+        "source": "RM0522",
+        "page": 1486,
+        "sha256": "5b32d0edfa28f7459cf09efb172858007eee6322571c4df8de3c36fdceaa3762"
+      },
+      "RM0522:p1487": {
+        "source": "RM0522",
+        "page": 1487,
+        "sha256": "42329fc21f49662eb621350afad2371fc563d121173c34315f20d484003b65d8"
+      },
+      "RM0522:p1488": {
+        "source": "RM0522",
+        "page": 1488,
+        "sha256": "dd3f8eb14ec5128bfbcde04ca42d8e13224e149e18411c0e03d2a0c1d0d66f37"
+      },
+      "RM0522:p1489": {
+        "source": "RM0522",
+        "page": 1489,
+        "sha256": "9103aead39c016a89e07ad55f8f730a42c97f59cfe4871d1da73f031152a69e6"
+      },
+      "RM0522:p1490": {
+        "source": "RM0522",
+        "page": 1490,
+        "sha256": "8eafcd0be02250b82a05944dec7e89ef0d04846d4107df51f7c92318fb573aa0"
+      },
+      "RM0522:p1491": {
+        "source": "RM0522",
+        "page": 1491,
+        "sha256": "baef59063c4d40e337b58a78caef55b11b51dc28289739f2d57fe3fca64a8e59"
+      },
+      "RM0522:p1492": {
+        "source": "RM0522",
+        "page": 1492,
+        "sha256": "31b428d512f9df82518dc850e2e50062c678fbe09864ce34fc833d421b903f26"
+      },
+      "RM0522:p1493": {
+        "source": "RM0522",
+        "page": 1493,
+        "sha256": "a9274fe9c13877be8b4514b9ad4cd59deef79a9f58ac1411b7960f67cee9cd7d"
+      },
+      "RM0522:p1494": {
+        "source": "RM0522",
+        "page": 1494,
+        "sha256": "cca9152e009c4ed789727e4bf870317c50cbe90a14ef03128042c7004140c9f8"
+      },
+      "RM0522:p1495": {
+        "source": "RM0522",
+        "page": 1495,
+        "sha256": "1cad5a5ba6147a1c23487be549c7ebdb972b6847e283faab80ed014576b8daaf"
+      },
+      "RM0522:p1496": {
+        "source": "RM0522",
+        "page": 1496,
+        "sha256": "efdc6164f119dc61eb5da95d0e65de70c787f4eb1c45c5e5d938be46dbfa6b41"
+      },
+      "RM0522:p1497": {
+        "source": "RM0522",
+        "page": 1497,
+        "sha256": "0f277a01e00a5cccbe45992a0f4b774c54083961249c28fca64c58139c6e512c"
+      },
+      "RM0522:p1498": {
+        "source": "RM0522",
+        "page": 1498,
+        "sha256": "d316c7e612d7a9396515477bb90d17e96e4fb788b821aac1ed8576d30877298c"
+      },
+      "RM0522:p1499": {
+        "source": "RM0522",
+        "page": 1499,
+        "sha256": "fdbdf65006dd9ec8bea78cc5f5742331159efe16bd56b4d29dda93e54b2095f7"
+      },
+      "RM0522:p1500": {
+        "source": "RM0522",
+        "page": 1500,
+        "sha256": "edfa80b11ef9db52b7f83ef7b0aa37104f52b8243991ff12b72a457c014a755e"
+      },
+      "RM0522:p1501": {
+        "source": "RM0522",
+        "page": 1501,
+        "sha256": "a4aaa913c3a887919295ff613954a64004b207606c33640f621e6389ce7506db"
+      },
+      "RM0522:p1502": {
+        "source": "RM0522",
+        "page": 1502,
+        "sha256": "7916d4aafd3a30981c4fae12bea889af2c693db39f5b850bb2852a7c53b9dbe2"
+      },
+      "RM0522:p1503": {
+        "source": "RM0522",
+        "page": 1503,
+        "sha256": "2d2ab69b73903506faf555a233f8d0a6712088ff024903c7554c25486fbba8b5"
+      },
+      "RM0522:p1504": {
+        "source": "RM0522",
+        "page": 1504,
+        "sha256": "ab2cf42dee7425c898e58955b9de2f9bb6f186fe36a1cb9cb3ab687df28ec910"
+      },
+      "RM0522:p1505": {
+        "source": "RM0522",
+        "page": 1505,
+        "sha256": "c8cc03d3a1713c66a9e355b873556b0ae5860611247de501a2ebc1fd13c4048b"
+      },
+      "RM0522:p1506": {
+        "source": "RM0522",
+        "page": 1506,
+        "sha256": "9b110f745bfa8739b39ff9ed3f5f11666f0e830d9714bbbd244b926424041a42"
+      },
+      "RM0522:p1507": {
+        "source": "RM0522",
+        "page": 1507,
+        "sha256": "ddf9747dd15e4ab45b7ee85efdc831fd5e843212514a8c46f7c5b0b467dbd87c"
+      },
+      "RM0522:p1508": {
+        "source": "RM0522",
+        "page": 1508,
+        "sha256": "39e030fdbd98c15a7b0c674d826493c8083a337619d9c206a13acc07674c6c0a"
+      },
+      "RM0522:p1509": {
+        "source": "RM0522",
+        "page": 1509,
+        "sha256": "1e1989d0ac3456b48f9dc0bde863803a3115d2c0fac70438a04e7ee9610f2c07"
+      },
+      "RM0522:p1510": {
+        "source": "RM0522",
+        "page": 1510,
+        "sha256": "df88e5baa288112c854ec61a2d5671ce8c60e275431235b454d8797688a1d387"
+      },
+      "RM0522:p1511": {
+        "source": "RM0522",
+        "page": 1511,
+        "sha256": "297824d0a65a8dfbbbf9a72836b0075c150456c388d82efa4b7a96eff788e4fb"
+      },
+      "RM0522:p1512": {
+        "source": "RM0522",
+        "page": 1512,
+        "sha256": "38996209d8d3a480b57b7cfd8429ed12a0f9a9085d6ec00292a5caab367b53f4"
+      },
+      "RM0522:p1513": {
+        "source": "RM0522",
+        "page": 1513,
+        "sha256": "0a0ad4be303d87420294fc7aa5c6bf38a6fd3cd362ff055f359ee4bc89888dcc"
+      },
+      "RM0522:p1514": {
+        "source": "RM0522",
+        "page": 1514,
+        "sha256": "f61ebebbc645a6c006f632c2559ab66a0a119af1e2d5ac39f664f66a20a80ff8"
+      },
+      "RM0522:p1515": {
+        "source": "RM0522",
+        "page": 1515,
+        "sha256": "9c0f3f137f1bf1a7aaa80a69ce8021d4cc38b801648d1ae1d3e79767a447227d"
+      },
+      "RM0522:p1516": {
+        "source": "RM0522",
+        "page": 1516,
+        "sha256": "97f8de283e43b69f78a2efac3363b24b5bfa258bd209e4204b2c3c273d95b255"
+      },
+      "RM0522:p1517": {
+        "source": "RM0522",
+        "page": 1517,
+        "sha256": "4aba8fb248e8750a2592d2b7bcb21c0f42bd5b7cc9ea4a415b8e66e268e5e880"
+      },
+      "RM0522:p1518": {
+        "source": "RM0522",
+        "page": 1518,
+        "sha256": "e0eb129463aac0ff6bcc7cc201e049640110c30226fa19283fe4e66fd4065013"
+      },
+      "RM0522:p1519": {
+        "source": "RM0522",
+        "page": 1519,
+        "sha256": "4bfb877affd24c9a95bdf1f2532024c5cc3e8eb765f2c9bcda3fef96533fae74"
+      },
+      "RM0522:p1520": {
+        "source": "RM0522",
+        "page": 1520,
+        "sha256": "3ca91fcad70b99a636356e08fdf5f67c8226ca048cbae72f9b9a109c7c6b5cb2"
+      },
+      "RM0522:p1521": {
+        "source": "RM0522",
+        "page": 1521,
+        "sha256": "d1c999588f82beaacfd23f2933c7f3e60c677755f7bbcf0844264f5830a034ef"
+      },
+      "RM0522:p1522": {
+        "source": "RM0522",
+        "page": 1522,
+        "sha256": "7f390b9224d0a4e9524611dc34a093c7c1f0fde366793d99c1241186bb10dccb"
+      },
+      "RM0522:p1523": {
+        "source": "RM0522",
+        "page": 1523,
+        "sha256": "0681962962651ef0eff6f0c0f417697bb0ef551e42aeea617c91502d0f55fff6"
+      },
+      "RM0522:p1524": {
+        "source": "RM0522",
+        "page": 1524,
+        "sha256": "fb99913c461fe2e0f8af6154986de2db1dcd39d865437b46664efbc34836f390"
+      },
+      "RM0522:p1525": {
+        "source": "RM0522",
+        "page": 1525,
+        "sha256": "801c2b9a2c10d5edf8a4125b45e08348e99367e9ed0c2d30959bec03d65c0148"
+      },
+      "RM0522:p1526": {
+        "source": "RM0522",
+        "page": 1526,
+        "sha256": "e5d49690d0de1cb3397fcba6a5c36c6f5d6ace53510371a4fbba35eba71b5b5d"
+      },
+      "RM0522:p1527": {
+        "source": "RM0522",
+        "page": 1527,
+        "sha256": "caf1123e7cacfccb269f8104bac905d4b7eaa0cb66fd538b10f1aebd6c517911"
+      },
+      "RM0522:p271": {
+        "source": "RM0522",
+        "page": 271,
+        "sha256": "d19f60266d8f67a35d953bb0bfda7ec6247a4b6b51d4a36b6361dd6a9ca887c9"
+      },
+      "RM0522:p316": {
+        "source": "RM0522",
+        "page": 316,
+        "sha256": "ae02ee5a7b9b05b47ee9d4d80bd3ff768aaf22a5acf15f6c762ec6f62fb94c12"
+      },
+      "DS15135:p22": {
+        "source": "DS15135",
+        "page": 22,
+        "sha256": "14d6e8a3be5e67624118681743bd4526cd06dc32635bb4a95c91ee8dd1e31cc3"
+      },
+      "DS15135:p46": {
+        "source": "DS15135",
+        "page": 46,
+        "sha256": "6d3ea235bffc5fd4cc64517ff32cd2b29a37014ab6305628204e1fd9f3146269"
+      },
+      "DS15135:p47": {
+        "source": "DS15135",
+        "page": 47,
+        "sha256": "a55c52b1f30142be5ad3fea2a1cc16b519930dd08b32d16d646101500967a3b1"
+      },
+      "ES0676:p1": {
+        "source": "ES0676",
+        "page": 1,
+        "sha256": "c36bb50f3ba55f82de59b1a5aa62c5ca6b1d3ea938ac9451545a442e65dd25c8"
+      },
+      "ES0676:p2": {
+        "source": "ES0676",
+        "page": 2,
+        "sha256": "3fed5303e4a0fc65ed4dbe6aae1c297605837e2da15bb0e24928d26b0d25eb95"
+      },
+      "ES0676:p3": {
+        "source": "ES0676",
+        "page": 3,
+        "sha256": "6682207b964f905ea8f0e452bc5cff546dfb08622fca9ce2f979b0e43cd6d157"
+      },
+      "ES0676:p6": {
+        "source": "ES0676",
+        "page": 6,
+        "sha256": "67192cb102783988744a71ca6f88c36b938faf48d360a4834496df7e76a4b915"
+      },
+      "ES0676:p7": {
+        "source": "ES0676",
+        "page": 7,
+        "sha256": "ae251fcee43cc089851cf652083da87910ac36c57afdcaee5a38ebf1eb2ecb9d"
+      },
+      "header.layout": {
+        "source": "header",
+        "start_line": 694,
+        "end_line": 712,
+        "sha256": "aabed1d0e0b82156f3bd11078ef08417b7a8546cc97d9825129203f0fa800d8c"
+      },
+      "header.IRQ": {
+        "source": "header",
+        "start_line": 110,
+        "end_line": 116,
+        "sha256": "fd8fc255db4fe709c8cf48d4b144ee5928ae21d6774a168e7887a8b33936d0ab"
+      },
+      "header.base": {
+        "source": "header",
+        "start_line": 1155,
+        "end_line": 1218,
+        "sha256": "1827f4e3c79b963809c4d6813c4c565cada50ee15a39504626820920a0a3e3e0"
+      },
+      "header.instance": {
+        "source": "header",
+        "start_line": 1334,
+        "end_line": 1340,
+        "sha256": "e17e91f3e7e62449cb0dcbdc44935417c6ea0eac12ae6f8a7414c4935fd1b1b3"
+      },
+      "header.fields": {
+        "source": "header",
+        "start_line": 12763,
+        "end_line": 13065,
+        "sha256": "a25d248e170de4b6d7d9ad25336ea9f28dbc0dc8d8efdfbf0c3017ec2f4cfe5e"
+      },
+      "header.instances": {
+        "source": "header",
+        "start_line": 14131,
+        "end_line": 14150,
+        "sha256": "c0ec9cd9dd2fb9cc782f4b4ffdbc76657f59a102c6ab7cb7b123cb9454708447"
+      },
+      "header.debug": {
+        "source": "header",
+        "start_line": 3527,
+        "end_line": 3531,
+        "sha256": "e48103a0664a839776b201b03a3fc75e99ad4a0b6769c54ab0c93a02e8e16ab1"
+      },
+      "header.reset": {
+        "source": "header",
+        "start_line": 9046,
+        "end_line": 9048,
+        "sha256": "15fb17c1bf6aa8e8b8c96112aad5af369fdc3e5c31710abfee448408ac0a173d"
+      },
+      "header.clock": {
+        "source": "header",
+        "start_line": 9194,
+        "end_line": 9196,
+        "sha256": "7b6c48430cd79887976bf190fe6ddb12589fbf6495deae4e0dd046949c350ff5"
+      },
+      "header.sleep": {
+        "source": "header",
+        "start_line": 9390,
+        "end_line": 9393,
+        "sha256": "b1c6d8b53ff72daf5c7b086834a111b43c64d235a8eebefffffd0a8ad2551712"
+      },
+      "header.kernel": {
+        "source": "header",
+        "start_line": 9482,
+        "end_line": 9487,
+        "sha256": "71935a83c820a8afcc6f74aff362da96357fd62ffeb1512e3009a6ca961c6ac0"
+      },
+      "HAL.guards": {
+        "source": "HAL",
+        "start_line": 532,
+        "end_line": 763,
+        "sha256": "809c93c9237063d1163879537862162d6f806b499e0c577171d494c2ada07937"
+      },
+      "HAL.wait_disable": {
+        "source": "HAL",
+        "start_line": 874,
+        "end_line": 961,
+        "sha256": "dfa61af3a301a21ba5fb66200cbdf806ae3954d1f7f607f8ecdd23ddb37b6c87"
+      },
+      "HAL.maps": {
+        "source": "HAL",
+        "start_line": 300,
+        "end_line": 450,
+        "sha256": "15106183821cd7f96ce12c738e6cbd7b25ce3335cea472ad0cce8e4d00168230"
+      },
+      "HAL.convert": {
+        "source": "HAL",
+        "start_line": 1030,
+        "end_line": 1119,
+        "sha256": "b2bd20a5c06eda95321c31fa3f4d5d79ec2862b600da5d986e90df8abf048967"
+      },
+      "HAL.pulse_start": {
+        "source": "HAL",
+        "start_line": 1241,
+        "end_line": 1308,
+        "sha256": "4da86b4febef126ae463f04a4a84c2730f99fb885c61f177d0bdf0bb69d07c71"
+      },
+      "HAL.DMA_callbacks": {
+        "source": "HAL",
+        "start_line": 1318,
+        "end_line": 1444,
+        "sha256": "2d5f2f70c9c8ec78835270d42fed32583b044b6f28ee22b385852a334a1bdde5"
+      },
+      "HAL.DMA_start": {
+        "source": "HAL",
+        "start_line": 1462,
+        "end_line": 1588,
+        "sha256": "ebcad30ef69cb53ddce58cfa95d7da807e6811f691bc4bea53414418a41d4625"
+      },
+      "HAL.DMA_abort": {
+        "source": "HAL",
+        "start_line": 1590,
+        "end_line": 1661,
+        "sha256": "8e4355a2ade9a27b794abbfa003a8ef3f239f92e135fceb1a7b797a2185bbc1d"
+      },
+      "HAL.init_deinit": {
+        "source": "HAL",
+        "start_line": 1690,
+        "end_line": 1782,
+        "sha256": "aa6faf173cb63311c226c18025a75e97ca06c7df59d03d4c41356648f88ecb3b"
+      },
+      "HAL.link": {
+        "source": "HAL",
+        "start_line": 1793,
+        "end_line": 1817,
+        "sha256": "18622fe03426b8503a896c90afd62a06a7f76615a8ac456fa20ec9534ab04a9d"
+      },
+      "HAL.config": {
+        "source": "HAL",
+        "start_line": 1933,
+        "end_line": 2010,
+        "sha256": "57aa7dd916363ce91dbbd73256d1941ed8853e1a7add4e5d8d177444aac03ce1"
+      },
+      "HAL.period_repeat": {
+        "source": "HAL",
+        "start_line": 2162,
+        "end_line": 2250,
+        "sha256": "63de4a0418607a5978895fa1ad537c79a91bc8310fb024285c85df181b2996a4"
+      },
+      "HAL.counter": {
+        "source": "HAL",
+        "start_line": 2276,
+        "end_line": 2348,
+        "sha256": "f64b6672d3338b59dc95cbf6f649b3c380c1f9d34f251c5e4a4970be08d3f6ba"
+      },
+      "HAL.input": {
+        "source": "HAL",
+        "start_line": 2420,
+        "end_line": 2471,
+        "sha256": "443a10ecc9e7034dafb0dc5a5467769b91f48564e0fe821530fa31598aa21522"
+      },
+      "HAL.start_stop": {
+        "source": "HAL",
+        "start_line": 2669,
+        "end_line": 2821,
+        "sha256": "7404aa6f5f5fb06694e1cdce9b37cf463ba95a29e87a79deb0be4b6430e293cd"
+      },
+      "HAL.DMA_public": {
+        "source": "HAL",
+        "start_line": 2845,
+        "end_line": 2941,
+        "sha256": "d6bec1b18886fbc6976b0030bee41fccf23198a49cb48ce3ab3ed19672f5ea18"
+      },
+      "HAL.OC_config": {
+        "source": "HAL",
+        "start_line": 2978,
+        "end_line": 3016,
+        "sha256": "3ba321f9805b8df8103f1463a773dcd0783b3902847cc641134e7d3b805e7324"
+      },
+      "HAL.IC_config": {
+        "source": "HAL",
+        "start_line": 3378,
+        "end_line": 3421,
+        "sha256": "6f8aaf53924d8e44d1888019dc1ec18225a800bc222aaba4097409c254f5c3f7"
+      },
+      "HAL.IC_source": {
+        "source": "HAL",
+        "start_line": 3467,
+        "end_line": 3491,
+        "sha256": "6e001ed1943be680f720c8a150335cbfb65c1ea21f9834ccf165c15683228afa"
+      },
+      "HAL.IC_DMA_public": {
+        "source": "HAL",
+        "start_line": 3874,
+        "end_line": 4001,
+        "sha256": "dde6ae060b60afe541905e146b95688fe2bd0a704618320b5edeaa13b5f1b48b"
+      },
+      "HAL.capture": {
+        "source": "HAL",
+        "start_line": 4013,
+        "end_line": 4057,
+        "sha256": "6439b38251923804d4fff8557e3820a87190586ae64ed6b0210e6e57aef4b41e"
+      },
+      "HAL.encoder": {
+        "source": "HAL",
+        "start_line": 4078,
+        "end_line": 4116,
+        "sha256": "ec337efac52921491b3f071cb8d7844c426500ab75f48e41548aa692ffc4cdfe"
+      },
+      "HAL.IRQ": {
+        "source": "HAL",
+        "start_line": 4397,
+        "end_line": 4560,
+        "sha256": "69a5619bb2557a38c72ab6e2eb4cc7406bd13a0b1eb7869cd48c6d8775f421f6"
+      },
+      "HAL.frequency": {
+        "source": "HAL",
+        "start_line": 5371,
+        "end_line": 5381,
+        "sha256": "96f535ed44ddf6839cfbee5b6cc689e3f271e52aef79762345892b29f514e2d5"
+      },
+      "HAL_H.modes": {
+        "source": "HAL_H",
+        "start_line": 200,
+        "end_line": 442,
+        "sha256": "5f1fec01e641b5d7483dfe0952ff7074af49d51f15c9c5189b784363dad52ffc"
+      },
+      "LL.trigger": {
+        "source": "LL",
+        "start_line": 317,
+        "end_line": 329,
+        "sha256": "cc866493b968aab17bd1c2cd6aaa83ac05845cfd839688601758f3537d0affdc"
+      },
+      "LL.core": {
+        "source": "LL",
+        "start_line": 542,
+        "end_line": 718,
+        "sha256": "7798267ecb5af9c6cc67f26bb48225a77d8cd2bce2816081540e3995eed14e11"
+      },
+      "LL.channels": {
+        "source": "LL",
+        "start_line": 730,
+        "end_line": 866,
+        "sha256": "43a65eb5d2e674bd221c8ec5c1594b6920be3a3c8eb6fbf1abb7921994f0f500"
+      },
+      "LL.remap": {
+        "source": "LL",
+        "start_line": 1085,
+        "end_line": 1088,
+        "sha256": "31bfa2bc2a63f990e436b1b07aebb55faa25cbd9e8afb8139343f02b3c700a19"
+      },
+      "LL.capture": {
+        "source": "LL",
+        "start_line": 1297,
+        "end_line": 1344,
+        "sha256": "5fcd746932d631e79d6f59814dd0f109922a120bcf81d08ea29ec7abc1fb94f8"
+      },
+      "LL.clock": {
+        "source": "LL",
+        "start_line": 1679,
+        "end_line": 1682,
+        "sha256": "10ceebc868fd2c8839feffc268c65150fd6be09427a245f7dfe2892cf0cd9022"
+      },
+      "LL.DMA1_requests": {
+        "source": "LL_DMA",
+        "start_line": 438,
+        "end_line": 442,
+        "sha256": "b2a5c8e0120901ac848c7ce89462453b0b91b9b0f68ea8b521507d4eff6d709f"
+      },
+      "LL.DMA2_requests": {
+        "source": "LL_DMA",
+        "start_line": 569,
+        "end_line": 573,
+        "sha256": "320a36924e7599576313296dfb11d712e4cbdb7d7781b70615687cf3dc081fa4"
+      },
+      "LL.DMA1_triggers": {
+        "source": "LL_DMA",
+        "start_line": 652,
+        "end_line": 655,
+        "sha256": "a9633f5263947c36c15145976190f2d79e4946fd64a37d4e26b62ea5cd568667"
+      },
+      "LL.DMA2_triggers": {
+        "source": "LL_DMA",
+        "start_line": 714,
+        "end_line": 717,
+        "sha256": "61a477554e7e85adf84b53a01b88dcd538d849239f29a716927688bfbd0934bf"
+      },
+      "family.modify": {
+        "source": "family",
+        "start_line": 130,
+        "end_line": 142,
+        "sha256": "53238037d4d5827a42b9177f5166478587104441da533848b840727019c41699"
+      },
+      "HAL.tick": {
+        "source": "HAL_core",
+        "start_line": 337,
+        "end_line": 356,
+        "sha256": "23c179aeed9674cef3b4ac394eb8ec4132caadda6331f9fab12e89c5561f6e4e"
+      },
+      "LL.capture_maps": {
+        "source": "LL",
+        "start_line": 451,
+        "end_line": 475,
+        "sha256": "973235d3545156172a3e8ed178e53804d496bbef2ccbe9ae387b615eeb831525"
+      },
+      "RM0522:p2546": {
+        "source": "RM0522",
+        "page": 2546,
+        "sha256": "4ad9b5e600f0f88a512c9526013c4fdf6384a4eec0b3ed702885c3ecbfdb045a"
+      },
+      "HAL.IC_getters": {
+        "source": "HAL",
+        "start_line": 3429,
+        "end_line": 3522,
+        "sha256": "8fe2c7a94ba2c2dec8551269c875b072f6c24795550b834f749f93eeccc61fe3"
+      },
+      "LL.remap_get": {
+        "source": "LL",
+        "start_line": 1090,
+        "end_line": 1109,
+        "sha256": "7ac98b240c4cf949029029efb7de64498bdd2e2726d6bba6c46670a6fbf8773f"
+      },
+      "HAL.interrupt_mask": {
+        "source": "HAL",
+        "start_line": 400,
+        "end_line": 406,
+        "sha256": "d7a2b0e50b72280d883ae873ae7c6ab4f3e603f808041643aafd849886c91bf7"
+      }
+    },
+    "package_routes_sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288",
+    "errata_sha256": "821c22f796a9ff723afee534fe5943c2b0506325ec871d890706d94414316416",
+    "sdk_lifecycle_sha256": "09c4f0f44f862065fa5164ae937b15923e9b702455aae1dc1e215a9ef7783c4c",
+    "finite_source_maps": {
+      "instance": "LPTIM1",
+      "base": "0x44004400",
+      "IRQn": 57,
+      "channels": [
+        1,
+        2
+      ],
+      "bus_access_bits": 32,
+      "registers": [
+        {
+          "name": "ISR",
+          "offset": "0x0",
+          "reset": 0
+        },
+        {
+          "name": "ICR",
+          "offset": "0x4",
+          "reset": 0
+        },
+        {
+          "name": "DIER",
+          "offset": "0x8",
+          "reset": 0
+        },
+        {
+          "name": "CFGR",
+          "offset": "0xc",
+          "reset": 0
+        },
+        {
+          "name": "CR",
+          "offset": "0x10",
+          "reset": 0
+        },
+        {
+          "name": "CCR1",
+          "offset": "0x14",
+          "reset": 0
+        },
+        {
+          "name": "ARR",
+          "offset": "0x18",
+          "reset": 1
+        },
+        {
+          "name": "CNT",
+          "offset": "0x1c",
+          "reset": 0
+        },
+        {
+          "name": "CFGR2",
+          "offset": "0x24",
+          "reset": 0
+        },
+        {
+          "name": "RCR",
+          "offset": "0x28",
+          "reset": 0
+        },
+        {
+          "name": "CCMR1",
+          "offset": "0x2c",
+          "reset": 0
+        },
+        {
+          "name": "CCR2",
+          "offset": "0x34",
+          "reset": 0
+        }
+      ],
+      "counter_bits": 16,
+      "compare_bits": 16,
+      "ARR_encoded_range": [
+        0,
+        65535
+      ],
+      "HAL_period_checked_range": [
+        1,
+        65535
+      ],
+      "REP_range": [
+        0,
+        255
+      ],
+      "prescaler_raw_to_divisor": {
+        "0": 1,
+        "1": 2,
+        "2": 4,
+        "3": 8,
+        "4": 16,
+        "5": 32,
+        "6": 64,
+        "7": 128
+      },
+      "trigger_raw_to_source": {
+        "0": "GPIO_ETR",
+        "1": "rtc_alra_trg",
+        "2": "rtc_alrb_trg",
+        "3": "tamp_trg1",
+        "4": "tamp_trg2",
+        "5": "lpdma1_ch1_tc",
+        "6": "comp1_out",
+        "7": "EVENTOUT"
+      },
+      "input1_raw_to_source": {
+        "0": "GPIO_IN1",
+        "1": "comp1_out",
+        "2": "not_mapped_by_Table370",
+        "3": "not_mapped_by_Table370"
+      },
+      "input2_raw_to_source": {
+        "0": "GPIO_IN2",
+        "1": "comp2_out",
+        "2": "reserved",
+        "3": "reserved"
+      },
+      "capture1_raw_to_source": {
+        "0": "GPIO_CH1",
+        "1": "comp1_out",
+        "2": "EVENTOUT",
+        "3": "RCC_MCO1"
+      },
+      "capture2_raw_to_source": {
+        "0": "GPIO_CH2",
+        "1": "LSI",
+        "2": "LSE",
+        "3": "RCC_HSE_1MHZ"
+      },
+      "kernel_selector_raw_to_source": {
+        "0": "PCLK3",
+        "1": "HSIK",
+        "2": "LSE",
+        "3": "LSI"
+      },
+      "clock_polarity_raw": {
+        "0": "rising",
+        "1": "falling",
+        "2": "both_requires_internal_clock",
+        "3": "not_allowed"
+      },
+      "capture_polarity_raw": {
+        "0": "rising",
+        "1": "falling",
+        "2": "reserved",
+        "3": "both"
+      },
+      "trigger_polarity_raw": {
+        "0": "software",
+        "1": "rising",
+        "2": "falling",
+        "3": "both"
+      },
+      "filter_raw_to_equal_samples": {
+        "0": "filter_disabled",
+        "1": 2,
+        "2": 4,
+        "3": 8
+      },
+      "capture_prescaler_raw_to_events": {
+        "0": 1,
+        "1": 2,
+        "2": 4,
+        "3": 8
+      },
+      "capture_offset_table_rows_PRESC_columns_ICF": [
+        [
+          2,
+          7,
+          9,
+          13
+        ],
+        [
+          3,
+          5,
+          6,
+          8
+        ],
+        [
+          2,
+          3,
+          4,
+          5
+        ],
+        [
+          2,
+          2,
+          3,
+          3
+        ],
+        [
+          2,
+          2,
+          2,
+          2
+        ],
+        [
+          2,
+          2,
+          2,
+          2
+        ],
+        [
+          2,
+          2,
+          2,
+          2
+        ],
+        [
+          2,
+          2,
+          2,
+          2
+        ]
+      ],
+      "DMA_request_selectors_each_LPDMA1_LPDMA2": {
+        "IC1": 52,
+        "IC2": 53,
+        "UE": 54
+      },
+      "DMA_trigger_selectors_each_LPDMA1_LPDMA2": {
+        "CH1": 11,
+        "CH2": 12
+      },
+      "RCC_APB3_gate_reset_sleep_bit": 11,
+      "DBGMCU_APB3FZR_stop_bit": 17,
+      "package_routes": [
+        {
+          "id": "descriptor.signal.193",
+          "pin": "PB13",
+          "pad": 34,
+          "signal": "LPTIM1_CH1",
+          "instance": "LPTIM1",
+          "function": {
+            "type": "alternate",
+            "id": "AF3"
+          },
+          "source_pointer": "/signals/193",
+          "source_record": {
+            "name": "LPTIM1_CH1",
+            "instance": "LPTIM1",
+            "die_pad": "PB13",
+            "function": {
+              "type": "alternate",
+              "id": "AF3"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB13",
+            "af": "AF3",
+            "DS_signal": "LPTIM1_CH1",
+            "descriptor_name": "LPTIM1_CH1",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 7,
+            "raw_cell": "LPTIM1_CH1"
+          }
+        },
+        {
+          "id": "descriptor.signal.194",
+          "pin": "PB2",
+          "pad": 28,
+          "signal": "LPTIM1_CH1",
+          "instance": "LPTIM1",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/194",
+          "source_record": {
+            "name": "LPTIM1_CH1",
+            "instance": "LPTIM1",
+            "die_pad": "PB2",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB2",
+            "af": "AF5",
+            "DS_signal": "LPTIM1_CH1",
+            "descriptor_name": "LPTIM1_CH1",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 20,
+            "raw_cell": "LPTIM1_CH1"
+          }
+        },
+        {
+          "id": "descriptor.signal.195",
+          "pin": "PB4",
+          "pad": 56,
+          "signal": "LPTIM1_CH2",
+          "instance": "LPTIM1",
+          "function": {
+            "type": "alternate",
+            "id": "AF4"
+          },
+          "source_pointer": "/signals/195",
+          "source_record": {
+            "name": "LPTIM1_CH2",
+            "instance": "LPTIM1",
+            "die_pad": "PB4(NJTRST)",
+            "function": {
+              "type": "alternate",
+              "id": "AF4"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB4",
+            "af": "AF4",
+            "DS_signal": "LPTIM1_CH2",
+            "descriptor_name": "LPTIM1_CH2",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 22,
+            "raw_cell": "LPTIM1_CH2"
+          }
+        },
+        {
+          "id": "descriptor.signal.196",
+          "pin": "PA15",
+          "pad": 50,
+          "signal": "LPTIM1_ETR",
+          "instance": "LPTIM1",
+          "function": {
+            "type": "alternate",
+            "id": "AF3"
+          },
+          "source_pointer": "/signals/196",
+          "source_record": {
+            "name": "LPTIM1_ETR",
+            "instance": "LPTIM1",
+            "die_pad": "PA15(JTDI)",
+            "function": {
+              "type": "alternate",
+              "id": "AF3"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA15",
+            "af": "AF3",
+            "DS_signal": "LPTIM1_ETR",
+            "descriptor_name": "LPTIM1_ETR",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 17,
+            "raw_cell": "LPTIM1_ETR"
+          }
+        },
+        {
+          "id": "descriptor.signal.197",
+          "pin": "PA1",
+          "pad": 15,
+          "signal": "LPTIM1_IN1",
+          "instance": "LPTIM1",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/197",
+          "source_record": {
+            "name": "LPTIM1_IN1",
+            "instance": "LPTIM1",
+            "die_pad": "PA1",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PA1"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PA1",
+            "af": "AF5",
+            "DS_signal": "LPTIM1_IN1",
+            "descriptor_name": "LPTIM1_IN1",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 3,
+            "raw_cell": "LPTIM1_IN1"
+          }
+        },
+        {
+          "id": "descriptor.signal.198",
+          "pin": "PB10",
+          "pad": 29,
+          "signal": "LPTIM1_IN1",
+          "instance": "LPTIM1",
+          "function": {
+            "type": "alternate",
+            "id": "AF3"
+          },
+          "source_pointer": "/signals/198",
+          "source_record": {
+            "name": "LPTIM1_IN1",
+            "instance": "LPTIM1",
+            "die_pad": "PB10",
+            "function": {
+              "type": "alternate",
+              "id": "AF3"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB10",
+            "af": "AF3",
+            "DS_signal": "LPTIM1_IN1",
+            "descriptor_name": "LPTIM1_IN1",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 5,
+            "raw_cell": "LPTIM1_IN1"
+          }
+        },
+        {
+          "id": "descriptor.signal.199",
+          "pin": "PA2",
+          "pad": 16,
+          "signal": "LPTIM1_IN2",
+          "instance": "LPTIM1",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/199",
+          "source_record": {
+            "name": "LPTIM1_IN2",
+            "instance": "LPTIM1",
+            "die_pad": "PA2",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA2",
+            "af": "AF5",
+            "DS_signal": "LPTIM1_IN2",
+            "descriptor_name": "LPTIM1_IN2",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 4,
+            "raw_cell": "LPTIM1_IN2"
+          }
+        },
+        {
+          "id": "descriptor.signal.200",
+          "pin": "PE2",
+          "pad": 1,
+          "signal": "LPTIM1_IN2",
+          "instance": "LPTIM1",
+          "function": {
+            "type": "alternate",
+            "id": "AF1"
+          },
+          "source_pointer": "/signals/200",
+          "source_record": {
+            "name": "LPTIM1_IN2",
+            "instance": "LPTIM1",
+            "die_pad": "PE2",
+            "function": {
+              "type": "alternate",
+              "id": "AF1"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PE2",
+            "af": "AF1",
+            "DS_signal": "LPTIM1_IN2",
+            "descriptor_name": "LPTIM1_IN2",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 27,
+            "raw_cell": "LPTIM1_IN2"
+          }
+        },
+        {
+          "id": "descriptor.signal.201",
+          "pin": "PH2",
+          "pad": 60,
+          "signal": "LPTIM1_IN2",
+          "instance": "LPTIM1",
+          "function": {
+            "type": "alternate",
+            "id": "AF3"
+          },
+          "source_pointer": "/signals/201",
+          "source_record": {
+            "name": "LPTIM1_IN2",
+            "instance": "LPTIM1",
+            "die_pad": "PH2-BOOT0",
+            "function": {
+              "type": "alternate",
+              "id": "AF3"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PH2",
+            "af": "AF3",
+            "DS_signal": "LPTIM1_IN2",
+            "descriptor_name": "LPTIM1_IN2",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 30,
+            "raw_cell": "LPTIM1_IN2"
+          }
+        }
+      ],
+      "evidence": [
+        "header.layout",
+        "header.IRQ",
+        "header.base",
+        "header.instance",
+        "header.fields",
+        "header.instances",
+        "header.debug",
+        "header.clock",
+        "header.reset",
+        "header.sleep",
+        "header.kernel",
+        "RM0522:p1484",
+        "RM0522:p1487",
+        "RM0522:p1488",
+        "RM0522:p1489",
+        "RM0522:p1500",
+        "RM0522:p1501",
+        "RM0522:p1517",
+        "RM0522:p1518",
+        "RM0522:p1520",
+        "RM0522:p1522",
+        "RM0522:p1523",
+        "RM0522:p1525",
+        "RM0522:p1527",
+        "RM0522:p316",
+        "HAL.guards",
+        "LL.capture",
+        "LL.DMA1_requests",
+        "LL.DMA2_requests",
+        "LL.DMA1_triggers",
+        "LL.DMA2_triggers",
+        "DS15135:p22",
+        "DS15135:p46",
+        "DS15135:p47"
+      ]
+    },
+    "contracts": [
+      {
+        "id": "exact_scope_and_ownership",
+        "detail": "One physical LPTIM1, two capture/compare channels sharing counter, ARR, repetition, clock, trigger, CFGR and IRQ57. Independent channel labels do not create independent time bases. Package route records are copied from the hash-bound inventory, retaining PA1 IO discrepancy and debug/boot pad constraints; no board or electrical qualification. DMA request selectors and trigger selectors are distinct namespaces and do not admit a DMA chain. PE2 LPTIM1_IN2 AF1 also shares its pad with TRACECLK AF0; trace ownership is an explicit routing constraint.",
+        "evidence": [
+          "header.instances",
+          "RM0522:p1484",
+          "RM0522:p1485",
+          "header.IRQ",
+          "DS15135:p46",
+          "DS15135:p47"
+        ]
+      },
+      {
+        "id": "clock_modes",
+        "detail": "CKSEL=0 COUNTMODE=0 counts internal clock pulses. CKSEL=0 COUNTMODE=1 samples IN1 with internal clock and requires PRESC=0; changes must not exceed internal clock frequency. CKSEL=1 uses IN1 as kernel clock and COUNTMODE is ignored; without an internal clock only one edge polarity and disabled filters are permitted. The first five active external edges after enable are lost. Both-edge external counting requires an internal clock at least four times external frequency. Preserve the source wording ambiguity below rather than admitting every CKSEL/polarity combination.",
+        "evidence": [
+          "RM0522:p1488",
+          "RM0522:p1489",
+          "RM0522:p1494",
+          "RM0522:p1495",
+          "RM0522:p1518"
+        ]
+      },
+      {
+        "id": "encoder",
+        "detail": "Encoder requires internal clock CKSEL=0, PRESC=0, continuous mode and initialized ARR; both inputs must not exceed internal frequency /4 and Table375 assumes they do not switch simultaneously. UP/DOWN indicate direction changes, not an accumulated position history. COMP1/COMP2 simultaneous operation remains prohibited on revision Z by ES2.4.1; revision Y applicability differs.",
+        "evidence": [
+          "RM0522:p1496",
+          "RM0522:p1497",
+          "ES0676:p2",
+          "ES0676:p6"
+        ]
+      },
+      {
+        "id": "start_and_modes",
+        "detail": "Enable has two counter-clock latency; software start has three kernel-clock latency and external trigger synchronization has two counter-clock latency. ENABLE must precede SNGSTRT/CNTSTRT. Continuous, one-shot, timeout and set-once are distinct. One-shot ends at update/repetition completion; set-once discards later triggers; timeout restarts counter and repetition on later triggers. These are vendor timing statements, not measured edge timing.",
+        "evidence": [
+          "RM0522:p1490",
+          "RM0522:p1491",
+          "RM0522:p1492",
+          "RM0522:p1495",
+          "RM0522:p1519"
+        ]
+      },
+      {
+        "id": "write_synchronization",
+        "detail": "CFGR may change only while disabled. ARR, output CCRx and RCR may change only while enabled. Rewrites must wait for ARROK, CMPxOK or REPOK from the prior write. PRELOAD controls immediate versus update-event loading; bus completion is not proof of an effective preloaded value. RCR propagation is four APB plus three kernel cycles. With PRELOAD=0, change RCR at least five counter cycles before ARR match. CCMR1 successive writes require at least three times the prescaler division factor in kernel cycles; channel format fields require CCxE=0. DIEROK reports completion of the APB DIER write (RM1506/1508/1510). These passages do not independently specify the same enabled-only or no-back-to-back restrictions as ARR/CCR/RCR; completion timing remains an integration obligation.",
+        "evidence": [
+          "RM0522:p1494",
+          "RM0522:p1498",
+          "RM0522:p1518",
+          "RM0522:p1520",
+          "RM0522:p1522",
+          "RM0522:p1525",
+          "RM0522:p1506",
+          "RM0522:p1508",
+          "RM0522:p1510"
+        ]
+      },
+      {
+        "id": "waveform_and_repetition",
+        "detail": "Waveform modes require ARR strictly greater than CCRx. PWM reference is low while CNT<=CCRx and high otherwise, then adjusted by polarity; changing polarity can change the default level immediately. Compare, autoreload and update flags and output transition are delayed one counter cycle per RM1503. Repetition uses raw REP+1 overflow events and updates preloads on underflow. Do not infer GPIO timing, exact nominal rate or first-cycle behavior from a basic-timer formula.",
+        "evidence": [
+          "RM0522:p1492",
+          "RM0522:p1493",
+          "RM0522:p1497",
+          "RM0522:p1498",
+          "RM0522:p1501",
+          "RM0522:p1502",
+          "RM0522:p1503"
+        ]
+      },
+      {
+        "id": "capture_side_effects",
+        "detail": "Capture CCRx is read-only and reading it clears CCxIF, by either CPU or DMA. A new capture while CCxIF is set raises CCxOF, separately cleared through ICR. Capture offset table is vendor data indexed by raw PRESC/ICxF; subtraction needs wrap/ARR and event-loss analysis before use. No automatic reads or CPU access to DMA-owned capture data. Capture channel must be enabled last after DMA requests and counter start according to RM1499.",
+        "evidence": [
+          "RM0522:p1499",
+          "RM0522:p1500",
+          "RM0522:p1501",
+          "RM0522:p1509",
+          "RM0522:p1520",
+          "RM0522:p1526"
+        ]
+      },
+      {
+        "id": "counter_reads_resets",
+        "detail": "Running CNT requires consecutive equal reads. RSTARE makes any CNT read reset the counter and prevents using that double-read protocol; asynchronous reset requires an interval with no kernel pulses. COUNTRST requires ENABLE=1, prior COUNTRST=0 and three kernel cycles to synchronize. The two reset mechanisms must be mutually exclusive. These are side-effectful state operations, not ordinary telemetry. RSTARE may be set only while LPTIM is enabled. Software ACTIVE alone does not prove the hardware ENABLE condition.",
+        "evidence": [
+          "RM0522:p1495",
+          "RM0522:p1519",
+          "RM0522:p1521"
+        ]
+      },
+      {
+        "id": "DMA_and_IRQ_lifetime",
+        "detail": "CCRx reads clear CCxIF. RM1503 separately lists capture DMA request reset by CCxDE, CCxE or ENABLE clearing; do not equate a CCR read with request reset. UE is cleared by any ARR write; update requests reset on request/peripheral disable or when all channels are disabled. Disabling requests does not prove DMA channel quiescence. ICR is W1C; preserve mode-dependent flags. RM1505 says enabling an interrupt after its flag is already set does not assert it; ES2.6.3 additionally clears corresponding status upon interrupt-bit modification. Own IRQ, channel, event consumption, DMA buffers and callbacks together.",
+        "evidence": [
+          "RM0522:p1503",
+          "RM0522:p1504",
+          "RM0522:p1505",
+          "RM0522:p1506",
+          "RM0522:p1508",
+          "RM0522:p1510",
+          "RM0522:p1511",
+          "RM0522:p1512",
+          "RM0522:p1513",
+          "RM0522:p1514",
+          "RM0522:p1515",
+          "ES0676:p7"
+        ]
+      },
+      {
+        "id": "low_power_debug",
+        "detail": "RM1504 requires all DMA requests disabled before Sleep, Stop and Standby. Stop operation additionally needs an available oscillator and proper wake configuration; Standby powers down LPTIM and requires reinitialization. Debug freeze depends on DBGMCU configuration and changes operation. Clock access requires the RCC two-bus-cycle startup delay; bus-off reads are unsupported. No low-power or debug transition is admitted.",
+        "evidence": [
+          "RM0522:p1504",
+          "RM0522:p271",
+          "header.debug",
+          "RM0522:p2546"
+        ]
+      },
+      {
+        "id": "ES_2_6_1",
+        "detail": "Applicable A to Z and Y. Clearing ENABLE near interrupt occurrence can freeze the Stop wake interrupt; workaround is whole-peripheral RCC reset instead of clearing ENABLE. Every direct-disable path, including temporary configuration and the restore helper, requires screening. CPU interrupt masking alone does not implement the specified workaround.",
+        "evidence": [
+          "ES0676:p2",
+          "ES0676:p6",
+          "HAL.wait_disable",
+          "LL.core"
+        ]
+      },
+      {
+        "id": "ES_2_6_2",
+        "detail": "Applicable A to Z and Y. In one-shot mode with APB slower than kernel and odd raw REP, ARRM/CMPM may not set at end of cycle. Enforce both ARR and compare >= KER_CLK/(2*APB_CLK); for integer registers use a checked ceiling only as a derived admission rule. Parity is raw REP, not REP+1. Generic mode/range acceptance does not establish this clock relationship. ES uses legacy CMPM/CMP and MSI/HSI16 example wording; do not invent C542 MSI.",
+        "evidence": [
+          "ES0676:p2",
+          "ES0676:p6",
+          "ES0676:p7",
+          "HAL.guards"
+        ]
+      },
+      {
+        "id": "ES_2_6_3",
+        "detail": "Applicable N to Z and Y; no workaround. Modifying an interrupt bit in DIER clears its corresponding ISR flag. Preserve event-loss policy and serialization when changing enables. Do not silently transform this into a claim that every unchanged bit in an RMW write necessarily clears its flag. Applicability of this interrupt-bit wording to DMA enable bits CC1DE/CC2DE/UEDE remains unresolved; no DMA status-clearing rule is inferred.",
+        "evidence": [
+          "ES0676:p2",
+          "ES0676:p7"
+        ]
+      }
+    ],
+    "source_derived_SDK_gates": [
+      {
+        "id": "disable_PRIMASK_and_tick",
+        "detail": "CcDisable saves the entire peripheral structure before masking interrupts, sets PRIMASK=1, resets LPTIM and waits on DIEROK/ARROK. Error returns at 939/945 bypass restoration at 959. WaitFlag depends on HAL_GetTick; default tick increments in SysTick interrupt, so a permanently absent flag while maskable IRQs are blocked need not reach timeout unless an independent tick source is supplied. Conditional source inference, not observed lockup. Both error returns occur after temporary ENABLE=1 and before its clear, so the source path also retains ENABLE=1. On these returned-error paths, Stop/Stop_IT/Stop_DMA return to the caller with PRIMASK=1 and software state IDLE: maskable interrupts, including SysTick, remain disabled until independently restored.",
+        "evidence": [
+          "HAL.wait_disable",
+          "HAL.tick"
+        ]
+      },
+      {
+        "id": "disable_snapshot_restore",
+        "detail": "The structure copy includes CNT and CCRx; their reads can consume reset-after-read/capture state. Exact emitted accesses and reserved offsets have not been compiler-qualified. After reset and optional temporary enable, helper clears ENABLE then writes CCR1, CCR2 and RCR without re-enabling or completion waits, contrary to enabled-only RM conditions. HAL_OK does not prove full configuration restoration. On either error path after the RCC reset, CCR1/CCR2, RCR, CFGR, CFGR2 and CCMR1 are never restored and the saved copy is discarded. On the DIER wait failure ARR retains reset value 1; on the later ARROK failure its write is unconfirmed. Subsequent Stop/Stop_IT CFGR manipulation starts from reset configuration while ENABLE remains set.",
+        "evidence": [
+          "HAL.wait_disable",
+          "header.layout",
+          "RM0522:p1495",
+          "RM0522:p1520",
+          "RM0522:p1522",
+          "RM0522:p1526"
+        ]
+      },
+      {
+        "id": "stop_state_after_error",
+        "detail": "Stop, Stop_IT after its preliminary wait succeeds, and Stop_DMA mark global state IDLE even if CcDisable returned HAL_ERROR. Stop/Stop_IT also write CFGR afterward. Error-state IDLE is not a disable or release receipt. DMA abort completion remains independently required. When CcDisable fails after temporary enable, the subsequent Stop/Stop_IT CFGR write is made with ENABLE still set, contrary to the disabled-only condition.",
+        "evidence": [
+          "HAL.start_stop",
+          "HAL.DMA_public",
+          "HAL.wait_disable",
+          "RM0522:p1518"
+        ]
+      },
+      {
+        "id": "direct_disable_and_active_encoder",
+        "detail": "DeInit, SetConfig, temporary pulse/period/repetition updates and Start helper directly clear ENABLE. SetConfigEncoder explicitly permits ACTIVE, writes CKFLT before disabling, then disables/enables without restarting count; its filter bound is not measurement or enforcement of the /4 input rate. It does not enforce CKSEL=0, PRESC=0 and continuous mode itself. No blanket ES2.6.1-safe SDK lifecycle. DeInit loops over both channels and writes CCMR1 without enforcing the required three-times-prescaler kernel-cycle spacing. It does not reset CFGR, CFGR2, ARR, CCRx or RCR and does not issue the RCC peripheral reset.",
+        "evidence": [
+          "HAL.init_deinit",
+          "HAL.config",
+          "HAL.pulse_start",
+          "HAL.period_repeat",
+          "HAL.encoder",
+          "RM0522:p1496",
+          "RM0522:p1518",
+          "ES0676:p6",
+          "RM0522:p1525"
+        ]
+      },
+      {
+        "id": "counter_helpers",
+        "detail": "HAL GetCounter performs one LL read, not consecutive matching reads. ResetCounter sets COUNTRST without checking enable, prior pending reset or RSTARE exclusivity; reset-after-read helpers do not prove a pulse-free interval. Caller protocol remains required. The reset-after-read software ACTIVE guard does not verify hardware ENABLE=1 required for setting RSTARE.",
+        "evidence": [
+          "HAL.counter",
+          "LL.core",
+          "LL.channels",
+          "RM0522:p1495",
+          "RM0522:p1519",
+          "RM0522:p1521"
+        ]
+      },
+      {
+        "id": "capture_remap_cross_channel",
+        "detail": "IC_SetConfigChannel and IC_SetChannelSource pass only the selected channel encoding to LL_SetRemap, which clears both IC1SEL and IC2SEL before ORing it. For valid mapped inputs, configuring either channel can reset the other selector to GPIO. SetChannelSource lacks a source-domain assertion; unmatched values are separately blocked by the conversion-table termination issue. Preserve both channel owners and validate/read back the complete remap.",
+        "evidence": [
+          "HAL.IC_config",
+          "HAL.IC_source",
+          "HAL.convert",
+          "LL.remap",
+          "family.modify",
+          "HAL.maps",
+          "LL.capture_maps"
+        ]
+      },
+      {
+        "id": "release_domains_and_shared_writes",
+        "detail": "Many range, state, channel and pointer guards are debug assertions; optional runtime checks cover selected NULL pointers. Invalid channel values index tables/arrays; unmasked LL setters can spill values outside fields. OC pulse range permits 65535 independently of ARR and does not prove ARR>CCR. CCMR1 writes must obey the inter-write delay and channel-disable requirements; the selected setter bodies contain no timed enforcement of that delay.",
+        "evidence": [
+          "HAL.guards",
+          "HAL.OC_config",
+          "HAL.IC_config",
+          "LL.channels",
+          "LL.core",
+          "family.modify",
+          "RM0522:p1525"
+        ]
+      },
+      {
+        "id": "start_failure_and_configuration_mutation",
+        "detail": "Start/Start_IT update software state ACTIVE before helper work. Helper mismatch or DIEROK timeout returns without a complete rollback. SetConfig and temporary setters can leave ENABLE set after timeout; their writes may complete later. HAL_ERROR is not atomic cancellation and must not authorize retry/release without recovery. Stop_IT can also fail at its preliminary DIEROK wait before CcDisable: ENABLE remains set, state remains ACTIVE, and the interrupt-disable write has unconfirmed completion.",
+        "evidence": [
+          "HAL.start_stop",
+          "HAL.config",
+          "HAL.period_repeat",
+          "HAL.pulse_start"
+        ]
+      },
+      {
+        "id": "DMA_start_partial_state",
+        "detail": "Update DMA enables the peripheral and UE request before channel start; failed channel start sets IDLE but leaves request/enable and callbacks changed. Earlier DIEROK timeout also returns without rollback. Capture DMA starts its channel before enabling the request and CCxE, but does not start the counter in that helper; API permits global IDLE, so caller must establish RM1499 counter-start order. On DMA start failure temporary enable is not restored. Width, alignment, length, request and linked-list settings are not qualified by a byte-buffer signature.",
+        "evidence": [
+          "HAL.DMA_start",
+          "HAL.IC_DMA_public",
+          "RM0522:p1499",
+          "RM0522:p1505"
+        ]
+      },
+      {
+        "id": "DMA_abort_callback_not_receipt",
+        "detail": "Abort helper ignores blocking abort status in silent mode and invokes the stop callback when Abort_IT returns an error. Thus that callback alone is not proof of DMA quiescence. IC_StopChannel_DMA sets channel IDLE and returns HAL_OK while asynchronous abort may still be pending. DeInit does not abort linked DMA channels, discards DIEROK wait result and marks RESET. Own buffers until channel and callback completion are independently established.",
+        "evidence": [
+          "HAL.DMA_abort",
+          "HAL.capture",
+          "HAL.IC_DMA_public",
+          "HAL.init_deinit"
+        ]
+      },
+      {
+        "id": "DMA_completion_and_handle_ownership",
+        "detail": "DMA capture/update completion and error callbacks forward to application without stopping timer, clearing request enables or changing states in the shown callbacks. SetDMA changes DMA parent and linked handle without resource arbitration; using one DMA handle for both capture IDs also makes CCx callback identification select CC1 first. Require unique request/channel ownership and immutable linkage while active.",
+        "evidence": [
+          "HAL.DMA_callbacks",
+          "HAL.link"
+        ]
+      },
+      {
+        "id": "IRQ_snapshot_and_reentrancy",
+        "detail": "IRQ handler snapshots ISR and DIER once, clears each selected flag before callback and reads channel mode during dispatch. It does not first qualify ACTIVE or capture CCR into a stable sample. Callback reconfiguration can leave later dispatch based on the old snapshot; input callback does not prove a coherent capture/overcapture pair. No callback-driven release or concurrent DMA reading admitted.",
+        "evidence": [
+          "HAL.IRQ",
+          "RM0522:p1499"
+        ]
+      },
+      {
+        "id": "clock_and_filter_preflight",
+        "detail": "Input1 configuration documents the auxiliary-clock requirement but validates only mode and debug domains; it does not establish actual oscillator presence, external rate or filter timing. GetClockFreq always delegates to RCC LPTIM1 kernel getter, not the selected external pulse rate or divided counter rate. No measured rate is returned.",
+        "evidence": [
+          "HAL.input",
+          "HAL.frequency",
+          "RM0522:p1488",
+          "RM0522:p1489"
+        ]
+      },
+      {
+        "id": "Init_not_reset",
+        "detail": "Init initializes software fields and optionally enables the clock; it does not reset peripheral registers. Reusing a handle does not establish clean hardware, clear old IRQ/DMA activity or preserve another owner.",
+        "evidence": [
+          "HAL.init_deinit"
+        ]
+      },
+      {
+        "id": "conversion_sentinel_mismatch",
+        "detail": "External-trigger and capture mapping tables terminate with ll_value=0xFFFFFFFF, while conversion loops test ll_value against 0xFFFF. Valid entries return on a match. If a lookup has no match, the sentinel does not stop the loop and subsequent array accesses can be out of bounds in C. No safe GPIO fallback, termination, emitted access or hardware behavior can be inferred for that path. IC_SetChannelSource has no source-domain assertion, so a channel-incompatible enum needs explicit caller rejection even in debug builds. Valid getter calls can also reach an unmatched lookup: IC_GetConfigChannel and IC_GetChannelSource pass both IC1SEL and IC2SEL from LL_GetRemap into a per-channel lookup. For example, channel 2 mapped to LSI while querying channel 1 supplies a composite value absent from its table. The sentinel mismatch then permits an out-of-bounds read; assertions on valid channels/states do not prevent it.",
+        "evidence": [
+          "HAL.maps",
+          "HAL.convert",
+          "HAL.IC_source",
+          "HAL.guards",
+          "HAL.IC_getters",
+          "LL.remap_get"
+        ]
+      },
+      {
+        "id": "stop_interrupt_mask_incomplete",
+        "detail": "Stop_IT clears LPTIM_DIER_INTERRUPTS_MASK, which omits EXTTRIGIE, CMP1OKIE, CMP2OKIE, CC1OIE and CC2OIE. Start_IT can set EXTTRIGIE; the subsequent CcDisable snapshot/reset/restore preserves remaining DIER bits. A later polling start therefore does not establish interrupt-free operation. No actual callback occurrence is claimed.",
+        "evidence": [
+          "HAL.interrupt_mask",
+          "HAL.start_stop",
+          "HAL.wait_disable"
+        ]
+      },
+      {
+        "id": "DMA_DIER_completion",
+        "detail": "Capture DMA helper enables CCxDE then clears a temporary ENABLE without waiting for DIEROK, before enabling CCxE. Update start instead waits for DIEROK. Stop_DMA clears UEDE without waiting for DIEROK before the CcDisable snapshot/reset path. Source ordering alone does not prove these asynchronous request updates effective before disable or snapshot.",
+        "evidence": [
+          "HAL.DMA_start",
+          "HAL.DMA_public",
+          "HAL.wait_disable",
+          "RM0522:p1506",
+          "RM0522:p1508",
+          "RM0522:p1510"
+        ]
+      }
+    ],
+    "conflicts": [
+      {
+        "id": "interrupt_summary",
+        "detail": "DS22 and RM1483 say ten interrupt events, while RM1504 lists eleven categories including interrupt-enable update OK, but DIER bit24 is reserved and no DIEROKIE is defined in exact header. Preserve DIEROK status without inventing an enable bit or extra IRQ.",
+        "evidence": [
+          "DS15135:p22",
+          "RM0522:p1483",
+          "RM0522:p1504",
+          "RM0522:p1513",
+          "RM0522:p1514",
+          "header.fields"
+        ]
+      },
+      {
+        "id": "PRELOAD_typo",
+        "detail": "CCR1 and CCR2 descriptions say both immediate and next-event updates when PRELOAD is reset. RM1494 distinguishes reset=immediate and set=next update event. Preserve contradictory wording without an executable interpretation from the typo.",
+        "evidence": [
+          "RM0522:p1494",
+          "RM0522:p1520",
+          "RM0522:p1526"
+        ]
+      },
+      {
+        "id": "external_both_edges",
+        "detail": "RM1488 and CKPOL description permit both-edge operation with an internal clock >=4x external; RM1495 external-kernel paragraph says rising or falling but not both. HAL input1 warning allows an auxiliary clock with asynchronous mode while HAL header both-edge enum restricts it to synchronous mode. This combined domain remains unresolved.",
+        "evidence": [
+          "RM0522:p1488",
+          "RM0522:p1495",
+          "RM0522:p1518",
+          "HAL.input",
+          "HAL_H.modes"
+        ]
+      },
+      {
+        "id": "generic_labels",
+        "detail": "LL trigger selector5 name and RM1487 identify LPDMA1 channel1 completion, while its LL comment says GPDMA; EVENTOUT comment says PLAYOUT. CcDisable cites ES0335 and latency helper cites V1_8, not exact ES0676. These comments do not add peripherals or supersede exact errata. RM1499 diagram labels IC1F[3:0], while register/header use two bits. RM1523 CC2 polarity prose says bit2/bit3 although actual field is bits19:18.",
+        "evidence": [
+          "LL.trigger",
+          "HAL.wait_disable",
+          "LL.capture",
+          "RM0522:p1487",
+          "RM0522:p1499",
+          "RM0522:p1523",
+          "header.fields"
+        ]
+      },
+      {
+        "id": "one_shot_completion_wording",
+        "detail": "RM1490/1492 describe one-shot stopping at update event, which is repetition underflow. CR SNGSTRT description on RM1519 describes the following ARR match when changing from continuous. Retain repetition-dependent distinction; no universal first-ARR stop contract.",
+        "evidence": [
+          "RM0522:p1490",
+          "RM0522:p1492",
+          "RM0522:p1497",
+          "RM0522:p1519"
+        ]
+      }
+    ],
+    "chapter_audit": {
+      "document": "RM0522",
+      "chapter": 36,
+      "pages_read": [
+        1483,
+        1484,
+        1485,
+        1486,
+        1487,
+        1488,
+        1489,
+        1490,
+        1491,
+        1492,
+        1493,
+        1494,
+        1495,
+        1496,
+        1497,
+        1498,
+        1499,
+        1500,
+        1501,
+        1502,
+        1503,
+        1504,
+        1505,
+        1506,
+        1507,
+        1508,
+        1509,
+        1510,
+        1511,
+        1512,
+        1513,
+        1514,
+        1515,
+        1516,
+        1517,
+        1518,
+        1519,
+        1520,
+        1521,
+        1522,
+        1523,
+        1524,
+        1525,
+        1526,
+        1527
+      ],
+      "evidence": [
+        "RM0522:p1483",
+        "RM0522:p1484",
+        "RM0522:p1485",
+        "RM0522:p1486",
+        "RM0522:p1487",
+        "RM0522:p1488",
+        "RM0522:p1489",
+        "RM0522:p1490",
+        "RM0522:p1491",
+        "RM0522:p1492",
+        "RM0522:p1493",
+        "RM0522:p1494",
+        "RM0522:p1495",
+        "RM0522:p1496",
+        "RM0522:p1497",
+        "RM0522:p1498",
+        "RM0522:p1499",
+        "RM0522:p1500",
+        "RM0522:p1501",
+        "RM0522:p1502",
+        "RM0522:p1503",
+        "RM0522:p1504",
+        "RM0522:p1505",
+        "RM0522:p1506",
+        "RM0522:p1507",
+        "RM0522:p1508",
+        "RM0522:p1509",
+        "RM0522:p1510",
+        "RM0522:p1511",
+        "RM0522:p1512",
+        "RM0522:p1513",
+        "RM0522:p1514",
+        "RM0522:p1515",
+        "RM0522:p1516",
+        "RM0522:p1517",
+        "RM0522:p1518",
+        "RM0522:p1519",
+        "RM0522:p1520",
+        "RM0522:p1521",
+        "RM0522:p1522",
+        "RM0522:p1523",
+        "RM0522:p1524",
+        "RM0522:p1525",
+        "RM0522:p1526",
+        "RM0522:p1527"
+      ],
+      "qualification": "Full chapter read, bounded source constraints extracted; diagrams were read through their extraction, not independently rendered or timing-tested."
+    },
+    "open_gates": [
+      "No executable LPTIM, encoder, waveform, capture, wake or DMA profile.",
+      "No full HAL/LL path, compiler output, interrupt latency or hardware qualification.",
+      "No board loading, electrical input limits, oscillator tolerance or physical revision observation.",
+      "No automatic CNT/CCR access; read side effects require explicit operation ownership.",
+      "Full cross-peripheral errata screening, shared RCC/TAMP/COMP/RTC/EXTI and memory-lifetime integration remain open.",
+      "Existing composition, accepted EXTI physical resources and catalog remain unchanged.",
+      "DMA stage semantics and consumer endpoint admission remain as limited by the bound DMA inventory.",
+      "ENABLE synchronization takes two counter clocks; immediate software start sequencing inside that window remains unqualified, without inferring a definite lost start.",
+      "DMA updates to ARR require ARROK-aware write spacing; every ARR write clears UE. Minimum update spacing and request/event interaction remain unqualified."
+    ],
+    "source_provenance_note": "Package routes, exact errata, previous SDK lifecycle and DMA routing are hash-bound source inventories. Their unqualified operational state and source conflicts are retained; no ownership resources are cloned."
+  }
+}

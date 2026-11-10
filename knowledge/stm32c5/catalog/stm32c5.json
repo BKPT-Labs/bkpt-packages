@@ -1,0 +1,825 @@
+{
+  "schema": 1,
+  "scopes": [
+    {
+      "id": "STM32C5",
+      "kind": "family",
+      "name": "STM32C5"
+    },
+    {
+      "id": "STM32C542",
+      "kind": "device",
+      "name": "STM32C542"
+    },
+    {
+      "id": "STM32C542RCT6",
+      "kind": "part",
+      "name": "STM32C542RCT6"
+    },
+    {
+      "id": "LQFP64",
+      "kind": "package",
+      "name": "LQFP64"
+    },
+    {
+      "id": "NUCLEO-C542RC",
+      "kind": "board",
+      "name": "NUCLEO-C542RC"
+    },
+    {
+      "id": "stm32-hal2-2.1.0",
+      "kind": "sdk",
+      "name": "STM32 HAL2 packs 2.1.0"
+    }
+  ],
+  "memberships": [
+    {
+      "child": "STM32C542",
+      "parent": "STM32C5",
+      "evidence": "dfp"
+    },
+    {
+      "child": "STM32C542RCT6",
+      "parent": "STM32C542",
+      "evidence": "dfp"
+    },
+    {
+      "child": "STM32C542RCT6",
+      "parent": "LQFP64",
+      "evidence": "pinout"
+    },
+    {
+      "child": "NUCLEO-C542RC",
+      "parent": "STM32C542RCT6",
+      "evidence": "board-pack"
+    }
+  ],
+  "sources": [
+    {
+      "id": "dfp",
+      "kind": "metadata",
+      "path": "st/c5/pack-2.1.0/device.pdsc",
+      "sha256": "b9b64dc6b9d65d0ab7260cfbfcc7302d6502fc0627ba0d9d836e12a4dee9df31",
+      "uri": "pack://STMicroelectronics.stm32c5xx_dfp/2.1.0/STMicroelectronics.stm32c5xx_dfp.pdsc",
+      "revision": "2.1.0",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [
+        "STM32C5",
+        "STM32C542"
+      ],
+      "options": {}
+    },
+    {
+      "id": "board-pack",
+      "kind": "text",
+      "path": "st/c5/pack-2.1.0/board.pdsc",
+      "sha256": "2eafbeaf16faff84f7c133d061b6c3d0517637bb78da5c2162c95fe34b422686",
+      "uri": "pack://STMicroelectronics.nucleo-c542rc_hw-board/2.1.0/STMicroelectronics.nucleo-c542rc_hw-board.pdsc",
+      "revision": "2.1.0",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [
+        "NUCLEO-C542RC"
+      ],
+      "options": {}
+    },
+    {
+      "id": "board-nets",
+      "kind": "text",
+      "path": "st/c5/pack-2.1.0/netlist.json",
+      "sha256": "306569a5507e699c2732908ff76260ffd13c56b9f132a01707fa833aaea60a80",
+      "uri": "pack://STMicroelectronics.nucleo-c542rc_hw-board/2.1.0/Descriptors/NUC542RC$KR1/pcbs/MB2213/netlist.json",
+      "revision": "2.1.0",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [
+        "NUCLEO-C542RC"
+      ],
+      "options": {}
+    },
+    {
+      "id": "board-bom",
+      "kind": "text",
+      "path": "st/c5/pack-2.1.0/bom.json",
+      "sha256": "7479e55a938029db974a03783d0038adc562a57156b6b94af9c1e99b37564ccd",
+      "uri": "pack://STMicroelectronics.nucleo-c542rc_hw-board/2.1.0/Descriptors/NUC542RC$KR1/bom.json",
+      "revision": "2.1.0",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [
+        "NUCLEO-C542RC"
+      ],
+      "options": {}
+    },
+    {
+      "id": "pinout",
+      "kind": "mx2_pinout",
+      "path": "st/c5/pack-2.1.0/pinout.json",
+      "sha256": "60555188e7a3b5a27aa82840cf8653c9291511a5e88504a33ec07ba25901205b",
+      "uri": "pack://STMicroelectronics.stm32c5xx_dfp/2.1.0/Descriptors/pinout/STM32C5(3-4)2R(B-C)Tx_pinout.json",
+      "revision": "2.1.0",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [
+        "STM32C542RCT6"
+      ],
+      "options": {
+        "package": "LQFP64"
+      }
+    },
+    {
+      "kind": "svd",
+      "options": {
+        "device": "STM32C542"
+      },
+      "scopes": [
+        "STM32C542"
+      ],
+      "revision": "2.1.0",
+      "path": "st/c5/pack-2.1.0/device.svd",
+      "uri": "pack://STMicroelectronics/stm32c5xx_dfp/2.1.0/SVD/STM32C542.svd",
+      "id": "c542-svd",
+      "sha256": "79ecabb1331e08042904858e5986a2d41aad036fbf481f916abdfb6ce58f7c5b",
+      "authority": "manufacturer_machine_readable"
+    },
+    {
+      "id": "RM0522",
+      "kind": "document",
+      "path": "st/c5/documents/RM0522.pdf",
+      "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+      "uri": "https://www.st.com/resource/en/reference_manual/rm0522-stm32c5-series-armbased-32bit-mcus-stmicroelectronics.pdf",
+      "revision": "Rev 1",
+      "authority": "manufacturer_document",
+      "scopes": [
+        "STM32C5"
+      ],
+      "options": {}
+    },
+    {
+      "id": "RM0522-pages",
+      "kind": "pages",
+      "path": "st/c5/documents/RM0522.pages.json",
+      "sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80",
+      "uri": "https://www.st.com/resource/en/reference_manual/rm0522-stm32c5-series-armbased-32bit-mcus-stmicroelectronics.pdf",
+      "revision": "Rev 1",
+      "authority": "manufacturer_document",
+      "scopes": [
+        "STM32C5"
+      ],
+      "options": {
+        "origin_source": "RM0522"
+      }
+    },
+    {
+      "id": "DS15135",
+      "kind": "document",
+      "path": "st/c5/documents/DS15135.pdf",
+      "sha256": "1a3555f799297774a95978ab343ebc1f45ab9ef58d0dcf3600dec4fabed9355c",
+      "uri": "https://www.st.com/resource/en/datasheet/stm32c542rc.pdf",
+      "revision": "Rev 2",
+      "authority": "manufacturer_document",
+      "scopes": [
+        "STM32C542"
+      ],
+      "options": {}
+    },
+    {
+      "id": "DS15135-pages",
+      "kind": "pages",
+      "path": "st/c5/documents/DS15135.pages.json",
+      "sha256": "b14b965adb6c1545edbca0e56b3c504e7ecc3a94bda197350ce2757b5a3d55dc",
+      "uri": "https://www.st.com/resource/en/datasheet/stm32c542rc.pdf",
+      "revision": "Rev 2",
+      "authority": "manufacturer_document",
+      "scopes": [
+        "STM32C542"
+      ],
+      "options": {
+        "origin_source": "DS15135"
+      }
+    },
+    {
+      "id": "ES0676",
+      "kind": "document",
+      "path": "st/c5/documents/ES0676.pdf",
+      "sha256": "a5463827337bcdbd3e5f2e0912a56307d78b568e5631b21cc9a25899c7d4a5e6",
+      "uri": "https://www.st.com/resource/en/errata_sheet/es0676-stm32c531xx-stm32c532xx-and-stm32c542xx-device-errata-stmicroelectronics.pdf",
+      "revision": "Rev 2",
+      "authority": "manufacturer_document",
+      "scopes": [
+        "STM32C542"
+      ],
+      "options": {}
+    },
+    {
+      "id": "ES0676-pages",
+      "kind": "pages",
+      "path": "st/c5/documents/ES0676.pages.json",
+      "sha256": "2ab1b19e42b53e22ff5f3b98f6ed9a5f98f3b7b61a617abc3bb3b7fc050d1cb3",
+      "uri": "https://www.st.com/resource/en/errata_sheet/es0676-stm32c531xx-stm32c532xx-and-stm32c542xx-device-errata-stmicroelectronics.pdf",
+      "revision": "Rev 2",
+      "authority": "manufacturer_document",
+      "scopes": [
+        "STM32C542"
+      ],
+      "options": {
+        "origin_source": "ES0676"
+      }
+    },
+    {
+      "id": "example-temperature",
+      "kind": "text",
+      "path": "st/c5/cube-cadccf7/temperature-example.c",
+      "sha256": "f493a41a671f39ca8c80c46df2545c9b4f28bf638e6792ae7fbde23ef0c5051e",
+      "uri": "https://github.com/STMicroelectronics/STM32CubeC5/blob/cadccf77d4e5033a5d823bbc4ac1503466e4563a/examples/hal/adc/temperature_sensor/application/example.c",
+      "revision": "cadccf77d4e5033a5d823bbc4ac1503466e4563a",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [
+        "stm32-hal2-2.1.0"
+      ],
+      "options": {}
+    },
+    {
+      "id": "example-temperature-guide",
+      "kind": "text",
+      "path": "st/c5/cube-cadccf7/temperature-README.md",
+      "sha256": "793b7af059f4ca52104931acd958093d32fe3bac31402fbf25b4b9a68918d66e",
+      "uri": "https://github.com/STMicroelectronics/STM32CubeC5/blob/cadccf77d4e5033a5d823bbc4ac1503466e4563a/examples/hal/adc/temperature_sensor/README.md",
+      "revision": "cadccf77d4e5033a5d823bbc4ac1503466e4563a",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [
+        "stm32-hal2-2.1.0"
+      ],
+      "options": {}
+    }
+  ],
+  "boards": [
+    {
+      "id": "NUCLEO-C542RC",
+      "part": "STM32C542RCT6",
+      "family": "STM32C5",
+      "package": "LQFP64",
+      "hal": "HAL2",
+      "sdk": "stm32-hal2-2.1.0",
+      "source": "board-pack",
+      "backend": {
+        "id": "mx2",
+        "version": "1.2.0",
+        "options": {
+          "pack": "nucleo-c542rc_hw-board",
+          "pack_version": "2.1.0",
+          "build_target": ".debug_GCC+NUCLEO-C542RC"
+        }
+      },
+      "build": {
+        "configure": [
+          "--preset",
+          "debug_GCC_{{board}}",
+          "-B",
+          "build/{{host}}"
+        ],
+        "build": [
+          "--build",
+          "build/{{host}}",
+          "--parallel"
+        ],
+        "artifact": "build/{{host}}/{{name}}.elf"
+      },
+      "bindings": {
+        "led_pin": "PA5",
+        "uart": "USART2",
+        "tx_pin": "PA2",
+        "rx_pin": "PA3",
+        "adc_header": "mx_adc1.h",
+        "adc_init": "mx_adc1_init",
+        "adc": "ADC1",
+        "adc_sample_cycles": "289",
+        "adc_source": "mx_adc1.c"
+      }
+    }
+  ],
+  "recipes": [
+    {
+      "id": "hal2-led-uart",
+      "description": "50 ms LED pulse and UART counter; period includes output time. Requires board default USART wiring.",
+      "backend": "mx2",
+      "families": [
+        "STM32C5"
+      ],
+      "hal": "HAL2",
+      "sdk": "stm32-hal2-2.1.0",
+      "parameters": {
+        "period_ms": {
+          "default": 1000,
+          "min": 100,
+          "max": 10000
+        }
+      },
+      "requires": [
+        {
+          "pin": "{{led_pin}}",
+          "signal": "GPIO"
+        },
+        {
+          "pin": "{{tx_pin}}",
+          "signal": "{{uart}}_TX"
+        },
+        {
+          "pin": "{{rx_pin}}",
+          "signal": "{{uart}}_RX"
+        }
+      ],
+      "steps": [
+        [
+          "pinout",
+          "assign-signal",
+          "-p",
+          "{{project}}",
+          "--pin",
+          "{{led_pin}}",
+          "--signal",
+          "GPIO"
+        ],
+        [
+          "sw-config",
+          "set-parameter-value",
+          "-p",
+          "{{project}}",
+          "-r",
+          "default_gpio_group_id",
+          "--parameter-path",
+          "pins/{{led_pin}}/basic/mode",
+          "-v",
+          "OUTPUT"
+        ],
+        [
+          "peripherals",
+          "enable",
+          "-p",
+          "{{project}}",
+          "--peripheral",
+          "{{uart}}",
+          "--mode",
+          "Async"
+        ],
+        [
+          "pinout",
+          "assign-signal",
+          "-p",
+          "{{project}}",
+          "--pin",
+          "{{tx_pin}}",
+          "--signal",
+          "{{uart}}_TX"
+        ],
+        [
+          "pinout",
+          "assign-signal",
+          "-p",
+          "{{project}}",
+          "--pin",
+          "{{rx_pin}}",
+          "--signal",
+          "{{uart}}_RX"
+        ],
+        [
+          "sw-config",
+          "set-multiple-parameters",
+          "-p",
+          "{{project}}",
+          "-r",
+          "{{uart}}",
+          "--parameters",
+          "[{\"path\":\"basic/baud_rate\",\"value\":\"115200\"},{\"path\":\"basic/parity\",\"value\":\"NONE\"}]"
+        ],
+        [
+          "utilities",
+          "enable-utility",
+          "-p",
+          "{{project}}",
+          "-n",
+          "Basic_stdio"
+        ],
+        [
+          "sw-config",
+          "set-parameter-value",
+          "-p",
+          "{{project}}",
+          "-r",
+          "Basic_stdio",
+          "--parameter-path",
+          "resourcesAllocation/uart_instance",
+          "-v",
+          "{{uart}}"
+        ],
+        [
+          "composer",
+          "add-component",
+          "-p",
+          "{{project}}",
+          "-c",
+          "STMicroelectronics.basic_stdio.2.1.0$STMicroelectronics::Utility:Basic stdio:Core@1.1.0#interface"
+        ],
+        [
+          "composer",
+          "add-component",
+          "-p",
+          "{{project}}",
+          "-c",
+          "STMicroelectronics.basic_stdio.2.1.0$STMicroelectronics::Utility:Basic stdio:itf_io&UART@1.1.0#STM32 HAL UART"
+        ],
+        [
+          "clock",
+          "get-clock-status",
+          "-p",
+          "{{project}}"
+        ]
+      ],
+      "files": [
+        {
+          "source": "templates/hal2-led-uart.c",
+          "destination": "main.c"
+        }
+      ],
+      "required_outputs": [
+        "CMakeLists.txt",
+        "main.h",
+        "main.c",
+        "{{name}}.ioc2"
+      ]
+    },
+    {
+      "id": "hal2-temperature-uart",
+      "description": "Calibrated internal temperature and VREFINT, 289-cycle sampling (9 MHz on the seed board), periodic UART reporting. Requires default reference wiring; polling example, not a safety monitor.",
+      "backend": "mx2",
+      "families": [
+        "STM32C5"
+      ],
+      "hal": "HAL2",
+      "sdk": "stm32-hal2-2.1.0",
+      "parameters": {
+        "period_ms": {
+          "default": 1000,
+          "min": 100,
+          "max": 10000
+        }
+      },
+      "requires": [
+        {
+          "pin": "{{led_pin}}",
+          "signal": "GPIO"
+        },
+        {
+          "pin": "{{tx_pin}}",
+          "signal": "{{uart}}_TX"
+        },
+        {
+          "pin": "{{rx_pin}}",
+          "signal": "{{uart}}_RX"
+        }
+      ],
+      "steps": [
+        [
+          "pinout",
+          "assign-signal",
+          "-p",
+          "{{project}}",
+          "--pin",
+          "{{led_pin}}",
+          "--signal",
+          "GPIO"
+        ],
+        [
+          "sw-config",
+          "set-parameter-value",
+          "-p",
+          "{{project}}",
+          "-r",
+          "default_gpio_group_id",
+          "--parameter-path",
+          "pins/{{led_pin}}/basic/mode",
+          "-v",
+          "OUTPUT"
+        ],
+        [
+          "peripherals",
+          "enable",
+          "-p",
+          "{{project}}",
+          "--peripheral",
+          "{{uart}}",
+          "--mode",
+          "Async"
+        ],
+        [
+          "pinout",
+          "assign-signal",
+          "-p",
+          "{{project}}",
+          "--pin",
+          "{{tx_pin}}",
+          "--signal",
+          "{{uart}}_TX"
+        ],
+        [
+          "pinout",
+          "assign-signal",
+          "-p",
+          "{{project}}",
+          "--pin",
+          "{{rx_pin}}",
+          "--signal",
+          "{{uart}}_RX"
+        ],
+        [
+          "sw-config",
+          "set-multiple-parameters",
+          "-p",
+          "{{project}}",
+          "-r",
+          "{{uart}}",
+          "--parameters",
+          "[{\"path\":\"basic/baud_rate\",\"value\":\"115200\"},{\"path\":\"basic/parity\",\"value\":\"NONE\"}]"
+        ],
+        [
+          "utilities",
+          "enable-utility",
+          "-p",
+          "{{project}}",
+          "-n",
+          "Basic_stdio"
+        ],
+        [
+          "sw-config",
+          "set-parameter-value",
+          "-p",
+          "{{project}}",
+          "-r",
+          "Basic_stdio",
+          "--parameter-path",
+          "resourcesAllocation/uart_instance",
+          "-v",
+          "{{uart}}"
+        ],
+        [
+          "composer",
+          "add-component",
+          "-p",
+          "{{project}}",
+          "-c",
+          "STMicroelectronics.basic_stdio.2.1.0$STMicroelectronics::Utility:Basic stdio:Core@1.1.0#interface"
+        ],
+        [
+          "composer",
+          "add-component",
+          "-p",
+          "{{project}}",
+          "-c",
+          "STMicroelectronics.basic_stdio.2.1.0$STMicroelectronics::Utility:Basic stdio:itf_io&UART@1.1.0#STM32 HAL UART"
+        ],
+        [
+          "clock",
+          "get-clock-status",
+          "-p",
+          "{{project}}"
+        ],
+        [
+          "peripherals",
+          "enable",
+          "-p",
+          "{{project}}",
+          "--peripheral",
+          "{{adc}}"
+        ],
+        [
+          "clock",
+          "set-value",
+          "-p",
+          "{{project}}",
+          "--id",
+          "ADCDACPRE_DIV",
+          "--value",
+          "16"
+        ],
+        [
+          "clock",
+          "solver-on-demand",
+          "-p",
+          "{{project}}"
+        ],
+        [
+          "sw-config",
+          "set-multiple-parameters",
+          "-p",
+          "{{project}}",
+          "-r",
+          "{{adc}}",
+          "--parameters",
+          "[{\"path\": \"basic/channels/Vsens/use_channel\", \"value\": \"true\"}, {\"path\": \"basic/channels/VrefInt/use_channel\", \"value\": \"true\"}, {\"path\": \"basic/channels/Vsens/sampling_time\", \"value\": \"{{adc_sample_cycles}}CYCLES\"}, {\"path\": \"basic/channels/VrefInt/sampling_time\", \"value\": \"{{adc_sample_cycles}}CYCLES\"}, {\"path\": \"basic/group_panel/reg_config_t/reg_sequencer\", \"value\": \"[{},{}]\"}, {\"path\": \"basic/group_panel/reg_config_t/reg_sequencer/0/channel\", \"value\": \"VSENS\"}, {\"path\": \"basic/group_panel/reg_config_t/reg_sequencer/1/channel\", \"value\": \"VREFINT\"}, {\"path\": \"basic/group_panel/reg_config_t/sequencer_discontinuous\", \"value\": \"1RANK\"}]"
+        ],
+        [
+          "clock",
+          "get-clock-status",
+          "-p",
+          "{{project}}"
+        ]
+      ],
+      "files": [
+        {
+          "source": "templates/hal2-temperature-uart.c",
+          "destination": "main.c"
+        }
+      ],
+      "required_outputs": [
+        "CMakeLists.txt",
+        "main.h",
+        "main.c",
+        "{{name}}.ioc2",
+        "generated/hal/{{adc_source}}",
+        "generated/hal/{{adc_header}}"
+      ],
+      "requires_facts": [
+        {
+          "kind": "adc.temperature.min_sample_us",
+          "conditions": {},
+          "value": 13,
+          "binding": "temperature_min_sample_us"
+        },
+        {
+          "kind": "adc.temperature.startup_run.max_us",
+          "value": 25.2,
+          "binding": null,
+          "conditions": {
+            "power_mode": "run"
+          }
+        }
+      ]
+    }
+  ],
+  "fact_kinds": [
+    {
+      "id": "adc.temperature.min_sample_us",
+      "value_type": "number",
+      "unit": "us",
+      "condition_types": {}
+    },
+    {
+      "id": "adc.temperature.startup_run.max_us",
+      "value_type": "number",
+      "unit": "us",
+      "condition_types": {
+        "power_mode": "string"
+      }
+    },
+    {
+      "id": "adc.temperature.cal1.address",
+      "value_type": "string",
+      "unit": null,
+      "condition_types": {}
+    },
+    {
+      "id": "adc.temperature.cal2.address",
+      "value_type": "string",
+      "unit": null,
+      "condition_types": {}
+    },
+    {
+      "id": "adc.temperature.cal1.temperature_c",
+      "value_type": "number",
+      "unit": "degC",
+      "condition_types": {}
+    },
+    {
+      "id": "adc.temperature.cal2.temperature_c",
+      "value_type": "number",
+      "unit": "degC",
+      "condition_types": {}
+    },
+    {
+      "id": "adc.temperature.calibration_reference_mv",
+      "value_type": "number",
+      "unit": "mV",
+      "condition_types": {}
+    },
+    {
+      "id": "errata.comp.simultaneous_unsupported",
+      "value_type": "boolean",
+      "unit": null,
+      "condition_types": {
+        "silicon_revision": "string"
+      }
+    }
+  ],
+  "facts": [
+    {
+      "id": "adc.temperature.min_sample_us",
+      "scope": "STM32C542",
+      "kind": "adc.temperature.min_sample_us",
+      "value": 13,
+      "conditions": {},
+      "source": "DS15135-pages",
+      "locator": "pdf-page:81",
+      "review_state": "reviewed",
+      "reviewer": "codex-visual-table-check",
+      "reviewed_at": "2026-11-06"
+    },
+    {
+      "id": "adc.temperature.startup_run.max_us",
+      "scope": "STM32C542",
+      "kind": "adc.temperature.startup_run.max_us",
+      "value": 25.2,
+      "conditions": {
+        "power_mode": "run"
+      },
+      "source": "DS15135-pages",
+      "locator": "pdf-page:81",
+      "review_state": "reviewed",
+      "reviewer": "codex-visual-table-check",
+      "reviewed_at": "2026-11-06"
+    },
+    {
+      "id": "adc.temperature.cal1.address",
+      "scope": "STM32C542",
+      "kind": "adc.temperature.cal1.address",
+      "value": "0x08FFF814",
+      "conditions": {},
+      "source": "DS15135-pages",
+      "locator": "pdf-page:81",
+      "review_state": "reviewed",
+      "reviewer": "codex-visual-table-check",
+      "reviewed_at": "2026-11-06"
+    },
+    {
+      "id": "adc.temperature.cal2.address",
+      "scope": "STM32C542",
+      "kind": "adc.temperature.cal2.address",
+      "value": "0x08FFF818",
+      "conditions": {},
+      "source": "DS15135-pages",
+      "locator": "pdf-page:81",
+      "review_state": "reviewed",
+      "reviewer": "codex-visual-table-check",
+      "reviewed_at": "2026-11-06"
+    },
+    {
+      "id": "adc.temperature.cal1.temperature_c",
+      "scope": "STM32C542",
+      "kind": "adc.temperature.cal1.temperature_c",
+      "value": 30,
+      "conditions": {},
+      "source": "DS15135-pages",
+      "locator": "pdf-page:81",
+      "review_state": "reviewed",
+      "reviewer": "codex-visual-table-check",
+      "reviewed_at": "2026-11-06"
+    },
+    {
+      "id": "adc.temperature.cal2.temperature_c",
+      "scope": "STM32C542",
+      "kind": "adc.temperature.cal2.temperature_c",
+      "value": 140,
+      "conditions": {},
+      "source": "DS15135-pages",
+      "locator": "pdf-page:81",
+      "review_state": "reviewed",
+      "reviewer": "codex-visual-table-check",
+      "reviewed_at": "2026-11-06"
+    },
+    {
+      "id": "adc.temperature.calibration_reference_mv",
+      "scope": "STM32C542",
+      "kind": "adc.temperature.calibration_reference_mv",
+      "value": 3300,
+      "conditions": {},
+      "source": "DS15135-pages",
+      "locator": "pdf-page:81",
+      "review_state": "reviewed",
+      "reviewer": "codex-visual-table-check",
+      "reviewed_at": "2026-11-06"
+    },
+    {
+      "id": "errata.comp.simultaneous.z",
+      "scope": "STM32C542",
+      "kind": "errata.comp.simultaneous_unsupported",
+      "value": true,
+      "conditions": {
+        "silicon_revision": "Z"
+      },
+      "source": "ES0676-pages",
+      "locator": "pdf-page:2",
+      "review_state": "reviewed",
+      "reviewer": "codex-visual-table-check",
+      "reviewed_at": "2026-11-06"
+    },
+    {
+      "id": "errata.comp.simultaneous.y",
+      "scope": "STM32C542",
+      "kind": "errata.comp.simultaneous_unsupported",
+      "value": false,
+      "conditions": {
+        "silicon_revision": "Y"
+      },
+      "source": "ES0676-pages",
+      "locator": "pdf-page:2",
+      "review_state": "reviewed",
+      "reviewer": "codex-visual-table-check",
+      "reviewed_at": "2026-11-06"
+    }
+  ]
+}

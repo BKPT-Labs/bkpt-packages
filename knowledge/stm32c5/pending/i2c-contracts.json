@@ -1,0 +1,1858 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/i2c-contracts.json",
+    "sha256": "b0cd18eb3b28d679102cda08c2481c61146c1d7fdd4bdf926e44cd953a898d2b"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 112
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "schema": "bkpt.external.i2c.contracts.v1",
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "review": "independent_source_review_pending",
+    "scope": "Exact STM32C542RCT6 I2C1 full RM chapter and bounded SDK lifecycle; SMBus protocol and SDK layer audit remains open.",
+    "sources": {
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "DS15135": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pdf",
+        "sha256": "1a3555f799297774a95978ab343ebc1f45ab9ef58d0dcf3600dec4fabed9355c",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pages.json",
+        "extraction_sha256": "b14b965adb6c1545edbca0e56b3c504e7ecc3a94bda197350ce2757b5a3d55dc"
+      },
+      "ES0676": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pdf",
+        "sha256": "a5463827337bcdbd3e5f2e0912a56307d78b568e5631b21cc9a25899c7d4a5e6",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pages.json",
+        "extraction_sha256": "2ab1b19e42b53e22ff5f3b98f6ed9a5f98f3b7b61a617abc3bb3b7fc050d1cb3"
+      },
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "LL_DMA": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_dma.h",
+        "sha256": "0983050fda989d6c7577c49e52df21ed71055b48490017c20080b7b6e072dacd"
+      },
+      "package_routes": {
+        "path": "research://c5-reference/package-routes.json",
+        "sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288"
+      },
+      "errata": {
+        "path": "research://c5-reference/errata.json",
+        "sha256": "821c22f796a9ff723afee534fe5943c2b0506325ec871d890706d94414316416"
+      },
+      "family": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c5xx.h",
+        "sha256": "61a0b8c2674d9e817d70aa8d2693339273f4283694f8ab5f8dca077bb69913f7"
+      },
+      "HAL": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_i2c.c",
+        "sha256": "443fd177dc679a9f645a58e22119643eb177c92d736e0b28ef5641a857e82be0"
+      },
+      "LL": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_i2c.h",
+        "sha256": "c3038a24033aa69a816f80ee3b6a2c39f94a875687aefc338b5f8c95815cd6d7"
+      }
+    },
+    "evidence": {
+      "RM0522:p1624": {
+        "source": "RM0522",
+        "page": 1624,
+        "sha256": "475dc6a52776f8e879d0346ecc559b08d9acd142b9aa93e1adf470a80b922eaa"
+      },
+      "RM0522:p1625": {
+        "source": "RM0522",
+        "page": 1625,
+        "sha256": "f7d3c409e8fe7fcf098b2a8cc47ad52287dbe58ff62be3041daae318013c8e89"
+      },
+      "RM0522:p1626": {
+        "source": "RM0522",
+        "page": 1626,
+        "sha256": "36e5ffbabcdffca43c654a90f4f1cd426580fe708db2868a864edbcf6cd44bcc"
+      },
+      "RM0522:p1627": {
+        "source": "RM0522",
+        "page": 1627,
+        "sha256": "109e71cee95a3c5083844c95ce627a1fcd8a0c1fefb417e9acf4276262cdfcd2"
+      },
+      "RM0522:p1628": {
+        "source": "RM0522",
+        "page": 1628,
+        "sha256": "e0b504b9ecbdcbb50215af556331b785ebc373f739fb460edbbdf86e987f66e4"
+      },
+      "RM0522:p1629": {
+        "source": "RM0522",
+        "page": 1629,
+        "sha256": "6786fb946cf69bb5f867b8dddf678b324c4a6f96ff12676c1cbd3db8525b0941"
+      },
+      "RM0522:p1630": {
+        "source": "RM0522",
+        "page": 1630,
+        "sha256": "9160a15308ce0c836c23b0a42e0c521c6c91f2a2f21e0ba10f5b5b0d9320e783"
+      },
+      "RM0522:p1631": {
+        "source": "RM0522",
+        "page": 1631,
+        "sha256": "13c0175c80d16b86441fa26ea24a8c4ef5929dea0ce76e5975964d9be49fdaa5"
+      },
+      "RM0522:p1632": {
+        "source": "RM0522",
+        "page": 1632,
+        "sha256": "ad5daadd8848ab3e2f21765658de9c3218507a1fe9414a2c17af97e02a45282f"
+      },
+      "RM0522:p1633": {
+        "source": "RM0522",
+        "page": 1633,
+        "sha256": "ffefda076b2945dc5b482d82668dc3620c36e0ef26c94c229441f6dce06bc35a"
+      },
+      "RM0522:p1634": {
+        "source": "RM0522",
+        "page": 1634,
+        "sha256": "b46e2b1aa52161e6f91baba9955306c2aea4bb170e89a18f91cbd48c62644fa4"
+      },
+      "RM0522:p1635": {
+        "source": "RM0522",
+        "page": 1635,
+        "sha256": "a9e2c5fe6154b95960d3a196404f7f9662698da85310e6fd1190b31c827eb9b5"
+      },
+      "RM0522:p1636": {
+        "source": "RM0522",
+        "page": 1636,
+        "sha256": "c67a4f4fb4db203d43c09a92d28ecc711710aad62068d1dcd524793098517484"
+      },
+      "RM0522:p1637": {
+        "source": "RM0522",
+        "page": 1637,
+        "sha256": "913a6f9d216a5e36aeee28111553d1d65adbb89900b07198ce53f3b16abd0f80"
+      },
+      "RM0522:p1638": {
+        "source": "RM0522",
+        "page": 1638,
+        "sha256": "51a28d36b83b2fe2d27aadfaa31cfa778e2576e08e616e22b483d0cb4e7aff99"
+      },
+      "RM0522:p1639": {
+        "source": "RM0522",
+        "page": 1639,
+        "sha256": "f852220b96af121ec2f0ca1d7cb512daae6cb780d7b7c4fb79fd9ed4fcd348d6"
+      },
+      "RM0522:p1640": {
+        "source": "RM0522",
+        "page": 1640,
+        "sha256": "33353a1acc690537adc997c11619acb820445d1cc0496cf90a4072e26f8a7b6e"
+      },
+      "RM0522:p1641": {
+        "source": "RM0522",
+        "page": 1641,
+        "sha256": "aaf854b09f012d251124eb9b5a7a3b5b88261eb49ec830aa8a973a95b36930f3"
+      },
+      "RM0522:p1642": {
+        "source": "RM0522",
+        "page": 1642,
+        "sha256": "2094f4dcef3f64fcd27fa80d5f543bce902d136932c40ce86b89fb593a1abca3"
+      },
+      "RM0522:p1643": {
+        "source": "RM0522",
+        "page": 1643,
+        "sha256": "f005de1b85e9664807a32e3df6499ba89316f42b72bc071d45f3b1c8d59f3fc8"
+      },
+      "RM0522:p1644": {
+        "source": "RM0522",
+        "page": 1644,
+        "sha256": "1624745019f0a15d04cb143f701a4d429481a9016d6a3c024d9949561ed2766b"
+      },
+      "RM0522:p1645": {
+        "source": "RM0522",
+        "page": 1645,
+        "sha256": "932637b34bfba629c9c4abc4640aabd760cfa1cc08a033013646e3a5beb3d00a"
+      },
+      "RM0522:p1646": {
+        "source": "RM0522",
+        "page": 1646,
+        "sha256": "c40c6b0fcfe13900436e7d67fa7fa92c456ca3b02518838a15a4de0ddc968cbc"
+      },
+      "RM0522:p1647": {
+        "source": "RM0522",
+        "page": 1647,
+        "sha256": "346b589960e81e194cf9334ed00b521d0b24e6128a375b664c45c618dec5fc65"
+      },
+      "RM0522:p1648": {
+        "source": "RM0522",
+        "page": 1648,
+        "sha256": "6975176eed682f41c6e8cb901a483c532ad539c21fd12105546edf757f16ac38"
+      },
+      "RM0522:p1649": {
+        "source": "RM0522",
+        "page": 1649,
+        "sha256": "1e6f6f9a6d9a8e11d40c45b6b96d546e57d746e91f1fcb925f5e9525ced480d3"
+      },
+      "RM0522:p1650": {
+        "source": "RM0522",
+        "page": 1650,
+        "sha256": "81133fa0048ebb8877e7d4db586ab36d394e229531f5539a07f6b3015390c66f"
+      },
+      "RM0522:p1651": {
+        "source": "RM0522",
+        "page": 1651,
+        "sha256": "c6284c45b3887b46cf36f3ab01eac5cf94a65b66b580be31a5e71bce99394dfb"
+      },
+      "RM0522:p1652": {
+        "source": "RM0522",
+        "page": 1652,
+        "sha256": "6003991007a1308eb3128700e1d148c162848f7c090c9ea8ed877047d4fb2a77"
+      },
+      "RM0522:p1653": {
+        "source": "RM0522",
+        "page": 1653,
+        "sha256": "98ba3aea50664d480900500ad5357e2d1267ab2fa3a1a5d22d87d9005ff5af2d"
+      },
+      "RM0522:p1654": {
+        "source": "RM0522",
+        "page": 1654,
+        "sha256": "df865d4cc03ac156667d5b55afebaed02a98707c4be3b87e9550259d59c83a2b"
+      },
+      "RM0522:p1655": {
+        "source": "RM0522",
+        "page": 1655,
+        "sha256": "ee507c42df39782b9fc4118aaa1338d43197ac88a1e0a3b2c00605a083aeb188"
+      },
+      "RM0522:p1656": {
+        "source": "RM0522",
+        "page": 1656,
+        "sha256": "9c8e501a15b8f10b11ac231ca6c8f19b5da2954d72b06bdeb5a4dd22710e370a"
+      },
+      "RM0522:p1657": {
+        "source": "RM0522",
+        "page": 1657,
+        "sha256": "575375ae5371d07f1760ac9f89147780a941146d086975db047a3274af6778dc"
+      },
+      "RM0522:p1658": {
+        "source": "RM0522",
+        "page": 1658,
+        "sha256": "d5c5bebeaf40f3d202c5def2c5e6ef0f3cae0c13a5ad24e3f2abb3d5b425148d"
+      },
+      "RM0522:p1659": {
+        "source": "RM0522",
+        "page": 1659,
+        "sha256": "cc8d954f2b569bd59b307f2c261a92362b8d20a9f2a445fc617109d5601d5ecc"
+      },
+      "RM0522:p1660": {
+        "source": "RM0522",
+        "page": 1660,
+        "sha256": "a7975f1acf9c7252bc68623ba935af935fa54139c54938485acdaab08d4d08b0"
+      },
+      "RM0522:p1661": {
+        "source": "RM0522",
+        "page": 1661,
+        "sha256": "2cbf351e6c3af9a223f38ad439a4541c0e014a39525ea133e253d4522501841f"
+      },
+      "RM0522:p1662": {
+        "source": "RM0522",
+        "page": 1662,
+        "sha256": "64cf14aec8ae03e61b23928621ec50625622eb896bcb4985b0bfcd0762b3f63d"
+      },
+      "RM0522:p1663": {
+        "source": "RM0522",
+        "page": 1663,
+        "sha256": "19c40b1494b25d0bcfaa3323cb5dadc52e40110ed81476fae140f72b714088d2"
+      },
+      "RM0522:p1664": {
+        "source": "RM0522",
+        "page": 1664,
+        "sha256": "fcc9fdf1fabd836090ac64dc32c29fb0682525c6c511b3c6d1bb13e829806e02"
+      },
+      "RM0522:p1665": {
+        "source": "RM0522",
+        "page": 1665,
+        "sha256": "3118e1a02f1ee05bc7abffa9fe924adc2310c839c7155a6a227d3d89c11e39bb"
+      },
+      "RM0522:p1666": {
+        "source": "RM0522",
+        "page": 1666,
+        "sha256": "5be61a1f9ff65cb899f871c8b1f23001abd4514feb36365e3e30b6f25203fde9"
+      },
+      "RM0522:p1667": {
+        "source": "RM0522",
+        "page": 1667,
+        "sha256": "c530f2909112c84d0619186213179229f9402b57b2b473d8ac23939b6bef37ca"
+      },
+      "RM0522:p1668": {
+        "source": "RM0522",
+        "page": 1668,
+        "sha256": "e950ce5748324938cdfe8bfe4304612ba988d7c9d5b071e54aecf40074712ab1"
+      },
+      "RM0522:p1669": {
+        "source": "RM0522",
+        "page": 1669,
+        "sha256": "52c5d9c5af1c2c17c34c8555b0af3e81fc2fe51231966694237365a980ef09e0"
+      },
+      "RM0522:p1670": {
+        "source": "RM0522",
+        "page": 1670,
+        "sha256": "05e104bac8397ae387222daf06650221d8db22d557992002051f669d2df87156"
+      },
+      "RM0522:p1671": {
+        "source": "RM0522",
+        "page": 1671,
+        "sha256": "b7a0c746c8319925a0a928b8fa927129b139be6f76910ab6bae5f28130708977"
+      },
+      "RM0522:p1672": {
+        "source": "RM0522",
+        "page": 1672,
+        "sha256": "b4ed3ff008ea4ef80b1dd492c90c0fbc8324b31d8491aff0b0f68e69ff1ca67c"
+      },
+      "RM0522:p1673": {
+        "source": "RM0522",
+        "page": 1673,
+        "sha256": "5c78f47b11d4d67eeab665cf63ec3f8d3f312ed45b51d0a47bbda702bc14dc58"
+      },
+      "RM0522:p1674": {
+        "source": "RM0522",
+        "page": 1674,
+        "sha256": "48152408d9300ec7daba77ccb22ea5ea30174df637bdf92b93eb3a459869d174"
+      },
+      "RM0522:p1675": {
+        "source": "RM0522",
+        "page": 1675,
+        "sha256": "9fa1ccf259b04179fb75b917d7e6137ee46a9c0af7d77139463a1064d5aabd4d"
+      },
+      "RM0522:p1676": {
+        "source": "RM0522",
+        "page": 1676,
+        "sha256": "f3ac09c83a15421d5be3c990b3bd719b4f0e065e0d9a898d447253adc26bbadb"
+      },
+      "RM0522:p1677": {
+        "source": "RM0522",
+        "page": 1677,
+        "sha256": "57fb54cb2d3b1172572fadfce2cdd400ab9ba0161b12f1145249460f8f2e6402"
+      },
+      "RM0522:p1678": {
+        "source": "RM0522",
+        "page": 1678,
+        "sha256": "72e0fe6caffc744b3f4d28b3051ad058a478c2bec3682c48e4ca827750012d24"
+      },
+      "RM0522:p1679": {
+        "source": "RM0522",
+        "page": 1679,
+        "sha256": "41199eff8fc0ecd856aec4379eddd53606d06be5a7d72fbc7dc1f2c87a996e7f"
+      },
+      "RM0522:p1680": {
+        "source": "RM0522",
+        "page": 1680,
+        "sha256": "ea21ef7ce268f6ad610c53ac1598fc2dc32822c412ccbb8a3d728a14d170ffed"
+      },
+      "RM0522:p1681": {
+        "source": "RM0522",
+        "page": 1681,
+        "sha256": "49542bfe1de41887b4087404300e53b61ed94e5c87d65d368ca86a94df3616cc"
+      },
+      "RM0522:p1682": {
+        "source": "RM0522",
+        "page": 1682,
+        "sha256": "f524a969dc19242a5f7f59a24007bb89fb80ed9c293a0d87e5784cf9841bdffd"
+      },
+      "RM0522:p1683": {
+        "source": "RM0522",
+        "page": 1683,
+        "sha256": "5e1fa055ceb0c234110932e84cfb7c933ee1ededa4ec01796c01acddb8629af3"
+      },
+      "RM0522:p1684": {
+        "source": "RM0522",
+        "page": 1684,
+        "sha256": "6d1827a771d3c5681a0f43a300590eafe2dbcf1cc8859d12ed4efc9fd20475ce"
+      },
+      "RM0522:p1685": {
+        "source": "RM0522",
+        "page": 1685,
+        "sha256": "e9e0fb7e7be67093cecee22320c90194d0d27652fc2b545cd10133eaf8fec1f6"
+      },
+      "RM0522:p1686": {
+        "source": "RM0522",
+        "page": 1686,
+        "sha256": "7dbc2b7f503313b6673873beebe1b914de6bb083cef66625dd64b63bc528fe6f"
+      },
+      "RM0522:p1687": {
+        "source": "RM0522",
+        "page": 1687,
+        "sha256": "728ff4443b6cf19327acaf83f02c4b66589553828dbb1c3f58086ece1de8ad37"
+      },
+      "DS15135:p25": {
+        "source": "DS15135",
+        "page": 25,
+        "sha256": "14c7218ea6b202cfed37cb69c3f9550fcc54ecb7c1abb007358a9cb305602969"
+      },
+      "DS15135:p46": {
+        "source": "DS15135",
+        "page": 46,
+        "sha256": "6d3ea235bffc5fd4cc64517ff32cd2b29a37014ab6305628204e1fd9f3146269"
+      },
+      "DS15135:p47": {
+        "source": "DS15135",
+        "page": 47,
+        "sha256": "a55c52b1f30142be5ad3fea2a1cc16b519930dd08b32d16d646101500967a3b1"
+      },
+      "DS15135:p89": {
+        "source": "DS15135",
+        "page": 89,
+        "sha256": "811857848d8bd12cd286cdb562078e01e01fe993e5ece931f2c8c795100c9037"
+      },
+      "ES0676:p2": {
+        "source": "ES0676",
+        "page": 2,
+        "sha256": "3fed5303e4a0fc65ed4dbe6aae1c297605837e2da15bb0e24928d26b0d25eb95"
+      },
+      "ES0676:p8": {
+        "source": "ES0676",
+        "page": 8,
+        "sha256": "bbdb92e175f8101da1467e00b7fa2894fb9e3e1f2b0bd5937f5a865428c2ce5b"
+      },
+      "ES0676:p9": {
+        "source": "ES0676",
+        "page": 9,
+        "sha256": "16f3f6e7cf8092fc36fa0c23e0e1346aa2510f7a06639a41f90caf8bab393c84"
+      },
+      "HAL.init_deinit": {
+        "source": "HAL",
+        "start_line": 633,
+        "end_line": 781,
+        "sha256": "893564854d131fc254998433455c740235b4a2e3751e3b800f6aa73278f5166a"
+      },
+      "HAL.config": {
+        "source": "HAL",
+        "start_line": 824,
+        "end_line": 880,
+        "sha256": "e92cbc58763431a442c848f4574da238b6697280b014f403ae2a62605985fd9c"
+      },
+      "HAL.timing_filter": {
+        "source": "HAL",
+        "start_line": 910,
+        "end_line": 1025,
+        "sha256": "fe9175eaf98b746234e835ebecc15f3fe0f26b07896834c33695020d70f05b58"
+      },
+      "HAL.wake": {
+        "source": "HAL",
+        "start_line": 1051,
+        "end_line": 1084,
+        "sha256": "0e38f8e0ad060831381512c73939548199602cc919c8486836cfc57c9a64d8b5"
+      },
+      "HAL.own2": {
+        "source": "HAL",
+        "start_line": 1304,
+        "end_line": 1327,
+        "sha256": "6fd52f745f737345bc1d9653acc6f6d22f46b93295a3154ada9fa24283a16f7f"
+      },
+      "HAL.master_poll": {
+        "source": "HAL",
+        "start_line": 1806,
+        "end_line": 1914,
+        "sha256": "96cce739ffec35dd30958e51a31b3ba9cd11b163073c8f3b3fdd7c2668bd4451"
+      },
+      "HAL.master_dma": {
+        "source": "HAL",
+        "start_line": 2520,
+        "end_line": 2624,
+        "sha256": "2fb3a113e5c5102b2cb941661960a3464a9df5e43d3957c29acdcbbf0319d8c3"
+      },
+      "HAL.abort": {
+        "source": "HAL",
+        "start_line": 4695,
+        "end_line": 4771,
+        "sha256": "dac32f73bc7db09e7bae3c237b84e2c387ffd8e8d74ca0e557ed20fa4594206a"
+      },
+      "HAL.IRQ": {
+        "source": "HAL",
+        "start_line": 4869,
+        "end_line": 4931,
+        "sha256": "f0a1e9622a962cfe657c605d0592d6f798b97e7c26e54cfc57c8e9cded6d7bfc"
+      },
+      "HAL.seq_complete": {
+        "source": "HAL",
+        "start_line": 6243,
+        "end_line": 6278,
+        "sha256": "1397850076b35234cdd5f3fc942536a470b2129f6a768f7cc7dc295124f58c1a"
+      },
+      "HAL.error": {
+        "source": "HAL",
+        "start_line": 6715,
+        "end_line": 6860,
+        "sha256": "d582cee0bd07e22d700477d2fb7043242e96288271b25b92ec7b777651a305ea"
+      },
+      "HAL.DMA_callbacks": {
+        "source": "HAL",
+        "start_line": 6888,
+        "end_line": 7052,
+        "sha256": "8ff4eb5c62379c46c813e3d1ce8504c3114f1302f205f8c014f1aa96b3080427"
+      },
+      "HAL.wait": {
+        "source": "HAL",
+        "start_line": 7067,
+        "end_line": 7094,
+        "sha256": "67d7c1e4ea5e739f60457438a3f751ffaab17ebc2c2e12cf8bec32b4966a829a"
+      },
+      "HAL.poll_error": {
+        "source": "HAL",
+        "start_line": 7244,
+        "end_line": 7345,
+        "sha256": "aeff4b5a16fb909c069136a592c9add2d83cee914d6099f94122c1d23e78ad25"
+      },
+      "HAL.transfer": {
+        "source": "HAL",
+        "start_line": 7362,
+        "end_line": 7377,
+        "sha256": "31252aceac2a305c57fe8c135bfc3e365d435e2d64bd068991b42e63ea1d109c"
+      },
+      "LL.enable": {
+        "source": "LL",
+        "start_line": 350,
+        "end_line": 389,
+        "sha256": "2b061375e0dea81ac4c4cd42c1b9793a539c656d6ab7252d019d47903e3ae56e"
+      },
+      "LL.filter": {
+        "source": "LL",
+        "start_line": 415,
+        "end_line": 426,
+        "sha256": "b96c09f5760900735a54e95ededf3799b125b997f10f74eae20dcad2cf569d30"
+      },
+      "LL.own2": {
+        "source": "LL",
+        "start_line": 975,
+        "end_line": 990,
+        "sha256": "a24aecf6eb976faf563f1ac3304b3d9eaefac236abe12eafa64bea905ff43f3e"
+      },
+      "LL.timing": {
+        "source": "LL",
+        "start_line": 1058,
+        "end_line": 1066,
+        "sha256": "66aa0240636cc94307e466d8dd5bb52bee41f6558142c15a257459158145175d"
+      },
+      "header.IRQ": {
+        "source": "header",
+        "start_line": 103,
+        "end_line": 104,
+        "sha256": "8877b83225266fae8b19f0f0fb7c51a6422c8f6c158f2e1461c6024af7e7dba8"
+      },
+      "header.base": {
+        "source": "header",
+        "start_line": 1196,
+        "end_line": 1196,
+        "sha256": "8d55da77a6afcc2d357729769bd3c70619ece632e984ccc48308be7d16b7cf94"
+      },
+      "header.instance": {
+        "source": "header",
+        "start_line": 14088,
+        "end_line": 14093,
+        "sha256": "0abbe6c6673fcc97e85d9c427c2bc50472c01643fc310e9a63674f3c20cb3bcc"
+      },
+      "header.fields": {
+        "source": "header",
+        "start_line": 7050,
+        "end_line": 7328,
+        "sha256": "aeeb26b01aacf47038c6e9291d1f58c418f6f5873100ec5d2a2385c28f4cb6f9"
+      },
+      "header.reset": {
+        "source": "header",
+        "start_line": 8998,
+        "end_line": 9000,
+        "sha256": "8391473c800166a0fde31aebdb245a5b8903fb65f8edb6bdd513215190d83d9f"
+      },
+      "header.clock": {
+        "source": "header",
+        "start_line": 9146,
+        "end_line": 9148,
+        "sha256": "836fd69688b3881549a13a8a2986939f1a27ddd9a09b724556f71f0f44f505c0"
+      },
+      "header.sleep": {
+        "source": "header",
+        "start_line": 9329,
+        "end_line": 9332,
+        "sha256": "d5710e77db613278ce25e949d8a31b83c0c5f549ed8d67cf3c49b239ad688167"
+      },
+      "header.kernel": {
+        "source": "header",
+        "start_line": 9452,
+        "end_line": 9457,
+        "sha256": "ea16c590b1c725fd9ea256a3971e4a9d1f747f10dbbf97795cb978e4379ff371"
+      },
+      "header.debug": {
+        "source": "header",
+        "start_line": 3501,
+        "end_line": 3504,
+        "sha256": "30d5eae1d34c6155a2c7cc5a8c69d00e4b71b4df21c76ee82e00d045005a4782"
+      },
+      "DMA.requests1": {
+        "source": "LL_DMA",
+        "start_line": 388,
+        "end_line": 389,
+        "sha256": "f9b102995cc3c9c1c87e41ce08c71c73e97e35608d9daa98c05780c8e4a7d7dc"
+      },
+      "DMA.requests2": {
+        "source": "LL_DMA",
+        "start_line": 519,
+        "end_line": 520,
+        "sha256": "37c1b23dcba27b5a56414befc2ca53357cbb708a639579bd60a7ba8a793e793e"
+      },
+      "HAL.masks": {
+        "source": "HAL",
+        "start_line": 359,
+        "end_line": 413,
+        "sha256": "ede38f2180f29a20c3b8e5b7f013f13ab1738bfd01e51eddeb77f24589e340a0"
+      },
+      "HAL.address_macro": {
+        "source": "HAL",
+        "start_line": 480,
+        "end_line": 489,
+        "sha256": "14c70ad9736928c60a2b02d479108416a0df1dc49f176a98f9085a2020eb8de0"
+      },
+      "LL.own1_own2": {
+        "source": "LL",
+        "start_line": 951,
+        "end_line": 990,
+        "sha256": "83c864b1c3f08609d79d4430142401f03df21acb04f003f4d372e4e71ec47c2a"
+      },
+      "HAL.seq_tx": {
+        "source": "HAL",
+        "start_line": 3690,
+        "end_line": 3756,
+        "sha256": "d9bd8623eca9aef62ce241f48b7f2604c2f762361c752643227c7c0acb68b561"
+      },
+      "HAL.seq_dma_tx": {
+        "source": "HAL",
+        "start_line": 3790,
+        "end_line": 3850,
+        "sha256": "71ff54bf6d8a6e2398c9247f8baa99c90d3fe131e35cc99e272ece7c074a97b0"
+      },
+      "HAL.master_complete": {
+        "source": "HAL",
+        "start_line": 6353,
+        "end_line": 6468,
+        "sha256": "415949d6597b673a07466481a2f510be08cb8d81e056c78bede2a54619d94cb1"
+      },
+      "HAL.flush": {
+        "source": "HAL",
+        "start_line": 6868,
+        "end_line": 6881,
+        "sha256": "bf5853509ae85166f9c4ef242c1037f3c90c1b5731a8654b8c5e59b06312482b"
+      },
+      "HAL.disable_irq": {
+        "source": "HAL",
+        "start_line": 7384,
+        "end_line": 7424,
+        "sha256": "8eae7f65fef9aa1ce81cfa0bc7a3e87de4935f7f1173cb929cf6342a2b84db2c"
+      },
+      "RM0522:p317": {
+        "source": "RM0522",
+        "page": 317,
+        "sha256": "b4c82b1c04f06ed1486697c3f48f6b001717f07e266ede91933238e8eed439a7"
+      },
+      "RM0522:p2541": {
+        "source": "RM0522",
+        "page": 2541,
+        "sha256": "2c46b817302497caf225a9923cc7aa3a4d65f0e7f02a70c47f8fdd6407804276"
+      },
+      "HAL.DMA_ISR_errors": {
+        "source": "HAL",
+        "start_line": 5670,
+        "end_line": 5870,
+        "sha256": "ba2ab20e6e5e78d610c97ca3f7027579416fc5a894635603771ddba4d1176168"
+      }
+    },
+    "contracts": [
+      {
+        "id": "exact_ownership",
+        "detail": "Only I2C1 exists on C542; I2C2 is explicitly excluded. Controller/target TX/RX, 7/10-bit addressing, SMBus and PMBus capabilities share one physical engine, two IRQs and one clock/reset configuration. A family AF label does not instantiate I2C2.",
+        "evidence": [
+          "RM0522:p1624",
+          "RM0522:p1625",
+          "RM0522:p1627",
+          "header.instance",
+          "header.IRQ",
+          "DS15135:p25"
+        ]
+      },
+      {
+        "id": "clock_and_timing",
+        "detail": "Require tI2CCLK < (tLOW-tfilters)/4 and tI2CCLK<tHIGH, tPCLK<4*tSCL/3. SCL rate includes analog/digital filtering, synchronization and actual rise/fall times, not just SCLH+SCLL. PRESC/SDADEL/SCLDEL/SCLH/SCLL need checked timing inequalities and actual clock. Tables413/414 are examples, not executable qualified rates. I2C1SEL0 selects PCLK1,1 psik_ck,2 hsik_ck;3 is reserved with kernel disabled.",
+        "evidence": [
+          "RM0522:p1627",
+          "RM0522:p1630",
+          "RM0522:p1631",
+          "RM0522:p1632",
+          "RM0522:p1644",
+          "RM0522:p1646",
+          "RM0522:p1656",
+          "RM0522:p317",
+          "header.kernel"
+        ]
+      },
+      {
+        "id": "configuration_and_reset",
+        "detail": "Filter, timing and NOSTRETCH changes require PE0; PECEN also requires PE0. PE0 releases bus and resets communication/status state while retaining configuration. Hold PE0 at least three APB cycles; RM software sequence writes0/checks0/writes1. This can discard active events and does not itself abort DMA or prove physical bus recovery.",
+        "evidence": [
+          "RM0522:p1628",
+          "RM0522:p1629",
+          "RM0522:p1632",
+          "RM0522:p1633",
+          "RM0522:p1660",
+          "RM0522:p1675"
+        ]
+      },
+      {
+        "id": "addresses_and_ownership",
+        "detail": "OA1 is 7/10-bit; OA2 is 7-bit with masks0..7. Disable OA1EN/OA2EN before changing respective address fields. Nonzero OA2 masks exclude reserved 0000xxx/1111xxx addresses. Seven-bit raw SADD/OA1 uses address<<1; ten-bit uses all10 bits. Read ADDCODE and DIR before clearing ADDR; 10-bit ADDCODE reports header plus two MSBs, not full address.",
+        "evidence": [
+          "RM0522:p1635",
+          "RM0522:p1636",
+          "RM0522:p1678",
+          "RM0522:p1679",
+          "RM0522:p1682"
+        ]
+      },
+      {
+        "id": "stretching_and_target",
+        "detail": "ADDR, empty TXDR, full RXDR and TCR can hold SCL low. NOSTRETCH requires preloaded first TX byte and bounded per-byte servicing; missing TX sends0xFF and overrun loses new RX byte/NACK. Clearing STOPF after preparing the next first TX byte preserves underrun detection. SBC byte ACK control requires stretching and RELOAD, with nonzero NBYTES reload releasing TCR.",
+        "evidence": [
+          "RM0522:p1636",
+          "RM0522:p1637",
+          "RM0522:p1638",
+          "RM0522:p1670"
+        ]
+      },
+      {
+        "id": "controller_lifecycle",
+        "detail": "NBYTES0..255 chunks; >255 requires RELOAD. AUTOEND ignored during RELOAD. TC means software STOP/reSTART still required and SCL stretched, not bus release. START/address/direction/NBYTES changes forbidden while START1. Check actual bus idle before START; BUSY is reset by PE0 and alone is not proof another physical bus participant is idle. Arbitration loss returns to target behavior. Ten-bit first-header NACK can cause repeated address loop; ADDRCF exits it.",
+        "evidence": [
+          "RM0522:p1634",
+          "RM0522:p1635",
+          "RM0522:p1646",
+          "RM0522:p1647",
+          "RM0522:p1648",
+          "RM0522:p1652",
+          "RM0522:p1677",
+          "RM0522:p1682",
+          "RM0522:p1684"
+        ]
+      },
+      {
+        "id": "event_side_effects",
+        "detail": "RXDR read consumes RXNE; TXDR write clears TXIS/TXE and is allowed only TXE1. Writing TXE1 flushes TXDR. TXIS software set only NOSTRETCH1. ICR is direct write-one clearing; ADDRCF also clears START. STOPFACLR/ADDRACLR suppress those flags and their software observability, requiring a separate ownership/event protocol.",
+        "evidence": [
+          "RM0522:p1673",
+          "RM0522:p1683",
+          "RM0522:p1684",
+          "RM0522:p1686"
+        ]
+      },
+      {
+        "id": "DMA_lifetime",
+        "detail": "DMA carries data only; received PEC occupies RX buffer too. Initialize DMA before controller START or target ADDR clear; no-stretch target TX needs DMA prearmed before address. TXIS/RXNE requests and DMA memory completion do not mean STOP, bus idle or callback quiescence. Own buffers, byte widths, request selection, reload stages and both peripheral IRQs until independent completion/recovery.",
+        "evidence": [
+          "RM0522:p1672"
+        ]
+      },
+      {
+        "id": "SMBus_protocol",
+        "detail": "Hardware compatibility does not implement the eleven software protocols, ARP commands or128-bit UDID. PEC CRC8 polynomial x8+x2+x+1 covers address/direction and data; NBYTES includes PEC, PECBYTE ignored under RELOAD or target SBC0. Target ACK control needs SBC1 and stretch. Host/device/alert addresses and role change require explicit ownership.",
+        "evidence": [
+          "RM0522:p1657",
+          "RM0522:p1658",
+          "RM0522:p1660",
+          "RM0522:p1662",
+          "RM0522:p1663",
+          "RM0522:p1665",
+          "RM0522:p1667"
+        ]
+      },
+      {
+        "id": "timeouts_and_debug",
+        "detail": "TIMEOUTA/TIDLE update only TIMOUTEN0; TIMEOUTB only TEXTEN0. Low/cumulative timeout units2048 kernel cycles, idle timeout4 kernel cycles. TIMEOUT can mean successful bus-idle detection rather than a failed transfer; mode-dependent STOP/release requires policy. Debug bit freezes SMBus timeout, not a blanket freeze of I2C transfers. Freeze requires HALTED1 and the corresponding debug bit; HALTED0 continues operation.",
+        "evidence": [
+          "RM0522:p1660",
+          "RM0522:p1661",
+          "RM0522:p1670",
+          "RM0522:p1672",
+          "RM0522:p1681",
+          "RM0522:p2541",
+          "header.debug"
+        ]
+      },
+      {
+        "id": "Stop_and_Standby",
+        "detail": "Wake requires HSI selection, WUPEN1, DNF0, NOSTRETCH0, ADDR interrupt and no active transfer. Without WUPEN disable PE before Stop. Stop retains registers; Standby powers peripheral down and requires reinitialization. Shared HSI/RCC/PWR/EXTI configuration remains separately owned.",
+        "evidence": [
+          "RM0522:p1668",
+          "RM0522:p1669",
+          "RM0522:p1671"
+        ]
+      },
+      {
+        "id": "errata_sampling",
+        "detail": "ES2.8.1 is P/P for Z/Y: require kernel period no greater than transmitter minimum setup; standard minima imply at least4/10/20MHz for Sm/Fm/Fm+. RM examples with8MHz Fm or16MHz Fm+ do not automatically satisfy this. Workaround depends on actual transmitter setup, so no blanket full admission.",
+        "evidence": [
+          "ES0676:p2",
+          "ES0676:p8",
+          "RM0522:p1656"
+        ]
+      },
+      {
+        "id": "errata_BERR",
+        "detail": "ES2.8.2 is A/A: controller-mode spurious BERR does not stop the transfer; clear BERR and continue normally. Do not generalize this to genuine target bus errors or discard other concurrent error flags.",
+        "evidence": [
+          "ES0676:p2",
+          "ES0676:p9"
+        ]
+      },
+      {
+        "id": "electrical",
+        "detail": "DS89 timing is specified by design, not production-tested; analog filter50..160ns is characterized. Pins are not true open drain; only FT_f pads support Fm+ low-level current requirement. Exact package IO label discrepancies, pulls/loading/supply and board state remain unqualified.",
+        "evidence": [
+          "DS15135:p89",
+          "DS15135:p46",
+          "DS15135:p47"
+        ]
+      }
+    ],
+    "source_derived_SDK_gates": [
+      {
+        "id": "Init_not_reset",
+        "detail": "Init resets handle fields/linkage and optionally enables clock; no hardware reset/IRQ drain. Reinitialization cannot establish ownership or stop prior DMA. DeInit ignores DMA abort results and uses a count-down iteration loop named with timeout constant, not a tick-based duration, before PE0 and software HAL_I2C_STATE_RESET. Request/interrupt config is not blanket cleared by PE0. The default DeInit counter is25 iterations, not25 milliseconds.",
+        "evidence": [
+          "HAL.init_deinit",
+          "RM0522:p1632",
+          "HAL.masks"
+        ]
+      },
+      {
+        "id": "configuration_state",
+        "detail": "Configuration helpers assert IDLE but do not establish physical bus idle or read back PE0. They disable then reenable PE and may discard pending communication state; no measured proof of three-cycle hold or reset sequence. Timing setter masks reserved bits but does not calculate valid clock/electrical timing.",
+        "evidence": [
+          "HAL.config",
+          "HAL.timing_filter",
+          "LL.enable",
+          "LL.timing",
+          "RM0522:p1633"
+        ]
+      },
+      {
+        "id": "wake_preconditions",
+        "detail": "EnableWakeUp sets WUPEN without enforcing DNF0, HSI clock selection, stretching or IRQ/low-power prerequisites. Subsequent filter setters can also change this combination. HAL_OK does not admit Stop wake.",
+        "evidence": [
+          "HAL.wake",
+          "HAL.timing_filter",
+          "RM0522:p1669",
+          "RM0522:p1674"
+        ]
+      },
+      {
+        "id": "own2_enabled_write",
+        "detail": "SetConfigOwnAddress2 clears PE but not OA2EN, then LL_SetOwnAddress2 writes address/mask while preserving OA2EN. RM and LL note require OA2EN0; PE reset preserves configuration. A previously enabled OA2 can therefore make the requested update ineffective while HAL returnsOK.",
+        "evidence": [
+          "HAL.own2",
+          "LL.own2",
+          "RM0522:p1632",
+          "RM0522:p1679"
+        ]
+      },
+      {
+        "id": "release_parameter_domains",
+        "detail": "Instance/state/address/filter bounds are largely debug assertions; optional runtime checks cover selected NULL pointers. LL digital filter shifts unmasked input into CR1; invalid release input may affect adjacent fields. Transfer helper masks address and NBYTES rather than validating caller logical address.",
+        "evidence": [
+          "HAL.init_deinit",
+          "HAL.timing_filter",
+          "LL.filter",
+          "HAL.transfer"
+        ]
+      },
+      {
+        "id": "BERR_workaround_not_implemented",
+        "detail": "IRQ and polling handlers treat BERR as an error without controller-spurious qualification. For isolated spurious BERR, IRQ cleanup disables transfer servicing, clears ISR callback and sets IDLE; polling resets selected CR2 fields. Neither path requests STOP or toggles PE for this BERR case, although ES2.8.2 says the transfer continues. Both call Flush_TXDR, which writes dummy0 when TXIS1 then flushes if TXE0. A dummy transmitted byte or abandoned stretched transfer is conditional, not observed. Explicit recovery is required; concurrent NACK has separate STOP handling.",
+        "evidence": [
+          "HAL.IRQ",
+          "HAL.poll_error",
+          "HAL.error",
+          "ES0676:p9",
+          "HAL.flush",
+          "HAL.address_macro"
+        ]
+      },
+      {
+        "id": "poll_timeout_not_release",
+        "detail": "Master polling sets software IDLE on error/timeout. A pure wait timeout can return without STOP, PE reset or final CR2 cleanup. Detected-error helper separately resets selected CR2 fields, as does successful STOP completion; neither software IDLE nor that field reset proves bus or buffer release. Initial BUSY wait uses default timeout rather than caller timeout; subsequent waits share initial tick. NACK recovery can add default STOP-wait time or wait indefinitely for HAL_MAX_DELAY.",
+        "evidence": [
+          "HAL.master_poll",
+          "HAL.wait",
+          "HAL.poll_error"
+        ]
+      },
+      {
+        "id": "DMA_start_and_reload",
+        "detail": "Master DMA changes buffers/ISR/callbacks before DMA start; failure restores software IDLE/mode but not all metadata. Zero-size uses interrupt transfer path, not DMA. Successful DMA start precedes START; request enable follows. Completion callback can start further255-byte DMA stages before TC reload; failures call common error path.",
+        "evidence": [
+          "HAL.master_dma",
+          "HAL.DMA_callbacks"
+        ]
+      },
+      {
+        "id": "DMA_abort_callback_not_receipt",
+        "detail": "Common error path sets IDLE before asynchronous DMA abort finishes and directly calls the abort callback if HAL_DMA_Abort_IT returns error. Cleanup selects direction from previous_state, which Init and ordinary DMA starts do not initialize. After normal successful completion leaves NONE, a direct error IRQ during the next DMA transfer skips both DMA request disable and abort, while marking IDLE and calling the error callback. A stale TX value with a new RX transfer can select the TX handle instead. STOP completion first updates previous_state, so do not generalize this defect to that path. Uninitialized handle storage is a separate invalid-input concern. IRQ disable does not clear DMA request bits. Callback and IDLE are not quiescence receipts. Later DMA callbacks can reenable completion IRQ with xfer_isr NULL; resulting repeated interrupts remain conditional on pending hardware flags. The same stale selection applies to direct SIZE errors in master/memory DMA ISRs, DMA error callbacks and failed next-chunk DMA starts that enter I2C_ITError without first going through STOP completion. DMA ISR NACK handling instead enables STOP processing, which updates previous_state before cleanup.",
+        "evidence": [
+          "HAL.error",
+          "HAL.DMA_callbacks",
+          "HAL.init_deinit",
+          "HAL.master_dma",
+          "HAL.master_complete",
+          "HAL.seq_complete",
+          "HAL.disable_irq",
+          "HAL.IRQ",
+          "HAL.DMA_ISR_errors"
+        ]
+      },
+      {
+        "id": "abort_semantics",
+        "detail": "Master Abort_IT returnsOK after requesting STOP and enabling completion IRQ, not after completion. Slave Abort_IT only requests NACK and returnsOK, with no DMA abort/disable, state change or completed STOP receipt. A target cannot force the controller to provide clocks or STOP.",
+        "evidence": [
+          "HAL.abort",
+          "RM0522:p1677"
+        ]
+      },
+      {
+        "id": "sequential_completion_retains_bus",
+        "detail": "Sequential completion omits STOP, sets IDLE/modeNONE and calls the application callback. Master Abort_IT then returns HAL_ERROR at this segment boundary because it requires MASTER or MASTER_MEM mode; it does not request STOP. Generic IDLE-based reconfiguration is unsafe without sequence ownership. Sequential start chooses NO_STARTSTOP from same-direction previous_state for non-OTHER options without checking physical ownership. Configuration PE toggles, DeInit and Init preserve previous_state, so the software can suppress a needed START after releasing the bus. Resulting bus behavior is unqualified. DeInit sees IDLE at the segment boundary and skips its STOP-request branch, then clears PE; this does not establish an on-wire STOP. Blocking polling transfers also do not update previous_state, so an intervening polling transaction does not repair stale same-direction sequential START selection.",
+        "evidence": [
+          "HAL.seq_complete",
+          "RM0522:p1635",
+          "HAL.abort",
+          "HAL.seq_tx",
+          "HAL.seq_dma_tx",
+          "HAL.init_deinit",
+          "HAL.config",
+          "HAL.master_poll"
+        ]
+      },
+      {
+        "id": "SMBus_layer_separate",
+        "detail": "I2C ERR handler handles BERR/OVR/ARLO only, not PECERR/TIMEOUT/ALERT, although its flag mask includes those bits and transfer masks enable ERRIE. Enabling SMBus features through LL or another layer can leave an error interrupt pending and repeatedly reentering. Complete separate HAL SMBus audit remains open.",
+        "evidence": [
+          "HAL.IRQ",
+          "RM0522:p1671",
+          "HAL.masks"
+        ]
+      },
+      {
+        "id": "NACK_default_and_OA1",
+        "detail": "SetConfig writes CR2.NACK1 while PE0, for which RM specifies hardware clears NACK; the intended default is not established by this sequence. Every PE toggle can clear NACK. ConfigOwnAddress1 always enables OA1, including controller use. An external controller addressing it can assert ADDR and stretch SCL without an active HAL listener. SetConfig leaves OAR2/OA2EN untouched.",
+        "evidence": [
+          "HAL.config",
+          "LL.own1_own2",
+          "RM0522:p1677",
+          "RM0522:p1636"
+        ]
+      }
+    ],
+    "conflicts": [
+      {
+        "id": "SDADEL_formula",
+        "detail": "RM1630 defines tSDADEL=SDADEL*tPRESC+tI2CCLK; RM1680 and example tables omit the extra kernel period. Preserve conflict; no timing solver admitted.",
+        "evidence": [
+          "RM0522:p1630",
+          "RM0522:p1656",
+          "RM0522:p1680"
+        ]
+      },
+      {
+        "id": "ACK_name",
+        "detail": "Target ACK-control prose names ACK bit; CR2 defines NACK and writing0 has no effect. Use exact register semantics; no nonexistent ACK register field.",
+        "evidence": [
+          "RM0522:p1637",
+          "RM0522:p1663",
+          "RM0522:p1677"
+        ]
+      },
+      {
+        "id": "TIMEOUTB_formula",
+        "detail": "RM1681 literal formula is malformed TIMEOUTB + TIDLE = 01; functional text1661 gives TIMEOUTB+1. Preserve source conflict.",
+        "evidence": [
+          "RM0522:p1661",
+          "RM0522:p1681"
+        ]
+      },
+      {
+        "id": "STOP_flag_enable",
+        "detail": "Functional target prose1638/1642 conditions STOPF wording on STOPIE, while status definition1683 defines STOPF from bus event independent of enable. Keep flag/interrupt distinction explicit.",
+        "evidence": [
+          "RM0522:p1638",
+          "RM0522:p1642",
+          "RM0522:p1683"
+        ]
+      },
+      {
+        "id": "low_power_names",
+        "detail": "IRQ table1671 uses Stop0 versus Stop/Standby column labels unlike exact C542 Stop terminology; exact wake prerequisites/implementation govern, no invented mode.",
+        "evidence": [
+          "RM0522:p1625",
+          "RM0522:p1669",
+          "RM0522:p1671"
+        ]
+      },
+      {
+        "id": "own2_address_encoding",
+        "detail": "LL parameter prose gives0..0x7F, whereas HAL requires address<<1 and asserts only<=0xFF. OAR2 OA2 occupies bits7:1. LL MODIFY_REG clears the field but ORs unmasked caller input; it does not shift or validate it. Passing an unshifted logical address programs different address bits and can write reserved bit0.",
+        "evidence": [
+          "LL.own1_own2",
+          "HAL.own2",
+          "HAL.address_macro",
+          "RM0522:p1679"
+        ]
+      },
+      {
+        "id": "errata_status_name",
+        "detail": "ES2.8.2 names I2C_SR; exact C542 status register is ISR. Preserve nomenclature discrepancy without inventing another register.",
+        "evidence": [
+          "ES0676:p9",
+          "RM0522:p1682"
+        ]
+      }
+    ],
+    "open_gates": [
+      "No executable profile, timing solver, SMBus protocol, electrical or hardware qualification.",
+      "Complete HAL I2C/SMBus/LL mode paths, sequential/DMA/IRQ races, all error exits and compiler behavior remain open.",
+      "Package IO discrepancies and external pullups/bus loading/voltage/oscillator tolerances remain unresolved.",
+      "No accepted catalog, composition or physical ownership changes.",
+      "Cross-peripheral clock/low-power/DMA integration and build validation belong to owning engineering lane."
+    ],
+    "package_routes_sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288",
+    "errata_sha256": "821c22f796a9ff723afee534fe5943c2b0506325ec871d890706d94414316416",
+    "finite_source_maps": {
+      "instance": "I2C1",
+      "base": "0x40005400",
+      "IRQs": {
+        "event": 44,
+        "error": 45
+      },
+      "RCC_APB1L_bit": 21,
+      "DBG_APB1L_timeout_freeze_bit": 21,
+      "registers": [
+        {
+          "name": "CR1",
+          "offset": "0x0",
+          "reset": 0
+        },
+        {
+          "name": "CR2",
+          "offset": "0x4",
+          "reset": 0
+        },
+        {
+          "name": "OAR1",
+          "offset": "0x8",
+          "reset": 0
+        },
+        {
+          "name": "OAR2",
+          "offset": "0xc",
+          "reset": 0
+        },
+        {
+          "name": "TIMINGR",
+          "offset": "0x10",
+          "reset": 0
+        },
+        {
+          "name": "TIMEOUTR",
+          "offset": "0x14",
+          "reset": 0
+        },
+        {
+          "name": "ISR",
+          "offset": "0x18",
+          "reset": 1
+        },
+        {
+          "name": "ICR",
+          "offset": "0x1c",
+          "reset": 0
+        },
+        {
+          "name": "PECR",
+          "offset": "0x20",
+          "reset": 0
+        },
+        {
+          "name": "RXDR",
+          "offset": "0x24",
+          "reset": 0
+        },
+        {
+          "name": "TXDR",
+          "offset": "0x28",
+          "reset": 0
+        }
+      ],
+      "NBYTES_bits": 8,
+      "DNF_range": [
+        0,
+        15
+      ],
+      "PRESC_range": [
+        0,
+        15
+      ],
+      "SCLDEL_range": [
+        0,
+        15
+      ],
+      "SDADEL_range": [
+        0,
+        15
+      ],
+      "SCLH_range": [
+        0,
+        255
+      ],
+      "SCLL_range": [
+        0,
+        255
+      ],
+      "TIMEOUTA_B_range": [
+        0,
+        4095
+      ],
+      "DMA_requests_each_controller": {
+        "RX": 10,
+        "TX": 11
+      },
+      "package_routes": [
+        {
+          "id": "descriptor.signal.118",
+          "pin": "PA11",
+          "pad": 44,
+          "signal": "I2C1_SCL",
+          "instance": "I2C1",
+          "function": {
+            "type": "alternate",
+            "id": "AF8"
+          },
+          "source_pointer": "/signals/118",
+          "source_record": {
+            "name": "I2C1_SCL",
+            "instance": "I2C1",
+            "die_pad": "PA11",
+            "function": {
+              "type": "alternate",
+              "id": "AF8"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PA11"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PA11",
+            "af": "AF8",
+            "DS_signal": "I2C1_SCL",
+            "descriptor_name": "I2C1_SCL",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 13,
+            "raw_cell": "I2C1_SCL"
+          }
+        },
+        {
+          "id": "descriptor.signal.119",
+          "pin": "PA8",
+          "pad": 41,
+          "signal": "I2C1_SCL",
+          "instance": "I2C1",
+          "function": {
+            "type": "alternate",
+            "id": "AF9"
+          },
+          "source_pointer": "/signals/119",
+          "source_record": {
+            "name": "I2C1_SCL",
+            "instance": "I2C1",
+            "die_pad": "PA8",
+            "function": {
+              "type": "alternate",
+              "id": "AF9"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA8",
+            "af": "AF9",
+            "DS_signal": "I2C1_SCL",
+            "descriptor_name": "I2C1_SCL",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 10,
+            "raw_cell": "I2C1_SCL"
+          }
+        },
+        {
+          "id": "descriptor.signal.120",
+          "pin": "PB10",
+          "pad": 29,
+          "signal": "I2C1_SCL",
+          "instance": "I2C1",
+          "function": {
+            "type": "alternate",
+            "id": "AF4"
+          },
+          "source_pointer": "/signals/120",
+          "source_record": {
+            "name": "I2C1_SCL",
+            "instance": "I2C1",
+            "die_pad": "PB10",
+            "function": {
+              "type": "alternate",
+              "id": "AF4"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB10",
+            "af": "AF4",
+            "DS_signal": "I2C1_SCL",
+            "descriptor_name": "I2C1_SCL",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 5,
+            "raw_cell": "I2C1_SCL"
+          }
+        },
+        {
+          "id": "descriptor.signal.121",
+          "pin": "PB3",
+          "pad": 55,
+          "signal": "I2C1_SCL",
+          "instance": "I2C1",
+          "function": {
+            "type": "alternate",
+            "id": "AF9"
+          },
+          "source_pointer": "/signals/121",
+          "source_record": {
+            "name": "I2C1_SCL",
+            "instance": "I2C1",
+            "die_pad": "PB3(JTDO/TRACESWO)",
+            "function": {
+              "type": "alternate",
+              "id": "AF9"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB3",
+            "af": "AF9",
+            "DS_signal": "I2C1_SCL",
+            "descriptor_name": "I2C1_SCL",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 21,
+            "raw_cell": "I2C1_SCL"
+          }
+        },
+        {
+          "id": "descriptor.signal.122",
+          "pin": "PB6",
+          "pad": 58,
+          "signal": "I2C1_SCL",
+          "instance": "I2C1",
+          "function": {
+            "type": "alternate",
+            "id": "AF4"
+          },
+          "source_pointer": "/signals/122",
+          "source_record": {
+            "name": "I2C1_SCL",
+            "instance": "I2C1",
+            "die_pad": "PB6",
+            "function": {
+              "type": "alternate",
+              "id": "AF4"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB6",
+            "af": "AF4",
+            "DS_signal": "I2C1_SCL",
+            "descriptor_name": "I2C1_SCL",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 24,
+            "raw_cell": "I2C1_SCL"
+          }
+        },
+        {
+          "id": "descriptor.signal.123",
+          "pin": "PB8",
+          "pad": 61,
+          "signal": "I2C1_SCL",
+          "instance": "I2C1",
+          "function": {
+            "type": "alternate",
+            "id": "AF4"
+          },
+          "source_pointer": "/signals/123",
+          "source_record": {
+            "name": "I2C1_SCL",
+            "instance": "I2C1",
+            "die_pad": "PB8",
+            "function": {
+              "type": "alternate",
+              "id": "AF4"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB8",
+            "af": "AF4",
+            "DS_signal": "I2C1_SCL",
+            "descriptor_name": "I2C1_SCL",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 3,
+            "raw_cell": "I2C1_SCL"
+          }
+        },
+        {
+          "id": "descriptor.signal.124",
+          "pin": "PH1",
+          "pad": 6,
+          "signal": "I2C1_SCL",
+          "instance": "I2C1",
+          "function": {
+            "type": "alternate",
+            "id": "AF4"
+          },
+          "source_pointer": "/signals/124",
+          "source_record": {
+            "name": "I2C1_SCL",
+            "instance": "I2C1",
+            "die_pad": "PH1-OSC_OUT(PH1)",
+            "function": {
+              "type": "alternate",
+              "id": "AF4"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PH1",
+            "af": "AF4",
+            "DS_signal": "I2C1_SCL",
+            "descriptor_name": "I2C1_SCL",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 29,
+            "raw_cell": "I2C1_SCL"
+          }
+        },
+        {
+          "id": "descriptor.signal.125",
+          "pin": "PA12",
+          "pad": 45,
+          "signal": "I2C1_SDA",
+          "instance": "I2C1",
+          "function": {
+            "type": "alternate",
+            "id": "AF8"
+          },
+          "source_pointer": "/signals/125",
+          "source_record": {
+            "name": "I2C1_SDA",
+            "instance": "I2C1",
+            "die_pad": "PA12",
+            "function": {
+              "type": "alternate",
+              "id": "AF8"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PA12"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PA12",
+            "af": "AF8",
+            "DS_signal": "I2C1_SDA",
+            "descriptor_name": "I2C1_SDA",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 14,
+            "raw_cell": "I2C1_SDA"
+          }
+        },
+        {
+          "id": "descriptor.signal.126",
+          "pin": "PB12",
+          "pad": 33,
+          "signal": "I2C1_SDA",
+          "instance": "I2C1",
+          "function": {
+            "type": "alternate",
+            "id": "AF4"
+          },
+          "source_pointer": "/signals/126",
+          "source_record": {
+            "name": "I2C1_SDA",
+            "instance": "I2C1",
+            "die_pad": "PB12",
+            "function": {
+              "type": "alternate",
+              "id": "AF4"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB12",
+            "af": "AF4",
+            "DS_signal": "I2C1_SDA",
+            "descriptor_name": "I2C1_SDA",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 6,
+            "raw_cell": "I2C1_SDA"
+          }
+        },
+        {
+          "id": "descriptor.signal.127",
+          "pin": "PB3",
+          "pad": 55,
+          "signal": "I2C1_SDA",
+          "instance": "I2C1",
+          "function": {
+            "type": "alternate",
+            "id": "AF4"
+          },
+          "source_pointer": "/signals/127",
+          "source_record": {
+            "name": "I2C1_SDA",
+            "instance": "I2C1",
+            "die_pad": "PB3(JTDO/TRACESWO)",
+            "function": {
+              "type": "alternate",
+              "id": "AF4"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB3",
+            "af": "AF4",
+            "DS_signal": "I2C1_SDA",
+            "descriptor_name": "I2C1_SDA",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 21,
+            "raw_cell": "I2C1_SDA"
+          }
+        },
+        {
+          "id": "descriptor.signal.128",
+          "pin": "PB4",
+          "pad": 56,
+          "signal": "I2C1_SDA",
+          "instance": "I2C1",
+          "function": {
+            "type": "alternate",
+            "id": "AF9"
+          },
+          "source_pointer": "/signals/128",
+          "source_record": {
+            "name": "I2C1_SDA",
+            "instance": "I2C1",
+            "die_pad": "PB4(NJTRST)",
+            "function": {
+              "type": "alternate",
+              "id": "AF9"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB4",
+            "af": "AF9",
+            "DS_signal": "I2C1_SDA",
+            "descriptor_name": "I2C1_SDA",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 22,
+            "raw_cell": "I2C1_SDA"
+          }
+        },
+        {
+          "id": "descriptor.signal.129",
+          "pin": "PB7",
+          "pad": 59,
+          "signal": "I2C1_SDA",
+          "instance": "I2C1",
+          "function": {
+            "type": "alternate",
+            "id": "AF4"
+          },
+          "source_pointer": "/signals/129",
+          "source_record": {
+            "name": "I2C1_SDA",
+            "instance": "I2C1",
+            "die_pad": "PB7",
+            "function": {
+              "type": "alternate",
+              "id": "AF4"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB7",
+            "af": "AF4",
+            "DS_signal": "I2C1_SDA",
+            "descriptor_name": "I2C1_SDA",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 2,
+            "raw_cell": "I2C1_SDA"
+          }
+        },
+        {
+          "id": "descriptor.signal.130",
+          "pin": "PB9",
+          "pad": 62,
+          "signal": "I2C1_SDA",
+          "instance": "I2C1",
+          "function": {
+            "type": "alternate",
+            "id": "AF4"
+          },
+          "source_pointer": "/signals/130",
+          "source_record": {
+            "name": "I2C1_SDA",
+            "instance": "I2C1",
+            "die_pad": "PB9",
+            "function": {
+              "type": "alternate",
+              "id": "AF4"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB9",
+            "af": "AF4",
+            "DS_signal": "I2C1_SDA",
+            "descriptor_name": "I2C1_SDA",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 4,
+            "raw_cell": "I2C1_SDA"
+          }
+        },
+        {
+          "id": "descriptor.signal.131",
+          "pin": "PC9",
+          "pad": 40,
+          "signal": "I2C1_SDA",
+          "instance": "I2C1",
+          "function": {
+            "type": "alternate",
+            "id": "AF9"
+          },
+          "source_pointer": "/signals/131",
+          "source_record": {
+            "name": "I2C1_SDA",
+            "instance": "I2C1",
+            "die_pad": "PC9",
+            "function": {
+              "type": "alternate",
+              "id": "AF9"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PC9",
+            "af": "AF9",
+            "DS_signal": "I2C1_SDA",
+            "descriptor_name": "I2C1_SDA",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 19,
+            "raw_cell": "I2C1_SDA"
+          }
+        },
+        {
+          "id": "descriptor.signal.132",
+          "pin": "PH0",
+          "pad": 5,
+          "signal": "I2C1_SDA",
+          "instance": "I2C1",
+          "function": {
+            "type": "alternate",
+            "id": "AF4"
+          },
+          "source_pointer": "/signals/132",
+          "source_record": {
+            "name": "I2C1_SDA",
+            "instance": "I2C1",
+            "die_pad": "PH0-OSC_IN(PH0)",
+            "function": {
+              "type": "alternate",
+              "id": "AF4"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PH0",
+            "af": "AF4",
+            "DS_signal": "I2C1_SDA",
+            "descriptor_name": "I2C1_SDA",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 28,
+            "raw_cell": "I2C1_SDA"
+          }
+        },
+        {
+          "id": "descriptor.signal.133",
+          "pin": "PA15",
+          "pad": 50,
+          "signal": "I2C1_SMBA",
+          "instance": "I2C1",
+          "function": {
+            "type": "alternate",
+            "id": "AF4"
+          },
+          "source_pointer": "/signals/133",
+          "source_record": {
+            "name": "I2C1_SMBA",
+            "instance": "I2C1",
+            "die_pad": "PA15(JTDI)",
+            "function": {
+              "type": "alternate",
+              "id": "AF4"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA15",
+            "af": "AF4",
+            "DS_signal": "I2C1_SMBA",
+            "descriptor_name": "I2C1_SMBA",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 17,
+            "raw_cell": "I2C1_SMBA"
+          }
+        },
+        {
+          "id": "descriptor.signal.134",
+          "pin": "PA9",
+          "pad": 42,
+          "signal": "I2C1_SMBA",
+          "instance": "I2C1",
+          "function": {
+            "type": "alternate",
+            "id": "AF9"
+          },
+          "source_pointer": "/signals/134",
+          "source_record": {
+            "name": "I2C1_SMBA",
+            "instance": "I2C1",
+            "die_pad": "PA9",
+            "function": {
+              "type": "alternate",
+              "id": "AF9"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PA9"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PA9",
+            "af": "AF9",
+            "DS_signal": "I2C1_SMBA",
+            "descriptor_name": "I2C1_SMBA",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 11,
+            "raw_cell": "I2C1_SMBA"
+          }
+        },
+        {
+          "id": "descriptor.signal.135",
+          "pin": "PB13",
+          "pad": 34,
+          "signal": "I2C1_SMBA",
+          "instance": "I2C1",
+          "function": {
+            "type": "alternate",
+            "id": "AF4"
+          },
+          "source_pointer": "/signals/135",
+          "source_record": {
+            "name": "I2C1_SMBA",
+            "instance": "I2C1",
+            "die_pad": "PB13",
+            "function": {
+              "type": "alternate",
+              "id": "AF4"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB13",
+            "af": "AF4",
+            "DS_signal": "I2C1_SMBA",
+            "descriptor_name": "I2C1_SMBA",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 7,
+            "raw_cell": "I2C1_SMBA"
+          }
+        },
+        {
+          "id": "descriptor.signal.136",
+          "pin": "PB5",
+          "pad": 57,
+          "signal": "I2C1_SMBA",
+          "instance": "I2C1",
+          "function": {
+            "type": "alternate",
+            "id": "AF4"
+          },
+          "source_pointer": "/signals/136",
+          "source_record": {
+            "name": "I2C1_SMBA",
+            "instance": "I2C1",
+            "die_pad": "PB5",
+            "function": {
+              "type": "alternate",
+              "id": "AF4"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PB5"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PB5",
+            "af": "AF4",
+            "DS_signal": "I2C1_SMBA",
+            "descriptor_name": "I2C1_SMBA",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 23,
+            "raw_cell": "I2C1_SMBA"
+          }
+        }
+      ],
+      "evidence": [
+        "header.base",
+        "header.IRQ",
+        "header.instance",
+        "header.fields",
+        "header.reset",
+        "header.clock",
+        "header.sleep",
+        "header.kernel",
+        "header.debug",
+        "DMA.requests1",
+        "DMA.requests2",
+        "RM0522:p1687",
+        "DS15135:p46",
+        "DS15135:p47"
+      ]
+    },
+    "chapter_audit": {
+      "document": "RM0522",
+      "pages": [
+        1624,
+        1687
+      ],
+      "status": "full_chapter_read_and_bound_not_semantic_closure"
+    }
+  }
+}

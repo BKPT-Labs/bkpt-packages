@@ -1,0 +1,126 @@
+// SPDX-License-Identifier: LicenseRef-BKPT-Proprietary
+/*
+ * BKPT resource-bound initialization, adapted from ST HAL2 2.1.0 API contracts
+ * and STM32CubeC5 initialization examples. Manufacturer-derived portions:
+ * BSD 3-clause "New" or "Revised" License
+ * 
+ * Copyright (c) 2026, STMicroelectronics
+ * 
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ * 
+ *   * Redistributions of source code must retain the above copyright notice, this
+ *     list of conditions and the following disclaimer.
+ * 
+ *   * Redistributions in binary form must reproduce the above copyright notice,
+ *     this list of conditions and the following disclaimer in the documentation
+ *     and/or other materials provided with the distribution.
+ * 
+ *   * Neither the name of the STMicroelectronics nor the names of its contributors may
+ *     be used to endorse or promote products derived from this software without
+ *     specific prior written permission.
+ * 
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
+ * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+ * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+#include "{{unit}}.h"
+static unsigned int attempted;
+static hal_status_t status = HAL_ERROR;
+static hal_tim_handle_t timer;
+static void (*on_tick)(void);
+static const uint32_t prescaler = {{prescaler}}U;
+static const uint32_t period = {{period}}U;
+static void update(hal_tim_handle_t *h)
+{
+  if (h == &timer && on_tick != NULL) { on_tick(); }
+}
+static int clock_and_registers_match(void)
+{
+  return HAL_RCC_TIM_GetKernelClkFreq({{peripheral_symbol}}) == 144000000U &&
+         LL_TIM_GetPrescaler({{peripheral_symbol}}) == prescaler &&
+         LL_TIM_GetAutoReload({{peripheral_symbol}}) == period &&
+         (uint64_t){{frequency_hz}}U * (prescaler+1U) * (period+1U) == 144000000ULL;
+}
+hal_status_t {{unit}}_init(void)
+{
+  if (attempted != 0U) { return status; }
+  attempted = 1U;
+  const uint32_t frequency = {{frequency_hz}}U;
+  const uint32_t kernel = HAL_RCC_TIM_GetKernelClkFreq({{peripheral_symbol}});
+  if (kernel != 144000000U || frequency == 0U || kernel % frequency != 0U) { return status; }
+  if (prescaler > 65534U || period < 1U || period > 65535U ||
+      (uint64_t)frequency*(prescaler+1U)*(period+1U) != kernel) { return status; }
+  {{timer_clock}}();
+  if (LL_TIM_IsEnabledCounter({{peripheral_symbol}}) != 0U) { status = HAL_BUSY; return status; }
+  {{timer_reset}}();
+  status = HAL_TIM_Init(&timer, {{timer_instance}});
+  if (status != HAL_OK) { return status; }
+  hal_tim_config_t config = {0};
+  config.prescaler = prescaler;
+  config.period = period;
+  config.repetition_counter = 0U;
+  config.counter_mode = HAL_TIM_COUNTER_UP;
+  config.clock_sel.clock_source = HAL_TIM_CLK_INTERNAL;
+  status = HAL_TIM_SetConfig(&timer, &config);
+  if (status != HAL_OK) { return status; }
+  status = HAL_TIM_RegisterUpdateCallback(&timer, update);
+  if (status != HAL_OK) { return status; }
+  if (!clock_and_registers_match()) { status = HAL_ERROR; return status; }
+  LL_TIM_ClearFlag_UPDATE({{peripheral_symbol}});
+  HAL_CORTEX_NVIC_ClearPendingIRQ({{timer_irq}});
+  HAL_CORTEX_NVIC_SetPriority({{timer_irq}}, HAL_CORTEX_NVIC_PREEMP_PRIORITY_5, HAL_CORTEX_NVIC_SUB_PRIORITY_0);
+  HAL_CORTEX_NVIC_EnableIRQ({{timer_irq}});
+  return status;
+}
+hal_status_t {{unit}}_start(void (*callback)(void))
+{
+  if (attempted == 0U || status != HAL_OK) { return HAL_ERROR; }
+  if (callback == NULL) { return HAL_INVALID_PARAM; }
+  if (__get_IPSR() != 0U || HAL_TIM_GetState(&timer) != HAL_TIM_STATE_IDLE ||
+      LL_TIM_IsEnabledCounter({{peripheral_symbol}}) != 0U) { return HAL_BUSY; }
+  if (!clock_and_registers_match()) { return HAL_ERROR; }
+  HAL_CORTEX_NVIC_DisableIRQ({{timer_irq}});
+  LL_TIM_DisableIT_UPDATE({{peripheral_symbol}});
+  /* UG reloads the prescaler and initializes its counter, starting a fresh period. */
+  LL_TIM_GenerateEvent_UPDATE({{peripheral_symbol}});
+  LL_TIM_SetCounter({{peripheral_symbol}}, 0U);
+  LL_TIM_ClearFlag_UPDATE({{peripheral_symbol}});
+  HAL_CORTEX_NVIC_ClearPendingIRQ({{timer_irq}});
+  on_tick = callback;
+  hal_status_t result = HAL_TIM_Start_IT(&timer);
+  if (result != HAL_OK) { on_tick = NULL; status = HAL_ERROR; return result; }
+  HAL_CORTEX_NVIC_EnableIRQ({{timer_irq}});
+  return HAL_OK;
+}
+hal_status_t {{unit}}_stop(void)
+{
+  if (attempted == 0U || status != HAL_OK) { return HAL_ERROR; }
+  if (__get_IPSR() != 0U) { return HAL_BUSY; }
+  uint32_t was_enabled = NVIC_GetEnableIRQ({{timer_irq}});
+  HAL_CORTEX_NVIC_DisableIRQ({{timer_irq}});
+  hal_tim_state_t state = HAL_TIM_GetState(&timer);
+  if (state == HAL_TIM_STATE_ACTIVE)
+  {
+    hal_status_t result = HAL_TIM_Stop_IT(&timer);
+    if (result != HAL_OK) { status = HAL_ERROR; return result; }
+  }
+  else if (state != HAL_TIM_STATE_IDLE) { status = HAL_ERROR; return status; }
+  if (LL_TIM_IsEnabledCounter({{peripheral_symbol}}) != 0U) { status = HAL_ERROR; return status; }
+  LL_TIM_DisableIT_UPDATE({{peripheral_symbol}});
+  LL_TIM_ClearFlag_UPDATE({{peripheral_symbol}});
+  __DSB();
+  HAL_CORTEX_NVIC_ClearPendingIRQ({{timer_irq}});
+  on_tick = NULL;
+  if (was_enabled != 0U) { HAL_CORTEX_NVIC_EnableIRQ({{timer_irq}}); }
+  return HAL_OK;
+}
+void {{timer_handler}}(void) { HAL_TIM_IRQHandler(&timer); }

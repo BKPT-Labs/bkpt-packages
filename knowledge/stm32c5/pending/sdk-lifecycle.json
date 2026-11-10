@@ -1,0 +1,1636 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/sdk-lifecycle.json",
+    "sha256": "09c4f0f44f862065fa5164ae937b15923e9b702455aae1dc1e215a9ef7783c4c"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 116
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "schema": "bkpt.c5-sdk-lifecycle-audit/1",
+    "publication": "unpublished",
+    "target": {
+      "device": "STM32C542RCT6",
+      "device_group": "STM32C542xx",
+      "package": "LQFP64",
+      "silicon_revision": "unknown",
+      "sdk": "stm32c5-hal2-2.1.0"
+    },
+    "errata_sha256": "821c22f796a9ff723afee534fe5943c2b0506325ec871d890706d94414316416",
+    "sources": {
+      "stm32c5xx_hal_lptim.c": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_lptim.c",
+        "sha256": "8ac4ca16f037cd491750739ad4a4a50fd92b69be0807439b8c4fd78bbaced341"
+      },
+      "stm32c5xx_hal.c": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal.c",
+        "sha256": "35d1ff092e0b8db45bf679f4cf56be4bf8fdce32a26682101cb75ac2dca28114"
+      },
+      "stm32c5xx_ll_lptim.h": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_lptim.h",
+        "sha256": "18b68578745ef999917869346bc7946306e00a3774e96381a332fd788d016ffd"
+      },
+      "stm32c5xx_hal_rtc.c": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_rtc.c",
+        "sha256": "b75134a4b86fcf9d87e9c3eb1ed118110b84aa6e5d7bab26c7e59331f762f009"
+      },
+      "stm32c5xx_hal_i2c.c": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_i2c.c",
+        "sha256": "443fd177dc679a9f645a58e22119643eb177c92d736e0b28ef5641a857e82be0"
+      },
+      "stm32c5xx_drivers/ll/stm32c5xx_ll_pwr.h": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_pwr.h",
+        "sha256": "a1ca311be5a1b319e2a2f3a29d68c3cc8c34fb1bb1469e31e03dfcbdf4c96474"
+      },
+      "stm32c5xx_dfp/Include/stm32c542xx.h": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "stm32c5xx_drivers/hal/stm32c5xx_hal_rcc.c": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_rcc.c",
+        "sha256": "241ee550685a75c6fcb02006ac3517c3a3c269d6f5cddface18c83ad70b6748f"
+      },
+      "stm32c5xx_drivers/hal/stm32c5xx_hal_rcc.h": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_rcc.h",
+        "sha256": "29fb6354087a8ebed46e7d8bce100659d733df9c1b03c7dee35a1215dc2cefd5"
+      },
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "stm32c5xx_drivers/hal/stm32c5xx_hal_rng.c": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_rng.c",
+        "sha256": "35f78cfd66a5a39f117f2f6bbe90979c0aeeb0d2af184a468a5ee217f7299992"
+      },
+      "stm32c5xx_drivers/hal/stm32c5xx_hal_uart.c": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_uart.c",
+        "sha256": "bacbdb4c890d08e184eb3ba2dd23c0b5fc8a1a0f8ae4979a56f7887f97f47633"
+      },
+      "stm32c5xx_drivers/hal/stm32c5xx_hal_fdcan.h": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_fdcan.h",
+        "sha256": "972a5a537d572d89e52ad48be514ac2d8d509f6c4e6ff5ef239ec6e9fc3c1a61"
+      },
+      "stm32c5xx_hal_adc.c": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_adc.c",
+        "sha256": "59e018ab39fd8cec11b4380ea3fa6b186c7a37d0c4b701556edd79fd2df33100"
+      },
+      "stm32c5xx_ll_adc.h": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_adc.h",
+        "sha256": "c924768418a5d6883b328af001cfc59a0c0db9b26bd7c29d083d8aee1aa8e6a7"
+      },
+      "stm32c5xx_hal_spi.c": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_spi.c",
+        "sha256": "d19576e641358887a7dcfa10220f1529c78e936e5a2c3b721b9b25da8e73927e"
+      },
+      "stm32c5xx_ll_spi.h": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_spi.h",
+        "sha256": "bc64c4e1b6297712f58b6cc329149d169fc418b99df7b9c427113485bcc2cd15"
+      },
+      "stm32c5xx_hal_pcd.c": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_pcd.c",
+        "sha256": "b1a781cdbafdb90536f92a8c37712f7376c7d15802f94c7cfe7bb59bd8dd723c"
+      },
+      "stm32c5xx_usb_drd_core.c": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_usb_drd_core.c",
+        "sha256": "61f9c8c041014676b02e9ad34832df4303e0e81b6e1df6fbb2683ce137e70b76"
+      },
+      "stm32c5xx_hal_uart.c": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_uart.c",
+        "sha256": "bacbdb4c890d08e184eb3ba2dd23c0b5fc8a1a0f8ae4979a56f7887f97f47633"
+      },
+      "ES0676": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pdf",
+        "sha256": "a5463827337bcdbd3e5f2e0912a56307d78b568e5631b21cc9a25899c7d4a5e6",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pages.json",
+        "extraction_sha256": "2ab1b19e42b53e22ff5f3b98f6ed9a5f98f3b7b61a617abc3bb3b7fc050d1cb3"
+      },
+      "stm32c5xx_drivers/ll/stm32c5xx_ll_spi.h": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_spi.h",
+        "sha256": "bc64c4e1b6297712f58b6cc329149d169fc418b99df7b9c427113485bcc2cd15"
+      },
+      "stm32c5xx_drivers/hal/stm32c5xx_hal_pcd.c": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_pcd.c",
+        "sha256": "b1a781cdbafdb90536f92a8c37712f7376c7d15802f94c7cfe7bb59bd8dd723c"
+      },
+      "stm32c5xx_drivers/hal/stm32c5xx_hal_comp.c": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_comp.c",
+        "sha256": "6a6ff2e0ddd7af3bf9e6c1d92d3002c6112d80766e7dddfe2755850e44379c80"
+      },
+      "stm32c5xx_drivers/hal/stm32c5xx_hal_i2c.c": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_i2c.c",
+        "sha256": "443fd177dc679a9f645a58e22119643eb177c92d736e0b28ef5641a857e82be0"
+      },
+      "stm32c5xx_drivers/utils/i2c_timing/stm32_utils_i2c.c": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/utils/i2c_timing/stm32_utils_i2c.c",
+        "sha256": "c3f33f6b98ec255237e452c39ca38b52199ad4a325731549a4d81c572bf165d8"
+      },
+      "stm32c5xx_drivers/ll/stm32c5xx_ll_lpuart.h": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_lpuart.h",
+        "sha256": "d790969f764db8e2e1df1e1e5eb7b139a8635b715a831b796fc8ac21fa69d627"
+      },
+      "stm32c5xx_drivers/hal/stm32c5xx_hal_fdcan.c": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_fdcan.c",
+        "sha256": "901385cdd33594c221d5a4621974293c7c76c95cf6fb8bbcc11ea7ade8bdcd11"
+      },
+      "stm32c5xx_drivers/hal/stm32c5xx_hal_gpio.c": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_gpio.c",
+        "sha256": "3cf4bda1afb86547321e90bf6e762c813050994076a03a2630b27740c8bafb11"
+      },
+      "stm32c5xx_drivers/hal/stm32c5xx_hal_pwr.c": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_pwr.c",
+        "sha256": "6efacfecaf652d8194c7002c295bb099ed96d9e6a093962106ebfde5294d6d2c"
+      },
+      "stm32c5xx_drivers/hal/stm32c5xx_hal_rtc.c": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_rtc.c",
+        "sha256": "b75134a4b86fcf9d87e9c3eb1ed118110b84aa6e5d7bab26c7e59331f762f009"
+      },
+      "stm32c5xx_drivers/ll/stm32c5xx_ll_rtc.h": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_rtc.h",
+        "sha256": "f4897012c52a1b4513baceed05819ecf361459a0d4a785135c606bb55fc8ffaa"
+      },
+      "stm32c5xx_drivers/hal/stm32c5xx_hal_tamp.c": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_tamp.c",
+        "sha256": "490504b217c25795fe4a3fc095d0f3fb3981826779850e47c77f728a5cb6095f"
+      },
+      "stm32c5xx_drivers/ll/stm32c5xx_ll_tamp.h": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_tamp.h",
+        "sha256": "c75697f8a84e6e5bb3bce2f5f90d4e4f47e6a98f6b2b3df93dc9da57f4e27184"
+      },
+      "DS15135": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pdf",
+        "sha256": "1a3555f799297774a95978ab343ebc1f45ab9ef58d0dcf3600dec4fabed9355c",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pages.json",
+        "extraction_sha256": "b14b965adb6c1545edbca0e56b3c504e7ecc3a94bda197350ce2757b5a3d55dc"
+      },
+      "LL_RTC": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_rtc.h",
+        "sha256": "f4897012c52a1b4513baceed05819ecf361459a0d4a785135c606bb55fc8ffaa"
+      },
+      "HAL_FDCAN": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_fdcan.c",
+        "sha256": "901385cdd33594c221d5a4621974293c7c76c95cf6fb8bbcc11ea7ade8bdcd11"
+      }
+    },
+    "evidence": {
+      "lptim.wait_and_disable": {
+        "source": "stm32c5xx_hal_lptim.c",
+        "start_line": 874,
+        "end_line": 961,
+        "text_sha256": "dfa61af3a301a21ba5fb66200cbdf806ae3954d1f7f607f8ecdd23ddb37b6c87"
+      },
+      "lptim.stop": {
+        "source": "stm32c5xx_hal_lptim.c",
+        "start_line": 2696,
+        "end_line": 2721,
+        "text_sha256": "2e287dff82d08fd27e2c61d5815095782558605dc1ab77a879395c1dc1440748"
+      },
+      "lptim.stop_it": {
+        "source": "stm32c5xx_hal_lptim.c",
+        "start_line": 2786,
+        "end_line": 2821,
+        "text_sha256": "cb6b8e3fd3150032f2d3d47eee533b287703c67e965872aacc2c05c845924222"
+      },
+      "lptim.stop_dma": {
+        "source": "stm32c5xx_hal_lptim.c",
+        "start_line": 2910,
+        "end_line": 2942,
+        "text_sha256": "72067130c4753e2595046a837c61905231c3f45a99424a9d5b04c969c7625df5"
+      },
+      "lptim.encoder_config": {
+        "source": "stm32c5xx_hal_lptim.c",
+        "start_line": 4070,
+        "end_line": 4114,
+        "text_sha256": "655f9e92e29f0363e70bc485b72f1bc384561e65050cd68885a50af6cbfae416"
+      },
+      "hal.default_tick": {
+        "source": "stm32c5xx_hal.c",
+        "start_line": 337,
+        "end_line": 356,
+        "text_sha256": "23c179aeed9674cef3b4ac394eb8ec4132caadda6331f9fab12e89c5561f6e4e"
+      },
+      "ll.lptim_disable": {
+        "source": "stm32c5xx_ll_lptim.h",
+        "start_line": 561,
+        "end_line": 564,
+        "text_sha256": "a06924a130406e18c7ba6a8b5a5a4b83bdf379968e5610869686e40044773c83"
+      },
+      "rtc.get_datetime": {
+        "source": "stm32c5xx_hal_rtc.c",
+        "start_line": 1049,
+        "end_line": 1075,
+        "text_sha256": "ef7a1fbcb48a0804082f9be8b5ca15c57fdd35a9a275fc5d11daecabdf2c82c9"
+      },
+      "rtc.get_components": {
+        "source": "stm32c5xx_hal_rtc.c",
+        "start_line": 2970,
+        "end_line": 3019,
+        "text_sha256": "533761a4c63d80b917d0585a8f890628694c9a587f6326b2c268989a1aaf35e4"
+      },
+      "i2c.error_irq": {
+        "source": "stm32c5xx_hal_i2c.c",
+        "start_line": 4887,
+        "end_line": 4931,
+        "text_sha256": "fa0d7ed1ba594c83a665d8a29df940be3b9ddf1f3244b5f96082c60303605483"
+      },
+      "i2c.error_state": {
+        "source": "stm32c5xx_hal_i2c.c",
+        "start_line": 6715,
+        "end_line": 6770,
+        "text_sha256": "8638d0d396f5d6176b71293ef83136720f58c1b23c83f57659538bc1c0e7779f"
+      },
+      "pwr.rtc_protection": {
+        "source": "stm32c5xx_drivers/ll/stm32c5xx_ll_pwr.h",
+        "start_line": 534,
+        "end_line": 563,
+        "text_sha256": "14127ed0f8853bd28303328fbb85f30123a32233739bd3a866ea43173ffab01f"
+      },
+      "device.rtc_protection": {
+        "source": "stm32c5xx_dfp/Include/stm32c542xx.h",
+        "start_line": 8326,
+        "end_line": 8328,
+        "text_sha256": "b2440e340a3ab5c717495a92302cf3b235b0cc21baeea9184bf29c51979f1795"
+      },
+      "rcc.lse_domains": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_rcc.c",
+        "start_line": 179,
+        "end_line": 191,
+        "text_sha256": "648adbdbfb597ef2417cd55a4c934ec343268675e2b7fbec9bfe3164710f221f"
+      },
+      "rcc.lse_enable": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_rcc.c",
+        "start_line": 1129,
+        "end_line": 1172,
+        "text_sha256": "c18b75dcbc222ffb593bc0ffec940a1ef85698f4666d6af24347d08eabc4b9e9"
+      },
+      "rcc.lse_mode_bits": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_rcc.h",
+        "start_line": 124,
+        "end_line": 130,
+        "text_sha256": "3c35fda5b36938401d890b02ff718de613c71f07eedc30a1abb26a2afd6c1d6b"
+      },
+      "RM0522:p226": {
+        "source": "RM0522",
+        "page": 226,
+        "text_sha256": "155fdbabd0a592b445f53d66f3ed3775fc190ff5917b69a22695e3cf17cf72d1"
+      },
+      "RM0522:p245": {
+        "source": "RM0522",
+        "page": 245,
+        "text_sha256": "742fa8fc4d4e57aa81527e3d26d182ec9084622b37a97449504a18f3ef1b77ec"
+      },
+      "RM0522:p1561": {
+        "source": "RM0522",
+        "page": 1561,
+        "text_sha256": "217fed9e2e32dfae1ef265a4a4118c6509ac6da244e66aa8f3261e473d70cddc"
+      },
+      "RM0522:p1600": {
+        "source": "RM0522",
+        "page": 1600,
+        "text_sha256": "4b8963047998a587ee2b36c8bf12c2c828728a0a607a1aa2e632acb2eb6839af"
+      },
+      "rng.usage": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_rng.c",
+        "start_line": 99,
+        "end_line": 115,
+        "text_sha256": "bc4893148495ca21179e5c926eb06b30e303a4d77fd9b94727add567d6261dcc"
+      },
+      "rng.polling": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_rng.c",
+        "start_line": 829,
+        "end_line": 924,
+        "text_sha256": "2fa7240cead59377c171b432e6d49f74b9a537557f89e18953a989fbdac322eb"
+      },
+      "rng.recovery_begin": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_rng.c",
+        "start_line": 1062,
+        "end_line": 1118,
+        "text_sha256": "9a662d054b8ec950b385b6071aff60439bb485cfcb6ad024dcfd2aebf14047cb"
+      },
+      "rng.recovery_end": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_rng.c",
+        "start_line": 1233,
+        "end_line": 1247,
+        "text_sha256": "59020a35476bdb8712ec30645f23f424b6d7ec294da4cc4e9bc83eb25192c44a"
+      },
+      "uart.autobaud_disable": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_uart.c",
+        "start_line": 3208,
+        "end_line": 3229,
+        "text_sha256": "0142856762e6ac130feaf57692ec8a7403ff2795c25713fbcec729fdc478610f"
+      },
+      "device.autobaud_instances": {
+        "source": "stm32c5xx_dfp/Include/stm32c542xx.h",
+        "start_line": 14341,
+        "end_line": 14344,
+        "text_sha256": "f759c9a3ead22aead56ba031e21abf6c61ca710cc29c8728cf4e014d27399e5e"
+      },
+      "fdcan.tx_slots": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_fdcan.h",
+        "start_line": 237,
+        "end_line": 243,
+        "text_sha256": "c28074f3a693d95d8961ea5d60c79619aee4583c18163763e766b9f2ba065ab6"
+      },
+      "device.fdcan_txbc": {
+        "source": "stm32c5xx_dfp/Include/stm32c542xx.h",
+        "start_line": 5447,
+        "end_line": 5450,
+        "text_sha256": "7733532564c9f62907d104b33943abfa1786198c328c63e6729ad2bb18c217cc"
+      },
+      "RM0522:p2021": {
+        "source": "RM0522",
+        "page": 2021,
+        "text_sha256": "9579ff93a907e92e90cb3f8f524baa56a50478c423e29579cea62ccfce49bfbd"
+      },
+      "RM0522:p2037": {
+        "source": "RM0522",
+        "page": 2037,
+        "text_sha256": "adf1427abf5c5b4790c80113dcd285bbe5bdafd9a8d16e0bac939ad7f6cbb751"
+      },
+      "RM0522:p2044": {
+        "source": "RM0522",
+        "page": 2044,
+        "text_sha256": "b2e9bf443cc7afa3f215c9e32e4376b744f8fa25d969840ba06374776f079115"
+      },
+      "RM0522:p2077": {
+        "source": "RM0522",
+        "page": 2077,
+        "text_sha256": "818a9bea7d3e9a4a1f8d5f61923cf7e0ba78469811a454369921c3c75aa6637b"
+      },
+      "RM0522:p2078": {
+        "source": "RM0522",
+        "page": 2078,
+        "text_sha256": "69afdfde04e0887a18f80e800822c539da2fc92ba9e3f707e1e1a7aae22a732e"
+      },
+      "adc.set_config": {
+        "source": "stm32c5xx_hal_adc.c",
+        "start_line": 1045,
+        "end_line": 1087,
+        "text_sha256": "52f23f27321d1204644e2ba422e116c005895e319a364e5ef1e8bef75aa10b17"
+      },
+      "adc.sampling_mode": {
+        "source": "stm32c5xx_ll_adc.h",
+        "start_line": 3008,
+        "end_line": 3029,
+        "text_sha256": "aa46f7eff7e2b9556d6fc55ad73df6ee89e6e877cc4a1ce3a75e40349c39e78c"
+      },
+      "adc.stop": {
+        "source": "stm32c5xx_hal_adc.c",
+        "start_line": 3400,
+        "end_line": 3446,
+        "text_sha256": "00ac46d9904da9fc4f2552ae281ca8b3f7fb3d09f73fc61de699d747e50eb300"
+      },
+      "adc.deactivate": {
+        "source": "stm32c5xx_hal_adc.c",
+        "start_line": 5927,
+        "end_line": 6000,
+        "text_sha256": "151d16badea6a6ba474473913bcb3c27912819cdc217529b4c09f2dbb5695bff"
+      },
+      "spi.ready_enable": {
+        "source": "stm32c5xx_hal_spi.c",
+        "start_line": 1394,
+        "end_line": 1415,
+        "text_sha256": "a94c3580f47a3eba55ba45be6656bab37012cd249664dca00e47dee79c67edb1"
+      },
+      "spi.ready_ll": {
+        "source": "stm32c5xx_ll_spi.h",
+        "start_line": 1160,
+        "end_line": 1168,
+        "text_sha256": "2ea4c53d95d352d5b4d6d5bab05fb356341a6a99ed4420c03f0ef12fee3673b0"
+      },
+      "usb.ctr_dispatch": {
+        "source": "stm32c5xx_hal_pcd.c",
+        "start_line": 2210,
+        "end_line": 2240,
+        "text_sha256": "01e65312e42c2178099fb9cfe28d814981f9804cda99a27240dc86dee28b0255"
+      },
+      "usb.ep0_out": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_pcd.c",
+        "start_line": 2266,
+        "end_line": 2336,
+        "text_sha256": "f336e8a425b03c7be2460e200a5679f9fbb97c1480b060263005638afc6cdedf"
+      },
+      "usb.read_pma": {
+        "source": "stm32c5xx_usb_drd_core.c",
+        "start_line": 1050,
+        "end_line": 1122,
+        "text_sha256": "4447e4b11ecad793ebfee4cc807734c7c720af075d559fd44ee03b48d31f5b03"
+      },
+      "RM0522:p1960": {
+        "source": "RM0522",
+        "page": 1960,
+        "text_sha256": "4d6f5864a55d72d2a85b4a44b0146e0f4ca2257a6a46fc912b6336ff2db05e20"
+      },
+      "lptim.config": {
+        "source": "stm32c5xx_hal_lptim.c",
+        "start_line": 1933,
+        "end_line": 1997,
+        "text_sha256": "ee1d465246c4e609d3d3a10fc3aed3e9bcce82389137f7387c5c90c4b423f798"
+      },
+      "lptim.repetition": {
+        "source": "stm32c5xx_hal_lptim.c",
+        "start_line": 2218,
+        "end_line": 2247,
+        "text_sha256": "e23bdeed1db81d4e83055e03a7abdbd2a673482a9b6d04861a9c63825e7dec1c"
+      },
+      "lptim.oc_pulse": {
+        "source": "stm32c5xx_hal_lptim.c",
+        "start_line": 1241,
+        "end_line": 1273,
+        "text_sha256": "81f91720370dadc1f8ea3ec35cf1ac4c18a1de055cef8a8188b44c38f93249be"
+      },
+      "lptim.start_it": {
+        "source": "stm32c5xx_hal_lptim.c",
+        "start_line": 2740,
+        "end_line": 2781,
+        "text_sha256": "c32e7e019e1983ead8ec7bbe0c01cd6696a3e087889fb0e19111b3a5eeffa2c9"
+      },
+      "lptim.enable_it": {
+        "source": "stm32c5xx_ll_lptim.h",
+        "start_line": 2201,
+        "end_line": 2204,
+        "text_sha256": "df99138e765391e42470255b52a68bc1a92c54310383708f080bf05f9c2f64a1"
+      },
+      "lptim.disable_it": {
+        "source": "stm32c5xx_ll_lptim.h",
+        "start_line": 2237,
+        "end_line": 2240,
+        "text_sha256": "839271ae216e88a77a41c443c87cbb837f78ad469c2a6c7e5a4a913780f99743"
+      },
+      "rtc.alarm_subseconds": {
+        "source": "stm32c5xx_hal_rtc.c",
+        "start_line": 1773,
+        "end_line": 1789,
+        "text_sha256": "144e62d289d5ca8d7e10da28c21089f224d04ed9b665fa5b14dcc868d0accd02"
+      },
+      "rtc.alarm_irq": {
+        "source": "stm32c5xx_hal_rtc.c",
+        "start_line": 2650,
+        "end_line": 2678,
+        "text_sha256": "d94cea208c897823a0eddd7f6df025e02991c541c3e05ad34c7063930614bbb6"
+      },
+      "uart.onebit": {
+        "source": "stm32c5xx_hal_uart.c",
+        "start_line": 1386,
+        "end_line": 1417,
+        "text_sha256": "456eada59d4e6a0b9212f630aaf02bb4c273d406e222972df6f8696e2c7449c0"
+      },
+      "uart.noise_error_irq": {
+        "source": "stm32c5xx_hal_uart.c",
+        "start_line": 5515,
+        "end_line": 5620,
+        "text_sha256": "efd4ca73d15f09d2c8b988c68d7ffd001b477d9132cc9be95f3b318d7ad357ef"
+      },
+      "RM0522:p1486": {
+        "source": "RM0522",
+        "page": 1486,
+        "text_sha256": "5b32d0edfa28f7459cf09efb172858007eee6322571c4df8de3c36fdceaa3762"
+      },
+      "RM0522:p1494": {
+        "source": "RM0522",
+        "page": 1494,
+        "text_sha256": "cca9152e009c4ed789727e4bf870317c50cbe90a14ef03128042c7004140c9f8"
+      },
+      "RM0522:p1497": {
+        "source": "RM0522",
+        "page": 1497,
+        "text_sha256": "0f277a01e00a5cccbe45992a0f4b774c54083961249c28fca64c58139c6e512c"
+      },
+      "RM0522:p1513": {
+        "source": "RM0522",
+        "page": 1513,
+        "text_sha256": "0a0ad4be303d87420294fc7aa5c6bf38a6fd3cd362ff055f359ee4bc89888dcc"
+      },
+      "RM0522:p1514": {
+        "source": "RM0522",
+        "page": 1514,
+        "text_sha256": "f61ebebbc645a6c006f632c2559ab66a0a119af1e2d5ac39f664f66a20a80ff8"
+      },
+      "RM0522:p1515": {
+        "source": "RM0522",
+        "page": 1515,
+        "text_sha256": "9c0f3f137f1bf1a7aaa80a69ce8021d4cc38b801648d1ae1d3e79767a447227d"
+      },
+      "RM0522:p1522": {
+        "source": "RM0522",
+        "page": 1522,
+        "text_sha256": "7f390b9224d0a4e9524611dc34a093c7c1f0fde366793d99c1241186bb10dccb"
+      },
+      "RM0522:p1588": {
+        "source": "RM0522",
+        "page": 1588,
+        "text_sha256": "da253f4e4517776035ace95bd4cbfcc8e867cc2cf5ca12edea46a2d54b29b092"
+      },
+      "RM0522:p1590": {
+        "source": "RM0522",
+        "page": 1590,
+        "text_sha256": "a1753f64ca647c694ea9454a4b72c7fe3ab321e5df5b175f0cbc1ddcb7601174"
+      },
+      "RM0522:p1814": {
+        "source": "RM0522",
+        "page": 1814,
+        "text_sha256": "13c22c5fe285cbb6d7fbb9f5861e04cad64baefe953be4559c652fd7d07efd52"
+      },
+      "RM0522:p1863": {
+        "source": "RM0522",
+        "page": 1863,
+        "text_sha256": "6c4531e8aac6c78541a70dd990e12da10ee26be1f07335f268233332d313d849"
+      },
+      "RM0522:p2546": {
+        "source": "RM0522",
+        "page": 2546,
+        "text_sha256": "4ad9b5e600f0f88a512c9526013c4fdf6384a4eec0b3ed702885c3ecbfdb045a"
+      },
+      "ES0676:p10": {
+        "source": "ES0676",
+        "page": 10,
+        "text_sha256": "68b80618adcb6cf1f68aa4d5221444fc774b33c9a168223465e8f9334996a4aa"
+      },
+      "ES0676:p11": {
+        "source": "ES0676",
+        "page": 11,
+        "text_sha256": "f3433686e725b795145e0f5945a8735b0aa23657c7f34885d86cc028e6cc9b4e"
+      },
+      "spi.ready_symbol": {
+        "source": "stm32c5xx_drivers/ll/stm32c5xx_ll_spi.h",
+        "start_line": 473,
+        "end_line": 473,
+        "text_sha256": "15d26956ac87084aba405a336af11262bc3a678e489a15c906690c721a45c6c1"
+      },
+      "comp.start": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_comp.c",
+        "start_line": 1408,
+        "end_line": 1438,
+        "text_sha256": "d7a7645904e98d291344f1ac69cd74af6658fc5b30465ca59b3cc9434946dc14"
+      },
+      "comp.activate": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_comp.c",
+        "start_line": 1927,
+        "end_line": 1962,
+        "text_sha256": "8a4022c1b16f857c30159e25d34331cc7ae15c06f7f3e39cd6b3cb8dd10aae2e"
+      },
+      "comp.window_activate": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_comp.c",
+        "start_line": 1964,
+        "end_line": 1988,
+        "text_sha256": "06f4504fc66a7943d7af4d6ae36f84142f8ce100dfdbebdee07e5262f6af1fae"
+      },
+      "device.comp_window": {
+        "source": "stm32c5xx_dfp/Include/stm32c542xx.h",
+        "start_line": 2695,
+        "end_line": 2695,
+        "text_sha256": "831b9277667f9b5d729f928c156c958450873b8199da47dee00a9a9a21b608d1"
+      },
+      "i2c.config": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_i2c.c",
+        "start_line": 824,
+        "end_line": 873,
+        "text_sha256": "52f3aef3f8639b674e3df4f6741000e3b05b1ccd4992a82f112d839d337261b8"
+      },
+      "i2c.utility_constants": {
+        "source": "stm32c5xx_drivers/utils/i2c_timing/stm32_utils_i2c.c",
+        "start_line": 217,
+        "end_line": 264,
+        "text_sha256": "cbcc6411ad74162c3689fa0142d423f19e2158ff1c8ca3dd2af153b44f372ed4"
+      },
+      "i2c.utility_timing": {
+        "source": "stm32c5xx_drivers/utils/i2c_timing/stm32_utils_i2c.c",
+        "start_line": 527,
+        "end_line": 580,
+        "text_sha256": "be48881518d0dec29e57225a4c15d98ac4bea9fff02df250b7bc9942f055df54"
+      },
+      "lpuart.baud_check": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_uart.c",
+        "start_line": 8971,
+        "end_line": 8992,
+        "text_sha256": "257227ff18fb67114f2bc4be6a45a18ee76d30b51e3253e62b5b969f7d3d7566"
+      },
+      "lpuart.config_baud": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_uart.c",
+        "start_line": 1068,
+        "end_line": 1091,
+        "text_sha256": "6dff19db597b55bb8f9733fb13999b55bee52147527e93812b949ef26d8d42ac"
+      },
+      "lpuart.set_baud": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_uart.c",
+        "start_line": 1470,
+        "end_line": 1490,
+        "text_sha256": "8f55278e92b1b15fb7ded622871df6ef63ce5e7ed7079952df5c092ab65f43b2"
+      },
+      "lpuart.ll_baud": {
+        "source": "stm32c5xx_drivers/ll/stm32c5xx_ll_lpuart.h",
+        "start_line": 1429,
+        "end_line": 1435,
+        "text_sha256": "82559e9be2aebceed2e01fc7f7e900f8546f87bd10338e03dedb6a5ed36414e8"
+      },
+      "fdcan.edge_filter": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_fdcan.c",
+        "start_line": 2104,
+        "end_line": 2129,
+        "text_sha256": "b803df0b7093012e9361ad35d7ab6a179d5751637374c159e547b0783e6e98ff"
+      },
+      "device.core_revision": {
+        "source": "stm32c5xx_dfp/Include/stm32c542xx.h",
+        "start_line": 165,
+        "end_line": 170,
+        "text_sha256": "9b956ca5e43372463d3e5b2c454b535ffa83923058edc648832a53ab2bf8dac2"
+      },
+      "gpio.write_toggle": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_gpio.c",
+        "start_line": 516,
+        "end_line": 560,
+        "text_sha256": "c3b11f54bf57dae5fe4f45f962829d259744945f6df3d116048b210bb6ba0b4c"
+      },
+      "device.adc_instances": {
+        "source": "stm32c5xx_dfp/Include/stm32c542xx.h",
+        "start_line": 14015,
+        "end_line": 14023,
+        "text_sha256": "ec5f772f0ba34d007d9fb479ada0b34f2beff8cfc7e3593aa91e4754bd98777d"
+      },
+      "pwr.disable_rtc_protection": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_pwr.c",
+        "start_line": 546,
+        "end_line": 549,
+        "text_sha256": "c6797272fa54e387bae336a9b386736348ace341ad9931b9012f7eff9456ffc9"
+      },
+      "rtc.disable_wpr": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_rtc.c",
+        "start_line": 569,
+        "end_line": 574,
+        "text_sha256": "1c51f55ca89edbc860fd1ac01bd8b5ea82cec4454f766ec5b1a17c506c38f5ee"
+      },
+      "rtc.ll_wpr": {
+        "source": "stm32c5xx_drivers/ll/stm32c5xx_ll_rtc.h",
+        "start_line": 1443,
+        "end_line": 1447,
+        "text_sha256": "a5280651ff33f4fe3ad7fe126b9e83effd5acf07062a851879c6f97befd683d0"
+      },
+      "rtc.ll_clear_alarm": {
+        "source": "stm32c5xx_drivers/ll/stm32c5xx_ll_rtc.h",
+        "start_line": 4127,
+        "end_line": 4129,
+        "text_sha256": "043fe02eed04768606a09d669aa6802d8cbf5a7d54c8d8efd8b27e2b5db23ae7"
+      },
+      "tamp.usage": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_tamp.c",
+        "start_line": 80,
+        "end_line": 90,
+        "text_sha256": "c0f15eea5a74a3a9777856a33e6f3f721dafac48fc30e60b97c035d269e0303f"
+      },
+      "tamp.irq": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_tamp.c",
+        "start_line": 692,
+        "end_line": 710,
+        "text_sha256": "b1729436807a3772664fef2baf4ca9ac39d515d9d52670420f6827e18180a920"
+      },
+      "tamp.clear_flags": {
+        "source": "stm32c5xx_drivers/ll/stm32c5xx_ll_tamp.h",
+        "start_line": 1077,
+        "end_line": 1091,
+        "text_sha256": "2d1b2236d5cd543c6834907c06441e58d5c020487d670737ed8cce0a5f42cced"
+      },
+      "tamp.erase": {
+        "source": "stm32c5xx_drivers/ll/stm32c5xx_ll_tamp.h",
+        "start_line": 1138,
+        "end_line": 1140,
+        "text_sha256": "547d4826ad1e6ef6b8e4d1bd36333b1cd658db2ff3355a3e95e8d0e48eb64617"
+      },
+      "ES0676:p2": {
+        "source": "ES0676",
+        "page": 2,
+        "text_sha256": "3fed5303e4a0fc65ed4dbe6aae1c297605837e2da15bb0e24928d26b0d25eb95"
+      },
+      "ES0676:p3": {
+        "source": "ES0676",
+        "page": 3,
+        "text_sha256": "6682207b964f905ea8f0e452bc5cff546dfb08622fca9ce2f979b0e43cd6d157"
+      },
+      "ES0676:p4": {
+        "source": "ES0676",
+        "page": 4,
+        "text_sha256": "3b0e6d179a6d3b6701ddfa31ce87f44ef4d62c59d79a1f01184c77a212d7774c"
+      },
+      "ES0676:p5": {
+        "source": "ES0676",
+        "page": 5,
+        "text_sha256": "b1c29e54e422b77b7a01a6dea47789196c0a8d23aed2f9a68f6a91698ae66d9d"
+      },
+      "ES0676:p6": {
+        "source": "ES0676",
+        "page": 6,
+        "text_sha256": "67192cb102783988744a71ca6f88c36b938faf48d360a4834496df7e76a4b915"
+      },
+      "ES0676:p7": {
+        "source": "ES0676",
+        "page": 7,
+        "text_sha256": "ae251fcee43cc089851cf652083da87910ac36c57afdcaee5a38ebf1eb2ecb9d"
+      },
+      "ES0676:p8": {
+        "source": "ES0676",
+        "page": 8,
+        "text_sha256": "bbdb92e175f8101da1467e00b7fa2894fb9e3e1f2b0bd5937f5a865428c2ce5b"
+      },
+      "ES0676:p9": {
+        "source": "ES0676",
+        "page": 9,
+        "text_sha256": "16f3f6e7cf8092fc36fa0c23e0e1346aa2510f7a06639a41f90caf8bab393c84"
+      },
+      "RM0522:p1490": {
+        "source": "RM0522",
+        "page": 1490,
+        "text_sha256": "8eafcd0be02250b82a05944dec7e89ef0d04846d4107df51f7c92318fb573aa0"
+      },
+      "RM0522:p1491": {
+        "source": "RM0522",
+        "page": 1491,
+        "text_sha256": "baef59063c4d40e337b58a78caef55b11b51dc28289739f2d57fe3fca64a8e59"
+      },
+      "RM0522:p1492": {
+        "source": "RM0522",
+        "page": 1492,
+        "text_sha256": "31b428d512f9df82518dc850e2e50062c678fbe09864ce34fc833d421b903f26"
+      },
+      "RM0522:p1506": {
+        "source": "RM0522",
+        "page": 1506,
+        "text_sha256": "9b110f745bfa8739b39ff9ed3f5f11666f0e830d9714bbbd244b926424041a42"
+      },
+      "RM0522:p1507": {
+        "source": "RM0522",
+        "page": 1507,
+        "text_sha256": "ddf9747dd15e4ab45b7ee85efdc831fd5e843212514a8c46f7c5b0b467dbd87c"
+      },
+      "RM0522:p1508": {
+        "source": "RM0522",
+        "page": 1508,
+        "text_sha256": "39e030fdbd98c15a7b0c674d826493c8083a337619d9c206a13acc07674c6c0a"
+      },
+      "RM0522:p1510": {
+        "source": "RM0522",
+        "page": 1510,
+        "text_sha256": "df88e5baa288112c854ec61a2d5671ce8c60e275431235b454d8797688a1d387"
+      },
+      "RM0522:p1511": {
+        "source": "RM0522",
+        "page": 1511,
+        "text_sha256": "297824d0a65a8dfbbbf9a72836b0075c150456c388d82efa4b7a96eff788e4fb"
+      },
+      "RM0522:p1512": {
+        "source": "RM0522",
+        "page": 1512,
+        "text_sha256": "38996209d8d3a480b57b7cfd8429ed12a0f9a9085d6ec00292a5caab367b53f4"
+      },
+      "RM0522:p1903": {
+        "source": "RM0522",
+        "page": 1903,
+        "text_sha256": "ddfb9f43eff839b0309ceb260605f78d0f21bc1807417056829436c7cdf2eff4"
+      },
+      "RM0522:p1946": {
+        "source": "RM0522",
+        "page": 1946,
+        "text_sha256": "8fb7e9d1606e80fd4b7ce7e7a4ba4a9fd8f5818663d4a9df0042bc44f99293c1"
+      },
+      "RM0522:p2008": {
+        "source": "RM0522",
+        "page": 2008,
+        "text_sha256": "ab6f3e0e196af61d00fb955c8603790bab10ec8a61baa988ab9f934007d8ca21"
+      },
+      "RM0522:p2057": {
+        "source": "RM0522",
+        "page": 2057,
+        "text_sha256": "8a4c2fff9cb990764e82c554f45cba99606398808230008f54fdfeca94bd279f"
+      },
+      "DS15135:p4": {
+        "source": "DS15135",
+        "page": 4,
+        "text_sha256": "9bd359262ece49d8a277ec8e49f1c3be8d04e2ef80052d63d8bcb5d263a2f4f7"
+      },
+      "rtc.ll_clear_alarm_b": {
+        "source": "LL_RTC",
+        "start_line": 4137,
+        "end_line": 4139,
+        "sha256": "0bab6be2f24fff4fe6bd34784d1225a1bca56b3ae8bc7efe44160479b65af9ef"
+      },
+      "fdcan.edge_filter_status": {
+        "source": "HAL_FDCAN",
+        "start_line": 2132,
+        "end_line": 2146,
+        "sha256": "d452c009e229ecad995ce65478bdb5c8027acbb8ac02a2e0c9fd0f770888c29a"
+      },
+      "RM0522:p2028": {
+        "source": "RM0522",
+        "page": 2028,
+        "sha256": "f052cda5d41c12c516e26cd205dc2c4b5c6fd9081cf964ee63eb23c67b5baac4"
+      }
+    },
+    "inventory": [
+      {
+        "section": "2.1.1",
+        "audit": "bounded_source_contract; no_full_workaround_closure; final_batch_review_pending"
+      },
+      {
+        "section": "2.2.1",
+        "audit": "source_admission_gap_found; independently_source_reviewed"
+      },
+      {
+        "section": "2.2.2",
+        "audit": "bounded_source_contract; no_full_workaround_closure; final_batch_review_pending"
+      },
+      {
+        "section": "2.2.3",
+        "audit": "source_admission_gap_found; independently_source_reviewed"
+      },
+      {
+        "section": "2.3.1",
+        "audit": "bounded_source_contract; no_full_workaround_closure; final_batch_review_pending"
+      },
+      {
+        "section": "2.3.2",
+        "audit": "bounded_source_contract; no_full_workaround_closure; final_batch_review_pending"
+      },
+      {
+        "section": "2.4.1",
+        "audit": "bounded_source_contract; no_full_workaround_closure; final_batch_review_pending"
+      },
+      {
+        "section": "2.5.1",
+        "audit": "bounded_source_contract; no_full_workaround_closure; final_batch_review_pending"
+      },
+      {
+        "section": "2.6.1",
+        "audit": "partial_source_blockers_found"
+      },
+      {
+        "section": "2.6.2",
+        "audit": "bounded_source_contract; no_full_workaround_closure; final_batch_review_pending"
+      },
+      {
+        "section": "2.6.3",
+        "audit": "bounded_source_contract; no_full_workaround_closure; final_batch_review_pending"
+      },
+      {
+        "section": "2.7.1",
+        "audit": "bounded_source_contract; no_full_workaround_closure; final_batch_review_pending"
+      },
+      {
+        "section": "2.7.2",
+        "audit": "partial_source_contract_gap_found; independently_source_reviewed"
+      },
+      {
+        "section": "2.7.3",
+        "audit": "bounded_source_contract; no_full_workaround_closure; final_batch_review_pending"
+      },
+      {
+        "section": "2.8.1",
+        "audit": "bounded_source_contract; no_full_workaround_closure; final_batch_review_pending"
+      },
+      {
+        "section": "2.8.2",
+        "audit": "partial_source_contract_gap_found; independently_source_reviewed"
+      },
+      {
+        "section": "2.9.1",
+        "audit": "bounded_source_contract; no_full_workaround_closure; final_batch_review_pending"
+      },
+      {
+        "section": "2.9.2",
+        "audit": "bounded_source_contract; no_full_workaround_closure; final_batch_review_pending"
+      },
+      {
+        "section": "2.10.1",
+        "audit": "bounded_source_contract; no_full_workaround_closure; final_batch_review_pending"
+      },
+      {
+        "section": "2.11.1",
+        "audit": "bounded_source_contract; no_full_workaround_closure; final_batch_review_pending"
+      },
+      {
+        "section": "2.12.1",
+        "audit": "bounded_source_contract; no_full_workaround_closure; final_batch_review_pending"
+      },
+      {
+        "section": "2.12.2",
+        "audit": "bounded_source_contract; no_full_workaround_closure; final_batch_review_pending"
+      },
+      {
+        "section": "2.13.1",
+        "audit": "bounded_source_contract; no_full_workaround_closure; final_batch_review_pending"
+      }
+    ],
+    "findings": [
+      {
+        "id": "LPTIM.PRIMASK_error_exit",
+        "kind": "source_control_flow_defect",
+        "evidence": [
+          "lptim.wait_and_disable"
+        ],
+        "condition": "DIER/ARR restoration entered and either LPTIM_WaitFlag returns HAL_ERROR.",
+        "observation": "Lines939/945 return with PRIMASK still1; saved mask restored only on success at959. Saved PRIMASK=0 is the state-loss case; an entry value1 remains masked.",
+        "scope": "Pinned SDK source finding; no hardware timeout reproduced."
+      },
+      {
+        "id": "LPTIM.masked_tick_timeout",
+        "kind": "conditional_source_inference",
+        "evidence": [
+          "lptim.wait_and_disable",
+          "hal.default_tick"
+        ],
+        "condition": "Default interrupt-driven HAL tick, PRIMASK=1, required hardware flag never asserts.",
+        "observation": "HAL_GetTick reads uwTick; default increments in SysTick ISR. Timeout cannot be assumed to advance with interrupts masked.",
+        "scope": "Potential unbounded wait under stated conditions; alternate tick requires separate audit. With the default stopped tick and a never-set flag, the error exits in finding1 are not reached; an advancing override may instead reach them."
+      },
+      {
+        "id": "LPTIM.stop_error_state",
+        "kind": "source_control_flow_observation",
+        "evidence": [
+          "lptim.stop",
+          "lptim.stop_it",
+          "lptim.stop_dma"
+        ],
+        "condition": "LPTIM_CcDisable returns HAL_ERROR.",
+        "observation": "All three callers set IDLE despite helper error, then return error. IDLE does not establish hardware release."
+      },
+      {
+        "id": "LPTIM.active_reconfiguration",
+        "kind": "unresolved_errata_compliance",
+        "evidence": [
+          "lptim.encoder_config",
+          "ll.lptim_disable"
+        ],
+        "condition": "HAL_LPTIM_SetConfigEncoder accepts IDLE|ACTIVE by debug assertion and calls LL_LPTIM_Disable.",
+        "observation": "Path does not use RCC-reset helper. ES2.6.1 compliance/quiescence must be established before active configuration. LL clears CR.ENABLE; occurrence requires relevant interrupt timing and subsequent Stop entry.",
+        "scope": "No hardware failure reproduced; timing conditions remain material."
+      },
+      {
+        "id": "RTC.calendar_snapshot_protocol",
+        "kind": "source_contract_gap",
+        "evidence": [
+          "rtc.get_datetime",
+          "rtc.get_components"
+        ],
+        "condition": "Application relies on a single HAL_RTC_CALENDAR_GetDateTime call as the complete ES2.7.2 workaround.",
+        "observation": "Wrapper reads time and date once; inspected helpers do not perform two consecutive full-calendar reads and compare. An adapter must explicitly establish BYPSHAD=1 and the repeat-until-matching protocol, with its own deadline/failure policy.",
+        "scope": "Caller may already wrap this API; no claim that all applications fail or hardware fault was reproduced."
+      },
+      {
+        "id": "I2C.controller_spurious_BERR",
+        "kind": "source_contract_gap",
+        "evidence": [
+          "i2c.error_irq",
+          "i2c.error_state"
+        ],
+        "condition": "Spurious controller-mode BERR with ERRIE enabled reaches stock HAL_I2C_ERR_IRQHandler.",
+        "observation": "Handler clears BERR and calls I2C_ITError; that path resets transfer fields and interrupts and can set IDLE. This is more than the ES2.8.2 clear-and-continue protocol. Adapter policy must distinguish this controller-mode case from genuine/other errors.",
+        "scope": "No hardware event reproduced; external wrappers or alternate handlers may already handle the condition. Polling/blocking I2C path remains unaudited in this artifact."
+      },
+      {
+        "id": "RCC.LSE_errata_admission",
+        "kind": "source_contract_gap",
+        "evidence": [
+          "rcc.lse_domains",
+          "rcc.lse_enable",
+          "rcc.lse_mode_bits"
+        ],
+        "condition": "User selects analog LSE bypass or low-drive crystal operation on an ES0676 listed revision.",
+        "observation": "HAL_RCC_LSE_Enable accepts those enum/drive domains and programs the registers without the ES2.2.1/2.2.3 exclusions. Admission must apply digital-only bypass and forbid low crystal drive explicitly.",
+        "scope": "Raw register/SDK expressibility does not imply errata-qualified operation; no hardware failure reproduced. ES names RCC_BDCR while exact SDK uses RCC_RTCCR; preserve the spelling difference."
+      }
+    ],
+    "implementation_gates": [
+      "No LPTIM publication assuming bounded stop or restored PRIMASK on all exits.",
+      "Restore interrupt state on every exit; timeout source must work in chosen critical section.",
+      "Exact ES0676 reset policy with ownership/callback/DMA quiescence.",
+      "Do not infer hardware release from HAL state after errors.",
+      "Audit every direct LL_LPTIM_Disable path, including reset-helper restoration; RCC reset earlier in a helper is not blanket proof of ES0676 compliance.",
+      "Preserve simultaneous genuine OVR/ARLO or other I2C errors; spurious controller BERR policy does not authorize blanket error suppression."
+    ],
+    "review": "See current external review receipts; source-only retention, no full lifecycle closure.",
+    "hardware": "not_observed",
+    "build": "not_tested",
+    "production_changes": "none",
+    "execution_permission": "none",
+    "source_comment_caution": "Helper cites ES0335; its comment does not prove exact-device ES0676 compliance.",
+    "derived_bindings": [
+      {
+        "id": "ES2.7.3.PWR_protection",
+        "source_defect": "ES0676 leaves the field blank; that original remains unchanged.",
+        "mapping": "PWR_RTCCR.DRTCP bit0, 0 protects RTC domain;1 permits write access.",
+        "evidence": [
+          "RM0522:p226",
+          "RM0522:p245",
+          "RM0522:p1561",
+          "RM0522:p1600",
+          "pwr.rtc_protection",
+          "device.rtc_protection"
+        ],
+        "qualification": "Cross-source semantic binding inferred from exact RM and C542 header/LL; not a literal correction issued by ST.",
+        "remaining": "Privilege, RTC_WPR unlock where applicable, exact write sequence and driver guard remain separate requirements."
+      }
+    ],
+    "reviewed_contracts": [
+      {
+        "id": "RNG.seed_error_handling",
+        "erratum": "2.5.1",
+        "review": "Source content reviewed by Claude subscription and independent Codex; see current external receipts. No full lifecycle or runtime qualification.",
+        "evidence": [
+          "rng.usage",
+          "rng.polling",
+          "rng.recovery_begin",
+          "rng.recovery_end",
+          "ES0676:p6"
+        ],
+        "observations": [
+          "SDK explicitly tells caller to invoke RecoverSeedError after seed error; recovery is not guaranteed.",
+          "When SEIS is set and SECS remains set, polling disables RNG, sets ERROR and returns HAL_ERROR. When SEIS is set but SECS has cleared, it clears SEIS and continues after hardware auto-reset. Timeout disables RNG and returns HAL_TIMEOUT with IDLE.",
+          "Buffer may have been partially written before failure; status is required before interpreting the requested block as complete.",
+          "Recovery checks final SECS and returnsHAL_ERROR if stillset; configuration may be adapted."
+        ],
+        "remaining": [
+          "Full recovery algorithm against RM error-management sequence",
+          "Interrupt-mode lifetime and callback synchronization",
+          "Clock-error semantics and entropy/security qualification",
+          "Monotonic tick and finite operation budget"
+        ],
+        "qualification": "Specific SDK paths inspected; does not establish successful entropy recovery or a complete RNG adapter.",
+        "inventory_binding": {
+          "file": "errata.json",
+          "index": 7,
+          "section": "2.5.1",
+          "revision_status": {
+            "Z": "N",
+            "Y": "N"
+          }
+        }
+      },
+      {
+        "id": "UART.autobaud_disable_preconditions",
+        "erratum": "2.9.1",
+        "review": "Source content reviewed by Claude subscription and independent Codex; see current external receipts. No full lifecycle or runtime qualification.",
+        "evidence": [
+          "uart.autobaud_disable",
+          "device.autobaud_instances",
+          "ES0676:p9"
+        ],
+        "observations": [
+          "Exact device predicate includes USART1,USART2,UART4,UART5; excludes LPUART1.",
+          "Disable API asserts global CONFIGURED and RX/TX IDLE before clearing ABREN. These assertions express HAL state preconditions; hardware receive quiescence and race exclusion must be established separately.",
+          "The checked state guards are debug assertions; adapter must enforce preconditions in release builds and synchronize with reception."
+        ],
+        "remaining": [
+          "Exact live receive state and callback/race policy",
+          "No claim of hardware recovery or unrestricted ABREN clearing"
+        ],
+        "qualification": "API precondition evidence, not runtime enforcement or blanket errata compliance.",
+        "inventory_binding": {
+          "file": "errata.json",
+          "index": 16,
+          "section": "2.9.1",
+          "revision_status": {
+            "Z": "A",
+            "Y": "A"
+          }
+        }
+      },
+      {
+        "id": "FDCAN.exact_transmit_slot_domain",
+        "erratum": "2.12.2",
+        "review": "Source content reviewed by Claude subscription and independent Codex; see current external receipts. No full lifecycle or runtime qualification.",
+        "evidence": [
+          "fdcan.tx_slots",
+          "device.fdcan_txbc",
+          "RM0522:p2021",
+          "RM0522:p2037",
+          "RM0522:p2044",
+          "RM0522:p2077",
+          "RM0522:p2078",
+          "ES0676:p10",
+          "ES0676:p11"
+        ],
+        "observations": [
+          "RM message-RAM allocation has three Tx elements, 18 words each; HAL exposes TX_BUFFER_0,1,2; TXBAR add-request field has bits 2:0 only.",
+          "ES example dedicated buffers 4/5 is outside this exact reviewed slot domain and cannot be used as an executable recipe.",
+          "Source hardware allocation is 212 32-bit words per instance, 0x350 bytes; FIFO mode and queue mode use TFQM.",
+          "RM2044 uses slot indices 0..2, while p2077 FIFO index prose says0..3; keep this discrepancy explicit rather than allocating a fourth slot.",
+          "TXBC exposes only TFQM for the three elements as FIFO or queue; ES assumes dedicated buffer plus FIFO, requiring reconciliation. Queue TFQM=1 lies outside the literal ES condition; no general immunity inferred.",
+          "Other ES candidates fit the slot inventory: only one FIFO element pending at a time, or FIFO only. This does not establish full workaround qualification.",
+          "RM2077 index wording corresponds to two-bit TFQPI/TFGI fields; reset TXFQS=0x00000003 means free level3, consistent with three slots."
+        ],
+        "remaining": [
+          "ES mixed dedicated-buffer/FIFO applicability requires exact IP interpretation",
+          "Preserve RM2021 one-module prose versus exact two-instance inventory conflict",
+          "Clock/pin/bit-timing/message-RAM ownership and runtime lifecycle",
+          "No general immunity to ES2.12.2 inferred from unavailable example buffers"
+        ],
+        "qualification": "Finite resource/source mapping only; not an implemented CAN operation or resolved erratum.",
+        "inventory_binding": {
+          "file": "errata.json",
+          "index": 21,
+          "section": "2.12.2",
+          "revision_status": {
+            "Z": "A",
+            "Y": "A"
+          }
+        }
+      },
+      {
+        "id": "ADC.sampling_transition_and_stop_status",
+        "erratum": "2.3.2",
+        "evidence": [
+          "adc.set_config",
+          "adc.sampling_mode",
+          "adc.stop",
+          "adc.deactivate",
+          "ES0676:p5"
+        ],
+        "observations": [
+          "LL sampling setter documents disabled or enabled-without-regular-conversion state and only modifies CFGR2. It does not perform the ES disable/clear/re-enable sequence.",
+          "HAL SetConfig checks INIT/CONFIGURING/IDLE via debug assertion and calls the setter directly. A valid successful stop can disable the ADC; this is not evidence that ordinary legal HAL transitions necessarily violate the erratum.",
+          "HAL Stop calls adc_deactivate, then sets global IDLE even if returned status is HAL_ERROR. The helper can reject ongoing conversion or time out while ADEN remains set. IDLE alone therefore cannot establish physical disable before changing SMPTRIG.",
+          "If ADDIS is already set on entry, adc_deactivate can skip its outer body and return HAL_OK without waiting. Successful status alone is insufficient outside the controlled ordinary path."
+        ],
+        "remaining": [
+          "Track relevant SMPTRIG and conversion history; enforce disabled state and full ES sequence before injected conversion.",
+          "Require successful stop status plus hardware quiescence under ownership; audit regular/injected stop paths and every caller.",
+          "Tick progress and timeout policy remain prerequisites; no observed ADC failure claimed."
+        ],
+        "review": "Source content reviewed by Claude subscription and independent Codex; see current external receipts. No full lifecycle or runtime qualification.",
+        "qualification": "Bounded source contract only; no executable admission, build or hardware qualification.",
+        "inventory_binding": {
+          "file": "errata.json",
+          "index": 5,
+          "section": "2.3.2",
+          "revision_status": {
+            "Z": "A",
+            "Y": "A"
+          }
+        }
+      },
+      {
+        "id": "SPI.ready_pin_admission",
+        "erratum": "2.11.1",
+        "evidence": [
+          "spi.ready_enable",
+          "spi.ready_ll",
+          "RM0522:p1960",
+          "ES0676:p10",
+          "spi.ready_symbol",
+          "RM0522:p2008",
+          "RM0522:p1946"
+        ],
+        "observations": [
+          "HAL EnableReadyPin checks IDLE by debug assertion and returns HAL_ERROR when IO lock is set; otherwise sets RDIOM. This function does not validate data width or external serial-clock/APB ratio.",
+          "RM1960 independently prohibits RDY for frames shorter than 8 bits. This closes the <8-bit admission gap left unlisted in the erratum, without inventing an erratum threshold for them.",
+          "For slave RDY, ES thresholds are serial clock greater than 2x APB for 8..15 bits, 6x for 16..23,14x for 24..32. Satisfying these frequency bounds alone does not qualify an electrical or runtime configuration."
+        ],
+        "remaining": [
+          "Exact instance/package RDY pin routing, external-master compliance and measured serial/APB clocks.",
+          "FIFO service, TSIZE end-of-transfer semantics, and all ordinary SPI electrical/timing limits remain separate.",
+          "24..32-bit failure thresholds matter only on instances supporting those frame widths; these are failure conditions, not sufficient admission criteria."
+        ],
+        "review": "Source content reviewed by Claude subscription and independent Codex; see current external receipts. No full lifecycle or runtime qualification.",
+        "qualification": "Bounded source contract only; no executable admission, build or hardware qualification.",
+        "inventory_binding": {
+          "file": "errata.json",
+          "index": 19,
+          "section": "2.11.1",
+          "revision_status": {
+            "Z": "N",
+            "Y": "N"
+          }
+        }
+      },
+      {
+        "id": "USB.CTR_to_PMA_timing",
+        "erratum": "2.13.1",
+        "evidence": [
+          "usb.ctr_dispatch",
+          "usb.ep0_out",
+          "usb.read_pma",
+          "ES0676:p11"
+        ],
+        "observations": [
+          "Inspected PCD EP0 non-setup OUT path observes CTR, clears RX CTR, reads received count, then calls USB_DRD_ReadPMA for nonempty buffer.",
+          "ReadPMA checks arguments and copies volatile PMA words; neither inspected path contains an explicit 800 ns or speed-selected delay.",
+          "C source instruction count and ordinary ISR latency do not establish a minimum elapsed delay. This is a timing qualification gap, not proof that an observed transfer fails."
+        ],
+        "remaining": [
+          "Prove or enforce the minimum from CTR to the first affected SRAM access, including descriptor/count reads, over supported clocks/compiler optimizations and paths; delaying only the payload copy is insufficient.",
+          "Audit setup/non-control/double-buffer/host paths and descriptor/count SRAM accesses separately.",
+          "Exact supported speed domain remains separate; family 6.4 us Low Speed value does not authorize an unsupported device mode."
+        ],
+        "review": "Source content reviewed by Claude subscription and independent Codex; see current external receipts. No full lifecycle or runtime qualification.",
+        "qualification": "Bounded source contract only; no executable admission, build or hardware qualification.",
+        "inventory_binding": {
+          "file": "errata.json",
+          "index": 22,
+          "section": "2.13.1",
+          "revision_status": {
+            "Z": "A",
+            "Y": "A"
+          }
+        }
+      },
+      {
+        "id": "LPTIM.oneshot_repetition_clock_constraint",
+        "erratum": "2.6.2",
+        "evidence": [
+          "lptim.config",
+          "lptim.repetition",
+          "lptim.oc_pulse",
+          "RM0522:p1486",
+          "RM0522:p1494",
+          "RM0522:p1497",
+          "RM0522:p1522",
+          "ES0676:p6",
+          "ES0676:p7",
+          "RM0522:p1490",
+          "RM0522:p1491",
+          "RM0522:p1492",
+          "RM0522:p1507",
+          "RM0522:p1510",
+          "RM0522:p1511",
+          "RM0522:p1512"
+        ],
+        "observations": [
+          "ES conditions are conjunctive: one-shot mode, APB below kernel clock, odd programmed REP. Parity is not that of effective REP+1.",
+          "Both ARR and CMP must be >= KER_CLK/(2*APB_CLK). An integer minimum ceil(KER_CLK/(2*APB_CLK)) is a mathematical derivation, not a separately printed source constant.",
+          "Inspected HAL config, repetition setter and OC pulse paths check individual values or wait for write acknowledgment; they do not enforce this cross-clock inequality."
+        ],
+        "remaining": [
+          "Bind actual stable APB/kernel clocks, programmed REP, mode and ARR/compare values together.",
+          "Preserve ES CMP/CMPM terminology versus exact RM CCRx/CCxIF; channel-specific correspondence is not fully resolved.",
+          "Do not substitute post-prescaler counter frequency for KER_CLK or treat write acknowledgment as proof of later flags."
+        ],
+        "review": "Source content reviewed by Claude subscription and independent Codex; see current external receipts. No full lifecycle or runtime qualification.",
+        "qualification": "Bounded source contract only; no complete workaround or executable admission.",
+        "inventory_binding": {
+          "file": "errata.json",
+          "index": 9,
+          "section": "2.6.2",
+          "revision_status": {
+            "Z": "A",
+            "Y": "A"
+          }
+        }
+      },
+      {
+        "id": "LPTIM.DIER_pending_flag_side_effect",
+        "erratum": "2.6.3",
+        "evidence": [
+          "lptim.enable_it",
+          "lptim.disable_it",
+          "lptim.start_it",
+          "lptim.stop_it",
+          "RM0522:p1513",
+          "RM0522:p1514",
+          "RM0522:p1515",
+          "ES0676:p7",
+          "RM0522:p1506",
+          "RM0522:p1508"
+        ],
+        "observations": [
+          "Changing an interrupt bit of DIER clears the corresponding ISR flag per ES; no workaround is supplied.",
+          "LL EnableIT/DisableIT directly modify DIER; HAL Start_IT and Stop_IT use these controls and wait for DIEROK. Acknowledgment does not prove pending-event preservation."
+        ],
+        "remaining": [
+          "Define ownership/quiescence and an explicit event-loss policy; no lossless mask/unmask promise.",
+          "Do not broaden this into a proven rule for unchanged bits rewritten by RMW or all DMA enable bits."
+        ],
+        "review": "Source content reviewed by Claude subscription and independent Codex; see current external receipts. No full lifecycle or runtime qualification.",
+        "qualification": "Bounded source contract only; no complete workaround or executable admission.",
+        "inventory_binding": {
+          "file": "errata.json",
+          "index": 10,
+          "section": "2.6.3",
+          "revision_status": {
+            "Z": "N",
+            "Y": "N"
+          }
+        }
+      },
+      {
+        "id": "RTC.debug_subsecond_alarm",
+        "erratum": "2.7.1",
+        "evidence": [
+          "rtc.alarm_subseconds",
+          "rtc.alarm_irq",
+          "RM0522:p1588",
+          "RM0522:p1590",
+          "RM0522:p2546",
+          "ES0676:p7"
+        ],
+        "observations": [
+          "With subsecond alarm comparison active and its condition just before debug stop, the alarm downcounter can continue despite RTC debug freeze, repeatedly setting ALRAF/ALRBF. No workaround is supplied.",
+          "HAL writes subsecond settings and IRQ handler clears alarm flags before callbacks; this does not establish durable clearing while the erratum applies.",
+          "ES names MASKSS[3:0] while exact RM describes MASKSS[5:0] and binary-mode behavior. Preserve this width discrepancy; upper-bit-only encodings are not established immune.",
+          "ES literally names breakpoint or printf in its debug-stop description; ordinary nonhalting printf applicability is not established."
+        ],
+        "remaining": [
+          "Debug/subsecond-alarm quiescence unqualified; do not treat freeze as a workaround.",
+          "Ordinary nonhalting printf is not proven to trigger the debug-stop condition."
+        ],
+        "review": "Source content reviewed by Claude subscription and independent Codex; see current external receipts. No full lifecycle or runtime qualification.",
+        "qualification": "Bounded source contract only; no complete workaround or executable admission.",
+        "inventory_binding": {
+          "file": "errata.json",
+          "index": 11,
+          "section": "2.7.1",
+          "revision_status": {
+            "Z": "N",
+            "Y": "N"
+          }
+        }
+      },
+      {
+        "id": "UART.ONEBIT_noise_error_lifetime",
+        "erratum": "2.9.2",
+        "evidence": [
+          "uart.onebit",
+          "uart.noise_error_irq",
+          "RM0522:p1814",
+          "RM0522:p1863",
+          "ES0676:p9"
+        ],
+        "observations": [
+          "ES qualifies nominal RM ONEBIT suppression: noise on START can still set NE. No workaround; received-data validity is not established.",
+          "SetOneBitSample programs the mode; state and LPUART-exclusion guards are debug assertions.",
+          "IRQ path records and clears NE when EIE is enabled without excluding ONEBIT. Under normal error dispatch, DMA reception takes the blocking path, ends reception and can abort DMA; non-DMA NE-only handling can notify and continue.",
+          "RM DDRE=0 describes no DMA request for an erroneous byte while later correct bytes may transfer. This hardware behavior does not negate EIE-driven HAL error/abort handling; silent continuation is not guaranteed.",
+          "RM DDRE=1 requires DMAR disabled or RXNE/RXFNE cleared before clearing error flags. Inspected HAL clears NE before later abort handling; exact DDRE setup/order and receive-path behavior require further audit, not a claim of observed corruption."
+        ],
+        "remaining": [
+          "ONEBIT must not imply NE impossible or uninterrupted DMA reception.",
+          "Do not suppress NE as harmless; preserve simultaneous ORE/RTO/other errors, callback synchronization and buffer ownership.",
+          "Bind exact ONEBIT-capable instances and DDRE configuration before executable admission."
+        ],
+        "review": "Source content reviewed by Claude subscription and independent Codex; see current external receipts. No full lifecycle or runtime qualification.",
+        "qualification": "Bounded source contract only; no complete workaround or executable admission.",
+        "inventory_binding": {
+          "file": "errata.json",
+          "index": 17,
+          "section": "2.9.2",
+          "revision_status": {
+            "Z": "N",
+            "Y": "N"
+          }
+        }
+      },
+      {
+        "id": "COMP.revision_concurrency",
+        "erratum": "2.4.1",
+        "evidence": [
+          "comp.start",
+          "comp.activate",
+          "comp.window_activate",
+          "device.comp_window",
+          "ES0676:p6",
+          "ES0676:p2"
+        ],
+        "observations": [
+          "Z is affected, Y is marked not applicable. Unknown physical revision cannot inherit a descriptor-only revision.",
+          "Inspected Start/activate checks handle state and instance lock, then enables the comparator and delays. No peer enable-state or silicon-revision guard is present.",
+          "Exact header exposes window mode; conditionally compiled window activation enables both comparators. Feature availability is not errata-qualified admission."
+        ],
+        "remaining": [
+          "Enforce device-wide mutual exclusion on Z or unresolved revision, including window paths and concurrent callers.",
+          "Y removes only this erratum constraint; all other ownership/electrical constraints remain."
+        ],
+        "review": "Source content reviewed by Claude subscription and independent Codex; see current external receipts. No full lifecycle or runtime qualification.",
+        "qualification": "Bounded source contract only; no runtime or hardware qualification.",
+        "inventory_binding": {
+          "file": "errata.json",
+          "index": 6,
+          "section": "2.4.1",
+          "revision_status": {
+            "Z": "N",
+            "Y": "-"
+          }
+        }
+      },
+      {
+        "id": "I2C.incoming_setup_kernel_period",
+        "erratum": "2.8.1",
+        "evidence": [
+          "i2c.config",
+          "i2c.utility_constants",
+          "i2c.utility_timing",
+          "ES0676:p8"
+        ],
+        "observations": [
+          "ES relates incoming transmitter setup time to receiver kernel period, not simply SCL rate. Standard minima 250/100/50 ns imply >=4/10/20 MHz respectively. Increasing guaranteed transmitter setup time is another source workaround.",
+          "HAL SetConfig accepts TIMINGR and does not establish external setup-time guarantees. Optional timing utility accounts for clock/filter/rise/fall timing but is not invoked by SetConfig and cannot establish peer physical timing."
+        ],
+        "remaining": [
+          "Bind actual minimum transmitter setup time and receiver kernel frequency; do not substitute APB or nominal SCL.",
+          "Preserve partial-workaround status and ordinary electrical/filter constraints; utility success is not complete compliance."
+        ],
+        "review": "Source content reviewed by Claude subscription and independent Codex; see current external receipts. No full lifecycle or runtime qualification.",
+        "qualification": "Bounded source contract only; no runtime or hardware qualification.",
+        "inventory_binding": {
+          "file": "errata.json",
+          "index": 14,
+          "section": "2.8.1",
+          "revision_status": {
+            "Z": "P",
+            "Y": "P"
+          }
+        }
+      },
+      {
+        "id": "LPUART.fractional_low_ratio",
+        "erratum": "2.10.1",
+        "evidence": [
+          "lpuart.baud_check",
+          "lpuart.config_baud",
+          "lpuart.set_baud",
+          "lpuart.ll_baud",
+          "RM0522:p1903",
+          "ES0676:p9",
+          "ES0676:p10"
+        ],
+        "observations": [
+          "ES describes noninteger clock/baud ratio between 3 and 4; 32768/9600 is the affected example.",
+          "Conditional debug validity check accepts 3*baud < clock_after_prescaler <4096*baud, including the problematic interval. LL then programs BRR without an erratum-specific gate.",
+          "RM baud relation is 256*lpuart_ker_ck_pres/LPUARTDIV. Keep exact prescaler/encoded-BRR relation distinct from ES kernel-clock wording."
+        ],
+        "remaining": [
+          "Retain stable clock/prescaler/BRR and achieved baud provenance plus receiver capability; requested baud alone is insufficient.",
+          "No universal safe ratio threshold, measured jitter bound or interoperability established; conservative policy requires derivation/tolerance analysis."
+        ],
+        "review": "Source content reviewed by Claude subscription and independent Codex; see current external receipts. No full lifecycle or runtime qualification.",
+        "qualification": "Bounded source contract only; no runtime or hardware qualification.",
+        "inventory_binding": {
+          "file": "errata.json",
+          "index": 18,
+          "section": "2.10.1",
+          "revision_status": {
+            "Z": "P",
+            "Y": "P"
+          }
+        }
+      },
+      {
+        "id": "FDCAN.edge_filter_integration",
+        "erratum": "2.12.1",
+        "evidence": [
+          "fdcan.edge_filter",
+          "RM0522:p2057",
+          "ES0676:p10",
+          "RM0522:p2028",
+          "fdcan.edge_filter_status"
+        ],
+        "observations": [
+          "ES combines EFBI enabled with integration ending at a falling RX edge. It preserves the qualifier standard frames unaffected without establishing that this means 11-bit identifiers.",
+          "HAL enable/disable uses debug IDLE|ACTIVE assertions and sets/clears EFBI. These APIs do not establish integration timing or retransmission completion.",
+          "CCCR reset is 0x00000001 with EFBI=0; configuration-write restrictions must be reconciled with HAL accepting ACTIVE state. No assumption that an ACTIVE write succeeds."
+        ],
+        "remaining": [
+          "Establish owned initialization/configuration access (INIT=1, CCE=1) and EFBI=0 readback before any EFBI-disabled admission. HAL ACTIVE-state acceptance alone does not establish that the write takes effect. Relying on retransmission requires separate protocol/retry/error/deadline analysis.",
+          "No complete CAN operation qualified."
+        ],
+        "review": "Source content reviewed by Claude subscription and independent Codex; see current external receipts. No full lifecycle or runtime qualification.",
+        "qualification": "Bounded source contract only; no runtime or hardware qualification.",
+        "inventory_binding": {
+          "file": "errata.json",
+          "index": 20,
+          "section": "2.12.1",
+          "revision_status": {
+            "Z": "A",
+            "Y": "A"
+          }
+        }
+      },
+      {
+        "id": "Core.MPU_fault_ordering",
+        "erratum": "2.1.1",
+        "evidence": [
+          "device.core_revision",
+          "ES0676:p4"
+        ],
+        "observations": [
+          "With MPU enabled, unaligned access to one denied Device-memory region can produce MemManage ahead of expected UNALIGNED UsageFault. No workaround.",
+          "ES identifies Cortex-M33 r0p1 while exact header __CM33_REV=0x0004 is commented r0p4_p1. Neither establishes physical core revision without reconciliation."
+        ],
+        "remaining": [
+          "Fault diagnostics must not assume UsageFault precedence under this conjunction; do not relax access permissions.",
+          "MPU setup, escalation, handler routing and actual exception delivery remain unaudited."
+        ],
+        "review": "Source content reviewed by Claude subscription and independent Codex; see current external receipts. No full lifecycle or runtime qualification.",
+        "qualification": "Bounded source contract only; no runtime or hardware qualification.",
+        "inventory_binding": {
+          "file": "errata.json",
+          "index": 0,
+          "section": "2.1.1",
+          "revision_status": {
+            "Z": "N",
+            "Y": "N"
+          }
+        }
+      },
+      {
+        "id": "RCC_GPIO.LSE_PC13_exclusion",
+        "erratum": "2.2.2",
+        "evidence": [
+          "gpio.write_toggle",
+          "ES0676:p4",
+          "ES0676:p5",
+          "rcc.lse_enable"
+        ],
+        "observations": [
+          "Exact LQFP64 package is affected by PC13 input or output transitions during LSE crystal operation. External bypass is excluded only from this entry; analog bypass remains separately forbidden by ES2.2.1.",
+          "Inspected HAL GPIO write/toggle paths do not check LSE state. HAL LSE enable was separately audited without a PC13 activity guard."
+        ],
+        "remaining": [
+          "Cross-peripheral exclusion must include external inputs and alternate-function outputs; avoiding software writes alone is insufficient."
+        ],
+        "review": "Source content reviewed by Claude subscription and independent Codex; see current external receipts. No full lifecycle or runtime qualification.",
+        "qualification": "Bounded source contract only; no runtime or hardware qualification.",
+        "inventory_binding": {
+          "file": "errata.json",
+          "index": 2,
+          "section": "2.2.2",
+          "revision_status": {
+            "Z": "N",
+            "Y": "N"
+          }
+        }
+      },
+      {
+        "id": "ADC.family_dual_topology_conflict",
+        "erratum": "2.3.1",
+        "evidence": [
+          "DS15135:p4",
+          "device.adc_instances",
+          "ES0676:p5"
+        ],
+        "observations": [
+          "Family erratum requires DUAL=0x06 simultaneous regular master/slave operation and injected stop/trigger coincidence. Keep its published workarounds.",
+          "Exact DS says one 12-bit ADC and IS_ADC_ALL_INSTANCE admits ADC1 only. ADC12_COMMON is a common block, not ADC2.",
+          "Header macro residue at14023 references ADC2 despite no defined ADC2 instance. This is a source inconsistency, not evidence for another converter."
+        ],
+        "remaining": [
+          "Family erratum triggering topology not established for exact device; do not invent ADC2 or declare the family entry resolved.",
+          "Macro expansion/build impact and exact IP applicability remain unaudited."
+        ],
+        "review": "Source content reviewed by Claude subscription and independent Codex; see current external receipts. No full lifecycle or runtime qualification.",
+        "qualification": "Bounded source contract only; no runtime or hardware qualification.",
+        "inventory_binding": {
+          "file": "errata.json",
+          "index": 4,
+          "section": "2.3.1",
+          "revision_status": {
+            "Z": "A",
+            "Y": "A"
+          }
+        }
+      },
+      {
+        "id": "RTC_TAMP.protected_write_lifetime",
+        "erratum": "2.7.3",
+        "evidence": [
+          "pwr.disable_rtc_protection",
+          "pwr.rtc_protection",
+          "device.rtc_protection",
+          "rtc.disable_wpr",
+          "rtc.ll_wpr",
+          "rtc.alarm_irq",
+          "rtc.ll_clear_alarm",
+          "tamp.usage",
+          "tamp.irq",
+          "tamp.clear_flags",
+          "tamp.erase",
+          "ES0676:p8",
+          "rtc.ll_clear_alarm_b",
+          "RM0522:p226",
+          "RM0522:p245"
+        ],
+        "observations": [
+          "Original ES protection-field blank is preserved; DRTCP binding remains a cross-source inference. PWR domain access and RTC_WPR keys are separate protection layers.",
+          "RTC alarm IRQ clears SCR flags; TAMP IRQ invokes application callbacks before flag clearing. LL flag-clear and BKERASE primitives contain no PWR access checks. HAL TAMP usage assigns access enabling to caller."
+        ],
+        "remaining": [
+          "Keep DRTCP=1 throughout affected writes, including IRQ paths and callbacks. Privileged access is required when PWR_PRIVCFGR.PRIV=1. RTC_WPR unlock alone is insufficient.",
+          "Full writer/privilege/reset/callback inventory and safe relocking sequence remain unaudited. BKERASE is destructive and no execution is authorized."
+        ],
+        "review": "Source content reviewed by Claude subscription and independent Codex; see current external receipts. No full lifecycle or runtime qualification.",
+        "qualification": "Bounded source contract only; no runtime or hardware qualification.",
+        "inventory_binding": {
+          "file": "errata.json",
+          "index": 13,
+          "section": "2.7.3",
+          "revision_status": {
+            "Z": "N",
+            "Y": "N"
+          }
+        }
+      }
+    ]
+  }
+}

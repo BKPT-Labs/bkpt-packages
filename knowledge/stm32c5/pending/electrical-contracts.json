@@ -1,0 +1,848 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/electrical-contracts.json",
+    "sha256": "cc3743ef2b68871d7466138145216c038c1ccaa6f06779423d195b05b577b006"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 72
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "schema": "bkpt.external.electrical.contracts.v1",
+    "review": "independent_source_review_pending",
+    "scope": "DS15135 full electrical chapter48–96 text read, selected visual checks, exact LQFP64/temperature6 constraints. Bounded contracts, not exhaustive scalar transcription or electrical qualification.",
+    "chapter_audit": {
+      "document": "DS15135",
+      "pages": [
+        48,
+        96
+      ],
+      "status": "full_chapter_text_read_selected_visual_checks_not_semantic_closure"
+    },
+    "sources": {
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "DS15135": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pdf",
+        "sha256": "1a3555f799297774a95978ab343ebc1f45ab9ef58d0dcf3600dec4fabed9355c",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pages.json",
+        "extraction_sha256": "b14b965adb6c1545edbca0e56b3c504e7ecc3a94bda197350ce2757b5a3d55dc"
+      },
+      "ES0676": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pdf",
+        "sha256": "a5463827337bcdbd3e5f2e0912a56307d78b568e5631b21cc9a25899c7d4a5e6",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pages.json",
+        "extraction_sha256": "2ab1b19e42b53e22ff5f3b98f6ed9a5f98f3b7b61a617abc3bb3b7fc050d1cb3"
+      },
+      "package-routes": {
+        "path": "research://c5-reference/package-routes.json",
+        "sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288"
+      }
+    },
+    "evidence": {
+      "DS15135:p48": {
+        "source": "DS15135",
+        "page": 48,
+        "sha256": "c355f7230a376f9c8891b59df729d6ffba8435fac56fc286df92c4dd7129aa95"
+      },
+      "DS15135:p49": {
+        "source": "DS15135",
+        "page": 49,
+        "sha256": "b6f23396bf32aed5abc01590c71ba00a9d653b928435ea0a22a7cd0710225091"
+      },
+      "DS15135:p50": {
+        "source": "DS15135",
+        "page": 50,
+        "sha256": "ad024f8aee678288fdfaa30ae830e72e58298019e245d5fde104df30d34064dc"
+      },
+      "DS15135:p51": {
+        "source": "DS15135",
+        "page": 51,
+        "sha256": "b08fcdf9deae8851aaf8b6c762737b2bf97e0c1aaa9573ae9c19a9715207dda8"
+      },
+      "DS15135:p52": {
+        "source": "DS15135",
+        "page": 52,
+        "sha256": "6f493accc2459842b5fe122697537e0aaeda58fd19cb80fe721b0e6d915ca983"
+      },
+      "DS15135:p53": {
+        "source": "DS15135",
+        "page": 53,
+        "sha256": "7737c50ddc578808d94a3d72defa87799e7cd88a0b79eff8246973de70a2edfa"
+      },
+      "DS15135:p54": {
+        "source": "DS15135",
+        "page": 54,
+        "sha256": "51982e032087c53801d3ba9ff530bb00bbac15ade349f611f2d32b5aaea738e4"
+      },
+      "DS15135:p55": {
+        "source": "DS15135",
+        "page": 55,
+        "sha256": "1a6fa07ff9e5127d5148f013296c457fab6c560cb2a40337adb4395994f4772b"
+      },
+      "DS15135:p56": {
+        "source": "DS15135",
+        "page": 56,
+        "sha256": "f2fc87f59198f6ca3e43268fb49c9b920b88f58543728ba25c129b12f6ad36fe"
+      },
+      "DS15135:p57": {
+        "source": "DS15135",
+        "page": 57,
+        "sha256": "f4a21cf95d1ac1086d835da813689e7ee996018c4330aaffff970e84274b2248"
+      },
+      "DS15135:p58": {
+        "source": "DS15135",
+        "page": 58,
+        "sha256": "5f399a9a9d68f0da866a7cd1f011e2140faf05cb21f700588631c5f765db3891"
+      },
+      "DS15135:p59": {
+        "source": "DS15135",
+        "page": 59,
+        "sha256": "434580d5c7db09cedc561e0681456af66bbcd4736d17baf10bcd2df27abeb981"
+      },
+      "DS15135:p60": {
+        "source": "DS15135",
+        "page": 60,
+        "sha256": "f2f88860d9977a5f32a86200762e4ad89e4006cb7f33fef681509ba432618980"
+      },
+      "DS15135:p61": {
+        "source": "DS15135",
+        "page": 61,
+        "sha256": "8179381467f998bfab2699d1dd3cdd2faa87987faebefe6fc1cd119444f440e2"
+      },
+      "DS15135:p62": {
+        "source": "DS15135",
+        "page": 62,
+        "sha256": "d2f7bd0f4b1cd44f77a748b5ba2f50f01e09a419599c6e59ee20dcc7ef02bcdd"
+      },
+      "DS15135:p63": {
+        "source": "DS15135",
+        "page": 63,
+        "sha256": "996edfa6f29e6ad48d642869cc1b53e4adc218e0b5f51c56c57907cf6b78c7fa"
+      },
+      "DS15135:p64": {
+        "source": "DS15135",
+        "page": 64,
+        "sha256": "0e7ed884ec059f01a4bd1f30d983f8e897f9f54265a05531acb3f54299043976"
+      },
+      "DS15135:p65": {
+        "source": "DS15135",
+        "page": 65,
+        "sha256": "364f1ce86cce9532f7eb9dc4c51914ec88ee6b9271420940f3013c1e23dc2329"
+      },
+      "DS15135:p66": {
+        "source": "DS15135",
+        "page": 66,
+        "sha256": "430cf825863ffe6cac2d10d3b3a73ca5924016e1048f2ffa5449417cd1e1a070"
+      },
+      "DS15135:p67": {
+        "source": "DS15135",
+        "page": 67,
+        "sha256": "28a65b82e36c47677d5cc878f5aaa426317b27c4053018fc49b04e022702f792"
+      },
+      "DS15135:p68": {
+        "source": "DS15135",
+        "page": 68,
+        "sha256": "3189d898afb9f372ed64913f2cb051965dd898ef256a7a0b939fcb8774322623"
+      },
+      "DS15135:p69": {
+        "source": "DS15135",
+        "page": 69,
+        "sha256": "95d55910f54020406a1f5e0411abc37b419f34b4def6f20acb66df6a8c54c4e7"
+      },
+      "DS15135:p70": {
+        "source": "DS15135",
+        "page": 70,
+        "sha256": "b0519b1576cf1ba9cf5c37655c32715c69de3c035f72c72755322520c1784b6c"
+      },
+      "DS15135:p71": {
+        "source": "DS15135",
+        "page": 71,
+        "sha256": "b760bf6311aec285f903a8e442c543bbde4ab6514e5a95c85555a8453003db79"
+      },
+      "DS15135:p72": {
+        "source": "DS15135",
+        "page": 72,
+        "sha256": "82212dbe180f73d307f80879574fbae7ef117a834061d89f589f797c2f9e8334"
+      },
+      "DS15135:p73": {
+        "source": "DS15135",
+        "page": 73,
+        "sha256": "e7ab2e7a98a4ee581d3165f3ccd93017c148c2e80a0334946348c0a217201238"
+      },
+      "DS15135:p74": {
+        "source": "DS15135",
+        "page": 74,
+        "sha256": "7f64421507c946c9dbbc37da97a6129105b73a2e30108b6aad91594eb25a0b3b"
+      },
+      "DS15135:p75": {
+        "source": "DS15135",
+        "page": 75,
+        "sha256": "7599feb764eddcc9bff872c415e82552766cb8fb0ce240321ee3992cc75a9c6f"
+      },
+      "DS15135:p76": {
+        "source": "DS15135",
+        "page": 76,
+        "sha256": "c4eccf348b802811926a2c4547c752fa96ff82174c9ba6d36dfa034eb67bb982"
+      },
+      "DS15135:p77": {
+        "source": "DS15135",
+        "page": 77,
+        "sha256": "64ce8b55bce85106ebb2546030c5c7251199719343a94fd94b6a31e257f52f62"
+      },
+      "DS15135:p78": {
+        "source": "DS15135",
+        "page": 78,
+        "sha256": "42a090aa6b6c9f1d17dd61008012c16a19384671ae8d28b57ab887171a183e94"
+      },
+      "DS15135:p79": {
+        "source": "DS15135",
+        "page": 79,
+        "sha256": "1bf60f0bf62a0abf22fe21d1c77beed18b8c3fca326b3a4a29842c52b3db349b"
+      },
+      "DS15135:p80": {
+        "source": "DS15135",
+        "page": 80,
+        "sha256": "79ffbb590c9fbb195aa4205bfc4bf0aaaa47733e623b04dc49319e87d1468919"
+      },
+      "DS15135:p81": {
+        "source": "DS15135",
+        "page": 81,
+        "sha256": "754f8dd7c9894b4df510152659099132c01a22c647f1398f9f022a1c4dbcb4f7"
+      },
+      "DS15135:p82": {
+        "source": "DS15135",
+        "page": 82,
+        "sha256": "438027aff6ef1e34a7fd948b0267c58f9d372b6b478079a03993fcf4ecd33930"
+      },
+      "DS15135:p83": {
+        "source": "DS15135",
+        "page": 83,
+        "sha256": "e50eb301c506004a328135b68cea308e6a6ccfbaca5040da23b9b218e5450220"
+      },
+      "DS15135:p84": {
+        "source": "DS15135",
+        "page": 84,
+        "sha256": "99849180ea69183e30ea40a888d4cbcbb5717288f345ba94972620d8ee408cb8"
+      },
+      "DS15135:p85": {
+        "source": "DS15135",
+        "page": 85,
+        "sha256": "c1d7dc113f9045265ade8011488c4bd19dbbff6bf6c208c607429b2471720d1b"
+      },
+      "DS15135:p86": {
+        "source": "DS15135",
+        "page": 86,
+        "sha256": "fcb88cc0d3d5319991039598708e7646dbfc77cca13ba76ef62755dc3bd3bd40"
+      },
+      "DS15135:p87": {
+        "source": "DS15135",
+        "page": 87,
+        "sha256": "39e7fa5fb37cbbd7fc739e4bf5ba08684b9bc79dacd69e53d1212545370c07f8"
+      },
+      "DS15135:p88": {
+        "source": "DS15135",
+        "page": 88,
+        "sha256": "6079a0a676ec92ab433675b689993d3240db05f687c3e3acb94bf1156445ab27"
+      },
+      "DS15135:p89": {
+        "source": "DS15135",
+        "page": 89,
+        "sha256": "811857848d8bd12cd286cdb562078e01e01fe993e5ece931f2c8c795100c9037"
+      },
+      "DS15135:p90": {
+        "source": "DS15135",
+        "page": 90,
+        "sha256": "c69e084f4e7546e822e77e151ac6eb2825ce3f7c25d6242fbe5c263f374c26a9"
+      },
+      "DS15135:p91": {
+        "source": "DS15135",
+        "page": 91,
+        "sha256": "979c5e6850d482538814ed1b6a0de0c6149fb7e9dc30486c3a9c484acae7730a"
+      },
+      "DS15135:p92": {
+        "source": "DS15135",
+        "page": 92,
+        "sha256": "a4efce3db08be4a822ec6098afef91ffb2f4c2f809d2bfcf118e22576b7b7809"
+      },
+      "DS15135:p93": {
+        "source": "DS15135",
+        "page": 93,
+        "sha256": "b54dcf2624761fd73480ef063034c3026672752c185c66cb277460d229fe0833"
+      },
+      "DS15135:p94": {
+        "source": "DS15135",
+        "page": 94,
+        "sha256": "d765e688a02f2e0ec1fd1558092bdd76e84ea9b208876614e246a6f457394af8"
+      },
+      "DS15135:p95": {
+        "source": "DS15135",
+        "page": 95,
+        "sha256": "f22f61d0ebd3dafc509ded414c48be3acaf15626d9fba43a3e31306852a454ca"
+      },
+      "DS15135:p96": {
+        "source": "DS15135",
+        "page": 96,
+        "sha256": "4b3a808332bb4d0060cb0dd67c8022fe0b1eba4b67706dd2531ce78e8a9af0bf"
+      },
+      "DS15135:p115": {
+        "source": "DS15135",
+        "page": 115,
+        "sha256": "5f74d98b27933f92cec9f0ca05fb43f36a50265617c49648b7f0c11212e659e4"
+      },
+      "DS15135:p116": {
+        "source": "DS15135",
+        "page": 116,
+        "sha256": "614cfa8310c4bdbf18d1de318ec9b1b8cd5961bc151ad10f7beac99c05e1bb89"
+      },
+      "DS15135:p117": {
+        "source": "DS15135",
+        "page": 117,
+        "sha256": "ea0234a282f70f510963d86ae386595816c96a77058eb9b404acf61196792c98"
+      },
+      "DS15135:p118": {
+        "source": "DS15135",
+        "page": 118,
+        "sha256": "8ee11d2b68cfeb179d07dc1b5e3f7bf3501cdbd5f178dd03366d36394f47fb3f"
+      },
+      "DS15135:p119": {
+        "source": "DS15135",
+        "page": 119,
+        "sha256": "dc98f45b886469fcb147492187ad1aae18f98467bf253e18d266c1b80983cb7f"
+      },
+      "ES0676:p2": {
+        "source": "ES0676",
+        "page": 2,
+        "sha256": "3fed5303e4a0fc65ed4dbe6aae1c297605837e2da15bb0e24928d26b0d25eb95"
+      },
+      "ES0676:p3": {
+        "source": "ES0676",
+        "page": 3,
+        "sha256": "6682207b964f905ea8f0e452bc5cff546dfb08622fca9ce2f979b0e43cd6d157"
+      },
+      "ES0676:p4": {
+        "source": "ES0676",
+        "page": 4,
+        "sha256": "3b0e6d179a6d3b6701ddfa31ce87f44ef4d62c59d79a1f01184c77a212d7774c"
+      },
+      "ES0676:p5": {
+        "source": "ES0676",
+        "page": 5,
+        "sha256": "b1c29e54e422b77b7a01a6dea47789196c0a8d23aed2f9a68f6a91698ae66d9d"
+      },
+      "ES0676:p6": {
+        "source": "ES0676",
+        "page": 6,
+        "sha256": "67192cb102783988744a71ca6f88c36b938faf48d360a4834496df7e76a4b915"
+      },
+      "ES0676:p7": {
+        "source": "ES0676",
+        "page": 7,
+        "sha256": "ae251fcee43cc089851cf652083da87910ac36c57afdcaee5a38ebf1eb2ecb9d"
+      },
+      "ES0676:p8": {
+        "source": "ES0676",
+        "page": 8,
+        "sha256": "bbdb92e175f8101da1467e00b7fa2894fb9e3e1f2b0bd5937f5a865428c2ce5b"
+      },
+      "ES0676:p9": {
+        "source": "ES0676",
+        "page": 9,
+        "sha256": "16f3f6e7cf8092fc36fa0c23e0e1346aa2510f7a06639a41f90caf8bab393c84"
+      },
+      "ES0676:p10": {
+        "source": "ES0676",
+        "page": 10,
+        "sha256": "68b80618adcb6cf1f68aa4d5221444fc774b33c9a168223465e8f9334996a4aa"
+      },
+      "ES0676:p11": {
+        "source": "ES0676",
+        "page": 11,
+        "sha256": "f3433686e725b795145e0f5945a8735b0aa23657c7f34885d86cc028e6cc9b4e"
+      },
+      "RM0522:p132": {
+        "source": "RM0522",
+        "page": 132,
+        "sha256": "cbc6eb98ea22857b1e2498c03f43ba2c572df6389c1d79dd2a94f53bb02e0e14"
+      },
+      "RM0522:p259": {
+        "source": "RM0522",
+        "page": 259,
+        "sha256": "4ef8d451a67ffff89db1f60ec3106581d20c9738e539586b32202873a3404fe4"
+      },
+      "RM0522:p262": {
+        "source": "RM0522",
+        "page": 262,
+        "sha256": "f61e0c4d9d386bf1c7a2c2524613f06cec6d90f88d301a0871be96c746ae54bc"
+      },
+      "RM0522:p282": {
+        "source": "RM0522",
+        "page": 282,
+        "sha256": "7bded26672eb48bf6abf3fa9bd2f46dbf71978b8e31a7b80965968c46f19a5fe"
+      },
+      "RM0522:p283": {
+        "source": "RM0522",
+        "page": 283,
+        "sha256": "8131610a2e940912e3e8c51cbfae3b85ee2b00b3d9c3614de7b1cf7ef7197a58"
+      },
+      "RM0522:p1904": {
+        "source": "RM0522",
+        "page": 1904,
+        "sha256": "a2130909d1de3cf5118b42a6aad36160991d0ed58abbe5236008ce02403c0897"
+      },
+      "DS15135:p21": {
+        "source": "DS15135",
+        "page": 21,
+        "sha256": "415dcce808abcec03ac5103b525a2967fd1bac5bcddf7b1222d9a2679ba3ea2b"
+      },
+      "RM0522:p141": {
+        "source": "RM0522",
+        "page": 141,
+        "sha256": "5dbcf4541b2958705ac6f63e5d7fa2d2ea7430c22cc0157b6da49193c910212f"
+      }
+    },
+    "contracts": [
+      {
+        "id": "scope_and_provenance",
+        "detail": "Use exact suffix6: ambient-40..85C and junction-40..105C; larger family/suffix3 thermal ranges do not extend this part. General VDD/VDDA2.7..3.6V and HCLK/PCLK maximum144MHz. Preserve conditions, units, min/typ/max and guarantee provenance per row: typical values/curves are design guidance, many tables characterization/design rather than production test. Absolute maxima are stress limits, not operating permission. DS48 default min/max guarantee is production testing on 100% of devices at TJ=25 C and selected TJmax under worst specified conditions, unless a footnote states characterization, simulation or design. Characterization min/max represent mean +/- 3 sigma. Apply each row exception explicitly.",
+        "evidence": [
+          "DS15135:p48",
+          "DS15135:p50",
+          "DS15135:p51",
+          "DS15135:p119"
+        ]
+      },
+      {
+        "id": "supply_and_decoupling",
+        "detail": "All supply/ground pins connect to appropriate domains. Supply scheme requires local ceramic decoupling; VCAP2.2uF with ESR<20mOhm at3MHz and rated voltage>=10V. Preserve VREF/VDDA and per-domain differences; board schematic connectivity is not measured rail quality. USB full electrical range3.0..3.6V differs from general2.7V functionality. VDDA decoupling is 4.7 uF plus n x 100 nF. Table17 footnote1 guarantees functionality after RESET release down to PDR minimum, without extending every peripheral specification. With BORH_EN=0, POR/PDR rising thresholds are 2.56..2.64 V and falling thresholds 2.53..2.61 V (characterization). Reset temporization max463 us is design-specified from POR crossing to NRST pull-up activation.",
+        "evidence": [
+          "DS15135:p49",
+          "DS15135:p50",
+          "DS15135:p94",
+          "DS15135:p51",
+          "DS15135:p52"
+        ]
+      },
+      {
+        "id": "pad_voltage_and_injection",
+        "detail": "Apply literal pin IO structure and active analog/pull configuration, not universal5V tolerance. Normal TT inputs limitedVDD+0.3; higher FT input voltage requires disabled pulls and function-specific limits. Current injection is abnormal stress, not a normal design allowance. DS70 lists zero-negative-injection susceptibility for PA4/PA5 and a named set including PB3/4/5/6/12/13/14,PC13/14/15,PH0; do not use absolute-5mA as functional immunity. Package IO-label divergences remain unresolved. Normal non-TT maximum is MIN(VDD+3.6 V,5.5 V). Absolute FT maximum is MIN(VDD+4.0 V,6.0 V), reduced to4 V with analog option or enabled pulls; absolute VREF+-VDDA maximum is0.4 V. These are separate from normal analog limits. I2C open-drain disables but retains the PMOS, so external pull-up voltage still obeys pin limits. Injection susceptibility Table46 is characterization only.",
+        "evidence": [
+          "DS15135:p50",
+          "DS15135:p51",
+          "DS15135:p70",
+          "DS15135:p71",
+          "DS15135:p89"
+        ]
+      },
+      {
+        "id": "aggregate_current",
+        "detail": "Stress ceilings: total supply/ground200mA, per supply/ground pin100mA, perIO20mA and aggregateIO140mA, with distribution constraints. Normal output levels impose current-dependent VOL/VOH, and PC13/14/15 source capability is3mA shared. PC14/15 voltage specifications use0.5mA. Include MCU current plus output currents and thermal dissipation; no pin count multiplication of individual maxima.",
+        "evidence": [
+          "DS15135:p50",
+          "DS15135:p72",
+          "DS15135:p73",
+          "DS15135:p118"
+        ]
+      },
+      {
+        "id": "GPIO_speed",
+        "detail": "OSPEED values represent slew/loading constraints, not guaranteed peripheral throughput. DS74 table excludesPC13, usesTJ125C and2.7..3.6V; raw OSPEED10/11 (high/very-high) require compensation; raw01 has no such footnote. At50/30/10pF, raw0 Fmax4/4/4MHz;raw1 12/12/12;raw2 45/50/55;raw3 90/96/110. Duty45..55% and rise+fall<=2T/3 qualify maxima. Actual board load, pin-specific restrictions and functional clocks still gate use. Table50 is specified by design, not production-tested.",
+        "evidence": [
+          "DS15135:p74",
+          "DS15135:p75",
+          "DS15135:p72"
+        ]
+      },
+      {
+        "id": "NRST_EXTI",
+        "detail": "NRST permanent pull-up30..50kOhm, max filtered pulse50ns and min nonfiltered pulse350ns leave intermediate pulse widths unqualified. EXTI minimum detection pulse20ns is a pad/event source limit, not guaranteed ISR service rate or lossless DMA throughput. Preserve one physical EXTI-line owner across ports and consumers.",
+        "evidence": [
+          "DS15135:p75",
+          "DS15135:p76"
+        ]
+      },
+      {
+        "id": "power_and_wake",
+        "detail": "Power tables require exact clocks/cache/prefetch/code location/peripheral state, IO loading and temperature; no additive universal consumption budget. Wake table30 values are typical, event-to-first-instruction, not upper-bound service deadlines. USART/LPUART table31 gives4.8us typical/6.6us max for48MHzHSIDIV3 Stop0/1 source conditions; compose with framing, clock error and RX buffering, not whole application wake completion. Rendered DS58 confirms Table31 Typ/Max cells span Stop0 and Stop1; 4.8/6.6 us are shared, design-specified, not production-tested. Table31 baud-budget wake metric is distinct from Table30 event-to-first-instruction timing.",
+        "evidence": [
+          "DS15135:p53",
+          "DS15135:p54",
+          "DS15135:p55",
+          "DS15135:p56",
+          "DS15135:p57",
+          "DS15135:p58",
+          "RM0522:p1904"
+        ]
+      },
+      {
+        "id": "oscillators",
+        "detail": "HSE crystal/startup and LSE crystal/startup depend on actual external components/layout; typical2ms/2s startup values are not maximum timeout guarantees. LSE low-drive and analog-bypass restrictions plusPC13 coupling from ES2.2 apply. HSI drift includes temperature+voltage; PSI frequencies above144MHz require allowed division before restricted destinations. LSI range29.4..33.6kHz across-40..130C is conservative encompassing suffix6; nominal32kHz does not bound watchdog timeout. PSI division uses PSIK or PSIDIV4. The LSI temperature envelope is characterization only;31.4..32.6 kHz at VDD3.3 V/TJ30 C is production-tested. The wider-temperature row does not clearly repeat the voltage condition.",
+        "evidence": [
+          "DS15135:p59",
+          "DS15135:p60",
+          "DS15135:p61",
+          "DS15135:p62",
+          "DS15135:p63",
+          "DS15135:p65",
+          "DS15135:p66",
+          "DS15135:p67",
+          "ES0676:p4",
+          "ES0676:p5"
+        ]
+      },
+      {
+        "id": "flash_endurance",
+        "detail": "Program/erase timing and endurance depend on operation, voltage, temperature and cycle history. DS gives128bit user or16bitOTP/EDATA programming20us typical160us max; bank/mass erase68/135ms max; programming2.65..3.6V does not extend overall standard operating range.10kcycle endurance is qualified by table41; retention10years at125C/1kcycle versus30years85C/1kcycle or55C/10kcycle are distinct cases, not universal30years. Exact EDATA mode geometry remains FLASH contract. Endurance and retention are characterization only; endurance condition is TJ=-40..140 C, which does not extend suffix6 operating range.",
+        "evidence": [
+          "DS15135:p67",
+          "DS15135:p51"
+        ]
+      },
+      {
+        "id": "ADC_analog",
+        "detail": "ADC supply2.7..3.6V, VREF+2.5..VDDA, input0..VREF+, clock8..36MHz. Sample time and source impedance depend on resolution, leakage, temperature and PCB capacitance;2.25MSPS headline uses12bits/36MHz/SMP2.5/RAIN47Ohm/CPCB22pF. Recommended calibration after power-up; regulator startup10us max precedes ADC startup. Accuracy table measured after calibration/nooversampling onLQFP64; ENOB10.7 is typical, not12bit accuracy. Curve-based source-impedance values are not fully digitized. The 2.25/4.5 MSPS entries are typical values for slow channels in a design-specified table, not production tests. Table54 accuracy is characterization only and warns of degradation for packages without VREF- pad. Graphs78/79 use TJ140 C and VDD=VDDA=2.7 V, beyond suffix6 maximum junction temperature.",
+        "evidence": [
+          "DS15135:p76",
+          "DS15135:p77",
+          "DS15135:p78",
+          "DS15135:p79",
+          "DS15135:p80"
+        ]
+      },
+      {
+        "id": "internal_ADC_sources",
+        "detail": "VREFINT sampling minimum4.3us and startup max4.4us; temperature sampling minimum13us and buffer startup max25.2us. Calibration references30C/3.3V and140C/3.3V require actual VDDA scaling and exact calibration word access; typical slope alone is not per-device calibrated temperature.",
+        "evidence": [
+          "DS15135:p53",
+          "DS15135:p81"
+        ]
+      },
+      {
+        "id": "DAC_analog",
+        "detail": "Buffer-on range0.2V..VDDA-0.2V and load constraints differ from unbuffered0..VREF+ with10.3..16kOhm output impedance. Normal settling/wake, sample-hold capacitance and timing are mode-specific. tTRIMminimum50us and accuracy/monotonicity are distinct;12-bit code does not imply12-bit monotonicity (DS states10bit). PA5 identity conflict and board load remain open.",
+        "evidence": [
+          "DS15135:p81",
+          "DS15135:p82",
+          "DS15135:p83",
+          "DS15135:p84"
+        ]
+      },
+      {
+        "id": "COMP_OPAMP",
+        "detail": "Comparator delays require signal step/overdrive and speed mode; startup5us high-speed/20us medium maximum and scaler250us maximum are separate. COMP1/2 simultaneous use prohibited onRevZ by ES2.4.1. OPAMP load500uA/PGA270uA and50pF, output headroom, gain bandwidth, slew and gain error conditions apply; scalar bandwidth is not arbitrary closed-loop stability qualification.",
+        "evidence": [
+          "DS15135:p84",
+          "DS15135:p85",
+          "DS15135:p86",
+          "DS15135:p87",
+          "ES0676:p6",
+          "ES0676:p2"
+        ]
+      },
+      {
+        "id": "serial_pad_timing",
+        "detail": "I3C SDR12.5MHz requires OSPEED10/compensation and specific open-drain timing; I2C Fm+ current needsFT_f pads, analog filter rejects pulses below50ns and passes above160ns with middle band unspecified. USART synchronous/ SPI/I2S rates are role-specific and depend on30pF loading/compensation/OSPEED. Preserve every setup/hold constraint and ES SPI RDY limits; do not infer asynchronous UART rates from USART SPI-mode table. I3C table64 also requires voltage scaling range1 and is characterization only. ES2.8.1 requires I2C kernel period no longer than transmitter minimum setup time (4/10/20 MHz minimum for250/100/50 ns examples). ES2.10.1 restricts noninteger LPUART clock/baud ratios between3 and4; see LPUART errata gates. SPI RDY erratum thresholds are SCK>2x/6x/14x APB for8..15/16..23/24..32-bit data.",
+        "evidence": [
+          "DS15135:p88",
+          "DS15135:p89",
+          "DS15135:p90",
+          "DS15135:p91",
+          "DS15135:p92",
+          "DS15135:p93",
+          "DS15135:p94",
+          "ES0676:p10",
+          "ES0676:p8",
+          "ES0676:p9"
+        ]
+      },
+      {
+        "id": "debug_USB",
+        "detail": "USB transceiver electrical range3.0..3.6V, functionality2.7V with degraded characteristics; internal matching means no external series termination required by DS. JTAG34MHz andSWD71MHz are characterization maxima under specified output/load conditions, not automatic safe probe settings. Current task does not activate/debug hardware. Debug timing conditions are OSPEED10, CL30 pF and measurement at0.5 VDD.",
+        "evidence": [
+          "DS15135:p94",
+          "DS15135:p95",
+          "DS15135:p96"
+        ]
+      },
+      {
+        "id": "package_thermal",
+        "detail": "Exact LQFP64 body10x10mm, lead span12x12mm,pitch0.5mm,maxheight1.60mm; mechanical tolerances and drawing notes retained. LQFP64 thermal resistance JA45.3,JB27.6,JC14.2C/W are table values requiring actual board/environment qualification. TJ=TA+PD*theta; I/O dissipation sums VOL*IOL and(VDDIO-VOH)*IOH (visualformula), with internal power included. Do not substitute absolute150C for suffix6 TJ105C. Thermal table cites JESD51-2 natural convection.",
+        "evidence": [
+          "DS15135:p115",
+          "DS15135:p116",
+          "DS15135:p117",
+          "DS15135:p118",
+          "DS15135:p51"
+        ]
+      },
+      {
+        "id": "EMC_ESD_scope",
+        "detail": "EMC/ESD/injection/latch-up values characterize stated test conditions, not application certification or immunity. LQFP64 HBM exceptionPC15 is3100V versus4000V for other pins perDS69 footnote; no permission to conduct destructive electrical tests follows from this source survey. LQFP64 CDM is1000 V versus1250 V for other packages. Table44 heading says design-specified while its footnote1 says characterization; preserve that provenance discrepancy.",
+        "evidence": [
+          "DS15135:p68",
+          "DS15135:p69",
+          "DS15135:p70"
+        ]
+      }
+    ],
+    "source_derived_SDK_gates": [],
+    "conflicts": [
+      {
+        "id": "supply_boilerplate",
+        "detail": "DS48 typical-data boilerplate refers1.62..3.6V but exact general table51 gives2.7..3.6V. OPAMP analog row gives2.5V minimum and flashprogram2.65V; these do not lower product standard operating voltage. The Table17 reset-release/PDR exception is retained in supply_and_decoupling; it does not by itself extend all peripheral specifications.",
+        "evidence": [
+          "DS15135:p48",
+          "DS15135:p51",
+          "DS15135:p67",
+          "DS15135:p85",
+          "DS15135:p52"
+        ]
+      },
+      {
+        "id": "HSE_frequency",
+        "detail": "DS61 prose says4..48MHz crystal while table34 says4..50MHz. Preserve boundary conflict; do not silently admit49/50MHz crystal based solely on one source statement. PSI reference table also lists HSE25 or50 MHz without identifying crystal versus bypass.",
+        "evidence": [
+          "DS15135:p61",
+          "DS15135:p65"
+        ]
+      },
+      {
+        "id": "ADC_6bit_rate",
+        "detail": "DS76 table53 lists4.5MSPS at6bits/36MHz/SMP2.5; DS79 graph labels3.6MSPS, which agrees with DS77 tS+1.5+N giving10cycles. Both values visually/source-bound; no4.5MSPS admission.",
+        "evidence": [
+          "DS15135:p76",
+          "DS15135:p77",
+          "DS15135:p79"
+        ]
+      },
+      {
+        "id": "DAC_resistive_load",
+        "detail": "DS84 visually printsRL>=5Ohm in several accuracy rows but5kOhm inTUE/SNR and normal-load requirements elsewhere, plus25kOhm for loadtoVDDA. Do not use5Ohm as drive capability.",
+        "evidence": [
+          "DS15135:p81",
+          "DS15135:p82",
+          "DS15135:p84"
+        ]
+      },
+      {
+        "id": "DAC_buffer_field",
+        "detail": "DS83 figure text saysBOFFx inDAC_CR; existing exact DAC contract usesMCRMODE fields. Retain diagram family wording rather than inventing BOFF.",
+        "evidence": [
+          "DS15135:p83"
+        ]
+      },
+      {
+        "id": "timer_family_and_clock",
+        "detail": "DS87 includes nonexistentTIM5/16/17 and genericexternalclockfTIM/2; exact timer source contracts impose instance-specific filters and ratios. DS88 IWDG prescaler shows3bits/alias6or7 while exact watchdog source contract must govern any wider field. Do not derive instances or timer admission from this family timing footnote. Exact overview lists TIM2/TIM12/TIM15.",
+        "evidence": [
+          "DS15135:p87",
+          "DS15135:p88",
+          "DS15135:p21"
+        ]
+      },
+      {
+        "id": "serial_references_measurement",
+        "detail": "DS89 operating conditions cross-reference saysnotfound; DS93 saysTablexx. SPI DS91 measurement0.5VDD differs from diagram notesDS92/93 using0.3/0.7VDD; preserve timing qualification ambiguity. DS91 TSCK formula referencesPCLK while independent SPI kernel clock exists; no unconditional use ofPCLK in divisor calculations.",
+        "evidence": [
+          "DS15135:p89",
+          "DS15135:p91",
+          "DS15135:p92",
+          "DS15135:p93"
+        ]
+      },
+      {
+        "id": "debug_figures",
+        "detail": "Rendered DS95/96 captions say JTAG/SWD but the figures show SPI CPHA/CPOL/NSS/MOSI/MISO timing labels. Drawing IDs DT40458V2/DT40459V2 also occur in SPI slave figures on DS92. This is a source diagram defect, not text extraction damage. Tables remain separate evidence; these copied figures cannot define SWD turnarounds.",
+        "evidence": [
+          "DS15135:p95",
+          "DS15135:p96",
+          "DS15135:p92"
+        ]
+      },
+      {
+        "id": "LSE_errata",
+        "detail": "DS62 listsLSEDRV00low-drive capability; ES2.2.3 says low drive not functional onZ/Y. ES2.2.1analog bypass limitation and2.2.2PC13coupling likewise restrict datasheet oscillator envelope.",
+        "evidence": [
+          "DS15135:p60",
+          "DS15135:p62",
+          "ES0676:p2",
+          "ES0676:p4",
+          "ES0676:p5"
+        ]
+      },
+      {
+        "id": "GPIO_scope",
+        "detail": "DS72 excludesPC13/14/15 from ordinary drive and gives shared3mAsource; table48excludesonlyPC14/15 and table50excludesonlyPC13. Preserve simultaneous restrictions; no generic table overrides specific low-drive/oscillator restrictions.",
+        "evidence": [
+          "DS15135:p72",
+          "DS15135:p73",
+          "DS15135:p74"
+        ]
+      },
+      {
+        "id": "calibration_endpoint",
+        "detail": "DS53 printsVREFINT_CAL address08FFF810..08FFF812, an inclusive3byte span unlike usual16bit SDK calibration access; exact source/calibration-width reconciliation remains required. Do not read a3byte unaligned word because of the table endpoint. RM141 allocates32-bit slots at F810(VREFINT),F814(TS_CAL1),F818(TS_CAL2), while DS81 TS_CAL ranges are two bytes. Slot width versus value width remains distinct and unresolved for the DS VREFINT endpoint.",
+        "evidence": [
+          "DS15135:p53",
+          "RM0522:p141",
+          "DS15135:p81"
+        ]
+      },
+      {
+        "id": "HSI_maximum_clock",
+        "detail": "DS63 factory HSI frequency at3.3 V/TJ30 C is144.07..145.08 MHz, production-tested, exceeding DS51 maximum HCLK144 MHz if used undivided. Preserve this source tension; nominal144 MHz alone does not prove maximum-frequency compliance.",
+        "evidence": [
+          "DS15135:p63",
+          "DS15135:p51"
+        ]
+      }
+    ],
+    "package_routes_sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288",
+    "finite_source_maps": {
+      "temperature_grade": {
+        "suffix": 6,
+        "ambient_C": [
+          -40,
+          85
+        ],
+        "junction_C": [
+          -40,
+          105
+        ]
+      },
+      "general_supply_V": [
+        2.7,
+        3.6
+      ],
+      "HCLK_PCLK_max_Hz": 144000000,
+      "ADC_clock_Hz": [
+        8000000,
+        36000000
+      ],
+      "EXTI_pulse_min_ns": 20,
+      "LQFP64_thermal_C_per_W": {
+        "JA": 45.3,
+        "JB": 27.6,
+        "JC": 14.2
+      },
+      "GPIO_Fmax_MHz_at_50_30_10pF": {
+        "0": [
+          4,
+          4,
+          4
+        ],
+        "1": [
+          12,
+          12,
+          12
+        ],
+        "2": [
+          45,
+          50,
+          55
+        ],
+        "3": [
+          90,
+          96,
+          110
+        ]
+      },
+      "qualification": "source_values_only_conditions_in_contracts_not_executable_admission",
+      "evidence": [
+        "DS15135:p51",
+        "DS15135:p74",
+        "DS15135:p76",
+        "DS15135:p118",
+        "DS15135:p119"
+      ]
+    },
+    "visual_checks": [
+      {
+        "path": "research://c5-reference/electrical-ds51.png",
+        "sha256": "269fb31baac5c6b41a534d21b9a66c2057bb40830df4781ccd71fc731f255cac",
+        "page": 51,
+        "finding": "Selected table/graph values and units visually verified; no hardware qualification."
+      },
+      {
+        "path": "research://c5-reference/electrical-ds74.png",
+        "sha256": "22b84a02e5881d75919a45a9b14139a502b28438786254b5a217a13bafbef282",
+        "page": 74,
+        "finding": "Selected table/graph values and units visually verified; no hardware qualification."
+      },
+      {
+        "path": "research://c5-reference/electrical-ds76.png",
+        "sha256": "e122dd1ec0d0b3925555912800c1090856be1d7987542696c26ac66ed7bf1210",
+        "page": 76,
+        "finding": "Selected table/graph values and units visually verified; no hardware qualification."
+      },
+      {
+        "path": "research://c5-reference/electrical-ds79.png",
+        "sha256": "bf10776118d5ed2ed0af8a34636a6c02945c5c441312c60646f75918f26baf05",
+        "page": 79,
+        "finding": "Selected table/graph values and units visually verified; no hardware qualification."
+      },
+      {
+        "path": "research://c5-reference/electrical-ds84.png",
+        "sha256": "6e3c8c7524102766d54ab59622f52ae3f76ede31a116ba44d6ccb5c89de15f8a",
+        "page": 84,
+        "finding": "Selected table/graph values and units visually verified; no hardware qualification."
+      },
+      {
+        "path": "research://c5-reference/electrical-ds118.png",
+        "sha256": "e3196ea5f93930de8b45619f6217a716c4274049dee6c80a10ccff793f36be88",
+        "page": 118,
+        "finding": "Selected table/graph values and units visually verified; no hardware qualification."
+      },
+      {
+        "path": "research://c5-reference/electrical-ds58.png",
+        "sha256": "f4f3bd43907c44eb5eedc356850accc1271b33b93d408b5b808fcb70eb8858f5",
+        "source": "DS15135",
+        "page": 58,
+        "source_sha256": "1a3555f799297774a95978ab343ebc1f45ab9ef58d0dcf3600dec4fabed9355c",
+        "render_recipe": "pdftoppm -f 58 -l 58 -scale-to 1800 -png -singlefile",
+        "finding": "Table31 typical and maximum cells merge across Stop0/Stop1; rejected text-only review suggestion to exclude Stop1."
+      },
+      {
+        "path": "research://c5-reference/electrical-ds95.png",
+        "sha256": "3f78502b12f2cb6f3483acdc2cc47e49abe7844d74b859b33570048edecf4489",
+        "source": "DS15135",
+        "page": 95,
+        "source_sha256": "1a3555f799297774a95978ab343ebc1f45ab9ef58d0dcf3600dec4fabed9355c",
+        "render_recipe": "pdftoppm -f 95 -l 95 -scale-to 1500 -png -singlefile",
+        "finding": "JTAG/SWD caption paired with SPI waveform labels and drawing ID visually confirmed."
+      },
+      {
+        "path": "research://c5-reference/electrical-ds96.png",
+        "sha256": "82d71f253618a68226e56f1e20780f1d09303302ba92bd57c37f6a192b961e94",
+        "source": "DS15135",
+        "page": 96,
+        "source_sha256": "1a3555f799297774a95978ab343ebc1f45ab9ef58d0dcf3600dec4fabed9355c",
+        "render_recipe": "pdftoppm -f 96 -l 96 -scale-to 1500 -png -singlefile",
+        "finding": "JTAG/SWD caption paired with SPI waveform labels and drawing ID visually confirmed."
+      }
+    ],
+    "open_gates": [
+      "Complete scalar-table transcription and all graph/diagram digitization not established.",
+      "Exact board as-built components, oscillator/load/supply/thermal state and analog measurement unknown.",
+      "Package IO-label and PA5 DAC identity conflicts unresolved; accepted routes not mutated.",
+      "Referenced application notes/standards not hash-pinned here; no compliance or application certification.",
+      "No electrical, performance, build or hardware qualification; source conditions are necessary constraints, not sufficient admission.",
+      "Actual silicon revision is unknown. Apply ES revision matrix explicitly: COMP simultaneous-use restriction is RevZ, not RevY; LSE restrictions apply Z/Y."
+    ]
+  }
+}

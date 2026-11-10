@@ -1,0 +1,1448 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/tim12-contracts.json",
+    "sha256": "339c54d0fb725d1ade54a10dcd19e79cc32445e7c2ab70e907be3c41bc386747"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 115
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "schema": "bkpt.external.tim12.contracts.v1",
+    "review": "independent_source_review_pending",
+    "scope": "Exact TIM12 full RM chapter and bounded shared SDK lifecycle; no DMA capability.",
+    "sources": {
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "HAL_TIM": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_tim.c",
+        "sha256": "4c291c794c90050e75c8bb9f9da2d49ade984085f558088ce65eaf01824933e3"
+      },
+      "LL_TIM": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_tim.h",
+        "sha256": "519e86c7740606eb87fbc6b5ebf7910e90256203d967feca07b3462f02431568"
+      },
+      "HAL_DEF": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_def.h",
+        "sha256": "44149fa34fae22a75c3cfdf6607c5047d9f01141ba683b9b905c953ca31fb338"
+      },
+      "HAL_RCC": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_rcc.c",
+        "sha256": "241ee550685a75c6fcb02006ac3517c3a3c269d6f5cddface18c83ad70b6748f"
+      },
+      "package-routes": {
+        "path": "research://c5-reference/package-routes.json",
+        "sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288"
+      },
+      "errata": {
+        "path": "research://c5-reference/errata.json",
+        "sha256": "821c22f796a9ff723afee534fe5943c2b0506325ec871d890706d94414316416"
+      },
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "DS15135": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pdf",
+        "sha256": "1a3555f799297774a95978ab343ebc1f45ab9ef58d0dcf3600dec4fabed9355c",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pages.json",
+        "extraction_sha256": "b14b965adb6c1545edbca0e56b3c504e7ecc3a94bda197350ce2757b5a3d55dc"
+      },
+      "ES0676": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pdf",
+        "sha256": "a5463827337bcdbd3e5f2e0912a56307d78b568e5631b21cc9a25899c7d4a5e6",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pages.json",
+        "extraction_sha256": "2ab1b19e42b53e22ff5f3b98f6ed9a5f98f3b7b61a617abc3bb3b7fc050d1cb3"
+      },
+      "DS_table6_visual": {
+        "path": "research://c5-reference/tim12-datasheet-table6.png",
+        "sha256": "eb2c2a78ff0be23b250e282e105334bc1dd444bbfc3e34c86c4a91c0f3bf62de"
+      }
+    },
+    "evidence": {
+      "RM0522:p1281": {
+        "source": "RM0522",
+        "page": 1281,
+        "sha256": "a0980b57d517722388269fbfc4777cd6ddd77174ede1447e42054af8020eb7b8"
+      },
+      "RM0522:p1282": {
+        "source": "RM0522",
+        "page": 1282,
+        "sha256": "6b040fea8b48e3aa0bac095304c41feb3f81c64530719d7cef659260b17e1bfe"
+      },
+      "RM0522:p1283": {
+        "source": "RM0522",
+        "page": 1283,
+        "sha256": "8cdad2fbed6e7e8e3d7d96b68f053e174432ba9864184dc44becd738b6c7e7ba"
+      },
+      "RM0522:p1284": {
+        "source": "RM0522",
+        "page": 1284,
+        "sha256": "9873b8aeff3a08cf93e0889a4bad5e291f6356bcf070ffa1d1d28ab35129e4b9"
+      },
+      "RM0522:p1285": {
+        "source": "RM0522",
+        "page": 1285,
+        "sha256": "64d6f97d82799ba361250c8e21af6ad44005daa70cbcc2753b59474268c1b411"
+      },
+      "RM0522:p1286": {
+        "source": "RM0522",
+        "page": 1286,
+        "sha256": "b296f41575e70ae610fcb93065c0043f433cfc3d5c53f07fd335557fb7342609"
+      },
+      "RM0522:p1287": {
+        "source": "RM0522",
+        "page": 1287,
+        "sha256": "7161fdb2c3afc0cf587fe857b3dde04901e16c3851d217a6354df3a3ab3ed02c"
+      },
+      "RM0522:p1288": {
+        "source": "RM0522",
+        "page": 1288,
+        "sha256": "a8ebb5a64f12ffb421fc9cb07fe74dd5d9704e6bd770f0b97ae095ea1efd0c03"
+      },
+      "RM0522:p1289": {
+        "source": "RM0522",
+        "page": 1289,
+        "sha256": "3ca893f9b06043a3cb0f4a292919b85877d292678ab4c3fde2fc967f1ed83c7e"
+      },
+      "RM0522:p1290": {
+        "source": "RM0522",
+        "page": 1290,
+        "sha256": "3348868a3fd93d2c008b5d0e70e6bf2a8afa5ba664e7e4f66ed12810ce8b2754"
+      },
+      "RM0522:p1291": {
+        "source": "RM0522",
+        "page": 1291,
+        "sha256": "8d5c2ac700d2a892b0b4f7909faef6459871d2c4529a2e3ce01de332aefa8603"
+      },
+      "RM0522:p1292": {
+        "source": "RM0522",
+        "page": 1292,
+        "sha256": "a52fbb634acea053498228e4f4a870ee3fc123630a366eeffb37ded418fc6add"
+      },
+      "RM0522:p1293": {
+        "source": "RM0522",
+        "page": 1293,
+        "sha256": "9c7c59867613b68f169c28d641d74bf3a0e734aa8f7263fa2ae7e215dc89c4da"
+      },
+      "RM0522:p1294": {
+        "source": "RM0522",
+        "page": 1294,
+        "sha256": "45ef65544672718d4f9d1196687b8fc91049a9bc8d79565115ee9a0291aebac7"
+      },
+      "RM0522:p1295": {
+        "source": "RM0522",
+        "page": 1295,
+        "sha256": "61a0e9d9d9ee840b4f3f4408bf6588f1fe6ea7e346f5f6b2ac4f1d935038f705"
+      },
+      "RM0522:p1296": {
+        "source": "RM0522",
+        "page": 1296,
+        "sha256": "d9536737045070e619d8c49fc34372b8390d7a40b9450f0f06ab637761a48c7e"
+      },
+      "RM0522:p1297": {
+        "source": "RM0522",
+        "page": 1297,
+        "sha256": "03888701e0d14fd142f38c995494f61a1aa295656a74d758cffba7810106a675"
+      },
+      "RM0522:p1298": {
+        "source": "RM0522",
+        "page": 1298,
+        "sha256": "592bca517fb8ea5caa0d91cbf2c4656578d9955d721c420bd368af48e28531bb"
+      },
+      "RM0522:p1299": {
+        "source": "RM0522",
+        "page": 1299,
+        "sha256": "78bb335fbf41521f7058a5a7542ad47ac39c2c92578a4443eb59d8e87a52facb"
+      },
+      "RM0522:p1300": {
+        "source": "RM0522",
+        "page": 1300,
+        "sha256": "27a0b32251cb3b7c39d206b0c7fcf7cbc4d7ba124f23dbbdf34600d8478068d5"
+      },
+      "RM0522:p1301": {
+        "source": "RM0522",
+        "page": 1301,
+        "sha256": "d625112a0cbd78e233b74bde5031e6bd26da67d7f2e1c94c568e834c18337de1"
+      },
+      "RM0522:p1302": {
+        "source": "RM0522",
+        "page": 1302,
+        "sha256": "4d3bcb945baef136876eb7de365665089a1a57c43c640b0c0e57ee69a64e7bd7"
+      },
+      "RM0522:p1303": {
+        "source": "RM0522",
+        "page": 1303,
+        "sha256": "edcc866499cb82a15244124da546e8f9cba5c2deeeeda966ab9921f5ebbf8d59"
+      },
+      "RM0522:p1304": {
+        "source": "RM0522",
+        "page": 1304,
+        "sha256": "2e7c62109c058ee2fcbea71f416886d3c441e9e50fbf89dc27e59d7ae1870e29"
+      },
+      "RM0522:p1305": {
+        "source": "RM0522",
+        "page": 1305,
+        "sha256": "3e8994a461b78ebaa7641ce9ce5855b37f98002127e0dad6f160f756a5be0044"
+      },
+      "RM0522:p1306": {
+        "source": "RM0522",
+        "page": 1306,
+        "sha256": "aafd8be5817f72f281d4849064e6f97d01dbc165e8bba21f054b8f7caf274d47"
+      },
+      "RM0522:p1307": {
+        "source": "RM0522",
+        "page": 1307,
+        "sha256": "0216b66d41dd20e2fd623b6c95eec94c1f9474a9b709f483941079c05e95673e"
+      },
+      "RM0522:p1308": {
+        "source": "RM0522",
+        "page": 1308,
+        "sha256": "6ce10e5c4dcf424ffabbd77059fb8b5970d69e86f84ee8e8e068a8d9cb56346e"
+      },
+      "RM0522:p1309": {
+        "source": "RM0522",
+        "page": 1309,
+        "sha256": "f8b63abffc681af365037edd13b4bf6f8aba627888287495fa7c12a633ad1c59"
+      },
+      "RM0522:p1310": {
+        "source": "RM0522",
+        "page": 1310,
+        "sha256": "eae03dc0d19fcdfa4b6d7b2566f6609122bab94ed607b4c9abc33bada65781aa"
+      },
+      "RM0522:p1311": {
+        "source": "RM0522",
+        "page": 1311,
+        "sha256": "4d949e67c159638b16def48af31104d7a28beb365248ec8a322f48b342f1972d"
+      },
+      "RM0522:p1312": {
+        "source": "RM0522",
+        "page": 1312,
+        "sha256": "23777cc2c5db48ce6d0dcda898fcbbc8c0fafc444962bc8bbed9c64f15c8e2f1"
+      },
+      "RM0522:p1313": {
+        "source": "RM0522",
+        "page": 1313,
+        "sha256": "ba581bfa7ca81c3c6de8f77cedeeaf92018cfce0b203cd612bbfd11426b6f682"
+      },
+      "RM0522:p1314": {
+        "source": "RM0522",
+        "page": 1314,
+        "sha256": "9f672b2e8b5af021c4c7dcf85c2bb00bdd43f944c31f8f3a2e3dfa6b9269c554"
+      },
+      "RM0522:p1315": {
+        "source": "RM0522",
+        "page": 1315,
+        "sha256": "b80e9fbf058e6a41451aaf46ce774cd90a7f400da6686c89674e4ea631be0441"
+      },
+      "RM0522:p1316": {
+        "source": "RM0522",
+        "page": 1316,
+        "sha256": "cd8012069cde73593e5332fefb262b9b19809d62f7b84399827a632702cf0133"
+      },
+      "RM0522:p1317": {
+        "source": "RM0522",
+        "page": 1317,
+        "sha256": "86c3e942150131e56c540c9c34bc7ca684e127f554e5c4514dcd887ff2561661"
+      },
+      "RM0522:p1318": {
+        "source": "RM0522",
+        "page": 1318,
+        "sha256": "a555c19189e25a12c60afbcf6dce898b7a2dd4b38e2c2023c610f65052172483"
+      },
+      "RM0522:p1319": {
+        "source": "RM0522",
+        "page": 1319,
+        "sha256": "68f810914ccc4b084e539aaf29fb1739e16e3236fee7afeaefc25b56ed0a74d9"
+      },
+      "RM0522:p1320": {
+        "source": "RM0522",
+        "page": 1320,
+        "sha256": "4896dc01fb056f320f81500709fe8a406fe72358ba6b78654883ff71954d255a"
+      },
+      "RM0522:p1321": {
+        "source": "RM0522",
+        "page": 1321,
+        "sha256": "305e259ddf5f5f878679884d3571615c69382d1e0f5f77dc07a12273d9188417"
+      },
+      "RM0522:p1322": {
+        "source": "RM0522",
+        "page": 1322,
+        "sha256": "7c0f44edadfc7cec3caef95c91a7a0842ca91c0157ba2f0c8f608fc603883d53"
+      },
+      "RM0522:p1323": {
+        "source": "RM0522",
+        "page": 1323,
+        "sha256": "5dd81b81b8dd4c3b62e60cf01b2dcfde57943cb4a00d87be74b76ff2f448fe5a"
+      },
+      "RM0522:p1324": {
+        "source": "RM0522",
+        "page": 1324,
+        "sha256": "ba7c2a97d324f6da824cd03c461de3eee23a6ef8ada24757b88c85fa3dca9a47"
+      },
+      "RM0522:p1325": {
+        "source": "RM0522",
+        "page": 1325,
+        "sha256": "a2f4108d68712f767102f3bb1d14bd741d82461ffa544d4d64318d5738c5f58a"
+      },
+      "RM0522:p1326": {
+        "source": "RM0522",
+        "page": 1326,
+        "sha256": "6a1ee486c332ec1c13976d2032f4c7c94520409408d9ddc21e3df3f1f3dc07d3"
+      },
+      "RM0522:p1327": {
+        "source": "RM0522",
+        "page": 1327,
+        "sha256": "7c39e9c6c720c1b55f7012485282059390a978446fd098363b6bae6410c210f6"
+      },
+      "RM0522:p1328": {
+        "source": "RM0522",
+        "page": 1328,
+        "sha256": "74a8b41a55630eaaa683e3838fd4e88ee05466d3ae940f0d3605ad05de2a3259"
+      },
+      "RM0522:p1329": {
+        "source": "RM0522",
+        "page": 1329,
+        "sha256": "395af72a136d849b296f2a2219ef060b92ab42bd55600d1eac40e4a0cf153219"
+      },
+      "RM0522:p1330": {
+        "source": "RM0522",
+        "page": 1330,
+        "sha256": "f69426c548e3b81c2b3bb1bad45e37737a62fefe121eee6cbfb3b103a8ea59ac"
+      },
+      "RM0522:p1331": {
+        "source": "RM0522",
+        "page": 1331,
+        "sha256": "96279599aa0deded34b1c5e9a7567c57a4a4e029121940ee246b029aa1da8559"
+      },
+      "RM0522:p1332": {
+        "source": "RM0522",
+        "page": 1332,
+        "sha256": "9e634bcd1a3df03023172521cb24d05b6e2c99714074cffde549f0d8355ddc9f"
+      },
+      "RM0522:p1333": {
+        "source": "RM0522",
+        "page": 1333,
+        "sha256": "bd1622c668dd373da02bc2bc5cc97df2c78d5a18d6f4d50d466aadb52e5adcf5"
+      },
+      "RM0522:p259": {
+        "source": "RM0522",
+        "page": 259,
+        "sha256": "4ef8d451a67ffff89db1f60ec3106581d20c9738e539586b32202873a3404fe4"
+      },
+      "RM0522:p2541": {
+        "source": "RM0522",
+        "page": 2541,
+        "sha256": "2c46b817302497caf225a9923cc7aa3a4d65f0e7f02a70c47f8fdd6407804276"
+      },
+      "DS15135:p20": {
+        "source": "DS15135",
+        "page": 20,
+        "sha256": "5fce2a7fa8c3453b62555c778af0d5106fe8c755a4cdb66b2cca792e7e63f0da"
+      },
+      "DS15135:p21": {
+        "source": "DS15135",
+        "page": 21,
+        "sha256": "415dcce808abcec03ac5103b525a2967fd1bac5bcddf7b1222d9a2679ba3ea2b"
+      },
+      "DS15135:p46": {
+        "source": "DS15135",
+        "page": 46,
+        "sha256": "6d3ea235bffc5fd4cc64517ff32cd2b29a37014ab6305628204e1fd9f3146269"
+      },
+      "DS15135:p47": {
+        "source": "DS15135",
+        "page": 47,
+        "sha256": "a55c52b1f30142be5ad3fea2a1cc16b519930dd08b32d16d646101500967a3b1"
+      },
+      "DS15135:p87": {
+        "source": "DS15135",
+        "page": 87,
+        "sha256": "39e7fa5fb37cbbd7fc739e4bf5ba08684b9bc79dacd69e53d1212545370c07f8"
+      },
+      "ES0676:p1": {
+        "source": "ES0676",
+        "page": 1,
+        "sha256": "c36bb50f3ba55f82de59b1a5aa62c5ca6b1d3ea938ac9451545a442e65dd25c8"
+      },
+      "ES0676:p2": {
+        "source": "ES0676",
+        "page": 2,
+        "sha256": "3fed5303e4a0fc65ed4dbe6aae1c297605837e2da15bb0e24928d26b0d25eb95"
+      },
+      "ES0676:p3": {
+        "source": "ES0676",
+        "page": 3,
+        "sha256": "6682207b964f905ea8f0e452bc5cff546dfb08622fca9ce2f979b0e43cd6d157"
+      },
+      "ES0676:p4": {
+        "source": "ES0676",
+        "page": 4,
+        "sha256": "3b0e6d179a6d3b6701ddfa31ce87f44ef4d62c59d79a1f01184c77a212d7774c"
+      },
+      "ES0676:p5": {
+        "source": "ES0676",
+        "page": 5,
+        "sha256": "b1c29e54e422b77b7a01a6dea47789196c0a8d23aed2f9a68f6a91698ae66d9d"
+      },
+      "ES0676:p6": {
+        "source": "ES0676",
+        "page": 6,
+        "sha256": "67192cb102783988744a71ca6f88c36b938faf48d360a4834496df7e76a4b915"
+      },
+      "ES0676:p10": {
+        "source": "ES0676",
+        "page": 10,
+        "sha256": "68b80618adcb6cf1f68aa4d5221444fc774b33c9a168223465e8f9334996a4aa"
+      },
+      "HAL.period_guard": {
+        "source": "HAL_TIM",
+        "start_line": 884,
+        "end_line": 935,
+        "sha256": "6f6360fd03b9aff183664b07b06b716a36b479ba5956a0d8e893e02206a1870e"
+      },
+      "HAL.config": {
+        "source": "HAL_TIM",
+        "start_line": 3880,
+        "end_line": 3954,
+        "sha256": "8dc61a3b977697dbfcbf655073782fadbc1592af74dd91443927757ebba8ca76"
+      },
+      "HAL.period_setters": {
+        "source": "HAL_TIM",
+        "start_line": 3995,
+        "end_line": 4058,
+        "sha256": "021d3a154ef3d4bacb58475c967eaac8683d7d1ec2aea82ade039228f7591555"
+      },
+      "HAL.clock": {
+        "source": "HAL_TIM",
+        "start_line": 2742,
+        "end_line": 2802,
+        "sha256": "0b492ed8f2795a848099070715e7a3e604649ba2120c0b6705ca89fb8860ef46"
+      },
+      "HAL.init_deinit": {
+        "source": "HAL_TIM",
+        "start_line": 3650,
+        "end_line": 3757,
+        "sha256": "868d04a36e3876202a59f461af2e32797c136f5b6fb07a50cb11f0e26420d346"
+      },
+      "HAL.dithering": {
+        "source": "HAL_TIM",
+        "start_line": 4620,
+        "end_line": 4654,
+        "sha256": "7f9b9eaa675c35d3a3f251e80fc659228273052805529e1a08168170801665c3"
+      },
+      "HAL.start_stop": {
+        "source": "HAL_TIM",
+        "start_line": 4725,
+        "end_line": 4837,
+        "sha256": "8c6029186f9e92c71f2e63193a536ba88afbe8c2b4ec1d8862dcec9a251f3e89"
+      },
+      "HAL.one_pulse": {
+        "source": "HAL_TIM",
+        "start_line": 6841,
+        "end_line": 6868,
+        "sha256": "dcfa1f6bb56be23226ddd2ea4d78a32c99b7e2f0de986dc5763a926ba5e62266"
+      },
+      "HAL.TRGO": {
+        "source": "HAL_TIM",
+        "start_line": 7209,
+        "end_line": 7226,
+        "sha256": "55efc25ae73b007b51623c02de8a63bc6b9c10c57916e243cb5a4d4e55302ad8"
+      },
+      "HAL.ADCSYNC": {
+        "source": "HAL_TIM",
+        "start_line": 7558,
+        "end_line": 7592,
+        "sha256": "b2fa4d55a8f554f94698c6f4ec2647bba5972fc11e7c83d1410b1d34f7e3e4e6"
+      },
+      "HAL.update_IRQ": {
+        "source": "HAL_TIM",
+        "start_line": 9660,
+        "end_line": 9675,
+        "sha256": "31a204710c568737a5d3b7c911c3f0b2f4c817b8044a6e8f99544ca4419ad644"
+      },
+      "header.IRQ": {
+        "source": "header",
+        "start_line": 90,
+        "end_line": 115,
+        "sha256": "e4060034f28415333d1176c4dfb306876d323bd5cbc510aab454fa98df6060d1"
+      },
+      "header.bases": {
+        "source": "header",
+        "start_line": 1161,
+        "end_line": 1210,
+        "sha256": "b316487e84a84ddd383e1d880e9288939a7d09b7d73be980d17c7d9a25ca3232"
+      },
+      "header.instances": {
+        "source": "header",
+        "start_line": 1303,
+        "end_line": 1335,
+        "sha256": "3084a1913d381502ca2d750aed240171836d7ed42442d3c2afc6823d8b05cbaa"
+      },
+      "header.features": {
+        "source": "header",
+        "start_line": 14163,
+        "end_line": 14317,
+        "sha256": "d482132a562f69471fed32d40eb5e1291c1161132e455bd967c712f71a18c24f"
+      },
+      "HAL.state_macro": {
+        "source": "HAL_DEF",
+        "start_line": 101,
+        "end_line": 131,
+        "sha256": "562a3650fd4ae28aa3827ab5bd383cbbd6c1fba84d26a2efa475b966614d12df"
+      },
+      "HAL.clock_frequency": {
+        "source": "HAL_RCC",
+        "start_line": 3653,
+        "end_line": 3667,
+        "sha256": "d7819ea5faa19f6cabbc0dd1d9f088cba32a776866fff511426d9ce0fe30caa4"
+      },
+      "HAL.mode_guard": {
+        "source": "HAL_TIM",
+        "start_line": 1280,
+        "end_line": 1352,
+        "sha256": "246b10bcebc7757bd3eb72a603c03ac49d7575ad7b752484e15c29e45eceead3"
+      },
+      "HAL.remap": {
+        "source": "HAL_TIM",
+        "start_line": 2831,
+        "end_line": 2840,
+        "sha256": "f9251b437a90e999d3712e1e45a65f310ecd039e5676906ed3b2f56c8d7d4350"
+      },
+      "HAL.OC_compare": {
+        "source": "HAL_TIM",
+        "start_line": 5007,
+        "end_line": 5038,
+        "sha256": "a93eb16d0313519802c2eb51754807fad1c3283d7b6bc7e1f0044fdee20b0349"
+      },
+      "HAL.OC_config": {
+        "source": "HAL_TIM",
+        "start_line": 5335,
+        "end_line": 5380,
+        "sha256": "510e1be7cc28bbcb711f7e7a99184e56403d06b49d483fe9f46dcf59a6fd3057"
+      },
+      "HAL.OC_start_stop": {
+        "source": "HAL_TIM",
+        "start_line": 5625,
+        "end_line": 5695,
+        "sha256": "49af428c0a1f5d005761aeae0f8847763a5eef204c8b0166bb471555da67176f"
+      },
+      "HAL.IC_unit": {
+        "source": "HAL_TIM",
+        "start_line": 6156,
+        "end_line": 6196,
+        "sha256": "172206a565faad0ec08e51a20aba0c453c37bd481798057115a7f97be7cdd0d7"
+      },
+      "HAL.IC_config": {
+        "source": "HAL_TIM",
+        "start_line": 5993,
+        "end_line": 6035,
+        "sha256": "4792b7899e0ef5d625683146c47db198635efd4b2ee24d231cbd1d07134b0e8f"
+      },
+      "HAL.CC_IRQ": {
+        "source": "HAL_TIM",
+        "start_line": 9681,
+        "end_line": 9787,
+        "sha256": "3f2509a1255cef5230dfab47f5fc8639d532adf12fc2e35e69e8a1e1192d6064"
+      },
+      "HAL.IRQ": {
+        "source": "HAL_TIM",
+        "start_line": 9414,
+        "end_line": 9654,
+        "sha256": "3e0e9d715babbccf0463f27b79a3b0bc20e87dffed48e1517f9d9d42ef2fad24"
+      },
+      "HAL.slave": {
+        "source": "HAL_TIM",
+        "start_line": 7143,
+        "end_line": 7178,
+        "sha256": "275bb13333637ed52b960d819f32238d2611ffd8804f58f6a6ec71cece47cda9"
+      },
+      "LL.OC_mode": {
+        "source": "LL_TIM",
+        "start_line": 3172,
+        "end_line": 3178,
+        "sha256": "6e1db1b754df6acc44c2e8ce7cf957f554dd14eb15ece344e0ef7fa08cf8cee7"
+      },
+      "LL.OC_polarity": {
+        "source": "LL_TIM",
+        "start_line": 3267,
+        "end_line": 3275,
+        "sha256": "1e2fee292850c518a0cd30da0dcff3c1e9466f00cdd9df4f16903c2e9a7ecc7e"
+      },
+      "LL.IC_input": {
+        "source": "LL_TIM",
+        "start_line": 4847,
+        "end_line": 4853,
+        "sha256": "d3f5592ce319d43123cadc627df248f3270b0d3470d1c2ab5a99841d4d09526a"
+      },
+      "LL.IC_read": {
+        "source": "LL_TIM",
+        "start_line": 5303,
+        "end_line": 5310,
+        "sha256": "0ab364f6e7592a58d0eecc71a085837b4ef4b1c3119e094329f8949b9703044a"
+      },
+      "LL.TI_write": {
+        "source": "LL_TIM",
+        "start_line": 4577,
+        "end_line": 4580,
+        "sha256": "4948fbf77c2a73f3ba70606964eb5daff012a9a935cc3c05c55f80fbc09b4277"
+      },
+      "LL.counter_read": {
+        "source": "LL_TIM",
+        "start_line": 2635,
+        "end_line": 2638,
+        "sha256": "de85b5b7a5b914b69e85bfbb261f232ef128f400bd82f68d92c5a1c50eb4ce15"
+      },
+      "LL.counter_mode": {
+        "source": "LL_TIM",
+        "start_line": 2451,
+        "end_line": 2454,
+        "sha256": "1b1795c23b10695e47615db98b51849444c63cc15e81038b39b6d923dda5ae63"
+      },
+      "LL.TRGO": {
+        "source": "LL_TIM",
+        "start_line": 5476,
+        "end_line": 5479,
+        "sha256": "e2ecb06150f955b61893eed063b2dc891962e77fbf68b56a905bf328dc4b8253"
+      },
+      "HAL.counter_mode": {
+        "source": "HAL_TIM",
+        "start_line": 4130,
+        "end_line": 4148,
+        "sha256": "6743593d56decc701a436e34e22d13e00bc80deb648522dcfd1a6d6fe0e663f9"
+      },
+      "LL.TIM12_remaps": {
+        "source": "LL_TIM",
+        "start_line": 1844,
+        "end_line": 1866,
+        "sha256": "003e0c3d352dd9dfbca77d925da3b92f553582cd107d4ce1b08f5486af1084a7"
+      },
+      "header.clock": {
+        "source": "header",
+        "start_line": 9125,
+        "end_line": 9127,
+        "sha256": "167094697a10d9df347a21834394988bdd181f183d12de3b9f479ba93f788c5d"
+      },
+      "header.debug": {
+        "source": "header",
+        "start_line": 3489,
+        "end_line": 3492,
+        "sha256": "e5fe2993e61c43829333c7b6ae2906d9e4c4900d5eacdb68b27a73146326a8ba"
+      },
+      "header.reset": {
+        "source": "header",
+        "start_line": 8980,
+        "end_line": 8982,
+        "sha256": "d2a8b278fc8e4d46ed2889055e4b80bb7885666fd71f3e64cd03085bb9aced98"
+      },
+      "header.sleep": {
+        "source": "header",
+        "start_line": 9301,
+        "end_line": 9304,
+        "sha256": "87e906b9fa1721c405052e35e712a9d4834c41c82e02052746dbe27368f5e0f4"
+      },
+      "header.OCM_mask": {
+        "source": "header",
+        "start_line": 11835,
+        "end_line": 11863,
+        "sha256": "658d9efcb88cce9abbf0cd7d44e3d91cd692c37bac109a649997e7acb9aa0df2"
+      },
+      "header.MMS_mask": {
+        "source": "header",
+        "start_line": 11398,
+        "end_line": 11405,
+        "sha256": "d271289f8b33c2c10c3e141739c7b1599e28dfd1c58da02325eca5af0990d535"
+      },
+      "HAL.TRGO_guard": {
+        "source": "HAL_TIM",
+        "start_line": 2210,
+        "end_line": 2221,
+        "sha256": "ec3f8af617da85c564ea195c0f810da0bdedd2a97121f501b939c126ccce4005"
+      },
+      "HAL.ITR_guard": {
+        "source": "HAL_TIM",
+        "start_line": 1193,
+        "end_line": 1218,
+        "sha256": "80fdf75ab4d1ad0b01a903960f4ac6aa4922c48895567f7d73d9867246c0de1b"
+      },
+      "LL.mode_encodings": {
+        "source": "LL_TIM",
+        "start_line": 491,
+        "end_line": 544,
+        "sha256": "c1a41fcde7568c54802bf9b0b0daf1b5ccbd523b224aecbc8bd77fd2ba00ee93"
+      },
+      "RM0522:p271": {
+        "source": "RM0522",
+        "page": 271,
+        "sha256": "d19f60266d8f67a35d953bb0bfda7ec6247a4b6b51d4a36b6361dd6a9ca887c9"
+      },
+      "DS15135:p20:layout": {
+        "source": "DS15135",
+        "page": 20,
+        "text_field": "layout_text",
+        "sha256": "218f930fc6fc3f6f21d6a5f766fb4ac52f68bcad7a7a5be4ed17aee49bbb0518"
+      }
+    },
+    "contracts": [
+      {
+        "id": "exact_resource",
+        "detail": "TIM12 is one 16-bit upcounter with two channels, one shared PSC/ARR/CCMR1, slave/master control and IRQ58. Base0x40001800, APB1L enable/reset/sleep/debug bit6. No down/center counting, encoder, ETR/external-clock2, DMA request/burst, break/complementary output, repetition counter, OCREF clear or TRGO2 is admitted. Family TIM_TypeDef fields are not instance capabilities. DS20 table6 merged general-purpose DMA-generation cell says Yes, while the exact header excludes TIM12 DMA and the exact RM DIER/register map has no DMA request/burst fields. This source conflict does not admit DMA; absence of a routing selector alone is not a hardware capability proof.",
+        "evidence": [
+          "RM0522:p1281",
+          "RM0522:p1320",
+          "RM0522:p1332",
+          "RM0522:p1333",
+          "header.features",
+          "header.IRQ",
+          "header.bases",
+          "header.clock",
+          "header.reset",
+          "header.sleep",
+          "header.debug",
+          "DS15135:p20",
+          "DS15135:p21",
+          "DS15135:p20:layout"
+        ]
+      },
+      {
+        "id": "clock_and_trigger",
+        "detail": "Ordinary timer kernel clock is HCLK under exact RCC configuration; getter is configured frequency, not a measurement. RM requires synchronous kernel/PCLK integer ratio1..16 and TI1/TI2/ITR inputs below kernel/4. Own producer readiness and selected remap; enable destination clock before triggers and do not change its clock while receiving them. Preserve DS external-clock ceiling discrepancy.",
+        "evidence": [
+          "RM0522:p271",
+          "RM0522:p1282",
+          "RM0522:p1283",
+          "RM0522:p1312",
+          "HAL.clock_frequency",
+          "DS15135:p87"
+        ]
+      },
+      {
+        "id": "update_and_timebase",
+        "detail": "PSC divides by raw+1 (1..65536), buffered until UEV. ARR preload follows ARPE; zero ARR blocks counting. UDIS blocks UEV/shadow updates but UG still clears counter/prescaler. URS restricts update interrupt, not all update effects. UG can propagate TRGO. Nominal unsuppressed internal-clock steady overflow is kernel/((PSC+1)*(ARR+1)); trigger resets, OPM and dithering require separate timing.",
+        "evidence": [
+          "RM0522:p1284",
+          "RM0522:p1285",
+          "RM0522:p1286",
+          "RM0522:p1316",
+          "RM0522:p1317",
+          "RM0522:p1329"
+        ]
+      },
+      {
+        "id": "capture_pair_ownership",
+        "detail": "CCxS changes require CCxE0. CCR read consumes CCxIF; repeated capture while flag set raises CCxOF. Read capture before testing overcapture. Capture prescaler1/2/4/8 resets when channel disabled and does not prescale trigger input. PWM input uses both channels, opposite polarity and shared slave reset.",
+        "evidence": [
+          "RM0522:p1294",
+          "RM0522:p1295",
+          "RM0522:p1296",
+          "RM0522:p1323",
+          "RM0522:p1324"
+        ]
+      },
+      {
+        "id": "output_PWM",
+        "detail": "Only OCM0..9,12,13 are described;10,11,14,15 reserved. PWM1/2 preloads and initial UG need explicit configuration. Combined PWM1/2 consumes both references with opposite PWM modes and OR/AND. Forced output still compares and raises flags. CCxE0 disables timer drive but GPIO/board state determines actual pad level. Output CCxNP must be0.",
+        "evidence": [
+          "RM0522:p1296",
+          "RM0522:p1297",
+          "RM0522:p1298",
+          "RM0522:p1303",
+          "RM0522:p1326",
+          "RM0522:p1327",
+          "RM0522:p1328"
+        ]
+      },
+      {
+        "id": "dithering",
+        "detail": "DITHEN modifies only with CEN0. ARR/CCR then use bits19:4 integer and3:0 fractional, raw maximum0xFFFEF. In normal mode upper bits19:16 reset. Fractional increments distribute across16 periods; capture low4 bits zero and CNT only integer. To disable: CEN0 and ARPE0, DITHEN0, clear CCIF, then restart. Average resolution is not individual-period timing.",
+        "evidence": [
+          "RM0522:p1299",
+          "RM0522:p1300",
+          "RM0522:p1301",
+          "RM0522:p1302",
+          "RM0522:p1315",
+          "RM0522:p1329",
+          "RM0522:p1330",
+          "RM0522:p1331"
+        ]
+      },
+      {
+        "id": "one_pulse",
+        "detail": "Ordinary OPM stops CEN at next UEV and needs initial CNT<CCR<=ARR with CCR nonzero. Fast enable acts only PWM1/2. Retriggerable OPM uses SMS8 and OCM8/9 with CCR0 for this upcounter; each new trigger extends pulse. Generic down/center clauses are excluded. Hardware CEN stop does not establish software idle.",
+        "evidence": [
+          "RM0522:p1305",
+          "RM0522:p1306",
+          "RM0522:p1307",
+          "RM0522:p1316"
+        ]
+      },
+      {
+        "id": "slave_and_XOR",
+        "detail": "SMS valid0,4,5,6,7,8,9. Change TS only when unused, e.g. SMS0. Gated modes forbid TI1 edge-detector pulse. Trigger mode may set CEN by hardware; gated/external-clock1 needs software CEN. XOR combines TI1/TI2 with shared pre/post-filter placement and inversion, not extra channels.",
+        "evidence": [
+          "RM0522:p1307",
+          "RM0522:p1308",
+          "RM0522:p1309",
+          "RM0522:p1312",
+          "RM0522:p1316",
+          "RM0522:p1319",
+          "RM0522:p1320"
+        ]
+      },
+      {
+        "id": "ADC_sync",
+        "detail": "ADSYNC requires same-source integer timer/ADC clock ratio and period or compare alignment. Enable ADC clock, configure timer/ADSYNC, enable ADC trigger reception, then start timer. Do not alter during operation. Setting a bit or selecting TRGO does not prove ADC route/readiness or jitter-free timing.",
+        "evidence": [
+          "RM0522:p1312",
+          "RM0522:p1313",
+          "RM0522:p1317"
+        ]
+      },
+      {
+        "id": "flags_access_lowpower",
+        "detail": "IRQ58 combines update/CC1/CC2/trigger. Flags are one-bit history; UIOVRF/CCxOF need loss accounting. Writes are16/32-bit; reads8/16/32-bit per RM1314. UIFREMAP copies UIF to CNT31. Sleep activity also needs RCC sleep gating; Stop stops and retains state, Standby requires reinit. Debug freeze requires HALTED1 and owned bit.",
+        "evidence": [
+          "RM0522:p1307",
+          "RM0522:p1314",
+          "RM0522:p1321",
+          "RM0522:p1322",
+          "RM0522:p1329",
+          "RM0522:p2541",
+          "header.sleep",
+          "header.debug"
+        ]
+      },
+      {
+        "id": "errata_and_oscillator_routes",
+        "detail": "ES revision2 summary has no dedicated TIM12 entry; this is not absence of all composed errata. ES2.4.1 forbids simultaneous COMP1/COMP2 operation on revisionZ, relevant to TI remaps; Y marks that specific limitation not applicable. PC14/PC15 timer routes share oscillator pins: hash-bound board descriptor lists OSC32_IN net93 through R1/SB1 and OSC32_OUT net92 through R2/SB2. These are literal same-net memberships only; actual population/conduction and LSE ownership remain unverified. Apply ES2.2.x LSE restrictions whenever LSE is used and arbitrate oscillator versus timer-pin use.",
+        "evidence": [
+          "ES0676:p2",
+          "ES0676:p3",
+          "ES0676:p4",
+          "ES0676:p5",
+          "ES0676:p6",
+          "RM0522:p1283"
+        ]
+      }
+    ],
+    "source_derived_SDK_gates": [
+      {
+        "id": "mode_and_DMA_exclusion",
+        "detail": "Generic APIs remain visible but exact header excludes TIM12 from DMA/burst/encoder/ETR/counter-mode predicates. These are largely assertion guards; release misuse can access reserved fields. SetConfig correctly skips counter-mode and repetition writes for TIM12, but dedicated counter-mode setter relies on assertion. Enforce exact capability admission before any API.",
+        "evidence": [
+          "header.features",
+          "HAL.config",
+          "HAL.clock",
+          "HAL.counter_mode"
+        ]
+      },
+      {
+        "id": "period_and_mode_validation",
+        "detail": "General period and OC pulse guards accept up to0xFFFEF independent of actual DITHEN; normal mode only16 bits, so acceptance does not preserve requested count. Generic OC mode validator accepts modes reserved on TIM12, including asymmetric modes and combined3/4. Restrict exact OCM domain and actual dithering representation even with debug assertions enabled. SDK OCM is5 bits: LL writes mask0x00030070 and shifted CH2 mask, including bit17/25 reserved on TIM12. Validate full raw code before truncation; combinedPWM3 raw16 would alias frozen0 if only low4 checked, asymmetricPWM9 raw24 would alias OPM8. Require bit4 zero.",
+        "evidence": [
+          "HAL.period_guard",
+          "HAL.mode_guard",
+          "HAL.config",
+          "HAL.OC_compare",
+          "RM0522:p1326",
+          "RM0522:p1329",
+          "RM0522:p1330",
+          "header.OCM_mask",
+          "LL.OC_mode",
+          "LL.mode_encodings",
+          "RM0522:p1325"
+        ]
+      },
+      {
+        "id": "configuration_and_channel_lifetime",
+        "detail": "Init is not a hardware reset. SetConfig changes selected fields and emits UG with temporary URS, without clearing UDIS/OPM/MMS or disabling channels; it resets software channel states. Channel Start/Stop controls CCxE independently from global CEN. Global idle is not proof all channels or pending events are quiescent. The reverse mismatch also occurs: configuring SMS6/8 while IDLE allows a hardware trigger to set CEN. Stop clears CEN but leaves SMS armed, so a later trigger can restart hardware while software remains IDLE. IDLE-only checks in dithering, ADSYNC and channel configuration do not prove CEN0. Quiesce trigger producers and verify actual counter state before restricted writes.",
+        "evidence": [
+          "HAL.init_deinit",
+          "HAL.config",
+          "HAL.OC_start_stop",
+          "HAL.start_stop",
+          "RM0522:p1316",
+          "HAL.slave",
+          "HAL.dithering",
+          "HAL.ADCSYNC",
+          "RM0522:p1315",
+          "RM0522:p1317",
+          "RM0522:p1320"
+        ]
+      },
+      {
+        "id": "capture_conversion",
+        "detail": "Compare/capture-unit configuration relies on global IDLE and does not disable CCxE before CCxS changes. OC polarity changes CCxP without clearing old IC CCxNP. Enforce channel-off and output NP0 before conversion. IC channel config alone does not configure CCxS; capture-unit setup is also required. CCxS3 captures from TRC only with an internal trigger selected; SetConfigCaptureUnit does not validate the current TS selection.",
+        "evidence": [
+          "HAL.OC_compare",
+          "HAL.IC_unit",
+          "HAL.IC_config",
+          "HAL.OC_config",
+          "LL.OC_mode",
+          "LL.OC_polarity",
+          "RM0522:p1323",
+          "RM0522:p1327",
+          "RM0522:p1324"
+        ]
+      },
+      {
+        "id": "IRQ_loss_and_state",
+        "detail": "CC handler snapshots SR/DIER and clears flag before callback rather than reading CCR first; a new capture can overwrite data in that gap and callback read can clear the new flag. It does not account for CCxOF; generic update ignores UIOVRF. Dedicated update handler checks UIE without UIF. Pending-event/drain policy is required; no lossless callback guarantee.",
+        "evidence": [
+          "HAL.CC_IRQ",
+          "HAL.IRQ",
+          "HAL.update_IRQ",
+          "RM0522:p1295",
+          "RM0522:p1321"
+        ]
+      },
+      {
+        "id": "shared_register_sequence",
+        "detail": "HAL remap preserves unrelated selectors with unserialized RMW; LL source setter replaces all selector fields. Slave helper writes SMS before TS without neutralizing trigger first. Dither and ADC-sync helpers do not implement full RM sequencing or consumer readiness. Handle assertions do not serialize alternate handles or interrupts.",
+        "evidence": [
+          "HAL.remap",
+          "LL.TI_write",
+          "HAL.slave",
+          "HAL.dithering",
+          "HAL.ADCSYNC",
+          "RM0522:p1313",
+          "RM0522:p1319"
+        ]
+      },
+      {
+        "id": "TRGO_family_validator",
+        "detail": "HAL_SetTriggerOutput asserts master capability but uses a family validator accepting OC3/OC4 raw6/7 and encoder clock raw8. LL writes full MMS mask including bit25 reserved on TIM12. Only raw0..5 are supported; debug assertions do not enforce this instance-specific domain.",
+        "evidence": [
+          "HAL.TRGO",
+          "LL.TRGO",
+          "HAL.TRGO_guard",
+          "header.MMS_mask",
+          "RM0522:p1316",
+          "RM0522:p1317"
+        ]
+      }
+    ],
+    "conflicts": [
+      {
+        "id": "copied_modes",
+        "detail": "RM1291 clock diagram includes ETR/ECE/external-clock2 despite exact TIM12 lacking them. RM1298/1303/1307/1322 mention center/down modes despite upcounter and CR1 reserved DIR/CMS. Do not import these family features.",
+        "evidence": [
+          "RM0522:p1281",
+          "RM0522:p1291",
+          "RM0522:p1298",
+          "RM0522:p1303",
+          "RM0522:p1307",
+          "RM0522:p1315",
+          "RM0522:p1322",
+          "header.features"
+        ]
+      },
+      {
+        "id": "family_ITR",
+        "detail": "RM1284 lists TIM3/4/5/16/17 trigger sources absent on C542; preserve raw table but exclude unavailable producers. Only ITR0/1/2/6/7/9 correspond to present TIM1TRGO/TRGO2,TIM2TRGO,TIM8TRGO/TRGO2,TIM15TRGO. Exact C542 HAL trigger-selection branch independently allows ITR0/1/2/6/7/9.",
+        "evidence": [
+          "RM0522:p1284",
+          "header.features",
+          "HAL.ITR_guard",
+          "header.instances"
+        ]
+      },
+      {
+        "id": "URS_update",
+        "detail": "RM1309 says UEV generated if URS low; RM1286 and CR1 distinguish UEV/shadow transfer from interrupt suppression. Preserve conflicting summary rather than block all updates with URS1.",
+        "evidence": [
+          "RM0522:p1309",
+          "RM0522:p1286",
+          "RM0522:p1316"
+        ]
+      },
+      {
+        "id": "PWM_comparison",
+        "detail": "RM1298 general sentence says CNT<=CCR while detailed PWM1 same page and OCM1326 use CNT<CCR. Preserve inequality discrepancy.",
+        "evidence": [
+          "RM0522:p1298",
+          "RM0522:p1326"
+        ]
+      },
+      {
+        "id": "trigger_polarity_example",
+        "detail": "RM1311 describes rising edge but programs CC2P1 (inverted/falling according to1328). Use field semantics; example not executable ground truth.",
+        "evidence": [
+          "RM0522:p1311",
+          "RM0522:p1328"
+        ]
+      },
+      {
+        "id": "ARR_reset_and_map",
+        "detail": "RM1329 ARR reset is0xFFFF; map1333 prints all zero. Map1332 PSC omits named field, whereas1329 describes PSC15:0. Preserve register-description/map inconsistencies.",
+        "evidence": [
+          "RM0522:p1329",
+          "RM0522:p1332",
+          "RM0522:p1333"
+        ]
+      },
+      {
+        "id": "field_naming",
+        "detail": "RM1283 prints reversed reserved range15:18;1331 TI2SEL final code0100 labels input15 despite4-bit encoding. Same page CCR2 names nonexistent CCMR2 instead of CCMR1;1329 calls status TIM_ISR and diagram labels UIFCPY rw while prose says read-only. No extra field/register admitted.",
+        "evidence": [
+          "RM0522:p1283",
+          "RM0522:p1331",
+          "RM0522:p1329",
+          "RM0522:p1328"
+        ]
+      },
+      {
+        "id": "external_clock_ceiling",
+        "detail": "DS87 external-clock ceiling kernel/2 conflicts with RM1282/1283 below kernel/4 input limit; no higher rate admitted.",
+        "evidence": [
+          "DS15135:p87",
+          "RM0522:p1282",
+          "RM0522:p1283"
+        ]
+      },
+      {
+        "id": "datasheet_family_summary",
+        "detail": "DS21 prescaler1..65535 differs from DS20 and RM raw+1 through65536. DS21 general-purpose16/32bit up/down wording does not override exact upcount-only TIM12. DS87 footnote includes absent TIM5/16/17; no instance or channel capability inferred. DS20 table6 shows a merged Yes DMA-generation cell for general-purpose timers; No is in the complementary-output column. This differs from the exact TIM12 header exclusions and RM DIER/register map. Keep the discrepancy explicit; no TIM12 DMA admission.",
+        "evidence": [
+          "DS15135:p20",
+          "DS15135:p21",
+          "DS15135:p87",
+          "header.features",
+          "RM0522:p1281",
+          "RM0522:p1284",
+          "DS15135:p20:layout",
+          "RM0522:p1320",
+          "RM0522:p1332",
+          "RM0522:p1333"
+        ]
+      },
+      {
+        "id": "access_and_external_clock_diagram",
+        "detail": "RM1332 calls registers16-bit mapped while RM1314 explicitly permits16/32-bit writes and8/16/32-bit reads. RM1291 diagram labels TS00111 ETR while exact SMCR1319 reserves it. Use explicit access/selection restrictions, not generic drawing.",
+        "evidence": [
+          "RM0522:p1332",
+          "RM0522:p1314",
+          "RM0522:p1291",
+          "RM0522:p1319"
+        ]
+      }
+    ],
+    "open_gates": [
+      "No executable profile, electrical, build or hardware qualification.",
+      "Full SDK mode combinations, race recovery and exact clock/pad admission remain open.",
+      "No accepted catalog/composition/ownership mutations."
+    ],
+    "finite_source_maps": {
+      "instance": "TIM12",
+      "base": "0x40001800",
+      "IRQ": 58,
+      "APB1L_bit": 6,
+      "counter_bits": 16,
+      "PSC_range": [
+        0,
+        65535
+      ],
+      "normal_ARR_CCR_range": [
+        0,
+        65535
+      ],
+      "dither_raw_max": 1048559,
+      "OCM_valid": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        12,
+        13
+      ],
+      "SMS_valid": [
+        0,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "MMS_valid": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "TI1": {
+        "0": "TIM12_CH1",
+        "1": "COMP1_OUT",
+        "2": "COMP2_OUT",
+        "3": "MCO1",
+        "4": "MCO2",
+        "5": "HSE_1M",
+        "7": "I3C1_IBI_ACK"
+      },
+      "TI2": {
+        "0": "TIM12_CH2"
+      },
+      "ITR_exact": [
+        0,
+        1,
+        2,
+        6,
+        7,
+        9
+      ],
+      "register_offsets": {
+        "CR1": 0,
+        "CR2": 4,
+        "SMCR": 8,
+        "DIER": 12,
+        "SR": 16,
+        "EGR": 20,
+        "CCMR1": 24,
+        "CCER": 32,
+        "CNT": 36,
+        "PSC": 40,
+        "ARR": 44,
+        "CCR1": 52,
+        "CCR2": 56,
+        "TISEL": 92
+      },
+      "package_routes": [
+        {
+          "id": "descriptor.signal.296",
+          "pin": "PB14",
+          "pad": 35,
+          "signal": "TIM12_CH1",
+          "instance": "TIM12",
+          "function": {
+            "type": "alternate",
+            "id": "AF2"
+          },
+          "source_pointer": "/signals/296",
+          "source_record": {
+            "name": "TIM12_CH1",
+            "instance": "TIM12",
+            "die_pad": "PB14",
+            "function": {
+              "type": "alternate",
+              "id": "AF2"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB14",
+            "af": "AF2",
+            "DS_signal": "TIM12_CH1",
+            "descriptor_name": "TIM12_CH1",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 8,
+            "raw_cell": "TIM12_CH1"
+          }
+        },
+        {
+          "id": "descriptor.signal.297",
+          "pin": "PC14",
+          "pad": 3,
+          "signal": "TIM12_CH1",
+          "instance": "TIM12",
+          "function": {
+            "type": "alternate",
+            "id": "AF2"
+          },
+          "source_pointer": "/signals/297",
+          "source_record": {
+            "name": "TIM12_CH1",
+            "instance": "TIM12",
+            "die_pad": "PC14-OSC32_IN(OSC32_IN)",
+            "function": {
+              "type": "alternate",
+              "id": "AF2"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PC14",
+            "af": "AF2",
+            "DS_signal": "TIM12_CH1",
+            "descriptor_name": "TIM12_CH1",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 24,
+            "raw_cell": "TIM12_CH1"
+          }
+        },
+        {
+          "id": "descriptor.signal.298",
+          "pin": "PC6",
+          "pad": 37,
+          "signal": "TIM12_CH1",
+          "instance": "TIM12",
+          "function": {
+            "type": "alternate",
+            "id": "AF2"
+          },
+          "source_pointer": "/signals/298",
+          "source_record": {
+            "name": "TIM12_CH1",
+            "instance": "TIM12",
+            "die_pad": "PC6",
+            "function": {
+              "type": "alternate",
+              "id": "AF2"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PC6",
+            "af": "AF2",
+            "DS_signal": "TIM12_CH1",
+            "descriptor_name": "TIM12_CH1",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 16,
+            "raw_cell": "TIM12_CH1"
+          }
+        },
+        {
+          "id": "descriptor.signal.299",
+          "pin": "PB15",
+          "pad": 36,
+          "signal": "TIM12_CH2",
+          "instance": "TIM12",
+          "function": {
+            "type": "alternate",
+            "id": "AF2"
+          },
+          "source_pointer": "/signals/299",
+          "source_record": {
+            "name": "TIM12_CH2",
+            "instance": "TIM12",
+            "die_pad": "PB15",
+            "function": {
+              "type": "alternate",
+              "id": "AF2"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PB15"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PB15",
+            "af": "AF2",
+            "DS_signal": "TIM12_CH2",
+            "descriptor_name": "TIM12_CH2",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 9,
+            "raw_cell": "TIM12_CH2"
+          }
+        },
+        {
+          "id": "descriptor.signal.300",
+          "pin": "PC15",
+          "pad": 4,
+          "signal": "TIM12_CH2",
+          "instance": "TIM12",
+          "function": {
+            "type": "alternate",
+            "id": "AF2"
+          },
+          "source_pointer": "/signals/300",
+          "source_record": {
+            "name": "TIM12_CH2",
+            "instance": "TIM12",
+            "die_pad": "PC15-OSC32_OUT(OSC32_OUT)",
+            "function": {
+              "type": "alternate",
+              "id": "AF2"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PC15",
+            "af": "AF2",
+            "DS_signal": "TIM12_CH2",
+            "descriptor_name": "TIM12_CH2",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 25,
+            "raw_cell": "TIM12_CH2"
+          }
+        },
+        {
+          "id": "descriptor.signal.301",
+          "pin": "PC9",
+          "pad": 40,
+          "signal": "TIM12_CH2",
+          "instance": "TIM12",
+          "function": {
+            "type": "alternate",
+            "id": "AF2"
+          },
+          "source_pointer": "/signals/301",
+          "source_record": {
+            "name": "TIM12_CH2",
+            "instance": "TIM12",
+            "die_pad": "PC9",
+            "function": {
+              "type": "alternate",
+              "id": "AF2"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PC9",
+            "af": "AF2",
+            "DS_signal": "TIM12_CH2",
+            "descriptor_name": "TIM12_CH2",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 19,
+            "raw_cell": "TIM12_CH2"
+          }
+        }
+      ],
+      "evidence": [
+        "header.IRQ",
+        "header.bases",
+        "header.features",
+        "LL.TIM12_remaps",
+        "RM0522:p1283",
+        "RM0522:p1284",
+        "RM0522:p1317",
+        "RM0522:p1320",
+        "RM0522:p1326",
+        "RM0522:p1332",
+        "RM0522:p1333",
+        "header.OCM_mask",
+        "header.MMS_mask",
+        "LL.mode_encodings",
+        "HAL.TRGO_guard"
+      ],
+      "OCM_full_raw_gate": "Validate full5-bit SDK encoding before mapping: only0..9,12,13; bit4 must0. SDK writes OC1M4 bit17/OC2M4 bit25, reserved on TIM12; never truncate to four bits for validation.",
+      "MMS_full_raw_gate": "Only0..5; generic bit25 (MMS3) must0; codes6/7 and8 encoder-clock unsupported."
+    },
+    "chapter_audit": {
+      "document": "RM0522",
+      "pages": [
+        1281,
+        1333
+      ],
+      "status": "full_chapter_read_and_bound_not_semantic_closure"
+    },
+    "package_routes_sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288",
+    "errata_sha256": "821c22f796a9ff723afee534fe5943c2b0506325ec871d890706d94414316416",
+    "board_oscillator_dependency": {
+      "source": "package-routes",
+      "sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288",
+      "records": [
+        {
+          "pad": 3,
+          "pin": "PC14",
+          "net_id": 93,
+          "label": "OSC32_IN",
+          "members": [
+            {
+              "reference": "R1",
+              "pin": "2"
+            },
+            {
+              "reference": "SB1",
+              "pin": "1"
+            },
+            {
+              "reference": "U1",
+              "pin": "3"
+            }
+          ],
+          "source_pointer": "/nets/93",
+          "state": "literal_same_net_members_only",
+          "bridge_or_component_conduction": "not_inferred",
+          "actual_board_revision_and_population": "unknown",
+          "execution_permission": "none"
+        },
+        {
+          "pad": 4,
+          "pin": "PC15",
+          "net_id": 92,
+          "label": "OSC32_OUT",
+          "members": [
+            {
+              "reference": "R2",
+              "pin": "2"
+            },
+            {
+              "reference": "SB2",
+              "pin": "1"
+            },
+            {
+              "reference": "U1",
+              "pin": "4"
+            }
+          ],
+          "source_pointer": "/nets/92",
+          "state": "literal_same_net_members_only",
+          "bridge_or_component_conduction": "not_inferred",
+          "actual_board_revision_and_population": "unknown",
+          "execution_permission": "none"
+        }
+      ],
+      "qualification": "literal records only; no conduction/population admission"
+    },
+    "datasheet_visual_check": {
+      "source": "DS15135",
+      "page": 20,
+      "render_source": "DS_table6_visual",
+      "method": "Poppler pdftoppm page20 scale-to1600 singlefile PNG; image inspected",
+      "finding": "Table6 DMA generation Yes cell spans TIM2/TIM12/TIM15; No cell is complementary outputs. This is a source conflict with exact TIM12 exclusions, not DMA admission.",
+      "execution_permission": "none"
+    }
+  }
+}

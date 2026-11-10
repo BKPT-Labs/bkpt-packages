@@ -1,0 +1,67 @@
+{
+  "schema": "bkpt.knowledge-pack-source/1",
+  "id": "stm32c5",
+  "revision": "1",
+  "state": "development",
+  "targets": [
+    {
+      "part": "STM32C542RCT6",
+      "package": "LQFP64",
+      "board": "NUCLEO-C542RC",
+      "sdk": "stm32-hal2-2.1.0"
+    }
+  ],
+  "inputs": {
+    "architecture": {
+      "path": "architecture/accepted.json",
+      "sha256": "e8c92d6edfeff13f3e95b59cefe96b010a851918982a45c3c4eb34fc43d6ab4f"
+    },
+    "architecture_review": {
+      "path": "architecture/accepted.review.json",
+      "sha256": "2fe7d9019da3e8c1a8127be5e973de8d65507e1a6be753de1499f4cecf918ac0"
+    },
+    "devices": {
+      "path": "imports/devices.json",
+      "sha256": "c3fed440f1f3de2b76b635ed974c73479666ad5f53477e9667b57af122f2a70a"
+    },
+    "components": {
+      "path": "imports/components.json",
+      "sha256": "23e9bb6e1a94cf15a039f6eac966dcd07b278238dc2103d609d5ed59bcb25309"
+    },
+    "knowledge": {
+      "path": "catalog/stm32c5.json",
+      "sha256": "7fef6ac733ccc13e3c02c3cbedf94ad69acfd0a7c0fb8f846519b77052aee194"
+    }
+  },
+  "source_inputs": "source-inputs.json",
+  "installed_artifacts": {
+    "knowledge": "knowledge.sqlite",
+    "architecture": "capabilities.sqlite",
+    "devices": "devices.sqlite",
+    "components": "components.sqlite"
+  },
+  "runtime": {
+    "executable": "bkpt-fw",
+    "configuration": "operator-owned absolute paths",
+    "vendor_assets": "external"
+  },
+  "coverage": {
+    "accepted_profile_count": 14,
+    "full_device": false,
+    "research": "pending/index.json",
+    "research_runtime_admitted": false
+  },
+  "foundation": {
+    "id": "c5-hal2-base",
+    "sha256": "984d149c42f73b44ff98d0da6164f804808811c8eed0c3824d1dfd10307629c2",
+    "files": "external installation; includes generated vendor inputs",
+    "manifest": "architecture/foundation-manifest.json"
+  },
+  "provenance": {
+    "firmware_source_git": "4180e21d9b9138b165b39a771e7f5430fe5a5e5e",
+    "review": "architecture/accepted.review.json"
+  },
+  "candidates": [
+    "candidates/workflow-efficiency/candidate.json"
+  ]
+}

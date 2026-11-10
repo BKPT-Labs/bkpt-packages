@@ -1,0 +1,21 @@
+// SPDX-License-Identifier: LicenseRef-BKPT-Proprietary
+#ifndef {{unit}}_H
+#define {{unit}}_H
+#include "stm32_hal.h"
+enum { {{unit}}_RISING = 1U, {{unit}}_FALLING = 2U };
+/* Exclusive GPIO input + EXTI line + CPU IRQ. Init configures edges and mux;
+ * it can affect interconnect consumers before start. No other line consumer,
+ * raw handle access, event/DMA route or clock reconfiguration is permitted.
+ * Foreground/unmasked owner only; callback executes in the owned IRQ and must
+ * stay bounded. Priority {{priority}} may be shared with other components;
+ * equal preemption priorities cannot preempt one another. Edges may coalesce;
+ * bits describe observed pending directions,
+ * not counts or physical timestamps. No debounce/electrical validation. */
+hal_status_t {{unit}}_init(void);
+/* Start requires idle + non-NULL callback. It discards pre-start pending edges. */
+hal_status_t {{unit}}_start(void (*callback)(unsigned edges));
+/* Idempotently stop CPU delivery and discard pending flags. Pin/line stay
+ * reserved and edge detection stays configured. This is not DMA quiescence
+ * or physical signal cessation. Restart discards edges received while stopped. */
+hal_status_t {{unit}}_stop(void);
+#endif

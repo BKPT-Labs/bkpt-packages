@@ -1,0 +1,3772 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/device-inventory.json",
+    "sha256": "510a01b74b20e1e400e60a461e55c9cd5977faa489e146dea0ca851c3e176aa3"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 99
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "schema": "bkpt.external.device-inventory.v1",
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "sources": {
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "startup": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Source/startup_stm32c542xx.c",
+        "sha256": "cc3f71f21df0e7711798c5a18814dc8a021b41e91af00bfd1b2159fe22256907"
+      },
+      "SVD": {
+        "path": "bkpt-data://firmware/sources/st/c5/pack-2.1.0/device.svd",
+        "sha256": "79ecabb1331e08042904858e5986a2d41aad036fbf481f916abdfb6ce58f7c5b"
+      },
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "DS15135": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pdf",
+        "sha256": "1a3555f799297774a95978ab343ebc1f45ab9ef58d0dcf3600dec4fabed9355c",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pages.json",
+        "extraction_sha256": "b14b965adb6c1545edbca0e56b3c504e7ecc3a94bda197350ce2757b5a3d55dc"
+      }
+    },
+    "evidence": {
+      "header.IRQ": {
+        "source": "header",
+        "start_line": 53,
+        "end_line": 138,
+        "sha256": "18d59fd48bd11c3c33058f62110ec5be72edfd95d6806662bf077f92ab9fe057"
+      },
+      "startup.vector": {
+        "source": "startup",
+        "start_line": 137,
+        "end_line": 241,
+        "sha256": "2c7fb2a0dcaa6acdbe36d5d4c0456079629eb46118181953f28facf951fc1a2a"
+      },
+      "predicate.IS_AES_ALL_INSTANCE": {
+        "source": "header",
+        "start_line": 14012,
+        "end_line": 14012,
+        "sha256": "88c090adcb552468d0025eb806a8fa61a09c883a5f800086f0b12c91c070bfdb"
+      },
+      "predicate.IS_ADC_ALL_INSTANCE": {
+        "source": "header",
+        "start_line": 14015,
+        "end_line": 14015,
+        "sha256": "fc27f5e728e8bb28a6d02fac4bb4718faed7c64ea5d1f9e9b4837ca5ae5535d7"
+      },
+      "predicate.IS_ADC_COMMON_INSTANCE": {
+        "source": "header",
+        "start_line": 14017,
+        "end_line": 14017,
+        "sha256": "a3016202c4845574000654a6565f2da6cedbfe0b3ad843b98da723ea11a9a905"
+      },
+      "predicate.IS_COMP_ALL_INSTANCE": {
+        "source": "header",
+        "start_line": 14026,
+        "end_line": 14026,
+        "sha256": "37a7b6989968153af79a3232a1b7b0eacbcbb27a9a3df3d76171b69d20ba6932"
+      },
+      "predicate.IS_CORDIC_ALL_INSTANCE": {
+        "source": "header",
+        "start_line": 14029,
+        "end_line": 14029,
+        "sha256": "00f2d278572f337543c48d74e397eb0920cfb016e6a432440f89fb82a808b93c"
+      },
+      "predicate.IS_CRC_ALL_INSTANCE": {
+        "source": "header",
+        "start_line": 14032,
+        "end_line": 14032,
+        "sha256": "d8574ff443bfd402c7a6b861491c150872a8a29665d25f340edac3d756a711f2"
+      },
+      "predicate.IS_CRS_ALL_INSTANCE": {
+        "source": "header",
+        "start_line": 14035,
+        "end_line": 14035,
+        "sha256": "c0a4e7d1a6ea509b0e3713982e5b29232df37322eda95da4510ddc8e55f03a38"
+      },
+      "predicate.IS_DAC_ALL_INSTANCE": {
+        "source": "header",
+        "start_line": 14038,
+        "end_line": 14038,
+        "sha256": "c15c2c8c53849619ef2b078f82301811353d23911896aedcdfebd4086d31e8ec"
+      },
+      "predicate.IS_DMA_ALL_INSTANCE": {
+        "source": "header",
+        "start_line": 14041,
+        "end_line": 14048,
+        "sha256": "adc570486e5e779a4a38977b3d2404508e6005ce0bf4d244111186117fe69701"
+      },
+      "predicate.IS_LPDMA1_INSTANCE": {
+        "source": "header",
+        "start_line": 14050,
+        "end_line": 14053,
+        "sha256": "7e7b14792bb8abaf4f0893b1f9218a85ed487b66d2f05c09c9014d34114d8d26"
+      },
+      "predicate.IS_LPDMA2_INSTANCE": {
+        "source": "header",
+        "start_line": 14055,
+        "end_line": 14058,
+        "sha256": "e1966d2edc2687dbf28d8f5b388859c6a3447d9a77545888c1631f1bdd66ddc9"
+      },
+      "predicate.IS_DMA_PFREQ_INSTANCE": {
+        "source": "header",
+        "start_line": 14060,
+        "end_line": 14063,
+        "sha256": "fc6cabb7b46a150de88728e0dffcb67582ee6091291240b287bdacea517f28eb"
+      },
+      "predicate.IS_FLASH_INSTANCE": {
+        "source": "header",
+        "start_line": 14066,
+        "end_line": 14066,
+        "sha256": "cf4b197b710d31069f7538a0c85c3ad3a4ae6869d1fb661218b1144d7b0bc5b0"
+      },
+      "predicate.IS_FDCAN_ALL_INSTANCE": {
+        "source": "header",
+        "start_line": 14069,
+        "end_line": 14070,
+        "sha256": "db85838042ff8a12d1aba2c4a01a378bab6aefe092b47ac59e82ae96c4d7aa86"
+      },
+      "predicate.IS_GPIO_ALL_INSTANCE": {
+        "source": "header",
+        "start_line": 14077,
+        "end_line": 14082,
+        "sha256": "362f6f1933685ae49fc0c28a5726a918d44eb41a99a943672e19c7447b7ca1ea"
+      },
+      "predicate.IS_HASH_ALL_INSTANCE": {
+        "source": "header",
+        "start_line": 14085,
+        "end_line": 14085,
+        "sha256": "cc3493b5affde3d7cdbf2e767038a6bf5184133136bfbe6c0455036aff5779ac"
+      },
+      "predicate.IS_I2C_ALL_INSTANCE": {
+        "source": "header",
+        "start_line": 14088,
+        "end_line": 14088,
+        "sha256": "b3823b5f7d8891b76555329c92793921e0cd32130d152438f9aedbf8c9deecdb"
+      },
+      "predicate.IS_I2C_WAKEUP_FROMSTOP_INSTANCE": {
+        "source": "header",
+        "start_line": 14090,
+        "end_line": 14090,
+        "sha256": "6c9254b6a514abf64b31196921d34b03d951e4cfff112403970a36762fd43de9"
+      },
+      "predicate.IS_SMBUS_ALL_INSTANCE": {
+        "source": "header",
+        "start_line": 14093,
+        "end_line": 14093,
+        "sha256": "b0c3759118b98a7722d3e97caa9b9126155b3064c44a259b02eb9cc5b418a4f8"
+      },
+      "predicate.IS_I3C_ALL_INSTANCE": {
+        "source": "header",
+        "start_line": 14096,
+        "end_line": 14096,
+        "sha256": "e947913c03a8b5491ffe46fcc1d312581f1c2c10e67c8ac8373faeb0998d2f4e"
+      },
+      "predicate.IS_ICACHE_ALL_INSTANCE": {
+        "source": "header",
+        "start_line": 14099,
+        "end_line": 14099,
+        "sha256": "de6b6a14c9b834f1fffd9e159ad3e422706c2cf803aa0bff7b7d1ab9180cb3ec"
+      },
+      "predicate.IS_IWDG_ALL_INSTANCE": {
+        "source": "header",
+        "start_line": 14102,
+        "end_line": 14102,
+        "sha256": "d77a7eeb17e46bd921f09fd604d889e04744b4091f53d67703f2cf555b8f1c01"
+      },
+      "predicate.IS_WWDG_ALL_INSTANCE": {
+        "source": "header",
+        "start_line": 14105,
+        "end_line": 14105,
+        "sha256": "b9481e282c288dae99dab2c7376aac915b897e5902c56b57920afcc756e10bf3"
+      },
+      "predicate.IS_LPUART_INSTANCE": {
+        "source": "header",
+        "start_line": 14108,
+        "end_line": 14108,
+        "sha256": "39c10880a19dcdfdc5c3621f772500dfb801bbee7db730d8b0068eb9c129fe0e"
+      },
+      "predicate.IS_OPAMP_ALL_INSTANCE": {
+        "source": "header",
+        "start_line": 14111,
+        "end_line": 14111,
+        "sha256": "9f848d971b30b1626af63d65219948b4dd07cdcfc75927ae9a409b66545113f4"
+      },
+      "predicate.IS_RAMCFG_ALL_INSTANCE": {
+        "source": "header",
+        "start_line": 14114,
+        "end_line": 14114,
+        "sha256": "7d95994b82d8bbc793563323eb3e7c976c3838bd8069f614a40164a42413e773"
+      },
+      "predicate.IS_RAMCFG_MASS_ERASE_INSTANCE": {
+        "source": "header",
+        "start_line": 14117,
+        "end_line": 14117,
+        "sha256": "8c06229264aaa535bedca13458c5f322577f354ab8ebc7330228cf9873d15a79"
+      },
+      "predicate.IS_RAMCFG_ECC_INSTANCE": {
+        "source": "header",
+        "start_line": 14120,
+        "end_line": 14120,
+        "sha256": "d54393af32d9ee1ffb1246cf1d49a7ce95dad165f52c36af1b0122a65416455f"
+      },
+      "predicate.IS_RAMCFG_WP_INSTANCE": {
+        "source": "header",
+        "start_line": 14123,
+        "end_line": 14123,
+        "sha256": "8eeef442a4b500b3487e5a1af6629c61fcb661adf268282080f9bf80947b78a5"
+      },
+      "predicate.IS_RNG_ALL_INSTANCE": {
+        "source": "header",
+        "start_line": 14126,
+        "end_line": 14126,
+        "sha256": "f9e1b5b19fe729ad1eba1f62d417dbac2a64679b817e410b4ae70968a7fbfa06"
+      },
+      "predicate.IS_RTC_ALL_INSTANCE": {
+        "source": "header",
+        "start_line": 14129,
+        "end_line": 14129,
+        "sha256": "df6611100beb94ee705e9d5862892d95bfe980dd044ee84006135ddbc112ed92"
+      },
+      "predicate.IS_LPTIM_INSTANCE": {
+        "source": "header",
+        "start_line": 14132,
+        "end_line": 14132,
+        "sha256": "6fc13fb2b83248790ff46e5f80ac0fff74c8386f484ff344deb286a8354d45aa"
+      },
+      "predicate.IS_LPTIM_DMA_INSTANCE": {
+        "source": "header",
+        "start_line": 14135,
+        "end_line": 14135,
+        "sha256": "19ee1134693bab7067f0c9ddf7e6ddf50b370bbfc71b6722d9a40d73940f8bdd"
+      },
+      "predicate.IS_LPTIM_CC1_INSTANCE": {
+        "source": "header",
+        "start_line": 14138,
+        "end_line": 14138,
+        "sha256": "4ae836d87b44cd2dea800381b854a7f2c1a32117da06ef52a98fe62234e891bc"
+      },
+      "predicate.IS_LPTIM_CC2_INSTANCE": {
+        "source": "header",
+        "start_line": 14141,
+        "end_line": 14141,
+        "sha256": "6b9cf2b0adc8b673b329a603b9f2a4ea1f083b40988347de2ebacf4c15ca41b1"
+      },
+      "predicate.IS_LPTIM_ENCODER_INTERFACE_INSTANCE": {
+        "source": "header",
+        "start_line": 14144,
+        "end_line": 14144,
+        "sha256": "b86dc04f340c938809d78fd78c2af081cf19f6bf8ea623d625aba9f4e23a3f62"
+      },
+      "predicate.IS_LPTIM_INPUT_CAPTURE_INSTANCE": {
+        "source": "header",
+        "start_line": 14147,
+        "end_line": 14147,
+        "sha256": "5b62ad1a9ab454f5d38c1361f7fb0fdfa81168a4a362e966459176e9c23f3c0b"
+      },
+      "predicate.IS_LPTIM_INPUT1_INSTANCE": {
+        "source": "header",
+        "start_line": 14150,
+        "end_line": 14150,
+        "sha256": "5b458114f619200dbcc63dd947ba0f47291865242efeb79dc11d656eb15ce2f5"
+      },
+      "predicate.IS_SPI_ALL_INSTANCE": {
+        "source": "header",
+        "start_line": 14153,
+        "end_line": 14153,
+        "sha256": "505ec45ed44574dac7d9f83e0a4237ffd6737208d9379bcb83ca76d025e190ae"
+      },
+      "predicate.IS_I2S_ALL_INSTANCE": {
+        "source": "header",
+        "start_line": 14156,
+        "end_line": 14157,
+        "sha256": "92c206302bd9e5f214c9bf59e08d50f621d425079a2d593ce82abb936ee11450"
+      },
+      "predicate.IS_TAMP_INSTANCE": {
+        "source": "header",
+        "start_line": 14160,
+        "end_line": 14160,
+        "sha256": "be07a7f08075355e10b917b4a958806b236169001bd67b5f17a1e70b99bb773e"
+      },
+      "predicate.IS_TIM_INSTANCE": {
+        "source": "header",
+        "start_line": 14163,
+        "end_line": 14169,
+        "sha256": "a2101b8ecee8d5ddaa7a7819a84502b6fba53102371f23cae414ffa7111b5633"
+      },
+      "predicate.IS_TIM_32B_COUNTER_INSTANCE": {
+        "source": "header",
+        "start_line": 14171,
+        "end_line": 14171,
+        "sha256": "ea8b2ae40aba8ccad7b6d6d9bf3773ec31dc8c6071122b7ea71c235988402510"
+      },
+      "predicate.IS_TIM_BREAK_INSTANCE": {
+        "source": "header",
+        "start_line": 14173,
+        "end_line": 14175,
+        "sha256": "18371ee4acf91c97b21ebf19deb5832947502ee583723218e57796445b4f59ea"
+      },
+      "predicate.IS_TIM_BREAKSOURCE_INSTANCE": {
+        "source": "header",
+        "start_line": 14177,
+        "end_line": 14179,
+        "sha256": "af2c4bbfcb70234660335483e8f7f4e2d192eae8e7d87075a342afe25b0f8a9c"
+      },
+      "predicate.IS_TIM_BKIN2_INSTANCE": {
+        "source": "header",
+        "start_line": 14181,
+        "end_line": 14182,
+        "sha256": "0638846177213080c83f2722081bc2ca132f23b0c0fe3d16e5b1e0716db54137"
+      },
+      "predicate.IS_TIM_CC1_INSTANCE": {
+        "source": "header",
+        "start_line": 14185,
+        "end_line": 14189,
+        "sha256": "a841e7dfa321982ab9f7cf8ae8287482bfd289e8099c008fc2edc407e0d43735"
+      },
+      "predicate.IS_TIM_CC2_INSTANCE": {
+        "source": "header",
+        "start_line": 14191,
+        "end_line": 14195,
+        "sha256": "076e5d44f1779f63ffd77ca76a733d1af52ee509fd1489ec394d52633a5294f8"
+      },
+      "predicate.IS_TIM_CC3_INSTANCE": {
+        "source": "header",
+        "start_line": 14197,
+        "end_line": 14199,
+        "sha256": "442844ba6d505eb26d1e84b832245cbe20144ec08d9092ca06008ebf50024e21"
+      },
+      "predicate.IS_TIM_CC4_INSTANCE": {
+        "source": "header",
+        "start_line": 14201,
+        "end_line": 14201,
+        "sha256": "1b1f038b68d1a2c72dfa3e16b2e0d610f15b06f08ff28f32772ba83455f21c40"
+      },
+      "predicate.IS_TIM_CC5_INSTANCE": {
+        "source": "header",
+        "start_line": 14204,
+        "end_line": 14205,
+        "sha256": "47d50bdde49767cd7a93caed4efd4a8f3c5fbf9a2454f74fe216f3fdb71937ff"
+      },
+      "predicate.IS_TIM_CC6_INSTANCE": {
+        "source": "header",
+        "start_line": 14208,
+        "end_line": 14208,
+        "sha256": "90c00bbd6c58c5e46197ec370c0c690780a613a2257f69752a0e3e9eb969697d"
+      },
+      "predicate.IS_TIM_CC7_INSTANCE": {
+        "source": "header",
+        "start_line": 14211,
+        "end_line": 14211,
+        "sha256": "b2910f527a1efd28f14f738f0baa11bb89a2ca5e2239d95116bded2c247b4d1c"
+      },
+      "predicate.IS_TIM_CC1N_INSTANCE": {
+        "source": "header",
+        "start_line": 14214,
+        "end_line": 14216,
+        "sha256": "b27134d4fc87d0e79c7cafc5181ddcc930d1b32af440fdc247a278ca90deb2dd"
+      },
+      "predicate.IS_TIM_CC2N_INSTANCE": {
+        "source": "header",
+        "start_line": 14218,
+        "end_line": 14219,
+        "sha256": "c93e48396818db4d42b7ed8aae120d74a5e579ce8814f7d894df62d7d22dacb2"
+      },
+      "predicate.IS_TIM_CC3N_INSTANCE": {
+        "source": "header",
+        "start_line": 14222,
+        "end_line": 14222,
+        "sha256": "35cce0f62c93f02622a3479d82849421b5eeea8df3be5adf202bab311f67c412"
+      },
+      "predicate.IS_TIM_CC4N_INSTANCE": {
+        "source": "header",
+        "start_line": 14225,
+        "end_line": 14225,
+        "sha256": "49f9c8f2f2331ee9d08879c37b17790b36c99f83b29f5bf539a9779aebf47cec"
+      },
+      "predicate.IS_TIM_DMA_INSTANCE": {
+        "source": "header",
+        "start_line": 14228,
+        "end_line": 14233,
+        "sha256": "bf614bf637ef913e5707260ed4038b3c0bb013f269982199215aea4c7f0f1415"
+      },
+      "predicate.IS_TIM_DMA_CC_INSTANCE": {
+        "source": "header",
+        "start_line": 14235,
+        "end_line": 14238,
+        "sha256": "da849f600a8b3920b1215b45abb240cdd5ee108185d0c2c2d470fcf6fcbff8c1"
+      },
+      "predicate.IS_TIM_DMABURST_INSTANCE": {
+        "source": "header",
+        "start_line": 14240,
+        "end_line": 14243,
+        "sha256": "06d45aca79acacb25a8f08501acd7e702ce1bab89a7fb8b948139f2dc109e2f9"
+      },
+      "predicate.IS_TIM_CLOCK_DIVISION_INSTANCE": {
+        "source": "header",
+        "start_line": 14245,
+        "end_line": 14249,
+        "sha256": "34f83c135fe7cd6daaca2241177d6c962f4b8060ed72fd2618c491e002ce44dc"
+      },
+      "predicate.IS_TIM_COMMUTATION_EVENT_INSTANCE": {
+        "source": "header",
+        "start_line": 14251,
+        "end_line": 14253,
+        "sha256": "2a7bd6e65ef1b88c8fba8bd9df67329e034c75ba7a6cef363d18d65c147ad52c"
+      },
+      "predicate.IS_TIM_COUNTER_MODE_SELECT_INSTANCE": {
+        "source": "header",
+        "start_line": 14255,
+        "end_line": 14258,
+        "sha256": "f78ff0a138ed300099fefc62f7d9ef49aa36c239a0d463e544116c6dac66d4b9"
+      },
+      "predicate.IS_TIM_ENCODER_INTERFACE_INSTANCE": {
+        "source": "header",
+        "start_line": 14260,
+        "end_line": 14263,
+        "sha256": "221f23512654a2d08c757da934292df957fc5e88992dd764ccb0136988b97d0c"
+      },
+      "predicate.IS_TIM_ETR_INSTANCE": {
+        "source": "header",
+        "start_line": 14265,
+        "end_line": 14267,
+        "sha256": "0034983b4fa33b5b8ca806552a3cedbc70fb817c46807ffc525178e889222247"
+      },
+      "predicate.IS_TIM_MASTER_INSTANCE": {
+        "source": "header",
+        "start_line": 14269,
+        "end_line": 14275,
+        "sha256": "280615ca577d66794a4a0b15fa2cdb6263d7c523d1e4874181cbbb32f81f28a6"
+      },
+      "predicate.IS_TIM_SLAVE_INSTANCE": {
+        "source": "header",
+        "start_line": 14277,
+        "end_line": 14281,
+        "sha256": "5d8065080c1bbfa8e2c7f4f7e208f802a3623d6678f0ecac2dac69ad981d7696"
+      },
+      "predicate.IS_TIM_OCXREF_CLEAR_INSTANCE": {
+        "source": "header",
+        "start_line": 14283,
+        "end_line": 14286,
+        "sha256": "4accb650d225b14213a4d7f13abcb144a84bce0aeb520a78b073a2c84bd03b49"
+      },
+      "predicate.IS_TIM_16B_REPETITION_COUNTER_INSTANCE": {
+        "source": "header",
+        "start_line": 14288,
+        "end_line": 14289,
+        "sha256": "5612534db5ee97bf945d03131b280e6e05ce55d560a2550214427f7fc1220b5e"
+      },
+      "predicate.IS_TIM_8B_REPETITION_COUNTER_INSTANCE": {
+        "source": "header",
+        "start_line": 14292,
+        "end_line": 14292,
+        "sha256": "8b8337f7e01c057ea0adb8f16cbdc62e3ba5e08688ea396534f6f770f7d37cfd"
+      },
+      "predicate.IS_TIM_REPETITION_COUNTER_INSTANCE": {
+        "source": "header",
+        "start_line": 14294,
+        "end_line": 14295,
+        "sha256": "0853672c5d18623c1653fe128e4ca75cb9f9c7b6796166696c875629eaebb98e"
+      },
+      "predicate.IS_TIM_TRGO2_INSTANCE": {
+        "source": "header",
+        "start_line": 14298,
+        "end_line": 14299,
+        "sha256": "8abebe1f64fe2d99f714d2dddf46c01ba569285194fb12635a50ac08c00665e3"
+      },
+      "predicate.IS_TIM_XOR_INSTANCE": {
+        "source": "header",
+        "start_line": 14302,
+        "end_line": 14306,
+        "sha256": "dccbe3a86c24008b3117baa14cdd53b01a7f7791aed8836583e721bc13138cb8"
+      },
+      "predicate.IS_TIM_APB1_INSTANCE": {
+        "source": "header",
+        "start_line": 14309,
+        "end_line": 14312,
+        "sha256": "c6199857e73d7615f7e381e2b97c6dcd2b5963f44896469e253510822c436bfd"
+      },
+      "predicate.IS_TIM_APB2_INSTANCE": {
+        "source": "header",
+        "start_line": 14315,
+        "end_line": 14317,
+        "sha256": "c15213f51f71aa99a879d908040b307abacca6154a522c166d9fa1c4c928f4ec"
+      },
+      "predicate.IS_USART_INSTANCE": {
+        "source": "header",
+        "start_line": 14320,
+        "end_line": 14321,
+        "sha256": "50b80bad28629544ac6d63ad2ba3a6509fe5cb2367145d2fb3fbc41a340fe51c"
+      },
+      "predicate.IS_UART_INSTANCE": {
+        "source": "header",
+        "start_line": 14324,
+        "end_line": 14327,
+        "sha256": "6d207f6cfaa4b229ac6b5de9a681a5fa3b9c85798561486106589a878a844a28"
+      },
+      "predicate.IS_UART_FIFO_INSTANCE": {
+        "source": "header",
+        "start_line": 14330,
+        "end_line": 14334,
+        "sha256": "61de6697c6e7641bb945fb48152eecfd0c569b45f99b403491a74f04384fdd93"
+      },
+      "predicate.IS_UART_SPI_SLAVE_INSTANCE": {
+        "source": "header",
+        "start_line": 14337,
+        "end_line": 14338,
+        "sha256": "edca90dfeeaae912ec2c9a71e12313e3627bb22a2c0f37933a7119862bfe0bb8"
+      },
+      "predicate.IS_USART_AUTOBAUDRATE_DETECTION_INSTANCE": {
+        "source": "header",
+        "start_line": 14341,
+        "end_line": 14344,
+        "sha256": "f759c9a3ead22aead56ba031e21abf6c61ca710cc29c8728cf4e014d27399e5e"
+      },
+      "predicate.IS_UART_DRIVER_ENABLE_INSTANCE": {
+        "source": "header",
+        "start_line": 14347,
+        "end_line": 14351,
+        "sha256": "6b097f5b51d6d5dc47faad2e0ae00169287a294f8697a2bf60bcc1c4c1bb8071"
+      },
+      "predicate.IS_UART_HALFDUPLEX_INSTANCE": {
+        "source": "header",
+        "start_line": 14354,
+        "end_line": 14358,
+        "sha256": "312da04ad633381539212d702ebd53e3b276a4b3e45b7ce5d55810e75aaac5b3"
+      },
+      "predicate.IS_UART_HWFLOW_INSTANCE": {
+        "source": "header",
+        "start_line": 14361,
+        "end_line": 14365,
+        "sha256": "8115a8089c4526f68cc0532a410afdda8d9d7381db27eda886215c182e7c389c"
+      },
+      "predicate.IS_UART_RECEIVER_TIMEOUT_INSTANCE": {
+        "source": "header",
+        "start_line": 14368,
+        "end_line": 14371,
+        "sha256": "281ebf55d7aba73710a972e3c498b634b7e3bebec603deed559195438bea39b1"
+      },
+      "predicate.IS_UART_LIN_INSTANCE": {
+        "source": "header",
+        "start_line": 14374,
+        "end_line": 14377,
+        "sha256": "d8ab1331b8fc2bcc80b71bb7cd096265f0f7d53e3f7ff107df3b763a37c42420"
+      },
+      "predicate.IS_UART_WAKEUP_FROMSTOP_INSTANCE": {
+        "source": "header",
+        "start_line": 14380,
+        "end_line": 14384,
+        "sha256": "d5caf91ad94fc770b7ad6eb4f96d218ce0a5adf9101f79309d7f2f5c31ff92e3"
+      },
+      "predicate.IS_IRDA_INSTANCE": {
+        "source": "header",
+        "start_line": 14387,
+        "end_line": 14390,
+        "sha256": "581842386ca34be2907e28996baf6a86c47010eecbc253dba3d3b4957b79ab73"
+      },
+      "predicate.IS_SMARTCARD_INSTANCE": {
+        "source": "header",
+        "start_line": 14393,
+        "end_line": 14394,
+        "sha256": "99aadaedc77bdb33b7cbf6766ae68ec6d57e9cd93d11f7b5a98655831a524208"
+      },
+      "predicate.IS_HCD_ALL_INSTANCE": {
+        "source": "header",
+        "start_line": 14397,
+        "end_line": 14397,
+        "sha256": "c5aae0151b0697f37ff82cef0cc994b17f1e4b4e638ba381e72a2f293b800574"
+      },
+      "predicate.IS_PCD_ALL_INSTANCE": {
+        "source": "header",
+        "start_line": 14400,
+        "end_line": 14400,
+        "sha256": "5a99dd0437c83e5b13f8d1aeafbd74ab8f3b47bf651f2bd9023369ef1410b85f"
+      },
+      "header.adc_residue": {
+        "source": "header",
+        "start_line": 14015,
+        "end_line": 14023,
+        "sha256": "ec5f772f0ba34d007d9fb479ada0b34f2beff8cfc7e3593aa91e4754bd98777d"
+      },
+      "RM0522:p440": {
+        "source": "RM0522",
+        "page": 440,
+        "sha256": "570a3459187ba62d1c0d3a7f2c480f095cfea60e8fd8874f0a2648a79f952cf3"
+      },
+      "RM0522:p441": {
+        "source": "RM0522",
+        "page": 441,
+        "sha256": "749a4fc7018257efe8913d76d23ed8c2dbef3992719ea4d4a993f9f1dae002ca"
+      },
+      "RM0522:p442": {
+        "source": "RM0522",
+        "page": 442,
+        "sha256": "39a1b38a09828beb7225f9fcf526805d6ca4dce705bec02001c141e8204b4252"
+      },
+      "RM0522:p443": {
+        "source": "RM0522",
+        "page": 443,
+        "sha256": "f3a83c85c4083c21385beb0f8a0d86f73371acd5065f23b96f5405c3a169cb06"
+      },
+      "RM0522:p444": {
+        "source": "RM0522",
+        "page": 444,
+        "sha256": "0da07d73daf3b0580f640112908daeb34ea2767140a058d49c2c595f11bd2713"
+      },
+      "DS15135:p14": {
+        "source": "DS15135",
+        "page": 14,
+        "sha256": "ab7acc30021a44b581ecfe671f3fc22bf52d2b60ef3b2b8a9607c16124b968f2"
+      }
+    },
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "review": "See current external review receipts; source-only retention, no executable admission.",
+    "interrupt_inventory": {
+      "header_declarations": [
+        {
+          "name": "Reset",
+          "number": -15,
+          "line": 53
+        },
+        {
+          "name": "NonMaskableInt",
+          "number": -14,
+          "line": 54
+        },
+        {
+          "name": "HardFault",
+          "number": -13,
+          "line": 56
+        },
+        {
+          "name": "MemoryManagement",
+          "number": -12,
+          "line": 57
+        },
+        {
+          "name": "BusFault",
+          "number": -11,
+          "line": 58
+        },
+        {
+          "name": "UsageFault",
+          "number": -10,
+          "line": 59
+        },
+        {
+          "name": "SVCall",
+          "number": -5,
+          "line": 60
+        },
+        {
+          "name": "DebugMonitor",
+          "number": -4,
+          "line": 61
+        },
+        {
+          "name": "PendSV",
+          "number": -2,
+          "line": 62
+        },
+        {
+          "name": "SysTick",
+          "number": -1,
+          "line": 63
+        },
+        {
+          "name": "WWDG",
+          "number": 0,
+          "line": 65
+        },
+        {
+          "name": "PWR_PVD",
+          "number": 1,
+          "line": 66
+        },
+        {
+          "name": "RTC",
+          "number": 2,
+          "line": 67
+        },
+        {
+          "name": "TAMP",
+          "number": 3,
+          "line": 68
+        },
+        {
+          "name": "RAMCFG",
+          "number": 4,
+          "line": 69
+        },
+        {
+          "name": "FLASH",
+          "number": 5,
+          "line": 70
+        },
+        {
+          "name": "RCC",
+          "number": 6,
+          "line": 71
+        },
+        {
+          "name": "EXTI0",
+          "number": 7,
+          "line": 72
+        },
+        {
+          "name": "EXTI1",
+          "number": 8,
+          "line": 73
+        },
+        {
+          "name": "EXTI2",
+          "number": 9,
+          "line": 74
+        },
+        {
+          "name": "EXTI3",
+          "number": 10,
+          "line": 75
+        },
+        {
+          "name": "EXTI4",
+          "number": 11,
+          "line": 76
+        },
+        {
+          "name": "EXTI5",
+          "number": 12,
+          "line": 77
+        },
+        {
+          "name": "EXTI6",
+          "number": 13,
+          "line": 78
+        },
+        {
+          "name": "EXTI7",
+          "number": 14,
+          "line": 79
+        },
+        {
+          "name": "EXTI8",
+          "number": 15,
+          "line": 80
+        },
+        {
+          "name": "EXTI9",
+          "number": 16,
+          "line": 81
+        },
+        {
+          "name": "EXTI10",
+          "number": 17,
+          "line": 82
+        },
+        {
+          "name": "EXTI11",
+          "number": 18,
+          "line": 83
+        },
+        {
+          "name": "EXTI12",
+          "number": 19,
+          "line": 84
+        },
+        {
+          "name": "EXTI13",
+          "number": 20,
+          "line": 85
+        },
+        {
+          "name": "EXTI14",
+          "number": 21,
+          "line": 86
+        },
+        {
+          "name": "EXTI15",
+          "number": 22,
+          "line": 87
+        },
+        {
+          "name": "LPDMA1_CH0",
+          "number": 23,
+          "line": 88
+        },
+        {
+          "name": "LPDMA1_CH1",
+          "number": 24,
+          "line": 89
+        },
+        {
+          "name": "LPDMA1_CH2",
+          "number": 25,
+          "line": 90
+        },
+        {
+          "name": "LPDMA1_CH3",
+          "number": 26,
+          "line": 91
+        },
+        {
+          "name": "IWDG",
+          "number": 31,
+          "line": 92
+        },
+        {
+          "name": "ADC1",
+          "number": 32,
+          "line": 93
+        },
+        {
+          "name": "FDCAN1_IT0",
+          "number": 34,
+          "line": 94
+        },
+        {
+          "name": "FDCAN1_IT1",
+          "number": 35,
+          "line": 95
+        },
+        {
+          "name": "TIM1_BRK_TERR_IERR",
+          "number": 36,
+          "line": 96
+        },
+        {
+          "name": "TIM1_UPD",
+          "number": 37,
+          "line": 97
+        },
+        {
+          "name": "TIM1_TRGI_COM_DIR_IDX",
+          "number": 38,
+          "line": 98
+        },
+        {
+          "name": "TIM1_CC",
+          "number": 39,
+          "line": 99
+        },
+        {
+          "name": "TIM2",
+          "number": 40,
+          "line": 100
+        },
+        {
+          "name": "TIM6",
+          "number": 42,
+          "line": 101
+        },
+        {
+          "name": "TIM7",
+          "number": 43,
+          "line": 102
+        },
+        {
+          "name": "I2C1_EV",
+          "number": 44,
+          "line": 103
+        },
+        {
+          "name": "I2C1_ERR",
+          "number": 45,
+          "line": 104
+        },
+        {
+          "name": "I3C1_EV",
+          "number": 46,
+          "line": 105
+        },
+        {
+          "name": "I3C1_ERR",
+          "number": 47,
+          "line": 106
+        },
+        {
+          "name": "SPI1",
+          "number": 48,
+          "line": 107
+        },
+        {
+          "name": "SPI2",
+          "number": 49,
+          "line": 108
+        },
+        {
+          "name": "USART1",
+          "number": 51,
+          "line": 109
+        },
+        {
+          "name": "USART2",
+          "number": 52,
+          "line": 110
+        },
+        {
+          "name": "UART4",
+          "number": 54,
+          "line": 111
+        },
+        {
+          "name": "UART5",
+          "number": 55,
+          "line": 112
+        },
+        {
+          "name": "LPUART1",
+          "number": 56,
+          "line": 113
+        },
+        {
+          "name": "LPTIM1",
+          "number": 57,
+          "line": 114
+        },
+        {
+          "name": "TIM12",
+          "number": 58,
+          "line": 115
+        },
+        {
+          "name": "TIM15",
+          "number": 59,
+          "line": 116
+        },
+        {
+          "name": "USB_DRD_FS",
+          "number": 62,
+          "line": 117
+        },
+        {
+          "name": "CRS",
+          "number": 63,
+          "line": 118
+        },
+        {
+          "name": "RNG",
+          "number": 64,
+          "line": 119
+        },
+        {
+          "name": "FPU",
+          "number": 65,
+          "line": 120
+        },
+        {
+          "name": "ICACHE",
+          "number": 66,
+          "line": 121
+        },
+        {
+          "name": "CORDIC",
+          "number": 67,
+          "line": 122
+        },
+        {
+          "name": "AES",
+          "number": 68,
+          "line": 123
+        },
+        {
+          "name": "HASH",
+          "number": 69,
+          "line": 124
+        },
+        {
+          "name": "TIM8_BRK_TERR_IERR",
+          "number": 72,
+          "line": 125
+        },
+        {
+          "name": "TIM8_UPD",
+          "number": 73,
+          "line": 126
+        },
+        {
+          "name": "TIM8_TRGI_COM_DIR_IDX",
+          "number": 74,
+          "line": 127
+        },
+        {
+          "name": "TIM8_CC",
+          "number": 75,
+          "line": 129
+        },
+        {
+          "name": "COMP1",
+          "number": 76,
+          "line": 130
+        },
+        {
+          "name": "DAC1",
+          "number": 77,
+          "line": 131
+        },
+        {
+          "name": "LPDMA2_CH0",
+          "number": 78,
+          "line": 132
+        },
+        {
+          "name": "LPDMA2_CH1",
+          "number": 79,
+          "line": 133
+        },
+        {
+          "name": "LPDMA2_CH2",
+          "number": 80,
+          "line": 134
+        },
+        {
+          "name": "LPDMA2_CH3",
+          "number": 81,
+          "line": 135
+        },
+        {
+          "name": "FDCAN2_IT0",
+          "number": 86,
+          "line": 136
+        },
+        {
+          "name": "FDCAN2_IT1",
+          "number": 87,
+          "line": 137
+        },
+        {
+          "name": "COMP2",
+          "number": 88,
+          "line": 138
+        }
+      ],
+      "startup_positions": [
+        {
+          "slot": 16,
+          "entry": "WWDG_IRQHandler",
+          "line": 153,
+          "irq_number": 0
+        },
+        {
+          "slot": 17,
+          "entry": "PWR_PVD_IRQHandler",
+          "line": 154,
+          "irq_number": 1
+        },
+        {
+          "slot": 18,
+          "entry": "RTC_IRQHandler",
+          "line": 155,
+          "irq_number": 2
+        },
+        {
+          "slot": 19,
+          "entry": "TAMP_IRQHandler",
+          "line": 156,
+          "irq_number": 3
+        },
+        {
+          "slot": 20,
+          "entry": "RAMCFG_IRQHandler",
+          "line": 157,
+          "irq_number": 4
+        },
+        {
+          "slot": 21,
+          "entry": "FLASH_IRQHandler",
+          "line": 158,
+          "irq_number": 5
+        },
+        {
+          "slot": 22,
+          "entry": "RCC_IRQHandler",
+          "line": 159,
+          "irq_number": 6
+        },
+        {
+          "slot": 23,
+          "entry": "EXTI0_IRQHandler",
+          "line": 160,
+          "irq_number": 7
+        },
+        {
+          "slot": 24,
+          "entry": "EXTI1_IRQHandler",
+          "line": 161,
+          "irq_number": 8
+        },
+        {
+          "slot": 25,
+          "entry": "EXTI2_IRQHandler",
+          "line": 162,
+          "irq_number": 9
+        },
+        {
+          "slot": 26,
+          "entry": "EXTI3_IRQHandler",
+          "line": 163,
+          "irq_number": 10
+        },
+        {
+          "slot": 27,
+          "entry": "EXTI4_IRQHandler",
+          "line": 164,
+          "irq_number": 11
+        },
+        {
+          "slot": 28,
+          "entry": "EXTI5_IRQHandler",
+          "line": 165,
+          "irq_number": 12
+        },
+        {
+          "slot": 29,
+          "entry": "EXTI6_IRQHandler",
+          "line": 166,
+          "irq_number": 13
+        },
+        {
+          "slot": 30,
+          "entry": "EXTI7_IRQHandler",
+          "line": 167,
+          "irq_number": 14
+        },
+        {
+          "slot": 31,
+          "entry": "EXTI8_IRQHandler",
+          "line": 168,
+          "irq_number": 15
+        },
+        {
+          "slot": 32,
+          "entry": "EXTI9_IRQHandler",
+          "line": 169,
+          "irq_number": 16
+        },
+        {
+          "slot": 33,
+          "entry": "EXTI10_IRQHandler",
+          "line": 170,
+          "irq_number": 17
+        },
+        {
+          "slot": 34,
+          "entry": "EXTI11_IRQHandler",
+          "line": 171,
+          "irq_number": 18
+        },
+        {
+          "slot": 35,
+          "entry": "EXTI12_IRQHandler",
+          "line": 172,
+          "irq_number": 19
+        },
+        {
+          "slot": 36,
+          "entry": "EXTI13_IRQHandler",
+          "line": 173,
+          "irq_number": 20
+        },
+        {
+          "slot": 37,
+          "entry": "EXTI14_IRQHandler",
+          "line": 174,
+          "irq_number": 21
+        },
+        {
+          "slot": 38,
+          "entry": "EXTI15_IRQHandler",
+          "line": 175,
+          "irq_number": 22
+        },
+        {
+          "slot": 39,
+          "entry": "LPDMA1_CH0_IRQHandler",
+          "line": 176,
+          "irq_number": 23
+        },
+        {
+          "slot": 40,
+          "entry": "LPDMA1_CH1_IRQHandler",
+          "line": 177,
+          "irq_number": 24
+        },
+        {
+          "slot": 41,
+          "entry": "LPDMA1_CH2_IRQHandler",
+          "line": 178,
+          "irq_number": 25
+        },
+        {
+          "slot": 42,
+          "entry": "LPDMA1_CH3_IRQHandler",
+          "line": 179,
+          "irq_number": 26
+        },
+        {
+          "slot": 43,
+          "entry": "0",
+          "line": 180,
+          "irq_number": 27
+        },
+        {
+          "slot": 44,
+          "entry": "0",
+          "line": 181,
+          "irq_number": 28
+        },
+        {
+          "slot": 45,
+          "entry": "0",
+          "line": 182,
+          "irq_number": 29
+        },
+        {
+          "slot": 46,
+          "entry": "0",
+          "line": 183,
+          "irq_number": 30
+        },
+        {
+          "slot": 47,
+          "entry": "IWDG_IRQHandler",
+          "line": 184,
+          "irq_number": 31
+        },
+        {
+          "slot": 48,
+          "entry": "ADC1_IRQHandler",
+          "line": 185,
+          "irq_number": 32
+        },
+        {
+          "slot": 49,
+          "entry": "0",
+          "line": 186,
+          "irq_number": 33
+        },
+        {
+          "slot": 50,
+          "entry": "FDCAN1_IT0_IRQHandler",
+          "line": 187,
+          "irq_number": 34
+        },
+        {
+          "slot": 51,
+          "entry": "FDCAN1_IT1_IRQHandler",
+          "line": 188,
+          "irq_number": 35
+        },
+        {
+          "slot": 52,
+          "entry": "TIM1_BRK_TERR_IERR_IRQHandler",
+          "line": 189,
+          "irq_number": 36
+        },
+        {
+          "slot": 53,
+          "entry": "TIM1_UPD_IRQHandler",
+          "line": 190,
+          "irq_number": 37
+        },
+        {
+          "slot": 54,
+          "entry": "TIM1_TRGI_COM_DIR_IDX_IRQHandler",
+          "line": 191,
+          "irq_number": 38
+        },
+        {
+          "slot": 55,
+          "entry": "TIM1_CC_IRQHandler",
+          "line": 192,
+          "irq_number": 39
+        },
+        {
+          "slot": 56,
+          "entry": "TIM2_IRQHandler",
+          "line": 193,
+          "irq_number": 40
+        },
+        {
+          "slot": 57,
+          "entry": "0",
+          "line": 194,
+          "irq_number": 41
+        },
+        {
+          "slot": 58,
+          "entry": "TIM6_IRQHandler",
+          "line": 195,
+          "irq_number": 42
+        },
+        {
+          "slot": 59,
+          "entry": "TIM7_IRQHandler",
+          "line": 196,
+          "irq_number": 43
+        },
+        {
+          "slot": 60,
+          "entry": "I2C1_EV_IRQHandler",
+          "line": 197,
+          "irq_number": 44
+        },
+        {
+          "slot": 61,
+          "entry": "I2C1_ERR_IRQHandler",
+          "line": 198,
+          "irq_number": 45
+        },
+        {
+          "slot": 62,
+          "entry": "I3C1_EV_IRQHandler",
+          "line": 199,
+          "irq_number": 46
+        },
+        {
+          "slot": 63,
+          "entry": "I3C1_ERR_IRQHandler",
+          "line": 200,
+          "irq_number": 47
+        },
+        {
+          "slot": 64,
+          "entry": "SPI1_IRQHandler",
+          "line": 201,
+          "irq_number": 48
+        },
+        {
+          "slot": 65,
+          "entry": "SPI2_IRQHandler",
+          "line": 202,
+          "irq_number": 49
+        },
+        {
+          "slot": 66,
+          "entry": "0",
+          "line": 203,
+          "irq_number": 50
+        },
+        {
+          "slot": 67,
+          "entry": "USART1_IRQHandler",
+          "line": 204,
+          "irq_number": 51
+        },
+        {
+          "slot": 68,
+          "entry": "USART2_IRQHandler",
+          "line": 205,
+          "irq_number": 52
+        },
+        {
+          "slot": 69,
+          "entry": "0",
+          "line": 206,
+          "irq_number": 53
+        },
+        {
+          "slot": 70,
+          "entry": "UART4_IRQHandler",
+          "line": 207,
+          "irq_number": 54
+        },
+        {
+          "slot": 71,
+          "entry": "UART5_IRQHandler",
+          "line": 208,
+          "irq_number": 55
+        },
+        {
+          "slot": 72,
+          "entry": "LPUART1_IRQHandler",
+          "line": 209,
+          "irq_number": 56
+        },
+        {
+          "slot": 73,
+          "entry": "LPTIM1_IRQHandler",
+          "line": 210,
+          "irq_number": 57
+        },
+        {
+          "slot": 74,
+          "entry": "TIM12_IRQHandler",
+          "line": 211,
+          "irq_number": 58
+        },
+        {
+          "slot": 75,
+          "entry": "TIM15_IRQHandler",
+          "line": 212,
+          "irq_number": 59
+        },
+        {
+          "slot": 76,
+          "entry": "0",
+          "line": 213,
+          "irq_number": 60
+        },
+        {
+          "slot": 77,
+          "entry": "0",
+          "line": 214,
+          "irq_number": 61
+        },
+        {
+          "slot": 78,
+          "entry": "USB_DRD_FS_IRQHandler",
+          "line": 215,
+          "irq_number": 62
+        },
+        {
+          "slot": 79,
+          "entry": "CRS_IRQHandler",
+          "line": 216,
+          "irq_number": 63
+        },
+        {
+          "slot": 80,
+          "entry": "RNG_IRQHandler",
+          "line": 217,
+          "irq_number": 64
+        },
+        {
+          "slot": 81,
+          "entry": "FPU_IRQHandler",
+          "line": 218,
+          "irq_number": 65
+        },
+        {
+          "slot": 82,
+          "entry": "ICACHE_IRQHandler",
+          "line": 219,
+          "irq_number": 66
+        },
+        {
+          "slot": 83,
+          "entry": "CORDIC_IRQHandler",
+          "line": 220,
+          "irq_number": 67
+        },
+        {
+          "slot": 84,
+          "entry": "AES_IRQHandler",
+          "line": 221,
+          "irq_number": 68
+        },
+        {
+          "slot": 85,
+          "entry": "HASH_IRQHandler",
+          "line": 222,
+          "irq_number": 69
+        },
+        {
+          "slot": 86,
+          "entry": "0",
+          "line": 223,
+          "irq_number": 70
+        },
+        {
+          "slot": 87,
+          "entry": "0",
+          "line": 224,
+          "irq_number": 71
+        },
+        {
+          "slot": 88,
+          "entry": "TIM8_BRK_TERR_IERR_IRQHandler",
+          "line": 225,
+          "irq_number": 72
+        },
+        {
+          "slot": 89,
+          "entry": "TIM8_UPD_IRQHandler",
+          "line": 226,
+          "irq_number": 73
+        },
+        {
+          "slot": 90,
+          "entry": "TIM8_TRGI_COM_DIR_IDX_IRQHandler",
+          "line": 227,
+          "irq_number": 74
+        },
+        {
+          "slot": 91,
+          "entry": "TIM8_CC_IRQHandler",
+          "line": 228,
+          "irq_number": 75
+        },
+        {
+          "slot": 92,
+          "entry": "COMP1_IRQHandler",
+          "line": 229,
+          "irq_number": 76
+        },
+        {
+          "slot": 93,
+          "entry": "DAC1_IRQHandler",
+          "line": 230,
+          "irq_number": 77
+        },
+        {
+          "slot": 94,
+          "entry": "LPDMA2_CH0_IRQHandler",
+          "line": 231,
+          "irq_number": 78
+        },
+        {
+          "slot": 95,
+          "entry": "LPDMA2_CH1_IRQHandler",
+          "line": 232,
+          "irq_number": 79
+        },
+        {
+          "slot": 96,
+          "entry": "LPDMA2_CH2_IRQHandler",
+          "line": 233,
+          "irq_number": 80
+        },
+        {
+          "slot": 97,
+          "entry": "LPDMA2_CH3_IRQHandler",
+          "line": 234,
+          "irq_number": 81
+        },
+        {
+          "slot": 98,
+          "entry": "0",
+          "line": 235,
+          "irq_number": 82
+        },
+        {
+          "slot": 99,
+          "entry": "0",
+          "line": 236,
+          "irq_number": 83
+        },
+        {
+          "slot": 100,
+          "entry": "0",
+          "line": 237,
+          "irq_number": 84
+        },
+        {
+          "slot": 101,
+          "entry": "0",
+          "line": 238,
+          "irq_number": 85
+        },
+        {
+          "slot": 102,
+          "entry": "FDCAN2_IT0_IRQHandler",
+          "line": 239,
+          "irq_number": 86
+        },
+        {
+          "slot": 103,
+          "entry": "FDCAN2_IT1_IRQHandler",
+          "line": 240,
+          "irq_number": 87
+        },
+        {
+          "slot": 104,
+          "entry": "COMP2_IRQHandler",
+          "line": 241,
+          "irq_number": 88
+        }
+      ],
+      "svd_entries": [
+        {
+          "peripheral": "ADC1",
+          "name": "ADC1",
+          "number": 32
+        },
+        {
+          "peripheral": "AES",
+          "name": "AES",
+          "number": 68
+        },
+        {
+          "peripheral": "CRS",
+          "name": "CRS",
+          "number": 63
+        },
+        {
+          "peripheral": "DAC1",
+          "name": "DAC1",
+          "number": 77
+        },
+        {
+          "peripheral": "EXTI",
+          "name": "EXTI15",
+          "number": 22
+        },
+        {
+          "peripheral": "EXTI",
+          "name": "EXTI14",
+          "number": 21
+        },
+        {
+          "peripheral": "EXTI",
+          "name": "EXTI13",
+          "number": 20
+        },
+        {
+          "peripheral": "EXTI",
+          "name": "EXTI12",
+          "number": 19
+        },
+        {
+          "peripheral": "EXTI",
+          "name": "EXTI11",
+          "number": 18
+        },
+        {
+          "peripheral": "EXTI",
+          "name": "EXTI10",
+          "number": 17
+        },
+        {
+          "peripheral": "EXTI",
+          "name": "EXTI9",
+          "number": 16
+        },
+        {
+          "peripheral": "EXTI",
+          "name": "EXTI8",
+          "number": 15
+        },
+        {
+          "peripheral": "EXTI",
+          "name": "EXTI7",
+          "number": 14
+        },
+        {
+          "peripheral": "EXTI",
+          "name": "EXTI6",
+          "number": 13
+        },
+        {
+          "peripheral": "EXTI",
+          "name": "EXTI5",
+          "number": 12
+        },
+        {
+          "peripheral": "EXTI",
+          "name": "EXTI4",
+          "number": 11
+        },
+        {
+          "peripheral": "EXTI",
+          "name": "EXTI3",
+          "number": 10
+        },
+        {
+          "peripheral": "EXTI",
+          "name": "EXTI2",
+          "number": 9
+        },
+        {
+          "peripheral": "EXTI",
+          "name": "EXTI1",
+          "number": 8
+        },
+        {
+          "peripheral": "EXTI",
+          "name": "EXTI0",
+          "number": 7
+        },
+        {
+          "peripheral": "FDCAN1",
+          "name": "FDCAN1_IT1",
+          "number": 35
+        },
+        {
+          "peripheral": "FDCAN1",
+          "name": "FDCAN1_IT0",
+          "number": 34
+        },
+        {
+          "peripheral": "FDCAN2",
+          "name": "FDCAN2_IT0",
+          "number": 86
+        },
+        {
+          "peripheral": "FDCAN2",
+          "name": "FDCAN2_IT1",
+          "number": 87
+        },
+        {
+          "peripheral": "FLASH",
+          "name": "FLASH",
+          "number": 5
+        },
+        {
+          "peripheral": "HASH",
+          "name": "HASH",
+          "number": 69
+        },
+        {
+          "peripheral": "I2C1",
+          "name": "I2C1_ERR",
+          "number": 45
+        },
+        {
+          "peripheral": "I2C1",
+          "name": "I2C1_EV",
+          "number": 44
+        },
+        {
+          "peripheral": "I3C1",
+          "name": "I3C1_ERR",
+          "number": 47
+        },
+        {
+          "peripheral": "I3C1",
+          "name": "I3C1_EV",
+          "number": 46
+        },
+        {
+          "peripheral": "ICACHE",
+          "name": "ICACHE",
+          "number": 66
+        },
+        {
+          "peripheral": "IWDG",
+          "name": "IWDG",
+          "number": 31
+        },
+        {
+          "peripheral": "LPDMA1",
+          "name": "LPDMA1_CH3",
+          "number": 26
+        },
+        {
+          "peripheral": "LPDMA1",
+          "name": "LPDMA1_CH2",
+          "number": 25
+        },
+        {
+          "peripheral": "LPDMA1",
+          "name": "LPDMA1_CH1",
+          "number": 24
+        },
+        {
+          "peripheral": "LPDMA1",
+          "name": "LPDMA1_CH0",
+          "number": 23
+        },
+        {
+          "peripheral": "LPDMA2",
+          "name": "LPDMA2_CH3",
+          "number": 81
+        },
+        {
+          "peripheral": "LPDMA2",
+          "name": "LPDMA2_CH2",
+          "number": 80
+        },
+        {
+          "peripheral": "LPDMA2",
+          "name": "LPDMA2_CH1",
+          "number": 79
+        },
+        {
+          "peripheral": "LPDMA2",
+          "name": "LPDMA2_CH0",
+          "number": 78
+        },
+        {
+          "peripheral": "LPTIM1",
+          "name": "LPTIM1",
+          "number": 57
+        },
+        {
+          "peripheral": "LPUART",
+          "name": "LPUART1",
+          "number": 56
+        },
+        {
+          "peripheral": "PWR",
+          "name": "PWR_PVD",
+          "number": 1
+        },
+        {
+          "peripheral": "RAMCFG",
+          "name": "RAMCFG",
+          "number": 4
+        },
+        {
+          "peripheral": "RCC",
+          "name": "RCC",
+          "number": 6
+        },
+        {
+          "peripheral": "RNG",
+          "name": "RNG",
+          "number": 64
+        },
+        {
+          "peripheral": "RTC",
+          "name": "RTC",
+          "number": 2
+        },
+        {
+          "peripheral": "SPI1",
+          "name": "SPI1",
+          "number": 48
+        },
+        {
+          "peripheral": "SPI2",
+          "name": "SPI2",
+          "number": 49
+        },
+        {
+          "peripheral": "TAMP",
+          "name": "TAMP",
+          "number": 3
+        },
+        {
+          "peripheral": "TIM1",
+          "name": "TIM1_CC",
+          "number": 39
+        },
+        {
+          "peripheral": "TIM1",
+          "name": "TIM1_TRGI_COM_DIR_IDX",
+          "number": 38
+        },
+        {
+          "peripheral": "TIM1",
+          "name": "TIM1_UPD",
+          "number": 37
+        },
+        {
+          "peripheral": "TIM1",
+          "name": "TIM1_BRK_TERR_IERR",
+          "number": 36
+        },
+        {
+          "peripheral": "TIM2",
+          "name": "TIM2",
+          "number": 40
+        },
+        {
+          "peripheral": "TIM6",
+          "name": "TIM6",
+          "number": 42
+        },
+        {
+          "peripheral": "TIM7",
+          "name": "TIM7",
+          "number": 43
+        },
+        {
+          "peripheral": "TIM8",
+          "name": "TIM8_CC",
+          "number": 75
+        },
+        {
+          "peripheral": "TIM8",
+          "name": "TIM8_TRGI_COM_DIR_IDX",
+          "number": 74
+        },
+        {
+          "peripheral": "TIM8",
+          "name": "TIM8_UPD",
+          "number": 73
+        },
+        {
+          "peripheral": "TIM8",
+          "name": "TIM8_BRK_TERR_IERR",
+          "number": 72
+        },
+        {
+          "peripheral": "TIM12",
+          "name": "TIM12",
+          "number": 58
+        },
+        {
+          "peripheral": "TIM15",
+          "name": "TIM15",
+          "number": 59
+        },
+        {
+          "peripheral": "USART1",
+          "name": "USART1",
+          "number": 51
+        },
+        {
+          "peripheral": "UART4",
+          "name": "UART4",
+          "number": 54
+        },
+        {
+          "peripheral": "UART5",
+          "name": "UART5",
+          "number": 55
+        },
+        {
+          "peripheral": "USART2",
+          "name": "USART2",
+          "number": 52
+        },
+        {
+          "peripheral": "USB_DRD_FS",
+          "name": "USB_DRD_FS",
+          "number": 62
+        },
+        {
+          "peripheral": "WWDG",
+          "name": "WWDG",
+          "number": 0
+        }
+      ],
+      "counts": {
+        "header_declarations": 83,
+        "negative_core_declarations": 10,
+        "named_external_IRQs": 73,
+        "startup_total_slots": 105,
+        "startup_external_positions": 89,
+        "svd_entries": 69
+      },
+      "explicit_zero_positions": [
+        27,
+        28,
+        29,
+        30,
+        33,
+        41,
+        50,
+        53,
+        60,
+        61,
+        70,
+        71,
+        82,
+        83,
+        84,
+        85
+      ],
+      "header_IRQs_missing_from_SVD": [
+        {
+          "name": "FPU",
+          "number": 65,
+          "line": 120
+        },
+        {
+          "name": "CORDIC",
+          "number": 67,
+          "line": 122
+        },
+        {
+          "name": "COMP1",
+          "number": 76,
+          "line": 130
+        },
+        {
+          "name": "COMP2",
+          "number": 88,
+          "line": 138
+        }
+      ],
+      "evidence": [
+        "header.IRQ",
+        "startup.vector"
+      ]
+    },
+    "instance_predicates": {
+      "IS_AES_ALL_INSTANCE": {
+        "direct_symbols": [
+          "AES"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_AES_ALL_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "AES"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_ADC_ALL_INSTANCE": {
+        "direct_symbols": [
+          "ADC1"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_ADC_ALL_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "ADC1"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_ADC_COMMON_INSTANCE": {
+        "direct_symbols": [
+          "ADC12_COMMON"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_ADC_COMMON_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "ADC12_COMMON"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_COMP_ALL_INSTANCE": {
+        "direct_symbols": [
+          "COMP1",
+          "COMP2"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_COMP_ALL_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "COMP1",
+          "COMP2"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_CORDIC_ALL_INSTANCE": {
+        "direct_symbols": [
+          "CORDIC"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_CORDIC_ALL_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "CORDIC"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_CRC_ALL_INSTANCE": {
+        "direct_symbols": [
+          "CRC"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_CRC_ALL_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "CRC"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_CRS_ALL_INSTANCE": {
+        "direct_symbols": [
+          "CRS"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_CRS_ALL_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "CRS"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_DAC_ALL_INSTANCE": {
+        "direct_symbols": [
+          "DAC1"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_DAC_ALL_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "DAC1"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_DMA_ALL_INSTANCE": {
+        "direct_symbols": [
+          "LPDMA1_CH0",
+          "LPDMA1_CH1",
+          "LPDMA1_CH2",
+          "LPDMA1_CH3",
+          "LPDMA2_CH0",
+          "LPDMA2_CH1",
+          "LPDMA2_CH2",
+          "LPDMA2_CH3"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_DMA_ALL_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "LPDMA1_CH0",
+          "LPDMA1_CH1",
+          "LPDMA1_CH2",
+          "LPDMA1_CH3",
+          "LPDMA2_CH0",
+          "LPDMA2_CH1",
+          "LPDMA2_CH2",
+          "LPDMA2_CH3"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_LPDMA1_INSTANCE": {
+        "direct_symbols": [
+          "LPDMA1_CH0",
+          "LPDMA1_CH1",
+          "LPDMA1_CH2",
+          "LPDMA1_CH3"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_LPDMA1_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "LPDMA1_CH0",
+          "LPDMA1_CH1",
+          "LPDMA1_CH2",
+          "LPDMA1_CH3"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_LPDMA2_INSTANCE": {
+        "direct_symbols": [
+          "LPDMA2_CH0",
+          "LPDMA2_CH1",
+          "LPDMA2_CH2",
+          "LPDMA2_CH3"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_LPDMA2_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "LPDMA2_CH0",
+          "LPDMA2_CH1",
+          "LPDMA2_CH2",
+          "LPDMA2_CH3"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_DMA_PFREQ_INSTANCE": {
+        "direct_symbols": [
+          "LPDMA1_CH0",
+          "LPDMA1_CH3",
+          "LPDMA2_CH0",
+          "LPDMA2_CH3"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_DMA_PFREQ_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "LPDMA1_CH0",
+          "LPDMA1_CH3",
+          "LPDMA2_CH0",
+          "LPDMA2_CH3"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_FLASH_INSTANCE": {
+        "direct_symbols": [
+          "FLASH"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_FLASH_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "FLASH"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_FDCAN_ALL_INSTANCE": {
+        "direct_symbols": [
+          "FDCAN1",
+          "FDCAN2"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_FDCAN_ALL_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "FDCAN1",
+          "FDCAN2"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_GPIO_ALL_INSTANCE": {
+        "direct_symbols": [
+          "GPIOA",
+          "GPIOB",
+          "GPIOC",
+          "GPIOD",
+          "GPIOE",
+          "GPIOH"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_GPIO_ALL_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "GPIOA",
+          "GPIOB",
+          "GPIOC",
+          "GPIOD",
+          "GPIOE",
+          "GPIOH"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_HASH_ALL_INSTANCE": {
+        "direct_symbols": [
+          "HASH"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_HASH_ALL_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "HASH"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_I2C_ALL_INSTANCE": {
+        "direct_symbols": [
+          "I2C1"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_I2C_ALL_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "I2C1"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_I2C_WAKEUP_FROMSTOP_INSTANCE": {
+        "direct_symbols": [],
+        "alias_predicates": [
+          "IS_I2C_ALL_INSTANCE"
+        ],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_I2C_WAKEUP_FROMSTOP_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "I2C1"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_SMBUS_ALL_INSTANCE": {
+        "direct_symbols": [
+          "I2C1"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_SMBUS_ALL_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "I2C1"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_I3C_ALL_INSTANCE": {
+        "direct_symbols": [
+          "I3C1"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_I3C_ALL_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "I3C1"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_ICACHE_ALL_INSTANCE": {
+        "direct_symbols": [
+          "ICACHE"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_ICACHE_ALL_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "ICACHE"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_IWDG_ALL_INSTANCE": {
+        "direct_symbols": [
+          "IWDG"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_IWDG_ALL_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "IWDG"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_WWDG_ALL_INSTANCE": {
+        "direct_symbols": [
+          "WWDG"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_WWDG_ALL_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "WWDG"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_LPUART_INSTANCE": {
+        "direct_symbols": [
+          "LPUART1"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_LPUART_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "LPUART1"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_OPAMP_ALL_INSTANCE": {
+        "direct_symbols": [
+          "OPAMP1"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_OPAMP_ALL_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "OPAMP1"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_RAMCFG_ALL_INSTANCE": {
+        "direct_symbols": [
+          "RAMCFG_SRAM1",
+          "RAMCFG_SRAM2"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_RAMCFG_ALL_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "RAMCFG_SRAM1",
+          "RAMCFG_SRAM2"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_RAMCFG_MASS_ERASE_INSTANCE": {
+        "direct_symbols": [
+          "RAMCFG_SRAM1",
+          "RAMCFG_SRAM2"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_RAMCFG_MASS_ERASE_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "RAMCFG_SRAM1",
+          "RAMCFG_SRAM2"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_RAMCFG_ECC_INSTANCE": {
+        "direct_symbols": [
+          "RAMCFG_SRAM2"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_RAMCFG_ECC_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "RAMCFG_SRAM2"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_RAMCFG_WP_INSTANCE": {
+        "direct_symbols": [
+          "RAMCFG_SRAM1",
+          "RAMCFG_SRAM2"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_RAMCFG_WP_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "RAMCFG_SRAM1",
+          "RAMCFG_SRAM2"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_RNG_ALL_INSTANCE": {
+        "direct_symbols": [
+          "RNG"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_RNG_ALL_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "RNG"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_RTC_ALL_INSTANCE": {
+        "direct_symbols": [
+          "RTC"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_RTC_ALL_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "RTC"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_LPTIM_INSTANCE": {
+        "direct_symbols": [
+          "LPTIM1"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_LPTIM_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "LPTIM1"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_LPTIM_DMA_INSTANCE": {
+        "direct_symbols": [
+          "LPTIM1"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_LPTIM_DMA_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "LPTIM1"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_LPTIM_CC1_INSTANCE": {
+        "direct_symbols": [
+          "LPTIM1"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_LPTIM_CC1_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "LPTIM1"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_LPTIM_CC2_INSTANCE": {
+        "direct_symbols": [
+          "LPTIM1"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_LPTIM_CC2_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "LPTIM1"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_LPTIM_ENCODER_INTERFACE_INSTANCE": {
+        "direct_symbols": [
+          "LPTIM1"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_LPTIM_ENCODER_INTERFACE_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "LPTIM1"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_LPTIM_INPUT_CAPTURE_INSTANCE": {
+        "direct_symbols": [
+          "LPTIM1"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_LPTIM_INPUT_CAPTURE_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "LPTIM1"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_LPTIM_INPUT1_INSTANCE": {
+        "direct_symbols": [
+          "LPTIM1"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_LPTIM_INPUT1_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "LPTIM1"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_SPI_ALL_INSTANCE": {
+        "direct_symbols": [
+          "SPI1",
+          "SPI2"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_SPI_ALL_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "SPI1",
+          "SPI2"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_I2S_ALL_INSTANCE": {
+        "direct_symbols": [
+          "SPI1",
+          "SPI2"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_I2S_ALL_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "SPI1",
+          "SPI2"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TAMP_INSTANCE": {
+        "direct_symbols": [
+          "TAMP"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TAMP_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TAMP"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TIM_INSTANCE": {
+        "direct_symbols": [
+          "TIM1",
+          "TIM2",
+          "TIM6",
+          "TIM7",
+          "TIM8",
+          "TIM12",
+          "TIM15"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TIM_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TIM1",
+          "TIM12",
+          "TIM15",
+          "TIM2",
+          "TIM6",
+          "TIM7",
+          "TIM8"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TIM_32B_COUNTER_INSTANCE": {
+        "direct_symbols": [
+          "TIM2"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TIM_32B_COUNTER_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TIM2"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TIM_BREAK_INSTANCE": {
+        "direct_symbols": [
+          "TIM1",
+          "TIM8",
+          "TIM15"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TIM_BREAK_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TIM1",
+          "TIM15",
+          "TIM8"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TIM_BREAKSOURCE_INSTANCE": {
+        "direct_symbols": [
+          "TIM1",
+          "TIM8",
+          "TIM15"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TIM_BREAKSOURCE_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TIM1",
+          "TIM15",
+          "TIM8"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TIM_BKIN2_INSTANCE": {
+        "direct_symbols": [
+          "TIM1",
+          "TIM8"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TIM_BKIN2_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TIM1",
+          "TIM8"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TIM_CC1_INSTANCE": {
+        "direct_symbols": [
+          "TIM1",
+          "TIM2",
+          "TIM8",
+          "TIM12",
+          "TIM15"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TIM_CC1_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TIM1",
+          "TIM12",
+          "TIM15",
+          "TIM2",
+          "TIM8"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TIM_CC2_INSTANCE": {
+        "direct_symbols": [
+          "TIM1",
+          "TIM2",
+          "TIM8",
+          "TIM12",
+          "TIM15"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TIM_CC2_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TIM1",
+          "TIM12",
+          "TIM15",
+          "TIM2",
+          "TIM8"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TIM_CC3_INSTANCE": {
+        "direct_symbols": [
+          "TIM1",
+          "TIM2",
+          "TIM8"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TIM_CC3_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TIM1",
+          "TIM2",
+          "TIM8"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TIM_CC4_INSTANCE": {
+        "direct_symbols": [],
+        "alias_predicates": [
+          "IS_TIM_CC3_INSTANCE"
+        ],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TIM_CC4_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TIM1",
+          "TIM2",
+          "TIM8"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TIM_CC5_INSTANCE": {
+        "direct_symbols": [
+          "TIM1",
+          "TIM8"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TIM_CC5_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TIM1",
+          "TIM8"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TIM_CC6_INSTANCE": {
+        "direct_symbols": [],
+        "alias_predicates": [
+          "IS_TIM_CC5_INSTANCE"
+        ],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TIM_CC6_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TIM1",
+          "TIM8"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TIM_CC7_INSTANCE": {
+        "direct_symbols": [],
+        "alias_predicates": [
+          "IS_TIM_CC6_INSTANCE"
+        ],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TIM_CC7_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TIM1",
+          "TIM8"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TIM_CC1N_INSTANCE": {
+        "direct_symbols": [
+          "TIM1",
+          "TIM8",
+          "TIM15"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TIM_CC1N_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TIM1",
+          "TIM15",
+          "TIM8"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TIM_CC2N_INSTANCE": {
+        "direct_symbols": [
+          "TIM1",
+          "TIM8"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TIM_CC2N_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TIM1",
+          "TIM8"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TIM_CC3N_INSTANCE": {
+        "direct_symbols": [],
+        "alias_predicates": [
+          "IS_TIM_CC2N_INSTANCE"
+        ],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TIM_CC3N_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TIM1",
+          "TIM8"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TIM_CC4N_INSTANCE": {
+        "direct_symbols": [],
+        "alias_predicates": [
+          "IS_TIM_CC3N_INSTANCE"
+        ],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TIM_CC4N_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TIM1",
+          "TIM8"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TIM_DMA_INSTANCE": {
+        "direct_symbols": [
+          "TIM1",
+          "TIM2",
+          "TIM6",
+          "TIM7",
+          "TIM8",
+          "TIM15"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TIM_DMA_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TIM1",
+          "TIM15",
+          "TIM2",
+          "TIM6",
+          "TIM7",
+          "TIM8"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TIM_DMA_CC_INSTANCE": {
+        "direct_symbols": [
+          "TIM1",
+          "TIM2",
+          "TIM8",
+          "TIM15"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TIM_DMA_CC_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TIM1",
+          "TIM15",
+          "TIM2",
+          "TIM8"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TIM_DMABURST_INSTANCE": {
+        "direct_symbols": [
+          "TIM1",
+          "TIM2",
+          "TIM8",
+          "TIM15"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TIM_DMABURST_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TIM1",
+          "TIM15",
+          "TIM2",
+          "TIM8"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TIM_CLOCK_DIVISION_INSTANCE": {
+        "direct_symbols": [
+          "TIM1",
+          "TIM2",
+          "TIM8",
+          "TIM12",
+          "TIM15"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TIM_CLOCK_DIVISION_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TIM1",
+          "TIM12",
+          "TIM15",
+          "TIM2",
+          "TIM8"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TIM_COMMUTATION_EVENT_INSTANCE": {
+        "direct_symbols": [
+          "TIM1",
+          "TIM8",
+          "TIM15"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TIM_COMMUTATION_EVENT_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TIM1",
+          "TIM15",
+          "TIM8"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TIM_COUNTER_MODE_SELECT_INSTANCE": {
+        "direct_symbols": [
+          "TIM1",
+          "TIM2",
+          "TIM8",
+          "TIM15"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TIM_COUNTER_MODE_SELECT_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TIM1",
+          "TIM15",
+          "TIM2",
+          "TIM8"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TIM_ENCODER_INTERFACE_INSTANCE": {
+        "direct_symbols": [
+          "TIM1",
+          "TIM2",
+          "TIM8",
+          "TIM15"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TIM_ENCODER_INTERFACE_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TIM1",
+          "TIM15",
+          "TIM2",
+          "TIM8"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TIM_ETR_INSTANCE": {
+        "direct_symbols": [
+          "TIM1",
+          "TIM2",
+          "TIM8"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TIM_ETR_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TIM1",
+          "TIM2",
+          "TIM8"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TIM_MASTER_INSTANCE": {
+        "direct_symbols": [
+          "TIM1",
+          "TIM2",
+          "TIM6",
+          "TIM7",
+          "TIM8",
+          "TIM12",
+          "TIM15"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TIM_MASTER_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TIM1",
+          "TIM12",
+          "TIM15",
+          "TIM2",
+          "TIM6",
+          "TIM7",
+          "TIM8"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TIM_SLAVE_INSTANCE": {
+        "direct_symbols": [
+          "TIM1",
+          "TIM2",
+          "TIM8",
+          "TIM12",
+          "TIM15"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TIM_SLAVE_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TIM1",
+          "TIM12",
+          "TIM15",
+          "TIM2",
+          "TIM8"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TIM_OCXREF_CLEAR_INSTANCE": {
+        "direct_symbols": [
+          "TIM1",
+          "TIM2",
+          "TIM8",
+          "TIM15"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TIM_OCXREF_CLEAR_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TIM1",
+          "TIM15",
+          "TIM2",
+          "TIM8"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TIM_16B_REPETITION_COUNTER_INSTANCE": {
+        "direct_symbols": [
+          "TIM1",
+          "TIM8"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TIM_16B_REPETITION_COUNTER_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TIM1",
+          "TIM8"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TIM_8B_REPETITION_COUNTER_INSTANCE": {
+        "direct_symbols": [
+          "TIM15"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TIM_8B_REPETITION_COUNTER_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TIM15"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TIM_REPETITION_COUNTER_INSTANCE": {
+        "direct_symbols": [],
+        "alias_predicates": [
+          "IS_TIM_16B_REPETITION_COUNTER_INSTANCE",
+          "IS_TIM_8B_REPETITION_COUNTER_INSTANCE"
+        ],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TIM_REPETITION_COUNTER_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TIM1",
+          "TIM15",
+          "TIM8"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TIM_TRGO2_INSTANCE": {
+        "direct_symbols": [
+          "TIM1",
+          "TIM8"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TIM_TRGO2_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TIM1",
+          "TIM8"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TIM_XOR_INSTANCE": {
+        "direct_symbols": [
+          "TIM1",
+          "TIM2",
+          "TIM8",
+          "TIM12",
+          "TIM15"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TIM_XOR_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TIM1",
+          "TIM12",
+          "TIM15",
+          "TIM2",
+          "TIM8"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TIM_APB1_INSTANCE": {
+        "direct_symbols": [
+          "TIM2",
+          "TIM6",
+          "TIM7",
+          "TIM12"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TIM_APB1_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TIM12",
+          "TIM2",
+          "TIM6",
+          "TIM7"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_TIM_APB2_INSTANCE": {
+        "direct_symbols": [
+          "TIM1",
+          "TIM8",
+          "TIM15"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_TIM_APB2_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "TIM1",
+          "TIM15",
+          "TIM8"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_USART_INSTANCE": {
+        "direct_symbols": [
+          "USART1",
+          "USART2"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_USART_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "USART1",
+          "USART2"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_UART_INSTANCE": {
+        "direct_symbols": [
+          "USART1",
+          "USART2",
+          "UART4",
+          "UART5"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_UART_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "UART4",
+          "UART5",
+          "USART1",
+          "USART2"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_UART_FIFO_INSTANCE": {
+        "direct_symbols": [
+          "USART1",
+          "USART2",
+          "UART4",
+          "UART5",
+          "LPUART1"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_UART_FIFO_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "LPUART1",
+          "UART4",
+          "UART5",
+          "USART1",
+          "USART2"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_UART_SPI_SLAVE_INSTANCE": {
+        "direct_symbols": [
+          "USART1",
+          "USART2"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_UART_SPI_SLAVE_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "USART1",
+          "USART2"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_USART_AUTOBAUDRATE_DETECTION_INSTANCE": {
+        "direct_symbols": [
+          "USART1",
+          "USART2",
+          "UART4",
+          "UART5"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_USART_AUTOBAUDRATE_DETECTION_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "UART4",
+          "UART5",
+          "USART1",
+          "USART2"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_UART_DRIVER_ENABLE_INSTANCE": {
+        "direct_symbols": [
+          "USART1",
+          "USART2",
+          "UART4",
+          "UART5",
+          "LPUART1"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_UART_DRIVER_ENABLE_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "LPUART1",
+          "UART4",
+          "UART5",
+          "USART1",
+          "USART2"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_UART_HALFDUPLEX_INSTANCE": {
+        "direct_symbols": [
+          "USART1",
+          "USART2",
+          "UART4",
+          "UART5",
+          "LPUART1"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_UART_HALFDUPLEX_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "LPUART1",
+          "UART4",
+          "UART5",
+          "USART1",
+          "USART2"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_UART_HWFLOW_INSTANCE": {
+        "direct_symbols": [
+          "USART1",
+          "USART2",
+          "UART4",
+          "UART5",
+          "LPUART1"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_UART_HWFLOW_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "LPUART1",
+          "UART4",
+          "UART5",
+          "USART1",
+          "USART2"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_UART_RECEIVER_TIMEOUT_INSTANCE": {
+        "direct_symbols": [
+          "USART1",
+          "USART2",
+          "UART4",
+          "UART5"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_UART_RECEIVER_TIMEOUT_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "UART4",
+          "UART5",
+          "USART1",
+          "USART2"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_UART_LIN_INSTANCE": {
+        "direct_symbols": [
+          "USART1",
+          "USART2",
+          "UART4",
+          "UART5"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_UART_LIN_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "UART4",
+          "UART5",
+          "USART1",
+          "USART2"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_UART_WAKEUP_FROMSTOP_INSTANCE": {
+        "direct_symbols": [
+          "USART1",
+          "USART2",
+          "UART4",
+          "UART5",
+          "LPUART1"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_UART_WAKEUP_FROMSTOP_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "LPUART1",
+          "UART4",
+          "UART5",
+          "USART1",
+          "USART2"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_IRDA_INSTANCE": {
+        "direct_symbols": [
+          "USART1",
+          "USART2",
+          "UART4",
+          "UART5"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_IRDA_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "UART4",
+          "UART5",
+          "USART1",
+          "USART2"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_SMARTCARD_INSTANCE": {
+        "direct_symbols": [
+          "USART1",
+          "USART2"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_SMARTCARD_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "USART1",
+          "USART2"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_HCD_ALL_INSTANCE": {
+        "direct_symbols": [
+          "USB_DRD_FS"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_HCD_ALL_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "USB_DRD_FS"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      },
+      "IS_PCD_ALL_INSTANCE": {
+        "direct_symbols": [
+          "USB_DRD_FS"
+        ],
+        "alias_predicates": [],
+        "preprocessor_context": [
+          "#ifndef STM32C542xx_H"
+        ],
+        "evidence": [
+          "predicate.IS_PCD_ALL_INSTANCE"
+        ],
+        "derived_symbol_union": [
+          "USB_DRD_FS"
+        ],
+        "qualification": "Literal header predicate only; not peripheral, mode, pin, errata or runtime admission."
+      }
+    },
+    "predicate_count": 90,
+    "excluded_macro_residue": {
+      "detail": "ADC_MULTI_INSTANCE_MASTER(adc_instance) references ADC2 outside the selected IS_*INSTANCE signature. ADC1-only predicate and ADC12_COMMON do not establish ADC2 availability.",
+      "evidence": [
+        "header.adc_residue"
+      ]
+    },
+    "published_count_conflicts": {
+      "DS_maskable_channel_claim": 88,
+      "RM_maskable_channel_claim": 98,
+      "RM_table_external_position_range_inclusive": [
+        0,
+        98
+      ],
+      "qualification": "Prose counts match highest positions, but an editorial off-by-one explanation is only an inference. Neither equals named exact-device IRQ count.",
+      "evidence": [
+        "DS15135:p14",
+        "RM0522:p440",
+        "RM0522:p441",
+        "RM0522:p442",
+        "RM0522:p443",
+        "RM0522:p444"
+      ]
+    },
+    "limits": [
+      "RM directs checking actual peripheral availability; exact startup zeros are not fabricated peripheral declarations.",
+      "RM positions 89..98 are beyond the exact startup table, not additional zeros authored by it.",
+      "Weak Default_IRQHandler aliases are fallback linkage, not merged physical IRQ identities.",
+      "Header predicates describe SDK checks and may contain family residue. Do not treat symbolic unions as executable capability admission.",
+      "Preprocessor context is a textual guard stack, not evaluated preprocessing; no modeling of undef, other-header redefinitions, command-line definitions, include order or directives inside comments/continuations.",
+      "An SVD interrupt omission is not evidence of physical presence or absence; COMP12 exists in the SVD without interrupt entries.",
+      "Preserve exact physical EXTI line identity across ports and consumers; no active catalog changes.",
+      "Core vector routing, priority policy, handler implementation and hardware behavior remain unqualified."
+    ],
+    "IRQ_naming_cautions": {
+      "detail": "Grouped TIM break/error and trigger/commutation/direction/index sources share vectors. LPUART Rx/Tx share IRQ56. PVD/PWR_PVD, ER/ERR and USB_FS/USB_DRD_FS are source naming correspondences, not additional IRQs; USB OTG wording does not establish OTG capability.",
+      "evidence": [
+        "header.IRQ",
+        "startup.vector",
+        "RM0522:p440",
+        "RM0522:p441",
+        "RM0522:p442",
+        "RM0522:p443",
+        "RM0522:p444"
+      ]
+    }
+  }
+}

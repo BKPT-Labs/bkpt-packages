@@ -1,0 +1,2170 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/i3c-contracts.json",
+    "sha256": "59f7d7c5fa64dee80172cdda868ba1d956f38405a76d889cd8e8c4666d4e56ac"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 172
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "schema": "bkpt.external.i3c.contracts.v1",
+    "review": "Independent source and regression review pending.",
+    "scope": "Data-only exact I3C1 controller and target source contracts. Full RM chapter extracted text read; bounded SDK paths inspected. No executable profile, electrical timing qualification, protocol conformance or whole-device closure.",
+    "sources": {
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "DS15135": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pdf",
+        "sha256": "1a3555f799297774a95978ab343ebc1f45ab9ef58d0dcf3600dec4fabed9355c",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pages.json",
+        "extraction_sha256": "b14b965adb6c1545edbca0e56b3c504e7ecc3a94bda197350ce2757b5a3d55dc"
+      },
+      "ES0676": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pdf",
+        "sha256": "a5463827337bcdbd3e5f2e0912a56307d78b568e5631b21cc9a25899c7d4a5e6",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pages.json",
+        "extraction_sha256": "2ab1b19e42b53e22ff5f3b98f6ed9a5f98f3b7b61a617abc3bb3b7fc050d1cb3"
+      },
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "HAL_def": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_def.h",
+        "sha256": "44149fa34fae22a75c3cfdf6607c5047d9f01141ba683b9b905c953ca31fb338"
+      },
+      "assert_template": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/templates/common/stm32_assert.h",
+        "sha256": "811b45570fdc34fc5ad7b308625795b0a8c2aff53c1a261694772df6b7fb205c"
+      },
+      "package": {
+        "path": "research://c5-reference/package-routes.json",
+        "sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288"
+      },
+      "errata": {
+        "path": "research://c5-reference/errata.json",
+        "sha256": "821c22f796a9ff723afee534fe5943c2b0506325ec871d890706d94414316416"
+      },
+      "dma_routing": {
+        "path": "research://c5-reference/dma-routing.json",
+        "sha256": "6f5d4d59950941a32d983ccc0907dda996415c9fd201cce9b2e8777bd86ae41d"
+      },
+      "HAL": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_i3c.c",
+        "sha256": "d2446eba038b3b7d2306af36a29b29894b0444b139b2c73982c564dcf0786dfa"
+      },
+      "HAL_H": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_i3c.h",
+        "sha256": "096e3ac2ed5fc0659ddf686343488e957c7f453f71a6bb3304eab8cb3ec3a2f4"
+      },
+      "LL": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_i3c.h",
+        "sha256": "b5e84c8699d82fa0e477f28672b4d4182c9aa4ce4b135efcceeb9501cbb0be8f"
+      }
+    },
+    "evidence": {
+      "RM0522:p316": {
+        "source": "RM0522",
+        "page": 316,
+        "sha256": "ae02ee5a7b9b05b47ee9d4d80bd3ff768aaf22a5acf15f6c762ec6f62fb94c12"
+      },
+      "RM0522:p1687": {
+        "source": "RM0522",
+        "page": 1687,
+        "sha256": "728ff4443b6cf19327acaf83f02c4b66589553828dbb1c3f58086ece1de8ad37"
+      },
+      "RM0522:p1688": {
+        "source": "RM0522",
+        "page": 1688,
+        "sha256": "c58fc5881fb8fb4016f2d33779a79b2e598b7958cfcb3a4de2e411186ec35a28"
+      },
+      "RM0522:p1689": {
+        "source": "RM0522",
+        "page": 1689,
+        "sha256": "b1ae34030d1e6b1b94e79406fbd7151d56b71756d7f39c89e59e594cda487393"
+      },
+      "RM0522:p1690": {
+        "source": "RM0522",
+        "page": 1690,
+        "sha256": "15ce65199fcb035cd8d34431a09b95ec51a279c21f0677b748a49c7e80b85488"
+      },
+      "RM0522:p1691": {
+        "source": "RM0522",
+        "page": 1691,
+        "sha256": "1f3afbff865ab6f1d997a3fd6cc4ef836ab05c88795350d2fd89381f127c768e"
+      },
+      "RM0522:p1692": {
+        "source": "RM0522",
+        "page": 1692,
+        "sha256": "d1708079f0174771563054ef598414da6dfed79b7cd2c6226be775c1ebd3b304"
+      },
+      "RM0522:p1693": {
+        "source": "RM0522",
+        "page": 1693,
+        "sha256": "27e50c8ca79675758d458294e15d10731747d3aca51aa9be0989905c77966fa8"
+      },
+      "RM0522:p1694": {
+        "source": "RM0522",
+        "page": 1694,
+        "sha256": "b69412fe7198cd5ed9ff2f00a32d42103fd1a09f21e85aff19d0bdcebfd4bc7e"
+      },
+      "RM0522:p1695": {
+        "source": "RM0522",
+        "page": 1695,
+        "sha256": "76b0ab4c90d6b28f3ce41b083689ed446905a769aec03dbd8ada61e4cf1e24db"
+      },
+      "RM0522:p1696": {
+        "source": "RM0522",
+        "page": 1696,
+        "sha256": "75d7aa257882f5898b0e5d46c7ea6d955d4b4bf58b4d983bbae958dd3e53987b"
+      },
+      "RM0522:p1697": {
+        "source": "RM0522",
+        "page": 1697,
+        "sha256": "efec90583201d6a825dfad72c01fa9327754a5442f76e6188587a37bb30e39ba"
+      },
+      "RM0522:p1698": {
+        "source": "RM0522",
+        "page": 1698,
+        "sha256": "1cb8736be586d562a184df433b19a5c7319a7be352dd3f8cd458707035db6235"
+      },
+      "RM0522:p1699": {
+        "source": "RM0522",
+        "page": 1699,
+        "sha256": "9db30b81d806e95cb5eb119866582b49800fafa1c9fdf69a29b0ffa24210c390"
+      },
+      "RM0522:p1700": {
+        "source": "RM0522",
+        "page": 1700,
+        "sha256": "5f61fbd9dbfed038e33aa80a662b9381617c24acb9fd927483e0ccf50d2111b0"
+      },
+      "RM0522:p1701": {
+        "source": "RM0522",
+        "page": 1701,
+        "sha256": "f5ab92e03fa896be99592889d1c4f5e9186aa16aeac725494bf532e3bfe7b004"
+      },
+      "RM0522:p1702": {
+        "source": "RM0522",
+        "page": 1702,
+        "sha256": "65cdb7d688f93d8265919efdbb0a5f3fe9887dae487c28030f337a680dc9a9b2"
+      },
+      "RM0522:p1703": {
+        "source": "RM0522",
+        "page": 1703,
+        "sha256": "30142756ad43f63e94bf595ecf435ee6a6cc0c32c9c214fdaa590c379d8de087"
+      },
+      "RM0522:p1704": {
+        "source": "RM0522",
+        "page": 1704,
+        "sha256": "3bf68ca844d9faa5a0e964ad292783c34d49c21e1305c0a5f89d9c3956265069"
+      },
+      "RM0522:p1705": {
+        "source": "RM0522",
+        "page": 1705,
+        "sha256": "dff3960b72d8efe4db099583c12a9efd526f6bfe7bb62a73ba2dcb31e85b2fee"
+      },
+      "RM0522:p1706": {
+        "source": "RM0522",
+        "page": 1706,
+        "sha256": "29d9c32a9a8a627fa6e7ac2b571c122592eb4120b444db8319cf9a4f281f3531"
+      },
+      "RM0522:p1707": {
+        "source": "RM0522",
+        "page": 1707,
+        "sha256": "c385b24a7aec83f339a036d277292391b98c4cae16e372e8b913a45e7c7e3d17"
+      },
+      "RM0522:p1708": {
+        "source": "RM0522",
+        "page": 1708,
+        "sha256": "08777c97490f82e71db5aabae2ed0c8d157f69fe0e0209b953755a5d4d5e4763"
+      },
+      "RM0522:p1709": {
+        "source": "RM0522",
+        "page": 1709,
+        "sha256": "5bdb92768f26314303c9be720679ef4c0d75882adbe40ec19118253894986afd"
+      },
+      "RM0522:p1710": {
+        "source": "RM0522",
+        "page": 1710,
+        "sha256": "6c2f88070ef7a3a0ec305213bcb8c05a5cc0b5ae91afa154f5b853873601ab66"
+      },
+      "RM0522:p1711": {
+        "source": "RM0522",
+        "page": 1711,
+        "sha256": "389c1953ed04d6eb4082dbcc9b697922d95e7487e1f83a6e269e416fc10c4afb"
+      },
+      "RM0522:p1712": {
+        "source": "RM0522",
+        "page": 1712,
+        "sha256": "027eb288fb11f1d5328b83ae285d2be1c4ac16fcbfe6fa8049b800a54df2c3cb"
+      },
+      "RM0522:p1713": {
+        "source": "RM0522",
+        "page": 1713,
+        "sha256": "72cb167269d5c591b80e4a1a0a332ec61d4e1261bed6a9b822f081fd1dbccc67"
+      },
+      "RM0522:p1714": {
+        "source": "RM0522",
+        "page": 1714,
+        "sha256": "b5e7845fa1f69be2fb6cc8969036ad32bee4f96f2288b3040b500f9e134370ae"
+      },
+      "RM0522:p1715": {
+        "source": "RM0522",
+        "page": 1715,
+        "sha256": "71986657997c2d0041f0cfddefe065ce68ae9948084be27cf514b20d83eb08e3"
+      },
+      "RM0522:p1716": {
+        "source": "RM0522",
+        "page": 1716,
+        "sha256": "cda1590400eeb280e1b5844af2b8a4cc745146c7a41b4f66d09946690836bad2"
+      },
+      "RM0522:p1717": {
+        "source": "RM0522",
+        "page": 1717,
+        "sha256": "3f390e678e955acf94ca7a88c56d00114b1d1350e510889fbcd52af216c5e49a"
+      },
+      "RM0522:p1718": {
+        "source": "RM0522",
+        "page": 1718,
+        "sha256": "bac2332268bfdac9b30b674f2a7fbf18781931a74e9be95270cbb80069639c9f"
+      },
+      "RM0522:p1719": {
+        "source": "RM0522",
+        "page": 1719,
+        "sha256": "d0230eeddf855ae1f85c0e093d43bdce7db137c262fae897cadeb31e0da60867"
+      },
+      "RM0522:p1720": {
+        "source": "RM0522",
+        "page": 1720,
+        "sha256": "55c78c9a4fb8428c41b11aa282dbcc77150ba2c91e6059c72b38eafbb713792f"
+      },
+      "RM0522:p1721": {
+        "source": "RM0522",
+        "page": 1721,
+        "sha256": "122ee523271a6462c942ddf7bd9284ec59900602657341f114e44e35dd094df9"
+      },
+      "RM0522:p1722": {
+        "source": "RM0522",
+        "page": 1722,
+        "sha256": "0189ca5ae1f554f63d3dcf7ba31149d04c5d80c5e546d9d496f9e3e520018020"
+      },
+      "RM0522:p1723": {
+        "source": "RM0522",
+        "page": 1723,
+        "sha256": "d016d5f52a682b16f74ecf49d09a999b89baa6af7a6ac46f2d04ae592db51298"
+      },
+      "RM0522:p1724": {
+        "source": "RM0522",
+        "page": 1724,
+        "sha256": "dd67d99ddc2c80f62beaf8ec90c40ace487be336dc8d62e19a2da07cc9451c61"
+      },
+      "RM0522:p1725": {
+        "source": "RM0522",
+        "page": 1725,
+        "sha256": "3ff05c1bb9ed0bffc8aa558f177e83b1e42ff32931064c89c58a8c5a28418d47"
+      },
+      "RM0522:p1726": {
+        "source": "RM0522",
+        "page": 1726,
+        "sha256": "770aa8142e14c7f06d5f0a2a8cf3f172dc8830a4a6d9f327e4a0657007a54227"
+      },
+      "RM0522:p1727": {
+        "source": "RM0522",
+        "page": 1727,
+        "sha256": "54b75d3745581979b45845ca846d7dd8a553c30c0e80bff0dc82d1c9fc1c61da"
+      },
+      "RM0522:p1728": {
+        "source": "RM0522",
+        "page": 1728,
+        "sha256": "a6e174dd10d667e9d410ad5a3f7f33c81a52e290fbcfd1e99beb346ca6773210"
+      },
+      "RM0522:p1729": {
+        "source": "RM0522",
+        "page": 1729,
+        "sha256": "e9ca79572097c146fdb79654660758893622daafcdcfd888d1e938874b9e1ec8"
+      },
+      "RM0522:p1730": {
+        "source": "RM0522",
+        "page": 1730,
+        "sha256": "21377f41fade6d4d380a229a762b5b5adea18d28abfb39a210f96c74bfc9f873"
+      },
+      "RM0522:p1731": {
+        "source": "RM0522",
+        "page": 1731,
+        "sha256": "5bd537019ea21a81e0d23db2304f94c87649d253557091245e3e87b39cd8610c"
+      },
+      "RM0522:p1732": {
+        "source": "RM0522",
+        "page": 1732,
+        "sha256": "d8744fc2d8e76371af3f2aa067bcd2c4a7fe9d87ebe366f7948a4e1c6738f1a8"
+      },
+      "RM0522:p1733": {
+        "source": "RM0522",
+        "page": 1733,
+        "sha256": "8eda34de6218dbf18e398e76ab7f6789e1cf760ecff015e38bf334b8fa25163b"
+      },
+      "RM0522:p1734": {
+        "source": "RM0522",
+        "page": 1734,
+        "sha256": "fda9fde997bdfd4e1572381262d3d55d0249c4affca1e7121ebf22738a4884a5"
+      },
+      "RM0522:p1735": {
+        "source": "RM0522",
+        "page": 1735,
+        "sha256": "b34166b49a8a7440bc95c3ace838fbc3d392905be7ff4c28f12a72d71fa659db"
+      },
+      "RM0522:p1736": {
+        "source": "RM0522",
+        "page": 1736,
+        "sha256": "cab951210b0704f5c1b0e1e718bebfb769824287a34508ca5f2f1745dc39560a"
+      },
+      "RM0522:p1737": {
+        "source": "RM0522",
+        "page": 1737,
+        "sha256": "2a553b6e19e284eed0383d6dc9b8772b321e88edb4c154f3cbcad49587413cd9"
+      },
+      "RM0522:p1738": {
+        "source": "RM0522",
+        "page": 1738,
+        "sha256": "f061f9bb491ecb419c3206abbff2d0b24591365933e6b6d227696f4581ba9fb5"
+      },
+      "RM0522:p1739": {
+        "source": "RM0522",
+        "page": 1739,
+        "sha256": "e645852c872877686fe74ebd29297468bba9eb1e3e566d6d69340ff0c20d9ec4"
+      },
+      "RM0522:p1740": {
+        "source": "RM0522",
+        "page": 1740,
+        "sha256": "a6ba9beb8836cb200e6aaa655d2edc7ee28fe25a41a5b0b927fb53d04337efbe"
+      },
+      "RM0522:p1741": {
+        "source": "RM0522",
+        "page": 1741,
+        "sha256": "ff1909987d67d183a89499298b850878cafecfc2f610f140fbff950abed8369b"
+      },
+      "RM0522:p1742": {
+        "source": "RM0522",
+        "page": 1742,
+        "sha256": "b22e1676853fc7764d1834d8278965c062a2a4cb454c6081f2b9aa6262df5065"
+      },
+      "RM0522:p1743": {
+        "source": "RM0522",
+        "page": 1743,
+        "sha256": "4afcb33bc9e52ff436db3f86c1b5efeb55a4f16d9dcf527381609e367252aba2"
+      },
+      "RM0522:p1744": {
+        "source": "RM0522",
+        "page": 1744,
+        "sha256": "7907e572d6b9364dcbfef7b0c3599382db310d3ea2c2434acf06d6c48dc782c3"
+      },
+      "RM0522:p1745": {
+        "source": "RM0522",
+        "page": 1745,
+        "sha256": "8905951b85dd8d5cc79d7ddb43c206aee92065ed731608a97c7c3f6992188ca7"
+      },
+      "RM0522:p1746": {
+        "source": "RM0522",
+        "page": 1746,
+        "sha256": "3ddbdd8141e61ac3e88b513508f9ac1331eb1fb07eae3320523f48d505b010fa"
+      },
+      "RM0522:p1747": {
+        "source": "RM0522",
+        "page": 1747,
+        "sha256": "bc269ac468f7f5b3802edf60fc5be52fcfd8e5f0ffdc63ae31ed3299bb5cdd60"
+      },
+      "RM0522:p1748": {
+        "source": "RM0522",
+        "page": 1748,
+        "sha256": "7b65a771d1a1d5fd32ce04cd3294b8c0ada11f3433aeea39dd92cd095e329226"
+      },
+      "RM0522:p1749": {
+        "source": "RM0522",
+        "page": 1749,
+        "sha256": "487b9eda71f3796dda27d2f3671b95b8ba0a265df89dcdfcf6a8d456b22452e5"
+      },
+      "RM0522:p1750": {
+        "source": "RM0522",
+        "page": 1750,
+        "sha256": "5f81204bb5e99480f3d8dd63d5abec6bd4e799889ea009c482d2d779be3dbf0c"
+      },
+      "RM0522:p1751": {
+        "source": "RM0522",
+        "page": 1751,
+        "sha256": "b3eb2612d3aef20631af5e38150e54a8298b7e25585c31636f1e2aaa66718a3e"
+      },
+      "RM0522:p1752": {
+        "source": "RM0522",
+        "page": 1752,
+        "sha256": "6d277f34d6b04e83cec3dc73af2c0fa90de5e6b4ff0b059211e500950ed1ed4b"
+      },
+      "RM0522:p1753": {
+        "source": "RM0522",
+        "page": 1753,
+        "sha256": "12f794628aa68aaa3ddfff38793a6024299c5e5772215b895e20533af4c92821"
+      },
+      "RM0522:p1754": {
+        "source": "RM0522",
+        "page": 1754,
+        "sha256": "1b6128c56c0855c495795ed70ce92b8c010b914bf85601e361c32e673c03cf68"
+      },
+      "RM0522:p1755": {
+        "source": "RM0522",
+        "page": 1755,
+        "sha256": "163fcf1d434a8a82f39b8eeaa3678a21c84d2b8409c565a997e853f4d54b851f"
+      },
+      "RM0522:p1756": {
+        "source": "RM0522",
+        "page": 1756,
+        "sha256": "d3998d8f3749a06ae2f9854bc4a4c89dddc903d6158c35ca17520e481dad02e0"
+      },
+      "RM0522:p1757": {
+        "source": "RM0522",
+        "page": 1757,
+        "sha256": "4f548aca1b210761be2e5fcf48f5893b9840f841975d97452df2e233caba051a"
+      },
+      "RM0522:p1758": {
+        "source": "RM0522",
+        "page": 1758,
+        "sha256": "4b80f98893c01fd6d384cb9e23dc77a6476af8f7b677376e066b40cf7b16c270"
+      },
+      "RM0522:p1759": {
+        "source": "RM0522",
+        "page": 1759,
+        "sha256": "f3d1f031c38409cca1d207578d409215e71e9c454fa18a568119b74378e8d272"
+      },
+      "RM0522:p1760": {
+        "source": "RM0522",
+        "page": 1760,
+        "sha256": "9e588ba5fdb5ef8a335af08d39235a8e2396fdae92f4205c1f3b53b629bf18c2"
+      },
+      "RM0522:p1761": {
+        "source": "RM0522",
+        "page": 1761,
+        "sha256": "1a9e3af97e88f8b15b900dd21929c1614824dbbdbbc6488efcee8c4501f9eab8"
+      },
+      "RM0522:p1762": {
+        "source": "RM0522",
+        "page": 1762,
+        "sha256": "70fdf67a893a62d94521a1dd1a7028dbf200f1b1605bc4dfe6c979f2da691915"
+      },
+      "RM0522:p1763": {
+        "source": "RM0522",
+        "page": 1763,
+        "sha256": "a79df8e49130f5ea969a8e37003c98065811d18ec3c1fdf35eb931b35a83646a"
+      },
+      "RM0522:p1764": {
+        "source": "RM0522",
+        "page": 1764,
+        "sha256": "9c70782282367c3c1b9f9c8fc376dddc8eb7b3e39f32b5068228c0e11792c987"
+      },
+      "RM0522:p1765": {
+        "source": "RM0522",
+        "page": 1765,
+        "sha256": "6e411273442334f659c9b0babd9676e657fe0a7ea4361de932760fd45d685072"
+      },
+      "RM0522:p1766": {
+        "source": "RM0522",
+        "page": 1766,
+        "sha256": "3b3db877b0aafb2cf77ee40b62742e9cbca0eae263fd49e0940172e2afcead44"
+      },
+      "RM0522:p1767": {
+        "source": "RM0522",
+        "page": 1767,
+        "sha256": "dc93e6d70ad65b8aedd4b6c34905ba594fa9c57d92f55c04a39eb9be45309728"
+      },
+      "RM0522:p1768": {
+        "source": "RM0522",
+        "page": 1768,
+        "sha256": "2335e3114f5058f669874b91d6c6a37637dc4ee4044497bbbe02bab6e800f607"
+      },
+      "RM0522:p1769": {
+        "source": "RM0522",
+        "page": 1769,
+        "sha256": "142e8b0757de04e1a17b31c1c69257cf2659c615c5aae44d82a479284f2bc97e"
+      },
+      "RM0522:p1770": {
+        "source": "RM0522",
+        "page": 1770,
+        "sha256": "9748001ba45586e54e7d441f673f318c45b6fb0ebd09f6179635320f85360b41"
+      },
+      "RM0522:p1771": {
+        "source": "RM0522",
+        "page": 1771,
+        "sha256": "c9d62a4b7f6d3962483958e730fcc7dfef029b1fa3fb2b99cb7b6918391e1f0f"
+      },
+      "RM0522:p1772": {
+        "source": "RM0522",
+        "page": 1772,
+        "sha256": "1e746fafe4dcdd850a8c9b7d919f42b7d18abc2251e50019a0d25e80fd1be74f"
+      },
+      "RM0522:p1773": {
+        "source": "RM0522",
+        "page": 1773,
+        "sha256": "5ce93ddde002d415ee2e6a5a88a543972280d78c0f5d8fc278ef98f7427b4d16"
+      },
+      "RM0522:p1774": {
+        "source": "RM0522",
+        "page": 1774,
+        "sha256": "d44a37424ddc439c663f7a826322d5f9f14e04fa96f2550df078919f29c0142b"
+      },
+      "RM0522:p1775": {
+        "source": "RM0522",
+        "page": 1775,
+        "sha256": "1ccb24e6f5a0fec3e569481e203f79384fac78877b15219ad7785ede7bef0f16"
+      },
+      "RM0522:p1776": {
+        "source": "RM0522",
+        "page": 1776,
+        "sha256": "a70221d884d0812543c12c95b60ee3946461052bfc7bf3ae64cc4132bb978236"
+      },
+      "RM0522:p1777": {
+        "source": "RM0522",
+        "page": 1777,
+        "sha256": "ab8cacdca1f6fe5189fbeffd66f0dd8018d2e5ec75040cd165ada6d4f1a44e88"
+      },
+      "RM0522:p1778": {
+        "source": "RM0522",
+        "page": 1778,
+        "sha256": "8fa012218ce54c86aaf798d653a38c2d52b9ec6f5b3cc38af0743eb8526239fb"
+      },
+      "RM0522:p1779": {
+        "source": "RM0522",
+        "page": 1779,
+        "sha256": "1278f2687a8431fe2a4e8c70aa5778af0c2395f23f6297cb8e0bd89e21c9cb91"
+      },
+      "RM0522:p1780": {
+        "source": "RM0522",
+        "page": 1780,
+        "sha256": "98a02c46b32032e8de8b568edb59dcc904fbcea37b975bdbf7b54a560937feb4"
+      },
+      "RM0522:p1781": {
+        "source": "RM0522",
+        "page": 1781,
+        "sha256": "5dda0a8a2055a3b06e719b13436acd2637e194c637082b8915b5021d841a2c36"
+      },
+      "RM0522:p1782": {
+        "source": "RM0522",
+        "page": 1782,
+        "sha256": "0aab91175244897c4007463e9db1ef33f93bdf8d95e05482fe72a129600631f7"
+      },
+      "RM0522:p1783": {
+        "source": "RM0522",
+        "page": 1783,
+        "sha256": "8848332ce8f6e8dabb125eb50fa7a1948f687327f0d4c28bc859997feeb02e2b"
+      },
+      "RM0522:p1784": {
+        "source": "RM0522",
+        "page": 1784,
+        "sha256": "607e780bcd4f666cf8db5bdf7ba370a71839c95b5ff186363e94505fdc34f6cc"
+      },
+      "RM0522:p1785": {
+        "source": "RM0522",
+        "page": 1785,
+        "sha256": "e46ef0d8d22312f33b82cc32248b4585e759658161efb84e3a201921cb611fcb"
+      },
+      "RM0522:p1786": {
+        "source": "RM0522",
+        "page": 1786,
+        "sha256": "ea353e7296434d5187f2d874ae69b2204c16ec999ae27b6755cbf248fcb9a624"
+      },
+      "RM0522:p1787": {
+        "source": "RM0522",
+        "page": 1787,
+        "sha256": "646d478e94181e14e180f7a82379d4fbf332f9313edd52ec4909dd998437dbad"
+      },
+      "RM0522:p1788": {
+        "source": "RM0522",
+        "page": 1788,
+        "sha256": "3e5e29f35ab025a19df40d26ff43bd4335fff69c7981341ef86b22c4ff30ff0e"
+      },
+      "RM0522:p1789": {
+        "source": "RM0522",
+        "page": 1789,
+        "sha256": "1be2fdeaec98e3ac1a485e9d33623ef46697803b486bb0c6593ffa8c473b937b"
+      },
+      "RM0522:p1790": {
+        "source": "RM0522",
+        "page": 1790,
+        "sha256": "a8f2920cae5d9d9789f64107c6e0f1c27ab5f2616dc1ac9b966fef495885c61c"
+      },
+      "RM0522:p1791": {
+        "source": "RM0522",
+        "page": 1791,
+        "sha256": "a5726137c09197efb4df458233782adf5fe20d3acb50baecf667bb491fd68538"
+      },
+      "RM0522:p1792": {
+        "source": "RM0522",
+        "page": 1792,
+        "sha256": "5fdf5a95f1b677c506149d8c13253f550d47d890517c3db04c908dc0b6c35150"
+      },
+      "RM0522:p1793": {
+        "source": "RM0522",
+        "page": 1793,
+        "sha256": "cf98536798f8d69d7762eef1e280fca255d6cd561c7e09d2231aa21c2ca8aabd"
+      },
+      "RM0522:p1794": {
+        "source": "RM0522",
+        "page": 1794,
+        "sha256": "18c1ea665b46122322f40aa10543029ac8bf4c3cac22f1ca4027838e35d01ee8"
+      },
+      "RM0522:p1795": {
+        "source": "RM0522",
+        "page": 1795,
+        "sha256": "18fec4bd46a6feeb4419234d33b04822dcf8c6a1061751741b5aa51a04d158ae"
+      },
+      "RM0522:p1796": {
+        "source": "RM0522",
+        "page": 1796,
+        "sha256": "b8b1eada70a20d0ca477ea69868ac3006a75cc226bc0f8ee5a545f3eb21398ac"
+      },
+      "RM0522:p1797": {
+        "source": "RM0522",
+        "page": 1797,
+        "sha256": "20f2bb384821ccc64485de963f532088641cdae20a0a1a87e8842dbc40003640"
+      },
+      "RM0522:p1798": {
+        "source": "RM0522",
+        "page": 1798,
+        "sha256": "eebc7c18a600af0f54726a716da6658f9db8f1000fead0cf93bfff62a00f136c"
+      },
+      "DS15135:p2": {
+        "source": "DS15135",
+        "page": 2,
+        "sha256": "a1592022c0fd417ffe10ac1e81e8a01556e2855e551bd639ee5947e32e981ef4"
+      },
+      "DS15135:p5": {
+        "source": "DS15135",
+        "page": 5,
+        "sha256": "9a425c00d9dc290777004f11929ed9487b5a4a51202306e3281865f9a860ec87"
+      },
+      "DS15135:p25": {
+        "source": "DS15135",
+        "page": 25,
+        "sha256": "14c7218ea6b202cfed37cb69c3f9550fcc54ecb7c1abb007358a9cb305602969"
+      },
+      "DS15135:p26": {
+        "source": "DS15135",
+        "page": 26,
+        "sha256": "081f81e5b7678947974e0a2d2478eef6416b0df91fc4bb3fff8ef92cc15df1d4"
+      },
+      "DS15135:p27": {
+        "source": "DS15135",
+        "page": 27,
+        "sha256": "0dc08c34c7061d3210b3b09154c4ba68f71cf7e50a8038668c1fb54bf6f9eaca"
+      },
+      "DS15135:p46": {
+        "source": "DS15135",
+        "page": 46,
+        "sha256": "6d3ea235bffc5fd4cc64517ff32cd2b29a37014ab6305628204e1fd9f3146269"
+      },
+      "DS15135:p47": {
+        "source": "DS15135",
+        "page": 47,
+        "sha256": "a55c52b1f30142be5ad3fea2a1cc16b519930dd08b32d16d646101500967a3b1"
+      },
+      "ES0676:p1": {
+        "source": "ES0676",
+        "page": 1,
+        "sha256": "c36bb50f3ba55f82de59b1a5aa62c5ca6b1d3ea938ac9451545a442e65dd25c8"
+      },
+      "ES0676:p2": {
+        "source": "ES0676",
+        "page": 2,
+        "sha256": "3fed5303e4a0fc65ed4dbe6aae1c297605837e2da15bb0e24928d26b0d25eb95"
+      },
+      "ES0676:p3": {
+        "source": "ES0676",
+        "page": 3,
+        "sha256": "6682207b964f905ea8f0e452bc5cff546dfb08622fca9ce2f979b0e43cd6d157"
+      },
+      "ES0676:p4": {
+        "source": "ES0676",
+        "page": 4,
+        "sha256": "3b0e6d179a6d3b6701ddfa31ce87f44ef4d62c59d79a1f01184c77a212d7774c"
+      },
+      "ES0676:p5": {
+        "source": "ES0676",
+        "page": 5,
+        "sha256": "b1c29e54e422b77b7a01a6dea47789196c0a8d23aed2f9a68f6a91698ae66d9d"
+      },
+      "ES0676:p6": {
+        "source": "ES0676",
+        "page": 6,
+        "sha256": "67192cb102783988744a71ca6f88c36b938faf48d360a4834496df7e76a4b915"
+      },
+      "ES0676:p7": {
+        "source": "ES0676",
+        "page": 7,
+        "sha256": "ae251fcee43cc089851cf652083da87910ac36c57afdcaee5a38ebf1eb2ecb9d"
+      },
+      "ES0676:p8": {
+        "source": "ES0676",
+        "page": 8,
+        "sha256": "bbdb92e175f8101da1467e00b7fa2894fb9e3e1f2b0bd5937f5a865428c2ce5b"
+      },
+      "ES0676:p9": {
+        "source": "ES0676",
+        "page": 9,
+        "sha256": "16f3f6e7cf8092fc36fa0c23e0e1346aa2510f7a06639a41f90caf8bab393c84"
+      },
+      "ES0676:p10": {
+        "source": "ES0676",
+        "page": 10,
+        "sha256": "68b80618adcb6cf1f68aa4d5221444fc774b33c9a168223465e8f9334996a4aa"
+      },
+      "ES0676:p11": {
+        "source": "ES0676",
+        "page": 11,
+        "sha256": "f3433686e725b795145e0f5945a8735b0aa23657c7f34885d86cc028e6cc9b4e"
+      },
+      "ES0676:p12": {
+        "source": "ES0676",
+        "page": 12,
+        "sha256": "9e99878c441ebfa9a0a59f7340d35521ba92fede88cc6dfa5ad2c4c874624f70"
+      },
+      "ES0676:p13": {
+        "source": "ES0676",
+        "page": 13,
+        "sha256": "75360f850f144b19da69d9e60b55471e6e436f7df68dc6b3f02ccae23f1e38ea"
+      },
+      "ES0676:p14": {
+        "source": "ES0676",
+        "page": 14,
+        "sha256": "8d6b6f9aa5ce40ce56527c9780b7aac5510ea0b023c307364b0355310d6502d8"
+      },
+      "ES0676:p15": {
+        "source": "ES0676",
+        "page": 15,
+        "sha256": "a3a2b06e5769aeb597e049e3ab7a58bc8923dbb0dfe62036a19f336b19a8842d"
+      },
+      "ES0676:p16": {
+        "source": "ES0676",
+        "page": 16,
+        "sha256": "907702e6f3153801cceb1026fbe47bc4c6e97658d22a482a56039ab1c6fefa45"
+      },
+      "header.IRQ": {
+        "source": "header",
+        "start_line": 103,
+        "end_line": 107,
+        "sha256": "d425d427037c64455950a1836320fc95dc4aa6822195fd32430e88a9984d9b5a"
+      },
+      "header.layout": {
+        "source": "header",
+        "start_line": 620,
+        "end_line": 659,
+        "sha256": "0aac3236976366ce8bcf4646e7fcf0daa3ccc751ce150f379d8081ba089ae21d"
+      },
+      "header.base": {
+        "source": "header",
+        "start_line": 1155,
+        "end_line": 1200,
+        "sha256": "7a6ab688269f397e017f7336b910543f45297bfad527fe862b738b5eda453533"
+      },
+      "header.instance": {
+        "source": "header",
+        "start_line": 14090,
+        "end_line": 14100,
+        "sha256": "bec2311be462a13f541d1e5a4ad98086be6c61780a651736a36b9fa4c4bdb604"
+      },
+      "header.fields": {
+        "source": "header",
+        "start_line": 7380,
+        "end_line": 7960,
+        "sha256": "417b588fd5920fa31825085469c7d6368c325201c51226a968ed60bcbc8a66ea"
+      },
+      "header.debug": {
+        "source": "header",
+        "start_line": 3506,
+        "end_line": 3510,
+        "sha256": "4bb885e0c15d419afd3300941c53d2c812e2aef76506b0842023910cf831cac2"
+      },
+      "header.RCC_reset": {
+        "source": "header",
+        "start_line": 9001,
+        "end_line": 9003,
+        "sha256": "85e984420189c929683cb25cc42cf81bd39e4e8f2c93b06cfa268353e9e89da6"
+      },
+      "header.RCC_enable": {
+        "source": "header",
+        "start_line": 9149,
+        "end_line": 9151,
+        "sha256": "b2002268ccb59a3d6d4c6845d90576f12a95b4721148035023d86aff6c9dd6b0"
+      },
+      "header.RCC_sleep": {
+        "source": "header",
+        "start_line": 9333,
+        "end_line": 9336,
+        "sha256": "64418398893361e2720cbb4cdb4763111d66f6a52730a2d8897f5768791de8e1"
+      },
+      "header.RCC_mux": {
+        "source": "header",
+        "start_line": 9458,
+        "end_line": 9463,
+        "sha256": "a5179901288f95cb8628c3d10f000bbe7740b92a33b0d2091e6f752cd9f137b5"
+      },
+      "HAL.init": {
+        "source": "HAL",
+        "start_line": 712,
+        "end_line": 794,
+        "sha256": "cad5d35ac846d2fa0f9e964ad6dc17d2db3ce54c5c11422733ba3f4b3662d086"
+      },
+      "HAL.config": {
+        "source": "HAL",
+        "start_line": 905,
+        "end_line": 1130,
+        "sha256": "f55bd7541904862fa01eba49d60757df53edbf896eda7755928bd18284896cc0"
+      },
+      "HAL.active_config": {
+        "source": "HAL",
+        "start_line": 1938,
+        "end_line": 2050,
+        "sha256": "90cc25bb4e0dbce35e7b743c4fd371c156fc36dcc4f92e9a2e674889ea63aa6b"
+      },
+      "HAL.devices": {
+        "source": "HAL",
+        "start_line": 2081,
+        "end_line": 2149,
+        "sha256": "6ec3290aaa4a62f71b2a3f741febcf0afd28b0ad54256134110df15ae559538b"
+      },
+      "HAL.IRQ": {
+        "source": "HAL",
+        "start_line": 2707,
+        "end_line": 2785,
+        "sha256": "4f6d234a4526189d8c440e22db2a3215ef90c51ada19037143ec7d6f0b03e002"
+      },
+      "HAL.builder": {
+        "source": "HAL",
+        "start_line": 3031,
+        "end_line": 3102,
+        "sha256": "c226140cf4c1c42a436bddc96b2e7596a0534a4b71d7ce4f8e063de88ad7c48c"
+      },
+      "HAL.poll": {
+        "source": "HAL",
+        "start_line": 3292,
+        "end_line": 3445,
+        "sha256": "ec9822f5e25b4a9a7aff32b536c88906c37819e2750e0d0050b9ae55027de4c0"
+      },
+      "HAL.ctrl_dma": {
+        "source": "HAL",
+        "start_line": 3579,
+        "end_line": 3752,
+        "sha256": "9b34f43dd17b7dfc92f2cbff871e44112c2994e0a76061f09bb66943e4aa41d0"
+      },
+      "HAL.target_poll": {
+        "source": "HAL",
+        "start_line": 4233,
+        "end_line": 4331,
+        "sha256": "712449aa149d59f49b5b7f2c01977e5c52e15cad53b534c47d3273f1f8cc5ead"
+      },
+      "HAL.target_tx_dma": {
+        "source": "HAL",
+        "start_line": 4441,
+        "end_line": 4527,
+        "sha256": "d105e0c1160693657973a387869f07c8cff680bb7fd95ef3aa3392ed66612364"
+      },
+      "HAL.target_rx_dma": {
+        "source": "HAL",
+        "start_line": 4769,
+        "end_line": 4851,
+        "sha256": "51167d34af4a2fbb889134c780ba24e198e55a0adb47c857db5ac972016f0a69"
+      },
+      "HAL.abort": {
+        "source": "HAL",
+        "start_line": 5420,
+        "end_line": 5469,
+        "sha256": "2031b6579b67e8aa84628fe25b0768af83af72050919908e15cd4881c82e5b3e"
+      },
+      "HAL.completion": {
+        "source": "HAL",
+        "start_line": 6510,
+        "end_line": 6703,
+        "sha256": "7f2875530179726309cb1cd26411c423666fbd9b03e813170f25bfec8344a073"
+      },
+      "HAL.wait": {
+        "source": "HAL",
+        "start_line": 6714,
+        "end_line": 6749,
+        "sha256": "b0189332d0ec48e1411ca903cb7e0041ace2d1448c1663159a9bc425bd012949"
+      },
+      "HAL.buffers": {
+        "source": "HAL",
+        "start_line": 6755,
+        "end_line": 6938,
+        "sha256": "5f3a949f9e730fa0c7b82d32f65dcf80fea6eeb6708408c043b25069215957c5"
+      },
+      "HAL.idle": {
+        "source": "HAL",
+        "start_line": 6962,
+        "end_line": 6992,
+        "sha256": "8613597a3bf0372e6fd4a7c3a7cdf1be64c3525431ab69cca7aa00f7c5d6a8c2"
+      },
+      "HAL.error": {
+        "source": "HAL",
+        "start_line": 7081,
+        "end_line": 7218,
+        "sha256": "6f1affe336009e6833b20f5854cb0bc966f3c88d8a5aa4e3b40719f21cf1dcdb"
+      },
+      "HAL_H.descriptor": {
+        "source": "HAL_H",
+        "start_line": 778,
+        "end_line": 788,
+        "sha256": "9a8b23e759ed641bc4660ff709b576d459b9781f950aa393d3ccbf02da58ee60"
+      },
+      "HAL_H.handle": {
+        "source": "HAL_H",
+        "start_line": 1029,
+        "end_line": 1088,
+        "sha256": "6bd49b20eefbaf35f2b0f186ce6964cf44f3797de62f8c181583c13b22688f37"
+      },
+      "LL.enable": {
+        "source": "LL",
+        "start_line": 700,
+        "end_line": 724,
+        "sha256": "407e952367c2931c390a9d29ba12b05d6503c79b409f9946ab9e440621f2473e"
+      },
+      "LL.data": {
+        "source": "LL",
+        "start_line": 3115,
+        "end_line": 3168,
+        "sha256": "42eb558bd54ff28367a9d698930c05c40efb15984f6eaba82967c93a0a8500f1"
+      },
+      "LL.devices": {
+        "source": "LL",
+        "start_line": 3620,
+        "end_line": 3673,
+        "sha256": "22f3511f8da51e2ab796ea0dbd8cdff15645702f54ef26563ab4e37e6b1d9897"
+      },
+      "SDK.assertions": {
+        "source": "assert_template",
+        "start_line": 32,
+        "end_line": 66,
+        "sha256": "861f103410d3abf19ca2c0d7ebce70a0487134fd24a261f44885e14c19324da4"
+      },
+      "HAL.state_guard": {
+        "source": "HAL_def",
+        "start_line": 90,
+        "end_line": 131,
+        "sha256": "ec05f156b5890534af384b3b4fe7a7a65d06200afd567c1ce0fb40006cc55110"
+      },
+      "HAL.control_feed": {
+        "source": "HAL",
+        "start_line": 6940,
+        "end_line": 6955,
+        "sha256": "76bff185e287278a6dd96725f605798afb6b2c1c502025f5c60333b784ec2588"
+      },
+      "DS15135:p88": {
+        "source": "DS15135",
+        "page": 88,
+        "sha256": "6079a0a676ec92ab433675b689993d3240db05f687c3e3acb94bf1156445ab27"
+      }
+    },
+    "contracts": [
+      {
+        "id": "I3C.exact_identity",
+        "detail": "One I3C1 at 0x40005C00, APB1, event IRQ46 and error IRQ47. SDR primary controller, secondary controller and target; no connected hardware trigger. Controller and target share the same registers, FIFOs, pads, clocks and interrupt resources. They are not independent peripherals.",
+        "evidence": [
+          "header.IRQ",
+          "header.base",
+          "header.instance",
+          "RM0522:p1690",
+          "DS15135:p5"
+        ]
+      },
+      {
+        "id": "I3C.features",
+        "detail": "SDR up to 12.5 MHz is a source capability, not an admitted operating point. No target static I2C address or I2C target mode; no HDR DDR/TSL/TSP/BT, asynchronous timing modes1–3 or early termination monitoring. Legacy I2C targets must not stretch SCL. Controller-only optional CCC capabilities must not be promoted to target capability. Four DEVRX slots manage target-initiated requests, not a four-device total bus-address limit.",
+        "evidence": [
+          "RM0522:p1688",
+          "RM0522:p1691",
+          "RM0522:p1780",
+          "DS15135:p25",
+          "DS15135:p26",
+          "DS15135:p27"
+        ]
+      },
+      {
+        "id": "I3C.clock_and_reset",
+        "detail": "RCC kernel selector0=PCLK1,1=PSIK,2=HSIK,3=reserved/disabled. Bus and kernel clocks are separately owned. Controller kernel must be at least twice serial frequency; target and APB timing satisfy the full inequalities, not merely a generic 5 MHz minimum. EN clearing partially resets kernel state while APB configuration persists. RCC/system reset and target in-band reset are distinct. Debug freeze changes SCL stall behavior.",
+        "evidence": [
+          "RM0522:p316",
+          "RM0522:p1693",
+          "RM0522:p1694",
+          "RM0522:p1695",
+          "header.RCC_mux",
+          "header.RCC_reset",
+          "header.RCC_enable",
+          "header.RCC_sleep",
+          "header.debug"
+        ]
+      },
+      {
+        "id": "I3C.enable_disable_and_ownership",
+        "detail": "Initial mode/timing configuration is disabled-only. Before controller EN clear, disable every possible target request with DISEC; target EN clear is a partial reset, not an innocuous setter. A bus can become active asynchronously from a target request. Own controller/target state, both vectors, FIFO consumers, clocks, DMA and pads across configuration and release. Software IDLE does not establish bus idle. RM1709/1711 describe EN deassertion in idle state; an active-state software guard is insufficient.",
+        "evidence": [
+          "RM0522:p1695",
+          "RM0522:p1698",
+          "RM0522:p1703",
+          "RM0522:p1758",
+          "RM0522:p1759",
+          "LL.enable",
+          "RM0522:p1709",
+          "RM0522:p1711"
+        ]
+      },
+      {
+        "id": "I3C.control_words",
+        "detail": "Controller MTYPE0 forces the SCL clock to stop until the next control word, for the specified stuck-clock recovery sequence,1 arbitrable header,2 private,3 direct CCC target part,4 legacy I2C,6 alternate/broadcast CCC; target8 hot join,9 controller request,10 IBI. Other values reserved. ADD is7 bits, RNW bit16, DCNT16 bits, MEND bit31. Private/I2C data count is nonzero1..65535; ENTDAA uses0, RSTACT defining byte uses1. Do not treat generic32-bit SDK lengths as admitted DCNT values.",
+        "evidence": [
+          "RM0522:p1751",
+          "RM0522:p1752"
+        ]
+      },
+      {
+        "id": "I3C.CCC_and_role",
+        "detail": "Direct CCC sequences use MTYPE6 without MEND followed by MTYPE3 target parts. ENTDAA reads PID/BCR/DCR then assigns an address with parity and bounded retry. Controller-role request acceptance is not completed handoff: GETACCCR and the specified bus timing are needed. Target hot join requires bus-idle detection and subsequent ENTDAA; HJ completion alone does not assign an address. Reset pattern handling can require software partial or system reset, and is not automatically authorized here.",
+        "evidence": [
+          "RM0522:p1712",
+          "RM0522:p1713",
+          "RM0522:p1714",
+          "RM0522:p1715",
+          "RM0522:p1716",
+          "RM0522:p1717",
+          "RM0522:p1729",
+          "RM0522:p1730",
+          "RM0522:p1770",
+          "RM0522:p1778"
+        ]
+      },
+      {
+        "id": "I3C.FIFO_and_access",
+        "detail": "Rendered Table425 confirms C-FIFO and S-FIFO each 2 words and TX/RX each 8 bytes. C/S use is controller-only (target status uses register mode); TX/RX serve controller and target. RM1750 requires a 32-bit word-aligned register address and a single significant LSB data byte for RDR/TDR. This wording alone is not a blanket access-width mandate. RDWR/TDWR pack the first byte into low bits; a partial received word is zero-padded. The header uses uint32_t register members. CPU and DMA memory width, allocation and alignment remain independent obligations. No concurrent CPU/DMA FIFO consumption is admitted.",
+        "evidence": [
+          "RM0522:p1690",
+          "RM0522:p1750",
+          "RM0522:p1759",
+          "RM0522:p1760",
+          "RM0522:p1761",
+          "RM0522:p1762",
+          "LL.data",
+          "header.layout"
+        ]
+      },
+      {
+        "id": "I3C.completion_and_status",
+        "detail": "SMODE1 produces status per message; FCF waits until the final S-FIFO word is consumed. S-FIFO full stalls and raises COVR; C-FIFO starvation also raises COVR. SMODE0 early target termination requires RXTGTENDF handling before progression. Target mode requires SMODE0; SDMA requires SMODE1. Status reads can pop data and acknowledge progress, so passive inspection is not automatic.",
+        "evidence": [
+          "RM0522:p1701",
+          "RM0522:p1732",
+          "RM0522:p1737",
+          "RM0522:p1738",
+          "RM0522:p1755",
+          "RM0522:p1765"
+        ]
+      },
+      {
+        "id": "I3C.target_lengths",
+        "detail": "TGTTDR counts bytes not yet loaded into TX FIFO, not bytes acknowledged on the bus. PRELOAD clears when loading is complete. Early termination requires SR effective count and residual TX flush. Target receive completion and DEFTGTS/DEFGRPA delivery require RX FIFO drain; leaving completion flags pending can cause a later write overrun. MAXRLR/MWLR constrain bus behavior; they are not host-buffer bounds.",
+        "evidence": [
+          "RM0522:p1705",
+          "RM0522:p1740",
+          "RM0522:p1741",
+          "RM0522:p1742",
+          "RM0522:p1764",
+          "RM0522:p1782"
+        ]
+      },
+      {
+        "id": "I3C.IBI_requests",
+        "detail": "IBI with BCR payload support uses DCNT1..4 including MDB; maximum payload advertised by IBIP must agree. Pending IBI/CR flags prevent subsequent request acceptance. NOARBH requires proof targets cannot contend with IBI/CR; enabling it from an API enum is insufficient. DEVRX DIS must clear before protected updates; SUSP can flush C/TX FIFO and insert stop. The RM1726 footnote specifically conditions target inability to acknowledge on a private transfer without arbitrable header coinciding with that target's IBI in the same SCL cycle; this is not a blanket inability to acknowledge all transfers without a header.",
+        "evidence": [
+          "RM0522:p1725",
+          "RM0522:p1728",
+          "RM0522:p1752",
+          "RM0522:p1758",
+          "RM0522:p1763",
+          "RM0522:p1780",
+          "RM0522:p1782",
+          "RM0522:p1726"
+        ]
+      },
+      {
+        "id": "I3C.DMA_and_error_lifetime",
+        "detail": "Control, status, TX and RX hardware requests are distinct. Early RX termination requires a suitable DMA channel and PFREQ handling; finite request names alone do not admit a DMA configuration. DMA completion does not establish bus completion. Error recovery may flush queued work, release SCL, retry or require a delay depending on error code. CE0..3 and TE0..6 remain role-specific; target cannot stretch SCL.",
+        "evidence": [
+          "RM0522:p1736",
+          "RM0522:p1738",
+          "RM0522:p1743",
+          "RM0522:p1744",
+          "RM0522:p1745",
+          "RM0522:p1746",
+          "RM0522:p1766",
+          "HAL.completion"
+        ]
+      },
+      {
+        "id": "I3C.events_and_power",
+        "detail": "EVR raw flags, IER enable, MISR masked status and CEVR write-one-clear have separate meanings. Clearing a pending flag can release clock/protocol state. Stop0 requires the role-specific preparation: controller target activity state1–3, permitted wake events, and target wake/reset handling. WKPF may concern another device. Standby requires reinitialization. No low-power or reset operation is admitted.",
+        "evidence": [
+          "RM0522:p1747",
+          "RM0522:p1748",
+          "RM0522:p1749",
+          "RM0522:p1769",
+          "RM0522:p1770",
+          "RM0522:p1773",
+          "RM0522:p1775",
+          "RM0522:p1777"
+        ]
+      },
+      {
+        "id": "I3C.timing_domains",
+        "detail": "TIMINGR0 has four8-bit fields, each period=(raw+1)*Tkernel. TIMINGR1 SDA_HD0..3 gives(raw+0.5)*Tkernel, FREE0..127 defines bus-free/repeated-start setup=[2*(FREE+1)-(0.5+SDA_HD)]*Tkernel and finish/stop=(FREE+1)*Tkernel. Reject nonphysical combinations and enforce full electrical inequalities. AVAL and ASNCR have role-dependent units and multipliers; nominal microsecond labels are not frequency-independent. TIMINGR2 stall unit discrepancy remains unresolved. DS88 Table64 gives characterized controller tSU_OD minimum 22 ns, versus the cited MIPI 3 ns, at VDDIOX 2.7..3.6 V with OSPEEDR=10, compensation enabled and voltage range1. It describes increasing SCLL_OD as mitigation and refers to AN5879, which is not reviewed here. This is not an electrical admission.",
+        "evidence": [
+          "RM0522:p1784",
+          "RM0522:p1785",
+          "RM0522:p1786",
+          "RM0522:p1787",
+          "DS15135:p88"
+        ]
+      },
+      {
+        "id": "I3C.identity_and_capabilities",
+        "detail": "BCR/DCR/GETCAPR/CRCAPR/GETMXDSR/EPIDR report protocol identity and capabilities, not security identity or proof of optional functionality. Software-advertised turn-around and timing must match actual operation. EPIDR MIPIID is a configurable4-bit instance field, not a unique physical device identifier. Preserve fixed/reserved fields and target/controller applicability. Target HJEN, CREN and IBIEN are software-writable only with EN=0; hardware also updates them on ENEC/DISEC.",
+        "evidence": [
+          "RM0522:p1788",
+          "RM0522:p1789",
+          "RM0522:p1790",
+          "RM0522:p1791",
+          "RM0522:p1792",
+          "RM0522:p1793",
+          "RM0522:p1794",
+          "RM0522:p1779",
+          "RM0522:p1780"
+        ]
+      },
+      {
+        "id": "I3C.dynamic_address_lifetime",
+        "detail": "ENTDAA/SETNEWDA update DA and assert DAVAL; RSTDAA clears DAVAL. RM1770 associates DAUPDF with those three CCCs, so address identity can change asynchronously. Target HAL transfer entry DAVAL checks do not prove identity remains valid throughout a transfer. RM1728 additionally depicts GETACCCR clearing DAVAL and asserting DAUPDF, unlike the narrower register prose; retain this as an unresolved source detail rather than silently applying it to every handoff.",
+        "evidence": [
+          "RM0522:p1712",
+          "RM0522:p1713",
+          "RM0522:p1728",
+          "RM0522:p1730",
+          "RM0522:p1770",
+          "RM0522:p1780",
+          "HAL.target_poll",
+          "HAL.target_tx_dma",
+          "HAL.target_rx_dma"
+        ]
+      }
+    ],
+    "source_derived_SDK_gates": [
+      {
+        "id": "I3C.validation",
+        "detail": "ASSERT_DBG parameter/state checks are optional. USE_HAL_CHECK_PARAM supplies only shown checks; HAL_CHECK_UPDATE_STATE is conditional atomic checking only when USE_HAL_CHECK_PROCESS_STATE is enabled, otherwise assignment. Neither establishes physical peripheral or cross-handle ownership. Release-build validation and synchronization remain required.",
+        "evidence": [
+          "SDK.assertions",
+          "HAL.state_guard",
+          "HAL.config",
+          "HAL.poll"
+        ]
+      },
+      {
+        "id": "I3C.init_deinit_and_active_setters",
+        "detail": "Init initializes software state, optionally enables bus clock, and does not reset peripheral hardware. DeInit disables EN and sets RESET without draining DMA or fulfilling controller DISEC prerequisite. GETMXDS format and handoff activity setters explicitly allow active states in their debug guards yet toggle EN. Reconfiguration must be treated as a partial-reset transition requiring external quiescence, not as a harmless active update. RM1709/1711 restrict EN deassertion to idle, and RM1792 requires EN=0 for GETMXDSR writes.",
+        "evidence": [
+          "HAL.init",
+          "HAL.config",
+          "HAL.active_config",
+          "LL.enable",
+          "RM0522:p1759",
+          "RM0522:p1709",
+          "RM0522:p1711",
+          "RM0522:p1792"
+        ]
+      },
+      {
+        "id": "I3C.DEVRX_updates",
+        "detail": "SetConfigBusDevices checks index/count/address only through assertions, then writes DEVRX directly without waiting for DIS or readback. Both LL setter and getter comments permit index4 although exact array has4 entries, indexes0..3. Caller must bound indices, reject duplicate conflicting slots and verify cross-domain completion; GetConfig enumerates slots rather than reproducing arbitrary prior input index order. Header array indexes 0..3 correspond to RM DEVR1..4 at offsets 0x64..0x70.",
+        "evidence": [
+          "HAL.devices",
+          "LL.devices",
+          "header.layout",
+          "RM0522:p1780"
+        ]
+      },
+      {
+        "id": "I3C.descriptor_encoding",
+        "detail": "Private descriptor length is uint32_t and builder ORs it unmasked into CR with direction/address. Values above65535 can overlap other fields; address and direction also require validation. Aggregate capacity checks are conditional and occur after control words are written. Validate every descriptor and arithmetic before mutation; HAL_INVALID_PARAM does not promise an unchanged output context. Header comment permitting zero private length conflicts with RM nonzero requirement. The uint8_t target address at least 0x80 sets reserved CR bit24 after shifting by17. Conditional uint32_t cumulative size additions can wrap; equality to wrapped totals is not a capacity proof.",
+        "evidence": [
+          "HAL_H.descriptor",
+          "HAL.builder",
+          "RM0522:p1751",
+          "RM0522:p1752",
+          "RM0522:p1750"
+        ]
+      },
+      {
+        "id": "I3C.polling_timeout",
+        "detail": "Controller and target polling save/disable/restore interrupts and set software IDLE after timeout/error without a demonstrated bus stop, FIFO cleanup or DMA quiescence. Controller residual-count test uses logical AND of TX and RX residuals, not either residual. A return status and buffer counts must be interpreted with hardware flags; IDLE is not resource release. Timeout loops require advancing HAL_GetTick; no real-time upper bound is established.",
+        "evidence": [
+          "HAL.poll",
+          "HAL.target_poll",
+          "HAL.wait",
+          "HAL.idle"
+        ]
+      },
+      {
+        "id": "I3C.word_buffers",
+        "detail": "Word helpers access a full uint32_t memory word even for a tail of 1..3 bytes, and DMA word paths round size up to4. Require authorized padded memory, alignment and arithmetic bounds. I3C_TransmitByteTreatment at6760 checks remaining count. I3C_ReceiveByteTreatment at6855 lacks that guard and decrements an unsigned count; it can wrap if further FIFO data are consumed after zero. TransmitWordTreatment at6800 and ReceiveWordTreatment at6895 clamp remaining count to zero but continue advancing memory pointers while the FIFO flag permits. These source paths do not bound every access by nominal buffer size; no actual overrun or hardware failure is claimed.",
+        "evidence": [
+          "HAL.buffers",
+          "HAL.ctrl_dma",
+          "HAL.target_tx_dma",
+          "HAL.target_rx_dma",
+          "HAL.completion"
+        ]
+      },
+      {
+        "id": "I3C.RX_IT_counter",
+        "detail": "I3C_ReceiveWordTreatment_IT initializes a bounded transfer_count but increments it at line6936 after each read. The intended per-call remaining-count bound therefore is not enforced by that counter; loop termination still depends on RXFNE and unsigned arithmetic. Do not infer inevitable infinite loop or a specific hardware corruption. Keep the path unqualified pending correction or an independently proven bounded wrapper.",
+        "evidence": [
+          "HAL.buffers"
+        ]
+      },
+      {
+        "id": "I3C.target_DMA_handles_and_size",
+        "detail": "Target TX DMA dereferences both hdma_tx and hdma_rx when setting abort callbacks; RX DMA likewise touches both. The inspected functions do not check both pointers before those writes. Caller must supply valid exclusively owned handles even for the unused data direction. Target TX casts uint32_t size to uint16_t for preload without a shown upper-bound check; independently require1..65535 and sufficient padded buffers. Init initializes all three DMA pointers to NULL; linking only the requested direction does not satisfy the later both-pointer writes.",
+        "evidence": [
+          "HAL.target_tx_dma",
+          "HAL.target_rx_dma",
+          "HAL.target_poll",
+          "HAL.init"
+        ]
+      },
+      {
+        "id": "I3C.DMA_start_failure",
+        "detail": "Controller attempts control DMA, then configured nonzero RX and TX starts even if an earlier start returned failure. The common failure path aborts control and any non-NULL RX/TX handle, including a handle not started by this call. Successful abort clears completion/error callbacks but leaves the abort callback installed; failed abort does not establish release. Target start failure sets IDLE without undoing every preload/callback mutation. Exclusively own all linked channels and retain buffers until physical channel state and callbacks are reconciled.",
+        "evidence": [
+          "HAL.ctrl_dma",
+          "HAL.target_tx_dma",
+          "HAL.target_rx_dma"
+        ]
+      },
+      {
+        "id": "I3C.DMA_completion_and_error",
+        "detail": "DMA data completion callbacks disable their request only. Controller FC path tests remaining control bytes before IDLE/callback, not a comprehensive proof that every data DMA channel is idle. DMAError only records an error code. Per-direction DMA state, pending interrupts, frame status and ownership must be checked independently before release or restart.",
+        "evidence": [
+          "HAL.completion"
+        ]
+      },
+      {
+        "id": "I3C.abort_is_asynchronous",
+        "detail": "Abort_IT flushes FIFOs, disables DMA requests and enables transfer events; it returns HAL_OK before FC-driven cleanup. ErrorTreatment may invoke DMA abort callbacks directly when HAL_DMA_Abort_IT fails. A callback is consequently not independent proof of physical abort success. Abort coordination uses callback pointers across all linked handles; stale pointers and shared channels must be excluded. No guaranteed completion deadline is established for idle or stalled bus cases.",
+        "evidence": [
+          "HAL.abort",
+          "HAL.completion",
+          "HAL.error"
+        ]
+      },
+      {
+        "id": "I3C.IRQ_consumption",
+        "detail": "ERR IRQ clears ERR before optional source capture and invokes error treatment; event IRQ dispatches from one MISR snapshot. Serialize both vectors with DMA callbacks, polling and configuration. Raw flag acknowledgement and flushes alter protocol progress; no observer may consume status/FIFO data concurrently. EV handler does no dispatch when p_isr_func is NULL. Abort ISR flushes RX on RXFNEMIS only if DOVR is set; other RX data are not drained by that branch. Pending-enabled IRQ lifetime therefore remains a gate, not a proven re-entry outcome. ErrorTreatment in TGT_REQ moves to IDLE and disables request interrupts without an error callback in that branch.",
+        "evidence": [
+          "HAL.IRQ",
+          "HAL.error",
+          "RM0522:p1775",
+          "HAL.completion"
+        ]
+      },
+      {
+        "id": "I3C.DMA_width_admission",
+        "detail": "The inspected DMA entry points select TDR/RDR or TDWR/RDWR and byte counts but do not validate the linked DMA width configuration. Require a separately justified width/packing configuration for the selected register and padded tail memory; aligned register addresses alone do not establish this contract.",
+        "evidence": [
+          "HAL.ctrl_dma",
+          "HAL.target_tx_dma",
+          "HAL.target_rx_dma",
+          "RM0522:p1750",
+          "LL.data"
+        ]
+      },
+      {
+        "id": "I3C.DMA_error_field_configuration",
+        "detail": "With USE_HAL_I3C_DMA=1 and USE_HAL_I3C_GET_LAST_ERRORS absent or0, last_error_codes exists, but the shown Init and controller-start resets are compiled out. I3C_DMAError still ORs HAL_I3C_ERROR_DMA, and controller DMA start tests the field unconditionally. If a nonzero code remains, later starts reach failure handling unless another authorized path clears it. The same helper is installed as an abort callback, so invoking it records a DMA error even for successful abort delivery. Do not infer every application necessarily fails: initialization, callbacks and external recovery are conditions.",
+        "evidence": [
+          "HAL_H.handle",
+          "HAL.init",
+          "HAL.ctrl_dma",
+          "HAL.completion"
+        ]
+      },
+      {
+        "id": "I3C.polling_control_and_error_progress",
+        "detail": "The controller polling condition at3414 continues when an error flag is present and tc_count_word remains positive. HAL_MAX_DELAY removes its time escape; bounded completion is not established. I3C_ControlDataTreatment at6949 writes a word and decrements tc_count_word on CFNF without a zero-count guard. Under the no-preload configuration a control write can initiate a frame; after hardware error flush this is protocol mutation, not passive error observation. Whether flags produce extra reads or prolonged progress is conditional; no observed hang is claimed.",
+        "evidence": [
+          "HAL.poll",
+          "HAL.control_feed",
+          "RM0522:p1699",
+          "RM0522:p1732",
+          "RM0522:p1734",
+          "RM0522:p1754"
+        ]
+      },
+      {
+        "id": "I3C.early_read_termination_service",
+        "detail": "The pinned HAL source contains no named RXTGTEND handling. In controller SMODE0, RM1737 requires CRXTGTENDF acknowledgement after a prematurely ended private read before further RX data and SR updates, with SCL stalled if needed. Generic FC/error handling alone is not proof of this service. An external handler must preserve effective count and safely acknowledge the specific event; no integrated handler is admitted.",
+        "evidence": [
+          "HAL.IRQ",
+          "HAL.poll",
+          "HAL.completion",
+          "RM0522:p1737",
+          "RM0522:p1772"
+        ]
+      },
+      {
+        "id": "I3C.target_early_end_cleanup",
+        "detail": "HAL_I3C_TGT_Transmit returns HAL_ERROR for a completed count mismatch but has no TXFLUSH in that completion path. RM1702/1704 require residual TX flushing after early end. A status return or software IDLE does not prove FIFO cleanup.",
+        "evidence": [
+          "HAL.target_poll",
+          "RM0522:p1702",
+          "RM0522:p1704"
+        ]
+      }
+    ],
+    "conflicts": [
+      {
+        "id": "I3C.legacy_Sm",
+        "detail": "RM introduction permits legacy Sm/Fm/Fm+ whereas exact DS lists Fm/Fm+ only. Preserve the source discrepancy; do not admit Sm from family RM alone.",
+        "evidence": [
+          "RM0522:p1688",
+          "DS15135:p25",
+          "DS15135:p26"
+        ]
+      },
+      {
+        "id": "I3C.clock_example",
+        "detail": "RM1694 uses 12.9 MHz in both controller and target examples while headline/DS capability is 12.5 MHz. Its controller example also uses a strict > clock relation after an at-least-two-times requirement. Preserve these discrepancies; no expanded maximum or exact boundary operating point is admitted.",
+        "evidence": [
+          "RM0522:p1694",
+          "DS15135:p26"
+        ]
+      },
+      {
+        "id": "I3C.ERR_polarity",
+        "detail": "RM1699 no-error prose says ERRF=1, inconsistent with error flag semantics. Preserve literal text and require error-free status; do not implement inverted success.",
+        "evidence": [
+          "RM0522:p1699",
+          "RM0522:p1769"
+        ]
+      },
+      {
+        "id": "I3C.IBI_count",
+        "detail": "RM1728 illustration gives DCNT0..3 whereas CR/IBIDR detail gives1..4 including MDB with payload capability. Keep illustration conflict and use no executable interpretation.",
+        "evidence": [
+          "RM0522:p1728",
+          "RM0522:p1752",
+          "RM0522:p1763"
+        ]
+      },
+      {
+        "id": "I3C.threshold_condition",
+        "detail": "RM1756 describes a count not multiple of4 but prints XDCNT[1:0]=00. These are incompatible conditions and require clarification.",
+        "evidence": [
+          "RM0522:p1756"
+        ]
+      },
+      {
+        "id": "I3C.preload_boundary",
+        "detail": "RM1742 no-preload alternative says less than8 bytes while TGTTDR detail says less than or equal to8. Boundary8 remains unresolved.",
+        "evidence": [
+          "RM0522:p1742",
+          "RM0522:p1764"
+        ]
+      },
+      {
+        "id": "I3C.stall_units",
+        "detail": "TIMINGR2 STALL header specifies kernel-clock units; STALLC/D/T details specify tSCLL_PP units. Preserve both; no computed stall duration admitted.",
+        "evidence": [
+          "RM0522:p1787"
+        ]
+      },
+      {
+        "id": "I3C.GETMXDS_response",
+        "detail": "GETMXDS prose and field detail disagree on response length for FMT0 and contain GETCAPS naming residue. Preserve raw pages; do not silently normalize into an executable parser.",
+        "evidence": [
+          "RM0522:p1792",
+          "RM0522:p1793"
+        ]
+      },
+      {
+        "id": "I3C.LL_slot_bound",
+        "detail": "LL SetDevrx (3629) and GetDevrx (3667) comments permit maximum index4; exact header has DEVRX[4], legal indexes0..3, corresponding to RM DEVR1..4 at 0x64..0x70. Index4 is not admitted.",
+        "evidence": [
+          "LL.devices",
+          "header.layout",
+          "RM0522:p1780"
+        ]
+      },
+      {
+        "id": "I3C.preload_zero_count",
+        "detail": "RM1734 describes preload of message data while printing RNW=0 and DCNT=0. This conflicts with the nonzero private/I2C data-count domain; do not silently change the printed condition.",
+        "evidence": [
+          "RM0522:p1734",
+          "RM0522:p1752"
+        ]
+      },
+      {
+        "id": "I3C.IBIP_register_name",
+        "detail": "RM1751 places IBIP in IBIDR, while the field description places it in MAXRLR. Preserve the naming discrepancy.",
+        "evidence": [
+          "RM0522:p1751",
+          "RM0522:p1763",
+          "RM0522:p1782"
+        ]
+      },
+      {
+        "id": "I3C.TIMINGR2_map_label",
+        "detail": "Rendered RM1796 labels TIMINGR2 bits15:8 AVAL, while RM1787 describes STALL. This is a confirmed source-map discrepancy, not extraction damage; no executable repair is inferred.",
+        "evidence": [
+          "RM0522:p1796",
+          "RM0522:p1787"
+        ]
+      },
+      {
+        "id": "I3C.provisioned_ID_middle_word",
+        "detail": "RM1794 fixes provisioned ID bits31:16 at0x1381 but also notes those bits can be0 without a corresponding configurable field. No alternative value is admitted.",
+        "evidence": [
+          "RM0522:p1794"
+        ]
+      },
+      {
+        "id": "I3C.I2C_high_minimum_labels",
+        "detail": "RM1784 labels both 260 ns and 600 ns high-duration minima as Fm+. Preserve the duplicated mode label instead of assigning a corrected mode from inference.",
+        "evidence": [
+          "RM0522:p1784"
+        ]
+      }
+    ],
+    "finite_source_maps": {
+      "instance": "I3C1",
+      "base": "0x40005C00",
+      "IRQ": {
+        "event": 46,
+        "error": 47
+      },
+      "controller_MTYPE": {
+        "0": "SCL recovery",
+        "1": "arbitrable header",
+        "2": "private",
+        "3": "direct CCC part",
+        "4": "legacy I2C",
+        "6": "alternate CCC"
+      },
+      "target_MTYPE": {
+        "8": "hot join",
+        "9": "controller request",
+        "10": "IBI"
+      },
+      "DEVRX_indexes": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "FIFO_capacity": {
+        "control_words": 2,
+        "status_words": 2,
+        "TX_bytes": 8,
+        "RX_bytes": 8
+      },
+      "kernel_selector": {
+        "0": "PCLK1",
+        "1": "PSIK",
+        "2": "HSIK",
+        "3": "reserved, disabled"
+      },
+      "package_routes": [
+        {
+          "id": "descriptor.signal.182",
+          "pin": "PA9",
+          "pad": 42,
+          "signal": "I3C1_SCL",
+          "instance": "I3C1",
+          "function": {
+            "type": "alternate",
+            "id": "AF2"
+          },
+          "source_pointer": "/signals/182",
+          "source_record": {
+            "name": "I3C1_SCL",
+            "instance": "I3C1",
+            "die_pad": "PA9",
+            "function": {
+              "type": "alternate",
+              "id": "AF2"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PA9"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PA9",
+            "af": "AF2",
+            "DS_signal": "I3C1_SCL",
+            "descriptor_name": "I3C1_SCL",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 11,
+            "raw_cell": "I3C1_SCL"
+          }
+        },
+        {
+          "id": "descriptor.signal.183",
+          "pin": "PB4",
+          "pad": 56,
+          "signal": "I3C1_SCL",
+          "instance": "I3C1",
+          "function": {
+            "type": "alternate",
+            "id": "AF3"
+          },
+          "source_pointer": "/signals/183",
+          "source_record": {
+            "name": "I3C1_SCL",
+            "instance": "I3C1",
+            "die_pad": "PB4(NJTRST)",
+            "function": {
+              "type": "alternate",
+              "id": "AF3"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB4",
+            "af": "AF3",
+            "DS_signal": "I3C1_SCL",
+            "descriptor_name": "I3C1_SCL",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 22,
+            "raw_cell": "I3C1_SCL"
+          }
+        },
+        {
+          "id": "descriptor.signal.184",
+          "pin": "PB6",
+          "pad": 58,
+          "signal": "I3C1_SCL",
+          "instance": "I3C1",
+          "function": {
+            "type": "alternate",
+            "id": "AF3"
+          },
+          "source_pointer": "/signals/184",
+          "source_record": {
+            "name": "I3C1_SCL",
+            "instance": "I3C1",
+            "die_pad": "PB6",
+            "function": {
+              "type": "alternate",
+              "id": "AF3"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB6",
+            "af": "AF3",
+            "DS_signal": "I3C1_SCL",
+            "descriptor_name": "I3C1_SCL",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 24,
+            "raw_cell": "I3C1_SCL"
+          }
+        },
+        {
+          "id": "descriptor.signal.185",
+          "pin": "PB8",
+          "pad": 61,
+          "signal": "I3C1_SCL",
+          "instance": "I3C1",
+          "function": {
+            "type": "alternate",
+            "id": "AF3"
+          },
+          "source_pointer": "/signals/185",
+          "source_record": {
+            "name": "I3C1_SCL",
+            "instance": "I3C1",
+            "die_pad": "PB8",
+            "function": {
+              "type": "alternate",
+              "id": "AF3"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB8",
+            "af": "AF3",
+            "DS_signal": "I3C1_SCL",
+            "descriptor_name": "I3C1_SCL",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 3,
+            "raw_cell": "I3C1_SCL"
+          }
+        },
+        {
+          "id": "descriptor.signal.186",
+          "pin": "PC10",
+          "pad": 51,
+          "signal": "I3C1_SCL",
+          "instance": "I3C1",
+          "function": {
+            "type": "alternate",
+            "id": "AF4"
+          },
+          "source_pointer": "/signals/186",
+          "source_record": {
+            "name": "I3C1_SCL",
+            "instance": "I3C1",
+            "die_pad": "PC10",
+            "function": {
+              "type": "alternate",
+              "id": "AF4"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PC10"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PC10",
+            "af": "AF4",
+            "DS_signal": "I3C1_SCL",
+            "descriptor_name": "I3C1_SCL",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 20,
+            "raw_cell": "I3C1_SCL"
+          }
+        },
+        {
+          "id": "descriptor.signal.187",
+          "pin": "PA8",
+          "pad": 41,
+          "signal": "I3C1_SDA",
+          "instance": "I3C1",
+          "function": {
+            "type": "alternate",
+            "id": "AF2"
+          },
+          "source_pointer": "/signals/187",
+          "source_record": {
+            "name": "I3C1_SDA",
+            "instance": "I3C1",
+            "die_pad": "PA8",
+            "function": {
+              "type": "alternate",
+              "id": "AF2"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA8",
+            "af": "AF2",
+            "DS_signal": "I3C1_SDA",
+            "descriptor_name": "I3C1_SDA",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 10,
+            "raw_cell": "I3C1_SDA"
+          }
+        },
+        {
+          "id": "descriptor.signal.188",
+          "pin": "PB3",
+          "pad": 55,
+          "signal": "I3C1_SDA",
+          "instance": "I3C1",
+          "function": {
+            "type": "alternate",
+            "id": "AF3"
+          },
+          "source_pointer": "/signals/188",
+          "source_record": {
+            "name": "I3C1_SDA",
+            "instance": "I3C1",
+            "die_pad": "PB3(JTDO/TRACESWO)",
+            "function": {
+              "type": "alternate",
+              "id": "AF3"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB3",
+            "af": "AF3",
+            "DS_signal": "I3C1_SDA",
+            "descriptor_name": "I3C1_SDA",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 21,
+            "raw_cell": "I3C1_SDA"
+          }
+        },
+        {
+          "id": "descriptor.signal.189",
+          "pin": "PB5",
+          "pad": 57,
+          "signal": "I3C1_SDA",
+          "instance": "I3C1",
+          "function": {
+            "type": "alternate",
+            "id": "AF3"
+          },
+          "source_pointer": "/signals/189",
+          "source_record": {
+            "name": "I3C1_SDA",
+            "instance": "I3C1",
+            "die_pad": "PB5",
+            "function": {
+              "type": "alternate",
+              "id": "AF3"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PB5"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PB5",
+            "af": "AF3",
+            "DS_signal": "I3C1_SDA",
+            "descriptor_name": "I3C1_SDA",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 23,
+            "raw_cell": "I3C1_SDA"
+          }
+        },
+        {
+          "id": "descriptor.signal.190",
+          "pin": "PB7",
+          "pad": 59,
+          "signal": "I3C1_SDA",
+          "instance": "I3C1",
+          "function": {
+            "type": "alternate",
+            "id": "AF3"
+          },
+          "source_pointer": "/signals/190",
+          "source_record": {
+            "name": "I3C1_SDA",
+            "instance": "I3C1",
+            "die_pad": "PB7",
+            "function": {
+              "type": "alternate",
+              "id": "AF3"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB7",
+            "af": "AF3",
+            "DS_signal": "I3C1_SDA",
+            "descriptor_name": "I3C1_SDA",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 2,
+            "raw_cell": "I3C1_SDA"
+          }
+        },
+        {
+          "id": "descriptor.signal.191",
+          "pin": "PB9",
+          "pad": 62,
+          "signal": "I3C1_SDA",
+          "instance": "I3C1",
+          "function": {
+            "type": "alternate",
+            "id": "AF3"
+          },
+          "source_pointer": "/signals/191",
+          "source_record": {
+            "name": "I3C1_SDA",
+            "instance": "I3C1",
+            "die_pad": "PB9",
+            "function": {
+              "type": "alternate",
+              "id": "AF3"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB9",
+            "af": "AF3",
+            "DS_signal": "I3C1_SDA",
+            "descriptor_name": "I3C1_SDA",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 4,
+            "raw_cell": "I3C1_SDA"
+          }
+        },
+        {
+          "id": "descriptor.signal.192",
+          "pin": "PC11",
+          "pad": 52,
+          "signal": "I3C1_SDA",
+          "instance": "I3C1",
+          "function": {
+            "type": "alternate",
+            "id": "AF4"
+          },
+          "source_pointer": "/signals/192",
+          "source_record": {
+            "name": "I3C1_SDA",
+            "instance": "I3C1",
+            "die_pad": "PC11",
+            "function": {
+              "type": "alternate",
+              "id": "AF4"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PC11"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PC11",
+            "af": "AF4",
+            "DS_signal": "I3C1_SDA",
+            "descriptor_name": "I3C1_SDA",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 21,
+            "raw_cell": "I3C1_SDA"
+          }
+        }
+      ],
+      "qualification": "Literal finite source domains only; no automatic register, DMA, IRQ or pin access."
+    },
+    "package_routes_sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288",
+    "errata_sha256": "821c22f796a9ff723afee534fe5943c2b0506325ec871d890706d94414316416",
+    "chapter_audit": {
+      "document": "RM0522",
+      "chapter": 42,
+      "pages_read": [
+        1688,
+        1689,
+        1690,
+        1691,
+        1692,
+        1693,
+        1694,
+        1695,
+        1696,
+        1697,
+        1698,
+        1699,
+        1700,
+        1701,
+        1702,
+        1703,
+        1704,
+        1705,
+        1706,
+        1707,
+        1708,
+        1709,
+        1710,
+        1711,
+        1712,
+        1713,
+        1714,
+        1715,
+        1716,
+        1717,
+        1718,
+        1719,
+        1720,
+        1721,
+        1722,
+        1723,
+        1724,
+        1725,
+        1726,
+        1727,
+        1728,
+        1729,
+        1730,
+        1731,
+        1732,
+        1733,
+        1734,
+        1735,
+        1736,
+        1737,
+        1738,
+        1739,
+        1740,
+        1741,
+        1742,
+        1743,
+        1744,
+        1745,
+        1746,
+        1747,
+        1748,
+        1749,
+        1750,
+        1751,
+        1752,
+        1753,
+        1754,
+        1755,
+        1756,
+        1757,
+        1758,
+        1759,
+        1760,
+        1761,
+        1762,
+        1763,
+        1764,
+        1765,
+        1766,
+        1767,
+        1768,
+        1769,
+        1770,
+        1771,
+        1772,
+        1773,
+        1774,
+        1775,
+        1776,
+        1777,
+        1778,
+        1779,
+        1780,
+        1781,
+        1782,
+        1783,
+        1784,
+        1785,
+        1786,
+        1787,
+        1788,
+        1789,
+        1790,
+        1791,
+        1792,
+        1793,
+        1794,
+        1795,
+        1796,
+        1797
+      ],
+      "evidence": [
+        "RM0522:p1688",
+        "RM0522:p1689",
+        "RM0522:p1690",
+        "RM0522:p1691",
+        "RM0522:p1692",
+        "RM0522:p1693",
+        "RM0522:p1694",
+        "RM0522:p1695",
+        "RM0522:p1696",
+        "RM0522:p1697",
+        "RM0522:p1698",
+        "RM0522:p1699",
+        "RM0522:p1700",
+        "RM0522:p1701",
+        "RM0522:p1702",
+        "RM0522:p1703",
+        "RM0522:p1704",
+        "RM0522:p1705",
+        "RM0522:p1706",
+        "RM0522:p1707",
+        "RM0522:p1708",
+        "RM0522:p1709",
+        "RM0522:p1710",
+        "RM0522:p1711",
+        "RM0522:p1712",
+        "RM0522:p1713",
+        "RM0522:p1714",
+        "RM0522:p1715",
+        "RM0522:p1716",
+        "RM0522:p1717",
+        "RM0522:p1718",
+        "RM0522:p1719",
+        "RM0522:p1720",
+        "RM0522:p1721",
+        "RM0522:p1722",
+        "RM0522:p1723",
+        "RM0522:p1724",
+        "RM0522:p1725",
+        "RM0522:p1726",
+        "RM0522:p1727",
+        "RM0522:p1728",
+        "RM0522:p1729",
+        "RM0522:p1730",
+        "RM0522:p1731",
+        "RM0522:p1732",
+        "RM0522:p1733",
+        "RM0522:p1734",
+        "RM0522:p1735",
+        "RM0522:p1736",
+        "RM0522:p1737",
+        "RM0522:p1738",
+        "RM0522:p1739",
+        "RM0522:p1740",
+        "RM0522:p1741",
+        "RM0522:p1742",
+        "RM0522:p1743",
+        "RM0522:p1744",
+        "RM0522:p1745",
+        "RM0522:p1746",
+        "RM0522:p1747",
+        "RM0522:p1748",
+        "RM0522:p1749",
+        "RM0522:p1750",
+        "RM0522:p1751",
+        "RM0522:p1752",
+        "RM0522:p1753",
+        "RM0522:p1754",
+        "RM0522:p1755",
+        "RM0522:p1756",
+        "RM0522:p1757",
+        "RM0522:p1758",
+        "RM0522:p1759",
+        "RM0522:p1760",
+        "RM0522:p1761",
+        "RM0522:p1762",
+        "RM0522:p1763",
+        "RM0522:p1764",
+        "RM0522:p1765",
+        "RM0522:p1766",
+        "RM0522:p1767",
+        "RM0522:p1768",
+        "RM0522:p1769",
+        "RM0522:p1770",
+        "RM0522:p1771",
+        "RM0522:p1772",
+        "RM0522:p1773",
+        "RM0522:p1774",
+        "RM0522:p1775",
+        "RM0522:p1776",
+        "RM0522:p1777",
+        "RM0522:p1778",
+        "RM0522:p1779",
+        "RM0522:p1780",
+        "RM0522:p1781",
+        "RM0522:p1782",
+        "RM0522:p1783",
+        "RM0522:p1784",
+        "RM0522:p1785",
+        "RM0522:p1786",
+        "RM0522:p1787",
+        "RM0522:p1788",
+        "RM0522:p1789",
+        "RM0522:p1790",
+        "RM0522:p1791",
+        "RM0522:p1792",
+        "RM0522:p1793",
+        "RM0522:p1794",
+        "RM0522:p1795",
+        "RM0522:p1796",
+        "RM0522:p1797"
+      ],
+      "qualification": "Complete extracted chapter text read including register maps. Boundary pages1687 and1798 bound. Text extraction is not a visual verification of every figure or table. Selected SDK paths only."
+    },
+    "open_gates": [
+      "Official independent source review received; corrections are source-bound but their follow-up review remains pending. No operational admission.",
+      "No I3C-specific entry found in pinned ES0676 pages1–16; absence is not erratum immunity. General clock, power, GPIO, DMA and revision restrictions remain applicable.",
+      "Exact package routes are copied unchanged. PB3/PB4 require debug ownership; PA9/PB5/PC10/PC11 retain I/O structure conflicts. Board wiring, external pull-ups, voltage, capacitance and timing are not qualified.",
+      "No comprehensive CCC parser, address-policy, multi-controller race, retry, low-power, bus recovery or DMA integration qualification. No trigger or DMA profile added to accepted composition.",
+      "All register-map tables are bound, but field-by-field executable import and every reserved/reset detail remain unaudited. No CPU access to live hardware is authorized.",
+      "No exhaustive HAL/DMA callback, CCC, notification or low-power path review. The absence of a named RXTGTEND handler is a source search result, not proof that an application cannot supply its own service."
+    ],
+    "visual_checks": [
+      {
+        "path": "research://c5-reference/i3c-rm1690.png",
+        "sha256": "377aafaeb5402e5436a61231623a4bee9e7501d530e9685c914f36310da68e31",
+        "source": "RM0522",
+        "page": 1690,
+        "source_sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "render_recipe": "pdftoppm -f 1690 -l 1690 -scale-to 1900 -png -singlefile",
+        "finding": "Merged FIFO size/use cells confirmed."
+      },
+      {
+        "path": "research://c5-reference/i3c-rm1796.png",
+        "sha256": "32974d20482eb1ae05296a85ebef065fd15af64e9c7733b3917c2d976be5604b",
+        "source": "RM0522",
+        "page": 1796,
+        "source_sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "render_recipe": "pdftoppm -f 1796 -l 1796 -scale-to 1900 -png -singlefile",
+        "finding": "TIMINGR2 AVAL label at15:8 confirmed."
+      }
+    ]
+  }
+}

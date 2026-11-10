@@ -1,0 +1,479 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/nvic-systick-contracts.json",
+    "sha256": "d5d1f873f5042f94359955fdda0530c305d0c7c7d9c209e082120966d7d6907d"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 24
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "schema": "bkpt.external.nvic_systick.contracts.v1",
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "review": "N1 through N4 and smaller hash-nvic-review findings independently checked and corrected against pinned sources. No runtime or hardware qualification.",
+    "sources": {
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "family": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c5xx.h",
+        "sha256": "61a0b8c2674d9e817d70aa8d2693339273f4283694f8ab5f8dca077bb69913f7"
+      },
+      "HAL": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_cortex.c",
+        "sha256": "ce4b71c591d43aced22fd6edf8f97470280af961f57fddb0e4ed6c179ae165f4"
+      },
+      "HAL_H": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_cortex.h",
+        "sha256": "eaf1c23b721d348cba7fcdf0ec3879f8755e2e5ef8fee1f397cffde7a93330c2"
+      },
+      "CMSIS": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/arch/cmsis/CMSIS/Core/Include/core_cm33.h",
+        "sha256": "47bd70aed10df47c7ca54bf049685d24ae886294b2d05ac6e411804dfe81b4b8"
+      },
+      "RCC": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_rcc.c",
+        "sha256": "241ee550685a75c6fcb02006ac3517c3a3c269d6f5cddface18c83ad70b6748f"
+      },
+      "inventory": {
+        "path": "research://c5-reference/device-inventory.json",
+        "sha256": "510a01b74b20e1e400e60a461e55c9cd5977faa489e146dea0ca851c3e176aa3"
+      }
+    },
+    "evidence": {
+      "RM0522:p254": {
+        "source": "RM0522",
+        "page": 254,
+        "text_sha256": "3afc82cf5a53087a6a5defe0f23ebaeaccbcc666662a418c019eb7072b7d1c61"
+      },
+      "RM0522:p316": {
+        "source": "RM0522",
+        "page": 316,
+        "text_sha256": "ae02ee5a7b9b05b47ee9d4d80bd3ff768aaf22a5acf15f6c762ec6f62fb94c12"
+      },
+      "RM0522:p440": {
+        "source": "RM0522",
+        "page": 440,
+        "text_sha256": "570a3459187ba62d1c0d3a7f2c480f095cfea60e8fd8874f0a2648a79f952cf3"
+      },
+      "RM0522:p441": {
+        "source": "RM0522",
+        "page": 441,
+        "text_sha256": "749a4fc7018257efe8913d76d23ed8c2dbef3992719ea4d4a993f9f1dae002ca"
+      },
+      "RM0522:p442": {
+        "source": "RM0522",
+        "page": 442,
+        "text_sha256": "39a1b38a09828beb7225f9fcf526805d6ca4dce705bec02001c141e8204b4252"
+      },
+      "RM0522:p443": {
+        "source": "RM0522",
+        "page": 443,
+        "text_sha256": "f3a83c85c4083c21385beb0f8a0d86f73371acd5065f23b96f5405c3a169cb06"
+      },
+      "RM0522:p444": {
+        "source": "RM0522",
+        "page": 444,
+        "text_sha256": "0da07d73daf3b0580f640112908daeb34ea2767140a058d49c2c595f11bd2713"
+      },
+      "header.IRQ": {
+        "source": "header",
+        "start_line": 53,
+        "end_line": 138,
+        "text_sha256": "18d59fd48bd11c3c33058f62110ec5be72edfd95d6806662bf077f92ab9fe057"
+      },
+      "header.core": {
+        "source": "header",
+        "start_line": 165,
+        "end_line": 175,
+        "text_sha256": "c09ad9fd7629acd2fe44d2e633017e8f1c4918b070ad6e6a87dbff9289588685"
+      },
+      "HAL.guards": {
+        "source": "HAL",
+        "start_line": 210,
+        "end_line": 246,
+        "text_sha256": "37da3b181f12a0c46f5919c6d9ca42e3549ec1de34276eb8e41ec05cdc0c19cd"
+      },
+      "HAL.priority": {
+        "source": "HAL",
+        "start_line": 334,
+        "end_line": 415,
+        "text_sha256": "150d776205d37b39f3f3b372b0525fa370027dc6f48d55711ba39671813b5b1e"
+      },
+      "HAL.NVIC": {
+        "source": "HAL",
+        "start_line": 417,
+        "end_line": 526,
+        "text_sha256": "a33ecc554001e25cb5e7ee311698f4bb569c8130e78828e861953c2767db5387"
+      },
+      "HAL.SysTick": {
+        "source": "HAL",
+        "start_line": 548,
+        "end_line": 639,
+        "text_sha256": "3285ddecd49729cdb7892de7fc4d42318d0d4cde8e1dd179a3812ac5f3e00068"
+      },
+      "HAL.groups": {
+        "source": "HAL_H",
+        "start_line": 40,
+        "end_line": 53,
+        "text_sha256": "2c2667fea3438ca000c7dc2cc8089f6aad80f4331540fc6a8c41af027c53841e"
+      },
+      "CMSIS.group": {
+        "source": "CMSIS",
+        "start_line": 2332,
+        "end_line": 2362,
+        "text_sha256": "fd6ba6fc899a8fb56676631bf55b7de5face6b516001b440c4ca809c2b291a38"
+      },
+      "CMSIS.enable": {
+        "source": "CMSIS",
+        "start_line": 2365,
+        "end_line": 2417,
+        "text_sha256": "8224a19c6c46c4b2ccb6cd71bd60ca192770289b962a557c8b14a9bc8496b99d"
+      },
+      "CMSIS.pending_active": {
+        "source": "CMSIS",
+        "start_line": 2420,
+        "end_line": 2505,
+        "text_sha256": "914ada7d5ea61658d20a734f1ee9f8d47f11b49bdbcc27e4f21089e4d21c760f"
+      },
+      "CMSIS.priority": {
+        "source": "CMSIS",
+        "start_line": 2559,
+        "end_line": 2652,
+        "text_sha256": "66da14d194ea8a6dddaa1e7c009e3551c63514e13b3b1ee185945d08782ba219"
+      },
+      "CMSIS.vector": {
+        "source": "CMSIS",
+        "start_line": 2655,
+        "end_line": 2690,
+        "text_sha256": "52e358455b8c3f02aee0a658c148f8be085f95307f9dacc9e4bacb249a07ab34"
+      },
+      "CMSIS.systick_fields": {
+        "source": "CMSIS",
+        "start_line": 995,
+        "end_line": 1036,
+        "text_sha256": "53138e021d93451de787cfe0bcf1027f80b1dd0a614634131fce48e9ddc37e13"
+      },
+      "family.systick": {
+        "source": "family",
+        "start_line": 396,
+        "end_line": 526,
+        "text_sha256": "f3d161ddd5f75b56ac24533963e64f6313f8bfe31502ac3c40c925c54f0bef5b"
+      },
+      "RCC.systick": {
+        "source": "RCC",
+        "start_line": 4190,
+        "end_line": 4220,
+        "text_sha256": "c422ac1cb2a90d26a3171644bee5548d991e8bc2bfc662206120db76741a2100"
+      },
+      "header.COMP2": {
+        "source": "header",
+        "start_line": 1314,
+        "end_line": 1314,
+        "text_sha256": "7f2cb373f80707f47d7409c13d494e4d9c77560d8c834e30327a59fb74d0b6d3"
+      },
+      "CMSIS.SCB_layout": {
+        "source": "CMSIS",
+        "start_line": 518,
+        "end_line": 533,
+        "text_sha256": "bc39f635e0132e1286dd4b6f2778f0286fe26cd03d140d608a03d83735ee8953"
+      }
+    },
+    "scope": "NVIC and SysTick bounded source contracts only. Exact IRQ declarations remain in hash-bound device inventory; no full Arm architecture, MPU/FPU/CoreSight, fault recovery, RTOS or runtime qualification.",
+    "inventory_provenance": "Reuse the exact 73 external IRQ declarations, 89 startup external positions and 16 holes in the bound inventory. Family 99-position RM table is not exact-device availability.",
+    "finite_source_maps": {
+      "priority_bits": 4,
+      "logical_priority_codes": {
+        "min": 0,
+        "max": 15
+      },
+      "HAL_grouping": [
+        {
+          "group": 0,
+          "AIRCR_PRIGROUP": 7,
+          "preempt_bits": 0,
+          "subpriority_bits": 4
+        },
+        {
+          "group": 1,
+          "AIRCR_PRIGROUP": 6,
+          "preempt_bits": 1,
+          "subpriority_bits": 3
+        },
+        {
+          "group": 2,
+          "AIRCR_PRIGROUP": 5,
+          "preempt_bits": 2,
+          "subpriority_bits": 2
+        },
+        {
+          "group": 3,
+          "AIRCR_PRIGROUP": 4,
+          "preempt_bits": 3,
+          "subpriority_bits": 1
+        },
+        {
+          "group": 4,
+          "AIRCR_PRIGROUP": 3,
+          "preempt_bits": 4,
+          "subpriority_bits": 0
+        }
+      ],
+      "SysTick_exception": -1,
+      "SysTick_LOAD_bits": 24,
+      "SysTick_reload_helper_ticks": {
+        "min": 1,
+        "max": 16777216
+      },
+      "SysTick_clock": {
+        "CTRL_CLKSOURCE_1": "HCLK",
+        "CTRL_CLKSOURCE_0": "RCC_SYSTICKSEL"
+      },
+      "RCC_SYSTICKSEL": {
+        "0": "HCLK/8",
+        "1": "LSI",
+        "2": "LSE",
+        "3": "reserved_clock_disabled"
+      },
+      "evidence": [
+        "header.core",
+        "header.IRQ",
+        "HAL.groups",
+        "CMSIS.priority",
+        "CMSIS.systick_fields",
+        "family.systick",
+        "RM0522:p254",
+        "RM0522:p316",
+        "RM0522:p440",
+        "RM0522:p441"
+      ],
+      "settable_core_exceptions": [
+        {
+          "IRQn": -12,
+          "name": "MemoryManagement"
+        },
+        {
+          "IRQn": -11,
+          "name": "BusFault"
+        },
+        {
+          "IRQn": -10,
+          "name": "UsageFault"
+        },
+        {
+          "IRQn": -5,
+          "name": "SVCall"
+        },
+        {
+          "IRQn": -4,
+          "name": "DebugMonitor"
+        },
+        {
+          "IRQn": -2,
+          "name": "PendSV"
+        },
+        {
+          "IRQn": -1,
+          "name": "SysTick"
+        }
+      ]
+    },
+    "contracts": [
+      {
+        "id": "exact_irq_admission",
+        "detail": "Select only exact named external IRQs from bound inventory, not every integer up to 88. Shared vector ownership and source acknowledgement remain peripheral-specific. Core exceptions have distinct permitted operations; negative IRQ values are not generally valid for external enable/pending APIs.",
+        "evidence": [
+          "header.IRQ",
+          "HAL.NVIC",
+          "CMSIS.enable",
+          "CMSIS.pending_active"
+        ]
+      },
+      {
+        "id": "priority_group_ownership",
+        "detail": "Priority grouping partitions the same four implemented priority bits globally. Changing grouping changes preemption interpretation of existing priorities without rewriting those bytes. Serialize grouping with all users; RTOS/interrupt-masking constraints and actual delivery latency remain unqualified. Equal programmed priorities use lower IRQ number first per RM.",
+        "evidence": [
+          "HAL.groups",
+          "CMSIS.group",
+          "CMSIS.priority",
+          "RM0522:p444"
+        ]
+      },
+      {
+        "id": "disable_not_release",
+        "detail": "CMSIS DisableIRQ writes ICER then DSB/ISB, but does not clear NVIC pending, acknowledge peripheral status or await an already-active handler. Separate pending/active getters exist. Inference: disabling alone is not callback/buffer release; stop source, establish ISR completion and lifetime ownership before reuse.",
+        "evidence": [
+          "CMSIS.enable",
+          "CMSIS.pending_active",
+          "HAL.NVIC"
+        ]
+      },
+      {
+        "id": "pending_is_distinct",
+        "detail": "NVIC pending operations change NVIC state only; wrappers do not clear EXTI/peripheral flags. A persistent source can require separate acknowledgement. Software-pending is not proof of physical peripheral operation or timing.",
+        "evidence": [
+          "CMSIS.pending_active",
+          "HAL.NVIC"
+        ]
+      },
+      {
+        "id": "vector_mutation",
+        "detail": "CMSIS SetVector writes vectors[IRQn+16] at current VTOR and issues DSB; its comment requires relocated writable SRAM. It does not validate memory extent, vector target, ownership or concurrent execution. No vector relocation/mutation authorized by this candidate.",
+        "evidence": [
+          "CMSIS.vector"
+        ]
+      },
+      {
+        "id": "systick_rate",
+        "detail": "SetFreq computes integer ticks=f_source/requested_hz, writes LOAD=ticks-1, clears VAL, enables counter and interrupt. Nominal rate is f_source/ticks, subject to supported timer operation; integer truncation means it need not equal request. Source getter computes from RCC settings/constants, not measurement or readiness. Counter restart changes phase.",
+        "evidence": [
+          "HAL.SysTick",
+          "family.systick",
+          "RCC.systick"
+        ]
+      },
+      {
+        "id": "systick_external",
+        "detail": "RCC permits external HCLK/8, LSI or LSE; LSI/LSE selection requires HCLK period no more than one quarter of source period. RCC source 3 disables kernel clock. Source switch and frequency changes require coordinated reload/timebase updates; no automatic elapsed-time continuity is established. The SDK external clock getter returns 0 for source 3, or for LSE if LSE_VALUE is not defined. For a nonzero requested frequency, SetFreq then computes ticks = 0 and returns HAL_ERROR through SetReload; this zero source value is not a divide-by-zero denominator.",
+        "evidence": [
+          "RM0522:p254",
+          "RM0522:p316",
+          "HAL.SysTick",
+          "RCC.systick"
+        ]
+      },
+      {
+        "id": "systick_suspend",
+        "detail": "HAL Suspend/Resume only clear/set TICKINT, leaving counter enable and reload unchanged. They do not clear pending SysTick or define elapsed tick accounting. Tick-dependent HAL waits can stop progressing while ISR delivery is masked; this is an integration gate, not a measured hang.",
+        "evidence": [
+          "HAL.SysTick",
+          "family.systick"
+        ]
+      }
+    ],
+    "source_derived_SDK_gates": [
+      {
+        "id": "IRQ_upper_only_guard",
+        "detail": "Exact COMP2 branch IS_IRQ_NUMBER checks only irqn <= 88. It admits external holes and every negative value. CMSIS external Enable/Disable ignore negatives, but priority access uses SHPR[((uint32_t)IRQn & 15) - 4]. Reset (-15), NMI (-14) and HardFault (-13) produce unsigned-underflow indices. Reserved -9 through -6 and -3 select reserved slots 3 through 6 and 9; values below -16 alias modulo 16 (for example -17 selects slot 11, SysTick). Admit only the seven explicitly listed settable exceptions or exact named external IRQs. SCB layout places SHPR at offset 0x018 after CCR at 0x014, but out-of-bounds C access does not establish a particular emitted machine address or hardware effect. No observed execution or CCR corruption is claimed. More generally any negative IRQn with low nibble0..3 underflows, including -16 and aliases such as -29; a modulo16 alias is not necessarily a valid SHPR index.",
+        "evidence": [
+          "HAL.guards",
+          "HAL.priority",
+          "CMSIS.priority",
+          "CMSIS.enable",
+          "header.IRQ",
+          "header.COMP2",
+          "RM0522:p440",
+          "RM0522:p441",
+          "CMSIS.SCB_layout"
+        ]
+      },
+      {
+        "id": "priority_read_race",
+        "detail": "SetPriority/GetPriority read global grouping while separately accessing priority bytes. No lock prevents grouping changes between guard checks/encode/decode. CMSIS Encode masks excessive priority bits; it does not reject them. Debug checks are not runtime range or global ownership validation.",
+        "evidence": [
+          "HAL.priority",
+          "CMSIS.priority"
+        ]
+      },
+      {
+        "id": "zero_frequency",
+        "detail": "SetFreq rejects zero only through optional runtime checking or debug assertion; with both disabled it divides by zero. Nonzero values producing ticks = 0 or ticks > 0x1000000 fail SetReload before VAL/enable changes. An invalid request does not imply the prior timer was stopped.",
+        "evidence": [
+          "HAL.SysTick",
+          "family.systick"
+        ]
+      },
+      {
+        "id": "clock_switch_and_interrupt_policy",
+        "detail": "SetClkSource changes CLKSOURCE without recalculating LOAD or preserving a specified timebase. SetFreq unconditionally enables TICKINT and counter after programming, potentially overriding a suspended interrupt policy. Neither configures priority or clears pending exception state.",
+        "evidence": [
+          "HAL.SysTick",
+          "family.systick"
+        ]
+      },
+      {
+        "id": "getter_pointers",
+        "detail": "HAL GetPriority checks output pointers only with debug assertions and then dereferences both; caller must validate storage. No optional runtime pointer guard exists in that function.",
+        "evidence": [
+          "HAL.priority"
+        ]
+      },
+      {
+        "id": "grouping_release_domain",
+        "detail": "With debug assertions disabled, CMSIS masks grouping to 0 through 7. With four priority bits, raw PRIGROUP 0 through 2 encode the same four preemption bits and zero subpriority bits as raw 3 (HAL group 4). HAL GetPriorityGrouping returns the raw value cast to its enum, so raw 0 through 2 are not declared HAL enum members. Validate the HAL domain separately; this is source behavior, not an observed configuration.",
+        "evidence": [
+          "HAL.groups",
+          "HAL.priority",
+          "CMSIS.group",
+          "CMSIS.priority"
+        ]
+      }
+    ],
+    "conflicts": [
+      {
+        "id": "family_irq_count",
+        "detail": "RM440 says 98 external channels while family table numbers 0..98; exact inventory has 73 named external IRQs and gaps. Preserve disagreement and exact declarations, no invented additional channels.",
+        "evidence": [
+          "RM0522:p440",
+          "RM0522:p444",
+          "header.IRQ",
+          "RM0522:p442",
+          "RM0522:p443"
+        ]
+      },
+      {
+        "id": "systick_external_summary",
+        "detail": "RM440 describes only HCLK/8 as external source, whereas RCC254/316 and SDK getter also support LSI/LSE. Apply source-specific rate and ratio gates instead of assuming HCLK/8 universally.",
+        "evidence": [
+          "RM0522:p440",
+          "RM0522:p254",
+          "RM0522:p316",
+          "RCC.systick"
+        ]
+      },
+      {
+        "id": "reload_helper_boundary",
+        "detail": "Family helper comment allows ticks 1 through 0xFFFFFF; its 24-bit LOAD check accepts ticks = 0x1000000 too, giving LOAD = 0xFFFFFF. This is a source-derived helper boundary, not independent proof of useful operation for LOAD = 0 / ticks = 1.",
+        "evidence": [
+          "family.systick",
+          "CMSIS.systick_fields"
+        ]
+      }
+    ],
+    "open_gates": [
+      "Full Arm architectural and silicon-revision/errata semantics",
+      "Actual interrupt masks, privilege, priorities, active handlers and RTOS constraints",
+      "SysTick COUNTFLAG side effects and low-power/debug timing need architecture review",
+      "Core fault/MPU/FPU/SBS protection interactions remain open",
+      "No build, hardware timing or runtime adapter admission"
+    ],
+    "exact_header_guard_selection": {
+      "COMP2_defined": true,
+      "ADC3_token_occurrences": 0,
+      "qualification": "Whole exact-header text searched for ADC3; absence applies to this hash-bound source only. COMP2 definition selects the HAL upper-bound branch after the absent ADC3 branch.",
+      "source": "header",
+      "source_sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea",
+      "evidence": [
+        "header.COMP2",
+        "HAL.guards"
+      ]
+    }
+  }
+}

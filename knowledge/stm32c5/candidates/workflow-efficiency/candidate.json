@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "state": "reviewed_evaluation_candidate_not_operator_default",
+  "inputs": {
+    "architecture": {
+      "path": "candidates/workflow-efficiency/accepted.json",
+      "sha256": "69e0402c5d98d358464be3d1ba629668acb544f1ff92121da6efcc22f2c20928"
+    },
+    "review": {
+      "path": "candidates/workflow-efficiency/accepted.review.json",
+      "sha256": "a17109544ee7fadae61461713e9dcee7269cd799fc9ea7631c5811a0b5986a16"
+    },
+    "foundation_manifest": {
+      "path": "candidates/workflow-efficiency/foundation-manifest.json",
+      "sha256": "1ad793e28e0d712ba6ec6e9eca69594113958bd8061c06d34669c04483974e8e"
+    }
+  },
+  "source_inputs": "candidates/workflow-efficiency/source-inputs.json",
+  "source_path_root": "STM32C5 package root for package_path; external source root for graph paths",
+  "capabilities": 14,
+  "foundation_files": "External frozen installation. Copying the manifest does not copy its rootless vendor/generated files or make it independently runnable.",
+  "runtime_admission": "Retains prior bounded evaluation acceptance only. Migration does not activate this candidate or claim broader chip coverage."
+}

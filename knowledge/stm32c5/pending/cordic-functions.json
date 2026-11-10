@@ -1,0 +1,762 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/cordic-functions.json",
+    "sha256": "1e50f97f37749f61bf3047919fcc745ca996a63247960919cbec077f2e99979a"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 30
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "schema": "bkpt.c5-cordic-function-reference/1",
+    "publication": "unpublished",
+    "target": {
+      "device": "STM32C542RCT6",
+      "device_group": "STM32C542xx",
+      "package": "LQFP64",
+      "silicon_revision": "unknown",
+      "sdk": "stm32c5-hal2-2.1.0"
+    },
+    "register_supplement_sha256": "0c00d7b23ae1592b2ad6d454427aff16c2349091d26a4082b5cc4f53a448a630",
+    "sources": {
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "hal/stm32c5xx_hal_cordic.c": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_cordic.c",
+        "sha256": "19d4f9841a582055fe46a1666e716b6c2d9004720599331d9a0ac37fc5eeb7b7"
+      },
+      "ll/stm32c5xx_ll_cordic.h": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_cordic.h",
+        "sha256": "d81382f19b2795d6580060e49b084a26454f8991b601bf0c07ecb04708d23dbc"
+      },
+      "config_template": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/templates/common/stm32c5xx_hal_conf.h",
+        "sha256": "d27337a49d0566af7ad5a74ca866a2d07fd93d8136b3cdd24e40d4ab5493127b"
+      },
+      "HAL_header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_cordic.h",
+        "sha256": "e9f8d47ad867d9107181dac821011d8ffed97379d7b56f91c1cd3c95042769b4"
+      },
+      "LL": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_cordic.h",
+        "sha256": "d81382f19b2795d6580060e49b084a26454f8991b601bf0c07ecb04708d23dbc"
+      },
+      "HAL": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_cordic.c",
+        "sha256": "19d4f9841a582055fe46a1666e716b6c2d9004720599331d9a0ac37fc5eeb7b7"
+      }
+    },
+    "evidence": {
+      "RM0522:p479": {
+        "source": "RM0522",
+        "page": 479,
+        "sha256": "2f1885ee25972682d5a52302ad06bbb168b40e727e1de656671aecb360af18cf"
+      },
+      "RM0522:p480": {
+        "source": "RM0522",
+        "page": 480,
+        "sha256": "b8555d43fefd2170b9d948fb5d7c43086e63787517630f687dd2246daccaf334"
+      },
+      "RM0522:p481": {
+        "source": "RM0522",
+        "page": 481,
+        "sha256": "85f20b6e1061ccaca7c43db698a608b78b396f47d5b5f1d48f045338b5c1dfc0"
+      },
+      "RM0522:p482": {
+        "source": "RM0522",
+        "page": 482,
+        "sha256": "0dc294673a7b4e7bafdd83dfdbf8caa985c28c509300b234858e5a3ddbfb948b"
+      },
+      "RM0522:p483": {
+        "source": "RM0522",
+        "page": 483,
+        "sha256": "fc9355e0c6c80486a828ae201d1cdadb6aed94cea04ff2b951b6236e37475135"
+      },
+      "RM0522:p484": {
+        "source": "RM0522",
+        "page": 484,
+        "sha256": "5ad3e4b8e066f52ba06351037fabebaacab27334ce30df6f28641ff13bcf29b3"
+      },
+      "RM0522:p485": {
+        "source": "RM0522",
+        "page": 485,
+        "sha256": "5b3848c60f094b54a1d545c1f3a256f42c58d1087c69bdf71d846e37f78fd16e"
+      },
+      "RM0522:p486": {
+        "source": "RM0522",
+        "page": 486,
+        "sha256": "3a91e7348c356eed4ad1a84bf72d207619c816fa7e6af67c6bce442242a4d600"
+      },
+      "RM0522:p487": {
+        "source": "RM0522",
+        "page": 487,
+        "sha256": "ac139c10e36a6b3178c65dd7c8d292a791091026c38ba7595da15149d04e2999"
+      },
+      "RM0522:p488": {
+        "source": "RM0522",
+        "page": 488,
+        "sha256": "b45139e17bf5068ab439a117302978769b92f39dcbcc14df3bf3a00ae1656175"
+      },
+      "RM0522:p489": {
+        "source": "RM0522",
+        "page": 489,
+        "sha256": "f943150b69cbc98044d0ec6819dea38295435bb9d04aaf60c93201a514db08cc"
+      },
+      "RM0522:p490": {
+        "source": "RM0522",
+        "page": 490,
+        "sha256": "3a5afca1c85b4aa1cc6af2261df3a99c017e9fa582cf620d1d97d9c159000c37"
+      },
+      "RM0522:p491": {
+        "source": "RM0522",
+        "page": 491,
+        "sha256": "44af1edc4a951d8985e0940996ccdbe58b9541561f9e41cc95d369a3845bca73"
+      },
+      "RM0522:p492": {
+        "source": "RM0522",
+        "page": 492,
+        "sha256": "54808f3ef36d3b8e1c665a9b75fc786087a83588bc32077a4b631eaec7c1b9b0"
+      },
+      "RM0522:p493": {
+        "source": "RM0522",
+        "page": 493,
+        "sha256": "650ea398654de5d10a8cedec5c3ae98417397525d237d20a38bf0e7d360943ed"
+      },
+      "RM0522:p494": {
+        "source": "RM0522",
+        "page": 494,
+        "sha256": "2083e28c04809e479198c5da88a922783cbfe6bad125b96e84fed8e2cff5a226"
+      },
+      "RM0522:p495": {
+        "source": "RM0522",
+        "page": 495,
+        "sha256": "9e12faf5d74c8e5999d13ccce715a934eef70f77b0c1a4ef2b7dc455a5fc99d4"
+      },
+      "RM0522:p496": {
+        "source": "RM0522",
+        "page": 496,
+        "sha256": "7464c83bdf4c85fa4017d26ffd15184ddb6266a79b6c9695041669ffc62b8996"
+      },
+      "HAL.config_checks": {
+        "source": "hal/stm32c5xx_hal_cordic.c",
+        "start_line": 527,
+        "end_line": 542,
+        "sha256": "9c6af32272e93d76c9f7974b26ebd76779bc3797a26d3961184b8cb34e5b2b84"
+      },
+      "HAL.function_switch": {
+        "source": "hal/stm32c5xx_hal_cordic.c",
+        "start_line": 588,
+        "end_line": 603,
+        "sha256": "b348113330a0a6725d9b94f19b454b3d58520cc428232be0da2819ea4d0403bd"
+      },
+      "HAL.scale_checks": {
+        "source": "hal/stm32c5xx_hal_cordic.c",
+        "start_line": 692,
+        "end_line": 700,
+        "sha256": "263f58b0c6aca5596459129673e65f742296fa1ca7c51df83e472232accbbe98"
+      },
+      "HAL.argument_warning": {
+        "source": "hal/stm32c5xx_hal_cordic.c",
+        "start_line": 1007,
+        "end_line": 1024,
+        "sha256": "4b15314cade50793a45fea8a28f9d596e4aaf1f7d431154b4edd501504ba39bb"
+      },
+      "HAL.argument_reset": {
+        "source": "hal/stm32c5xx_hal_cordic.c",
+        "start_line": 2196,
+        "end_line": 2241,
+        "sha256": "8f45db0a85eee44a2631410fec109e83878870b3d4abfa5364492c4e58817400"
+      },
+      "HAL.precision_domain": {
+        "source": "hal/stm32c5xx_hal_cordic.c",
+        "start_line": 2254,
+        "end_line": 2272,
+        "sha256": "5774e8a1d459094a870a30388f056d99c374418e0271400a290e8f4a63adff65"
+      },
+      "HAL.scale_domain": {
+        "source": "hal/stm32c5xx_hal_cordic.c",
+        "start_line": 2280,
+        "end_line": 2325,
+        "sha256": "c0fba80a7ee2744acf64b59a77d1576771e0dfbcb58cb47fe243b27e6c8f444d"
+      },
+      "LL.function_codes": {
+        "source": "ll/stm32c5xx_ll_cordic.h",
+        "start_line": 82,
+        "end_line": 92,
+        "sha256": "dfadef145c75af55d12eacb4d4a7a16e22761f2892aa6ac0b52b32f6001e750f"
+      },
+      "HAL.default_check_param": {
+        "source": "config_template",
+        "start_line": 74,
+        "end_line": 82,
+        "sha256": "cb8c6a0b370e1616238967dfa11b701c6ecb6cfdb2b373e2c4ecc9c2edcb74a0"
+      },
+      "HAL.scale_comments": {
+        "source": "HAL_header",
+        "start_line": 148,
+        "end_line": 155,
+        "sha256": "907826ad49bd0cbd384fc3cd59040c791fdec97ec4e74e941ded3982a4694fad"
+      },
+      "LL.scale_comments": {
+        "source": "LL",
+        "start_line": 124,
+        "end_line": 132,
+        "sha256": "64fc87f6472be22effff08378206742363c9b637750f16082145d0a3ddc8fa57"
+      },
+      "HAL.argument_constants": {
+        "source": "HAL",
+        "start_line": 206,
+        "end_line": 212,
+        "sha256": "8a9b64c89ccbf028a7a2ea013c67a1bfe6fbf00bf092c408a023df8f1eac7600"
+      }
+    },
+    "functions": [
+      {
+        "FUNC": 0,
+        "name": "cosine",
+        "ordered_arguments": [
+          "theta/pi",
+          "modulus"
+        ],
+        "ordered_results": [
+          "modulus*cos(theta)",
+          "modulus*sin(theta)"
+        ],
+        "RM_scale_values": [
+          0
+        ],
+        "printed_domain": {
+          "theta/pi": "[-1,1]",
+          "modulus": "[0,1]"
+        },
+        "evidence": [
+          "RM0522:p480",
+          "RM0522:p481"
+        ],
+        "status": "source_candidate",
+        "numerical_qualification": "not_tested",
+        "execution_permission": "none",
+        "SDK_checked_precision_cycles": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "SDK_parameter_check_condition": "Only checked at applicable API call sites when USE_HAL_CHECK_PARAM == 1; template defaults to 0. SetFunction does not revalidate retained SCALE/PRECISION."
+      },
+      {
+        "FUNC": 1,
+        "name": "sine",
+        "ordered_arguments": [
+          "theta/pi",
+          "modulus"
+        ],
+        "ordered_results": [
+          "modulus*sin(theta)",
+          "modulus*cos(theta)"
+        ],
+        "RM_scale_values": [
+          0
+        ],
+        "printed_domain": {
+          "theta/pi": "[-1,1]",
+          "modulus": "[0,1]"
+        },
+        "evidence": [
+          "RM0522:p481"
+        ],
+        "status": "source_candidate",
+        "numerical_qualification": "not_tested",
+        "execution_permission": "none",
+        "SDK_checked_precision_cycles": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "SDK_parameter_check_condition": "Only checked at applicable API call sites when USE_HAL_CHECK_PARAM == 1; template defaults to 0. SetFunction does not revalidate retained SCALE/PRECISION."
+      },
+      {
+        "FUNC": 2,
+        "name": "phase",
+        "ordered_arguments": [
+          "x",
+          "y"
+        ],
+        "ordered_results": [
+          "atan2(y,x)/pi",
+          "sqrt(x*x+y*y)"
+        ],
+        "RM_scale_values": [
+          0
+        ],
+        "printed_domain": {
+          "x": "[-1,1]",
+          "y": "[-1,1]",
+          "source_caveats": "modulus above1 saturates to1; phase near+pi may wrap to-pi; zero vector is not defined by this candidate"
+        },
+        "evidence": [
+          "RM0522:p481",
+          "RM0522:p482"
+        ],
+        "status": "source_candidate",
+        "numerical_qualification": "not_tested",
+        "execution_permission": "none",
+        "SDK_checked_precision_cycles": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "SDK_parameter_check_condition": "Only checked at applicable API call sites when USE_HAL_CHECK_PARAM == 1; template defaults to 0. SetFunction does not revalidate retained SCALE/PRECISION."
+      },
+      {
+        "FUNC": 3,
+        "name": "modulus",
+        "ordered_arguments": [
+          "x",
+          "y"
+        ],
+        "ordered_results": [
+          "sqrt(x*x+y*y)",
+          "atan2(y,x)/pi"
+        ],
+        "RM_scale_values": [
+          0
+        ],
+        "printed_domain": {
+          "x": "[-1,1]",
+          "y": "[-1,1]",
+          "source_caveats": "modulus above1 saturates to1; phase near+pi may wrap to-pi; saturation encoding not inferred"
+        },
+        "evidence": [
+          "RM0522:p482"
+        ],
+        "status": "source_candidate",
+        "numerical_qualification": "not_tested",
+        "execution_permission": "none",
+        "SDK_checked_precision_cycles": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "SDK_parameter_check_condition": "Only checked at applicable API call sites when USE_HAL_CHECK_PARAM == 1; template defaults to 0. SetFunction does not revalidate retained SCALE/PRECISION."
+      },
+      {
+        "FUNC": 4,
+        "name": "arctangent",
+        "ordered_arguments": [
+          "x*2**(-n)"
+        ],
+        "ordered_results": [
+          "atan(x)*2**(-n)/pi"
+        ],
+        "RM_scale_values": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "printed_domain": {
+          "ARG1": "table[-1,1]; scaling prose requires strict interior",
+          "physical_x": "prose abs(x)<=128; endpoint representability remains gated"
+        },
+        "evidence": [
+          "RM0522:p483"
+        ],
+        "status": "source_candidate",
+        "numerical_qualification": "not_tested",
+        "execution_permission": "none",
+        "SDK_checked_precision_cycles": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "SDK_parameter_check_condition": "Only checked at applicable API call sites when USE_HAL_CHECK_PARAM == 1; template defaults to 0. SetFunction does not revalidate retained SCALE/PRECISION."
+      },
+      {
+        "FUNC": 5,
+        "name": "hyperbolic_cosine",
+        "ordered_arguments": [
+          "x/2"
+        ],
+        "ordered_results": [
+          "cosh(x)/2",
+          "sinh(x)/2"
+        ],
+        "RM_scale_values": [
+          1
+        ],
+        "printed_domain": {
+          "x": "[-1.118,1.118]",
+          "ARG1": "[-0.559,0.559]"
+        },
+        "evidence": [
+          "RM0522:p483",
+          "RM0522:p484"
+        ],
+        "status": "source_candidate",
+        "numerical_qualification": "not_tested",
+        "execution_permission": "none",
+        "SDK_checked_precision_cycles": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "SDK_parameter_check_condition": "Only checked at applicable API call sites when USE_HAL_CHECK_PARAM == 1; template defaults to 0. SetFunction does not revalidate retained SCALE/PRECISION."
+      },
+      {
+        "FUNC": 6,
+        "name": "hyperbolic_sine",
+        "ordered_arguments": [
+          "x/2"
+        ],
+        "ordered_results": [
+          "sinh(x)/2",
+          "cosh(x)/2"
+        ],
+        "RM_scale_values": [
+          1
+        ],
+        "printed_domain": {
+          "x": "[-1.118,1.118]",
+          "ARG1": "[-0.559,0.559]"
+        },
+        "evidence": [
+          "RM0522:p484"
+        ],
+        "status": "source_candidate",
+        "numerical_qualification": "not_tested",
+        "execution_permission": "none",
+        "SDK_checked_precision_cycles": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "SDK_parameter_check_condition": "Only checked at applicable API call sites when USE_HAL_CHECK_PARAM == 1; template defaults to 0. SetFunction does not revalidate retained SCALE/PRECISION."
+      },
+      {
+        "FUNC": 7,
+        "name": "hyperbolic_arctangent",
+        "ordered_arguments": [
+          "x/2"
+        ],
+        "ordered_results": [
+          "atanh(x)/2"
+        ],
+        "RM_scale_values": [
+          1
+        ],
+        "printed_domain": {
+          "x": "[-0.806,0.806]",
+          "ARG1": "[-0.403,0.403]"
+        },
+        "evidence": [
+          "RM0522:p484",
+          "RM0522:p485"
+        ],
+        "status": "source_candidate",
+        "numerical_qualification": "not_tested",
+        "execution_permission": "none",
+        "SDK_checked_precision_cycles": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "SDK_parameter_check_condition": "Only checked at applicable API call sites when USE_HAL_CHECK_PARAM == 1; template defaults to 0. SetFunction does not revalidate retained SCALE/PRECISION."
+      },
+      {
+        "FUNC": 8,
+        "name": "natural_logarithm",
+        "ordered_arguments": [
+          "x*2**(-n)"
+        ],
+        "ordered_results": [
+          "ln(x)*2**(-(n+1))"
+        ],
+        "RM_scale_values": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "printed_domain": {
+          "x": "[0.107,9.35] subject to conflicting piecewise endpoints",
+          "ARG1_summary": "[0.054,0.875]",
+          "RES1_summary": "[-0.279,0.137] (inconsistent with formula/domain)"
+        },
+        "evidence": [
+          "RM0522:p485"
+        ],
+        "status": "source_candidate",
+        "numerical_qualification": "not_tested",
+        "execution_permission": "none",
+        "SDK_checked_precision_cycles": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "SDK_parameter_check_condition": "Only checked at applicable API call sites when USE_HAL_CHECK_PARAM == 1; template defaults to 0. SetFunction does not revalidate retained SCALE/PRECISION.",
+        "formula_qualification": "Printed formula retained as disputed source data; result scaling is not authoritative because it conflicts with the printed result range."
+      },
+      {
+        "FUNC": 9,
+        "name": "square_root",
+        "ordered_arguments": [
+          "x*2**(-n)"
+        ],
+        "ordered_results": [
+          "sqrt(x)*2**(-n)"
+        ],
+        "RM_scale_values": [
+          0,
+          1,
+          2
+        ],
+        "printed_domain": {
+          "x_prose": "[0.027,2.34]",
+          "ARG1_summary": "[0.027,0.875]",
+          "RES1_summary": "[0.04,1] (printed loose enclosure, not a tight derived range)"
+        },
+        "evidence": [
+          "RM0522:p486"
+        ],
+        "status": "source_candidate",
+        "numerical_qualification": "not_tested",
+        "execution_permission": "none",
+        "SDK_checked_precision_cycles": [
+          1,
+          2,
+          3
+        ],
+        "SDK_parameter_check_condition": "Only checked at applicable API call sites when USE_HAL_CHECK_PARAM == 1; template defaults to 0. SetFunction does not revalidate retained SCALE/PRECISION."
+      }
+    ],
+    "piecewise_source_tables": {
+      "ln": [
+        {
+          "n": 1,
+          "x": "0.107<=x<1",
+          "ARG1": "0.0535<=a<0.5"
+        },
+        {
+          "n": 2,
+          "x": "1<=x<3",
+          "ARG1": "0.25<=a<0.75"
+        },
+        {
+          "n": 3,
+          "x": "3<=x<7",
+          "ARG1": "0.375<=a<0.875"
+        },
+        {
+          "n": 4,
+          "x": "7<=x<=9.35",
+          "ARG1": "0.4375<=a<0.584"
+        }
+      ],
+      "sqrt": [
+        {
+          "n": 0,
+          "x": "0.027<=x<0.75",
+          "ARG1": "0.027<=a<0.75"
+        },
+        {
+          "n": 1,
+          "x": "0.75<=x<1.75",
+          "ARG1": "0.375<=a<0.875"
+        },
+        {
+          "n": 2,
+          "x": "1.75<=x<=2.341",
+          "ARG1": "0.4375<=a<=0.585"
+        }
+      ]
+    },
+    "representation": {
+      "q31": {
+        "min": "-1",
+        "max": "1-2**(-31)",
+        "min_code": "0x80000000",
+        "max_code": "0x7fffffff"
+      },
+      "q15_derived_signed": {
+        "min": "-1",
+        "max": "1-2**(-15)",
+        "min_code": "0x8000",
+        "max_code": "0x7fff"
+      },
+      "policy": "Printed domains, encoded representability and admitted policy are separate. No silent endpoint clamp/wrap/round; exact +1 is not representable.",
+      "evidence": [
+        "RM0522:p486"
+      ]
+    },
+    "conflicts": [
+      {
+        "id": "q15_sign_typo",
+        "detail": "RM p486 prints 1 (0x8000) despite signed format; signed-encoding interpretation is explicitly derived, not silently corrected.",
+        "evidence": [
+          "RM0522:p486"
+        ]
+      },
+      {
+        "id": "log_scaling_prose",
+        "detail": "RM p485 literally prints x<2^-n<1-2^-n, inconsistent with its table. No replacement inequality assumed.",
+        "evidence": [
+          "RM0522:p485"
+        ],
+        "visual_check": {
+          "path": "research://c5-reference/cordic-range-check-0485.png",
+          "sha256": "04dafd9b2e08be1329d56c6f49458cf6c680d9301eaaadad9cf2f5e49eadc53f"
+        }
+      },
+      {
+        "id": "log_endpoint_rounding",
+        "detail": "9.35/16=0.584375 exceeds ARG1<0.584; summary lower 0.054 differs from piecewise 0.0535.",
+        "evidence": [
+          "RM0522:p485"
+        ],
+        "visual_check": {
+          "path": "research://c5-reference/cordic-range-check-0485.png",
+          "sha256": "04dafd9b2e08be1329d56c6f49458cf6c680d9301eaaadad9cf2f5e49eadc53f"
+        }
+      },
+      {
+        "id": "log_result_range",
+        "detail": "Printed RES1[-0.279,0.137] conflicts with stated formula/domain, e.g.ln(0.107)/4 about -0.559. The printed -0.279 is approximately ln(0.107)/8; this does not establish an alternative formula. Result scaling remains unresolved.",
+        "evidence": [
+          "RM0522:p485"
+        ],
+        "visual_check": {
+          "path": "research://c5-reference/cordic-range-check-0485.png",
+          "sha256": "04dafd9b2e08be1329d56c6f49458cf6c680d9301eaaadad9cf2f5e49eadc53f"
+        }
+      },
+      {
+        "id": "sqrt_endpoints",
+        "detail": "Prose maximum 2.34 versus table 2.341;2.341/4=0.58525 exceeds table ARG1<=0.585.",
+        "evidence": [
+          "RM0522:p486"
+        ]
+      },
+      {
+        "id": "SDK_sqrt_scale",
+        "detail": "HAL helper admits sqrt SCALE 1..2 while RM Table 122 admits 0..2. Check compiled parameter-guard configuration; no unconditional SDK admission. RM Table123 footnote4 provides sqrt accuracy only at SCALE=0, exactly the value rejected by the conditional HAL scale check.",
+        "evidence": [
+          "HAL.scale_domain",
+          "RM0522:p486",
+          "RM0522:p490",
+          "HAL.default_check_param"
+        ]
+      }
+    ],
+    "stateful_arguments": {
+      "ARG2_reset_code": "0x7fffffff",
+      "ARG2_reuse": "Only after establishing its value and while function unchanged; omitted y is not zero.",
+      "HAL_function_switch": "SetFunction always calls CORDIC_ResetArguments: temporary sine calculation writes ARG1=0 and ARG2=0x7fffffff then reads two results using retained SCALE/PRECISION. CPU accesses are incompatible with active corresponding DMA ownership; IEN can cause an interrupt. Not a stateless selector assignment.",
+      "evidence": [
+        "RM0522:p490",
+        "HAL.argument_warning",
+        "HAL.argument_reset",
+        "HAL.function_switch",
+        "HAL.argument_constants",
+        "RM0522:p493"
+      ]
+    },
+    "accuracy": {
+      "engine_bits": 24,
+      "register_precision_encoding_cycles": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "iterations_per_cycle": 4,
+      "Table123_scope": "cycles1..6 exceptsqrt1..3; phase modulus>0.5; atan/sqrt SCALE0; hyperbolic/log SCALE1; rounding/scaling/quantization caveats apply.",
+      "qualification": "q31 storage does not establish31-bit accuracy; no measured accuracy or monotonic improvement claim.",
+      "evidence": [
+        "RM0522:p479",
+        "RM0522:p487",
+        "RM0522:p489",
+        "RM0522:p490"
+      ]
+    },
+    "visual_checks": [
+      {
+        "page": 485,
+        "path": "research://c5-reference/cordic-range-check-0485.png",
+        "sha256": "04dafd9b2e08be1329d56c6f49458cf6c680d9301eaaadad9cf2f5e49eadc53f",
+        "scope": "Literal range/scaling defects inspected"
+      },
+      {
+        "page": 486,
+        "path": "research://c5-reference/cordic-range-check-0486.png",
+        "sha256": "60c2377b810dd73cf77ecea74bd544f63448f403b35d197de067c2a90604454f",
+        "scope": "Literal range/scaling defects inspected"
+      }
+    ],
+    "function_inventory": "all10 coded functions; source facts and conflicts only",
+    "admitted_execution_domain": null,
+    "implementation": "not_authored",
+    "hardware": "not_observed",
+    "build": "not_tested",
+    "review": "See current external review receipts; source-only retention without numerical, runtime or hardware qualification.",
+    "execution_permission": "none",
+    "SDK_comment_caution": {
+      "detail": "HAL/LL scale enum comments say arguments multiplied by 2^n, while RM p494 describes 2^-n. Preserve the comment discrepancy; do not derive numerical semantics from these comments.",
+      "evidence": [
+        "HAL.scale_comments",
+        "LL.scale_comments",
+        "RM0522:p494"
+      ]
+    }
+  }
+}

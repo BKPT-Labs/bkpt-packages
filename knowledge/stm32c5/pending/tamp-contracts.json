@@ -1,0 +1,1339 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/tamp-contracts.json",
+    "sha256": "988115787f12f96fb8a7559c9802330570bb5c743960218edd8119f6272ec3a5"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 82
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "schema": "bkpt.external.tamp.contracts.v1",
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "review": "Independent source and regression review pending.",
+    "scope": "Exact TAMP only. Full RM chapter 40 pages 1597–1623 read, plus system-secret and RTC interconnection sections; bounded HAL/LL source audit. No executable profiles, physical register reads, security transitions or full semantic qualification.",
+    "sources": {
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "DS15135": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pdf",
+        "sha256": "1a3555f799297774a95978ab343ebc1f45ab9ef58d0dcf3600dec4fabed9355c",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pages.json",
+        "extraction_sha256": "b14b965adb6c1545edbca0e56b3c504e7ecc3a94bda197350ce2757b5a3d55dc"
+      },
+      "ES0676": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pdf",
+        "sha256": "a5463827337bcdbd3e5f2e0912a56307d78b568e5631b21cc9a25899c7d4a5e6",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pages.json",
+        "extraction_sha256": "2ab1b19e42b53e22ff5f3b98f6ed9a5f98f3b7b61a617abc3bb3b7fc050d1cb3"
+      },
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "family": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c5xx.h",
+        "sha256": "61a0b8c2674d9e817d70aa8d2693339273f4283694f8ab5f8dca077bb69913f7"
+      },
+      "HAL": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_tamp.c",
+        "sha256": "490504b217c25795fe4a3fc095d0f3fb3981826779850e47c77f728a5cb6095f"
+      },
+      "HAL_H": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_tamp.h",
+        "sha256": "6c2daf77ad9e112e1667f230bdcf99c3560e31d2ab21b57a63f9e7d6a3e94bdd"
+      },
+      "LL": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_tamp.h",
+        "sha256": "c75697f8a84e6e5bb3bce2f5f90d4e4f47e6a98f6b2b3df93dc9da57f4e27184"
+      },
+      "package": {
+        "path": "research://c5-reference/package-routes.json",
+        "sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288"
+      },
+      "errata": {
+        "path": "research://c5-reference/errata.json",
+        "sha256": "821c22f796a9ff723afee534fe5943c2b0506325ec871d890706d94414316416"
+      },
+      "CMSIS_core": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/arch/cmsis/CMSIS/Core/Include/core_cm33.h",
+        "sha256": "47bd70aed10df47c7ca54bf049685d24ae886294b2d05ac6e411804dfe81b4b8"
+      }
+    },
+    "evidence": {
+      "RM0522:p1597": {
+        "source": "RM0522",
+        "page": 1597,
+        "sha256": "260afa46cb0b825550ca56ac5871f4ede68be864e35ecf1c059b95b15e49564e"
+      },
+      "RM0522:p1598": {
+        "source": "RM0522",
+        "page": 1598,
+        "sha256": "2a06275099e724ed84cebf06bce5727ae120cf93ff11f09e168673e08734c074"
+      },
+      "RM0522:p1599": {
+        "source": "RM0522",
+        "page": 1599,
+        "sha256": "c8ac705041cc12e18870bd17ec4a033fa119c6283fe34b7577855525555e505a"
+      },
+      "RM0522:p1600": {
+        "source": "RM0522",
+        "page": 1600,
+        "sha256": "4b8963047998a587ee2b36c8bf12c2c828728a0a607a1aa2e632acb2eb6839af"
+      },
+      "RM0522:p1601": {
+        "source": "RM0522",
+        "page": 1601,
+        "sha256": "73d3ca6c226952b1567a3c94d3ad9ee743bc959284fb69b280e5522a81846509"
+      },
+      "RM0522:p1602": {
+        "source": "RM0522",
+        "page": 1602,
+        "sha256": "7fcb5bf83c051a23b88fd6dd4c589df9f3efd67569dc1b292bcb01019130b1dd"
+      },
+      "RM0522:p1603": {
+        "source": "RM0522",
+        "page": 1603,
+        "sha256": "7ff9f3e11b319f2048a88f5250729a7084e382e1d9bdbc5908c898830559794c"
+      },
+      "RM0522:p1604": {
+        "source": "RM0522",
+        "page": 1604,
+        "sha256": "8c63f26354425933de6d964fe1c86d6240e375956039783d6662c672069d8cf7"
+      },
+      "RM0522:p1605": {
+        "source": "RM0522",
+        "page": 1605,
+        "sha256": "e020707d5445adfcdc85a676390f5606b20f2e5ee2ea95f00719b4acc606a738"
+      },
+      "RM0522:p1606": {
+        "source": "RM0522",
+        "page": 1606,
+        "sha256": "26016af1e20a77cc599068f6c95f54c77ce366bd2de187f966406d0e26cc1d6b"
+      },
+      "RM0522:p1607": {
+        "source": "RM0522",
+        "page": 1607,
+        "sha256": "cfe88cabfccea6b7f6c34d51cba8cccc778769da948f4a744493cc10302fab8e"
+      },
+      "RM0522:p1608": {
+        "source": "RM0522",
+        "page": 1608,
+        "sha256": "7bdd749f6b6b19ea32a81a540766e4aaf0b5a3ac64b5ba1e70cdcee131ac0786"
+      },
+      "RM0522:p1609": {
+        "source": "RM0522",
+        "page": 1609,
+        "sha256": "88b4c3d029192dd4b1f610d73421b772a1826a7ae3aba6f85f754f3addb98437"
+      },
+      "RM0522:p1610": {
+        "source": "RM0522",
+        "page": 1610,
+        "sha256": "de4db3419c38d838b50a7a7b2028dae0b274da2aefa28f013408d11ef84d5bc3"
+      },
+      "RM0522:p1611": {
+        "source": "RM0522",
+        "page": 1611,
+        "sha256": "f77fe33cfe0799f83f8ae33715507c313bc93d28674e6e851d3d7e5ed8d622dc"
+      },
+      "RM0522:p1612": {
+        "source": "RM0522",
+        "page": 1612,
+        "sha256": "a9a30c3c8ec579b0bb8d0de6f3c5b48573b34e057582e279d7a019c85bd5ed1f"
+      },
+      "RM0522:p1613": {
+        "source": "RM0522",
+        "page": 1613,
+        "sha256": "d2fdf003637ec49c8f43ed58292acf9acecb57ce042b0566d485455608fc4d22"
+      },
+      "RM0522:p1614": {
+        "source": "RM0522",
+        "page": 1614,
+        "sha256": "6bf483c386454f9625b923d8af0f54030ab9ce5fb485dc745771464e9e54d8c8"
+      },
+      "RM0522:p1615": {
+        "source": "RM0522",
+        "page": 1615,
+        "sha256": "90b8f31c765792f94b6297edaa7308f3ee30b7a2d0aaf7941e61863196cdb230"
+      },
+      "RM0522:p1616": {
+        "source": "RM0522",
+        "page": 1616,
+        "sha256": "c7410f91383fd5f5b6dace3f2dd0d6998ee6e1d84926871b00e47cdd0b324faa"
+      },
+      "RM0522:p1617": {
+        "source": "RM0522",
+        "page": 1617,
+        "sha256": "81d5b46c04d0654100a56dc82034b0b0cd0156cb83cf8b3e3069d9b98dec8c01"
+      },
+      "RM0522:p1618": {
+        "source": "RM0522",
+        "page": 1618,
+        "sha256": "7404b310f40e507d3645c250e7eeff4882e9f8fe0bb85c8f0f6938a1bbee317e"
+      },
+      "RM0522:p1619": {
+        "source": "RM0522",
+        "page": 1619,
+        "sha256": "e409e7bc4d0cebb9ebd904a561464282a388c2e93874263debc89155032d733b"
+      },
+      "RM0522:p1620": {
+        "source": "RM0522",
+        "page": 1620,
+        "sha256": "a918bcc811bb34bf601ddb495a37e1a343adf39b3cc50aa4c88ab4c3852a3d74"
+      },
+      "RM0522:p1621": {
+        "source": "RM0522",
+        "page": 1621,
+        "sha256": "e71233028c4eb9bcc674b942145eea12d1db3c328b44624c223590185f346fe2"
+      },
+      "RM0522:p1622": {
+        "source": "RM0522",
+        "page": 1622,
+        "sha256": "23be6599527dad6c0db091613a89124cf9fb9773c281e6418a19b51b6352843e"
+      },
+      "RM0522:p1623": {
+        "source": "RM0522",
+        "page": 1623,
+        "sha256": "7f6be06c82b2dcc19e95717d78e97ef4e2af57d796672214b4db924f7fc8ff46"
+      },
+      "RM0522:p101": {
+        "source": "RM0522",
+        "page": 101,
+        "sha256": "3212c3b8beb05942a92d1484f455609784e4e96a30caf57e2f34a67650397b83"
+      },
+      "RM0522:p102": {
+        "source": "RM0522",
+        "page": 102,
+        "sha256": "6be29b6287e9ca2aee1af61846b6f90097ec041fbd66e798224fe4ace4be2fb9"
+      },
+      "RM0522:p245": {
+        "source": "RM0522",
+        "page": 245,
+        "sha256": "742fa8fc4d4e57aa81527e3d26d182ec9084622b37a97449504a18f3ef1b77ec"
+      },
+      "RM0522:p319": {
+        "source": "RM0522",
+        "page": 319,
+        "sha256": "4f9a5a31f91029c5748decc483d9e5f2d813e29cd5a462420afd0f17da5704a5"
+      },
+      "RM0522:p1554": {
+        "source": "RM0522",
+        "page": 1554,
+        "sha256": "078ab8ae442f7f65e08b40309e08469bfa08b7240065a9da0e4695e67bbb3664"
+      },
+      "RM0522:p1555": {
+        "source": "RM0522",
+        "page": 1555,
+        "sha256": "c4642bab714256a08f3d25d4f6b794fa8aed85e614047ca46566fc715686d757"
+      },
+      "DS15135:p1": {
+        "source": "DS15135",
+        "page": 1,
+        "sha256": "7260339fe599ceb292f39b4de5dee69e73f9624fca2dca03c5294b11c3fa6d0f"
+      },
+      "DS15135:p9": {
+        "source": "DS15135",
+        "page": 9,
+        "sha256": "bdf1244c83727d2a38580125ecce4dec522e0113327dc0f9affeed70913f09d7"
+      },
+      "DS15135:p24": {
+        "source": "DS15135",
+        "page": 24,
+        "sha256": "19550c9e500c68e610efad6da37abb6257db76c70ad625081424113a86eed44b"
+      },
+      "DS15135:p39": {
+        "source": "DS15135",
+        "page": 39,
+        "sha256": "4c5cb8d6f495fde328bcbb4d761fd2c225182c21ce7c7b7585daf08e5e2daab1"
+      },
+      "DS15135:p40": {
+        "source": "DS15135",
+        "page": 40,
+        "sha256": "6152987bbff008c4911276d154b68418eea2f7f3ee9409893568b3b33bf80b38"
+      },
+      "ES0676:p1": {
+        "source": "ES0676",
+        "page": 1,
+        "sha256": "c36bb50f3ba55f82de59b1a5aa62c5ca6b1d3ea938ac9451545a442e65dd25c8"
+      },
+      "ES0676:p2": {
+        "source": "ES0676",
+        "page": 2,
+        "sha256": "3fed5303e4a0fc65ed4dbe6aae1c297605837e2da15bb0e24928d26b0d25eb95"
+      },
+      "ES0676:p4": {
+        "source": "ES0676",
+        "page": 4,
+        "sha256": "3b0e6d179a6d3b6701ddfa31ce87f44ef4d62c59d79a1f01184c77a212d7774c"
+      },
+      "ES0676:p5": {
+        "source": "ES0676",
+        "page": 5,
+        "sha256": "b1c29e54e422b77b7a01a6dea47789196c0a8d23aed2f9a68f6a91698ae66d9d"
+      },
+      "ES0676:p8": {
+        "source": "ES0676",
+        "page": 8,
+        "sha256": "bbdb92e175f8101da1467e00b7fa2894fb9e3e1f2b0bd5937f5a865428c2ce5b"
+      },
+      "header.IRQ": {
+        "source": "header",
+        "start_line": 48,
+        "end_line": 76,
+        "sha256": "1cf125d5fc4ec7ead3f33cf33bddc321a3336e43659ac447e2052b6a05618174"
+      },
+      "header.layout": {
+        "source": "header",
+        "start_line": 912,
+        "end_line": 965,
+        "sha256": "69b8150283431d5f9c4b65b9c3faf1c0acb43a0b67b415c41d2c11ddc1f3309d"
+      },
+      "header.base": {
+        "source": "header",
+        "start_line": 1151,
+        "end_line": 1219,
+        "sha256": "97fdaafb99d07f83ff6d322501167026aa691fd5d0c46ca8fb128efffb1503dd"
+      },
+      "header.PWR": {
+        "source": "header",
+        "start_line": 8326,
+        "end_line": 8328,
+        "sha256": "b2440e340a3ab5c717495a92302cf3b235b0cc21baeea9184bf29c51979f1795"
+      },
+      "header.APB": {
+        "source": "header",
+        "start_line": 9197,
+        "end_line": 9199,
+        "sha256": "1fdfd0b9d7583835bd53648b62810c9be50294eaf9bbba2d1b86fd6e2507d7ae"
+      },
+      "header.reset": {
+        "source": "header",
+        "start_line": 9536,
+        "end_line": 9538,
+        "sha256": "42938c999af3b49993bc3e565e9eff26339459e108565384e30b83398df77549"
+      },
+      "header.fields": {
+        "source": "header",
+        "start_line": 10890,
+        "end_line": 11160,
+        "sha256": "a7279f5331a955ed912b64239877518add398eebff1402e9f55c4bc2f2196879"
+      },
+      "family.macros": {
+        "source": "family",
+        "start_line": 120,
+        "end_line": 142,
+        "sha256": "a51fe5d21d729f11aac559f0723f4681d15a3aee122b9f9557f11915fd785a95"
+      },
+      "HAL.conditions": {
+        "source": "HAL",
+        "start_line": 65,
+        "end_line": 106,
+        "sha256": "eb34fdd104af193b66746e8f38334853adc7f6f0ebb7cc0528f1d2601cd96f2f"
+      },
+      "HAL.guards": {
+        "source": "HAL",
+        "start_line": 138,
+        "end_line": 244,
+        "sha256": "ce3aeab1ed25decc7ee4eaf607626f313ff3f8302830dfa480cd73f189b4b777"
+      },
+      "HAL.passive_config": {
+        "source": "HAL",
+        "start_line": 325,
+        "end_line": 420,
+        "sha256": "eb2730f56dc81a94f24a48729866133e4437ba451a1542ed26d5eefb55b84524"
+      },
+      "HAL.passive_lifecycle": {
+        "source": "HAL",
+        "start_line": 436,
+        "end_line": 505,
+        "sha256": "acc365224c28dc6d91d5f1c26b8ed7a3a6e0be8e538fade7c4b644529c7ec1cf"
+      },
+      "HAL.internal": {
+        "source": "HAL",
+        "start_line": 541,
+        "end_line": 675,
+        "sha256": "07d8dd0d7f1738fe2e29f023ad21f1aa41252129ef62331a2fa033af772f600f"
+      },
+      "HAL.IRQ": {
+        "source": "HAL",
+        "start_line": 692,
+        "end_line": 739,
+        "sha256": "ef9d2cb09125bd3429d8fca7424e9f59a556a03bc5ff4c3b2e131fc24c4f7e30"
+      },
+      "HAL.secrets": {
+        "source": "HAL",
+        "start_line": 773,
+        "end_line": 835,
+        "sha256": "4fa6e2bb7740be01c64229f013bd6007bc045cb30a7e5f417f45891f15f10876"
+      },
+      "HAL.remap": {
+        "source": "HAL",
+        "start_line": 851,
+        "end_line": 889,
+        "sha256": "c40b4db11e4ec86a52c9624d8610f911b4e15fb57052ed86bc7a072f77717564"
+      },
+      "HAL.privilege": {
+        "source": "HAL",
+        "start_line": 904,
+        "end_line": 942,
+        "sha256": "23eecb71852937bda3ba51f83bd428d998b9e200d4975d367aa10404f6918892"
+      },
+      "HAL.zones": {
+        "source": "HAL",
+        "start_line": 960,
+        "end_line": 1006,
+        "sha256": "233aca3b45d70f1acb1bfcf043157fac4259125a1d1fdf3782523462868dba34"
+      },
+      "HAL_H.enums": {
+        "source": "HAL_H",
+        "start_line": 48,
+        "end_line": 153,
+        "sha256": "37e256f03e09c8e2780a5d982fae549f928146ff463ebb3a142b84dcf8ef72f6"
+      },
+      "LL.constants": {
+        "source": "LL",
+        "start_line": 43,
+        "end_line": 300,
+        "sha256": "8423e8ea6ef043e250bad057302b783655ce8b4fefcde83a335dce23d6d68c78"
+      },
+      "LL.decode": {
+        "source": "LL",
+        "start_line": 379,
+        "end_line": 422,
+        "sha256": "01dcbf44c79fba71ef71e7167b5e0d4db161bcd0bea6766085380c25fdc27291"
+      },
+      "LL.passive_control": {
+        "source": "LL",
+        "start_line": 450,
+        "end_line": 592,
+        "sha256": "609fa715969d30a4877d8b984ca51045e39277b6470d4b12ff4d488012a72e90"
+      },
+      "LL.passive_config": {
+        "source": "LL",
+        "start_line": 625,
+        "end_line": 685,
+        "sha256": "5530cdd67a18b8246c3b17f6954df13b2bbb49e517c259799d38c7353cc22c43"
+      },
+      "LL.filter": {
+        "source": "LL",
+        "start_line": 693,
+        "end_line": 851,
+        "sha256": "3f91b5ba4e3e3a40a197e95649f314a241bd655d20368a5b1d1b08911fbfa4cd"
+      },
+      "LL.internal": {
+        "source": "LL",
+        "start_line": 872,
+        "end_line": 964,
+        "sha256": "cfa99d876701c8fc9ff0bc8c86f940a3ed0fbe2d34b3ecf6fcfc11ce21662391"
+      },
+      "LL.backup": {
+        "source": "LL",
+        "start_line": 981,
+        "end_line": 1008,
+        "sha256": "9a1a44e9bcd46e0ed0ddc40e9af2fd817920bd32ec839676c685a7410a310402"
+      },
+      "LL.flags": {
+        "source": "LL",
+        "start_line": 1026,
+        "end_line": 1092,
+        "sha256": "69af0c271983d7396345919497bcc1ec0d17efa96ac40424b76d33534dcc287e"
+      },
+      "LL.secrets": {
+        "source": "LL",
+        "start_line": 1107,
+        "end_line": 1141,
+        "sha256": "42afcf43f58f03743455bde82a7e62c084114b3dbbdd28b278a50f2c134dce27"
+      },
+      "LL.remap": {
+        "source": "LL",
+        "start_line": 1160,
+        "end_line": 1192,
+        "sha256": "4bb2e12371b2bfb402927554a5140d839a39ec8a5973008606ea1afc0b5e660e"
+      },
+      "LL.privilege_zones": {
+        "source": "LL",
+        "start_line": 1215,
+        "end_line": 1280,
+        "sha256": "5b7e8d9ba0e3b770d9ae1ee93c35489bd87028f33fd5a6ed940796b3edc465c9"
+      },
+      "RM0522:p1591": {
+        "source": "RM0522",
+        "page": 1591,
+        "sha256": "7453531b2ef952402b21fa140b26f60df48929b4088ab70dba56c35c376fed6e"
+      },
+      "HAL.internal_prose": {
+        "source": "HAL",
+        "start_line": 511,
+        "end_line": 527,
+        "sha256": "d7f62fe019653f482c73942dcec9aef7d3fcbd08a0bc969603664557a68105ec"
+      },
+      "RM0522:p108": {
+        "source": "RM0522",
+        "page": 108,
+        "sha256": "49c216efd5b2da94e0206ceffafc5c322953b8cd6d93b91a8942320b284ed075"
+      },
+      "RM0522:p109": {
+        "source": "RM0522",
+        "page": 109,
+        "sha256": "766b8f1bb2b05fdf36017f5b8c41fccdb772f99d9cdfe6716441b3f844a66c46"
+      },
+      "RM0522:p251": {
+        "source": "RM0522",
+        "page": 251,
+        "sha256": "97be06a889bc43006707b5a068be9134fb1c81b4cb0ab63942681ddfa1e13929"
+      },
+      "RM0522:p253": {
+        "source": "RM0522",
+        "page": 253,
+        "sha256": "c840b1e16dc1ba5f91664bb38215699b0ac65e00c43db9121e8e275fd6709b44"
+      },
+      "RM0522:p1593": {
+        "source": "RM0522",
+        "page": 1593,
+        "sha256": "e4eda1b4a21906ec54cfd79a8081412e07eac6687d81d802e00e47042460092c"
+      },
+      "ES0676:p6": {
+        "source": "ES0676",
+        "page": 6,
+        "sha256": "67192cb102783988744a71ca6f88c36b938faf48d360a4834496df7e76a4b915"
+      },
+      "CMSIS.CONTROL": {
+        "source": "CMSIS_core",
+        "start_line": 443,
+        "end_line": 470,
+        "sha256": "1688e2e62e14e84d59b8f0664c1014632b821d1c5bcb2e5d959825c2640e2fe8"
+      }
+    },
+    "package_routes_sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288",
+    "errata_sha256": "821c22f796a9ff723afee534fe5943c2b0506325ec871d890706d94414316416",
+    "contracts": [
+      {
+        "id": "exact_scope",
+        "detail": "Three passive external tamper inputs mapped onto five bonded pins, six internal sources and 32 32-bit backup registers. No active-tamper output generator, monotonic counter, SAES, PKA or CCB is admitted from family prose. TAMP has IRQ 3, separate from RTC IRQ 2; shared clock/reset resources still require coordinated ownership.",
+        "evidence": [
+          "header.IRQ",
+          "header.layout",
+          "DS15135:p9",
+          "DS15135:p24",
+          "RM0522:p1597",
+          "RM0522:p1600",
+          "RM0522:p1614"
+        ]
+      },
+      {
+        "id": "pins_and_shared_filter",
+        "detail": "IN1 is PC13 pad 2; IN2 selects PA0 pad 14 or PC1 pad 9; IN3 selects PA1 pad 15 or PA2 pad 16. OR bits 0 and 2 select the remaps. These are additional functions, not assigned AF cells. Own pad routing with GPIO/RTC/analog users; PC13 also serves RTC_TS/RTC_OUT1. FLTCR settings apply to all three inputs, so filter/precharge/frequency changes are shared configuration. Preserve package IO-label conflicts and physical electrical qualification gaps.",
+        "evidence": [
+          "header.fields",
+          "DS15135:p39",
+          "DS15135:p40",
+          "RM0522:p1554",
+          "RM0522:p1555",
+          "RM0522:p1604",
+          "RM0522:p1612",
+          "RM0522:p1620"
+        ]
+      },
+      {
+        "id": "clock_and_reset",
+        "detail": "APB register access and internal/edge detection do not require the kernel clock. Filtered external sampling uses rtc_ker_ck; RTCSEL encodes none/LSE/LSI/HSE divided by RTCPRE. Filtered detection in Stop/Standby requires LSE or LSI. RTCAPBEN is shared APB3 bit 21. RTCDRST resets the entire VSW domain, including retained TAMP configuration and backup registers; no reset is a routine harmless initialization. System reset does not clear the retained TAMP configuration or backup data. RTCSEL is write-once except the documented LSE failure case; changing the selected source requires RTCDRST, which destroys shared retained state. RTCSEL must be written before LSECSSON. HSE-derived RTCCLK is lost in Stop and on NRST. The FLTCR sampling divider itself is a separate field and does not require RTCSEL reset merely to change its encoding. VDD power-on is an RTC-domain reset per RM253; HAL says total power-off resets the domain. No backup survival across complete supply removal is promised. RM253 explicitly describes IWDG also generating a pin reset; combined with RM319 HSE-sourced RTC clock loss on NRST, this implies an HSE clock-restoration gate after IWDG reset before filtered detection/timestamp timing can be relied on. This cross-section inference is not a hardware observation; ITAMP11 itself does not require the kernel clock.",
+        "evidence": [
+          "header.APB",
+          "header.reset",
+          "HAL.conditions",
+          "RM0522:p1599",
+          "RM0522:p1606",
+          "RM0522:p1607",
+          "RM0522:p1621",
+          "RM0522:p319",
+          "RM0522:p251",
+          "RM0522:p253"
+        ]
+      },
+      {
+        "id": "edge_and_level",
+        "detail": "TAMPFLT=0 selects edge mode with internal pull-up inactive; TRG=0 rising, TRG=1 falling. Nonzero filter selects 2/4/8 consecutive samples; TRG=0 low, TRG=1 high. Enabling rising-edge detection while the pin is already high can detect tamper. After detecting and clearing an edge event, RM requires disabling/re-enabling the input before rewriting backup registers. Configure mode before enabling detection; changing a global filter changes the meaning of all TRG bits.",
+        "evidence": [
+          "HAL_H.enums",
+          "LL.constants",
+          "RM0522:p1604",
+          "RM0522:p1608",
+          "RM0522:p1609",
+          "RM0522:p1612"
+        ]
+      },
+      {
+        "id": "internal_sources",
+        "detail": "Exact sources are ITAMP3 LSE CSS, ITAMP4 HSE CSS, ITAMP5 RTC calendar overflow, ITAMP6 unexpected debug activation, ITAMP9 RNG/TRNG fault only on C542, and ITAMP11 IWDG reset with a pending enabled tamper flag. CSS monitor enable is a separate prerequisite. Debug probing and watchdog transitions can be security events. The potential-to-confirmed timeout mechanism requires ITAMP11 enabled and configured confirmed, not merely an active IWDG.",
+        "evidence": [
+          "LL.constants",
+          "RM0522:p102",
+          "RM0522:p1600",
+          "RM0522:p1603"
+        ]
+      },
+      {
+        "id": "potential_is_destructive",
+        "detail": "Potential mode POM=1 blocks reads/writes of backup registers and SRAM2 while any tamper flag remains set under the conservative detailed-chapter condition; ICACHE and the present AES/HASH peripherals are erased/reset according to the interconnect descriptions. Confirmed mode additionally erases backup registers and SRAM2. Family references to SAES/PKA/CCB/RHUK paths do not instantiate those blocks on C542. NO_ERASE is not a promise that all device state survives. BKBLOCK activates the potential-tamper signal and thus requires the same whole-device effect analysis. Clearing one source flag does not restore access if another flag or BKBLOCK remains set.",
+        "evidence": [
+          "DS15135:p9",
+          "HAL_H.enums",
+          "RM0522:p102",
+          "RM0522:p1599",
+          "RM0522:p1600",
+          "RM0522:p1602",
+          "RM0522:p1603"
+        ]
+      },
+      {
+        "id": "software_erase_and_release",
+        "detail": "BKERASE writes one to request destructive secret erase and reads zero; writing zero has no effect. Clearing BKBLOCK alone does not restore secret access while any tamper flag remains pending. SCR W1C clears the specified event flag and can remove a potential protection condition; it is not ordinary telemetry or proof that erased data is recovered. RM1621 states that in the default ERASE configuration backup registers are forced to reset while any internal or external tamper flag is set. It does not separately establish that a potential-mode flag alone resets their retained contents; access blocking and read-as-zero are distinct from erasure. No erase, unblock, clear or reconfiguration operation is admitted. Access release requires BKBLOCK=0 and all tamper flags cleared; the enabled-source qualification differs in the summary and is retained below.",
+        "evidence": [
+          "LL.secrets",
+          "LL.flags",
+          "RM0522:p1603",
+          "RM0522:p1609",
+          "RM0522:p1619",
+          "RM0522:p1621",
+          "RM0522:p102"
+        ]
+      },
+      {
+        "id": "mask_and_trigger",
+        "detail": "External MSK=1 masks and hardware-clears its flag and prevents secret erase while still generating trigger events. Its interrupt must be disabled. RM limits the automatic repeated trigger feature to level detection with filtering. With MSK=0, software must clear the flag to permit a subsequent event. Do not confuse masking an external tamper flag with masking a CPU interrupt or changing potential mode.",
+        "evidence": [
+          "header.fields",
+          "RM0522:p1603",
+          "RM0522:p1609"
+        ]
+      },
+      {
+        "id": "timestamp_order",
+        "detail": "RTC TAMPTS enables timestamp capture from tamper. TSF can lag the tamper flag by up to three ck_apre cycles; with RTCCLK stopped it waits for clock restart. Clearing the tamper flag before TSF can suppress that timestamp. RM proposes waiting for timestamp flag or reading RTC counters in the handler; either needs separate coherent RTC snapshot and errata handling. No fixed delay or timestamp completion is inferred from a TAMP callback. The RTC status description has a separate read-versus-clear wording difference, retained below. With RTC_CR.TAMPTS=1, RM1591 additionally states that reading the tamper flag in the three-cycle window suppresses TSF. Treat read and clear conditions cumulatively until authoritative clarification, not as mutually exclusive rules. TSOVF should be checked/cleared after TSF; RTC_SCR clearing also requires the ES2.7.3 write-protection gate. Whether a MISR read counts as reading the tamper flag is unresolved. The three ck_apre cycles depend on RTC prescaler configuration; no short fixed time is assumed.",
+        "evidence": [
+          "RM0522:p1604",
+          "ES0676:p8",
+          "RM0522:p1591",
+          "RM0522:p1593"
+        ]
+      },
+      {
+        "id": "privilege_and_zones",
+        "detail": "DRTCP=1 permits RTC-domain writes; TAMPPRIV independently restricts configuration/status access, with CFGR/PRIVCFGR readable as described. PRIVCFGR writes require privileged APB access. Denied accesses are RAZ/WI without bus error per RM; that is not a success receipt. BKPRW and BKPW are 8-bit fields (raw0..255), but their permitted boundaries each range0..32: zone1 [0,BKPRW), zone2 [BKPRW,BKPW) only if BKPW>BKPRW, zone3 begins at max(BKPRW,BKPW). Zone1 restricts unprivileged read/write only when BKPRWPRIV=1; zone2 restricts unprivileged write only when BKPWPRIV=1. Zone3 has no zone privilege restriction. Boundaries alone enable no protection. No irreversible TAMP-specific lock is defined in the exact register map; domain/privilege/secret-state gates still apply.",
+        "evidence": [
+          "header.fields",
+          "header.PWR",
+          "RM0522:p245",
+          "RM0522:p1600",
+          "RM0522:p1601",
+          "RM0522:p1602",
+          "RM0522:p1613",
+          "RM0522:p1614",
+          "RM0522:p1612"
+        ]
+      },
+      {
+        "id": "ES_write_protection",
+        "detail": "ES 2.7.3 applies to revisions Z and Y: writing one to any TAMP_SCR bit or BKERASE while PWR write protection is enabled can stick the system, recoverable only by system reset. The ES printed PWR field is blank; DRTCP bit 0 binding is explicitly derived from RM245/1600–1601 and exact header, not silently repaired ES text. Every handler/stop/erase path must establish domain write access and preserve it through the write.",
+        "evidence": [
+          "ES0676:p2",
+          "ES0676:p8",
+          "header.PWR",
+          "RM0522:p245",
+          "RM0522:p1600",
+          "RM0522:p1601"
+        ]
+      },
+      {
+        "id": "ES_PC13_clock",
+        "detail": "LQFP64 is within ES 2.2.2: transitions on PC13 in input or output can disturb LSE crystal frequency. The external bypass clock is excluded from that limitation; analog bypass and low-drive exclusions are separate ES 2.2.1/2.2.3 constraints. TAMP_IN1 admission must therefore consider oscillator mode, not just pin availability.",
+        "evidence": [
+          "ES0676:p2",
+          "ES0676:p4",
+          "ES0676:p5",
+          "DS15135:p39"
+        ]
+      },
+      {
+        "id": "RDP_regression_secret_erase",
+        "detail": "RM102/1621 list RDP regression/disable as a secret/backup erase source independent of tamper configuration. Exact lifecycle RM108–109 defines L2 or L2_wBS regression to L0, with SRAM and targeted secrets erased; OTP is retained. This preserves the valid destructive lifecycle effect without instantiating family-residue RDP level1. No regression or option operation is admitted. RM109 Table10 conditions regression to L0 on OEMLOCK=1 and successful OEM unlock; with OEMLOCK=0 it is impossible. The documented successful sequence also requires a subsequent user power-on reset.",
+        "evidence": [
+          "RM0522:p102",
+          "RM0522:p108",
+          "RM0522:p109",
+          "RM0522:p1621"
+        ]
+      },
+      {
+        "id": "RNG_fault_to_tamper_unresolved",
+        "detail": "ITAMP9 is the RNG fault input on C542. ES2.5.1 applies to Z/Y and describes continuous seed errors under environmental conditions. The ES says standard RNG error management detects and recovers from the condition, and no additional application workaround is required or applicable; that is not an unconditional recovery guarantee. The bound excerpts do not map that seed-error condition to ITAMP9 assertion. Do not infer either immunity or inevitable tamper erasure from the erratum alone.",
+        "evidence": [
+          "RM0522:p102",
+          "RM0522:p1600",
+          "ES0676:p2",
+          "ES0676:p6"
+        ]
+      }
+    ],
+    "source_derived_SDK_gates": [
+      {
+        "id": "internal_POM_clear_mask",
+        "detail": "LL_SetConfigInternalTampers shifts the CR1 mask by 18, uses that result as the CR3 clear mask, then multiplies it by EraseSecrets (0 or 4) for set bits. Exact CR3 POM positions instead correspond to CR1 positions minus 16. Example: ITAMP3 NO_ERASE sets bit 2, but a later ITAMP3 ERASE clears bit 0 and leaves bit 2 unchanged. ITAMP5 selects clear bit 2, potentially clearing ITAMP3 POM while setting ITAMP5 POM bit 4. This is arithmetic on valid SDK inputs with accepted writes assumed; no physical behavior is observed. Getter shifts by 16 and does not share the same clear-mask error. For each single-source setter, ERASE fails to clear that source's own POM bit. With ITAMP11 already potential, ERASE leaves bit10 set and clears ITAMP9POM bit8; assuming writes are accepted, this does not establish the confirmed ITAMP11 state required for watchdog-forced erasure. Other source calls or explicit register/reset operations can alter bits, so this is not a claim that no SDK operation could ever clear them. Readback uses the correct positions and can detect the mismatch. Within this setter and valid source masks, only POM bits 2, 3 and 8 can be cleared by a different source call; bits 4, 5 and 10 are absent from its valid clear-mask union. A cross-source clear can change an unrelated source from potential to confirmed, assuming the write is accepted; no such operation is admitted.",
+        "evidence": [
+          "HAL.internal",
+          "HAL_H.enums",
+          "LL.constants",
+          "LL.internal",
+          "header.fields",
+          "family.macros",
+          "RM0522:p1603"
+        ]
+      },
+      {
+        "id": "stateless_access_and_effect_receipts",
+        "detail": "The shown HAL operations are stateless and lack readback, DRTCP admission, whole-device ownership or pending-secret-effect completion checks. Most return HAL_OK after a register write. SetPrivAttr checks privileged execution, but that alone does not establish domain write enable or effective write. Backup writes, configuration, start/stop and secret operations require independent admission. None of these APIs is an atomic cancellation or recovery protocol. SetPrivAttr's predicate checks only CONTROL.nPRIV, which CMSIS identifies as Thread-mode privilege. It rejects whenever that bit is1 without distinguishing Handler mode, so it is not a complete effective-execution-privilege test. Exception-context admission requires separate architectural validation; no hardware rejection is observed. LL SetPrivAttr is an unserialized PRIVCFGR read-modify-write.",
+        "evidence": [
+          "HAL.conditions",
+          "HAL.passive_config",
+          "HAL.passive_lifecycle",
+          "HAL.internal",
+          "HAL.secrets",
+          "HAL.privilege",
+          "HAL.zones",
+          "family.macros",
+          "CMSIS.CONTROL",
+          "LL.privilege_zones"
+        ]
+      },
+      {
+        "id": "start_interrupt_mask_subset",
+        "detail": "PASSIVE_Start checks masked flags only for the selected tampers, then enables the independently supplied interrupt mask. Debug guards validate each domain but do not require interruption to be a subset of tampers. Selecting unmasked tamper1 with an interrupt request for masked tamper2 can bypass the masked-IRQ rejection. Previously enabled IER bits are not included in that check, and enabling NONE does not clear them. Reconfiguration setters also lack a masked-versus-existing-IER consistency check. Require a complete shared CR1/CR2/IER preflight, not only one API argument.",
+        "evidence": [
+          "HAL.guards",
+          "HAL.passive_config",
+          "HAL.passive_lifecycle",
+          "LL.passive_control",
+          "RM0522:p1609"
+        ]
+      },
+      {
+        "id": "configuration_while_enabled",
+        "detail": "Global SetConfig overwrites FLTCR; individual configuration and remap APIs perform shared register updates without disabling affected inputs or proving prior mode/state. Rising/low and falling/high enums are aliases interpreted by the global filter. Neither debug enum acceptance nor HAL_OK establishes the required configure-before-enable sequence or safe secret preservation. The remap implementation is bound explicitly; its register update still needs shared ownership.",
+        "evidence": [
+          "HAL.passive_config",
+          "HAL.remap",
+          "HAL_H.enums",
+          "LL.passive_config",
+          "RM0522:p1604",
+          "RM0522:p1608",
+          "LL.remap"
+        ]
+      },
+      {
+        "id": "stop_clears_security_evidence",
+        "detail": "Both Stop functions disable detection and its interrupt and clear pending flags. This consumes evidence and can remove potential-tamper blocking; it is not a neutral shutdown. They do not establish DRTCP before SCR writes, so ES2.7.3 applies. Stop does not undo prior erasure or confirm external cause removal.",
+        "evidence": [
+          "HAL.passive_lifecycle",
+          "HAL.internal",
+          "LL.flags",
+          "ES0676:p8",
+          "RM0522:p1603"
+        ]
+      },
+      {
+        "id": "IRQ_raw_flags_and_timestamp",
+        "detail": "HAL IRQ handlers inspect raw SR rather than IER-filtered MISR, so a dispatched handler can process flags whose individual interrupts are disabled. The combined handler uses external-if/internal-else and defers internal flags when external flags are present. Callbacks precede flag clearing; callback reconfiguration and new events can race with the saved flag clear. No TSF wait or coherent RTC snapshot is implemented by these handlers, and write protection can make the subsequent SCR write unsafe. Separate NVIC vectors do not remove shared timestamp/security-state ownership. Each handler reads SR immediately on entry. With RTC_CR.TAMPTS=1, under RM1591 that read itself can suppress TSF if it occurs in the specified three-cycle window; waiting only before SCR clearing does not prove timestamp preservation. This is a source-derived conditional risk, not an observed loss.",
+        "evidence": [
+          "HAL.IRQ",
+          "LL.flags",
+          "header.IRQ",
+          "ES0676:p8",
+          "RM0522:p1604",
+          "RM0522:p1617",
+          "RM0522:p1618",
+          "RM0522:p1591"
+        ]
+      },
+      {
+        "id": "block_getter_not_effective_access",
+        "detail": "IsBlockedDeviceSecretsAccess returns only BKBLOCK. It ignores pending tamper flags and erase state; zero is not proof that secrets are accessible. Unblock clears only BKBLOCK. Erase returns HAL_OK immediately without a completion or admission check. Block itself activates the potential signal, which may reset/erase present crypto/cache state. LL EraseDeviceSecrets uses SET_BIT/CR2 read-modify-write, not a command-only store; it rewrites sampled TRG/MSK/POM/BKBLOCK bits and can overwrite a concurrent configuration change. Serialize the shared CR2 owner through erase submission. Other bound CR2 read-modify-write setters can also rewrite sampled BKBLOCK=1. RM1599 describes writing BKBLOCK to 1 as a software potential-tamper request, but does not establish whether rewriting an existing 1 retriggers crypto/cache effects. Neither retrigger nor immunity is assumed.",
+        "evidence": [
+          "HAL.secrets",
+          "LL.secrets",
+          "RM0522:p1599",
+          "RM0522:p1600",
+          "RM0522:p1603",
+          "family.macros",
+          "RM0522:p1609",
+          "LL.passive_config",
+          "LL.passive_control"
+        ]
+      },
+      {
+        "id": "backup_index_and_zone_bounds",
+        "detail": "Backup indices are debug-checked against 32, while LL forms BKP0R plus index*4 without bounds; invalid release inputs can address outside the backup bank or wrap. Zone setter only asserts unsigned zone1+zone2<=32 and passes start_zone2=zone1, start_zone3=sum to unmasked LL shifts. Overflow can evade that assertion and values can spill beyond fields. Independently require counts 0..32 with subtraction-based sum bounds. SetBackupRegisterZones also lacks privilege and DRTCP checks and returns HAL_OK after the write. TAMPPRIV and the boundary-specific privilege controls must be admitted before writing CFGR; the boundary-control prose conflict remains open.",
+        "evidence": [
+          "HAL.guards",
+          "HAL.secrets",
+          "HAL.zones",
+          "LL.backup",
+          "LL.privilege_zones",
+          "family.macros",
+          "RM0522:p1612",
+          "RM0522:p1613",
+          "RM0522:p1614"
+        ]
+      },
+      {
+        "id": "zone_getter_underflow_and_snapshot",
+        "detail": "SDK zone parameters are counts despite documentation calling them last valid indices. GetZones subtracts BKPRW from BKPW and reads the fields separately, including BKPRW twice. RM permits BKPW<BKPRW with no zone2; that valid raw configuration produces unsigned underflow in the shown getter. Concurrent zone updates can also mix snapshots. The SDK setter represents a restricted ordered-boundary domain, not every RM-allowed raw configuration.",
+        "evidence": [
+          "HAL.zones",
+          "LL.privilege_zones",
+          "RM0522:p1613"
+        ]
+      },
+      {
+        "id": "release_validation_and_getter_aggregation",
+        "detail": "Optional runtime parameter checks cover selected NULL pointers; enum masks, indices and ranges are mostly debug assertions. Single-tamper getters accept the multi-bit IS_TAMP_TAMPERS/INTERNAL predicate and reduce selected settings to any-bit booleans, so combinations do not describe each source independently. Remap documentation permits combinations but its debug predicate accepts only one exact remap value. LL filter and zone operands are not uniformly masked; require typed finite domains and serialized RMW access.",
+        "evidence": [
+          "HAL.guards",
+          "HAL.passive_config",
+          "HAL.internal",
+          "HAL.remap",
+          "HAL.zones",
+          "LL.decode",
+          "LL.filter",
+          "LL.privilege_zones"
+        ]
+      },
+      {
+        "id": "polling_and_timeout",
+        "detail": "PollForEvent tests whether any selected SR bit is set, not that every source occurred, and leaves flags pending. Timeout is HAL_GetTick based and requires a progressing timebase; HAL_TIMEOUT neither stops detection nor clears security effects. Passive polling lacks the explicit HAL_MAX_DELAY branch used by internal polling, though unsigned elapsed>0xFFFFFFFF cannot be true. Masked sources keep flags cleared and are not a polling event receipt. Polling repeatedly reads SR, so with RTC_CR.TAMPTS=1 the RM1591 read-window condition also applies even if no clear is issued. A timestamp-safe event protocol remains unresolved.",
+        "evidence": [
+          "HAL.passive_lifecycle",
+          "HAL.internal",
+          "LL.flags",
+          "RM0522:p1609",
+          "RM0522:p1591"
+        ]
+      }
+    ],
+    "conflicts": [
+      {
+        "id": "family_residue",
+        "detail": "RM1599 refers to active external detection and RM1601 to COUNT1/CNT1SEC/CNT1PRIV, but the exact chapter register map and C542 header provide neither active-tamper generation nor monotonic counters. Table401 family-only SAES/PKA/CCB references do not add exact instances.",
+        "evidence": [
+          "header.layout",
+          "header.fields",
+          "DS15135:p9",
+          "RM0522:p1599",
+          "RM0522:p1600",
+          "RM0522:p1601",
+          "RM0522:p1614",
+          "RM0522:p1622",
+          "RM0522:p1623"
+        ]
+      },
+      {
+        "id": "privilege_boundary_prose",
+        "detail": "RM1601 associates BKPRWPRIV with BKPW and BKPWPRIV with both boundaries; RM1613 instead says BKPW depends on BKPWPRIV and BKPRW on either privilege bit. Preserve this discrepancy; exact privilege-boundary write admission remains unresolved without authoritative reconciliation. Until reconciled, conservatively require privileged writes to both boundaries whenever either BKPRWPRIV or BKPWPRIV is set. TAMPPRIV=1 independently requires privilege for all CFGR writes.",
+        "evidence": [
+          "RM0522:p1601",
+          "RM0522:p1613"
+        ]
+      },
+      {
+        "id": "summary_filter_timestamp_RDP",
+        "detail": "RM101 describes two false comparisons in four samples and automatic timestamps; detailed chapter specifies 2/4/8 consecutive samples and RTC.TAMPTS enable. RM1602 mentions RDP level1-to0 despite exact C542 L0/L2_wBS/L2 lifecycle. Do not instantiate RDP level1 or discard detailed timestamp/filter conditions.",
+        "evidence": [
+          "RM0522:p101",
+          "RM0522:p1602",
+          "RM0522:p1604",
+          "RM0522:p1612",
+          "DS15135:p24"
+        ]
+      },
+      {
+        "id": "NO_ERASE_and_mask_comments",
+        "detail": "HAL C prose describes potential mode as not erasing secrets, while RM1600 distinguishes preserved blocked memory from erased/reset crypto/cache. HAL_H masked enum says a detection does not trigger, whereas RM1603/1609 explicitly retain hardware trigger output. Preserve the limited backup-preservation meaning of NO_ERASE and explicit trigger semantics.",
+        "evidence": [
+          "HAL_H.enums",
+          "RM0522:p1600",
+          "RM0522:p1603",
+          "RM0522:p1609",
+          "HAL.internal_prose"
+        ]
+      },
+      {
+        "id": "precharge_figure_label",
+        "detail": "RM1605 figure labels TAMPPRCH=1 as one RTCCLK; RM1612 encoding gives raw1 two RTCCLK and raw0 one. Keep register encoding and figure discrepancy distinct; no timing qualification.",
+        "evidence": [
+          "RM0522:p1605",
+          "RM0522:p1612"
+        ]
+      },
+      {
+        "id": "timestamp_read_versus_clear",
+        "detail": "When RTC_CR.TAMPTS=1, RM1591 says reading the tamper flag during the three ck_apre cycles suppresses TSF; RM1604 describes clearing it before TSF. These are non-equivalent statements, but can both apply rather than being logically contradictory. Conservatively do neither during the vulnerable window until authoritative clarification; a handler that immediately reads SR cannot be declared safe merely by delaying its clear. No automatic polling or timestamp reliability is admitted.",
+        "evidence": [
+          "RM0522:p1591",
+          "RM0522:p1604",
+          "HAL.IRQ"
+        ]
+      },
+      {
+        "id": "access_block_enabled_source_qualification",
+        "detail": "RM102 qualifies its access condition by enabled tamper sources, whereas RM1603 requires no tamper flag set without that qualifier and RM102 also says until all flags are cleared. Do not infer that disabling a flagged source releases access. Conservative candidate requires all flags clear and BKBLOCK0.",
+        "evidence": [
+          "RM0522:p102",
+          "RM0522:p1603"
+        ]
+      },
+      {
+        "id": "HAL_PWR_clock_prose",
+        "detail": "HAL TAMP operating-condition prose requests HAL_RCC_PWR_EnableClock, but the fully hash-bound exact C542 header contains no RCC PWR clock-enable definition. This generic setup instruction is not an exact clock control to invent; RTCAPBEN and DRTCP remain separately evidenced. Negative search scope is the complete pinned stm32c542xx.h, not a partial excerpt.",
+        "evidence": [
+          "HAL.conditions",
+          "header.APB",
+          "header.PWR"
+        ]
+      }
+    ],
+    "finite_source_maps": {
+      "base": "0x44007C00",
+      "IRQn": 3,
+      "RTC_IRQn_distinct": 2,
+      "access_bits": 32,
+      "backup_count": 32,
+      "backup_index_range": [
+        0,
+        31
+      ],
+      "backup_offset_formula": "0x100 + 4*x",
+      "registers": [
+        {
+          "name": "CR1",
+          "offset": "0x0",
+          "implemented_mask": "0x53c0007",
+          "RTC_domain_reset": 0,
+          "qualification": "Tamper detection enables; read/write configuration, retained across system reset."
+        },
+        {
+          "name": "CR2",
+          "offset": "0x4",
+          "implemented_mask": "0x7c70007",
+          "RTC_domain_reset": 0,
+          "qualification": "External trigger/mask/potential controls and BKBLOCK are read/write; BKERASE is a destructive write-one command reading zero."
+        },
+        {
+          "name": "CR3",
+          "offset": "0x8",
+          "implemented_mask": "0x53c",
+          "RTC_domain_reset": 0,
+          "qualification": "Internal potential-mode controls; no whole-device effect receipt."
+        },
+        {
+          "name": "FLTCR",
+          "offset": "0xc",
+          "implemented_mask": "0xff",
+          "RTC_domain_reset": 0,
+          "qualification": "One shared passive-input filter/precharge/sampling configuration for all external tampers."
+        },
+        {
+          "name": "CFGR",
+          "offset": "0x20",
+          "implemented_mask": "0xff00ff",
+          "RTC_domain_reset": 0,
+          "qualification": "8-bit zone boundaries; permitted values0..32 and conditional privilege gates."
+        },
+        {
+          "name": "PRIVCFGR",
+          "offset": "0x24",
+          "implemented_mask": "0xe0000000",
+          "RTC_domain_reset": 0,
+          "qualification": "Privileged APB writes only; zone privilege controls do not change source security effects."
+        },
+        {
+          "name": "IER",
+          "offset": "0x2c",
+          "implemented_mask": "0x53c0007",
+          "RTC_domain_reset": 0,
+          "qualification": "Interrupt enables; external masked tamper flags must not have their interrupts enabled."
+        },
+        {
+          "name": "SR",
+          "offset": "0x30",
+          "implemented_mask": "0x53c0007",
+          "RTC_domain_reset": 0,
+          "qualification": "Read-only raw pending flags; RTC timestamp read-window caveat applies."
+        },
+        {
+          "name": "MISR",
+          "offset": "0x34",
+          "implemented_mask": "0x53c0007",
+          "RTC_domain_reset": 0,
+          "qualification": "Read-only interrupt-masked status; not the raw status read by HAL handlers."
+        },
+        {
+          "name": "SCR",
+          "offset": "0x3c",
+          "implemented_mask": "0x53c0007",
+          "qualification": "Write-only W1C; ES2.7.3 write-protection admission required. RM1619 labels only system reset value0.",
+          "system_reset": 0,
+          "RTC_domain_reset": "not_separately_stated_in_register_description"
+        },
+        {
+          "name": "OR",
+          "offset": "0x50",
+          "implemented_mask": "0x5",
+          "RTC_domain_reset": 0,
+          "qualification": "Shared remap configuration for TAMP_IN2/IN3; no AF-cell or electrical qualification."
+        }
+      ],
+      "external_to_flag_CR1_IER_bits": {
+        "1": 0,
+        "2": 1,
+        "3": 2
+      },
+      "internal_to_CR1_IER_SR_bits": {
+        "3": 18,
+        "4": 19,
+        "5": 20,
+        "6": 21,
+        "9": 24,
+        "11": 26
+      },
+      "internal_to_CR3_POM_bits": {
+        "3": 2,
+        "4": 3,
+        "5": 4,
+        "6": 5,
+        "9": 8,
+        "11": 10
+      },
+      "sampling_raw_to_divisor": {
+        "0": 32768,
+        "1": 16384,
+        "2": 8192,
+        "3": 4096,
+        "4": 2048,
+        "5": 1024,
+        "6": 512,
+        "7": 256
+      },
+      "filter_raw_to_samples": {
+        "0": "edge; no sampling filter",
+        "1": 2,
+        "2": 4,
+        "3": 8
+      },
+      "precharge_raw_to_RTCCLK_cycles": {
+        "0": 1,
+        "1": 2,
+        "2": 4,
+        "3": 8
+      },
+      "RTCSEL_raw": {
+        "0": "none",
+        "1": "LSE",
+        "2": "LSI",
+        "3": "HSE / RTCPRE"
+      },
+      "IN2_RMP": {
+        "0": "PA0",
+        "1": "PC1"
+      },
+      "IN3_RMP": {
+        "0": "PA1",
+        "1": "PA2"
+      },
+      "package_routes": [
+        {
+          "id": "descriptor.signal.291",
+          "pin": "PC13",
+          "pad": 2,
+          "signal": "TAMP_IN1",
+          "instance": "TAMP",
+          "function": {
+            "type": "additional"
+          },
+          "source_pointer": "/signals/291",
+          "source_record": {
+            "name": "TAMP_IN1",
+            "instance": "TAMP",
+            "die_pad": "PC13",
+            "function": {
+              "type": "additional"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "not_complete",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PC13"
+          ]
+        },
+        {
+          "id": "descriptor.signal.292",
+          "pin": "PA0",
+          "pad": 14,
+          "signal": "TAMP_IN2",
+          "instance": "TAMP",
+          "function": {
+            "type": "additional"
+          },
+          "source_pointer": "/signals/292",
+          "source_record": {
+            "name": "TAMP_IN2",
+            "instance": "TAMP",
+            "die_pad": "PA0",
+            "function": {
+              "type": "additional"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "not_complete",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": []
+        },
+        {
+          "id": "descriptor.signal.293",
+          "pin": "PC1",
+          "pad": 9,
+          "signal": "TAMP_IN2",
+          "instance": "TAMP",
+          "function": {
+            "type": "additional"
+          },
+          "source_pointer": "/signals/293",
+          "source_record": {
+            "name": "TAMP_IN2",
+            "instance": "TAMP",
+            "die_pad": "PC1",
+            "function": {
+              "type": "additional"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "not_complete",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": []
+        },
+        {
+          "id": "descriptor.signal.294",
+          "pin": "PA1",
+          "pad": 15,
+          "signal": "TAMP_IN3",
+          "instance": "TAMP",
+          "function": {
+            "type": "additional"
+          },
+          "source_pointer": "/signals/294",
+          "source_record": {
+            "name": "TAMP_IN3",
+            "instance": "TAMP",
+            "die_pad": "PA1",
+            "function": {
+              "type": "additional"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "not_complete",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PA1"
+          ]
+        },
+        {
+          "id": "descriptor.signal.295",
+          "pin": "PA2",
+          "pad": 16,
+          "signal": "TAMP_IN3",
+          "instance": "TAMP",
+          "function": {
+            "type": "additional"
+          },
+          "source_pointer": "/signals/295",
+          "source_record": {
+            "name": "TAMP_IN3",
+            "instance": "TAMP",
+            "die_pad": "PA2",
+            "function": {
+              "type": "additional"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "not_complete",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": []
+        }
+      ],
+      "evidence": [
+        "header.layout",
+        "header.fields",
+        "header.base",
+        "header.IRQ",
+        "header.APB",
+        "header.reset",
+        "DS15135:p39",
+        "DS15135:p40",
+        "RM0522:p319",
+        "RM0522:p1607",
+        "RM0522:p1608",
+        "RM0522:p1609",
+        "RM0522:p1610",
+        "RM0522:p1611",
+        "RM0522:p1612",
+        "RM0522:p1613",
+        "RM0522:p1614",
+        "RM0522:p1615",
+        "RM0522:p1616",
+        "RM0522:p1617",
+        "RM0522:p1618",
+        "RM0522:p1619",
+        "RM0522:p1620",
+        "RM0522:p1621",
+        "RM0522:p1622",
+        "RM0522:p1623"
+      ],
+      "LL_internal_single_source_arithmetic": [
+        {
+          "source": "ITAMP3",
+          "CR1_bit": 18,
+          "clear_bit_on_ERASE": 0,
+          "clear_target": "reserved",
+          "set_bit_on_NO_ERASE": 2
+        },
+        {
+          "source": "ITAMP4",
+          "CR1_bit": 19,
+          "clear_bit_on_ERASE": 1,
+          "clear_target": "reserved",
+          "set_bit_on_NO_ERASE": 3
+        },
+        {
+          "source": "ITAMP5",
+          "CR1_bit": 20,
+          "clear_bit_on_ERASE": 2,
+          "clear_target": "ITAMP3POM",
+          "set_bit_on_NO_ERASE": 4
+        },
+        {
+          "source": "ITAMP6",
+          "CR1_bit": 21,
+          "clear_bit_on_ERASE": 3,
+          "clear_target": "ITAMP4POM",
+          "set_bit_on_NO_ERASE": 5
+        },
+        {
+          "source": "ITAMP9",
+          "CR1_bit": 24,
+          "clear_bit_on_ERASE": 6,
+          "clear_target": "reserved",
+          "set_bit_on_NO_ERASE": 8
+        },
+        {
+          "source": "ITAMP11",
+          "CR1_bit": 26,
+          "clear_bit_on_ERASE": 8,
+          "clear_target": "ITAMP9POM",
+          "set_bit_on_NO_ERASE": 10
+        }
+      ]
+    },
+    "chapter_audit": {
+      "document": "RM0522",
+      "chapter": 40,
+      "pages_read": [
+        1597,
+        1598,
+        1599,
+        1600,
+        1601,
+        1602,
+        1603,
+        1604,
+        1605,
+        1606,
+        1607,
+        1608,
+        1609,
+        1610,
+        1611,
+        1612,
+        1613,
+        1614,
+        1615,
+        1616,
+        1617,
+        1618,
+        1619,
+        1620,
+        1621,
+        1622,
+        1623
+      ],
+      "evidence": [
+        "RM0522:p1597",
+        "RM0522:p1598",
+        "RM0522:p1599",
+        "RM0522:p1600",
+        "RM0522:p1601",
+        "RM0522:p1602",
+        "RM0522:p1603",
+        "RM0522:p1604",
+        "RM0522:p1605",
+        "RM0522:p1606",
+        "RM0522:p1607",
+        "RM0522:p1608",
+        "RM0522:p1609",
+        "RM0522:p1610",
+        "RM0522:p1611",
+        "RM0522:p1612",
+        "RM0522:p1613",
+        "RM0522:p1614",
+        "RM0522:p1615",
+        "RM0522:p1616",
+        "RM0522:p1617",
+        "RM0522:p1618",
+        "RM0522:p1619",
+        "RM0522:p1620",
+        "RM0522:p1621",
+        "RM0522:p1622",
+        "RM0522:p1623"
+      ],
+      "qualification": "Complete chapter text and extracted register maps read; diagrams not independently rendered, no electrical/timing/security qualification."
+    },
+    "open_gates": [
+      "No executable tamper, security transition, secret access, clear, erase, debug or low-power profile.",
+      "No physical registers, secrets, board population, silicon revision or oscillator mode observed.",
+      "RTC pin-priority table, timestamp coherent snapshot, RTC clock/reset and shared PWR write protection require independent composition.",
+      "Exact emitted C accesses, concurrency, error recovery, electrical precharge/loading and timing remain unqualified.",
+      "Present crypto/cache/RAM effect sequencing and completion require whole-device ownership; family-only endpoints remain excluded.",
+      "No active catalog, package inventory, existing EXTI physical ownership or accepted composition changes.",
+      "ES2.5.1 can report continuous RNG seed errors under specific environmental conditions; the cited sources do not establish whether this asserts ITAMP9. With ITAMP9 enabled in either potential or confirmed mode, error-to-tamper propagation and resulting destructive effects remain an explicit unresolved gate.",
+      "The extracted headings around RM1612–1614 precede fields from adjacent register blocks. Use the exact header field names and offsets, not the nearest extracted heading, when interpreting those pages.",
+      "For filtered unmasked level detection, clearing a flag does not establish removal of the active external level. Repeated detection is a source-derived possibility requiring a separate protocol, not a measured outcome."
+    ]
+  }
+}

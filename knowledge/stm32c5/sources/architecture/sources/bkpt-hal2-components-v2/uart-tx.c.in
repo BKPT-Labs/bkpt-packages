@@ -1,0 +1,136 @@
+// SPDX-License-Identifier: LicenseRef-BKPT-Proprietary
+/*
+ * BKPT resource-bound initialization, adapted from ST HAL2 2.1.0 API contracts
+ * and STM32CubeC5 initialization examples. Manufacturer-derived portions:
+ * BSD 3-clause "New" or "Revised" License
+ * 
+ * Copyright (c) 2026, STMicroelectronics
+ * 
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ * 
+ *   * Redistributions of source code must retain the above copyright notice, this
+ *     list of conditions and the following disclaimer.
+ * 
+ *   * Redistributions in binary form must reproduce the above copyright notice,
+ *     this list of conditions and the following disclaimer in the documentation
+ *     and/or other materials provided with the distribution.
+ * 
+ *   * Neither the name of the STMicroelectronics nor the names of its contributors may
+ *     be used to endorse or promote products derived from this software without
+ *     specific prior written permission.
+ * 
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
+ * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+ * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+#include "{{unit}}.h"
+#include "{{handle_header}}"
+static unsigned int attempted;
+static hal_status_t status = HAL_ERROR;
+static hal_uart_handle_t *uart;
+static hal_dma_handle_t dma_tx;
+hal_status_t {{unit}}_init(void)
+{
+  if (attempted != 0U) { return status; }
+  attempted = 1U;
+  hal_dma_direct_xfer_config_t dma_config = {0};
+  uart = {{handle_accessor}}();
+  if (uart == NULL) { return status; }
+  if (HAL_UART_GetTxState(uart) != HAL_UART_TX_STATE_IDLE ||
+      HAL_UART_GetRxState(uart) != HAL_UART_RX_STATE_IDLE) { return status; }
+  {{tx_dma_clock}}();
+  status = HAL_DMA_Init(&dma_tx, {{tx_dma_instance}});
+  if (status != HAL_OK) { return status; }
+  if (LL_DMA_IsEnabledChannel(HAL_DMA_GetLLInstance(&dma_tx)) != 0U)
+  { status = HAL_BUSY; return status; }
+  HAL_DMA_DeInit(&dma_tx);
+  status = HAL_DMA_Init(&dma_tx, {{tx_dma_instance}});
+  if (status != HAL_OK) { return status; }
+  dma_config.request = (hal_dma_request_source_t){{tx_request_selector}}U;
+  dma_config.direction = HAL_DMA_DIRECTION_MEMORY_TO_PERIPH;
+  dma_config.src_inc = HAL_DMA_SRC_ADDR_INCREMENTED;
+  dma_config.dest_inc = HAL_DMA_DEST_ADDR_FIXED;
+  dma_config.src_data_width = HAL_DMA_SRC_DATA_WIDTH_BYTE;
+  dma_config.dest_data_width = HAL_DMA_DEST_DATA_WIDTH_BYTE;
+  dma_config.priority = HAL_DMA_PRIORITY_LOW_WEIGHT_LOW;
+  status = HAL_DMA_SetConfigPeriphDirectXfer(&dma_tx, &dma_config);
+  if (status != HAL_OK) { return status; }
+  status = HAL_UART_SetTxDMA(uart, &dma_tx);
+  if (status != HAL_OK) { return status; }
+  HAL_CORTEX_NVIC_ClearPendingIRQ({{tx_dma_irq}});
+  HAL_CORTEX_NVIC_SetPriority({{tx_dma_irq}}, HAL_CORTEX_NVIC_PREEMP_PRIORITY_5, HAL_CORTEX_NVIC_SUB_PRIORITY_0);
+  HAL_CORTEX_NVIC_EnableIRQ({{tx_dma_irq}});
+  HAL_CORTEX_NVIC_ClearPendingIRQ({{peripheral_irq}});
+  HAL_CORTEX_NVIC_SetPriority({{peripheral_irq}}, HAL_CORTEX_NVIC_PREEMP_PRIORITY_5, HAL_CORTEX_NVIC_SUB_PRIORITY_0);
+  HAL_CORTEX_NVIC_EnableIRQ({{peripheral_irq}});
+  status = HAL_OK;
+  return status;
+}
+hal_uart_handle_t *{{unit}}_handle(void)
+{
+  return (attempted != 0U && status == HAL_OK) ? uart : NULL;
+}
+void {{peripheral_handler}}(void) { HAL_UART_IRQHandler(uart); }
+void {{tx_dma_handler}}(void) { HAL_DMA_IRQHandler(&dma_tx); }
+
+static int dma_disabled(const hal_dma_handle_t *dma)
+{
+  return HAL_DMA_GetState(dma) == HAL_DMA_STATE_IDLE &&
+         LL_DMA_IsActiveFlag_IDLE(HAL_DMA_GetLLInstance(dma)) != 0U &&
+         LL_DMA_IsEnabledChannel(HAL_DMA_GetLLInstance(dma)) == 0U;
+}
+hal_status_t {{unit}}_abort_confirmed(void)
+{
+  if ({{unit}}_handle() == NULL) { return HAL_ERROR; }
+  /* Blocking HAL DMA abort needs a live SysTick. No ISR/critical-section use. */
+  if (__get_IPSR() != 0U || __get_PRIMASK() != 0U ||
+      __get_BASEPRI() != 0U || __get_FAULTMASK() != 0U) { return HAL_BUSY; }
+  uint32_t peripheral_enabled = NVIC_GetEnableIRQ({{peripheral_irq}});
+  uint32_t tx_dma_enabled = NVIC_GetEnableIRQ({{tx_dma_irq}});
+  HAL_CORTEX_NVIC_DisableIRQ({{peripheral_irq}});
+  HAL_CORTEX_NVIC_DisableIRQ({{tx_dma_irq}});
+  /* Recheck only after every owned vector is masked: an IRQ may change DMA state. */
+  if (HAL_DMA_GetState(&dma_tx) != HAL_DMA_STATE_IDLE &&
+      HAL_DMA_GetState(&dma_tx) != HAL_DMA_STATE_ACTIVE)
+  {
+  if (peripheral_enabled != 0U) { HAL_CORTEX_NVIC_EnableIRQ({{peripheral_irq}}); }
+  if (tx_dma_enabled != 0U) { HAL_CORTEX_NVIC_EnableIRQ({{tx_dma_irq}}); }
+    return HAL_BUSY;
+  }
+  /* Only owned vectors are masked; SysTick continues. No application restart may race us. */
+  (void)HAL_UART_Abort(uart);
+  if (!dma_disabled(&dma_tx))
+  {
+    /* UART may skip a DMA handle whose peripheral request gate was already off. */
+    if (HAL_DMA_GetState(&dma_tx) == HAL_DMA_STATE_ABORT) { status = HAL_ERROR; return status; }
+    (void)HAL_DMA_Abort(&dma_tx);
+  }
+  __DSB();
+  if (!dma_disabled(&dma_tx) ||
+      LL_USART_IsEnabledDMAReq_TX({{peripheral_symbol}}) != 0U ||
+      LL_USART_IsEnabledDMAReq_RX({{peripheral_symbol}}) != 0U ||
+      HAL_UART_GetTxState(uart) != HAL_UART_TX_STATE_IDLE ||
+      HAL_UART_GetRxState(uart) != HAL_UART_RX_STATE_IDLE)
+  {
+    /* Keep owned IRQs masked and poison accessor. Caller must fail-stop, never reuse. */
+    status = HAL_ERROR;
+    return status;
+  }
+  LL_DMA_ClearFlag(HAL_DMA_GetLLInstance(&dma_tx), LL_DMA_FLAG_ALL);
+  __DSB();
+  HAL_CORTEX_NVIC_ClearPendingIRQ({{peripheral_irq}});
+  HAL_CORTEX_NVIC_ClearPendingIRQ({{tx_dma_irq}});
+  __DSB();
+  if (peripheral_enabled != 0U) { HAL_CORTEX_NVIC_EnableIRQ({{peripheral_irq}}); }
+  if (tx_dma_enabled != 0U) { HAL_CORTEX_NVIC_EnableIRQ({{tx_dma_irq}}); }
+  return HAL_OK;
+}

@@ -1,0 +1,441 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/gpio-contracts.json",
+    "sha256": "97240d2c18e37f86f37adef36964769756740260b62c66c7ea2c871023281226"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 28
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "schema": "bkpt.external.gpio.contracts.v1",
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "review": "Source candidate; independent reviews pending",
+    "package_routes_sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288",
+    "sources": {
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "HAL_GPIO": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_gpio.c",
+        "sha256": "3cf4bda1afb86547321e90bf6e762c813050994076a03a2630b27740c8bafb11"
+      },
+      "LL_GPIO": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_gpio.h",
+        "sha256": "eade59060ea3ce5d987e52aaba2120fad4cd11818aba70ad597187e83df82c4f"
+      },
+      "family_header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c5xx.h",
+        "sha256": "61a0b8c2674d9e817d70aa8d2693339273f4283694f8ab5f8dca077bb69913f7"
+      },
+      "CMSIS_GCC": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/arch/cmsis/CMSIS/Core/Include/cmsis_gcc.h",
+        "sha256": "7c34c8eb47e78acc8da3122fd27fc912b653b14817a2e1fb55ed41fb55c54281"
+      }
+    },
+    "evidence": {
+      "RM0522:p339": {
+        "source": "RM0522",
+        "page": 339,
+        "sha256": "391abb4644aa04dc14af05e6f9836aecc514956718deb119c99ea36ec2a6fd6e"
+      },
+      "RM0522:p340": {
+        "source": "RM0522",
+        "page": 340,
+        "sha256": "e6835d6f4638b20fb9c9597e98a110398b51796dc64505688d06bc993851f291"
+      },
+      "RM0522:p341": {
+        "source": "RM0522",
+        "page": 341,
+        "sha256": "17d07e4847d1babbb83d58abe0ae824e92a7c3edab2a5e03cde82dc81774b848"
+      },
+      "RM0522:p342": {
+        "source": "RM0522",
+        "page": 342,
+        "sha256": "8926b0da08191aff13f2a89de7d66e438c504a85481629e287a12399d484e506"
+      },
+      "RM0522:p343": {
+        "source": "RM0522",
+        "page": 343,
+        "sha256": "8146fbeee16d9ee20551f11895fe622d42834f775a7b090de8b9701e8df7c0aa"
+      },
+      "RM0522:p344": {
+        "source": "RM0522",
+        "page": 344,
+        "sha256": "41ddb7ae06af63e7afe6c39b78d2dd6ee4587d62b8b64fe39aec54c002c990d5"
+      },
+      "RM0522:p345": {
+        "source": "RM0522",
+        "page": 345,
+        "sha256": "7d088cbb9aa43edd265655bb2a96cbaddba3f1c73b551579895365231b6cd96b"
+      },
+      "RM0522:p346": {
+        "source": "RM0522",
+        "page": 346,
+        "sha256": "19a78ac971bb1f1b7fc75e47d499b9a146250052184b0946b863418e16599e35"
+      },
+      "RM0522:p347": {
+        "source": "RM0522",
+        "page": 347,
+        "sha256": "3af72fc34f0aaf95cd6a34360437f6e1724c13cc12cfcf95cfe250f4aa7e264e"
+      },
+      "RM0522:p348": {
+        "source": "RM0522",
+        "page": 348,
+        "sha256": "dc3ec44f4898e986a9ae5e7b280b0a085b06f9d33cbe568d2c6daf859d138e7c"
+      },
+      "RM0522:p349": {
+        "source": "RM0522",
+        "page": 349,
+        "sha256": "a24fd4b4a3c170888d1cbf1220b96039aeeef34af0b5e222eae7941fdd9e1f4f"
+      },
+      "RM0522:p350": {
+        "source": "RM0522",
+        "page": 350,
+        "sha256": "5093915299575d5ad7e21675aaa715c9f37211b4522442bffdfbe226724dadb9"
+      },
+      "RM0522:p351": {
+        "source": "RM0522",
+        "page": 351,
+        "sha256": "fecf57693e1c087b094aa67b093ce2100cbb67324cd7ce567cc5367c7b0b0742"
+      },
+      "RM0522:p352": {
+        "source": "RM0522",
+        "page": 352,
+        "sha256": "cf335af7c0dfec99237f0e0d786c2e27f1f9de318f16a842bf2191f33a7af7f0"
+      },
+      "RM0522:p353": {
+        "source": "RM0522",
+        "page": 353,
+        "sha256": "abc609b1a386fcf4e85aba5fd862a8bdade275909168726fd4f8ddf1d6cba4e7"
+      },
+      "RM0522:p354": {
+        "source": "RM0522",
+        "page": 354,
+        "sha256": "21c99cf1f3777ef9e6658e586578aab5ff3aca172ee059b140a6c93a77eb8f37"
+      },
+      "RM0522:p355": {
+        "source": "RM0522",
+        "page": 355,
+        "sha256": "b40ea30c791955dfbade8016e48bd2b340d5b820024ac6c6ec37c2309c7a1c1f"
+      },
+      "RM0522:p356": {
+        "source": "RM0522",
+        "page": 356,
+        "sha256": "7d9f2aa344d8a964728808740365597b6825370b8aa02277112fcf0fc8485832"
+      },
+      "HAL.guards": {
+        "source": "HAL_GPIO",
+        "start_line": 180,
+        "end_line": 268,
+        "sha256": "ffe4ffeca5c2188ae6354d5b2ad3d4f52bb45861463149d011e5f82d0bf8683c"
+      },
+      "HAL.init": {
+        "source": "HAL_GPIO",
+        "start_line": 313,
+        "end_line": 400,
+        "sha256": "3bd0580ae4ccbb37afa28780ace52c388ceb2124f00f26c87956df822a3a8533"
+      },
+      "HAL.deinit": {
+        "source": "HAL_GPIO",
+        "start_line": 403,
+        "end_line": 451,
+        "sha256": "217859fd979c0bf659567a73157fd3d474880a86e595b45ed8cd6a97b3700227"
+      },
+      "HAL.IO": {
+        "source": "HAL_GPIO",
+        "start_line": 496,
+        "end_line": 560,
+        "sha256": "fdfb85c98838aedfd3669fb87f9d6cee768b7fb40ed959c3017692dffdf80d42"
+      },
+      "HAL.lock": {
+        "source": "HAL_GPIO",
+        "start_line": 574,
+        "end_line": 592,
+        "sha256": "84e642046b7bf51885f438b2fe9dc96a0587504337c5746219b3c1c311af66a4"
+      },
+      "LL.lock": {
+        "source": "LL_GPIO",
+        "start_line": 670,
+        "end_line": 679,
+        "sha256": "2e839c5f40a5a16a70103884dea3529413c20c9c76102ebc5d2d5eb5d77cba12"
+      },
+      "LL.lock_queries": {
+        "source": "LL_GPIO",
+        "start_line": 706,
+        "end_line": 721,
+        "sha256": "95215dfc261041544d52f64efb9d722e8b3cb07b7ca1be4c7f8b4fa61590b1cc"
+      },
+      "LL.toggle": {
+        "source": "LL_GPIO",
+        "start_line": 990,
+        "end_line": 994,
+        "sha256": "6723d0467c8fc72472d2fd342271ec5501a62aa425098388098931e3d990f442"
+      },
+      "family.position": {
+        "source": "family_header",
+        "start_line": 123,
+        "end_line": 123,
+        "sha256": "69ade3fd9f7fdb8eea00c1b4b437712ed2537bb8791bf1b78a06e1c515cc4142"
+      },
+      "CMSIS.position": {
+        "source": "CMSIS_GCC",
+        "start_line": 268,
+        "end_line": 318,
+        "sha256": "eb49737cc6d21fe633afa981c889a0b479e1195b5e90809337e6ceb2d6dc75ee"
+      }
+    },
+    "bonded_pins": [
+      "PA0",
+      "PA1",
+      "PA2",
+      "PA3",
+      "PA4",
+      "PA5",
+      "PA6",
+      "PA7",
+      "PA8",
+      "PA9",
+      "PA10",
+      "PA11",
+      "PA12",
+      "PA13",
+      "PA14",
+      "PA15",
+      "PB0",
+      "PB1",
+      "PB2",
+      "PB3",
+      "PB4",
+      "PB5",
+      "PB6",
+      "PB7",
+      "PB8",
+      "PB9",
+      "PB10",
+      "PB12",
+      "PB13",
+      "PB14",
+      "PB15",
+      "PC0",
+      "PC1",
+      "PC2",
+      "PC3",
+      "PC4",
+      "PC5",
+      "PC6",
+      "PC7",
+      "PC8",
+      "PC9",
+      "PC10",
+      "PC11",
+      "PC12",
+      "PC13",
+      "PC14",
+      "PC15",
+      "PD2",
+      "PE2",
+      "PH0",
+      "PH1",
+      "PH2"
+    ],
+    "bonded_pin_qualification": "52 distinct GPIO pad identities from hash-bound package routes; noPB11. All electrical/board/debug/additional-function conflicts remain in force; exact route/pin ownership is required.",
+    "finite_fields": {
+      "MODE": {
+        "0": "input",
+        "1": "output",
+        "2": "alternate",
+        "3": "analog"
+      },
+      "OTYPE": {
+        "0": "push_pull",
+        "1": "open_drain"
+      },
+      "OSPEED": {
+        "0": "low",
+        "1": "medium",
+        "2": "high",
+        "3": "very_high"
+      },
+      "PUPD": {
+        "0": "none",
+        "1": "pull_up",
+        "2": "pull_down",
+        "3": "reserved"
+      },
+      "AF_field": [
+        0,
+        15
+      ],
+      "qualification": "Not a Cartesian admission domain; analogpullup/reserved combinations and exact AF routes constrained separately. Speed labels are not frequency guarantees.",
+      "evidence": [
+        "RM0522:p340",
+        "RM0522:p341",
+        "RM0522:p348",
+        "RM0522:p349",
+        "RM0522:p353",
+        "RM0522:p354"
+      ]
+    },
+    "contracts": [
+      {
+        "id": "pad_vs_latch",
+        "detail": "IDR samples the pad each AHB clock in digital modes; ODR records the requested output, not measured pad voltage. Open-drain ODR=1 releases to high impedance, not guaranteed high. Analog mode disables digital input and IDR returns zero. Electrical thresholds and timing remain unqualified.",
+        "evidence": [
+          "RM0522:p341",
+          "RM0522:p344",
+          "RM0522:p345",
+          "RM0522:p346"
+        ]
+      },
+      {
+        "id": "atomic_output",
+        "detail": "BSRR low16 sets and high16 resets ODR; zero has no effect and set wins overlap. BRR resets. A single write atomically changes selected bits; this is not multi-operation ownership or atomic read-toggle. Other owners can still write ODR.",
+        "evidence": [
+          "RM0522:p343",
+          "RM0522:p350",
+          "RM0522:p351",
+          "RM0522:p354"
+        ]
+      },
+      {
+        "id": "config_lock",
+        "detail": "The 32-bit LCKR sequence preserves the pin mask while LCKK follows1/0/1, then reads. It locks MODE/OTYPE/SPEED/PULL/AF until MCU or peripheral reset, but not ODR. Existing lock state must be handled before adding pins; this is not a software mutex.",
+        "evidence": [
+          "RM0522:p343",
+          "RM0522:p351",
+          "RM0522:p352",
+          "LL.lock"
+        ]
+      },
+      {
+        "id": "route_priority",
+        "detail": "One AF selection is shared by input/output per pin. AF0..15 field width does not establish a valid route. ADC/DAC/COMP/OPAMP require analog mode and peripheral configuration. RTC/WKUP/LSCO/oscillator functions can override GPIO. EXTI requires digital mode; RM permits input/output/AF, but existing accepted profiles remain unchanged.",
+        "evidence": [
+          "RM0522:p342",
+          "RM0522:p344"
+        ]
+      },
+      {
+        "id": "analog_pull",
+        "detail": "Analog mode disables weak pull-up in hardware but permits weak pull-down; the RM table marks analog pull-up reserved. Do not generalize analog mode to a no-pull-only domain.",
+        "evidence": [
+          "RM0522:p341",
+          "RM0522:p346"
+        ]
+      },
+      {
+        "id": "reset_debug",
+        "detail": "Most pins reset to analog; PA13/14/15 and PB3/4 have debug AF and pull exceptions. PA13 and PB3 also reset to very-high output speed (OSPEEDR 0x0C000000 for A and 0x000000C0 for B). Reconfiguration can lose debug/trace. HAL DeInit analog defaults do not fully restore hardware reset state. Preserve debug and boot ownership.",
+        "evidence": [
+          "RM0522:p341",
+          "RM0522:p348",
+          "RM0522:p349",
+          "HAL.deinit"
+        ]
+      },
+      {
+        "id": "low_power_ownership",
+        "detail": "PC13/14/15 lose GPIO function when the core domain powers off and become analog inputs unless RTC configuration bypasses GPIO. Standby defaults to floating; IORETEN samples state and holds it using pulls through wake until cleared, not retained push-pull drive. Oscillators take pin control; external-clock mode may leave the output pin usable, subject to exact clock/electrical constraints.",
+        "evidence": [
+          "RM0522:p346",
+          "RM0522:p347"
+        ]
+      }
+    ],
+    "source_derived_SDK_gaps": [
+      {
+        "id": "package_route_guard",
+        "detail": "Debug assertions constrain a nonempty 16-bit pin mask and AF0..15 independently of package and route. With assertions disabled, these checks do not validate the uint32_t pin mask or configuration values. Init optionally checks only a null pointer at runtime. Independently validate every field, the 52 bonded pins and their exact routes and conflicts.",
+        "evidence": [
+          "HAL.guards",
+          "HAL.init",
+          "RM0522:p347",
+          "RM0522:p348"
+        ]
+      },
+      {
+        "id": "config_ownership",
+        "detail": "Init performs register read-modify-writes and mode changes per pin; output latch is written before output mode. It does not inspect LCKR or read configuration back. HAL_OK does not prove writes took effect if locked or overridden. Multiple pin updates are not one atomic transaction.",
+        "evidence": [
+          "HAL.init",
+          "RM0522:p343",
+          "RM0522:p342"
+        ]
+      },
+      {
+        "id": "analog_pullup_stale",
+        "detail": "An analog-plus-pull-up request skips PUPDR writes rather than rejecting the request or clearing the previous pull. A previous input pull-up, including reset pulls on PA13/PA15/PB4, can leave the RM-reserved analog/PUPD=01 combination. DeInit also sets analog mode before clearing PUPDR, so an existing pull-up can produce that intermediate combination. HAL_OK does not establish a permitted configuration. Independently reject reserved combinations and establish existing pull state.",
+        "evidence": [
+          "HAL.init",
+          "RM0522:p341",
+          "RM0522:p346",
+          "HAL.deinit",
+          "RM0522:p349"
+        ]
+      },
+      {
+        "id": "deinit_output_effect",
+        "detail": "DeInit clears ODR before changing MODER to analog. An existing output may drive low before becoming high impedance; a lock can prevent the mode change while ODR still changes. Selected configuration becomes analog/AF0 defaults, not prior-owner state or debug reset defaults.",
+        "evidence": [
+          "HAL.deinit",
+          "RM0522:p343",
+          "RM0522:p341"
+        ]
+      },
+      {
+        "id": "toggle_race",
+        "detail": "LL Toggle reads ODR then writes BSRR computed from that snapshot. Atomic writes do not make this read-modify-toggle atomic against another writer to the same pins. Serialize ownership.",
+        "evidence": [
+          "LL.toggle",
+          "HAL.IO",
+          "RM0522:p343"
+        ]
+      },
+      {
+        "id": "lock_success_mask",
+        "detail": "HAL Lock checks only LCKK through IsAnyPinLocked, not the requested LCKy bits. If the port was locked with other pins, new writes cannot change its mask but HAL can return OK. Independently check the requested mask and LCKK. This is a source-derived conditional path, not observed hardware behavior.",
+        "evidence": [
+          "HAL.lock",
+          "LL.lock_queries",
+          "RM0522:p352"
+        ]
+      },
+      {
+        "id": "iteration_zero_shift",
+        "detail": "Init and DeInit clear the final selected bit, then compute POSITION_VAL(0) and1UL<<position before the loop test. CLZ(RBIT(0)) returns32 in bound CMSIS GCC; on a32-bit unsigned-long target this shifts by the width, which is undefined C behavior. The dead result may be optimized away; no compiled behavior or performance failure is claimed. Zero pin input also requires independent rejection.",
+        "evidence": [
+          "HAL.init",
+          "HAL.deinit",
+          "family.position",
+          "CMSIS.position"
+        ]
+      }
+    ],
+    "open_gates": [
+      "No new executable GPIO/EXTI domain; accepted catalog unaffected",
+      "Electrical tables, load, speed, compensation and package conflicts",
+      "Actual clock/reset/lock state, additional-function overrides and board population",
+      "Concurrent port writes and debug/trace/boot pin ownership",
+      "Compiler validation of the undefined-shift path; full SDK/SVD audit",
+      "Independent semantic review and hardware qualification"
+    ]
+  }
+}

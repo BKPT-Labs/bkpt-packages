@@ -1,0 +1,418 @@
+{
+  "schema": 1,
+  "state": "paused",
+  "runtime_admission": false,
+  "full_device_coverage": false,
+  "original_checkpoint_sha256": "a4adc45cd264101a3eef37d238dad9bc31ea506e09e6afb7dcc1de1f28f37b82",
+  "integrity_observation": {
+    "surveys": 50,
+    "excerpts": 4530,
+    "result": "passed",
+    "meaning": "source/extraction/excerpt hashes, references, duplicate IDs, linked and visual hashes only; not semantic review",
+    "default_verifier_surveys": 47,
+    "additional_verified_files": [
+      "adc-completion-contracts.json",
+      "coresight-contracts.json",
+      "rm-scope-contracts.json"
+    ]
+  },
+  "pending_corrections": [
+    {
+      "file": "usart-contracts.json",
+      "sources": 16,
+      "excerpts": 193,
+      "closure": "Official usart-sdk-review.json completed; required corrections unapplied. Expanded current candidate is NOT covered by prior c95cf acceptance.",
+      "contracts": 20,
+      "SDK_gaps": 16,
+      "source_conflicts": 7,
+      "previous_indexed_sha256": "c95cf083c6d4a23947f8ebba52b286317cc377815896347afe0a4eebaf916d79",
+      "paused_candidate": true,
+      "domain": "USART_UART",
+      "original_sha256": "544322016b5455b5c3722ceedb411a5de8e63881399e3a00466b9220090922cb"
+    },
+    {
+      "file": "interconnect-contracts.json",
+      "sources": 12,
+      "excerpts": 57,
+      "closure": "Official review completed on earlier snapshot; source-validated corrections authored, final independent correction review pending.",
+      "contracts": 9,
+      "SDK_gaps": 1,
+      "source_conflicts": 7,
+      "previous_indexed_sha256": "904b734641e5029b633ea0ae65fdf7839f36772b092187e0db9f4b1a383ae839",
+      "paused_candidate": true,
+      "domain": "interconnect",
+      "original_sha256": "a55a0016a154396698f2394dd1dacff34ebb7df6d9747d4168f82fca47c957ed"
+    },
+    {
+      "file": "adc-completion-contracts.json",
+      "sources": 13,
+      "excerpts": 209,
+      "closure": "Official adc-completion-review stopped at user pause; zero-byte result preserved. Partial independent targeted checks only; no semantic acceptance.",
+      "paused_candidate": true,
+      "domain": "ADC_completion",
+      "original_sha256": "a86699d5e457a9e2ea3d0538d8fbf28d32bf2640ba2e32839fc5268c3f02eee3"
+    },
+    {
+      "file": "coresight-contracts.json",
+      "sources": 10,
+      "excerpts": 147,
+      "closure": "Official coresight-review stopped at user pause; zero-byte result preserved. Partial independent targeted checks only; no semantic acceptance.",
+      "paused_candidate": true,
+      "domain": "CoreSight",
+      "original_sha256": "772b5742b3e34b1a06f50e63e45cc72cbd05698565e9d71566ee00b2cfe1afd6"
+    },
+    {
+      "file": "rm-scope-contracts.json",
+      "sources": 3,
+      "excerpts": 25,
+      "closure": "Official rm-scope-review completed with three required citation corrections; independent Codex agreed. Corrections unapplied; no semantic acceptance.",
+      "paused_candidate": true,
+      "domain": "RM_scope",
+      "original_sha256": "d27569fcf4eaf2d8284a1d841f161118fc30970f8815f70a3bf4810855d1254a"
+    }
+  ],
+  "open_work": [
+    "complete per-instance semantics and errata",
+    "SDK lifecycle contracts and implementation adapters",
+    "concrete DMA endpoint/request/trigger combinations",
+    "clock conflict resolution",
+    "package electrical/AF and board constraints",
+    "build and hardware qualification in owning engineering lane",
+    "Package literal IO/AF reconciliation reviewed; 11 IO-label divergences and PA5 DAC identity unresolved; electrical and physical-board state unqualified",
+    "SDK lifecycle audit partial: seven findings, 18 bounded contracts and one derived PWR binding; remaining instance/mode/workaround paths open",
+    "CORDIC numerical/source conflicts and lifecycle/importer qualification",
+    "CRC source-derived width-validation defect needs owning-lane implementation and qualification",
+    "ADC reserved-trigger/oversampling/JAUTO and source-register conflicts; full lifecycle/electrical qualification",
+    "Watchdog irreversible lifecycle, pending interrupts and timing/option-byte qualification",
+    "Finish ADC chapter supplement and CoreSight/debug source survey; interconnect/DAC map corrections under review",
+    "Complete remaining shared UART wrappers/options, DMA linked-list lifecycle and all per-mode integration contracts",
+    "PM0264 and AN2606 PDF byte pinning unavailable after bounded official download timeouts; no full architecture/bootloader qualification",
+    "Reconcile source contradictions without silent repairs; no operational closure from chapter coverage or integrity counts"
+  ],
+  "candidates": [
+    {
+      "path": "adc-completion-contracts.json",
+      "sha256": "b068daa0dcc29d0b90ab7770bee3b36a705f8f222f83caae2446b177526ff8b7",
+      "original_sha256": "a86699d5e457a9e2ea3d0538d8fbf28d32bf2640ba2e32839fc5268c3f02eee3"
+    },
+    {
+      "path": "adc-contracts.json",
+      "sha256": "1492c7506f62da8dcba251d0631d19e3bff9d6c94260dd40c8e6ba7b703329c0",
+      "original_sha256": "160348a1a4cb233b8aab5e24d28633ff0fe3c5326d7d171648106b5c8b33512f"
+    },
+    {
+      "path": "advanced-timer-contracts.json",
+      "sha256": "a8845c6078fb7358b109bfbef130ba9009a319509c4c4abe90c367e93651e319",
+      "original_sha256": "773446d023fd2efc616c8bfe4fc36a5f15290374d9489519150031bef39355d9"
+    },
+    {
+      "path": "aes-contracts.json",
+      "sha256": "bd0a9909fe516ca4a0657a74894611f019873fa184e5070aebbb920928c882b2",
+      "original_sha256": "1108c411bb6f4782ed00f6673fb64e62c344cbd1be5cc8b3669b6c4c39dbabf2"
+    },
+    {
+      "path": "analog-comparators-contracts.json",
+      "sha256": "e7b04f4c632b9e4eb4a94e16db5da77bea20bd9a0f195554c24db58324ff0be5",
+      "original_sha256": "c9ce5b6424ecce9282ae55e3cab7809a7530cc6c56f23948a50d0e39dbdbbbd1"
+    },
+    {
+      "path": "basic-timer-contracts.json",
+      "sha256": "a90d3b86d2eb808c2fe94d300ba09cdf3022d2924c2dedbd97d76c2c88e4eeba",
+      "original_sha256": "2e7141a117bd4f68aed44dd20504cac96509af11db6651efbcb5a9684ee96bbd"
+    },
+    {
+      "path": "candidate.json",
+      "sha256": "4cbed38ac4ed22b278106b98786aac7ca5a4dcef6808059b417e4cd54c91103a",
+      "original_sha256": "218a49767ba2ecf9e6e631a4109e4d76d7998e0b075395a32ec29ee1087c9336"
+    },
+    {
+      "path": "composition.json",
+      "sha256": "019c15f585d00d137742fa3e7bee787766da0f65886a1ffd283734d153003597",
+      "original_sha256": "54516e25013d6f4e71b89346974d8229efd87b0fe9140e48399165ff70e9a4ff"
+    },
+    {
+      "path": "contracts.json",
+      "sha256": "aee65f802a36dd382c9b36ce2dff101d6edb7fafe7a55b424309daae989627db",
+      "original_sha256": "f234611f192dd5f517253efdecdf58a2f1a89872a965e89590aba43ed521f9c8"
+    },
+    {
+      "path": "cordic-functions.json",
+      "sha256": "dfdb70a17e9240075d05e8eaffa4cfd15342376faaf170337fd321a4f875b1d3",
+      "original_sha256": "1e50f97f37749f61bf3047919fcc745ca996a63247960919cbec077f2e99979a"
+    },
+    {
+      "path": "cordic-registers.json",
+      "sha256": "179b5174a5bf4ba627cba68eb8580cbaf859bd7aceede8d920a024b8c675268a",
+      "original_sha256": "0c00d7b23ae1592b2ad6d454427aff16c2349091d26a4082b5cc4f53a448a630"
+    },
+    {
+      "path": "coresight-contracts.json",
+      "sha256": "075360b276dff70136344b10872eb4992fff80858c08c9c411553bbb9223f026",
+      "original_sha256": "772b5742b3e34b1a06f50e63e45cc72cbd05698565e9d71566ee00b2cfe1afd6"
+    },
+    {
+      "path": "cpu-mpu-fpu-contracts.json",
+      "sha256": "fe3162929e3e2229da3248b4cf9c95d88ff5e796003b3e3fae2d9491405ed7b0",
+      "original_sha256": "d01197b2f8beec8a287e9d4d240e9dcf0e94fd113785005f8f312231948512be"
+    },
+    {
+      "path": "crc-contracts.json",
+      "sha256": "0628f4f8518a48d1cf5dab1b25a85cefcb67573a2ea04ad36cc2d21fd4ae844c",
+      "original_sha256": "f180e43648172d93c80df354e73fe147bde0f2e387362277f9d885ef02d725c7"
+    },
+    {
+      "path": "crs-contracts.json",
+      "sha256": "dba34c7a6bdc9fcd7703f3f05fcc99c6d80df1da969f3acf56a6eae0689d7c76",
+      "original_sha256": "45ac1a935467076f2e0a8adbfa62417cba0da9f17dce530b9ce19710885fa8e1"
+    },
+    {
+      "path": "dac-contracts.json",
+      "sha256": "38c17c184da4ab52b4c3f10bce65744d950f0609684dcd3806717303166f430e",
+      "original_sha256": "fb4b3ed91ef8d8082442a6ce01083a2d24b94e10531e82de522917280464d566"
+    },
+    {
+      "path": "dac-register-map.json",
+      "sha256": "a1076d1a71174172fdd2510e926a8092713e49c68ef597b6c90343d6bf882647",
+      "original_sha256": "cef5f92f2f00e7c27dd819b1d2355ba4f047e27dc17c3181b053de229ce890b9"
+    },
+    {
+      "path": "dbg-contracts.json",
+      "sha256": "4fab888919b1d5902a8f8acb5942bfbe43e1f9b907d5130494eff6ff59dbab78",
+      "original_sha256": "3dc80328d34b07f863d655e21cdbcb4ff0eeb79625f0e5920dd822ec0cd06ce2"
+    },
+    {
+      "path": "device-inventory.json",
+      "sha256": "1be69c5a79c60f5387a9536d560ce205f133ed8933a04989048cd7f791445f70",
+      "original_sha256": "510a01b74b20e1e400e60a461e55c9cd5977faa489e146dea0ca851c3e176aa3"
+    },
+    {
+      "path": "dma-controller-contracts.json",
+      "sha256": "1ba69ed9b0003d36a33b8d37490bbbf2b1667d0b9ed9de0070640d089e345b5f",
+      "original_sha256": "6d538556dcde72c81aadb02183f23c36b7d7109edca3279c3efc5b776d730a6f"
+    },
+    {
+      "path": "dma-routing.json",
+      "sha256": "91a2fce659a71a96eda5ad09bb9848da03dfa26d72c244e9a724661597f31272",
+      "original_sha256": "6f5d4d59950941a32d983ccc0907dda996415c9fd201cce9b2e8777bd86ae41d"
+    },
+    {
+      "path": "electrical-contracts.json",
+      "sha256": "0764907511958e39766b3c85089df0cdfafadba66c7f8e16a85e92592782678c",
+      "original_sha256": "cc3743ef2b68871d7466138145216c038c1ccaa6f06779423d195b05b577b006"
+    },
+    {
+      "path": "electronic-signature-contracts.json",
+      "sha256": "5050a30cad59650f92d0c096323065f5833ad45ba0523b783d838add51a88b67",
+      "original_sha256": "a6d89a8b410d2800b88f4b574b19b5be9d72fb58d4ac42ea1b61c64d3d4c7772"
+    },
+    {
+      "path": "errata.json",
+      "sha256": "fd3c8020388519d140f3bea935300d0b856083083a83dc1f54addc9d4b2569e2",
+      "original_sha256": "821c22f796a9ff723afee534fe5943c2b0506325ec871d890706d94414316416"
+    },
+    {
+      "path": "exti-contracts.json",
+      "sha256": "07c4078aeb41abcbc834a4d213beda5b7ee488d26bdccca83bb68c237b82ceaa",
+      "original_sha256": "1c13d267a6cf5bc23ef7299d62dfb785c227e93b2d136f7f2428f02744c6d791"
+    },
+    {
+      "path": "fdcan-contracts.json",
+      "sha256": "5d200c2a29cadeca9cad5f11af2ce81c79c25871dc6cb01b0d4e29601a0fcbc6",
+      "original_sha256": "77c1692b0d086834b059ca8a93940085b9c71e1df56a290075dca741ef709a76"
+    },
+    {
+      "path": "flash-contracts.json",
+      "sha256": "1a8c3976f684aa6e86fc47a2668766bebfedae7247903ec024f6840da4edd0ae",
+      "original_sha256": "0038b89cfd54ed13d576216b77c3bb8dc617102400fe7432757b07d0359336cb"
+    },
+    {
+      "path": "general-timer-contracts.json",
+      "sha256": "fd66fb640363102f3fb8ace58002bd7875e7ddecdcedfd692a58d4f693786c9b",
+      "original_sha256": "2cd5777d80f27d716bb1f1f0c8e5b8b4892d9bc5ce3bc9f53112a7a102950524"
+    },
+    {
+      "path": "gpio-contracts.json",
+      "sha256": "11105cfc8e122ae0e246ba8d67d786a0ef0a6b5eccd29573e10f9e0b28002693",
+      "original_sha256": "97240d2c18e37f86f37adef36964769756740260b62c66c7ea2c871023281226"
+    },
+    {
+      "path": "hash-contracts.json",
+      "sha256": "797006d6c8ae7eb06f85db2a78747f2f7ed7e382a59b6a830b01d5f729462410",
+      "original_sha256": "5b6612a6b6cb83ba48de2ed9d25f5e9a204bf1802904a9eb2674490a08c80bb3"
+    },
+    {
+      "path": "i2c-contracts.json",
+      "sha256": "e9ed85c2bac082d139a7c8adf6591c38028768789be443abba058f7ac44ee44c",
+      "original_sha256": "b0cd18eb3b28d679102cda08c2481c61146c1d7fdd4bdf926e44cd953a898d2b"
+    },
+    {
+      "path": "i3c-contracts.json",
+      "sha256": "0bb3c74a1468f6ce7b9954d569cb3b4326178669f87f4f91c764a87aad405a33",
+      "original_sha256": "59f7d7c5fa64dee80172cdda868ba1d956f38405a76d889cd8e8c4666d4e56ac"
+    },
+    {
+      "path": "icache-contracts.json",
+      "sha256": "02eb15e3759a02f33c2a55af6fb51099df8b731daeb2bfad28ffb9771baba574",
+      "original_sha256": "178124755154130d17cf3ee052be8988a678d15622a785f1f861bbe1850e3311"
+    },
+    {
+      "path": "interconnect-contracts.json",
+      "sha256": "da948e105a5d19cc035c67771b7dbc1f8b6544126aa221e281d84077ac517426",
+      "original_sha256": "a55a0016a154396698f2394dd1dacff34ebb7df6d9747d4168f82fca47c957ed"
+    },
+    {
+      "path": "lptim-contracts.json",
+      "sha256": "d9172fcb26a8543e677cd6a77656cb1932e4d5ecc95a87e38330792bde068d1f",
+      "original_sha256": "eb68f46202a10c85bd7ddbd02c7c26989b18015d330dd1aa37c2f86f09c5e864"
+    },
+    {
+      "path": "lpuart-contracts.json",
+      "sha256": "26cc32d741b3a0870f40be57a1c266f1790bd290de062ff588183fea26e99d3d",
+      "original_sha256": "ad4ce6abae9eff471d64f80a6025c9f771be32512160fa7258cace43a75ccd53"
+    },
+    {
+      "path": "manifest.json",
+      "sha256": "841c39c40b6e234a2a2b8da028543679992f0ce7a5ac77b64b3c43988f9f0f7c",
+      "original_sha256": "2d2edadcf55481e3087a1978d0614307b56809e35556b1a33ca19935692b720f"
+    },
+    {
+      "path": "memory-bus-contracts.json",
+      "sha256": "c554f7bad4e849e244b028b978b1167445a6caa9741e4451809e99a691de71bc",
+      "original_sha256": "ebab9da990520116f488584b30d95ef50c1fc94dc34d5ab649bf07a6c73b97aa"
+    },
+    {
+      "path": "nvic-systick-contracts.json",
+      "sha256": "e188757dd1cec10147160f8a8ba30819a67a95e45926f51c5343977b897c167d",
+      "original_sha256": "d5d1f873f5042f94359955fdda0530c305d0c7c7d9c209e082120966d7d6907d"
+    },
+    {
+      "path": "package-routes.json",
+      "sha256": "67f6ff112da6d0893df7d34d875c2713a7bebb8e8b05293ea916d06a3fe50497",
+      "original_sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288"
+    },
+    {
+      "path": "pwr-contracts.json",
+      "sha256": "1b3b863b5354ffa70e6a390a6435c6182acc981be5e71d98a183fdd6e418d412",
+      "original_sha256": "348a339cd6bdbcd1b2a8038c792921377844846a7876ef4a6de82e1e8effa045"
+    },
+    {
+      "path": "ramcfg-contracts.json",
+      "sha256": "16169316ff7442b72de794f90adf0ecc094efeecbf8b17a40338d157fe9021b5",
+      "original_sha256": "38595f569392cac228afbd7f0ddc7013d5e1d263f766d51142d00ab103342fb2"
+    },
+    {
+      "path": "rcc-contracts.json",
+      "sha256": "1b15102aba55ef7d99d7bd9515f594ca22b0fe3c43a1ca177d0f44de8012ff68",
+      "original_sha256": "934a82b608ad30d33685746dd7cd0cfec97c18f7f98a335ab840580a302224fa"
+    },
+    {
+      "path": "rm-scope-contracts.json",
+      "sha256": "26d5346ec5100a0142896b82b638ad0d4295a2503f7428a101374348ae39ccaa",
+      "original_sha256": "d27569fcf4eaf2d8284a1d841f161118fc30970f8815f70a3bf4810855d1254a"
+    },
+    {
+      "path": "rng-contracts.json",
+      "sha256": "65917cfd75b7c302352804ee07bb30a431bcba8109516d240d56a32a955f5bc7",
+      "original_sha256": "185fa82fa340585ddcc1c2d91898ae131500fb8f1fbef2e66648f9f45d661f1b"
+    },
+    {
+      "path": "rtc-contracts.json",
+      "sha256": "ba346d3eb200908f069a9bc6949755f420b2743899a11628e2e7abcb3aee6ada",
+      "original_sha256": "ffa31804adb17942f62823c3af2d28ba524b8c3268b0484c0f753c08e63bd468"
+    },
+    {
+      "path": "sbs-contracts.json",
+      "sha256": "1839beb721660f1ca1f6423927cff8e36c478b42d6e603e00a6bd698b924c25b",
+      "original_sha256": "a2fa7a7b12683ff778719b8f07d2b550c8d7d252ed02538ea5e6a8245e51a341"
+    },
+    {
+      "path": "sdk-lifecycle.json",
+      "sha256": "728b09ba27ee9cb85bd831739943dea42eae126d6c48b1475d660f3e39b5e1a9",
+      "original_sha256": "09c4f0f44f862065fa5164ae937b15923e9b702455aae1dc1e215a9ef7783c4c"
+    },
+    {
+      "path": "spi-contracts.json",
+      "sha256": "59cb8d58fba1c976a4bf055954376a4c851f9e84d4179fea2829bfbef53641fc",
+      "original_sha256": "b34fd7eaf0ca387cbf36d407c14a6ffab436eff1308e98ae31594295c70d9ac4"
+    },
+    {
+      "path": "system-boot-contracts.json",
+      "sha256": "d70d4ad83477620a1eaf0518ee7c133b807281391fc87b6e4408fa2043271d50",
+      "original_sha256": "db3979f05e3f0e21a230d9ae7dc60342f20fa7900d296f5f3de2695f832cc7a2"
+    },
+    {
+      "path": "tamp-contracts.json",
+      "sha256": "286ed52af4a92e91811bd4993ccfc1b3b97498c7ea3a8140c52c0b435a2f3213",
+      "original_sha256": "988115787f12f96fb8a7559c9802330570bb5c743960218edd8119f6272ec3a5"
+    },
+    {
+      "path": "tim12-contracts.json",
+      "sha256": "8f61120a58d9d16490f2d694bf416d9db441496ab41ed587eb27e2575bb0d7e9",
+      "original_sha256": "339c54d0fb725d1ade54a10dcd19e79cc32445e7c2ab70e907be3c41bc386747"
+    },
+    {
+      "path": "tim15-contracts.json",
+      "sha256": "6d515104a23c8720a181470355d44cddaf4ca4ad4fcd4ff26c6dcd4721048deb",
+      "original_sha256": "6b6aa28876ecb8dd9cd1d06283186e8bbea9ab52e3a93812f3f77b335841ebb7"
+    },
+    {
+      "path": "usart-contracts.json",
+      "sha256": "55f2da98c94e458c68142f0d4ee791d31fcbe2fc5bf20b5ede8ef758447d3675",
+      "original_sha256": "544322016b5455b5c3722ceedb411a5de8e63881399e3a00466b9220090922cb"
+    },
+    {
+      "path": "usb-contracts.json",
+      "sha256": "55cd6158f4476d75676e962e087796188b28089a8beedf31fb642a68547befc8",
+      "original_sha256": "85714759768930b47cdf0037c5b0e9763d46f714624f00a9f93f529dae8eb4ab"
+    },
+    {
+      "path": "watchdog-contracts.json",
+      "sha256": "f187a10188f4045213361a4ea9d4337f41da9abaa5bb58e445b131783cd71bf8",
+      "original_sha256": "3dc00beca3553199f6bcd957bf358157954d3819c5107818c02a75bee68d55df"
+    }
+  ],
+  "tracker": "https://linear.app/bkptlabs/issue/BKPAI-14",
+  "resume": "Use the original source-bound files in the paused research workspace for corrections/reviews; these excerpt-free projections are not executable catalogs or accepted replacements.",
+  "authoring_helpers": [
+    {
+      "path": "tools/author.py",
+      "sha256": "743a0bf4bad2a00445fa98492d86a86ddfbfb7f5c99d9b8d1e909007dd1957de",
+      "usage": "Frozen authoring helper; copy into external original research workspace before use. Not runtime tooling."
+    },
+    {
+      "path": "tools/composition.py",
+      "sha256": "59b16d9cb5a32357a627044b42a518b0c280bacdbd66db737342f343f9d38113",
+      "usage": "Frozen authoring helper; copy into external original research workspace before use. Not runtime tooling."
+    },
+    {
+      "path": "tools/device_inventory.py",
+      "sha256": "9d64824182e086f1a9e0ce9e7bd2ddd7fa18b56188d5527fad66ed2fae87980b",
+      "usage": "Frozen authoring helper; copy into external original research workspace before use. Not runtime tooling."
+    },
+    {
+      "path": "tools/dma_routing.py",
+      "sha256": "56323ebe76e0c916fb8607996a25688d27b672bdf3ab4d9da5718901f4ea10df",
+      "usage": "Frozen authoring helper; copy into external original research workspace before use. Not runtime tooling."
+    },
+    {
+      "path": "tools/errata.py",
+      "sha256": "151408ffe60a6f33c030630cfb435ef3380451f18fc90457cecbdb4737fcc28a",
+      "usage": "Frozen authoring helper; copy into external original research workspace before use. Not runtime tooling."
+    },
+    {
+      "path": "tools/package_routes.py",
+      "sha256": "d444cbda0f1fbad8ac648e95938a70927f4c5f06e943c65b82953d596b54742f",
+      "usage": "Frozen authoring helper; copy into external original research workspace before use. Not runtime tooling."
+    },
+    {
+      "path": "tools/validate.py",
+      "sha256": "a555addaf64a1bbc1089bd55185cc76ed0579e193ac33665477957cebc4c9448",
+      "usage": "Frozen authoring helper; copy into external original research workspace before use. Not runtime tooling."
+    },
+    {
+      "path": "tools/verify_surveys.py",
+      "sha256": "db865ad6ee6ccde3fe957f180a12ca91e4a863932176cc05c5969623153a78e3",
+      "usage": "Frozen authoring helper; copy into external original research workspace before use. Not runtime tooling."
+    }
+  ]
+}

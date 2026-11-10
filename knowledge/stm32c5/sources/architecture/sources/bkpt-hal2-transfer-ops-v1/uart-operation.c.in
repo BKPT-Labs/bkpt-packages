@@ -1,0 +1,275 @@
+// SPDX-License-Identifier: LicenseRef-BKPT-Proprietary
+/*
+ * BKPT resource-bound initialization, adapted from ST HAL2 2.1.0 API contracts
+ * and STM32CubeC5 initialization examples. Manufacturer-derived portions:
+ * BSD 3-clause "New" or "Revised" License
+ * 
+ * Copyright (c) 2026, STMicroelectronics
+ * 
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ * 
+ *   * Redistributions of source code must retain the above copyright notice, this
+ *     list of conditions and the following disclaimer.
+ * 
+ *   * Redistributions in binary form must reproduce the above copyright notice,
+ *     this list of conditions and the following disclaimer in the documentation
+ *     and/or other materials provided with the distribution.
+ * 
+ *   * Neither the name of the STMicroelectronics nor the names of its contributors may
+ *     be used to endorse or promote products derived from this software without
+ *     specific prior written permission.
+ * 
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
+ * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+ * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+#include "{{unit}}.h"
+#include "{{handle_header}}"
+static unsigned int attempted;
+static hal_status_t status = HAL_ERROR;
+static hal_uart_handle_t *uart;
+static hal_dma_handle_t dma_tx;
+static hal_dma_handle_t dma_rx;
+static hal_status_t operation_hardware_init(void)
+{
+  if (attempted != 0U) { return status; }
+  attempted = 1U;
+  hal_dma_direct_xfer_config_t dma_config = {0};
+  uart = {{handle_accessor}}();
+  if (uart == NULL) { return status; }
+  if (HAL_UART_GetTxState(uart) != HAL_UART_TX_STATE_IDLE ||
+      HAL_UART_GetRxState(uart) != HAL_UART_RX_STATE_IDLE) { return status; }
+  status = HAL_UART_SetBaudRate(uart, {{baud_rate}}U);
+  if (status != HAL_OK) { return status; }
+  {{tx_dma_clock}}();
+  status = HAL_DMA_Init(&dma_tx, {{tx_dma_instance}});
+  if (status != HAL_OK) { return status; }
+  if (LL_DMA_IsEnabledChannel(HAL_DMA_GetLLInstance(&dma_tx)) != 0U)
+  { status = HAL_BUSY; return status; }
+  HAL_DMA_DeInit(&dma_tx);
+  status = HAL_DMA_Init(&dma_tx, {{tx_dma_instance}});
+  if (status != HAL_OK) { return status; }
+  dma_config.request = (hal_dma_request_source_t){{tx_request_selector}}U;
+  dma_config.direction = HAL_DMA_DIRECTION_MEMORY_TO_PERIPH;
+  dma_config.src_inc = HAL_DMA_SRC_ADDR_INCREMENTED;
+  dma_config.dest_inc = HAL_DMA_DEST_ADDR_FIXED;
+  dma_config.src_data_width = HAL_DMA_SRC_DATA_WIDTH_BYTE;
+  dma_config.dest_data_width = HAL_DMA_DEST_DATA_WIDTH_BYTE;
+  dma_config.priority = HAL_DMA_PRIORITY_LOW_WEIGHT_LOW;
+  status = HAL_DMA_SetConfigPeriphDirectXfer(&dma_tx, &dma_config);
+  if (status != HAL_OK) { return status; }
+  status = HAL_UART_SetTxDMA(uart, &dma_tx);
+  if (status != HAL_OK) { return status; }
+  {{rx_dma_clock}}();
+  status = HAL_DMA_Init(&dma_rx, {{rx_dma_instance}});
+  if (status != HAL_OK) { return status; }
+  if (LL_DMA_IsEnabledChannel(HAL_DMA_GetLLInstance(&dma_rx)) != 0U)
+  { status = HAL_BUSY; return status; }
+  HAL_DMA_DeInit(&dma_rx);
+  status = HAL_DMA_Init(&dma_rx, {{rx_dma_instance}});
+  if (status != HAL_OK) { return status; }
+  dma_config.request = (hal_dma_request_source_t){{rx_request_selector}}U;
+  dma_config.direction = HAL_DMA_DIRECTION_PERIPH_TO_MEMORY;
+  dma_config.src_inc = HAL_DMA_SRC_ADDR_FIXED;
+  dma_config.dest_inc = HAL_DMA_DEST_ADDR_INCREMENTED;
+  dma_config.src_data_width = HAL_DMA_SRC_DATA_WIDTH_BYTE;
+  dma_config.dest_data_width = HAL_DMA_DEST_DATA_WIDTH_BYTE;
+  dma_config.priority = HAL_DMA_PRIORITY_LOW_WEIGHT_LOW;
+  status = HAL_DMA_SetConfigPeriphDirectXfer(&dma_rx, &dma_config);
+  if (status != HAL_OK) { return status; }
+  status = HAL_UART_SetRxDMA(uart, &dma_rx);
+  if (status != HAL_OK) { return status; }
+  HAL_CORTEX_NVIC_ClearPendingIRQ({{tx_dma_irq}});
+  HAL_CORTEX_NVIC_SetPriority({{tx_dma_irq}}, HAL_CORTEX_NVIC_PREEMP_PRIORITY_5, HAL_CORTEX_NVIC_SUB_PRIORITY_0);
+  HAL_CORTEX_NVIC_EnableIRQ({{tx_dma_irq}});
+  HAL_CORTEX_NVIC_ClearPendingIRQ({{rx_dma_irq}});
+  HAL_CORTEX_NVIC_SetPriority({{rx_dma_irq}}, HAL_CORTEX_NVIC_PREEMP_PRIORITY_5, HAL_CORTEX_NVIC_SUB_PRIORITY_0);
+  HAL_CORTEX_NVIC_EnableIRQ({{rx_dma_irq}});
+  HAL_CORTEX_NVIC_ClearPendingIRQ({{peripheral_irq}});
+  HAL_CORTEX_NVIC_SetPriority({{peripheral_irq}}, HAL_CORTEX_NVIC_PREEMP_PRIORITY_5, HAL_CORTEX_NVIC_SUB_PRIORITY_0);
+  HAL_CORTEX_NVIC_EnableIRQ({{peripheral_irq}});
+  status = HAL_OK;
+  return status;
+}
+// SPDX-License-Identifier: LicenseRef-BKPT-Proprietary
+/* SDK-specific finite UART TX/RX adapter. The private peripheral and both DMA
+ * channels are exclusively owned. TX and RX are serialized, not independent
+ * duplex operations. Failures are terminal; wire-idle is not a buffer-release
+ * predicate. The callback for successful TX does establish UART TC. */
+#if USE_HAL_UART_REGISTER_CALLBACKS != 1 || USE_HAL_UART_DMA != 1 || USE_HAL_UART_GET_LAST_ERRORS != 1
+#error "Managed UART requires per-handle callbacks, DMA and last-error support"
+#endif
+_Static_assert({{length_bytes}}U > 0U && {{length_bytes}}U <= 65535U, "finite UART length");
+#define OP_UART_CR1_IRQS (LL_USART_CR1_RXNEIE_RXFNEIE | LL_USART_CR1_PEIE | LL_USART_CR1_TXEIE_TXFNFIE | LL_USART_CR1_TCIE | LL_USART_CR1_RXFFIE | LL_USART_CR1_TXFEIE | LL_USART_CR1_IDLEIE | LL_USART_CR1_RTOIE | LL_USART_CR1_CMIE)
+#define OP_UART_CR3_IRQS (LL_USART_CR3_EIE | LL_USART_CR3_RXFTIE | LL_USART_CR3_TXFTIE | LL_USART_CR3_CTSIE)
+static bkpt_operation operation;
+static volatile unsigned operation_complete, operation_error;
+static uint32_t operation_bytes;
+static unsigned operation_initialized, operation_stop_started, operation_receive;
+static void op_tx_complete(hal_uart_handle_t *h) { (void)h; operation_complete = 1U; }
+static void op_rx_complete(hal_uart_handle_t *h, uint32_t bytes, hal_uart_rx_event_types_t event)
+{
+  (void)h;
+  if (event == HAL_UART_RX_EVENT_TC && bytes == operation_bytes) { operation_complete = 1U; }
+  else { operation_error = 1U; }
+}
+static void op_error(hal_uart_handle_t *h) { (void)h; operation_error = 1U; }
+static void op_aborted(hal_uart_handle_t *h) { (void)h; }
+static void op_dma_event(hal_dma_handle_t *h) { (void)h; }
+static int op_context(void)
+{
+  return __get_IPSR() == 0U && __get_PRIMASK() == 0U &&
+         __get_BASEPRI() == 0U && __get_FAULTMASK() == 0U;
+}
+typedef struct { uint32_t tx, rx, peripheral; } op_irq_state;
+static op_irq_state op_lock(void)
+{
+  op_irq_state saved = {NVIC_GetEnableIRQ({{tx_dma_irq}}), NVIC_GetEnableIRQ({{rx_dma_irq}}),
+                        NVIC_GetEnableIRQ({{peripheral_irq}})};
+  HAL_CORTEX_NVIC_DisableIRQ({{tx_dma_irq}});
+  HAL_CORTEX_NVIC_DisableIRQ({{rx_dma_irq}});
+  HAL_CORTEX_NVIC_DisableIRQ({{peripheral_irq}});
+  __DSB(); __ISB();
+  return saved;
+}
+static void op_unlock(op_irq_state saved)
+{
+  if (saved.tx) { HAL_CORTEX_NVIC_EnableIRQ({{tx_dma_irq}}); }
+  if (saved.rx) { HAL_CORTEX_NVIC_EnableIRQ({{rx_dma_irq}}); }
+  if (saved.peripheral) { HAL_CORTEX_NVIC_EnableIRQ({{peripheral_irq}}); }
+}
+static int op_dma_stopped(const hal_dma_handle_t *d)
+{
+  return HAL_DMA_GetState(d) == HAL_DMA_STATE_IDLE &&
+         LL_DMA_IsActiveFlag_IDLE(HAL_DMA_GetLLInstance(d)) != 0U &&
+         LL_DMA_IsEnabledChannel(HAL_DMA_GetLLInstance(d)) == 0U;
+}
+static bkpt_stop_state op_stopped(void)
+{
+  return (operation_stop_started ||
+          (HAL_UART_GetTxState(uart) == HAL_UART_TX_STATE_IDLE &&
+           HAL_UART_GetRxState(uart) == HAL_UART_RX_STATE_IDLE)) &&
+         LL_USART_IsEnabledDMAReq_TX({{peripheral_symbol}}) == 0U &&
+         LL_USART_IsEnabledDMAReq_RX({{peripheral_symbol}}) == 0U &&
+         ({{peripheral_symbol}}->CR1 & OP_UART_CR1_IRQS) == 0U &&
+         ({{peripheral_symbol}}->CR2 & LL_USART_CR2_LBDIE) == 0U &&
+         ({{peripheral_symbol}}->CR3 & OP_UART_CR3_IRQS) == 0U &&
+         op_dma_stopped(&dma_tx) && op_dma_stopped(&dma_rx) ? BKPT_STOPPED : BKPT_STOP_PENDING;
+}
+static void op_stop_step(void)
+{
+  hal_dma_handle_t *channels[2] = {&dma_tx, &dma_rx};
+  if (!operation_stop_started) {
+    operation_stop_started = 1U;
+    /* Terminal stop takes exclusive ownership from the UART HAL. Its combined
+     * abort can strand one direction in ABORT when DMA TC wins over SUSP.
+     * Disable the same interrupt/request sources first, then own DMA callbacks.
+     * No synthetic HAL-IDLE state, callback or rearm is promised after failure. */
+    LL_USART_DisableIT_CR1({{peripheral_symbol}}, OP_UART_CR1_IRQS);
+    LL_USART_DisableIT_CR2({{peripheral_symbol}}, LL_USART_CR2_LBDIE);
+    LL_USART_DisableIT_CR3({{peripheral_symbol}}, OP_UART_CR3_IRQS);
+    LL_USART_DisableDMAReq_TX({{peripheral_symbol}});
+    LL_USART_DisableDMAReq_RX({{peripheral_symbol}});
+    for (unsigned i = 0; i < 2U; ++i) {
+      channels[i]->p_xfer_cplt_cb = op_dma_event;
+      channels[i]->p_xfer_halfcplt_cb = op_dma_event;
+      channels[i]->p_xfer_error_cb = op_dma_event;
+      channels[i]->p_xfer_abort_cb = op_dma_event;
+      channels[i]->p_xfer_suspend_cb = op_dma_event;
+    }
+  }
+  /* Inspect both physical channels even if software/gates already say idle.
+   * A channel already in ABORT must finish its existing suspend IRQ. */
+  for (unsigned i = 0; i < 2U; ++i) {
+    hal_dma_state_t state = HAL_DMA_GetState(channels[i]);
+    if (!op_dma_stopped(channels[i]) &&
+        (state == HAL_DMA_STATE_IDLE || state == HAL_DMA_STATE_ACTIVE)) {
+      (void)HAL_DMA_Abort_IT(channels[i]);
+    }
+  }
+}
+hal_status_t {{unit}}_init(void)
+{
+  if (!op_context()) { return HAL_BUSY; }
+  if (operation_initialized) { return status; }
+  operation_initialized = 1U;
+  status = operation_hardware_init();
+  if (status != HAL_OK) { return status; }
+  if (LL_USART_IsEnabledFIFO({{peripheral_symbol}}) != 0U) { status = HAL_ERROR; return status; }
+  if (HAL_UART_RegisterTxCpltCallback(uart, op_tx_complete) != HAL_OK ||
+      HAL_UART_RegisterRxCpltCallback(uart, op_rx_complete) != HAL_OK ||
+      HAL_UART_RegisterErrorCallback(uart, op_error) != HAL_OK ||
+      HAL_UART_RegisterAbortCpltCallback(uart, op_aborted) != HAL_OK) { status = HAL_ERROR; }
+  /* Enable without the HAL's acknowledgement wait. Start refuses until both
+   * direction acknowledgements are visible, without taking buffer ownership. */
+  if (status == HAL_OK) { LL_USART_Enable({{peripheral_symbol}}); }
+  return status;
+}
+static int op_start(void *buffer, uint32_t bytes, uint32_t now,
+                    uint32_t timeout, uint32_t recovery, unsigned receive)
+{
+  if (!operation_initialized || status != HAL_OK || !op_context() || buffer == NULL ||
+      bytes == 0U || bytes > {{length_bytes}}U ||
+      !bkpt_operation_can_begin(&operation, timeout, recovery)) { return 1; }
+  op_irq_state saved = op_lock();
+  if (op_stopped() != BKPT_STOPPED || HAL_UART_GetTxState(uart) != HAL_UART_TX_STATE_IDLE ||
+      HAL_UART_GetRxState(uart) != HAL_UART_RX_STATE_IDLE ||
+      LL_USART_IsEnabled({{peripheral_symbol}}) == 0U ||
+      LL_USART_IsActiveFlag_TEACK({{peripheral_symbol}}) == 0U ||
+      LL_USART_IsActiveFlag_REACK({{peripheral_symbol}}) == 0U) { op_unlock(saved); return 1; }
+  LL_DMA_ClearFlag(HAL_DMA_GetLLInstance(&dma_tx), LL_DMA_FLAG_ALL);
+  LL_DMA_ClearFlag(HAL_DMA_GetLLInstance(&dma_rx), LL_DMA_FLAG_ALL);
+  HAL_CORTEX_NVIC_ClearPendingIRQ({{tx_dma_irq}});
+  HAL_CORTEX_NVIC_ClearPendingIRQ({{rx_dma_irq}});
+  operation_complete = operation_error = operation_stop_started = 0U;
+  operation_bytes = bytes;
+  operation_receive = receive;
+  (void)bkpt_operation_begin(&operation, now, timeout, recovery);
+  hal_status_t started = receive ? HAL_UART_Receive_DMA(uart, buffer, bytes) :
+                                  HAL_UART_Transmit_DMA(uart, buffer, bytes);
+  if (started != HAL_OK) { bkpt_operation_stop(&operation, now, BKPT_OP_START_ERROR); }
+  op_unlock(saved);
+  return 0;
+}
+int {{unit}}_start_tx(const void *buffer, uint32_t bytes, uint32_t now, uint32_t timeout, uint32_t recovery)
+{ return op_start((void *)buffer, bytes, now, timeout, recovery, 0U); }
+int {{unit}}_start_rx(void *buffer, uint32_t bytes, uint32_t now, uint32_t timeout, uint32_t recovery)
+{ return op_start(buffer, bytes, now, timeout, recovery, 1U); }
+bkpt_op_result {{unit}}_poll(uint32_t now)
+{
+  if (!operation_initialized || status != HAL_OK || !op_context()) { return bkpt_operation_result(&operation); }
+  op_irq_state saved = op_lock();
+  /* DMA completion may beat the UART error IRQ or its deferred abort callback.
+   * Preserve error evidence before normal completion can release successful data. */
+  if (HAL_UART_GetLastErrorCodes(uart) != 0U ||
+      (operation_receive && (LL_USART_IsActiveFlag_PE({{peripheral_symbol}}) ||
+       LL_USART_IsActiveFlag_FE({{peripheral_symbol}}) || LL_USART_IsActiveFlag_NE({{peripheral_symbol}}) ||
+       LL_USART_IsActiveFlag_ORE({{peripheral_symbol}})))) { operation_error = 1U; }
+  bkpt_op_result result = bkpt_operation_observe(&operation, now, operation_complete, operation_error, op_stopped());
+  if (result.state == BKPT_OP_STOPPING) {
+    op_stop_step();
+    result = bkpt_operation_observe(&operation, now, operation_complete, operation_error, op_stopped());
+  }
+  op_unlock(saved);
+  return result;
+}
+bkpt_op_result {{unit}}_cancel(uint32_t now)
+{
+  if (!operation_initialized || status != HAL_OK || !op_context()) { return bkpt_operation_result(&operation); }
+  (void){{unit}}_poll(now);
+  bkpt_operation_stop(&operation, now, BKPT_OP_CANCELLED);
+  return {{unit}}_poll(now);
+}
+
+void {{peripheral_handler}}(void) { HAL_UART_IRQHandler(uart); }
+void {{tx_dma_handler}}(void) { HAL_DMA_IRQHandler(&dma_tx); }
+void {{rx_dma_handler}}(void) { HAL_DMA_IRQHandler(&dma_rx); }

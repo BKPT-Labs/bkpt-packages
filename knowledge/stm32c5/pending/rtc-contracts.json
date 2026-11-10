@@ -1,0 +1,1965 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/rtc-contracts.json",
+    "sha256": "ffa31804adb17942f62823c3af2d28ba524b8c3268b0484c0f753c08e63bd468"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 125
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "schema": "bkpt.external.rtc.contracts.v1",
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "review": "Independent source and regression review pending.",
+    "scope": "Exact RTC singleton. RM chapter39 pages1551–1596 read in full including registers. Source-only candidate; full semantic, compiler, timing, electrical, board and operational qualification remain open. TAMP/backup ownership is linked context, not a new TAMP survey.",
+    "sources": {
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "family": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c5xx.h",
+        "sha256": "61a0b8c2674d9e817d70aa8d2693339273f4283694f8ab5f8dca077bb69913f7"
+      },
+      "HAL_core": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal.c",
+        "sha256": "35d1ff092e0b8db45bf679f4cf56be4bf8fdce32a26682101cb75ac2dca28114"
+      },
+      "package_routes": {
+        "path": "research://c5-reference/package-routes.json",
+        "sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288"
+      },
+      "errata": {
+        "path": "research://c5-reference/errata.json",
+        "sha256": "821c22f796a9ff723afee534fe5943c2b0506325ec871d890706d94414316416"
+      },
+      "sdk_lifecycle": {
+        "path": "research://c5-reference/sdk-lifecycle.json",
+        "sha256": "09c4f0f44f862065fa5164ae937b15923e9b702455aae1dc1e215a9ef7783c4c"
+      },
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "DS15135": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pdf",
+        "sha256": "1a3555f799297774a95978ab343ebc1f45ab9ef58d0dcf3600dec4fabed9355c",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pages.json",
+        "extraction_sha256": "b14b965adb6c1545edbca0e56b3c504e7ecc3a94bda197350ce2757b5a3d55dc"
+      },
+      "ES0676": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pdf",
+        "sha256": "a5463827337bcdbd3e5f2e0912a56307d78b568e5631b21cc9a25899c7d4a5e6",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pages.json",
+        "extraction_sha256": "2ab1b19e42b53e22ff5f3b98f6ed9a5f98f3b7b61a617abc3bb3b7fc050d1cb3"
+      },
+      "HAL": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_rtc.c",
+        "sha256": "b75134a4b86fcf9d87e9c3eb1ed118110b84aa6e5d7bab26c7e59331f762f009"
+      },
+      "HAL_H": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_rtc.h",
+        "sha256": "beb87f8de03193fdde989235b8768401d959128679831c19d39ccfaec8507e89"
+      },
+      "LL": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_rtc.h",
+        "sha256": "f4897012c52a1b4513baceed05819ecf361459a0d4a785135c606bb55fc8ffaa"
+      },
+      "rcc": {
+        "path": "research://c5-reference/rcc-contracts.json",
+        "sha256": "934a82b608ad30d33685746dd7cd0cfec97c18f7f98a335ab840580a302224fa"
+      },
+      "pwr": {
+        "path": "research://c5-reference/pwr-contracts.json",
+        "sha256": "348a339cd6bdbcd1b2a8038c792921377844846a7876ef4a6de82e1e8effa045"
+      }
+    },
+    "evidence": {
+      "RM0522:p1551": {
+        "source": "RM0522",
+        "page": 1551,
+        "sha256": "eb807a02ec65aad3e3faf47886c60c56add9d1ed22abd21c6b9c4987df8782a3"
+      },
+      "RM0522:p1552": {
+        "source": "RM0522",
+        "page": 1552,
+        "sha256": "7d58987799384bb3f9a4e7f3fa4b50375fc31f861446ad789d7230204190a319"
+      },
+      "RM0522:p1553": {
+        "source": "RM0522",
+        "page": 1553,
+        "sha256": "14d0ac1aaf7d937320466c5ff3b9bb74b9dd823c6abb80454a355ac4d29188bd"
+      },
+      "RM0522:p1554": {
+        "source": "RM0522",
+        "page": 1554,
+        "sha256": "078ab8ae442f7f65e08b40309e08469bfa08b7240065a9da0e4695e67bbb3664"
+      },
+      "RM0522:p1555": {
+        "source": "RM0522",
+        "page": 1555,
+        "sha256": "c4642bab714256a08f3d25d4f6b794fa8aed85e614047ca46566fc715686d757"
+      },
+      "RM0522:p1556": {
+        "source": "RM0522",
+        "page": 1556,
+        "sha256": "da64ca58f12684e654f3fc612568fc9dba564ea91d94ba5b5d6a6907c56bfd76"
+      },
+      "RM0522:p1557": {
+        "source": "RM0522",
+        "page": 1557,
+        "sha256": "ba84e8894ef3c02d9286e8682f89ec3534add9a3e37c4ed39e10957d4115c357"
+      },
+      "RM0522:p1558": {
+        "source": "RM0522",
+        "page": 1558,
+        "sha256": "1a3b9ad1c55b9694c6e3580767d915f7aae6abfade7e0f791fb8ba86d7d16b3d"
+      },
+      "RM0522:p1559": {
+        "source": "RM0522",
+        "page": 1559,
+        "sha256": "615af9d42148239a882ba9d6b8694fda4e075b73503ecc97c95bf893c345cf62"
+      },
+      "RM0522:p1560": {
+        "source": "RM0522",
+        "page": 1560,
+        "sha256": "b94001199fa397bb0b2ba87ec323c1e8b5c11efba2ffb0ac8e5ff3f8fbc66370"
+      },
+      "RM0522:p1561": {
+        "source": "RM0522",
+        "page": 1561,
+        "sha256": "217fed9e2e32dfae1ef265a4a4118c6509ac6da244e66aa8f3261e473d70cddc"
+      },
+      "RM0522:p1562": {
+        "source": "RM0522",
+        "page": 1562,
+        "sha256": "e4b09fee1817c4a9752ff5338b944fe1690622daec9988ce2d21c4c2e846e936"
+      },
+      "RM0522:p1563": {
+        "source": "RM0522",
+        "page": 1563,
+        "sha256": "100193cad04d0abe64dd5f6677156bdd9d0107ab22d9a6ebbc4d6104ff54dd30"
+      },
+      "RM0522:p1564": {
+        "source": "RM0522",
+        "page": 1564,
+        "sha256": "11108141cfbf4f34bf39cc3271dc82ded41f04bb2ea035aa1531f4b278f067cc"
+      },
+      "RM0522:p1565": {
+        "source": "RM0522",
+        "page": 1565,
+        "sha256": "00cb60070f1596667f2cc52e274d8bef1d97403e117765b09c1115f16c963472"
+      },
+      "RM0522:p1566": {
+        "source": "RM0522",
+        "page": 1566,
+        "sha256": "ea1896fec56605b45a79733125af9ed463e538eb846d00680038a5e6f24187e3"
+      },
+      "RM0522:p1567": {
+        "source": "RM0522",
+        "page": 1567,
+        "sha256": "56b2e8b671e4521294ac6616ddfda895f9fd8af8d9bb3ac0e2960645b0ec286c"
+      },
+      "RM0522:p1568": {
+        "source": "RM0522",
+        "page": 1568,
+        "sha256": "c1fad01dbd37a59b9d550ea6af004f0e3aec08a8637318f085083513b23420ac"
+      },
+      "RM0522:p1569": {
+        "source": "RM0522",
+        "page": 1569,
+        "sha256": "ca720edbab741e5d124b3cb3d5bcf7c2b630c901e8c3a770a0a7a4f179b7c810"
+      },
+      "RM0522:p1570": {
+        "source": "RM0522",
+        "page": 1570,
+        "sha256": "435bacd283a0ba416ee3529cbeade72b3d5877caa2fdf73e2261ece72e9bbde3"
+      },
+      "RM0522:p1571": {
+        "source": "RM0522",
+        "page": 1571,
+        "sha256": "4e819526e092c7b408afa68ce91adec3bfa700ade6c1a6c1a3087970d4fd4e26"
+      },
+      "RM0522:p1572": {
+        "source": "RM0522",
+        "page": 1572,
+        "sha256": "6631b9ed0169011eebdb6d449f0b74270ec35859dd0d9559db4cd55ee36c0cdb"
+      },
+      "RM0522:p1573": {
+        "source": "RM0522",
+        "page": 1573,
+        "sha256": "d981a6406dc5dfb2fc854da2402d6f5c1140b6a615da12028e70b2d83b0682ba"
+      },
+      "RM0522:p1574": {
+        "source": "RM0522",
+        "page": 1574,
+        "sha256": "5715be041a6e5fd67adc8ca1a20daa7ee6fdb4f07a06b1dc36e41359e8e08eec"
+      },
+      "RM0522:p1575": {
+        "source": "RM0522",
+        "page": 1575,
+        "sha256": "c76d7b650eb1480cefe7825785397c6b1d2c60b3c3bc6b58d38591ec68340f7a"
+      },
+      "RM0522:p1576": {
+        "source": "RM0522",
+        "page": 1576,
+        "sha256": "a4a99aa3fd4730cb730963a1e961736f3a8ed9dde8e15ecf1336cc4f89915a50"
+      },
+      "RM0522:p1577": {
+        "source": "RM0522",
+        "page": 1577,
+        "sha256": "920e33c3123535639f9a28efd1528fc12dc0e4548d06f615192df67cf5fb1bec"
+      },
+      "RM0522:p1578": {
+        "source": "RM0522",
+        "page": 1578,
+        "sha256": "13782d6ac5aa4fbef4f394423c1afa5da587897b9525f15a58ea8af58b57e044"
+      },
+      "RM0522:p1579": {
+        "source": "RM0522",
+        "page": 1579,
+        "sha256": "4b04efbf3b43177f98961d5c0aac8c9c93c31be9b0e6bb62ce6438cb38a7c8c6"
+      },
+      "RM0522:p1580": {
+        "source": "RM0522",
+        "page": 1580,
+        "sha256": "a7e9e02b36be8824c30c223a64032c87dc24119e21080ebea25930207a202d63"
+      },
+      "RM0522:p1581": {
+        "source": "RM0522",
+        "page": 1581,
+        "sha256": "ac4229df7f1632b91447f968f1feda717cb34b75a8226318786a52efb9c97507"
+      },
+      "RM0522:p1582": {
+        "source": "RM0522",
+        "page": 1582,
+        "sha256": "53809220212c1e9bd2f905096a7c1e63181f3dec0dfbc75a26fcf48829f123c9"
+      },
+      "RM0522:p1583": {
+        "source": "RM0522",
+        "page": 1583,
+        "sha256": "87598e87b0465cdd2d03a321ee3481f1b9b1130aa99a28d5162531464fe6e69e"
+      },
+      "RM0522:p1584": {
+        "source": "RM0522",
+        "page": 1584,
+        "sha256": "34715d25918ca2104df5cf5913672622236ee0222d49f5b3260bc5ac618ed792"
+      },
+      "RM0522:p1585": {
+        "source": "RM0522",
+        "page": 1585,
+        "sha256": "6d636e4476120e6ff1ec9023c08b8ceee0783f231608e8199a0aaf0699767bac"
+      },
+      "RM0522:p1586": {
+        "source": "RM0522",
+        "page": 1586,
+        "sha256": "7b9fc224198d4451a817075ced45ae845de239efe60da7b0c9b1c237fbe46868"
+      },
+      "RM0522:p1587": {
+        "source": "RM0522",
+        "page": 1587,
+        "sha256": "2cb422ead5d42d17a7e4b42da4b8b2b48e760623eb37e12bca8ee64a0e9cdc20"
+      },
+      "RM0522:p1588": {
+        "source": "RM0522",
+        "page": 1588,
+        "sha256": "da253f4e4517776035ace95bd4cbfcc8e867cc2cf5ca12edea46a2d54b29b092"
+      },
+      "RM0522:p1589": {
+        "source": "RM0522",
+        "page": 1589,
+        "sha256": "9d8ab7ff51d4b4982d526c1a039b2a010085bc055beddc0af6c4bf1d271dc5dc"
+      },
+      "RM0522:p1590": {
+        "source": "RM0522",
+        "page": 1590,
+        "sha256": "a1753f64ca647c694ea9454a4b72c7fe3ab321e5df5b175f0cbc1ddcb7601174"
+      },
+      "RM0522:p1591": {
+        "source": "RM0522",
+        "page": 1591,
+        "sha256": "7453531b2ef952402b21fa140b26f60df48929b4088ab70dba56c35c376fed6e"
+      },
+      "RM0522:p1592": {
+        "source": "RM0522",
+        "page": 1592,
+        "sha256": "28c612f25099e3db68cc325d3d3444596ace56276c92f9a6894a253970f37fca"
+      },
+      "RM0522:p1593": {
+        "source": "RM0522",
+        "page": 1593,
+        "sha256": "e4eda1b4a21906ec54cfd79a8081412e07eac6687d81d802e00e47042460092c"
+      },
+      "RM0522:p1594": {
+        "source": "RM0522",
+        "page": 1594,
+        "sha256": "746335405765fcdb9c1c39fada976d081720d9d6bfe964f0ae858ef7b37467fa"
+      },
+      "RM0522:p1595": {
+        "source": "RM0522",
+        "page": 1595,
+        "sha256": "4ddd7c792805c9e100e51bdc6fa71371040bd225fe8f5e6bad42aa661a0a2563"
+      },
+      "RM0522:p1596": {
+        "source": "RM0522",
+        "page": 1596,
+        "sha256": "88c8c1d29c6171ab2467e665e2e328e449cff227dc52185f8c4092c1e69ce7d3"
+      },
+      "RM0522:p280": {
+        "source": "RM0522",
+        "page": 280,
+        "sha256": "45449281f278a3d290959b2a2fbb4d5f26e509ae97ed24ee947a0b2aa31e7add"
+      },
+      "RM0522:p319": {
+        "source": "RM0522",
+        "page": 319,
+        "sha256": "4f9a5a31f91029c5748decc483d9e5f2d813e29cd5a462420afd0f17da5704a5"
+      },
+      "RM0522:p1604": {
+        "source": "RM0522",
+        "page": 1604,
+        "sha256": "8c63f26354425933de6d964fe1c86d6240e375956039783d6662c672069d8cf7"
+      },
+      "DS15135:p24": {
+        "source": "DS15135",
+        "page": 24,
+        "sha256": "19550c9e500c68e610efad6da37abb6257db76c70ad625081424113a86eed44b"
+      },
+      "DS15135:p38": {
+        "source": "DS15135",
+        "page": 38,
+        "sha256": "13381e09f41d7e320c0a6c53c0fc1ea68ef5d0830fbda7bfd0f0f1c47ca2801e"
+      },
+      "DS15135:p39": {
+        "source": "DS15135",
+        "page": 39,
+        "sha256": "4c5cb8d6f495fde328bcbb4d761fd2c225182c21ce7c7b7585daf08e5e2daab1"
+      },
+      "DS15135:p41": {
+        "source": "DS15135",
+        "page": 41,
+        "sha256": "b8e9b93e07aa3dad4d028071cde1422b6282c88ac0bae573d367dbeba5e18066"
+      },
+      "DS15135:p42": {
+        "source": "DS15135",
+        "page": 42,
+        "sha256": "77b01ef6f7ad55ef4dddef1bedbc96d02db27bdf3192b5e8e2d17041538fb59d"
+      },
+      "DS15135:p44": {
+        "source": "DS15135",
+        "page": 44,
+        "sha256": "a23dde909cb0e61ccd0ec9c11efd22cc7083b230897bbab524c7f6332cf21da2"
+      },
+      "DS15135:p46": {
+        "source": "DS15135",
+        "page": 46,
+        "sha256": "6d3ea235bffc5fd4cc64517ff32cd2b29a37014ab6305628204e1fd9f3146269"
+      },
+      "DS15135:p47": {
+        "source": "DS15135",
+        "page": 47,
+        "sha256": "a55c52b1f30142be5ad3fea2a1cc16b519930dd08b32d16d646101500967a3b1"
+      },
+      "ES0676:p1": {
+        "source": "ES0676",
+        "page": 1,
+        "sha256": "c36bb50f3ba55f82de59b1a5aa62c5ca6b1d3ea938ac9451545a442e65dd25c8"
+      },
+      "ES0676:p2": {
+        "source": "ES0676",
+        "page": 2,
+        "sha256": "3fed5303e4a0fc65ed4dbe6aae1c297605837e2da15bb0e24928d26b0d25eb95"
+      },
+      "ES0676:p3": {
+        "source": "ES0676",
+        "page": 3,
+        "sha256": "6682207b964f905ea8f0e452bc5cff546dfb08622fca9ce2f979b0e43cd6d157"
+      },
+      "ES0676:p4": {
+        "source": "ES0676",
+        "page": 4,
+        "sha256": "3b0e6d179a6d3b6701ddfa31ce87f44ef4d62c59d79a1f01184c77a212d7774c"
+      },
+      "ES0676:p5": {
+        "source": "ES0676",
+        "page": 5,
+        "sha256": "b1c29e54e422b77b7a01a6dea47789196c0a8d23aed2f9a68f6a91698ae66d9d"
+      },
+      "ES0676:p7": {
+        "source": "ES0676",
+        "page": 7,
+        "sha256": "ae251fcee43cc089851cf652083da87910ac36c57afdcaee5a38ebf1eb2ecb9d"
+      },
+      "ES0676:p8": {
+        "source": "ES0676",
+        "page": 8,
+        "sha256": "bbdb92e175f8101da1467e00b7fa2894fb9e3e1f2b0bd5937f5a865428c2ce5b"
+      },
+      "header.IRQ": {
+        "source": "header",
+        "start_line": 65,
+        "end_line": 69,
+        "sha256": "d49d974344776938a3bb1bafaf6e4cc41ddebd5378541701b72c630ab70bc745"
+      },
+      "header.layout": {
+        "source": "header",
+        "start_line": 830,
+        "end_line": 862,
+        "sha256": "4524131e44aa3440b93e03927249a5563a90857abdb05bc80d2b70dd8188316d"
+      },
+      "header.base": {
+        "source": "header",
+        "start_line": 1155,
+        "end_line": 1178,
+        "sha256": "15749b25e57a4c6327401a913c6748ea5c49c8969a8f65ace3cd1ec01be26293"
+      },
+      "header.RTC_base": {
+        "source": "header",
+        "start_line": 1214,
+        "end_line": 1218,
+        "sha256": "24b52e5354ed45fcfa8919acc0961d44b633967423a61b30a89041f997c0b638"
+      },
+      "header.instance": {
+        "source": "header",
+        "start_line": 14128,
+        "end_line": 14129,
+        "sha256": "579135a25c1d3b93ed61d5a2262d968b000a682d892c74a567cd1271af3a2683"
+      },
+      "header.fields": {
+        "source": "header",
+        "start_line": 9783,
+        "end_line": 10407,
+        "sha256": "bacfe56175074e983ab6c56fb4ca8a7845638fcd3345c94e1b17ab7b473515c1"
+      },
+      "header.clock": {
+        "source": "header",
+        "start_line": 9197,
+        "end_line": 9199,
+        "sha256": "1fdfd0b9d7583835bd53648b62810c9be50294eaf9bbba2d1b86fd6e2507d7ae"
+      },
+      "header.sleep": {
+        "source": "header",
+        "start_line": 9394,
+        "end_line": 9398,
+        "sha256": "0a0b9f068369513cf1bbdb0eff10859538bea7406787f3f65de598c293f8a8c8"
+      },
+      "header.RCC": {
+        "source": "header",
+        "start_line": 9528,
+        "end_line": 9538,
+        "sha256": "b190ae124b81ee94f9356dffef2171497cf74a4328eac6cab8f07437ecafafbf"
+      },
+      "header.PWR": {
+        "source": "header",
+        "start_line": 8326,
+        "end_line": 8328,
+        "sha256": "b2440e340a3ab5c717495a92302cf3b235b0cc21baeea9184bf29c51979f1795"
+      },
+      "header.debug": {
+        "source": "header",
+        "start_line": 3531,
+        "end_line": 3535,
+        "sha256": "4a04656a512da2b32d3cead22eff5e776eb244e31760b8207ef1cd53ef4a1b53"
+      },
+      "HAL.guards": {
+        "source": "HAL",
+        "start_line": 111,
+        "end_line": 499,
+        "sha256": "91bda7d2f1439b6f062a7b855f06ebdacaf10d90f2b23a034ae59fe34ca90b48"
+      },
+      "HAL.protection_init": {
+        "source": "HAL",
+        "start_line": 552,
+        "end_line": 620,
+        "sha256": "ce1abeb10ec7aa9dbbb3ecfeafdde4a6d2b873b39a0f837be42fcc48dc7da538"
+      },
+      "HAL.config": {
+        "source": "HAL",
+        "start_line": 692,
+        "end_line": 751,
+        "sha256": "ca18f9cb6b1d96eb9ee0b1a098b5a9024ec74bd514a6f36e6f9c0b0917382394"
+      },
+      "HAL.low_power": {
+        "source": "HAL",
+        "start_line": 764,
+        "end_line": 806,
+        "sha256": "25b29f04340b608f652f0258571d825407e3ae0befe8bce8760e762a77d523b7"
+      },
+      "HAL.calendar_config": {
+        "source": "HAL",
+        "start_line": 863,
+        "end_line": 908,
+        "sha256": "c338f262a461f4157d004105874093a637aebb902576e0d92fa07320985debe4"
+      },
+      "HAL.calendar_set_get": {
+        "source": "HAL",
+        "start_line": 910,
+        "end_line": 1075,
+        "sha256": "028474fca00cd1da3fc3ffd5d61b76d06ef759768eaf24ba6b06a93971039592"
+      },
+      "HAL.ref_clock": {
+        "source": "HAL",
+        "start_line": 1077,
+        "end_line": 1118,
+        "sha256": "82f98882f2d4620a1ee5d37ed5ed6ba8771022d8871627f820eb89c38e4ebdbc"
+      },
+      "HAL.daylight": {
+        "source": "HAL",
+        "start_line": 1120,
+        "end_line": 1182,
+        "sha256": "c65618fc2ae3a597a7419cda24fff35d739a2d9f1eca075a3c2c30172934b072"
+      },
+      "HAL.binary": {
+        "source": "HAL",
+        "start_line": 1183,
+        "end_line": 1231,
+        "sha256": "abe5272d5d32b63fa907a8d804ce4b39eb78c9b94e80014e474f5432370a6fdd"
+      },
+      "HAL.output": {
+        "source": "HAL",
+        "start_line": 1297,
+        "end_line": 1420,
+        "sha256": "fb288c9ce6d33cee6b943fd7e47cdb0f608b3046020ddb18425678af6bcff4b9"
+      },
+      "HAL.calibration": {
+        "source": "HAL",
+        "start_line": 1490,
+        "end_line": 1547,
+        "sha256": "d2366327941e6a8605fe36dcfb2263f0df2642b47a3091f13051f6d4344ff447"
+      },
+      "HAL.shift": {
+        "source": "HAL",
+        "start_line": 1549,
+        "end_line": 1640,
+        "sha256": "7dc50e6ace278f9c9c5b90ed0b33c501351e4dcaade82b022c9098f6e8d37ce8"
+      },
+      "HAL.alarm_config": {
+        "source": "HAL",
+        "start_line": 1670,
+        "end_line": 1727,
+        "sha256": "c900fa2d77c94ce203bc8376887ecadb4ebe66365e7d3f5c0a7d0b2ff287f7be"
+      },
+      "HAL.alarm_date": {
+        "source": "HAL",
+        "start_line": 1733,
+        "end_line": 1841,
+        "sha256": "43a7d6ae05fcbe5f1c933fd2da794461f99b50e8158a86ac59c8eb7b2f0c195a"
+      },
+      "HAL.alarm_start_stop_poll": {
+        "source": "HAL",
+        "start_line": 1843,
+        "end_line": 1906,
+        "sha256": "289267a83d70bca23eea17448392a70ee4b7d3dda0adc5dcdb7f8670196abd88"
+      },
+      "HAL.alarm_binary": {
+        "source": "HAL",
+        "start_line": 1908,
+        "end_line": 1984,
+        "sha256": "186e422efb6650be0ccdcd5b7464a82009f2f3bc4a95ebc2b2e0890f01465ec4"
+      },
+      "HAL.timestamp_config": {
+        "source": "HAL",
+        "start_line": 2013,
+        "end_line": 2135,
+        "sha256": "841125efc901b4a980d0c15dabee22fe838e345eaf292d99a3be948991a9a4c0"
+      },
+      "HAL.timestamp_get_poll": {
+        "source": "HAL",
+        "start_line": 2137,
+        "end_line": 2273,
+        "sha256": "a5c934175fc9fdbf6f277f56995a808cc11060430f9cbf7806bc2314f06ccccc"
+      },
+      "HAL.wakeup_config": {
+        "source": "HAL",
+        "start_line": 2305,
+        "end_line": 2346,
+        "sha256": "be93a5251571ec72b134e853cb9d6d6a570afd2e4aa45b52f7979be77b5716eb"
+      },
+      "HAL.wakeup_period": {
+        "source": "HAL",
+        "start_line": 2348,
+        "end_line": 2505,
+        "sha256": "3feccc31c3f55ced80bb98fdbab4ad13a30bc45eb708e224f12135d929ff1785"
+      },
+      "HAL.wakeup_control": {
+        "source": "HAL",
+        "start_line": 2507,
+        "end_line": 2605,
+        "sha256": "15c63dcd191593a81329c4986a039b4436e1c1f5ded25ce8ab2cdf716e13cbd6"
+      },
+      "HAL.IRQ": {
+        "source": "HAL",
+        "start_line": 2621,
+        "end_line": 2719,
+        "sha256": "c37dbc504c20c13fbdd0981a3e072420ad470d03ffa2673b938f9b3722dc1b3c"
+      },
+      "HAL.privilege": {
+        "source": "HAL",
+        "start_line": 2791,
+        "end_line": 2843,
+        "sha256": "60a09f0ac3c82d53434c95fae3548b44004fe9971b3d59be0f521c49deda85dc"
+      },
+      "HAL.wait": {
+        "source": "HAL",
+        "start_line": 2858,
+        "end_line": 2968,
+        "sha256": "a680c7c89529319b7ca435921b386893a6ace0df752929f91c04b0535e1582f8"
+      },
+      "HAL.read_helpers": {
+        "source": "HAL",
+        "start_line": 2970,
+        "end_line": 3019,
+        "sha256": "533761a4c63d80b917d0585a8f890628694c9a587f6326b2c268989a1aaf35e4"
+      },
+      "HAL.frequency_helpers": {
+        "source": "HAL",
+        "start_line": 3021,
+        "end_line": 3080,
+        "sha256": "785ca61a95234a0187e929e7e49cdbd086c8935868cc8a67a8009d855153e36e"
+      },
+      "HAL.conversion_helpers": {
+        "source": "HAL",
+        "start_line": 3082,
+        "end_line": 3122,
+        "sha256": "62af6a6f235dd90fd38a92456d805792c10d7b7e5bc2989dbd10dbf20efa9e79"
+      },
+      "LL.binary_constants": {
+        "source": "LL",
+        "start_line": 501,
+        "end_line": 534,
+        "sha256": "81fb4731184213d1f326392fe2a153dfa52732e1072dd2ff35260b287cf565c3"
+      },
+      "LL.binary_mode": {
+        "source": "LL",
+        "start_line": 1120,
+        "end_line": 1238,
+        "sha256": "134f97d01bc5737dcee4422e5614fe19fdb778d46539fffd2b3d8c90d6073213"
+      },
+      "LL.prescalers": {
+        "source": "LL",
+        "start_line": 1360,
+        "end_line": 1405,
+        "sha256": "b4e20da8ffc44cce91ddbca8b4b8238a581f15ed79e63a10fdbcfdd2a784da90"
+      },
+      "LL.alarm_control": {
+        "source": "LL",
+        "start_line": 2429,
+        "end_line": 2451,
+        "sha256": "1f77673b54b459c1c9a59885a4c1ea8417abf13363114d35014c97cdbbedc715"
+      },
+      "LL.alarm_ssclr": {
+        "source": "LL",
+        "start_line": 2221,
+        "end_line": 2224,
+        "sha256": "27afc48975c76f4f41d461e569ab26bb26bf2418d23f49a5ab8d09c6173344f7"
+      },
+      "LL.timestamp_edge": {
+        "source": "LL",
+        "start_line": 3398,
+        "end_line": 3401,
+        "sha256": "0586110fe3ca71513873973145230ec5a50b487cf3df03a8957e3005fafd5145"
+      },
+      "LL.timestamp_time": {
+        "source": "LL",
+        "start_line": 3503,
+        "end_line": 3515,
+        "sha256": "92632e81e5664e65d24dfddba9049c78063bface3d7272a88c5bcc662d308c3a"
+      },
+      "LL.wakeup_control": {
+        "source": "LL",
+        "start_line": 3688,
+        "end_line": 3702,
+        "sha256": "61b097b5623cfbcaa35252c2d0c334e0e33d01c77d73445c48bd3ca9cc944bf8"
+      },
+      "LL.wakeup_config": {
+        "source": "LL",
+        "start_line": 3795,
+        "end_line": 3798,
+        "sha256": "b4b13de26279d19ab605644f87c3295f50c9738cf0bb3a1e70a8cb285c6a8718"
+      },
+      "LL.calibration_pulse": {
+        "source": "LL",
+        "start_line": 3860,
+        "end_line": 3863,
+        "sha256": "ebf039df628ed4395ef2fbcfd7c7a1c0de1bf432d24fc1f76b83115784078c06"
+      },
+      "LL.calibration_config": {
+        "source": "LL",
+        "start_line": 3937,
+        "end_line": 3955,
+        "sha256": "3430b548fd35b1adda2b0a869dd4a3020558ac4708346cceb3f571cc30f8112a"
+      },
+      "LL.clear_flags": {
+        "source": "LL",
+        "start_line": 4097,
+        "end_line": 4164,
+        "sha256": "4f5e9a8edffadf7fab83ab1995d9c12867b294dd143ae51050ba448069ca184a"
+      },
+      "LL.format_offset": {
+        "source": "LL",
+        "start_line": 55,
+        "end_line": 65,
+        "sha256": "4eaf4c23aa6510e1489c3aa1b60005abc40b442158e9bf1aa0e1438698637e29"
+      },
+      "LL.format_macro": {
+        "source": "LL",
+        "start_line": 807,
+        "end_line": 816,
+        "sha256": "98207d382a1fcd05d69d8e396267b8acb92c521e764cd5c73eda9ad82587eb2b"
+      },
+      "LL.format_enum": {
+        "source": "LL",
+        "start_line": 286,
+        "end_line": 294,
+        "sha256": "1878d11f15c5b0bfd3fcee5f1e6afe0de0aa57bf004e4d6f58f43f7c221e388c"
+      },
+      "HAL_H.time_format": {
+        "source": "HAL_H",
+        "start_line": 152,
+        "end_line": 162,
+        "sha256": "53e60292832080e13a36793822d907816a8c58146f0bd65abf266b77fc3a239e"
+      },
+      "HAL.tick": {
+        "source": "HAL_core",
+        "start_line": 337,
+        "end_line": 356,
+        "sha256": "23c179aeed9674cef3b4ac394eb8ec4132caadda6331f9fab12e89c5561f6e4e"
+      },
+      "LL.alarm_subsecond_write": {
+        "source": "LL",
+        "start_line": 2383,
+        "end_line": 2389,
+        "sha256": "2ef3f155be912de2276c93fa6f0d3641cd90755d67dea59687707742d95cef82"
+      },
+      "LL.alarm_subsecond_mask_read": {
+        "source": "LL",
+        "start_line": 2532,
+        "end_line": 2538,
+        "sha256": "be76c81096561b022d3d492825bdf6f4548b5f90a514bd1cf73a74ee9250d87e"
+      },
+      "LL.wakeup_raw_clock": {
+        "source": "LL",
+        "start_line": 3735,
+        "end_line": 3738,
+        "sha256": "8a57941e282d5ac46bb4fc962ed91f46f4dd152bd8601d7d2929227c8794b905"
+      },
+      "LL.clear_RSF": {
+        "source": "LL",
+        "start_line": 4193,
+        "end_line": 4196,
+        "sha256": "4846c0d30ec9fdf18e49c3718df83030cb7bad2b0f8590793b3bb8f44ed0f756"
+      },
+      "HAL.alarm_reload_assert": {
+        "source": "HAL",
+        "start_line": 374,
+        "end_line": 389,
+        "sha256": "3f342c1117ade964c560c966a5e55fa6526c78fc40756e1c0f168e0ca9015872"
+      },
+      "HAL.WPR_documentation": {
+        "source": "HAL",
+        "start_line": 543,
+        "end_line": 560,
+        "sha256": "957efd3e0ea7524d3d37d51b04326c9de3e87604c7ca298941e29b9b1b2037d7"
+      }
+    },
+    "package_routes_sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288",
+    "errata_sha256": "821c22f796a9ff723afee534fe5943c2b0506325ec871d890706d94414316416",
+    "sdk_lifecycle_sha256": "09c4f0f44f862065fa5164ae937b15923e9b702455aae1dc1e215a9ef7783c4c",
+    "rcc_sha256": "934a82b608ad30d33685746dd7cd0cfec97c18f7f98a335ab840580a302224fa",
+    "pwr_sha256": "348a339cd6bdbcd1b2a8038c792921377844846a7876ef4a6de82e1e8effa045",
+    "finite_source_maps": {
+      "instance": "RTC",
+      "base": "0x44007800",
+      "IRQn": 2,
+      "bus_access_bits": 32,
+      "alarms": [
+        "A",
+        "B"
+      ],
+      "registers": [
+        {
+          "name": "TR",
+          "offset": "0x0",
+          "RTC_domain_reset": "0x0"
+        },
+        {
+          "name": "DR",
+          "offset": "0x4",
+          "RTC_domain_reset": "0x2101"
+        },
+        {
+          "name": "SSR",
+          "offset": "0x8",
+          "RTC_domain_reset": "0x0"
+        },
+        {
+          "name": "ICSR",
+          "offset": "0xc",
+          "RTC_domain_reset": "0x7"
+        },
+        {
+          "name": "PRER",
+          "offset": "0x10",
+          "RTC_domain_reset": "0x7f00ff"
+        },
+        {
+          "name": "WUTR",
+          "offset": "0x14",
+          "RTC_domain_reset": "0xffff"
+        },
+        {
+          "name": "CR",
+          "offset": "0x18",
+          "RTC_domain_reset": "0x0"
+        },
+        {
+          "name": "PRIVCFGR",
+          "offset": "0x1c",
+          "RTC_domain_reset": "0x0"
+        },
+        {
+          "name": "WPR",
+          "offset": "0x24",
+          "RTC_domain_reset": "0x0"
+        },
+        {
+          "name": "CALR",
+          "offset": "0x28",
+          "RTC_domain_reset": "0x0"
+        },
+        {
+          "name": "SHIFTR",
+          "offset": "0x2c",
+          "RTC_domain_reset": "0x0"
+        },
+        {
+          "name": "TSTR",
+          "offset": "0x30",
+          "RTC_domain_reset": "0x0"
+        },
+        {
+          "name": "TSDR",
+          "offset": "0x34",
+          "RTC_domain_reset": "0x0"
+        },
+        {
+          "name": "TSSSR",
+          "offset": "0x38",
+          "RTC_domain_reset": "0x0"
+        },
+        {
+          "name": "ALRMAR",
+          "offset": "0x40",
+          "RTC_domain_reset": "0x0"
+        },
+        {
+          "name": "ALRMASSR",
+          "offset": "0x44",
+          "RTC_domain_reset": "0x0"
+        },
+        {
+          "name": "ALRMBR",
+          "offset": "0x48",
+          "RTC_domain_reset": "0x0"
+        },
+        {
+          "name": "ALRMBSSR",
+          "offset": "0x4c",
+          "RTC_domain_reset": "0x0"
+        },
+        {
+          "name": "SR",
+          "offset": "0x50",
+          "RTC_domain_reset": "0x0"
+        },
+        {
+          "name": "MISR",
+          "offset": "0x54",
+          "RTC_domain_reset": "0x0"
+        },
+        {
+          "name": "SCR",
+          "offset": "0x5c",
+          "RTC_domain_reset": "0x0"
+        },
+        {
+          "name": "ALRABINR",
+          "offset": "0x70",
+          "RTC_domain_reset": "0x0"
+        },
+        {
+          "name": "ALRBBINR",
+          "offset": "0x74",
+          "RTC_domain_reset": "0x0"
+        }
+      ],
+      "register_reset_qualification": "ICSR prose reset=0x7 includes reserved bits1:0, while register-map drawing shows only bit2 set; preserve conflict. System reset rules differ from RTC-domain reset.",
+      "RCC_APB3_gate_sleep_bit": 21,
+      "RCC_RTCCR_enable_bit": 15,
+      "RCC_RTCCR_domain_reset_bit": 16,
+      "DBGMCU_APB3FZR_stop_bit": 30,
+      "PWR_RTCCR_write_access_bit": 0,
+      "kernel_selector_raw": {
+        "0": "none",
+        "1": "LSE",
+        "2": "LSI",
+        "3": "HSE/RTCPRE"
+      },
+      "HSE_RTCPRE_raw": {
+        "0": "no_clock",
+        "1": "no_clock",
+        "2..511": "divide_by_raw; output must be below1MHz"
+      },
+      "mode_BIN_raw": {
+        "0": "BCD",
+        "1": "binary32",
+        "2": "mixed",
+        "3": "mixed"
+      },
+      "HAL_mixed_encoding": 2,
+      "PREDIV_A_range": [
+        0,
+        127
+      ],
+      "PREDIV_S_range": [
+        0,
+        32767
+      ],
+      "BCD_divisor": "(PREDIV_A+1)*(PREDIV_S+1)",
+      "BCDU_raw_to_low_bits": {
+        "0": 8,
+        "1": 9,
+        "2": 10,
+        "3": 11,
+        "4": 12,
+        "5": 13,
+        "6": 14,
+        "7": 15
+      },
+      "BCDU_calendar_divisor_from_ck_apre": {
+        "0": 256,
+        "1": 512,
+        "2": 1024,
+        "3": 2048,
+        "4": 4096,
+        "5": 8192,
+        "6": 16384,
+        "7": 32768
+      },
+      "WUCKSEL_raw": {
+        "0": "RTCCLK/16",
+        "1": "RTCCLK/8",
+        "2": "RTCCLK/4",
+        "3": "RTCCLK/2",
+        "4": "calendar_update_clock;16bit",
+        "5": "same_as4",
+        "6": "calendar_update_clock; add65536",
+        "7": "same_as6"
+      },
+      "WUT_WUTOCLR_field_ranges": [
+        0,
+        65535
+      ],
+      "WUT_constraint": "WUT=0 forbidden with WUCKSEL=3; WUTOCLR=0 software clear, otherwise0<WUTOCLR<=WUT",
+      "alarm_MASKSS_raw": {
+        "0": "no_subsecond_comparison; seconds-unit increment event",
+        "1..31": "compare low raw-count bits",
+        "32..63": "compare_all32_bits"
+      },
+      "alarm_BCD_subsecond_bits_compared": "at most low15; overflow bits excluded",
+      "alarm_SSCLR": "binary_only; reloadFFFFFFFF one ck_apre cycle after match; must0 inBCD/mixed",
+      "alarm_calendar_masks_bits": {
+        "seconds": 7,
+        "minutes": 15,
+        "hours": 23,
+        "date_or_weekday": 31
+      },
+      "weekday_raw": {
+        "1": "Monday",
+        "2": "Tuesday",
+        "3": "Wednesday",
+        "4": "Thursday",
+        "5": "Friday",
+        "6": "Saturday",
+        "7": "Sunday",
+        "0": "forbidden"
+      },
+      "status_and_clear_bits": {
+        "ALRA": 0,
+        "ALRB": 1,
+        "WUT": 2,
+        "TS": 3,
+        "TSOV": 4,
+        "SSRU": 6
+      },
+      "interrupt_enable_CR_bits": {
+        "SSRU": 7,
+        "ALRA": 12,
+        "ALRB": 13,
+        "WUT": 14,
+        "TS_and_TSOV": 15
+      },
+      "privilege_bits": {
+        "ALRA_and_SSRU": 0,
+        "ALRB": 1,
+        "WUT": 2,
+        "TS": 3,
+        "CAL": 13,
+        "INIT": 14,
+        "global": 15
+      },
+      "OSEL_raw": {
+        "0": "none",
+        "1": "alarmA",
+        "2": "alarmB",
+        "3": "wakeup"
+      },
+      "timestamp_edge_raw": {
+        "0": "rising",
+        "1": "falling"
+      },
+      "CALM_range": [
+        0,
+        511
+      ],
+      "CALP_range": [
+        0,
+        1
+      ],
+      "calibration_window_raw_CALW8_CALW16": {
+        "00": "2^20 ck_cal",
+        "01": "2^19 ck_cal;CALM0 ignored",
+        "10": "2^18 ck_cal;CALM1:0 ignored",
+        "11": "forbidden"
+      },
+      "SUBFS_range": [
+        0,
+        32767
+      ],
+      "package_routes": [
+        {
+          "id": "descriptor.signal.240",
+          "pin": "PC13",
+          "pad": 2,
+          "signal": "RTC_OUT1",
+          "instance": "RTC",
+          "function": {
+            "type": "additional"
+          },
+          "source_pointer": "/signals/240",
+          "source_record": {
+            "name": "RTC_OUT1",
+            "instance": "RTC",
+            "die_pad": "PC13",
+            "function": {
+              "type": "additional"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "not_complete",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PC13"
+          ]
+        },
+        {
+          "id": "descriptor.signal.241",
+          "pin": "PB2",
+          "pad": 28,
+          "signal": "RTC_OUT2",
+          "instance": "RTC",
+          "function": {
+            "type": "alternate",
+            "id": "AF0"
+          },
+          "source_pointer": "/signals/241",
+          "source_record": {
+            "name": "RTC_OUT2",
+            "instance": "RTC",
+            "die_pad": "PB2",
+            "function": {
+              "type": "alternate",
+              "id": "AF0"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB2",
+            "af": "AF0",
+            "DS_signal": "RTC_OUT2",
+            "descriptor_name": "RTC_OUT2",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 20,
+            "raw_cell": "RTC_OUT2"
+          }
+        },
+        {
+          "id": "descriptor.signal.242",
+          "pin": "PB15",
+          "pad": 36,
+          "signal": "RTC_REFIN",
+          "instance": "RTC",
+          "function": {
+            "type": "alternate",
+            "id": "AF0"
+          },
+          "source_pointer": "/signals/242",
+          "source_record": {
+            "name": "RTC_REFIN",
+            "instance": "RTC",
+            "die_pad": "PB15",
+            "function": {
+              "type": "alternate",
+              "id": "AF0"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PB15"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PB15",
+            "af": "AF0",
+            "DS_signal": "RTC_REFIN",
+            "descriptor_name": "RTC_REFIN",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 9,
+            "raw_cell": "RTC_REFIN"
+          }
+        },
+        {
+          "id": "descriptor.signal.243",
+          "pin": "PC13",
+          "pad": 2,
+          "signal": "RTC_TS",
+          "instance": "RTC",
+          "function": {
+            "type": "analog"
+          },
+          "source_pointer": "/signals/243",
+          "source_record": {
+            "name": "RTC_TS",
+            "instance": "RTC",
+            "die_pad": "PC13",
+            "function": {
+              "type": "analog"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "not_complete",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PC13"
+          ]
+        }
+      ],
+      "evidence": [
+        "header.IRQ",
+        "header.layout",
+        "header.base",
+        "header.RTC_base",
+        "header.instance",
+        "header.fields",
+        "header.clock",
+        "header.sleep",
+        "header.RCC",
+        "header.PWR",
+        "header.debug",
+        "RM0522:p280",
+        "RM0522:p319",
+        "RM0522:p1574",
+        "RM0522:p1575",
+        "RM0522:p1576",
+        "RM0522:p1577",
+        "RM0522:p1578",
+        "RM0522:p1579",
+        "RM0522:p1580",
+        "RM0522:p1581",
+        "RM0522:p1583",
+        "RM0522:p1588",
+        "RM0522:p1590",
+        "RM0522:p1591",
+        "RM0522:p1592",
+        "RM0522:p1593",
+        "RM0522:p1595",
+        "RM0522:p1596",
+        "LL.binary_constants",
+        "DS15135:p39",
+        "DS15135:p41",
+        "DS15135:p42",
+        "DS15135:p46",
+        "DS15135:p47"
+      ]
+    },
+    "contracts": [
+      {
+        "id": "singleton_and_shared_ownership",
+        "detail": "RTC has two alarms, one calendar/SSR counter, one WUT, one timestamp capture set and shared CR/privilege/clock/reset. Independent alarm ownership does not create independent calendars. RTC IRQ2 is one physical vector despite multiple HAL handler entry points. TAMP and its backup registers remain separate resources. RTC trigger outputs do not grant endpoint or DMA-chain admission.",
+        "evidence": [
+          "header.instance",
+          "header.IRQ",
+          "header.layout",
+          "RM0522:p1552",
+          "RM0522:p1553",
+          "DS15135:p24"
+        ]
+      },
+      {
+        "id": "clock_and_reset_domain",
+        "detail": "Require PCLK>=2*RTCCLK; ordinary shadow access has the stricter>=7 ratio and conflicting lower-ratio wording recorded below. RTCSEL is write-once except LSE-failure exception; RTCDRST resets the entire VSW domain, not a private alarm. HSE/RTCPRE must be below1MHz and disappears in Stop or NRST. APB interface and RTC kernel gates are distinct. System reset resets shadows and INIT/INITF/RSF, while calendar/control/prescalers/alarms/WUT/calibration/timestamp and privilege survive. Reset is not an ownership-safe clock-source switch.",
+        "evidence": [
+          "RM0522:p1557",
+          "RM0522:p1559",
+          "RM0522:p1564",
+          "RM0522:p1565",
+          "RM0522:p1573",
+          "RM0522:p319",
+          "RM0522:p280",
+          "header.clock",
+          "header.RCC",
+          "RM0522:p1556"
+        ]
+      },
+      {
+        "id": "privilege_and_write_protection",
+        "detail": "PWR DRTCP write-access control, WPR unlock and privilege permissions are separate gates. Unlock with CA then53, privilege appropriate to INIT/CAL; incorrect key restores protection. Wrong-privilege WPR access is silently ignored. Protected writes are ignored and protected reads return0 without bus error. PRIV restricts all writes and most reads but PRIVCFGR/TR/DR/SSR/PRER/CALR remain readable. Dedicated INIT/CAL/ALRA/ALRB/WUT/TS protection covers specified fields; ALRA also owns SSR underflow. A zero read is not proof of idle/disabled/no pending event.",
+        "evidence": [
+          "RM0522:p1556",
+          "RM0522:p1557",
+          "RM0522:p1561",
+          "RM0522:p1581",
+          "header.PWR"
+        ]
+      },
+      {
+        "id": "initialization",
+        "detail": "Disable TAMPTS before initialization. Set INIT, wait INITF, configure prescalers/mode/calendar/hour format, then clear INIT. Counters stop in initialization; exit initializes SSR to PREDIV_S in BCD or 0xFFFFFFFF in binary/mixed mode. RM prescribes two separate PRER writes. INITF and restart latency depend on LPCAL. INITS reflects a nonzero year, so it is not an independent validity bit for year 00. Hardware does not validate calendar values.",
+        "evidence": [
+          "RM0522:p1562",
+          "RM0522:p1574",
+          "RM0522:p1575",
+          "RM0522:p1578"
+        ]
+      },
+      {
+        "id": "calendar_domains",
+        "detail": "BCD uses two prescalers whose product must match the intended seconds rate. Binary mode has a free-running 32-bit downcounter clocked by ck_apre; BCD time/date are inactive and PREDIV_S is irrelevant. Mixed mode uses that counter with calendar increments selected by BCDU from its low 8 through 15 bits. The BCD calendar freezes at 31 December 99, 23:59:59 and emits overflow to TAMP; no century rollover is implied. Caller owns date validity and civil-time interpretation.",
+        "evidence": [
+          "RM0522:p1553",
+          "RM0522:p1558",
+          "RM0522:p1560",
+          "RM0522:p1572",
+          "RM0522:p1574"
+        ]
+      },
+      {
+        "id": "shadow_and_bypass_reads",
+        "detail": "With BYPSHAD0, reading SSR orTR locks higher-order shadows untilDR is read. Pair readers under one owner; do not interleave calendar polling with shift/check helpers. After reset/init/shift wait RSF; after Stop/Standby clearRSF after waking and wait. Rapid reads need resynchronization. BYPSHAD1 has no atomic snapshot: read and compare repeatedly until matching consecutive samples. ES2.7.2 requires bypass and repeated matching reads on both revisions, so shadow-only HAL reads are not admitted as correct. RM1564 also offers comparing only the least-significant calendar register, but ES2.7.2 prescribes calendar-register comparisons; the shortcut is not independently qualified here.",
+        "evidence": [
+          "RM0522:p1563",
+          "RM0522:p1564",
+          "ES0676:p7",
+          "ES0676:p8"
+        ]
+      },
+      {
+        "id": "subseconds_and_shift",
+        "detail": "BCD fraction=(PREDIV_S-SSR)/(PREDIV_S+1); shifted SSR>PREDIV_S means the calendar value must be interpreted one second earlier. Shift adds SUBFS to the downcounter, delaying time; ADD1S adds one second only in BCD/mixed mode. Wait until SHPF is clear. Check BCD SS[15]=0, or mixed SS[BCDU+8]=0 with SUBFS[14:BCDU+8]=0. Do not shift while REFCKON=1. Shift clears RSF; operation completion and shadow resynchronization are separate.",
+        "evidence": [
+          "RM0522:p1565",
+          "RM0522:p1573",
+          "RM0522:p1584"
+        ]
+      },
+      {
+        "id": "alarms",
+        "detail": "Disable the selected alarm before writing its registers, then enable it. Seconds comparison requires a synchronous division factor of at least 3. MASKSS selects low bits; ALRMxSSR low 15 bits mirror ALRMxBINR. Binary SSCLR reloads the shared counter and is forbidden in BCD/mixed mode. Clearing an alarm flag rearms triggering unless automatic clear is configured, in which case it clears after one ck_apre cycle. Do not infer lossless software event counts or independent SSR ownership.",
+        "evidence": [
+          "RM0522:p1559",
+          "RM0522:p1563",
+          "RM0522:p1577",
+          "RM0522:p1587",
+          "RM0522:p1588",
+          "RM0522:p1590",
+          "RM0522:p1594"
+        ]
+      },
+      {
+        "id": "wakeup_programming",
+        "detail": "Disable WUTE and wait for WUTWF before changing WUCKSEL/WUTR or reenabling. WUTWF synchronization depends on clock selection. Subsequent periods are (WUT+1) ck_wut cycles; WUCKSEL=11x extends reload by 65536. The first event occurs between WUT and WUT+2 cycles; this is not an exact initial deadline. WUT=0 with RTCCLK/2 is forbidden. WUTOCLR=0 requires software clear; otherwise 0<WUTOCLR<=WUT. Software must clear WUTF at least 1.5 RTCCLK periods before its next assertion.",
+        "evidence": [
+          "RM0522:p1560",
+          "RM0522:p1563",
+          "RM0522:p1576",
+          "RM0522:p1579",
+          "RM0522:p1580",
+          "RM0522:p1591"
+        ]
+      },
+      {
+        "id": "timestamp_capture",
+        "detail": "Pin or tamper capture stores time/date/subseconds; timestamp date has no year. Data are valid only while TSF=1 and clearing TSF clears the stored values. A second event while TSF is set retains the earlier capture and sets TSOVF. TSOVF can precede TSF because synchronization differs; check overflow after TSF and its clear, and do not clear an unobserved TSF. TSE must be zero when changing TSEDGE. TAMPTS works even with TSE=0, must be zero before INIT, and tamper service timing can suppress TSF. Event consumption is destructive.",
+        "evidence": [
+          "RM0522:p1568",
+          "RM0522:p1569",
+          "RM0522:p1578",
+          "RM0522:p1580",
+          "RM0522:p1585",
+          "RM0522:p1586",
+          "RM0522:p1591",
+          "RM0522:p1604"
+        ]
+      },
+      {
+        "id": "reference_and_daylight",
+        "detail": "REFIN at 50/60 Hz applies only to BCD mode, uses LSE (inferred prerequisite from RM1565 describing continued LSE calendar clocking and 32768-Hz quartz detection) and requires default PREDIV_A=127/PREDIV_S=255, is unavailable in Standby and is incompatible with shift. Loss of reference leaves LSE-only timing. REFCKON/FMT are initialization-only fields. ADD1H/SUB1H take effect in the next second; SUB1H at hour 00 does nothing and takes priority if both bits are set. Avoid the calendar hour-increment race. BKP is software memorization, not an automatic daylight-saving policy.",
+        "evidence": [
+          "RM0522:p1565",
+          "RM0522:p1566",
+          "RM0522:p1578",
+          "RM0522:p1580"
+        ]
+      },
+      {
+        "id": "calibration",
+        "detail": "Smooth calibration adds 512*CALP-CALM pulses per 2^20 ck_cal window: ck_cal is RTCCLK with LPCAL=0 and ck_apre with LPCAL=1. CALP requires PREDIV_A>=3; lower-prescaler compensation is a separate BCD procedure. CALW16 ignores CALM[0]; CALW8 ignores CALM[1:0]; both window bits must not be set together. Wait for RECALPF=0 before updating; new settings can take three ck_apre cycles. LPCAL is ignored unless PREDIV_A+1 is a power of two and switching is not immediate. Nominal 32/16/8-second windows assume 32768 Hz and LPCAL=0. No measured accuracy is claimed.",
+        "evidence": [
+          "RM0522:p1559",
+          "RM0522:p1566",
+          "RM0522:p1567",
+          "RM0522:p1568",
+          "RM0522:p1583"
+        ]
+      },
+      {
+        "id": "outputs_and_pins",
+        "detail": "Four copied package routes do not establish board or electrical permission. PC13 shares OUT1/TS/TAMP_IN1/WKUP4 and retains an unresolved IO-structure discrepancy. PB2 AF0 OUT2 and PB15 AF0 REFIN require GPIO ownership. TAMPALRM combines the selected alarm/WUT with enabled tamper flags; polarity is configurable. OUT2EN=0 uses OUT1. With OUT2EN=1 a single selected output uses OUT2, or simultaneous TAMPALRM and CALIB use OUT1 and OUT2 respectively. The register description includes TAMPOE, which the summary table omits. CALIB nominal 512/1 Hz depends on prescalers; rising edges are recommended and LPCAL switching can glitch. LQFP PC13 transitions can disturb the LSE crystal under ES2.2.2. PB15 also retains an IO-structure discrepancy: DS marks TT while the descriptor comparison reports FT_a; the REFIN AF correspondence does not settle electrical tolerance.",
+        "evidence": [
+          "RM0522:p1553",
+          "RM0522:p1554",
+          "RM0522:p1555",
+          "RM0522:p1556",
+          "RM0522:p1569",
+          "RM0522:p1577",
+          "DS15135:p39",
+          "DS15135:p46",
+          "DS15135:p47",
+          "ES0676:p4",
+          "DS15135:p38",
+          "DS15135:p42"
+        ]
+      },
+      {
+        "id": "pending_irq_and_low_power",
+        "detail": "RTC remains active in Sleep. LSE/LSI can retain operation in Stop/Standby, conditional on oscillator availability. RTC_TS/OUT1 function in both; REFIN/OUT2 do not function in Standby. IRQ events include ALRA/B, WUT, TS and SSRU, with timestamp overflow also having masked status. SSRUF exists only in binary/mixed mode and is not set by SSCLR reload. After an SCR clear, RM requires reading SR/MISR until zero before ISR exit; a privilege-denied zero is not proof. System reset does not clear every persistent event. Debug freeze is not an alarm-clear guarantee.",
+        "evidence": [
+          "RM0522:p1570",
+          "RM0522:p1591",
+          "RM0522:p1592",
+          "RM0522:p1593",
+          "RM0522:p1564",
+          "ES0676:p7"
+        ]
+      }
+    ],
+    "source_derived_SDK_gates": [
+      {
+        "id": "no_transaction_or_permission_receipt",
+        "detail": "HAL RTC APIs are singleton operations without a resource-owning handle. Write-protection helpers and many setters return HAL_OK without verifying privilege, DRTCP, WPR or readback. SetPrivAttr checks CPU privilege but does not read back; other setters do not establish effective permissions. Caller must establish ownership, clocks, access and mode before mutation. HAL_OK is not operational admission.",
+        "evidence": [
+          "HAL.protection_init",
+          "HAL.config",
+          "HAL.calendar_config",
+          "HAL.privilege",
+          "RM0522:p1557",
+          "RM0522:p1561"
+        ]
+      },
+      {
+        "id": "init_errors_not_rollback",
+        "detail": "EnterInitMode requests INIT and waits using a 512 ms HAL-tick threshold without clearing TAMPTS. Timeout does not roll back INIT. Exit clears INIT then waits for RSF; failure does not restore the previous calendar. The RSF helper skips its wait while INITF=1 or BYPSHAD=1, so a denied exit can appear successful. The default tick needs interrupt progress; a masked or stalled tick can leave the wait unbounded.",
+        "evidence": [
+          "HAL.protection_init",
+          "HAL.wait",
+          "HAL.guards",
+          "HAL.tick",
+          "RM0522:p1578"
+        ]
+      },
+      {
+        "id": "prescaler_single_write_conflict",
+        "detail": "HAL_SetConfig in BCD mode calls LL_SetPrescalers, which writes both fields in one PRER write; RM1575 requires two separate accesses. Other modes retain PREDIV_S while changing the asynchronous prescaler and mode. The setter checks neither INITF nor actual clock ratios. This path remains unqualified; one-write equivalence is not assumed.",
+        "evidence": [
+          "HAL.config",
+          "LL.prescalers",
+          "RM0522:p1575"
+        ]
+      },
+      {
+        "id": "calendar_validation_domains",
+        "detail": "Assertions are mainly range checks and optional runtime checks mainly cover NULL pointers. The day guard permits zero and does not validate month length or leap dates. The 24-hour guard permits 24 and the 12-hour guard permits zero. Alarm weekday/date validation ORs the domains without selecting the correct union branch. Release builds remove assertion protection. Validate complete calendar and field domains before BCD packing.",
+        "evidence": [
+          "HAL.guards",
+          "HAL.calendar_set_get",
+          "HAL.alarm_date",
+          "RM0522:p1562"
+        ]
+      },
+      {
+        "id": "calendar_read_protocol_missing",
+        "detail": "RTC_GetTime waits for RSF then reads TR before SSR; it does not implement the RM/ES bypass comparison loop and leaves the shadow lock until DR is read. RTC_GetDate reads DR before waiting for RSF, so a standalone call can return old shadow data despite its later wait succeeding. GetDateTime calls the date helper even after a time error to unlock shadows, but does not make bypass reads coherent. GetBinaryTime reads SSR without a paired DR read or consistency loop. Errors can leave partially filled outputs; ownership and validity must be established externally. Reading TR before SSR can pair an older second with a newer subsecond value across a second boundary: TR locks higher-order DR, not lower-order SSR.",
+        "evidence": [
+          "HAL.read_helpers",
+          "HAL.calendar_set_get",
+          "HAL.binary",
+          "RM0522:p1563",
+          "RM0522:p1564",
+          "ES0676:p8"
+        ]
+      },
+      {
+        "id": "mixed_raw3_not_sdk_equivalent",
+        "detail": "Hardware BIN=2 and BIN=3 are mixed mode, while the LL/HAL mixed constant is only 2. ShiftCalibration checks mixed restrictions only for LL_RTC_BINARY_MIX; raw 3 takes the no-check branch. Alarm SetDateTime similarly selects the 32-bit subsecond write only for raw 2. Hardware encoding equivalence does not qualify these SDK paths.",
+        "evidence": [
+          "LL.binary_constants",
+          "LL.binary_mode",
+          "HAL.shift",
+          "HAL.alarm_date",
+          "RM0522:p1574"
+        ]
+      },
+      {
+        "id": "alarm_init_exception_and_ssclr",
+        "detail": "Alarm configuration/date/binary setters permit writes with the alarm enabled if INITF=1. RM register definitions require ALRxE=0 without that exception. SetConfig documentation promises HAL_ERROR for SSCLR outside binary mode, and ASSERT_DBG_PARAM(IS_RTC_ALARM_BINARY_AUTO_RELOAD) checks BIN=1 when auto-reload is enabled. With assertions disabled there is no runtime BIN rejection or HAL_ERROR branch for this condition, and the LL setter writes SSCLR directly. Disable the alarm and validate binary-only shared SSR reload explicitly. HAL_OK does not prove the register write was accepted.",
+        "evidence": [
+          "HAL.alarm_config",
+          "HAL.alarm_date",
+          "HAL.alarm_binary",
+          "LL.alarm_ssclr",
+          "RM0522:p1587",
+          "RM0522:p1588",
+          "RM0522:p1590",
+          "RM0522:p1594",
+          "HAL.alarm_reload_assert"
+        ]
+      },
+      {
+        "id": "start_stop_pending_not_cleared",
+        "detail": "Alarm and WUT Start/Stop only update CR enable and interrupt bits. They do not clear stale SR/NVIC pending state, arbitrate ownership or wait for synchronization. WUT Stop returns before WUTWF and immediate Start does not wait for it. Alarm/WUT polling clears the flag once without a completion readback; automatically cleared events can be missed. These APIs do not prove event cancellation or resource release.",
+        "evidence": [
+          "HAL.alarm_start_stop_poll",
+          "HAL.wakeup_control",
+          "LL.alarm_control",
+          "LL.wakeup_control",
+          "RM0522:p1579",
+          "RM0522:p1592"
+        ]
+      },
+      {
+        "id": "wakeup_init_bypass",
+        "detail": "RTC_WaitSynchro_WUTW skips the WUTE check and WUTWF wait while INITF=1. SetConfig and the raw reload setter can therefore write while WUT is active or not writeable; RM requires WUTE=0 and WUTWF=1. The raw setter only asserts range and clear-value ordering, and does not reject WUT=0 with RTCCLK/2.",
+        "evidence": [
+          "HAL.wait",
+          "HAL.wakeup_config",
+          "HAL.wakeup_control",
+          "RM0522:p1576",
+          "RM0522:p1580"
+        ]
+      },
+      {
+        "id": "wakeup_frequency_arithmetic",
+        "detail": "RTC_GetRTCClockCalibrated uses unsigned integer division for (512*CALP-CALM)/(2^20+CALM-512*CALP). With CALP=0 and CALM>0 the subtraction underflows; on the 32-bit target, CALM=1 gives quotient 4095 and multiplier 4096 rather than a small negative correction. Positive fractional corrections truncate to zero. LPCAL/window restrictions are not modeled. The wake-up calendar-clock helper always uses PREDIV_S, including binary/mixed mode where BCDU determines the update clock. These are source arithmetic inferences, not measured frequencies. The actual CALP weight in this helper is RTC_TIMEOUT_VALUE, currently512, coupling frequency arithmetic to the timeout constant; changing that constant changes the computed calibration.",
+        "evidence": [
+          "HAL.frequency_helpers",
+          "HAL.guards",
+          "LL.calibration_pulse",
+          "RM0522:p1560",
+          "RM0522:p1567"
+        ]
+      },
+      {
+        "id": "wakeup_period_conversion_limits",
+        "detail": "SetPeriod compares integer seconds against truncated limits using <= and >=, rejecting boundary seconds and many valid subsecond periods. Conversion divides frequency by 1000/1000000 before multiplying, losing fractional resolution, and uses raw ticks without the WUT+1 adjustment. LL masks reload/clear to 16 bits. In 17-bit mode GetPeriod adds 65536 to both values, including clear=0 which means software clearing, and omits the reload +1. Unlike SetPeriod, GetPeriod has no zero-frequency guard before division. Physical-time conversion APIs remain unqualified. Hardware WUCKSEL raw7 aliases raw6, but SetPeriod/GetPeriod test equality only against raw6 for extended limits/65536 adjustment; LL_GetClock preserves raw7. An externally configured raw7 therefore does not receive equivalent SDK period conversion.",
+        "evidence": [
+          "HAL.wakeup_period",
+          "HAL.conversion_helpers",
+          "HAL.frequency_helpers",
+          "LL.wakeup_config",
+          "RM0522:p1576",
+          "LL.wakeup_raw_clock",
+          "RM0522:p1580"
+        ]
+      },
+      {
+        "id": "timestamp_config_and_consumption",
+        "detail": "SetTimestampConfig changes the edge without disabling TSE. Both capture getters read data before testing TSF, conditionally clear TSF and check overflow, then unconditionally clear both TSF/TSOVF. Without TSF they can return HAL_OK with invalid data; a new capture after the data read or flag snapshot can be erased by the final clear. RM requires observing the event before clearing. DateTime forces year=0 and leaves millisec/microsec untouched. PollForEvent preserves TSF for the getter. Use one consumer; these helpers do not preserve every event. Neither getter waits for TSF/TSOVF to read zero after SCR writes. Calling it from the timestamp IRQ callback therefore does not satisfy RM1592 clear-completion polling. SCR access must also satisfy ES2.7.3; clear TSF before checking/clearing TSOVF.",
+        "evidence": [
+          "HAL.timestamp_config",
+          "HAL.timestamp_get_poll",
+          "LL.timestamp_edge",
+          "RM0522:p1569",
+          "RM0522:p1580",
+          "RM0522:p1585",
+          "RM0522:p1586",
+          "HAL.IRQ",
+          "RM0522:p1591",
+          "RM0522:p1592",
+          "RM0522:p1593",
+          "ES0676:p8"
+        ]
+      },
+      {
+        "id": "timestamp_PM_encoding",
+        "detail": "Timestamp GetDateTime casts LL_GET_FORMAT directly to the HAL enum. The macro returns 0/1 from the packed format, while HAL PM equals RTC_TR_PM (bit 22). Calendar GetTime instead multiplies by HAL PM. Thus a PM timestamp can return 1 rather than the defined PM enum. This is a source encoding defect, not a hardware timestamp defect.",
+        "evidence": [
+          "HAL.timestamp_get_poll",
+          "HAL.read_helpers",
+          "HAL_H.time_format",
+          "LL.format_enum",
+          "LL.format_macro",
+          "LL.format_offset",
+          "LL.timestamp_time",
+          "header.fields"
+        ]
+      },
+      {
+        "id": "IRQ_raw_flags_and_clear_latency",
+        "detail": "The combined IRQ reads SR once, not MISR or CR interrupt enables, then dispatches A, B, WUT, SSRU and TS from raw flags. A disabled source flag can therefore be consumed when another source invokes the vector. Individual handlers also test raw flags. A/B/WUT/SSRU clear before callbacks without waiting for clear completion. The timestamp callback must consume/clear its capture or the interrupt may remain asserted. Callback reconfiguration does not invalidate the old snapshot. Every SCR write remains subject to the ES2.7.3 access gate.",
+        "evidence": [
+          "HAL.IRQ",
+          "LL.clear_flags",
+          "RM0522:p1592",
+          "ES0676:p8"
+        ]
+      },
+      {
+        "id": "shift_precheck_and_completion",
+        "detail": "Shift checks SSR and REFCKON before waiting for an earlier SHPF operation to finish, so that operation can invalidate the prechecked SSR. SSR/DR reads affect shadow locking and omit the errata bypass comparison loop. The reference-clock check only runs in the BCD branch. After writing, the helper waits for SHPF and RSF, but a denied write can leave SHPF zero and appear successful. A timeout after the write is not rollback.",
+        "evidence": [
+          "HAL.shift",
+          "HAL.wait",
+          "RM0522:p1565",
+          "ES0676:p8"
+        ]
+      },
+      {
+        "id": "calibration_reference_lowpower_checks",
+        "detail": "Calibration enable waits for the old RECALPF but does not wait for the new settings to take effect or check CALP/prescaler rules and INITF=0. Low-power toggles do not validate the power-of-two divisor or wait for switching. Reference-clock enable/disable writes do not verify mode, prescalers, INITF or oscillator presence. HAL success is not an accurate frequency or completed mode change.",
+        "evidence": [
+          "HAL.calibration",
+          "HAL.low_power",
+          "HAL.ref_clock",
+          "RM0522:p1559",
+          "RM0522:p1566",
+          "RM0522:p1567",
+          "RM0522:p1568",
+          "RM0522:p1580"
+        ]
+      },
+      {
+        "id": "alarm_subsecond_getter_and_write_spill",
+        "detail": "Alarm GetDateTime in mixed raw BIN=2 returns LL_RTC_ALM_GetSubSecondMask as time.subsec: the six-bit MASKSS field, not the ALRMxBINR comparison value. SetDateTime uses ALRMxBINR only for raw2; other modes call LL_SetConfigSubSecond, which ORs Subsecond without masking it into ALRMxSSR. Non-BCD assertion validation accepts every subsecond value, so raw BIN=1 or3 values can set SSCLR bit31 and alter MASKSS bits29:24 (as well as reserved bits), despite a separate mask argument. In BCD the debug assertion limits to0x7FFF, but assertions-off out-of-range input has the same spill risk. Treat getter output and setter packed fields as unqualified until explicitly validated.",
+        "evidence": [
+          "HAL.alarm_date",
+          "HAL.alarm_reload_assert",
+          "LL.alarm_subsecond_write",
+          "LL.alarm_subsecond_mask_read",
+          "header.fields",
+          "RM0522:p1588",
+          "RM0522:p1590"
+        ]
+      },
+      {
+        "id": "RSF_clear_not_verified",
+        "detail": "RTC_WaitSynchro_RS clears RSF through an ICSR read-modify-write then only waits while RSF reads zero; it never observes a successful1-to0 transition. A stale-success path is conditional on a silently denied clear while old RSF1 remains readable. DRTCP-protected ICSR behavior is not independently established here; ES2.7.3 shows some protected writes instead lock up the system. WPR whole-register scope remains disputed. Global PRIV denial makes ICSR read as0 and therefore leads toward timeout, not the stated stale1 path; no per-field privilege bit protects RSF. Effective access and fresh synchronization require qualification.",
+        "evidence": [
+          "HAL.wait",
+          "LL.clear_RSF",
+          "RM0522:p1557",
+          "RM0522:p1561",
+          "RM0522:p1573",
+          "RM0522:p1574",
+          "RM0522:p1556",
+          "ES0676:p8"
+        ]
+      },
+      {
+        "id": "output_enable_accumulates_selection",
+        "detail": "HAL_OUTPUT_Enable reads CR and ORs selected output bits, including OUT2EN, instead of replacing the output selection. Successive requests can retain a prior remap or combine OSEL bits; e.g. alarmA then alarmB can produce the WUT selection. Output routing must be treated as shared CR state with an explicit desired final configuration, not independent additive output ownership. SetConfigCalib documents prescaler limits but only checks pointer/enum and writes the frequency selector.",
+        "evidence": [
+          "HAL.output",
+          "header.fields",
+          "RM0522:p1554",
+          "RM0522:p1555",
+          "RM0522:p1577"
+        ]
+      }
+    ],
+    "conflicts": [
+      {
+        "id": "shadow_copy_period_and_low_clock",
+        "detail": "RM1558/1563 say shadows copy every RTCCLK; CR.BYPSHAD on RM1579 says every two cycles. RM1563 allows repeated reads for 2<=PCLK/RTCCLK<7, while RM1559 requires >=7 for shadow reads and RM1579 requires bypass below 7. Preserve these conflicts. ES2.7.2 requires bypass with matching consecutive reads; no lower-ratio shadow-read operation is admitted.",
+        "evidence": [
+          "RM0522:p1558",
+          "RM0522:p1559",
+          "RM0522:p1563",
+          "RM0522:p1579",
+          "ES0676:p8"
+        ]
+      },
+      {
+        "id": "ICSR_reset_reserved_bits",
+        "detail": "RM1573 gives ICSR RTC-domain reset as 0x7 although bits 1:0 are reserved. RM1595 draws WUTWF set with reserved bits blank. This candidate preserves the prose reset value and does not authorize reserved-bit writes or treat an exact reset readback as qualification.",
+        "evidence": [
+          "RM0522:p1573",
+          "RM0522:p1575",
+          "RM0522:p1595"
+        ]
+      },
+      {
+        "id": "tamper_timestamp_read_or_clear",
+        "detail": "With RTC_CR.TAMPTS=1, RM1591 says reading a tamper flag during the three ck_apre cycles can prevent TSF; TAMP RM1604 says clearing TAMPxF before TSF prevents it. These are non-equivalent rules that may both apply, not necessarily contradictory descriptions. Conservatively gate both early inspection and early clearing; do not infer that avoiding a clear makes an early read harmless.",
+        "evidence": [
+          "RM0522:p1591",
+          "RM0522:p1604"
+        ]
+      },
+      {
+        "id": "timestamp_clear_wording",
+        "detail": "RM1569 cautions against writing zero into TSF unless previously observed set, but SR is read-only and the actual clear is a one written to SCR.CTSF. Preserve the observed-event and clear-order constraints without admitting an SR write-zero clear.",
+        "evidence": [
+          "RM0522:p1569",
+          "RM0522:p1591",
+          "RM0522:p1593"
+        ]
+      },
+      {
+        "id": "calibration_prose",
+        "detail": "RM1566 describes the low-power window using 2^20*PREDIV_A*RTCCLK pulses, while ck_apre divides by PREDIV_A+1 and RM1583 defines 2^20 ck_apre. RM1567 says CALM[7:0]=0x100, which cannot fit eight bits; the actual CALM field is nine bits. No executable formula or vector is taken from these inconsistent statements.",
+        "evidence": [
+          "RM0522:p1566",
+          "RM0522:p1567",
+          "RM0522:p1575",
+          "RM0522:p1583"
+        ]
+      },
+      {
+        "id": "output_mapping_summary",
+        "detail": "Table394 uses OSEL/COE/OUT2EN without TAMPOE, while CR.OUT2EN includes TAMPOE in the TAMPALRM conditions. Preserve Table393 pin priority and register conditions; the summary alone cannot establish mapping or ownership when tamper output is enabled.",
+        "evidence": [
+          "RM0522:p1554",
+          "RM0522:p1555",
+          "RM0522:p1556",
+          "RM0522:p1577"
+        ]
+      },
+      {
+        "id": "errata_field_names",
+        "detail": "ES2.7.3 omits the PWR field name in both text and the existing visual audit; exact binding remains unresolved despite RM DRTCP access control. ES2.7.1 names MASKSS[3:0] while the exact field is [5:0]; this does not establish that higher encodings are unaffected. ES2.2.1 uses family RCC_BDCR naming where the exact header uses RTCCR.",
+        "evidence": [
+          "ES0676:p4",
+          "ES0676:p7",
+          "ES0676:p8",
+          "header.RCC",
+          "header.fields",
+          "header.PWR"
+        ]
+      },
+      {
+        "id": "WPR_field_vs_register_scope",
+        "detail": "RM1561 enumerates WPR-protected fields (INIT/BIN/BCDU in ICSR and FMT/SUB1H/ADD1H/REFCKON in CR), whereas RM1573 and1576 label the whole ICSR and CR registers write protected. HAL alarm/WUT Start/Stop and the RSF helper do not unlock WPR. If the whole-register interpretation applies their writes may be ignored; field-level wording does not establish that outcome. Preserve this source-scope ambiguity and require qualified effective access/readback rather than declaring these calls universally ineffective. HAL output enable also writes CR without WPR unlock; HAL prose says not all RTC registers are write-protected, supporting the field-level reading but not resolving the RM scope discrepancy.",
+        "evidence": [
+          "RM0522:p1561",
+          "RM0522:p1573",
+          "RM0522:p1576",
+          "HAL.alarm_start_stop_poll",
+          "HAL.wakeup_control",
+          "HAL.wait",
+          "LL.clear_RSF",
+          "HAL.output",
+          "HAL.WPR_documentation"
+        ]
+      }
+    ],
+    "errata_gates": [
+      {
+        "section": "2.2.1",
+        "revision_status": {
+          "Z": "A",
+          "Y": "A"
+        },
+        "condition": "LSE analog bypass: LSEBYP=1 and LSEEXT=0.",
+        "response": "Use digital bypass instead: LSEBYP=1 and LSEEXT=1.",
+        "inventory_binding": {
+          "file": "errata.json",
+          "index": 1,
+          "section": "2.2.1",
+          "revision_status": {
+            "Z": "A",
+            "Y": "A"
+          }
+        },
+        "evidence": [
+          "ES0676:p1",
+          "ES0676:p2",
+          "ES0676:p4"
+        ],
+        "qualification": "physical silicon revision unobserved; source applicability only; no execution permission"
+      },
+      {
+        "section": "2.2.2",
+        "revision_status": {
+          "Z": "N",
+          "Y": "N"
+        },
+        "condition": "LQFP package, LSE crystal operating, PC13 toggling as input or output.",
+        "response": "No workaround in table; avoid PC13 toggling while using the crystal. Bypass is unaffected by this entry only; analog bypass has its own erratum.",
+        "inventory_binding": {
+          "file": "errata.json",
+          "index": 2,
+          "section": "2.2.2",
+          "revision_status": {
+            "Z": "N",
+            "Y": "N"
+          }
+        },
+        "evidence": [
+          "ES0676:p1",
+          "ES0676:p2",
+          "ES0676:p4",
+          "ES0676:p5"
+        ],
+        "qualification": "physical silicon revision unobserved; source applicability only; no execution permission"
+      },
+      {
+        "section": "2.2.3",
+        "revision_status": {
+          "Z": "N",
+          "Y": "N"
+        },
+        "condition": "LSEDRV=00 low drive.",
+        "response": "Mode forbidden; no workaround. Other drive modes still require electrical qualification.",
+        "inventory_binding": {
+          "file": "errata.json",
+          "index": 3,
+          "section": "2.2.3",
+          "revision_status": {
+            "Z": "N",
+            "Y": "N"
+          }
+        },
+        "evidence": [
+          "ES0676:p1",
+          "ES0676:p2",
+          "ES0676:p5"
+        ],
+        "qualification": "physical silicon revision unobserved; source applicability only; no execution permission"
+      },
+      {
+        "section": "2.7.1",
+        "revision_status": {
+          "Z": "N",
+          "Y": "N"
+        },
+        "condition": "Core halted in debug; MASKSS nonzero; subsecond alarm met just before halt/printf, even with RTC freeze configured.",
+        "response": "No workaround. ALRAF/ALRBF may repeatedly reassert; clearing while halted can be ineffective.",
+        "inventory_binding": {
+          "file": "errata.json",
+          "index": 11,
+          "section": "2.7.1",
+          "revision_status": {
+            "Z": "N",
+            "Y": "N"
+          }
+        },
+        "evidence": [
+          "ES0676:p1",
+          "ES0676:p2",
+          "ES0676:p7"
+        ],
+        "qualification": "physical silicon revision unobserved; source applicability only; no execution permission"
+      },
+      {
+        "section": "2.7.2",
+        "revision_status": {
+          "Z": "A",
+          "Y": "A"
+        },
+        "condition": "Calendar read while BYPSHAD=0; shadow copy can transiently be incorrect.",
+        "response": "Set BYPSHAD=1; read calendar twice and repeat until consecutive readings agree; follow RM bypass calendar-read protocol.",
+        "inventory_binding": {
+          "file": "errata.json",
+          "index": 12,
+          "section": "2.7.2",
+          "revision_status": {
+            "Z": "A",
+            "Y": "A"
+          }
+        },
+        "evidence": [
+          "ES0676:p1",
+          "ES0676:p2",
+          "ES0676:p7",
+          "ES0676:p8"
+        ],
+        "qualification": "physical silicon revision unobserved; source applicability only; no execution permission"
+      },
+      {
+        "section": "2.7.3",
+        "revision_status": {
+          "Z": "N",
+          "Y": "N"
+        },
+        "condition": "Write 1 to RTC_SCR, TAMP_SCR or TAMP_CR2.BKERASE while backup-domain writes are protected in PWR.",
+        "response": "Follow correct write-access sequence before touching these bits. No recovery workaround; system reset is required after lockup. PWR bit name is missing in both extraction and rendered PDF, so exact field binding remains unresolved.",
+        "inventory_binding": {
+          "file": "errata.json",
+          "index": 13,
+          "section": "2.7.3",
+          "revision_status": {
+            "Z": "N",
+            "Y": "N"
+          }
+        },
+        "evidence": [
+          "ES0676:p1",
+          "ES0676:p2",
+          "ES0676:p8"
+        ],
+        "qualification": "physical silicon revision unobserved; source applicability only; no execution permission"
+      }
+    ],
+    "chapter_audit": {
+      "document": "RM0522",
+      "chapter": 39,
+      "pages_read": [
+        1551,
+        1552,
+        1553,
+        1554,
+        1555,
+        1556,
+        1557,
+        1558,
+        1559,
+        1560,
+        1561,
+        1562,
+        1563,
+        1564,
+        1565,
+        1566,
+        1567,
+        1568,
+        1569,
+        1570,
+        1571,
+        1572,
+        1573,
+        1574,
+        1575,
+        1576,
+        1577,
+        1578,
+        1579,
+        1580,
+        1581,
+        1582,
+        1583,
+        1584,
+        1585,
+        1586,
+        1587,
+        1588,
+        1589,
+        1590,
+        1591,
+        1592,
+        1593,
+        1594,
+        1595,
+        1596
+      ],
+      "evidence": [
+        "RM0522:p1551",
+        "RM0522:p1552",
+        "RM0522:p1553",
+        "RM0522:p1554",
+        "RM0522:p1555",
+        "RM0522:p1556",
+        "RM0522:p1557",
+        "RM0522:p1558",
+        "RM0522:p1559",
+        "RM0522:p1560",
+        "RM0522:p1561",
+        "RM0522:p1562",
+        "RM0522:p1563",
+        "RM0522:p1564",
+        "RM0522:p1565",
+        "RM0522:p1566",
+        "RM0522:p1567",
+        "RM0522:p1568",
+        "RM0522:p1569",
+        "RM0522:p1570",
+        "RM0522:p1571",
+        "RM0522:p1572",
+        "RM0522:p1573",
+        "RM0522:p1574",
+        "RM0522:p1575",
+        "RM0522:p1576",
+        "RM0522:p1577",
+        "RM0522:p1578",
+        "RM0522:p1579",
+        "RM0522:p1580",
+        "RM0522:p1581",
+        "RM0522:p1582",
+        "RM0522:p1583",
+        "RM0522:p1584",
+        "RM0522:p1585",
+        "RM0522:p1586",
+        "RM0522:p1587",
+        "RM0522:p1588",
+        "RM0522:p1589",
+        "RM0522:p1590",
+        "RM0522:p1591",
+        "RM0522:p1592",
+        "RM0522:p1593",
+        "RM0522:p1594",
+        "RM0522:p1595",
+        "RM0522:p1596"
+      ],
+      "qualification": "Full chapter text and register descriptions read; extraction only, diagrams/tables not independently rendered; no full semantic or timing closure."
+    },
+    "open_gates": [
+      "No executable RTC/calendar/alarm/WUT/timestamp/calibration/low-power profile.",
+      "No full HAL/LL path, emitted-access, concurrency or hardware qualification.",
+      "No board/electrical/oscillator accuracy or physical revision observation.",
+      "TAMP secrets/backup reset and shared PC13/RCC/PWR ownership require separate integration.",
+      "No changes to routing/composition, accepted resources or production catalogs.",
+      "Repeated-read algorithm, timeout bounds, destructive pending-event ownership and privileged access remain implementation gates."
+    ]
+  }
+}

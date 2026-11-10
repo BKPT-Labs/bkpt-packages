@@ -1,0 +1,3086 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/rcc-contracts.json",
+    "sha256": "934a82b608ad30d33685746dd7cd0cfec97c18f7f98a335ab840580a302224fa"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 140
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "schema": "bkpt.external.rcc.contracts.v1",
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "review": "Claude and independent Codex accepted targeted corrections; extra source bindings and precise ADC duty-cycle attribution added. No operational qualification.",
+    "scope": "Full RM0522 RCC chapter251-326 read. Exact C542 header maps and selected HAL/LL paths; not a complete SDK caller-path or clock-transition audit. No executable clock profile or production change.",
+    "sources": {
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "DS15135": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pdf",
+        "sha256": "1a3555f799297774a95978ab343ebc1f45ab9ef58d0dcf3600dec4fabed9355c",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pages.json",
+        "extraction_sha256": "b14b965adb6c1545edbca0e56b3c504e7ecc3a94bda197350ce2757b5a3d55dc"
+      },
+      "ES0676": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pdf",
+        "sha256": "a5463827337bcdbd3e5f2e0912a56307d78b568e5631b21cc9a25899c7d4a5e6",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pages.json",
+        "extraction_sha256": "2ab1b19e42b53e22ff5f3b98f6ed9a5f98f3b7b61a617abc3bb3b7fc050d1cb3"
+      },
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "HAL_RCC": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_rcc.c",
+        "sha256": "241ee550685a75c6fcb02006ac3517c3a3c269d6f5cddface18c83ad70b6748f"
+      },
+      "HAL_RCC_H": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_rcc.h",
+        "sha256": "29fb6354087a8ebed46e7d8bce100659d733df9c1b03c7dee35a1215dc2cefd5"
+      },
+      "LL_RCC": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_rcc.h",
+        "sha256": "1408f7bfa621d0297dca3ca67f27f953b35bad463cf5caa711fddf4f52896f76"
+      },
+      "LL_BUS": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_bus.h",
+        "sha256": "bac710c45c3998cede26333b7fdaa3a2c6057b9d4735ade6d28c9f446f2a8def"
+      },
+      "family": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c5xx.h",
+        "sha256": "61a0b8c2674d9e817d70aa8d2693339273f4283694f8ab5f8dca077bb69913f7"
+      },
+      "HAL_core": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal.c",
+        "sha256": "35d1ff092e0b8db45bf679f4cf56be4bf8fdce32a26682101cb75ac2dca28114"
+      },
+      "HAL_cortex": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_cortex.c",
+        "sha256": "ce4b71c591d43aced22fd6edf8f97470280af961f57fddb0e4ed6c179ae165f4"
+      },
+      "HAL_ADC": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_adc.c",
+        "sha256": "59e018ab39fd8cec11b4380ea3fa6b186c7a37d0c4b701556edd79fd2df33100"
+      },
+      "HAL_DAC": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_dac.c",
+        "sha256": "23e343833f6cee377bcc86ec36234a303521d2f5b1d7d65ca9b120d88322c8a7"
+      },
+      "HAL_UART": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_uart.c",
+        "sha256": "bacbdb4c890d08e184eb3ba2dd23c0b5fc8a1a0f8ae4979a56f7887f97f47633"
+      }
+    },
+    "evidence": {
+      "RM0522:p251": {
+        "source": "RM0522",
+        "page": 251,
+        "sha256": "97be06a889bc43006707b5a068be9134fb1c81b4cb0ab63942681ddfa1e13929"
+      },
+      "RM0522:p252": {
+        "source": "RM0522",
+        "page": 252,
+        "sha256": "9d9969790f15f3ad7c1b78ec835fe3a7dca3ddaaadc863c6ca3dd49bae7b0bb8"
+      },
+      "RM0522:p253": {
+        "source": "RM0522",
+        "page": 253,
+        "sha256": "c840b1e16dc1ba5f91664bb38215699b0ac65e00c43db9121e8e275fd6709b44"
+      },
+      "RM0522:p254": {
+        "source": "RM0522",
+        "page": 254,
+        "sha256": "3afc82cf5a53087a6a5defe0f23ebaeaccbcc666662a418c019eb7072b7d1c61"
+      },
+      "RM0522:p255": {
+        "source": "RM0522",
+        "page": 255,
+        "sha256": "87cae44a90af32d52acf0e8eedec91215e650bd7685830c5b54ea18f54baef75"
+      },
+      "RM0522:p256": {
+        "source": "RM0522",
+        "page": 256,
+        "sha256": "028fab1875d9fd0fc0d81a189d26d1c61ef8b335621682f4b78c0172f914f51f"
+      },
+      "RM0522:p257": {
+        "source": "RM0522",
+        "page": 257,
+        "sha256": "13d32f75e13dccbc522b016a14e187e735ecf960501283050094d1ff1772e5ee"
+      },
+      "RM0522:p258": {
+        "source": "RM0522",
+        "page": 258,
+        "sha256": "0c8c1fcd6b4e3be4c0e659f8bcec2a0b6f028398113a8c608ef38445c24f8ec6"
+      },
+      "RM0522:p259": {
+        "source": "RM0522",
+        "page": 259,
+        "sha256": "4ef8d451a67ffff89db1f60ec3106581d20c9738e539586b32202873a3404fe4"
+      },
+      "RM0522:p260": {
+        "source": "RM0522",
+        "page": 260,
+        "sha256": "15e2215971b9b2697ace16a959a45c57bfbf8d5e9ff8ba72afcd69d209b98f18"
+      },
+      "RM0522:p261": {
+        "source": "RM0522",
+        "page": 261,
+        "sha256": "e391b44d93504fd3d56287d472a3a773f286a6a1e029a1342ffbeab89a38d5b1"
+      },
+      "RM0522:p262": {
+        "source": "RM0522",
+        "page": 262,
+        "sha256": "f61e0c4d9d386bf1c7a2c2524613f06cec6d90f88d301a0871be96c746ae54bc"
+      },
+      "RM0522:p263": {
+        "source": "RM0522",
+        "page": 263,
+        "sha256": "7a757d0246e36addfed6e764e533962c4b4406f5353849a910660d43af2305e5"
+      },
+      "RM0522:p264": {
+        "source": "RM0522",
+        "page": 264,
+        "sha256": "095b6041472d8fcf214723121daecfd7453006801906d778931114c2a3c3e841"
+      },
+      "RM0522:p265": {
+        "source": "RM0522",
+        "page": 265,
+        "sha256": "ca40dea43d3214842c5cf59f4a3aa2010f5b7a7987a0611e531f7d1b26197b0c"
+      },
+      "RM0522:p266": {
+        "source": "RM0522",
+        "page": 266,
+        "sha256": "27bfb04b97daacadc9cfde9eea84425f24872d679e590a709d003d73cd93aa17"
+      },
+      "RM0522:p267": {
+        "source": "RM0522",
+        "page": 267,
+        "sha256": "da935ef934a235becf4c5066344fcc760d2d7fbf1281ae92d7563491626393fb"
+      },
+      "RM0522:p268": {
+        "source": "RM0522",
+        "page": 268,
+        "sha256": "f93cfd7aa59b2af15189ef88dacf7b99a8bd8ba08a349ec8568339dd58dd6e15"
+      },
+      "RM0522:p269": {
+        "source": "RM0522",
+        "page": 269,
+        "sha256": "d10b8d4e9ae8ad213a8fd4557fc6a2e920f2d3233eef4076ff564fee4870a6d6"
+      },
+      "RM0522:p270": {
+        "source": "RM0522",
+        "page": 270,
+        "sha256": "2d8a2cc4ec2d2868705e9dc07b10daa44b4aeb61a8a8e1faada0e158e00a2489"
+      },
+      "RM0522:p271": {
+        "source": "RM0522",
+        "page": 271,
+        "sha256": "d19f60266d8f67a35d953bb0bfda7ec6247a4b6b51d4a36b6361dd6a9ca887c9"
+      },
+      "RM0522:p272": {
+        "source": "RM0522",
+        "page": 272,
+        "sha256": "5349003fbe3b8e2cbde7bf8e3dc9bfc878aadd1ebb531bbafb0f3392d8ff7953"
+      },
+      "RM0522:p273": {
+        "source": "RM0522",
+        "page": 273,
+        "sha256": "032cec5b7a4807963c01f1569a3556a50be226e009bca002e2e266f55408f3f6"
+      },
+      "RM0522:p274": {
+        "source": "RM0522",
+        "page": 274,
+        "sha256": "e1c8d3472a8f6850b0e1220c8e884b7995b7418964fa0017bff042d130643451"
+      },
+      "RM0522:p275": {
+        "source": "RM0522",
+        "page": 275,
+        "sha256": "fb06b521b7479ac3a3b02ed34d0f26991575474524ca70859f7e9538b47f43c7"
+      },
+      "RM0522:p276": {
+        "source": "RM0522",
+        "page": 276,
+        "sha256": "45aedbc14bc4c2ff50d2c87058938ce5dd2f305d8ad7b14811787c22bd4dd285"
+      },
+      "RM0522:p277": {
+        "source": "RM0522",
+        "page": 277,
+        "sha256": "817e7e60b26f7fe5e511462bc8c3396834800447953d556feb93e2c27e724321"
+      },
+      "RM0522:p278": {
+        "source": "RM0522",
+        "page": 278,
+        "sha256": "ef538551c0aea7a364f1b295c953b13e47e1e00b874a98f780be56a6b64d1220"
+      },
+      "RM0522:p279": {
+        "source": "RM0522",
+        "page": 279,
+        "sha256": "7eb8f29e57006ebfddac9659cd81d094568b75a01e19091a7ae6b995e3403001"
+      },
+      "RM0522:p280": {
+        "source": "RM0522",
+        "page": 280,
+        "sha256": "45449281f278a3d290959b2a2fbb4d5f26e509ae97ed24ee947a0b2aa31e7add"
+      },
+      "RM0522:p281": {
+        "source": "RM0522",
+        "page": 281,
+        "sha256": "fd596fc3aafe9b80e866d1bf504d023efc8c96e45a6ec225c3fefd0fc15891b8"
+      },
+      "RM0522:p282": {
+        "source": "RM0522",
+        "page": 282,
+        "sha256": "7bded26672eb48bf6abf3fa9bd2f46dbf71978b8e31a7b80965968c46f19a5fe"
+      },
+      "RM0522:p283": {
+        "source": "RM0522",
+        "page": 283,
+        "sha256": "8131610a2e940912e3e8c51cbfae3b85ee2b00b3d9c3614de7b1cf7ef7197a58"
+      },
+      "RM0522:p284": {
+        "source": "RM0522",
+        "page": 284,
+        "sha256": "d8107be710917e0addbd1b7bae97e0294f16cb0a3db96c5ed67101bf9f932a56"
+      },
+      "RM0522:p285": {
+        "source": "RM0522",
+        "page": 285,
+        "sha256": "a840dd25b23791cee547ef82b20d9f2d72fd512473b830c83f40ef79d812bd21"
+      },
+      "RM0522:p286": {
+        "source": "RM0522",
+        "page": 286,
+        "sha256": "28808f0a53b485ec5c35842e7a43c0866816a0688dce687a154c4d0396bb9e6a"
+      },
+      "RM0522:p287": {
+        "source": "RM0522",
+        "page": 287,
+        "sha256": "6aa320991a043239787434308b28eca47a1232bc35132c5e6e3f7553d778564c"
+      },
+      "RM0522:p288": {
+        "source": "RM0522",
+        "page": 288,
+        "sha256": "e91ca929946492c636fa1b6697fc45d17201a9362ceddea4cd8a33045ebfad0e"
+      },
+      "RM0522:p289": {
+        "source": "RM0522",
+        "page": 289,
+        "sha256": "38077a3d3cbe3a515704a1c0beb2c26bf1192be59863e3d5894829a6b8370f18"
+      },
+      "RM0522:p290": {
+        "source": "RM0522",
+        "page": 290,
+        "sha256": "2f7bf87f3f381afd13bcb5b65196b1da278cd1dc108543c38dfcdd0056d6c82c"
+      },
+      "RM0522:p291": {
+        "source": "RM0522",
+        "page": 291,
+        "sha256": "f4031d10ca77e44abd9d26a19b975ec65715c640cfa7eac0c678dcbe142014e3"
+      },
+      "RM0522:p292": {
+        "source": "RM0522",
+        "page": 292,
+        "sha256": "d7f646d955d8501a68cf8a8b87df588ef0911cdc898775bb0cec1e0e0e42e484"
+      },
+      "RM0522:p293": {
+        "source": "RM0522",
+        "page": 293,
+        "sha256": "55f4059950011b1e5ea3fdb50a07578aa2ab7916482d5d7b4f4a56b0dd613d90"
+      },
+      "RM0522:p294": {
+        "source": "RM0522",
+        "page": 294,
+        "sha256": "68f8ecc8d6fec3e3ffa5f17a36ff9bd695426af9147379a846e22315f36a83d1"
+      },
+      "RM0522:p295": {
+        "source": "RM0522",
+        "page": 295,
+        "sha256": "cd51493c228db0afc6f9c0faf10ffff7b87aaa41b39362213543b424c1a059f4"
+      },
+      "RM0522:p296": {
+        "source": "RM0522",
+        "page": 296,
+        "sha256": "f6a7eecc324712da50314b8828dceaf8eeadeb1dcfc59997a31bdcf8b0b98e00"
+      },
+      "RM0522:p297": {
+        "source": "RM0522",
+        "page": 297,
+        "sha256": "b56b6f328de5c2ece3f9db7867c329ff6423a1b5798d5509edba343c893e2e96"
+      },
+      "RM0522:p298": {
+        "source": "RM0522",
+        "page": 298,
+        "sha256": "334f8751be9d1e2807cfa3db24ee65940fcd4bed58599312992820fa4af0407c"
+      },
+      "RM0522:p299": {
+        "source": "RM0522",
+        "page": 299,
+        "sha256": "aa1a98355eaeea017fe7ee10e2fc6f0661d29cb061f21cae0ba534567d9daae5"
+      },
+      "RM0522:p300": {
+        "source": "RM0522",
+        "page": 300,
+        "sha256": "30450d6c746d1fc9a0ab46cfb67fd50bfb1de00a9abe4e2ce871ce15e683eae9"
+      },
+      "RM0522:p301": {
+        "source": "RM0522",
+        "page": 301,
+        "sha256": "f0e003480956590f9595f44c97c499aeb4cba8da3fa2af774cc47d8bc454313a"
+      },
+      "RM0522:p302": {
+        "source": "RM0522",
+        "page": 302,
+        "sha256": "25f2d873a107d853daf24e8c6ae6cf00e228795fe7c07ae66506f452a66e12ff"
+      },
+      "RM0522:p303": {
+        "source": "RM0522",
+        "page": 303,
+        "sha256": "b499e1ac57830315c510e8ea81930829eb366ce208416e096ec0cb8e42c4545f"
+      },
+      "RM0522:p304": {
+        "source": "RM0522",
+        "page": 304,
+        "sha256": "bb82c9f178b13c01d32df6e4d9befb81a51f198df9db44c4158f791d529aeaed"
+      },
+      "RM0522:p305": {
+        "source": "RM0522",
+        "page": 305,
+        "sha256": "d512608bcb5f300d1090bbb3369d121478870554867ca48c5b3e39cc47db23cd"
+      },
+      "RM0522:p306": {
+        "source": "RM0522",
+        "page": 306,
+        "sha256": "95a7bc28fc9d6917e2c4893d9e195f05c72c97074a1c361b7c15f448ce62cec8"
+      },
+      "RM0522:p307": {
+        "source": "RM0522",
+        "page": 307,
+        "sha256": "6274716f448bc623503051d2e5884fe53061d7111af3c3894ddf6eb3f2cca8a7"
+      },
+      "RM0522:p308": {
+        "source": "RM0522",
+        "page": 308,
+        "sha256": "ac17d1cd6a9eaa5ce03072edd2ec88dda06c0b7dc96552d0dac3b53c7c163655"
+      },
+      "RM0522:p309": {
+        "source": "RM0522",
+        "page": 309,
+        "sha256": "cf88b994c1a88061d1afe815b482d48448cbfa5d4c7ee68334b2e4bd766adffe"
+      },
+      "RM0522:p310": {
+        "source": "RM0522",
+        "page": 310,
+        "sha256": "290eec3899d04f5a47c91ad2996f92669fc46fbc9282859653c0e41dfa512593"
+      },
+      "RM0522:p311": {
+        "source": "RM0522",
+        "page": 311,
+        "sha256": "ad9ab5375a0dcca8124803ecd6165ddd7b0f771054a2225538577191b4d452be"
+      },
+      "RM0522:p312": {
+        "source": "RM0522",
+        "page": 312,
+        "sha256": "a097ea7390e35fee7cc6df28a819d57af2c13dc10008114accd9a0e8ba6f664f"
+      },
+      "RM0522:p313": {
+        "source": "RM0522",
+        "page": 313,
+        "sha256": "f0c9eb682381fb55c71462d7fe4dd8199cb4a47ee50a09ffe37000bcb723f3bd"
+      },
+      "RM0522:p314": {
+        "source": "RM0522",
+        "page": 314,
+        "sha256": "9e1eeb856182a7a43bed9cb25adbe63a2c536234980d6fa10c4b9df82007ab21"
+      },
+      "RM0522:p315": {
+        "source": "RM0522",
+        "page": 315,
+        "sha256": "eb3180267c2b339512a68ae86307dab683498ed21be0db08e0c412fe073b451c"
+      },
+      "RM0522:p316": {
+        "source": "RM0522",
+        "page": 316,
+        "sha256": "ae02ee5a7b9b05b47ee9d4d80bd3ff768aaf22a5acf15f6c762ec6f62fb94c12"
+      },
+      "RM0522:p317": {
+        "source": "RM0522",
+        "page": 317,
+        "sha256": "b4c82b1c04f06ed1486697c3f48f6b001717f07e266ede91933238e8eed439a7"
+      },
+      "RM0522:p318": {
+        "source": "RM0522",
+        "page": 318,
+        "sha256": "ac08f3e405299728cb11eeb9939a4ba1414f6732e3bbd5f501c75069ff8ee610"
+      },
+      "RM0522:p319": {
+        "source": "RM0522",
+        "page": 319,
+        "sha256": "4f9a5a31f91029c5748decc483d9e5f2d813e29cd5a462420afd0f17da5704a5"
+      },
+      "RM0522:p320": {
+        "source": "RM0522",
+        "page": 320,
+        "sha256": "de734a717842616928c6953fe158ef0ea6c824d43bdcdbe9fd7458670be6390a"
+      },
+      "RM0522:p321": {
+        "source": "RM0522",
+        "page": 321,
+        "sha256": "2868059b9f4a4b263004ca8b349b9db651e199d516978501388318dd84218ee9"
+      },
+      "RM0522:p322": {
+        "source": "RM0522",
+        "page": 322,
+        "sha256": "c6cb8674c4ce501df1eed7b92b61b8c73051b8322541bb9e0cbc8419615ac172"
+      },
+      "RM0522:p323": {
+        "source": "RM0522",
+        "page": 323,
+        "sha256": "ca1b53411557075f531c40ba0727fe953d06105b143dc9de65601bcb3b37c86c"
+      },
+      "RM0522:p324": {
+        "source": "RM0522",
+        "page": 324,
+        "sha256": "57927de0541ff3bb0166268c61dad5041aef84f4d486e1c1fd41db46b80add8d"
+      },
+      "RM0522:p325": {
+        "source": "RM0522",
+        "page": 325,
+        "sha256": "495f32cb64fc423031b74a537ba517e34a541dbc989072ee841d81b12545971e"
+      },
+      "RM0522:p326": {
+        "source": "RM0522",
+        "page": 326,
+        "sha256": "ce44b38bdb37b3b431e9a7bc4e17822e30b3fbabe1de7ebd5c7aa0094853d9aa"
+      },
+      "RM0522:p97": {
+        "source": "RM0522",
+        "page": 97,
+        "sha256": "78bbaacc3bbf7f59e2ad75d8e15359ac1fca0a29862d5746b91e9c6c33ab03b2"
+      },
+      "DS15135:p4": {
+        "source": "DS15135",
+        "page": 4,
+        "sha256": "9bd359262ece49d8a277ec8e49f1c3be8d04e2ef80052d63d8bcb5d263a2f4f7"
+      },
+      "DS15135:p5": {
+        "source": "DS15135",
+        "page": 5,
+        "sha256": "9a425c00d9dc290777004f11929ed9487b5a4a51202306e3281865f9a860ec87"
+      },
+      "DS15135:p10": {
+        "source": "DS15135",
+        "page": 10,
+        "sha256": "9bc8239f82ee55170b43294296eb3eee749a74636903abede58a5390175003ac"
+      },
+      "DS15135:p11": {
+        "source": "DS15135",
+        "page": 11,
+        "sha256": "9e0ca05e749cdb7fb3178acef3fb61b99676189b04890f159524a856c346e9d9"
+      },
+      "DS15135:p51": {
+        "source": "DS15135",
+        "page": 51,
+        "sha256": "b08fcdf9deae8851aaf8b6c762737b2bf97e0c1aaa9573ae9c19a9715207dda8"
+      },
+      "ES0676:p1": {
+        "source": "ES0676",
+        "page": 1,
+        "sha256": "c36bb50f3ba55f82de59b1a5aa62c5ca6b1d3ea938ac9451545a442e65dd25c8"
+      },
+      "ES0676:p2": {
+        "source": "ES0676",
+        "page": 2,
+        "sha256": "3fed5303e4a0fc65ed4dbe6aae1c297605837e2da15bb0e24928d26b0d25eb95"
+      },
+      "ES0676:p3": {
+        "source": "ES0676",
+        "page": 3,
+        "sha256": "6682207b964f905ea8f0e452bc5cff546dfb08622fca9ce2f979b0e43cd6d157"
+      },
+      "ES0676:p4": {
+        "source": "ES0676",
+        "page": 4,
+        "sha256": "3b0e6d179a6d3b6701ddfa31ce87f44ef4d62c59d79a1f01184c77a212d7774c"
+      },
+      "ES0676:p5": {
+        "source": "ES0676",
+        "page": 5,
+        "sha256": "b1c29e54e422b77b7a01a6dea47789196c0a8d23aed2f9a68f6a91698ae66d9d"
+      },
+      "header.layout": {
+        "source": "header",
+        "start_line": 764,
+        "end_line": 809,
+        "sha256": "02e512cdce24776d0a9932bc0b988ae81c22e7720068d5d10e6c1734abb9113c"
+      },
+      "header.IRQ": {
+        "source": "header",
+        "start_line": 53,
+        "end_line": 138,
+        "sha256": "18d59fd48bd11c3c33058f62110ec5be72edfd95d6806662bf077f92ab9fe057"
+      },
+      "header.base": {
+        "source": "header",
+        "start_line": 1250,
+        "end_line": 1260,
+        "sha256": "5da17a2bb19dedcf89dd4bc09027367964bf003ff6e2d34bb321b8c93abee5ae"
+      },
+      "header.bus": {
+        "source": "header",
+        "start_line": 1155,
+        "end_line": 1178,
+        "sha256": "15749b25e57a4c6327401a913c6748ea5c49c8969a8f65ace3cd1ec01be26293"
+      },
+      "header.fields": {
+        "source": "header",
+        "start_line": 8611,
+        "end_line": 9584,
+        "sha256": "0ac25b5963fa85793578b35d7f7e02277da5fafbd003a5591172d87574b25a06"
+      },
+      "HAL.reset": {
+        "source": "HAL_RCC",
+        "start_line": 608,
+        "end_line": 713,
+        "sha256": "8ba9ac9c0d4c50311478903f8d38d2608b19967938ebc0f385e6b59c100880db"
+      },
+      "HAL.reset_sys": {
+        "source": "HAL_RCC",
+        "start_line": 723,
+        "end_line": 755,
+        "sha256": "ff9ff7fc0d1868ee7b4d8b203107303705e730c27e496dba76b32738a51c05b8"
+      },
+      "HAL.HSI": {
+        "source": "HAL_RCC",
+        "start_line": 801,
+        "end_line": 903,
+        "sha256": "4613529a61cccfcb97782f089ed4db271ceb3a5025fd4f2c26bc0e8f77da9976"
+      },
+      "HAL.HSIK": {
+        "source": "HAL_RCC",
+        "start_line": 934,
+        "end_line": 960,
+        "sha256": "53c2decedc93072ebda64e877ae6e0c2d685f1597f354ba2312d0be0286cc2e8"
+      },
+      "HAL.LSI": {
+        "source": "HAL_RCC",
+        "start_line": 999,
+        "end_line": 1018,
+        "sha256": "b4080029c53cb73b723d57f74da3b36052240636aa869d5e2c5626aea394c9af"
+      },
+      "HAL.HSE": {
+        "source": "HAL_RCC",
+        "start_line": 1054,
+        "end_line": 1103,
+        "sha256": "da06c884ad178d47c54fe6347ae9ddeeb121f8cd87b376aa0fbd36eee4d7d16f"
+      },
+      "HAL.LSE": {
+        "source": "HAL_RCC",
+        "start_line": 1144,
+        "end_line": 1214,
+        "sha256": "513589f974b665d7d960e4fea6ac2a397ee841f67e16b29ce4880bc81958379c"
+      },
+      "HAL.PSI_en": {
+        "source": "HAL_RCC",
+        "start_line": 1275,
+        "end_line": 1363,
+        "sha256": "ab9c17aa9f4976689c5e33dddbb17e868f3d47f9b02a3be2e366d59d07bf1e6d"
+      },
+      "HAL.PSIK": {
+        "source": "HAL_RCC",
+        "start_line": 1394,
+        "end_line": 1421,
+        "sha256": "778c5cd4dcde9ee0995d60128935d891d7a00122e30744f57a5d293d4e56187a"
+      },
+      "HAL.PSI_config": {
+        "source": "HAL_RCC",
+        "start_line": 1466,
+        "end_line": 1497,
+        "sha256": "a90cd99c2a90dc875f477e86f8ab696348a26bab3ff55fea4b3213b294a8e5cd"
+      },
+      "HAL.sys_select": {
+        "source": "HAL_RCC",
+        "start_line": 1539,
+        "end_line": 1569,
+        "sha256": "b6d2e05c96ac7f2149daae6a44c4363acf22fb9133a979c3dda79d7619808d3c"
+      },
+      "HAL.bus_config": {
+        "source": "HAL_RCC",
+        "start_line": 1595,
+        "end_line": 1700,
+        "sha256": "ebf6f4f59eec894f48a36a20cefce74e74fb8674f9553413091e1e922edda711"
+      },
+      "HAL.PSI_freq": {
+        "source": "HAL_RCC",
+        "start_line": 1729,
+        "end_line": 1784,
+        "sha256": "2c901ec69dadc2a910bc18515c347dc8c80469be8805863185d853f47ffc58a1"
+      },
+      "HAL.bus_freq": {
+        "source": "HAL_RCC",
+        "start_line": 1800,
+        "end_line": 1876,
+        "sha256": "840103e69777aa25ab1778636b478ccc5619a2b15c701b7281a72cebf707e884"
+      },
+      "HAL.MCO_reset_flags": {
+        "source": "HAL_RCC",
+        "start_line": 1895,
+        "end_line": 1924,
+        "sha256": "318ac004d0471d5e5c3e7ad11f1198763d16aae0975c9c7c75fb7c0f11889003"
+      },
+      "HAL.CSS": {
+        "source": "HAL_RCC",
+        "start_line": 1926,
+        "end_line": 1988,
+        "sha256": "a894318e2ff867cdfd220780f108fd869e3b77cbe18d18fc6f2c6f86ddb97075"
+      },
+      "HAL.RTC_presc": {
+        "source": "HAL_RCC",
+        "start_line": 1990,
+        "end_line": 2010,
+        "sha256": "fd6518c91c0a2c2db9706a5ba71e6b63482ad14cef9a60bb6591e0738ad3e5d6"
+      },
+      "HAL.LSE_CSS": {
+        "source": "HAL_RCC",
+        "start_line": 2044,
+        "end_line": 2072,
+        "sha256": "a22748fea42daf644d4892ae9e2cf81e889941c5c907e57439a4f47db3a23f55"
+      },
+      "HAL.RTC_LSCO": {
+        "source": "HAL_RCC",
+        "start_line": 2080,
+        "end_line": 2148,
+        "sha256": "e12133e95993aaa6aa88147e9b9d440f1066fd08b992358c5b044a7195d2cfae"
+      },
+      "HAL.kernel_setters": {
+        "source": "HAL_RCC",
+        "start_line": 2315,
+        "end_line": 2418,
+        "sha256": "d4189f1e7d3132bbd99e5ed10566fa6618dc87f22fac4f4ff67143c2b5020637"
+      },
+      "HAL.RTC_setter": {
+        "source": "HAL_RCC",
+        "start_line": 2485,
+        "end_line": 2502,
+        "sha256": "9a16a5d247ef94771e428f3044d669b4f8ed7e71ab5e8bf98744257a62b6559f"
+      },
+      "HAL.ADCDAC": {
+        "source": "HAL_RCC",
+        "start_line": 2746,
+        "end_line": 2791,
+        "sha256": "4983eac9cecb42dbf6b325e1989d36a4612303bed070a8c150b30a6b6156d7ba"
+      },
+      "HAL.ADC_freq": {
+        "source": "HAL_RCC",
+        "start_line": 3840,
+        "end_line": 3879,
+        "sha256": "c118584bad0999085d797878ad410722005664ec27aa2f503d3c3d8a3029dd0f"
+      },
+      "HAL.RTC_freq": {
+        "source": "HAL_RCC",
+        "start_line": 4142,
+        "end_line": 4190,
+        "sha256": "0d31c723494b1188e3c0411c0098b7ba0038850dd8fd59c3f2a33b7d8ae531d6"
+      },
+      "HAL.privilege_wait_divider": {
+        "source": "HAL_RCC",
+        "start_line": 4239,
+        "end_line": 4378,
+        "sha256": "fd10bde45b1eab18c83cf6fd694dccd7f702551cf74c2a5ec3d1f06b3ba5792f"
+      },
+      "LL_RCC_ConfigPSI": {
+        "source": "LL_RCC",
+        "start_line": 1679,
+        "end_line": 1682,
+        "sha256": "3eb83e9a45200d903cbfacefd34f5a6481f73ae1457c0c1d73b043fb1c936cc1"
+      },
+      "LL_RCC_ConfigBusClock": {
+        "source": "LL_RCC",
+        "start_line": 2161,
+        "end_line": 2165,
+        "sha256": "e8dff087c4de6c56f30686de1c6a7cbcfadc0022994ecc86d846714ec143110f"
+      },
+      "LL_RCC_SetADCDACPrescaler": {
+        "source": "LL_RCC",
+        "start_line": 2535,
+        "end_line": 2538,
+        "sha256": "9ae5565131cd55c127befb6ebe0fce5bea15d5a3042fb16647c9e458197ea183"
+      },
+      "LL_RCC_ConfigADCDAC": {
+        "source": "LL_RCC",
+        "start_line": 2662,
+        "end_line": 2665,
+        "sha256": "e12355888684c45e241a5b92ec4c576804ac61376175c1ad3a3a778ac8fd6e56"
+      },
+      "LL_RCC_HSIK_SetDivider": {
+        "source": "LL_RCC",
+        "start_line": 1314,
+        "end_line": 1317,
+        "sha256": "36fe34525e9283301567a704bbdfb958e914fed4903c7c402a1a6478f8352e3d"
+      },
+      "LL_RCC_PSIK_SetDivider": {
+        "source": "LL_RCC",
+        "start_line": 1530,
+        "end_line": 1533,
+        "sha256": "b3e5d1a216238972f91f1d6578417ec74f68159c5b5aa7a0d7dc0fa326c3e25d"
+      },
+      "LL_RCC_SetPrivAttr": {
+        "source": "LL_RCC",
+        "start_line": 3736,
+        "end_line": 3739,
+        "sha256": "d7c51bc574cf5aef9780a0f9cdc279a0ea0af6cc2eaddb7b9d8875707f9eaacd"
+      },
+      "LL_RCC_HSIK_GetDivider": {
+        "source": "LL_RCC",
+        "start_line": 1340,
+        "end_line": 1343,
+        "sha256": "94170963aa659767e1db3970943973a9ecca99dfed4a3931db8e396b9665057b"
+      },
+      "LL_RCC_PSIK_GetDivider": {
+        "source": "LL_RCC",
+        "start_line": 1556,
+        "end_line": 1559,
+        "sha256": "4bbd4583959a85aee5d83442ad02298bde3a86370b7f605e97005ac3649ca479"
+      },
+      "LL.constants.136": {
+        "source": "LL_RCC",
+        "start_line": 136,
+        "end_line": 151,
+        "sha256": "138ccfa8d958e241902654f543558bc270eed0c97137ac59877f013e4a4405f2"
+      },
+      "LL.constants.158": {
+        "source": "LL_RCC",
+        "start_line": 158,
+        "end_line": 173,
+        "sha256": "7cfe0e329e976798913997a568a93e233d05d43599b60c623f7b8cb8f5834e58"
+      },
+      "family.modify": {
+        "source": "family",
+        "start_line": 130,
+        "end_line": 142,
+        "sha256": "53238037d4d5827a42b9177f5166478587104441da533848b840727019c41699"
+      },
+      "LL.bus_all": {
+        "source": "LL_BUS",
+        "start_line": 60,
+        "end_line": 116,
+        "sha256": "cd8a6309f3a6a66189eb5a0b79b23b351a0eb5ef876f3cd45ddfa724a96877d2"
+      },
+      "header.HSI_reset": {
+        "source": "header",
+        "start_line": 1099,
+        "end_line": 1104,
+        "sha256": "15af14341cfc69d31008ce079d9dec2c73659474bd72778337bb7cad91387da1"
+      },
+      "HAL.core_update": {
+        "source": "HAL_core",
+        "start_line": 205,
+        "end_line": 311,
+        "sha256": "dec27bac154827f9dd859471b541355a140315f5907ba7fdc9df1cb4f46583e6"
+      },
+      "HAL.tick_clock": {
+        "source": "HAL_cortex",
+        "start_line": 551,
+        "end_line": 590,
+        "sha256": "1411acf1c34f7e00a4f076fb961fb891c189b0c03ac202416385f0a575e1d08f"
+      },
+      "HAL.ADC_core_delay": {
+        "source": "HAL_ADC",
+        "start_line": 228,
+        "end_line": 251,
+        "sha256": "46a2ef4050d97eba6b6a2e12d1822ac1afcd256c62b8d3613742c60c49e512ef"
+      },
+      "HAL.DAC_core_delay": {
+        "source": "HAL_DAC",
+        "start_line": 2970,
+        "end_line": 3000,
+        "sha256": "224b07ac298705a8ce040c5abc3b1fcc0e9a371ab7d5397b310486485a31077d"
+      },
+      "HAL.UART_core_timeout": {
+        "source": "HAL_UART",
+        "start_line": 7210,
+        "end_line": 7250,
+        "sha256": "e20a31562fc56d0c78abd1d949c3672e215d13012a21fa200eb4fd0ebbd23cdb"
+      },
+      "HAL.reset_doc": {
+        "source": "HAL_RCC",
+        "start_line": 110,
+        "end_line": 120,
+        "sha256": "1c9e7a4b9e13155e09b66f28716f5fb962902c2862dcbab7766a1e5d3a6f8327"
+      },
+      "HAL.HSIK_get": {
+        "source": "HAL_RCC",
+        "start_line": 980,
+        "end_line": 995,
+        "sha256": "6dbe3af25b5be84c73ca2e06c9b5f83b0e896d878fca1cb849274fd87afe0e99"
+      },
+      "HAL.PSIK_get": {
+        "source": "HAL_RCC",
+        "start_line": 1440,
+        "end_line": 1455,
+        "sha256": "b1d6a1ca6ea88597ff0b4bde9695e39e4d76bf96881ecef5e7dfbd396ece300e"
+      },
+      "HAL.divider_enums": {
+        "source": "HAL_RCC_H",
+        "start_line": 135,
+        "end_line": 172,
+        "sha256": "a7370bfdd9779cff9dc2499ba060d336f2aaf707807156bcb3cf60b76985c830"
+      }
+    },
+    "errata_sha256": "821c22f796a9ff723afee534fe5943c2b0506325ec871d890706d94414316416",
+    "sdk_lifecycle_sha256": "09c4f0f44f862065fa5164ae937b15923e9b702455aae1dc1e215a9ef7783c4c",
+    "finite_source_maps": {
+      "base": "0x44020C00",
+      "IRQ": 6,
+      "registers": [
+        {
+          "name": "CR1",
+          "offset": "0x000"
+        },
+        {
+          "name": "CR2",
+          "offset": "0x004"
+        },
+        {
+          "name": "CFGR1",
+          "offset": "0x01C"
+        },
+        {
+          "name": "CFGR2",
+          "offset": "0x020"
+        },
+        {
+          "name": "CIER",
+          "offset": "0x050"
+        },
+        {
+          "name": "CIFR",
+          "offset": "0x054"
+        },
+        {
+          "name": "CICR",
+          "offset": "0x058"
+        },
+        {
+          "name": "AHB1RSTR",
+          "offset": "0x060"
+        },
+        {
+          "name": "AHB2RSTR",
+          "offset": "0x064"
+        },
+        {
+          "name": "APB1LRSTR",
+          "offset": "0x074"
+        },
+        {
+          "name": "APB1HRSTR",
+          "offset": "0x078"
+        },
+        {
+          "name": "APB2RSTR",
+          "offset": "0x07C"
+        },
+        {
+          "name": "APB3RSTR",
+          "offset": "0x080"
+        },
+        {
+          "name": "AHB1ENR",
+          "offset": "0x088"
+        },
+        {
+          "name": "AHB2ENR",
+          "offset": "0x08C"
+        },
+        {
+          "name": "APB1LENR",
+          "offset": "0x09C"
+        },
+        {
+          "name": "APB1HENR",
+          "offset": "0x0A0"
+        },
+        {
+          "name": "APB2ENR",
+          "offset": "0x0A4"
+        },
+        {
+          "name": "APB3ENR",
+          "offset": "0x0A8"
+        },
+        {
+          "name": "AHB1LPENR",
+          "offset": "0x0B0"
+        },
+        {
+          "name": "AHB2LPENR",
+          "offset": "0x0B4"
+        },
+        {
+          "name": "APB1LLPENR",
+          "offset": "0x0C4"
+        },
+        {
+          "name": "APB1HLPENR",
+          "offset": "0x0C8"
+        },
+        {
+          "name": "APB2LPENR",
+          "offset": "0x0CC"
+        },
+        {
+          "name": "APB3LPENR",
+          "offset": "0x0D0"
+        },
+        {
+          "name": "CCIPR1",
+          "offset": "0x0D8"
+        },
+        {
+          "name": "CCIPR2",
+          "offset": "0x0DC"
+        },
+        {
+          "name": "RTCCR",
+          "offset": "0x0F0"
+        },
+        {
+          "name": "RSR",
+          "offset": "0x0F4"
+        },
+        {
+          "name": "PRIVCFGR",
+          "offset": "0x114"
+        }
+      ],
+      "header_reset_literals": {
+        "CR1": "0x00000022",
+        "CR2": "0x00000000",
+        "CFGR1": "0x00000000",
+        "CFGR2": "0x00000000",
+        "CIER": "0x00000000",
+        "CICR": "0x00000000",
+        "AHB1RSTR": "0x00000000",
+        "AHB2RSTR": "0x00000000",
+        "APB1LRSTR": "0x00000000",
+        "APB1HRSTR": "0x00000000",
+        "APB2RSTR": "0x00000000",
+        "APB3RSTR": "0x00000000",
+        "AHB1ENR": "0xC0000100",
+        "AHB2ENR": "0x00000000",
+        "APB1LENR": "0x00000000",
+        "APB1HENR": "0x00000000",
+        "APB2ENR": "0x00000000",
+        "APB3ENR": "0x00000000",
+        "AHB1LPENR": "0xC4025103",
+        "AHB2LPENR": "0x00070C9F",
+        "APB1LLPENR": "0x01BA6859",
+        "APB1HLPENR": "0x40000208",
+        "APB2LPENR": "0x01077800",
+        "APB3LPENR": "0x00200842",
+        "CCIPR1": "0x00000000",
+        "CCIPR2": "0x00000000",
+        "RTCCR": "0x00000000",
+        "RSR": "0x00000000",
+        "PRIVCFGR": "0x00000000"
+      },
+      "header_field_positions": [
+        {
+          "name": "CR1_HSISON",
+          "position": 0,
+          "source_line": 8613
+        },
+        {
+          "name": "CR1_HSIDIV3ON",
+          "position": 1,
+          "source_line": 8616
+        },
+        {
+          "name": "CR1_HSIKON",
+          "position": 2,
+          "source_line": 8619
+        },
+        {
+          "name": "CR1_HSIKERON",
+          "position": 3,
+          "source_line": 8622
+        },
+        {
+          "name": "CR1_HSISRDY",
+          "position": 4,
+          "source_line": 8625
+        },
+        {
+          "name": "CR1_HSIDIV3RDY",
+          "position": 5,
+          "source_line": 8628
+        },
+        {
+          "name": "CR1_HSIKRDY",
+          "position": 6,
+          "source_line": 8631
+        },
+        {
+          "name": "CR1_PSISON",
+          "position": 8,
+          "source_line": 8634
+        },
+        {
+          "name": "CR1_PSIDIV3ON",
+          "position": 9,
+          "source_line": 8637
+        },
+        {
+          "name": "CR1_PSIKON",
+          "position": 10,
+          "source_line": 8640
+        },
+        {
+          "name": "CR1_PSIKERON",
+          "position": 11,
+          "source_line": 8643
+        },
+        {
+          "name": "CR1_PSISRDY",
+          "position": 12,
+          "source_line": 8646
+        },
+        {
+          "name": "CR1_PSIDIV3RDY",
+          "position": 13,
+          "source_line": 8649
+        },
+        {
+          "name": "CR1_PSIKRDY",
+          "position": 14,
+          "source_line": 8652
+        },
+        {
+          "name": "CR1_HSEON",
+          "position": 16,
+          "source_line": 8655
+        },
+        {
+          "name": "CR1_HSERDY",
+          "position": 17,
+          "source_line": 8658
+        },
+        {
+          "name": "CR1_HSEBYP",
+          "position": 18,
+          "source_line": 8661
+        },
+        {
+          "name": "CR1_HSECSSON",
+          "position": 19,
+          "source_line": 8664
+        },
+        {
+          "name": "CR1_HSEEXT",
+          "position": 20,
+          "source_line": 8668
+        },
+        {
+          "name": "CR2_HSIKDIV",
+          "position": 0,
+          "source_line": 8675
+        },
+        {
+          "name": "CR2_PSIKDIV",
+          "position": 8,
+          "source_line": 8682
+        },
+        {
+          "name": "CR2_PSIREFSRC",
+          "position": 16,
+          "source_line": 8689
+        },
+        {
+          "name": "CR2_PSIREF",
+          "position": 20,
+          "source_line": 8695
+        },
+        {
+          "name": "CR2_PSIFREQ",
+          "position": 28,
+          "source_line": 8702
+        },
+        {
+          "name": "CFGR1_SW",
+          "position": 0,
+          "source_line": 8711
+        },
+        {
+          "name": "CFGR1_SWS",
+          "position": 3,
+          "source_line": 8717
+        },
+        {
+          "name": "CFGR1_STOPWUCK",
+          "position": 6,
+          "source_line": 8722
+        },
+        {
+          "name": "CFGR1_RTCPRE",
+          "position": 7,
+          "source_line": 8726
+        },
+        {
+          "name": "CFGR1_MCO1PRE",
+          "position": 18,
+          "source_line": 8739
+        },
+        {
+          "name": "CFGR1_MCO1SEL",
+          "position": 22,
+          "source_line": 8746
+        },
+        {
+          "name": "CFGR1_MCO2PRE",
+          "position": 25,
+          "source_line": 8752
+        },
+        {
+          "name": "CFGR1_MCO2SEL",
+          "position": 29,
+          "source_line": 8759
+        },
+        {
+          "name": "CFGR2_HPRE",
+          "position": 0,
+          "source_line": 8768
+        },
+        {
+          "name": "CFGR2_PPRE1",
+          "position": 4,
+          "source_line": 8775
+        },
+        {
+          "name": "CFGR2_PPRE2",
+          "position": 8,
+          "source_line": 8781
+        },
+        {
+          "name": "CFGR2_PPRE3",
+          "position": 12,
+          "source_line": 8787
+        },
+        {
+          "name": "CFGR2_AHB1DIS",
+          "position": 16,
+          "source_line": 8793
+        },
+        {
+          "name": "CFGR2_AHB2DIS",
+          "position": 17,
+          "source_line": 8796
+        },
+        {
+          "name": "CFGR2_APB1DIS",
+          "position": 20,
+          "source_line": 8799
+        },
+        {
+          "name": "CFGR2_APB2DIS",
+          "position": 21,
+          "source_line": 8802
+        },
+        {
+          "name": "CFGR2_APB3DIS",
+          "position": 22,
+          "source_line": 8805
+        },
+        {
+          "name": "CIER_LSIRDYIE",
+          "position": 0,
+          "source_line": 8812
+        },
+        {
+          "name": "CIER_LSERDYIE",
+          "position": 1,
+          "source_line": 8815
+        },
+        {
+          "name": "CIER_HSISRDYIE",
+          "position": 2,
+          "source_line": 8818
+        },
+        {
+          "name": "CIER_HSIDIV3RDYIE",
+          "position": 3,
+          "source_line": 8821
+        },
+        {
+          "name": "CIER_HSIKRDYIE",
+          "position": 4,
+          "source_line": 8824
+        },
+        {
+          "name": "CIER_PSISRDYIE",
+          "position": 5,
+          "source_line": 8827
+        },
+        {
+          "name": "CIER_PSIDIV3RDYIE",
+          "position": 6,
+          "source_line": 8830
+        },
+        {
+          "name": "CIER_PSIKRDYIE",
+          "position": 7,
+          "source_line": 8833
+        },
+        {
+          "name": "CIER_HSERDYIE",
+          "position": 8,
+          "source_line": 8836
+        },
+        {
+          "name": "CIFR_LSIRDYF",
+          "position": 0,
+          "source_line": 8841
+        },
+        {
+          "name": "CIFR_LSERDYF",
+          "position": 1,
+          "source_line": 8844
+        },
+        {
+          "name": "CIFR_HSISRDYF",
+          "position": 2,
+          "source_line": 8847
+        },
+        {
+          "name": "CIFR_HSIDIV3RDYF",
+          "position": 3,
+          "source_line": 8850
+        },
+        {
+          "name": "CIFR_HSIKRDYF",
+          "position": 4,
+          "source_line": 8853
+        },
+        {
+          "name": "CIFR_PSISRDYF",
+          "position": 5,
+          "source_line": 8856
+        },
+        {
+          "name": "CIFR_PSIDIV3RDYF",
+          "position": 6,
+          "source_line": 8859
+        },
+        {
+          "name": "CIFR_PSIKRDYF",
+          "position": 7,
+          "source_line": 8862
+        },
+        {
+          "name": "CIFR_HSERDYF",
+          "position": 8,
+          "source_line": 8865
+        },
+        {
+          "name": "CIFR_HSECSSF",
+          "position": 10,
+          "source_line": 8868
+        },
+        {
+          "name": "CIFR_LSECSSF",
+          "position": 11,
+          "source_line": 8872
+        },
+        {
+          "name": "CICR_LSIRDYC",
+          "position": 0,
+          "source_line": 8879
+        },
+        {
+          "name": "CICR_LSERDYC",
+          "position": 1,
+          "source_line": 8882
+        },
+        {
+          "name": "CICR_HSISRDYC",
+          "position": 2,
+          "source_line": 8885
+        },
+        {
+          "name": "CICR_HSIDIV3RDYC",
+          "position": 3,
+          "source_line": 8888
+        },
+        {
+          "name": "CICR_HSIKRDYC",
+          "position": 4,
+          "source_line": 8891
+        },
+        {
+          "name": "CICR_PSISRDYC",
+          "position": 5,
+          "source_line": 8894
+        },
+        {
+          "name": "CICR_PSIDIV3RDYC",
+          "position": 6,
+          "source_line": 8897
+        },
+        {
+          "name": "CICR_PSIKRDYC",
+          "position": 7,
+          "source_line": 8900
+        },
+        {
+          "name": "CICR_HSERDYC",
+          "position": 8,
+          "source_line": 8903
+        },
+        {
+          "name": "CICR_HSECSSC",
+          "position": 10,
+          "source_line": 8906
+        },
+        {
+          "name": "CICR_LSECSSC",
+          "position": 11,
+          "source_line": 8910
+        },
+        {
+          "name": "AHB1RSTR_LPDMA1RST",
+          "position": 0,
+          "source_line": 8917
+        },
+        {
+          "name": "AHB1RSTR_LPDMA2RST",
+          "position": 1,
+          "source_line": 8920
+        },
+        {
+          "name": "AHB1RSTR_CRCRST",
+          "position": 12,
+          "source_line": 8923
+        },
+        {
+          "name": "AHB1RSTR_CORDICRST",
+          "position": 14,
+          "source_line": 8926
+        },
+        {
+          "name": "AHB1RSTR_RAMCFGRST",
+          "position": 17,
+          "source_line": 8929
+        },
+        {
+          "name": "AHB2RSTR_GPIOARST",
+          "position": 0,
+          "source_line": 8935
+        },
+        {
+          "name": "AHB2RSTR_GPIOBRST",
+          "position": 1,
+          "source_line": 8938
+        },
+        {
+          "name": "AHB2RSTR_GPIOCRST",
+          "position": 2,
+          "source_line": 8941
+        },
+        {
+          "name": "AHB2RSTR_GPIODRST",
+          "position": 3,
+          "source_line": 8944
+        },
+        {
+          "name": "AHB2RSTR_GPIOERST",
+          "position": 4,
+          "source_line": 8947
+        },
+        {
+          "name": "AHB2RSTR_GPIOHRST",
+          "position": 7,
+          "source_line": 8950
+        },
+        {
+          "name": "AHB2RSTR_ADC12RST",
+          "position": 10,
+          "source_line": 8953
+        },
+        {
+          "name": "AHB2RSTR_DAC1RST",
+          "position": 11,
+          "source_line": 8956
+        },
+        {
+          "name": "AHB2RSTR_AESRST",
+          "position": 16,
+          "source_line": 8959
+        },
+        {
+          "name": "AHB2RSTR_HASHRST",
+          "position": 17,
+          "source_line": 8962
+        },
+        {
+          "name": "AHB2RSTR_RNGRST",
+          "position": 18,
+          "source_line": 8965
+        },
+        {
+          "name": "APB1LRSTR_TIM2RST",
+          "position": 0,
+          "source_line": 8971
+        },
+        {
+          "name": "APB1LRSTR_TIM6RST",
+          "position": 4,
+          "source_line": 8974
+        },
+        {
+          "name": "APB1LRSTR_TIM7RST",
+          "position": 5,
+          "source_line": 8977
+        },
+        {
+          "name": "APB1LRSTR_TIM12RST",
+          "position": 6,
+          "source_line": 8980
+        },
+        {
+          "name": "APB1LRSTR_OPAMP1RST",
+          "position": 13,
+          "source_line": 8983
+        },
+        {
+          "name": "APB1LRSTR_SPI2RST",
+          "position": 14,
+          "source_line": 8986
+        },
+        {
+          "name": "APB1LRSTR_USART2RST",
+          "position": 17,
+          "source_line": 8989
+        },
+        {
+          "name": "APB1LRSTR_UART4RST",
+          "position": 19,
+          "source_line": 8992
+        },
+        {
+          "name": "APB1LRSTR_UART5RST",
+          "position": 20,
+          "source_line": 8995
+        },
+        {
+          "name": "APB1LRSTR_I2C1RST",
+          "position": 21,
+          "source_line": 8998
+        },
+        {
+          "name": "APB1LRSTR_I3C1RST",
+          "position": 23,
+          "source_line": 9001
+        },
+        {
+          "name": "APB1LRSTR_CRSRST",
+          "position": 24,
+          "source_line": 9004
+        },
+        {
+          "name": "APB1HRSTR_COMP12RST",
+          "position": 3,
+          "source_line": 9010
+        },
+        {
+          "name": "APB1HRSTR_FDCANRST",
+          "position": 9,
+          "source_line": 9013
+        },
+        {
+          "name": "APB2RSTR_TIM1RST",
+          "position": 11,
+          "source_line": 9019
+        },
+        {
+          "name": "APB2RSTR_SPI1RST",
+          "position": 12,
+          "source_line": 9022
+        },
+        {
+          "name": "APB2RSTR_TIM8RST",
+          "position": 13,
+          "source_line": 9025
+        },
+        {
+          "name": "APB2RSTR_USART1RST",
+          "position": 14,
+          "source_line": 9028
+        },
+        {
+          "name": "APB2RSTR_TIM15RST",
+          "position": 16,
+          "source_line": 9031
+        },
+        {
+          "name": "APB2RSTR_USBRST",
+          "position": 24,
+          "source_line": 9034
+        },
+        {
+          "name": "APB3RSTR_SBSRST",
+          "position": 1,
+          "source_line": 9040
+        },
+        {
+          "name": "APB3RSTR_LPUART1RST",
+          "position": 6,
+          "source_line": 9043
+        },
+        {
+          "name": "APB3RSTR_LPTIM1RST",
+          "position": 11,
+          "source_line": 9046
+        },
+        {
+          "name": "AHB1ENR_LPDMA1EN",
+          "position": 0,
+          "source_line": 9052
+        },
+        {
+          "name": "AHB1ENR_LPDMA2EN",
+          "position": 1,
+          "source_line": 9055
+        },
+        {
+          "name": "AHB1ENR_FLASHEN",
+          "position": 8,
+          "source_line": 9058
+        },
+        {
+          "name": "AHB1ENR_CRCEN",
+          "position": 12,
+          "source_line": 9061
+        },
+        {
+          "name": "AHB1ENR_CORDICEN",
+          "position": 14,
+          "source_line": 9064
+        },
+        {
+          "name": "AHB1ENR_RAMCFGEN",
+          "position": 17,
+          "source_line": 9067
+        },
+        {
+          "name": "AHB1ENR_SRAM2EN",
+          "position": 30,
+          "source_line": 9071
+        },
+        {
+          "name": "AHB1ENR_SRAM1EN",
+          "position": 31,
+          "source_line": 9074
+        },
+        {
+          "name": "AHB2ENR_GPIOAEN",
+          "position": 0,
+          "source_line": 9080
+        },
+        {
+          "name": "AHB2ENR_GPIOBEN",
+          "position": 1,
+          "source_line": 9083
+        },
+        {
+          "name": "AHB2ENR_GPIOCEN",
+          "position": 2,
+          "source_line": 9086
+        },
+        {
+          "name": "AHB2ENR_GPIODEN",
+          "position": 3,
+          "source_line": 9089
+        },
+        {
+          "name": "AHB2ENR_GPIOEEN",
+          "position": 4,
+          "source_line": 9092
+        },
+        {
+          "name": "AHB2ENR_GPIOHEN",
+          "position": 7,
+          "source_line": 9095
+        },
+        {
+          "name": "AHB2ENR_ADC12EN",
+          "position": 10,
+          "source_line": 9098
+        },
+        {
+          "name": "AHB2ENR_DAC1EN",
+          "position": 11,
+          "source_line": 9101
+        },
+        {
+          "name": "AHB2ENR_AESEN",
+          "position": 16,
+          "source_line": 9104
+        },
+        {
+          "name": "AHB2ENR_HASHEN",
+          "position": 17,
+          "source_line": 9107
+        },
+        {
+          "name": "AHB2ENR_RNGEN",
+          "position": 18,
+          "source_line": 9110
+        },
+        {
+          "name": "APB1LENR_TIM2EN",
+          "position": 0,
+          "source_line": 9116
+        },
+        {
+          "name": "APB1LENR_TIM6EN",
+          "position": 4,
+          "source_line": 9119
+        },
+        {
+          "name": "APB1LENR_TIM7EN",
+          "position": 5,
+          "source_line": 9122
+        },
+        {
+          "name": "APB1LENR_TIM12EN",
+          "position": 6,
+          "source_line": 9125
+        },
+        {
+          "name": "APB1LENR_WWDGEN",
+          "position": 11,
+          "source_line": 9128
+        },
+        {
+          "name": "APB1LENR_OPAMP1EN",
+          "position": 13,
+          "source_line": 9131
+        },
+        {
+          "name": "APB1LENR_SPI2EN",
+          "position": 14,
+          "source_line": 9134
+        },
+        {
+          "name": "APB1LENR_USART2EN",
+          "position": 17,
+          "source_line": 9137
+        },
+        {
+          "name": "APB1LENR_UART4EN",
+          "position": 19,
+          "source_line": 9140
+        },
+        {
+          "name": "APB1LENR_UART5EN",
+          "position": 20,
+          "source_line": 9143
+        },
+        {
+          "name": "APB1LENR_I2C1EN",
+          "position": 21,
+          "source_line": 9146
+        },
+        {
+          "name": "APB1LENR_I3C1EN",
+          "position": 23,
+          "source_line": 9149
+        },
+        {
+          "name": "APB1LENR_CRSEN",
+          "position": 24,
+          "source_line": 9152
+        },
+        {
+          "name": "APB1HENR_COMP12EN",
+          "position": 3,
+          "source_line": 9158
+        },
+        {
+          "name": "APB1HENR_FDCANEN",
+          "position": 9,
+          "source_line": 9161
+        },
+        {
+          "name": "APB2ENR_TIM1EN",
+          "position": 11,
+          "source_line": 9167
+        },
+        {
+          "name": "APB2ENR_SPI1EN",
+          "position": 12,
+          "source_line": 9170
+        },
+        {
+          "name": "APB2ENR_TIM8EN",
+          "position": 13,
+          "source_line": 9173
+        },
+        {
+          "name": "APB2ENR_USART1EN",
+          "position": 14,
+          "source_line": 9176
+        },
+        {
+          "name": "APB2ENR_TIM15EN",
+          "position": 16,
+          "source_line": 9179
+        },
+        {
+          "name": "APB2ENR_USBEN",
+          "position": 24,
+          "source_line": 9182
+        },
+        {
+          "name": "APB3ENR_SBSEN",
+          "position": 1,
+          "source_line": 9188
+        },
+        {
+          "name": "APB3ENR_LPUART1EN",
+          "position": 6,
+          "source_line": 9191
+        },
+        {
+          "name": "APB3ENR_LPTIM1EN",
+          "position": 11,
+          "source_line": 9194
+        },
+        {
+          "name": "APB3ENR_RTCAPBEN",
+          "position": 21,
+          "source_line": 9197
+        },
+        {
+          "name": "AHB1LPENR_LPDMA1LPEN",
+          "position": 0,
+          "source_line": 9203
+        },
+        {
+          "name": "AHB1LPENR_LPDMA2LPEN",
+          "position": 1,
+          "source_line": 9207
+        },
+        {
+          "name": "AHB1LPENR_FLASHLPEN",
+          "position": 8,
+          "source_line": 9211
+        },
+        {
+          "name": "AHB1LPENR_CRCLPEN",
+          "position": 12,
+          "source_line": 9215
+        },
+        {
+          "name": "AHB1LPENR_CORDICLPEN",
+          "position": 14,
+          "source_line": 9219
+        },
+        {
+          "name": "AHB1LPENR_RAMCFGLPEN",
+          "position": 17,
+          "source_line": 9223
+        },
+        {
+          "name": "AHB1LPENR_ICACHELPEN",
+          "position": 26,
+          "source_line": 9227
+        },
+        {
+          "name": "AHB1LPENR_SRAM2LPEN",
+          "position": 30,
+          "source_line": 9231
+        },
+        {
+          "name": "AHB1LPENR_SRAM1LPEN",
+          "position": 31,
+          "source_line": 9235
+        },
+        {
+          "name": "AHB2LPENR_GPIOALPEN",
+          "position": 0,
+          "source_line": 9242
+        },
+        {
+          "name": "AHB2LPENR_GPIOBLPEN",
+          "position": 1,
+          "source_line": 9246
+        },
+        {
+          "name": "AHB2LPENR_GPIOCLPEN",
+          "position": 2,
+          "source_line": 9250
+        },
+        {
+          "name": "AHB2LPENR_GPIODLPEN",
+          "position": 3,
+          "source_line": 9254
+        },
+        {
+          "name": "AHB2LPENR_GPIOELPEN",
+          "position": 4,
+          "source_line": 9258
+        },
+        {
+          "name": "AHB2LPENR_GPIOHLPEN",
+          "position": 7,
+          "source_line": 9262
+        },
+        {
+          "name": "AHB2LPENR_ADC12LPEN",
+          "position": 10,
+          "source_line": 9266
+        },
+        {
+          "name": "AHB2LPENR_DAC1LPEN",
+          "position": 11,
+          "source_line": 9270
+        },
+        {
+          "name": "AHB2LPENR_AESLPEN",
+          "position": 16,
+          "source_line": 9274
+        },
+        {
+          "name": "AHB2LPENR_HASHLPEN",
+          "position": 17,
+          "source_line": 9278
+        },
+        {
+          "name": "AHB2LPENR_RNGLPEN",
+          "position": 18,
+          "source_line": 9282
+        },
+        {
+          "name": "APB1LLPENR_TIM2LPEN",
+          "position": 0,
+          "source_line": 9289
+        },
+        {
+          "name": "APB1LLPENR_TIM6LPEN",
+          "position": 4,
+          "source_line": 9293
+        },
+        {
+          "name": "APB1LLPENR_TIM7LPEN",
+          "position": 5,
+          "source_line": 9297
+        },
+        {
+          "name": "APB1LLPENR_TIM12LPEN",
+          "position": 6,
+          "source_line": 9301
+        },
+        {
+          "name": "APB1LLPENR_WWDGLPEN",
+          "position": 11,
+          "source_line": 9305
+        },
+        {
+          "name": "APB1LLPENR_OPAMP1LPEN",
+          "position": 13,
+          "source_line": 9309
+        },
+        {
+          "name": "APB1LLPENR_SPI2LPEN",
+          "position": 14,
+          "source_line": 9313
+        },
+        {
+          "name": "APB1LLPENR_USART2LPEN",
+          "position": 17,
+          "source_line": 9317
+        },
+        {
+          "name": "APB1LLPENR_UART4LPEN",
+          "position": 19,
+          "source_line": 9321
+        },
+        {
+          "name": "APB1LLPENR_UART5LPEN",
+          "position": 20,
+          "source_line": 9325
+        },
+        {
+          "name": "APB1LLPENR_I2C1LPEN",
+          "position": 21,
+          "source_line": 9329
+        },
+        {
+          "name": "APB1LLPENR_I3C1LPEN",
+          "position": 23,
+          "source_line": 9333
+        },
+        {
+          "name": "APB1LLPENR_CRSLPEN",
+          "position": 24,
+          "source_line": 9337
+        },
+        {
+          "name": "APB1HLPENR_COMP12LPEN",
+          "position": 3,
+          "source_line": 9344
+        },
+        {
+          "name": "APB1HLPENR_FDCANLPEN",
+          "position": 9,
+          "source_line": 9348
+        },
+        {
+          "name": "APB2LPENR_TIM1LPEN",
+          "position": 11,
+          "source_line": 9355
+        },
+        {
+          "name": "APB2LPENR_SPI1LPEN",
+          "position": 12,
+          "source_line": 9359
+        },
+        {
+          "name": "APB2LPENR_TIM8LPEN",
+          "position": 13,
+          "source_line": 9363
+        },
+        {
+          "name": "APB2LPENR_USART1LPEN",
+          "position": 14,
+          "source_line": 9367
+        },
+        {
+          "name": "APB2LPENR_TIM15LPEN",
+          "position": 16,
+          "source_line": 9371
+        },
+        {
+          "name": "APB2LPENR_USBLPEN",
+          "position": 24,
+          "source_line": 9375
+        },
+        {
+          "name": "APB3LPENR_SBSLPEN",
+          "position": 1,
+          "source_line": 9382
+        },
+        {
+          "name": "APB3LPENR_LPUART1LPEN",
+          "position": 6,
+          "source_line": 9386
+        },
+        {
+          "name": "APB3LPENR_LPTIM1LPEN",
+          "position": 11,
+          "source_line": 9390
+        },
+        {
+          "name": "APB3LPENR_RTCAPBLPEN",
+          "position": 21,
+          "source_line": 9394
+        },
+        {
+          "name": "CCIPR1_USART1SEL",
+          "position": 0,
+          "source_line": 9401
+        },
+        {
+          "name": "CCIPR1_USART2SEL",
+          "position": 2,
+          "source_line": 9407
+        },
+        {
+          "name": "CCIPR1_UART4SEL",
+          "position": 6,
+          "source_line": 9413
+        },
+        {
+          "name": "CCIPR1_UART5SEL",
+          "position": 8,
+          "source_line": 9419
+        },
+        {
+          "name": "CCIPR1_LPUART1SEL",
+          "position": 14,
+          "source_line": 9425
+        },
+        {
+          "name": "CCIPR1_SPI1SEL",
+          "position": 16,
+          "source_line": 9431
+        },
+        {
+          "name": "CCIPR1_SPI2SEL",
+          "position": 18,
+          "source_line": 9437
+        },
+        {
+          "name": "CCIPR1_FDCANSEL",
+          "position": 26,
+          "source_line": 9443
+        },
+        {
+          "name": "CCIPR2_I2C1SEL",
+          "position": 0,
+          "source_line": 9452
+        },
+        {
+          "name": "CCIPR2_I3C1SEL",
+          "position": 6,
+          "source_line": 9458
+        },
+        {
+          "name": "CCIPR2_ADCDACSEL",
+          "position": 10,
+          "source_line": 9464
+        },
+        {
+          "name": "CCIPR2_ADCDACPRE",
+          "position": 12,
+          "source_line": 9471
+        },
+        {
+          "name": "CCIPR2_DACSEL",
+          "position": 15,
+          "source_line": 9479
+        },
+        {
+          "name": "CCIPR2_LPTIM1SEL",
+          "position": 16,
+          "source_line": 9482
+        },
+        {
+          "name": "CCIPR2_CK48SEL",
+          "position": 24,
+          "source_line": 9488
+        },
+        {
+          "name": "CCIPR2_SYSTICKSEL",
+          "position": 30,
+          "source_line": 9493
+        },
+        {
+          "name": "RTCCR_LSEON",
+          "position": 0,
+          "source_line": 9501
+        },
+        {
+          "name": "RTCCR_LSERDY",
+          "position": 1,
+          "source_line": 9504
+        },
+        {
+          "name": "RTCCR_LSEBYP",
+          "position": 2,
+          "source_line": 9507
+        },
+        {
+          "name": "RTCCR_LSEDRV",
+          "position": 3,
+          "source_line": 9510
+        },
+        {
+          "name": "RTCCR_LSECSSON",
+          "position": 5,
+          "source_line": 9516
+        },
+        {
+          "name": "RTCCR_LSECSSD",
+          "position": 6,
+          "source_line": 9520
+        },
+        {
+          "name": "RTCCR_LSEEXT",
+          "position": 7,
+          "source_line": 9524
+        },
+        {
+          "name": "RTCCR_RTCSEL",
+          "position": 8,
+          "source_line": 9528
+        },
+        {
+          "name": "RTCCR_RTCEN",
+          "position": 15,
+          "source_line": 9533
+        },
+        {
+          "name": "RTCCR_RTCDRST",
+          "position": 16,
+          "source_line": 9536
+        },
+        {
+          "name": "RTCCR_LSCOEN",
+          "position": 24,
+          "source_line": 9539
+        },
+        {
+          "name": "RTCCR_LSCOSEL",
+          "position": 25,
+          "source_line": 9543
+        },
+        {
+          "name": "RTCCR_LSION",
+          "position": 26,
+          "source_line": 9547
+        },
+        {
+          "name": "RTCCR_LSIRDY",
+          "position": 27,
+          "source_line": 9550
+        },
+        {
+          "name": "RSR_RMVF",
+          "position": 23,
+          "source_line": 9556
+        },
+        {
+          "name": "RSR_PINRSTF",
+          "position": 26,
+          "source_line": 9559
+        },
+        {
+          "name": "RSR_BORRSTF",
+          "position": 27,
+          "source_line": 9562
+        },
+        {
+          "name": "RSR_SFTRSTF",
+          "position": 28,
+          "source_line": 9565
+        },
+        {
+          "name": "RSR_IWDGRSTF",
+          "position": 29,
+          "source_line": 9569
+        },
+        {
+          "name": "RSR_WWDGRSTF",
+          "position": 30,
+          "source_line": 9572
+        },
+        {
+          "name": "RSR_LPWRRSTF",
+          "position": 31,
+          "source_line": 9575
+        },
+        {
+          "name": "PRIVCFGR_PRIV",
+          "position": 1,
+          "source_line": 9581
+        }
+      ],
+      "field_qualification": "Literal exact-header declarations only. Reset conflicts and absent family bits below remain unresolved; position alone is not field width/access permission.",
+      "SYSCLK_raw": {
+        "0": "HSIDIV3",
+        "1": "HSIS",
+        "2": "HSE",
+        "3": "PSIS"
+      },
+      "STOPWUCK_raw": {
+        "0": "HSIDIV3",
+        "1": "HSIS"
+      },
+      "PSIFREQ_raw": {
+        "0": 100000000,
+        "1": 144000000,
+        "2": 160000000,
+        "3": 160000000
+      },
+      "PSIREFSRC_raw": {
+        "0": "HSE",
+        "1": "LSE",
+        "2": "HSI/18",
+        "3": "not defined; excluded"
+      },
+      "PSIREF_raw": {
+        "0": 32768,
+        "1": 8000000,
+        "2": 16000000,
+        "3": 24000000,
+        "4": 25000000,
+        "5": 32000000,
+        "6": 48000000,
+        "7": 50000000
+      },
+      "KDIV_raw_divisor": {
+        "0": 1,
+        "1": 1,
+        "2": 1.5,
+        "3": 2.0,
+        "4": 2.5,
+        "5": 3.0,
+        "6": 3.5,
+        "7": 4.0,
+        "8": 4.5,
+        "9": 5.0,
+        "10": 5.5,
+        "11": 6.0,
+        "12": 6.5,
+        "13": 7.0,
+        "14": 7.5,
+        "15": 8.0
+      },
+      "HPRE_raw_divisor": {
+        "0": 1,
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1,
+        "5": 1,
+        "6": 1,
+        "7": 1,
+        "8": 2,
+        "9": 4,
+        "10": 8,
+        "11": 16,
+        "12": 64,
+        "13": 128,
+        "14": 256,
+        "15": 512
+      },
+      "PPRE_raw_divisor": {
+        "0": 1,
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 2,
+        "5": 4,
+        "6": 8,
+        "7": 16
+      },
+      "ADCDACPRE_raw_divisor": {
+        "0": 1,
+        "1": 2,
+        "2": 4,
+        "3": 8,
+        "4": 16,
+        "5": 32,
+        "6": 64,
+        "7": 128
+      },
+      "RTCPRE": {
+        "0": "no clock",
+        "1": "no clock",
+        "2..511": "divide HSE by value; RM requires result below1MHz"
+      },
+      "RTCSEL_raw": {
+        "0": "disabled",
+        "1": "LSE",
+        "2": "LSI",
+        "3": "HSE/RTCPRE"
+      },
+      "MCO1_raw": [
+        "SYSCLK",
+        "HSE",
+        "LSE",
+        "LSI",
+        "PSIK",
+        "HSIK",
+        "PSIS",
+        "HSIS"
+      ],
+      "MCO2_raw": [
+        "SYSCLK",
+        "HSE",
+        "LSE",
+        "LSI",
+        "PSIK",
+        "HSIK",
+        "PSIDIV3",
+        "HSIDIV3"
+      ],
+      "MCO_prescaler": {
+        "0": "disabled",
+        "1..15": "divide by raw value"
+      },
+      "kernel_muxes": [
+        {
+          "consumers": [
+            "USART1"
+          ],
+          "register": "CCIPR1",
+          "position": 0,
+          "raw_sources": [
+            "PCLK2",
+            "PSIK",
+            "HSIK",
+            "LSE"
+          ]
+        },
+        {
+          "consumers": [
+            "USART2"
+          ],
+          "register": "CCIPR1",
+          "position": 2,
+          "raw_sources": [
+            "PCLK1",
+            "PSIK",
+            "HSIK",
+            "LSE"
+          ]
+        },
+        {
+          "consumers": [
+            "UART4"
+          ],
+          "register": "CCIPR1",
+          "position": 6,
+          "raw_sources": [
+            "PCLK1",
+            "PSIK",
+            "HSIK",
+            "LSE"
+          ]
+        },
+        {
+          "consumers": [
+            "UART5"
+          ],
+          "register": "CCIPR1",
+          "position": 8,
+          "raw_sources": [
+            "PCLK1",
+            "PSIK",
+            "HSIK",
+            "LSE"
+          ]
+        },
+        {
+          "consumers": [
+            "LPUART1"
+          ],
+          "register": "CCIPR1",
+          "position": 14,
+          "raw_sources": [
+            "PCLK3",
+            "HSIK",
+            "LSE",
+            "LSI"
+          ]
+        },
+        {
+          "consumers": [
+            "SPI1/I2S1"
+          ],
+          "register": "CCIPR1",
+          "position": 16,
+          "raw_sources": [
+            "PCLK2",
+            "PSIK",
+            "HSIK",
+            "AUDIOCLK"
+          ]
+        },
+        {
+          "consumers": [
+            "SPI2/I2S2"
+          ],
+          "register": "CCIPR1",
+          "position": 18,
+          "raw_sources": [
+            "PCLK1",
+            "PSIK",
+            "HSIK",
+            "AUDIOCLK"
+          ]
+        },
+        {
+          "consumers": [
+            "FDCAN1",
+            "FDCAN2"
+          ],
+          "register": "CCIPR1",
+          "position": 26,
+          "raw_sources": [
+            "PCLK1",
+            "PSIS",
+            "PSIK",
+            "HSE"
+          ]
+        },
+        {
+          "consumers": [
+            "I2C1"
+          ],
+          "register": "CCIPR2",
+          "position": 0,
+          "raw_sources": [
+            "PCLK1",
+            "PSIK",
+            "HSIK",
+            "reserved_disabled"
+          ]
+        },
+        {
+          "consumers": [
+            "I3C1"
+          ],
+          "register": "CCIPR2",
+          "position": 6,
+          "raw_sources": [
+            "PCLK1",
+            "PSIK",
+            "HSIK",
+            "reserved_disabled"
+          ]
+        },
+        {
+          "consumers": [
+            "ADC1",
+            "DAC1"
+          ],
+          "register": "CCIPR2",
+          "position": 10,
+          "raw_sources": [
+            "HCLK",
+            "PSIS",
+            "PSIK",
+            "HSIK"
+          ]
+        },
+        {
+          "consumers": [
+            "LPTIM1"
+          ],
+          "register": "CCIPR2",
+          "position": 16,
+          "raw_sources": [
+            "PCLK3",
+            "HSIK",
+            "LSE",
+            "LSI"
+          ]
+        },
+        {
+          "consumers": [
+            "USB",
+            "RNG"
+          ],
+          "register": "CCIPR2",
+          "position": 24,
+          "raw_sources": [
+            "reserved_disabled",
+            "PSIDIV3",
+            "HSIDIV3",
+            "HSE"
+          ]
+        },
+        {
+          "consumers": [
+            "SysTick_external"
+          ],
+          "register": "CCIPR2",
+          "position": 30,
+          "raw_sources": [
+            "HCLK/8",
+            "LSI",
+            "LSE",
+            "reserved_disabled"
+          ]
+        }
+      ],
+      "DACSH_raw": [
+        "LSE",
+        "LSI"
+      ],
+      "excluded_family": [
+        "AHB4 register group",
+        "CCIPR3",
+        "XSPI1",
+        "ETH1",
+        "ADC2",
+        "ADC3",
+        "SAES",
+        "PKA",
+        "CCB",
+        "GPIOF",
+        "GPIOG",
+        "TIM3",
+        "TIM4",
+        "TIM5",
+        "TIM16",
+        "TIM17",
+        "SPI3",
+        "USART3",
+        "USART6",
+        "UART7",
+        "I2C2"
+      ],
+      "evidence": [
+        "header.layout",
+        "header.fields",
+        "header.IRQ",
+        "header.base",
+        "header.bus",
+        "RM0522:p97",
+        "RM0522:p277",
+        "RM0522:p278",
+        "RM0522:p279",
+        "RM0522:p280",
+        "RM0522:p281",
+        "RM0522:p282",
+        "RM0522:p283",
+        "RM0522:p314",
+        "RM0522:p315",
+        "RM0522:p316",
+        "RM0522:p317",
+        "RM0522:p319",
+        "DS15135:p4",
+        "DS15135:p5"
+      ]
+    },
+    "contracts": [
+      {
+        "id": "reset_domains",
+        "detail": "POR/PDR, system reset and RTC-domain reset differ. Standby resets core registers but retains documented outside-core state. Reset flags can accumulate and PINRSTF also accompanies internal causes; reading them is not a unique chronological cause. RMVF clears all reset flags. Reset operations affect other owners and are not admitted by this inventory.",
+        "evidence": [
+          "RM0522:p251",
+          "RM0522:p252",
+          "RM0522:p253",
+          "RM0522:p320",
+          "RM0522:p321"
+        ]
+      },
+      {
+        "id": "limits_and_switch",
+        "detail": "SYSCLK/HCLK/PCLK maximum is144MHz. PSI can produce160MHz, but RM forbids propagating160MHz to peripheral kernels. LSE-referenced PSI has documented100.016/144.015/160.006MHz offsets; nominal144MHz is not a tolerance qualification. Target source readiness gates actual SWS switch. Clock plans must validate flash latency, source error and all consumers before changes.",
+        "evidence": [
+          "RM0522:p254",
+          "RM0522:p258",
+          "RM0522:p259",
+          "RM0522:p261",
+          "RM0522:p262",
+          "DS15135:p51"
+        ]
+      },
+      {
+        "id": "PSI_reference_domain",
+        "detail": "HSE references8/16/24/32/48MHz support100/144/160 target;25/50MHz appear only for100MHz in Table66. LSE requires32.768kHz, HSI/18 supplies8MHz. Source, frequency code and target are a joint domain, not independent enum choices. PSI config fields require oscillator disabled.",
+        "evidence": [
+          "RM0522:p258",
+          "RM0522:p259",
+          "RM0522:p277"
+        ]
+      },
+      {
+        "id": "shared_consumers",
+        "detail": "FDCAN1/2 share kernel selector, bus enable, Sleep gate and RCC reset. ADC/DAC share kernel source/prescaler; COMP instances share clock/reset. ADC12 label does not create ADC2 on C542. Track physical shared gates, not per-consumer clones.",
+        "evidence": [
+          "RM0522:p289",
+          "RM0522:p293",
+          "RM0522:p294",
+          "RM0522:p302",
+          "RM0522:p314",
+          "RM0522:p316",
+          "header.fields"
+        ]
+      },
+      {
+        "id": "gate_and_residency",
+        "detail": "RM requires two peripheral bus cycles after enabling a peripheral clock; unsupported clock-off accesses are not reliable reads. EN and LPEN both matter in Sleep. Memory/cache gates require executing code, stack, DMA and interrupt residency analysis before disabling. AHB1DIS excludes FLASH/ICACHE/SRAM; bus disable is not ownership release.",
+        "evidence": [
+          "RM0522:p271",
+          "RM0522:p272",
+          "RM0522:p281",
+          "RM0522:p282",
+          "RM0522:p296",
+          "RM0522:p305"
+        ]
+      },
+      {
+        "id": "oscillator_disable",
+        "detail": "System clock sources cannot be stopped while in use. HSE/LSE reference locks also apply while any PSI output is enabled per register descriptions. LSE bypass/drive changes require LSEON=0 and LSERDY=0; LSERDY falls after6 cycles, LSIRDY after3. Started IWDG forces LSI. HSE bypass type requires oscillator disabled.",
+        "evidence": [
+          "RM0522:p256",
+          "RM0522:p262",
+          "RM0522:p274",
+          "RM0522:p275",
+          "RM0522:p318",
+          "RM0522:p320"
+        ]
+      },
+      {
+        "id": "stop_and_standby",
+        "detail": "Stop0 can retain enabled HSI/PSI paths through KERON and their PSI reference; Stop1 ignores KERON. STOPWUCK selects48MHz HSIDIV3 or144MHz HSIS on Stop wake; Standby selects48MHz and loses user trim. Keep conflicting descriptions below; no complete wake/clock recovery protocol is admitted.",
+        "evidence": [
+          "RM0522:p263",
+          "RM0522:p272",
+          "RM0522:p275",
+          "RM0522:p276",
+          "RM0522:p280"
+        ]
+      },
+      {
+        "id": "CSS_NMI",
+        "detail": "HSE CSS is set-only until reset/Standby. HSE failure can switch system to HSIDIV3, disable HSE/PSI and assert timer break and NMI; reconcile exact timer endpoints separately. LSE CSS requires ready LSE and RTCSEL configured; it is normally not software-clearable until failure. Clear CSS NMI flags explicitly; enabled CSS cannot be NVIC-masked. LSE failure permits RTCSEL change before disabling CSS. TAMP itamp3 adds separate policy.",
+        "evidence": [
+          "RM0522:p264",
+          "RM0522:p273",
+          "RM0522:p285",
+          "RM0522:p286",
+          "RM0522:p319",
+          "RM0522:p320"
+        ]
+      },
+      {
+        "id": "RTC_domain",
+        "detail": "RTCSEL is one-time until domain reset except LSE failure. RCC_RTCCR write protection/reset exceptions for LSION/LSIRDY/RTCDRST are explicit. HSE-derived RTC clock is lost in Stop/NRST and is not retained across core power-off. RTC bus must be at least kernel frequency; calendar read consistency needs repeated reads below7x. Domain reset destroys shared backup/RTC/LSE state.",
+        "evidence": [
+          "RM0522:p253",
+          "RM0522:p270",
+          "RM0522:p271",
+          "RM0522:p318",
+          "RM0522:p319"
+        ]
+      },
+      {
+        "id": "output_pins",
+        "detail": "MCO selector or prescaler changes may glitch. Pin frequency/electrical limits and GPIO AF apply independently of oscillator maxima. LSCO supportsLSI/LSE in Stop but not Standby and RM requires default POR pin state. No board routes or electrical drive are qualified here.",
+        "evidence": [
+          "RM0522:p264",
+          "RM0522:p265",
+          "RM0522:p279",
+          "RM0522:p280"
+        ]
+      },
+      {
+        "id": "ADCDAC_duty_cycle",
+        "detail": "ADCDAC source and prescaler must not change while ADC or DAC is enabled. For the HCLK-selected ADC/DAC kernel, if SYSCLK is divided by 2 or more through AHB, RM requires ADCDACPRE division of at least 2 to correct the HCLK duty cycle to 50 percent. That footnote does not establish the same requirement for PSIS, PSIK or HSIK selections. Bus gate checks are not full peripheral enable or quiescence checks. The footnote states the 50 percent requirement for ADC (and family XSPI DDR); shared ADCDACPRE also changes the DAC clock, but this text does not establish an independent DAC duty-cycle requirement or add XSPI to C542.",
+        "evidence": [
+          "RM0522:p266",
+          "RM0522:p316"
+        ]
+      },
+      {
+        "id": "privilege",
+        "detail": "PRIV=1 gates RCC reads/writes to privileged accesses with RAZ/WI; PRIVCFGR remains readable and privileged-write only. A successful setter without readback is not proof of an effective protected write.",
+        "evidence": [
+          "RM0522:p272",
+          "RM0522:p322"
+        ]
+      },
+      {
+        "id": "interrupts",
+        "detail": "Nine ready flags0..8 feed IRQ6; CSS flags10/11 feed NMI. Clear through CICR W1C. Ready flag descriptions tie setting to ready transition and matching enable; flags are not counters or a universal source-ready snapshot. Preserve separate ownership of core NMI and peripheral callbacks.",
+        "evidence": [
+          "RM0522:p273",
+          "RM0522:p283",
+          "RM0522:p284",
+          "RM0522:p285",
+          "RM0522:p286",
+          "RM0522:p287",
+          "header.IRQ"
+        ]
+      },
+      {
+        "id": "errata",
+        "detail": "ES2.2.1 analog LSE bypass forbidden,2.2.2 LQFP PC13 toggling can disturb LSE crystal and2.2.3 low drive forbidden remain active exact-revision gates. RM mode enumeration does not supersede errata. Full cross-peripheral errata screening remains open.",
+        "evidence": [
+          "ES0676:p1",
+          "ES0676:p2",
+          "ES0676:p4",
+          "ES0676:p5"
+        ]
+      }
+    ],
+    "source_derived_SDK_gates": [
+      {
+        "id": "reset_failure_and_side_effects",
+        "detail": "HAL_RCC_Reset is void, ignores HSI readiness and HAL_InitTick errors, breaks clock-switch wait on timeout then continues resetting dividers, clock fields and software clock state. Options can disable peripheral clocks/reset RTC. It is not an atomic recovery or a successful reset receipt. The AHB1 low-power call uses the AHB2_ALL name; both macros equal0xFFFFFFFF, so that naming alone is not a demonstrated mask defect.",
+        "evidence": [
+          "HAL.reset",
+          "LL.bus_all"
+        ]
+      },
+      {
+        "id": "reset_sys_prescaler",
+        "detail": "The exact header defaults HSI_RESET_VALUE to 4800000UL (4.8 MHz), guarded by !defined; HSIDIV3 is nominally 48 MHz. With that default and a successful reset clock transition, HAL_RCC_Reset and ResetSystemClock store the wrong SystemCoreClock, including when HPRE=/1. ResetSystemClock additionally leaves HPRE unchanged, so a caller override to 48 MHz alone does not resolve a divided-HCLK mismatch. Default HAL_InitTick obtains the clock through RCC getters rather than this variable; success does not validate SystemCoreClock. HAL_UpdateCoreClock recomputes the variable. ADC/DAC delay and UART timeout arithmetic consume SystemCoreClock; timing impact depends on build overrides, caller sequence, prescaler and generated code. No executed timing failure or unconditional 10x effect is claimed.",
+        "evidence": [
+          "HAL.reset_sys",
+          "HAL.reset",
+          "HAL.bus_freq",
+          "header.HSI_reset",
+          "HAL.core_update",
+          "HAL.tick_clock",
+          "HAL.ADC_core_delay",
+          "HAL.DAC_core_delay",
+          "HAL.UART_core_timeout",
+          "RM0522:p254"
+        ]
+      },
+      {
+        "id": "clock_change_software_state",
+        "detail": "SetSYSCLKSource and bus-prescaler setters do not update SystemCoreClock, tick setup or flash latency. Switch timeout leaves selected SW written, so a later-ready source may switch after failure. Require transaction ownership and safe transitional frequencies; HAL_ERROR is not rollback.",
+        "evidence": [
+          "HAL.sys_select",
+          "HAL.bus_config",
+          "RM0522:p262"
+        ]
+      },
+      {
+        "id": "PSI_ready_not_disabled",
+        "detail": "PSI_SetConfig tests three RDY bits only, not their enable bits, before writing protected config. Not-ready during startup is not proof of disabled. Validators check individual source/ref/target enums, not their combined compatibility or external frequency. HAL_OK alone is not accepted configuration.",
+        "evidence": [
+          "HAL.PSI_config",
+          "LL_RCC_ConfigPSI",
+          "RM0522:p277"
+        ]
+      },
+      {
+        "id": "oscillator_mode_reuse",
+        "detail": "HSE/LSE Enable calls configure bypass only for bypass request; crystal path does not explicitly clear a retained BYP bit. LSE Disable clears bypass/type before waiting LSERDY=0 despite the register constraint. HSE/LSE Disable guard protects PSI used as SYSCLK, narrower than the register lock for any enabled PSI output; timeout is possible with kernel-only PSI consumers. Require complete off-ready sequencing and readback.",
+        "evidence": [
+          "HAL.HSE",
+          "HAL.LSE",
+          "RM0522:p275",
+          "RM0522:p320"
+        ]
+      },
+      {
+        "id": "raw_zero_divider",
+        "detail": "RM KDIV raw0 and raw1 both mean divide1. LL named DIV_1 uses raw1. RCC_GetDividerValue maps unknown values including raw0 to80 (divide8), so frequency getters using it can under-report an enabled raw0 divider by8. This is conditional source arithmetic, not measured silicon behavior. Raw zero is the documented CR2 reset state and is written by HAL_RCC_Reset. LL enabling without a divider rewrite exposes this case; HAL HSIK_Enable writes its supplied divider first. HAL divider getters cast raw zero to an enum without a named zero member.",
+        "evidence": [
+          "HAL.privilege_wait_divider",
+          "HAL.ADC_freq",
+          "RM0522:p278",
+          "LL.constants.136",
+          "LL.constants.158",
+          "LL_RCC_HSIK_GetDivider",
+          "LL_RCC_PSIK_GetDivider",
+          "RM0522:p277",
+          "header.fields",
+          "HAL.reset",
+          "HAL.HSIK",
+          "HAL.PSIK",
+          "HAL.HSIK_get",
+          "HAL.PSIK_get",
+          "HAL.divider_enums"
+        ]
+      },
+      {
+        "id": "ADCDAC_guard",
+        "detail": "Separate source/prescaler setters always write after debug assertions. Combined setter checks ADC12 bus clock enable only on exact C542, not DAC clock/channel enable or ADC internal enable. Neither proves RM source/prescaler mutation preconditions. This bus-clock test can reject a change while ADC is disabled but its bus clock remains enabled, and can allow a change while DAC is active if the ADC bus clock is off.",
+        "evidence": [
+          "HAL.kernel_setters",
+          "HAL.ADCDAC",
+          "LL_RCC_ConfigADCDAC",
+          "RM0522:p316"
+        ]
+      },
+      {
+        "id": "CSS_aggregate_status",
+        "detail": "NMI handler clears each CSS flag only if its callback returnsHAL_OK. Weak callbacks returnHAL_ERROR. Shared cb_status can remainHAL_OK when one CSS callback succeeded but another did not, leaving a pending NMI source; return code alone is not all-sources-cleared proof. Compile-time HSE_VALUE/LSE_VALUE gates omit handling when absent. With no matching CSS flag, it returns HAL_ERROR as well; that result alone must not trap a shared NMI owned by another source. A callback failure leaves its CSS flag asserted; interrupt recurrence and recovery require a qualified NMI policy.",
+        "evidence": [
+          "HAL.CSS",
+          "HAL.LSE_CSS"
+        ]
+      },
+      {
+        "id": "tick_timeout_dependency",
+        "detail": "Wait loops use HAL_GetTick only; if it cannot advance, a pending ready condition need not terminate at the nominal timeout. Clock changes can alter the timing source. Helpers leave enable/request state after timeout and do not restore consumers.",
+        "evidence": [
+          "HAL.privilege_wait_divider",
+          "HAL.HSI",
+          "HAL.HSIK",
+          "HAL.LSI",
+          "HAL.PSI_en",
+          "HAL.PSIK"
+        ]
+      },
+      {
+        "id": "unchecked_domains",
+        "detail": "Many clock setters use debug-only enum assertions and unmasked STM32_MODIFY_REG set values. Invalid values may spill into neighboring fields. ConfigBusClock, KDIV, ADCDAC and privilege multiplication require finite-domain validation and exclusive ownership. Pointer getters remain caller responsibilities.",
+        "evidence": [
+          "HAL.bus_config",
+          "HAL.privilege_wait_divider",
+          "LL_RCC_ConfigBusClock",
+          "LL_RCC_HSIK_SetDivider",
+          "LL_RCC_PSIK_SetDivider",
+          "LL_RCC_SetADCDACPrescaler",
+          "LL_RCC_SetPrivAttr",
+          "family.modify"
+        ]
+      },
+      {
+        "id": "frequency_getters",
+        "detail": "Frequency getters calculate from configuration/constants and selected ready bits, not measured frequencies or complete consumer gates. GetSYSCLKFreq falls through toPSI if HSE_VALUE is undefined even when SWS selectsHSE. PSI getter uses nominal/LSE-offset constants, not measured reference rate. RTC getter can report a source rate without checkingRTCEN.",
+        "evidence": [
+          "HAL.bus_freq",
+          "HAL.PSI_freq",
+          "HAL.RTC_freq"
+        ]
+      },
+      {
+        "id": "RTC_setter_readback",
+        "detail": "RTC source setter reads selector back, unlike many kernel setters, but it neither authorizes destructive RTC reset nor coordinates write protection/CSS/calendar consumers. RTC/LSCO enables check DRTCP but do not establish oscillator or pad readiness.",
+        "evidence": [
+          "HAL.RTC_setter",
+          "HAL.RTC_LSCO"
+        ]
+      }
+    ],
+    "conflicts": [
+      {
+        "id": "Stop_path_retention",
+        "detail": "RM260 says divided clocks disabled in Stop; RM257/259/263 andCR1 fields allow retaining enabled paths inStop0 with KERON. RM263 also says onlyHSEON changes, while275-276 describe output enable clears withoutKERON. No blanket retention statement admitted.",
+        "evidence": [
+          "RM0522:p257",
+          "RM0522:p259",
+          "RM0522:p260",
+          "RM0522:p263",
+          "RM0522:p275",
+          "RM0522:p276"
+        ]
+      },
+      {
+        "id": "PSI_KERON_typo",
+        "detail": "RM259 final retention sentence saysHSIKERON forPSI, while same paragraph andCR1 usePSIKERON.",
+        "evidence": [
+          "RM0522:p259",
+          "RM0522:p275"
+        ]
+      },
+      {
+        "id": "reference_disable_scope",
+        "detail": "RM256/257 restrict HSE disable forPSI providingSYSCLK; CR1 on275 protects it whenever anyPSI output is enabled. Preserve narrower prose vs register restriction.",
+        "evidence": [
+          "RM0522:p256",
+          "RM0522:p257",
+          "RM0522:p275"
+        ]
+      },
+      {
+        "id": "timer_clock_scope",
+        "detail": "RM254/271 fix ordinary timer kernel clock toHCLK regardlessPCLK. Other timer chapter/SDK wording conflicts already preserved in basic-timer candidate. This survey does not broaden its equal-HCLK/PCLK fixed profile.",
+        "evidence": [
+          "RM0522:p254",
+          "RM0522:p271"
+        ]
+      },
+      {
+        "id": "ADCDAC_reset",
+        "detail": "CCIPR2 reset literal0 impliesADCDACSEL0=HCLK, butRM316 labelsPSIS raw1 default. Exact header reset also0.",
+        "evidence": [
+          "RM0522:p315",
+          "RM0522:p316",
+          "header.fields"
+        ]
+      },
+      {
+        "id": "LPEN_reset_literals",
+        "detail": "C542 APB1LLPENR RM309 reset01BA6871 vs exact header01BA6859. APB2LPENR RM312 C54201017800 vs header01077800 including absentTIM16/17. APB1HLPENR40000208 has reservedbit30 despitefieldmap. Preserve unresolved literals rather than writing them as safe reset masks.",
+        "evidence": [
+          "RM0522:p309",
+          "RM0522:p311",
+          "RM0522:p312",
+          "header.fields"
+        ]
+      },
+      {
+        "id": "RSR_reset_and_name",
+        "detail": "RSR resetRM320XX000000 vs headerzero; bits27/26 assert afterPOR. Table65 callsPORRSTF whilefield/header nameBORRSTF describesPOR. Preserve reset unknowns and cause semantics.",
+        "evidence": [
+          "RM0522:p253",
+          "RM0522:p320",
+          "RM0522:p321",
+          "header.fields"
+        ]
+      },
+      {
+        "id": "family_and_copy_residue",
+        "detail": "RM clock tree contains absentperipherals; exactheader has noAHB4 registers orCCIPR3. RM281 SW prose namesCSI, not one ofexact selectors. RM270 pointsHSI calibration toCFGR1 whileRM258/271 useCRS TRIM. Table70 repeatsHSIK ready and omitsPSIK label thoughregisters definePSIK. These do not create new capabilities.",
+        "evidence": [
+          "RM0522:p255",
+          "RM0522:p258",
+          "RM0522:p270",
+          "RM0522:p271",
+          "RM0522:p273",
+          "RM0522:p281",
+          "header.layout"
+        ]
+      },
+      {
+        "id": "RTC_HSE_frequency",
+        "detail": "RTCPRE guidance requireslower than1MHz whileclock namedHSE_1MHz andotherdescriptions use1MHz. Exact allowable boundary remains subject toRTC/CRS constraints; no rounding-up admission.",
+        "evidence": [
+          "RM0522:p270",
+          "RM0522:p280",
+          "HAL.RTC_presc"
+        ]
+      },
+      {
+        "id": "HSI_reset_default",
+        "detail": "HAL_RCC configuration documentation says HSI_RESET_VALUE is 48 MHz; exact header guarded default is 4800000UL, or 4.8 MHz. Preserve this discrepancy separately from possible build overrides.",
+        "evidence": [
+          "HAL.reset_doc",
+          "header.HSI_reset",
+          "RM0522:p254"
+        ]
+      }
+    ],
+    "open_gates": [
+      "No operational clock switch, reset, low-power, electrical or timing qualification.",
+      "Complete SDK paths, oscillator tolerance, flash-latency sequencing, board oscillator wiring, shared consumer conflicts and race recovery remain open.",
+      "No change to accepted EXTI or fixed timer composition.",
+      "Full source field widths/access policies and all per-consumer maximum clock limits still require independent closure."
+    ],
+    "chapter_audit": {
+      "evidence": [
+        "RM0522:p251",
+        "RM0522:p252",
+        "RM0522:p253",
+        "RM0522:p254",
+        "RM0522:p255",
+        "RM0522:p256",
+        "RM0522:p257",
+        "RM0522:p258",
+        "RM0522:p259",
+        "RM0522:p260",
+        "RM0522:p261",
+        "RM0522:p262",
+        "RM0522:p263",
+        "RM0522:p264",
+        "RM0522:p265",
+        "RM0522:p266",
+        "RM0522:p267",
+        "RM0522:p268",
+        "RM0522:p269",
+        "RM0522:p270",
+        "RM0522:p271",
+        "RM0522:p272",
+        "RM0522:p273",
+        "RM0522:p274",
+        "RM0522:p275",
+        "RM0522:p276",
+        "RM0522:p277",
+        "RM0522:p278",
+        "RM0522:p279",
+        "RM0522:p280",
+        "RM0522:p281",
+        "RM0522:p282",
+        "RM0522:p283",
+        "RM0522:p284",
+        "RM0522:p285",
+        "RM0522:p286",
+        "RM0522:p287",
+        "RM0522:p288",
+        "RM0522:p289",
+        "RM0522:p290",
+        "RM0522:p291",
+        "RM0522:p292",
+        "RM0522:p293",
+        "RM0522:p294",
+        "RM0522:p295",
+        "RM0522:p296",
+        "RM0522:p297",
+        "RM0522:p298",
+        "RM0522:p299",
+        "RM0522:p300",
+        "RM0522:p301",
+        "RM0522:p302",
+        "RM0522:p303",
+        "RM0522:p304",
+        "RM0522:p305",
+        "RM0522:p306",
+        "RM0522:p307",
+        "RM0522:p308",
+        "RM0522:p309",
+        "RM0522:p310",
+        "RM0522:p311",
+        "RM0522:p312",
+        "RM0522:p313",
+        "RM0522:p314",
+        "RM0522:p315",
+        "RM0522:p316",
+        "RM0522:p317",
+        "RM0522:p318",
+        "RM0522:p319",
+        "RM0522:p320",
+        "RM0522:p321",
+        "RM0522:p322",
+        "RM0522:p323",
+        "RM0522:p324",
+        "RM0522:p325",
+        "RM0522:p326",
+        "RM0522:p97",
+        "DS15135:p4",
+        "DS15135:p5",
+        "DS15135:p10",
+        "DS15135:p11",
+        "DS15135:p51",
+        "ES0676:p1",
+        "ES0676:p2",
+        "ES0676:p3",
+        "ES0676:p4",
+        "ES0676:p5",
+        "header.layout",
+        "header.IRQ",
+        "header.base",
+        "header.bus",
+        "header.fields",
+        "HAL.reset",
+        "HAL.reset_sys",
+        "HAL.HSI",
+        "HAL.HSIK",
+        "HAL.LSI",
+        "HAL.HSE",
+        "HAL.LSE",
+        "HAL.PSI_en",
+        "HAL.PSIK",
+        "HAL.PSI_config",
+        "HAL.sys_select",
+        "HAL.bus_config",
+        "HAL.PSI_freq",
+        "HAL.bus_freq",
+        "HAL.MCO_reset_flags",
+        "HAL.CSS",
+        "HAL.RTC_presc",
+        "HAL.LSE_CSS",
+        "HAL.RTC_LSCO",
+        "HAL.kernel_setters",
+        "HAL.RTC_setter",
+        "HAL.ADCDAC",
+        "HAL.ADC_freq",
+        "HAL.RTC_freq",
+        "HAL.privilege_wait_divider",
+        "LL_RCC_ConfigPSI",
+        "LL_RCC_ConfigBusClock",
+        "LL_RCC_SetADCDACPrescaler",
+        "LL_RCC_ConfigADCDAC",
+        "LL_RCC_HSIK_SetDivider",
+        "LL_RCC_PSIK_SetDivider",
+        "LL_RCC_SetPrivAttr",
+        "LL_RCC_HSIK_GetDivider",
+        "LL_RCC_PSIK_GetDivider",
+        "LL.constants.136",
+        "LL.constants.158",
+        "family.modify",
+        "LL.bus_all"
+      ],
+      "qualification": "Full RCC chapter read; bound declarations and selected SDK paths are not whole-device or operational closure."
+    }
+  }
+}

@@ -1,0 +1,567 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/dbg-contracts.json",
+    "sha256": "3dc80328d34b07f863d655e21cdbcb4ff0eeb79625f0e5920dd822ec0cd06ce2"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 32
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "package_routes_sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288",
+    "errata_sha256": "821c22f796a9ff723afee534fe5943c2b0506325ec871d890706d94414316416",
+    "schema": "bkpt.external.dbgmcu.contracts.v1",
+    "review": "Bounded source audit transcribed; independent review pending; no executable profile.",
+    "sources": {
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "ES0676": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pdf",
+        "sha256": "a5463827337bcdbd3e5f2e0912a56307d78b568e5631b21cc9a25899c7d4a5e6",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pages.json",
+        "extraction_sha256": "2ab1b19e42b53e22ff5f3b98f6ed9a5f98f3b7b61a617abc3bb3b7fc050d1cb3"
+      },
+      "HAL": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_dbgmcu.c",
+        "sha256": "a5d6a34d9f6f41823fc1f71b32b78d421efce9be942e0e4bc7b3a1949405e215"
+      },
+      "HAL_H": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_dbgmcu.h",
+        "sha256": "f7c913f88f6aff3bc71a336dd5de4657b9975311fc91d46effd4d7e6e54e35c6"
+      },
+      "LL": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_dbgmcu.h",
+        "sha256": "c8cdd8c16d75db01b487f6e7f4c8bc4fc31960b1c68cefd1a4f3a4c289e9b44e"
+      }
+    },
+    "evidence": {
+      "RM0522:p2539": {
+        "source": "RM0522",
+        "page": 2539,
+        "sha256": "0eed0c6403a798811dcd8a08fc0fb0a8f4c7961215a526e2a5b77941cbac64ad"
+      },
+      "RM0522:p2540": {
+        "source": "RM0522",
+        "page": 2540,
+        "sha256": "837075ac070308b3ee42d06a748d6b6de0e275899f2f191c98b715bc1b6abdf4"
+      },
+      "RM0522:p2541": {
+        "source": "RM0522",
+        "page": 2541,
+        "sha256": "2c46b817302497caf225a9923cc7aa3a4d65f0e7f02a70c47f8fdd6407804276"
+      },
+      "RM0522:p2542": {
+        "source": "RM0522",
+        "page": 2542,
+        "sha256": "d3e60326672753048cf6ea40345374f78f6463503c010152896dd80453e8a116"
+      },
+      "RM0522:p2543": {
+        "source": "RM0522",
+        "page": 2543,
+        "sha256": "f0af844e137169e3569524d8b5e62e3fc4778b71b4f69017294ba4fb6d6537af"
+      },
+      "RM0522:p2544": {
+        "source": "RM0522",
+        "page": 2544,
+        "sha256": "140a92fbf07f63824094211645f13c8a1a3502d52fbf77a522845e5a0087fa5e"
+      },
+      "RM0522:p2545": {
+        "source": "RM0522",
+        "page": 2545,
+        "sha256": "b2fcc856726b4b9aab4afb4e8072e9918d12d5edbf3249e55abf8b5c6bb1aa14"
+      },
+      "RM0522:p2546": {
+        "source": "RM0522",
+        "page": 2546,
+        "sha256": "4ad9b5e600f0f88a512c9526013c4fdf6384a4eec0b3ed702885c3ecbfdb045a"
+      },
+      "RM0522:p2547": {
+        "source": "RM0522",
+        "page": 2547,
+        "sha256": "a25c8d38156caa10c7e2b6e294961ec56ba44c3def32a930948d40dd10369f49"
+      },
+      "RM0522:p2548": {
+        "source": "RM0522",
+        "page": 2548,
+        "sha256": "715f8fa46e725e215664e6c82b91772a93515e002eae823c91abbfa6017bb678"
+      },
+      "RM0522:p2549": {
+        "source": "RM0522",
+        "page": 2549,
+        "sha256": "8c3fca246a9979723c5c43f2ac02fd5251f55695a47d0d872883dc64f389c21e"
+      },
+      "RM0522:p2550": {
+        "source": "RM0522",
+        "page": 2550,
+        "sha256": "7ab8c5f4ae1130aa09beb7f7c47163babebc685dea4c95fa2f57256514b8c698"
+      },
+      "RM0522:p2551": {
+        "source": "RM0522",
+        "page": 2551,
+        "sha256": "2b91a7f448e85de87c3672955c60b151ace80d500fdb05fc5629a5e8ab452257"
+      },
+      "RM0522:p2552": {
+        "source": "RM0522",
+        "page": 2552,
+        "sha256": "37b6c641404a07943e7004cf6d71d5b04020fe9abd5d955cd2de4457e639a953"
+      },
+      "RM0522:p2553": {
+        "source": "RM0522",
+        "page": 2553,
+        "sha256": "ce32205d7b75aafb12bf0420d917b40436ab8792c9531a0ad570171249a58641"
+      },
+      "RM0522:p2554": {
+        "source": "RM0522",
+        "page": 2554,
+        "sha256": "fad81bd91963688939be18a369757c42778bc63f512bbdbbed925da2f07b3ef8"
+      },
+      "RM0522:p2555": {
+        "source": "RM0522",
+        "page": 2555,
+        "sha256": "b9254ec929a5fb6b685096056d37e3b3caa2d2f510cbc010f1358e145fc454ce"
+      },
+      "RM0522:p2556": {
+        "source": "RM0522",
+        "page": 2556,
+        "sha256": "ac2a4ea0edab33a5854c96ecc0e547c38b75d0b8b34a594dfec940213c2238a8"
+      },
+      "RM0522:p2557": {
+        "source": "RM0522",
+        "page": 2557,
+        "sha256": "075985d47e728dba6e8f86b646f3b5b10ef3f2da9ae799ffc2f4cf1cfbbf55b3"
+      },
+      "ES0676:p1": {
+        "source": "ES0676",
+        "page": 1,
+        "sha256": "c36bb50f3ba55f82de59b1a5aa62c5ca6b1d3ea938ac9451545a442e65dd25c8"
+      },
+      "ES0676:p2": {
+        "source": "ES0676",
+        "page": 2,
+        "sha256": "3fed5303e4a0fc65ed4dbe6aae1c297605837e2da15bb0e24928d26b0d25eb95"
+      },
+      "ES0676:p7": {
+        "source": "ES0676",
+        "page": 7,
+        "sha256": "ae251fcee43cc089851cf652083da87910ac36c57afdcaee5a38ebf1eb2ecb9d"
+      },
+      "header.freeze": {
+        "source": "header",
+        "start_line": 3477,
+        "end_line": 3567,
+        "sha256": "9f027f9c630ff46a6582311bbd28975e069e884ad82b4109e35a7e9f782c725c"
+      },
+      "HAL.identity": {
+        "source": "HAL",
+        "start_line": 147,
+        "end_line": 177,
+        "sha256": "f4998e6b30f5e3f2da76aab80fffe010b5b915d47065431714288c950b3d0a74"
+      },
+      "HAL.low_power": {
+        "source": "HAL",
+        "start_line": 112,
+        "end_line": 127,
+        "sha256": "9311f6636942d3957d4126cb393ab723c839f57fa8df99552472cf9988019f85"
+      },
+      "HAL.low_power_calls": {
+        "source": "HAL",
+        "start_line": 192,
+        "end_line": 242,
+        "sha256": "0fa05bb78a8800c6cf2c0d555fec771c2cea13b017cb80e58b2f6f94d215708b"
+      },
+      "HAL.wrappers": {
+        "source": "HAL_H",
+        "start_line": 110,
+        "end_line": 704,
+        "sha256": "8087aadbde089d7ad379b42658974ab0c2e4cece65dfc088c4cb5174ca8ff17e"
+      },
+      "LL.ids": {
+        "source": "LL",
+        "start_line": 43,
+        "end_line": 51,
+        "sha256": "428c4ca2ac7691cb67b4998b60d2c7a2d7a76d962ede39bb9780afdfbfa99347"
+      },
+      "LL.constants": {
+        "source": "LL",
+        "start_line": 58,
+        "end_line": 177,
+        "sha256": "a1df39b913efe0dc9819ecb3846c8f2b0f6220b6e1564964c6a8eaf8ac632ba0"
+      },
+      "LL.identity": {
+        "source": "LL",
+        "start_line": 224,
+        "end_line": 253,
+        "sha256": "e93e3289a1844f8f41cfed53eccb33f61ffe61b6dd82637b3dda1e6d8c11ef12"
+      },
+      "LL.low_power": {
+        "source": "LL",
+        "start_line": 261,
+        "end_line": 312,
+        "sha256": "01b65c2ca6882367d6532068a1bbcc0f4141964cf8727cf5a55ab6f975a96247"
+      },
+      "LL.freeze": {
+        "source": "LL",
+        "start_line": 416,
+        "end_line": 659,
+        "sha256": "672262492245822cf76958e2af6816b116cda3d4076c08698a22edb61584c002"
+      }
+    },
+    "finite_source_maps": {
+      "freeze": {
+        "APB1LFZR": {
+          "TIM2": 0,
+          "TIM6": 4,
+          "TIM7": 5,
+          "TIM12": 6,
+          "WWDG": 11,
+          "IWDG": 12,
+          "I2C1_SMBUS_timeout": 21,
+          "I3C1_SCL_stall_timeout": 23
+        },
+        "APB2FZR": {
+          "TIM1": 11,
+          "TIM8": 13,
+          "TIM15": 16
+        },
+        "APB3FZR": {
+          "LPTIM1": 17,
+          "RTC": 30
+        },
+        "AHB1FZR": {
+          "LPDMA1_CH0": 0,
+          "LPDMA1_CH1": 1,
+          "LPDMA1_CH2": 2,
+          "LPDMA1_CH3": 3,
+          "LPDMA2_CH0": 16,
+          "LPDMA2_CH1": 17,
+          "LPDMA2_CH2": 18,
+          "LPDMA2_CH3": 19
+        },
+        "count": 21,
+        "evidence": [
+          "header.freeze",
+          "RM0522:p2541",
+          "RM0522:p2543",
+          "RM0522:p2545",
+          "RM0522:p2546",
+          "RM0522:p2547",
+          "RM0522:p2548"
+        ]
+      },
+      "identity": {
+        "family_device_id": "0x44F",
+        "revision_ids": {
+          "Z": "0x1001",
+          "Y": "0x1003"
+        },
+        "qualification": "Family ID does not identify exact order code/package or physical revision. No hardware identity observed. HAL comment conflict retained.",
+        "evidence": [
+          "RM0522:p2542",
+          "ES0676:p1",
+          "LL.ids",
+          "LL.identity"
+        ]
+      },
+      "low_power_mask": {
+        "SLEEP": 1,
+        "STOP": 2,
+        "STANDBY": 4,
+        "qualification": "Nonzero subsets1..7 for enable/disable; HAL query predicate accepts one mode only. Debug assertions do not provide release-build input validation.",
+        "evidence": [
+          "LL.constants",
+          "HAL.low_power",
+          "HAL.low_power_calls"
+        ]
+      },
+      "trace_mode": {
+        "0": "asynchronous_SWO",
+        "1": "synchronous_1bit",
+        "2": "synchronous_2bit",
+        "3": "synchronous_4bit",
+        "qualification": "CR TRACE_IOEN/TRACE_EN and GPIO/CoreSight/receiver configuration are separate gates; mode encoding alone does not establish trace delivery.",
+        "evidence": [
+          "RM0522:p2542"
+        ]
+      }
+    },
+    "package_routes": [
+      {
+        "id": "descriptor.signal.90",
+        "pin": "PA14",
+        "pad": 49,
+        "signal": "DEBUG_JTCK",
+        "instance": "DEBUG",
+        "function": {
+          "type": "alternate",
+          "id": "AF0"
+        },
+        "unresolved_refs": []
+      },
+      {
+        "id": "descriptor.signal.91",
+        "pin": "PA15",
+        "pad": 50,
+        "signal": "DEBUG_JTDI",
+        "instance": "DEBUG",
+        "function": {
+          "type": "alternate",
+          "id": "AF0"
+        },
+        "unresolved_refs": []
+      },
+      {
+        "id": "descriptor.signal.92",
+        "pin": "PB3",
+        "pad": 55,
+        "signal": "DEBUG_JTDO",
+        "instance": "DEBUG",
+        "function": {
+          "type": "alternate",
+          "id": "AF0"
+        },
+        "unresolved_refs": []
+      },
+      {
+        "id": "descriptor.signal.93",
+        "pin": "PA13",
+        "pad": 46,
+        "signal": "DEBUG_JTMS",
+        "instance": "DEBUG",
+        "function": {
+          "type": "alternate",
+          "id": "AF0"
+        },
+        "unresolved_refs": []
+      },
+      {
+        "id": "descriptor.signal.94",
+        "pin": "PB4",
+        "pad": 56,
+        "signal": "DEBUG_NJTRST",
+        "instance": "DEBUG",
+        "function": {
+          "type": "alternate",
+          "id": "AF0"
+        },
+        "unresolved_refs": []
+      },
+      {
+        "id": "descriptor.signal.95",
+        "pin": "PA14",
+        "pad": 49,
+        "signal": "DEBUG_SWCLK",
+        "instance": "DEBUG",
+        "function": {
+          "type": "alternate",
+          "id": "AF0"
+        },
+        "unresolved_refs": []
+      },
+      {
+        "id": "descriptor.signal.96",
+        "pin": "PA13",
+        "pad": 46,
+        "signal": "DEBUG_SWDIO",
+        "instance": "DEBUG",
+        "function": {
+          "type": "alternate",
+          "id": "AF0"
+        },
+        "unresolved_refs": []
+      },
+      {
+        "id": "descriptor.signal.97",
+        "pin": "PE2",
+        "pad": 1,
+        "signal": "DEBUG_TRACECLK",
+        "instance": "DEBUG",
+        "function": {
+          "type": "alternate",
+          "id": "AF0"
+        },
+        "unresolved_refs": []
+      },
+      {
+        "id": "descriptor.signal.98",
+        "pin": "PC1",
+        "pad": 9,
+        "signal": "DEBUG_TRACED0",
+        "instance": "DEBUG",
+        "function": {
+          "type": "alternate",
+          "id": "AF0"
+        },
+        "unresolved_refs": []
+      },
+      {
+        "id": "descriptor.signal.99",
+        "pin": "PC8",
+        "pad": 39,
+        "signal": "DEBUG_TRACED1",
+        "instance": "DEBUG",
+        "function": {
+          "type": "alternate",
+          "id": "AF0"
+        },
+        "unresolved_refs": []
+      },
+      {
+        "id": "descriptor.signal.100",
+        "pin": "PD2",
+        "pad": 54,
+        "signal": "DEBUG_TRACED2",
+        "instance": "DEBUG",
+        "function": {
+          "type": "alternate",
+          "id": "AF0"
+        },
+        "unresolved_refs": []
+      },
+      {
+        "id": "descriptor.signal.101",
+        "pin": "PC12",
+        "pad": 53,
+        "signal": "DEBUG_TRACED3",
+        "instance": "DEBUG",
+        "function": {
+          "type": "alternate",
+          "id": "AF0"
+        },
+        "unresolved_refs": []
+      },
+      {
+        "id": "descriptor.signal.102",
+        "pin": "PB3",
+        "pad": 55,
+        "signal": "DEBUG_TRACESWO",
+        "instance": "DEBUG",
+        "function": {
+          "type": "alternate",
+          "id": "AF0"
+        },
+        "unresolved_refs": []
+      }
+    ],
+    "package_qualification": "Literal hash-linked routes only. Existing physical pin ownership applies; aliases share pads. PB3 SWO/JTDO conflicts with CRS and other alternate uses. Board wiring, population, signal quality and trace capture unqualified.",
+    "contracts": [
+      {
+        "id": "freeze_condition",
+        "detail": "Freeze requires CPU HALTED and selected STOP bit; when CPU runs, peripherals continue regardless of freeze bit. I2C/I3C controls concern listed timeout counters, not proven complete bus transaction suspension.",
+        "evidence": [
+          "RM0522:p2540",
+          "RM0522:p2541"
+        ]
+      },
+      {
+        "id": "family_exclusions",
+        "detail": "Absent-peripheral bits must remain reset. Broader RM tables do not admit TIM3/4/5/16/17, I2C2 or DMA channels4..7 on exact C542. APB1HFZR is reserved.",
+        "evidence": [
+          "header.freeze",
+          "RM0522:p2541",
+          "RM0522:p2544"
+        ]
+      },
+      {
+        "id": "low_power_behavior",
+        "detail": "Debug retains clock/power and changes low-power behavior; peripherals may continue. Debug measurements do not qualify normal low-power current or timing. Standby exit causes system reset.",
+        "evidence": [
+          "RM0522:p2539",
+          "RM0522:p2540",
+          "RM0522:p2542",
+          "RM0522:p2543"
+        ]
+      },
+      {
+        "id": "reset_scope",
+        "detail": "RM states DBGMCU registers are not reset by system reset, only POR. Apply this to reviewed control/freeze state, not blindly to authentication fields: DBG_VALR VAL_RDY has explicit conditional system-reset clearing. No reset or restoration executed.",
+        "evidence": [
+          "RM0522:p2541",
+          "RM0522:p2550"
+        ]
+      },
+      {
+        "id": "access_scope",
+        "detail": "Software base0x44024000 and debugger base0xE00E4000 are distinct documented views. Authentication can restrict debugger access; ignored access is not successful configuration. Authentication/mailbox/password/option operations excluded.",
+        "evidence": [
+          "RM0522:p2541",
+          "RM0522:p2542",
+          "RM0522:p2543",
+          "RM0522:p2548",
+          "RM0522:p2549"
+        ]
+      },
+      {
+        "id": "SDK_ownership",
+        "detail": "HAL freeze wrappers call LL atomic bit setters/clearers; low-power LL uses ordinary register bit operations. No saved-state ownership, cross-owner release, hardware halt verification, readback success or RTC erratum enforcement is supplied. APIs alone do not authorize altering a debug session.",
+        "evidence": [
+          "HAL.wrappers",
+          "LL.freeze",
+          "LL.low_power"
+        ]
+      },
+      {
+        "id": "RTC_subsecond",
+        "detail": "ES2.7.1: subsecond alarm downcounter remains clocked despite RTC freeze. With MASKSS nonzero and an alarm immediately before breakpoint/printf, ALRAF/ALRBF can repeatedly reassert and resist clearing. No workaround; freeze is not a complete RTC snapshot guarantee.",
+        "evidence": [
+          "ES0676:p2",
+          "ES0676:p7"
+        ]
+      }
+    ],
+    "errata_gate": {
+      "inventory_binding": {
+        "file": "errata.json",
+        "index": 11,
+        "section": "2.7.1",
+        "revision_status": {
+          "Z": "N",
+          "Y": "N"
+        }
+      },
+      "evidence": [
+        "ES0676:p1",
+        "ES0676:p2",
+        "ES0676:p7"
+      ]
+    },
+    "conflicts": [
+      {
+        "id": "HAL_revision_comment",
+        "detail": "HAL comment lists C53x/C54x A1000/Z1001 but not Y; ES0676 exact family includes Z/Y and RM maps Y1003. Getter reads raw revision, so comment does not impose an operational Y rejection.",
+        "evidence": [
+          "HAL.identity",
+          "LL.identity",
+          "RM0522:p2542",
+          "ES0676:p1"
+        ]
+      }
+    ],
+    "open_gates": [
+      "No runtime admission or debug-session mutation",
+      "Actual revision, debugger authentication and owned-session state unknown",
+      "Full CoreSight chapter2413..2557 not closed; bounded DBGMCU2539..2557 only",
+      "Trace transport, GPIO configuration, clocks, electrical behavior and capture unqualified",
+      "Freeze latency, in-flight peripheral transactions and concurrent debugger/software writes unqualified",
+      "No credential, password, option-byte or authentication workflow admitted"
+    ]
+  }
+}

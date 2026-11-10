@@ -1,0 +1,820 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/basic-timer-contracts.json",
+    "sha256": "2e7141a117bd4f68aed44dd20504cac96509af11db6651efbcb5a9684ee96bbd"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 66
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "schema": "bkpt.external.basic_timer.contracts.v1",
+    "review": "Bounded TIM6/TIM7 source audit transcribed; independent review pending.",
+    "sources": {
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "HAL_TIM": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_tim.c",
+        "sha256": "4c291c794c90050e75c8bb9f9da2d49ade984085f558088ce65eaf01824933e3"
+      },
+      "HAL_TIM_H": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_tim.h",
+        "sha256": "3372613c4ae355e160e7e8cc2166da5166b39fb77acc383740e5de8f453de4c5"
+      },
+      "LL_TIM": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_tim.h",
+        "sha256": "519e86c7740606eb87fbc6b5ebf7910e90256203d967feca07b3462f02431568"
+      },
+      "LL_DMA": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_dma.h",
+        "sha256": "0983050fda989d6c7577c49e52df21ed71055b48490017c20080b7b6e072dacd"
+      },
+      "composition": {
+        "path": "research://c5-reference/composition.json",
+        "sha256": "54516e25013d6f4e71b89346974d8229efd87b0fe9140e48399165ff70e9a4ff"
+      },
+      "dma_routing": {
+        "path": "research://c5-reference/dma-routing.json",
+        "sha256": "6f5d4d59950941a32d983ccc0907dda996415c9fd201cce9b2e8777bd86ae41d"
+      },
+      "stm32c5xx_drivers/hal/stm32c5xx_hal_rcc.c": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_rcc.c",
+        "sha256": "241ee550685a75c6fcb02006ac3517c3a3c269d6f5cddface18c83ad70b6748f",
+        "kind": "SDK_source",
+        "version_context": "pinned_HAL2_2.1.0"
+      }
+    },
+    "evidence": {
+      "RM0522:p271": {
+        "source": "RM0522",
+        "page": 271,
+        "sha256": "d19f60266d8f67a35d953bb0bfda7ec6247a4b6b51d4a36b6361dd6a9ca887c9"
+      },
+      "RM0522:p1259": {
+        "source": "RM0522",
+        "page": 1259,
+        "sha256": "90d304b1fd43a0035819a2f74361c76a4aa27b279df153cbddf7ee4d513a875b"
+      },
+      "RM0522:p1260": {
+        "source": "RM0522",
+        "page": 1260,
+        "sha256": "8e3aff7a2a0b6d0fe677c19ccd00a69c2e905f7cf07e44a86219b2da85a67e2d"
+      },
+      "RM0522:p1261": {
+        "source": "RM0522",
+        "page": 1261,
+        "sha256": "88b67f77558c0add6da4752e55ddf1eac583d25bea4cfbffa4c2d1c53a7bc232"
+      },
+      "RM0522:p1262": {
+        "source": "RM0522",
+        "page": 1262,
+        "sha256": "6cc8eb69c6b6e7cba7e53144059bb1b32bbd594214ed9cd40ee63596123d1b34"
+      },
+      "RM0522:p1263": {
+        "source": "RM0522",
+        "page": 1263,
+        "sha256": "bca307d36dbc37833ff57a1bebcb120698b9f159ed3731b1b96d8f163b11fc9f"
+      },
+      "RM0522:p1264": {
+        "source": "RM0522",
+        "page": 1264,
+        "sha256": "a3b937a2e1a1f4e049856fa7c6396dee0fb03dafb3a169c2950b07e3d7eaa8cd"
+      },
+      "RM0522:p1265": {
+        "source": "RM0522",
+        "page": 1265,
+        "sha256": "29ad8775915ac61f307a49a3e730f69d5862e8017387793e1c0c30f40cc87f37"
+      },
+      "RM0522:p1266": {
+        "source": "RM0522",
+        "page": 1266,
+        "sha256": "30f68aed13590eef41d30a2a5d052278c4285e2e51175f9aef947dcee5896427"
+      },
+      "RM0522:p1267": {
+        "source": "RM0522",
+        "page": 1267,
+        "sha256": "ecc52a586de585fa43a344c19c5ececad64413126c44c36d4af4dcf6c7e539b2"
+      },
+      "RM0522:p1268": {
+        "source": "RM0522",
+        "page": 1268,
+        "sha256": "53adc2d81bd319659e939d7c6d827e0d07896a6d03fad8bae7c03f79cc469d63"
+      },
+      "RM0522:p1269": {
+        "source": "RM0522",
+        "page": 1269,
+        "sha256": "a006a3ad0d55dedd09d5382bcab9f8282ad61c46f8683ba3e2176b530f7680d9"
+      },
+      "RM0522:p1270": {
+        "source": "RM0522",
+        "page": 1270,
+        "sha256": "4ed6fccafcf45170992c31ac6b54f53c0cf3238e903cecb3806e77a8a3e356ce"
+      },
+      "RM0522:p1271": {
+        "source": "RM0522",
+        "page": 1271,
+        "sha256": "02ba56e1d6567b9198e72e34298827aa54042ca316970e006f59afc8152168a3"
+      },
+      "RM0522:p1272": {
+        "source": "RM0522",
+        "page": 1272,
+        "sha256": "96e3fffae7c1f94763462f023d4fc8268171269f2679fe17dc47ce90768d7631"
+      },
+      "RM0522:p1273": {
+        "source": "RM0522",
+        "page": 1273,
+        "sha256": "006df172134e93c1b6d8edf9ca62b6fd75eccdf2b7a094d302ebe4505dfe0ac1"
+      },
+      "RM0522:p1274": {
+        "source": "RM0522",
+        "page": 1274,
+        "sha256": "c959cdf6bf258c93c7b4d4696463da2c43dae2cded1e3ba8f0eff3ec5271dfdb"
+      },
+      "RM0522:p1275": {
+        "source": "RM0522",
+        "page": 1275,
+        "sha256": "ff00c88fea6f9b0b83f571b48c254648fc6aefe0930d02d9478a1df53388684b"
+      },
+      "RM0522:p1276": {
+        "source": "RM0522",
+        "page": 1276,
+        "sha256": "e54d1a8b3a49cf0e4910c434fd0d57a1d1235b8f7818ba38268bcd362fd0a9fc"
+      },
+      "RM0522:p1277": {
+        "source": "RM0522",
+        "page": 1277,
+        "sha256": "6f8d0e4b727da1762210402401695be7338f1dd87d46fa539cd56ce8bb488dcb"
+      },
+      "RM0522:p1278": {
+        "source": "RM0522",
+        "page": 1278,
+        "sha256": "172eb06c995c815fc26f4116b9e282f59a77bf5cde9753be46c1afde08ee31a9"
+      },
+      "RM0522:p1279": {
+        "source": "RM0522",
+        "page": 1279,
+        "sha256": "6d0af27bce29cfc4a3a9ffeceff724e9baba9dee95372e8ab5e511e56bf84722"
+      },
+      "RM0522:p1280": {
+        "source": "RM0522",
+        "page": 1280,
+        "sha256": "45aa79d06856e50fb7411e8824f978a8e21403243bdfad9128c8baef9755bbb7"
+      },
+      "RM0522:p2540": {
+        "source": "RM0522",
+        "page": 2540,
+        "sha256": "837075ac070308b3ee42d06a748d6b6de0e275899f2f191c98b715bc1b6abdf4"
+      },
+      "RM0522:p2541": {
+        "source": "RM0522",
+        "page": 2541,
+        "sha256": "2c46b817302497caf225a9923cc7aa3a4d65f0e7f02a70c47f8fdd6407804276"
+      },
+      "RM0522:p2543": {
+        "source": "RM0522",
+        "page": 2543,
+        "sha256": "f0af844e137169e3569524d8b5e62e3fc4778b71b4f69017294ba4fb6d6537af"
+      },
+      "header.IRQ": {
+        "source": "header",
+        "start_line": 101,
+        "end_line": 102,
+        "sha256": "5f830eb3a6106c393c8b45482173d31c1c43a94d18b19254528be684c30bbb9f"
+      },
+      "header.bases": {
+        "source": "header",
+        "start_line": 1183,
+        "end_line": 1184,
+        "sha256": "88448ea2eb92a13ab0a8c578f414677e9c20ec1315bc43d3bd23fe50c2c94c88"
+      },
+      "header.instances": {
+        "source": "header",
+        "start_line": 14163,
+        "end_line": 14312,
+        "sha256": "eac1e3644cb941c0dda965bf375434cb5deaa5b93c45391cd83b37f17cd67543"
+      },
+      "HAL.period_guard": {
+        "source": "HAL_TIM",
+        "start_line": 884,
+        "end_line": 935,
+        "sha256": "6f6360fd03b9aff183664b07b06b716a36b479ba5956a0d8e893e02206a1870e"
+      },
+      "HAL.trgo_guard": {
+        "source": "HAL_TIM",
+        "start_line": 2212,
+        "end_line": 2221,
+        "sha256": "6734d26b16f333e7caae567011ce0b8ac9b853145a41f439a85a7668ccc84273"
+      },
+      "HAL.clock": {
+        "source": "HAL_TIM",
+        "start_line": 2742,
+        "end_line": 2802,
+        "sha256": "0b492ed8f2795a848099070715e7a3e604649ba2120c0b6705ca89fb8860ef46"
+      },
+      "HAL.start_IT_helper": {
+        "source": "HAL_TIM",
+        "start_line": 2850,
+        "end_line": 2867,
+        "sha256": "41482f57958bcb719ecea793d414abe4a4b08b6e0538cd42b9cf0d519b2fafc5"
+      },
+      "HAL.dma_callbacks": {
+        "source": "HAL_TIM",
+        "start_line": 2906,
+        "end_line": 2980,
+        "sha256": "02c2b1c52c2b210709022eff1402072a37f055b54413882c16f0436fc8622f83"
+      },
+      "HAL.dma_config": {
+        "source": "HAL_TIM",
+        "start_line": 3175,
+        "end_line": 3195,
+        "sha256": "a35c3dfde86a4eaa7274f8e8e23454c8ff4eba574fc8e678c46836ea489a78a2"
+      },
+      "HAL.dma_start": {
+        "source": "HAL_TIM",
+        "start_line": 3209,
+        "end_line": 3272,
+        "sha256": "052c81a3464729561671595c3e448aae454087c8b9d526cbaa4dac83a5ca2c4f"
+      },
+      "HAL.dma_abort": {
+        "source": "HAL_TIM",
+        "start_line": 3402,
+        "end_line": 3432,
+        "sha256": "c3204d7a8981034ccf85e5b548c716fd3c9bf36d1e884b5b2287cd5825b06757"
+      },
+      "HAL.init_deinit": {
+        "source": "HAL_TIM",
+        "start_line": 3650,
+        "end_line": 3757,
+        "sha256": "868d04a36e3876202a59f461af2e32797c136f5b6fb07a50cb11f0e26420d346"
+      },
+      "HAL.config": {
+        "source": "HAL_TIM",
+        "start_line": 3880,
+        "end_line": 3954,
+        "sha256": "8dc61a3b977697dbfcbf655073782fadbc1592af74dd91443927757ebba8ca76"
+      },
+      "HAL.period_setters": {
+        "source": "HAL_TIM",
+        "start_line": 3995,
+        "end_line": 4058,
+        "sha256": "021d3a154ef3d4bacb58475c967eaac8683d7d1ec2aea82ade039228f7591555"
+      },
+      "HAL.update_controls": {
+        "source": "HAL_TIM",
+        "start_line": 4425,
+        "end_line": 4490,
+        "sha256": "2da942291ba436ae69785d6602b7b4eed974135261aefcbfb83faf6f8e78164c"
+      },
+      "HAL.dithering": {
+        "source": "HAL_TIM",
+        "start_line": 4620,
+        "end_line": 4654,
+        "sha256": "7f9b9eaa675c35d3a3f251e80fc659228273052805529e1a08168170801665c3"
+      },
+      "HAL.start_stop": {
+        "source": "HAL_TIM",
+        "start_line": 4725,
+        "end_line": 4837,
+        "sha256": "8c6029186f9e92c71f2e63193a536ba88afbe8c2b4ec1d8862dcec9a251f3e89"
+      },
+      "HAL.stop_DMA": {
+        "source": "HAL_TIM",
+        "start_line": 4938,
+        "end_line": 4984,
+        "sha256": "e2423874ccb7ce03a86cca8ac82f3f73e82e4c330aff93be34f0d13298907159"
+      },
+      "HAL.one_pulse": {
+        "source": "HAL_TIM",
+        "start_line": 6841,
+        "end_line": 6868,
+        "sha256": "dcfa1f6bb56be23226ddd2ea4d78a32c99b7e2f0de986dc5763a926ba5e62266"
+      },
+      "HAL.TRGO": {
+        "source": "HAL_TIM",
+        "start_line": 7209,
+        "end_line": 7226,
+        "sha256": "55efc25ae73b007b51623c02de8a63bc6b9c10c57916e243cb5a4d4e55302ad8"
+      },
+      "HAL.ADCSYNC": {
+        "source": "HAL_TIM",
+        "start_line": 7558,
+        "end_line": 7592,
+        "sha256": "b2fa4d55a8f554f94698c6f4ec2647bba5972fc11e7c83d1410b1d34f7e3e4e6"
+      },
+      "HAL.IRQ": {
+        "source": "HAL_TIM",
+        "start_line": 9414,
+        "end_line": 9436,
+        "sha256": "b78098fe6cd67e65cc7c173e7452a577ef7d04e31c3d7e68e7df204f69d7070c"
+      },
+      "HAL.update_IRQ": {
+        "source": "HAL_TIM",
+        "start_line": 9660,
+        "end_line": 9675,
+        "sha256": "31a204710c568737a5d3b7c911c3f0b2f4c817b8044a6e8f99544ca4419ad644"
+      },
+      "LL.counter_enable": {
+        "source": "LL_TIM",
+        "start_line": 2300,
+        "end_line": 2314,
+        "sha256": "52243108d71d165732769e1059d78bb95d499f5b89f69c86534d9d8cec8a08d6"
+      },
+      "LL.counter_read": {
+        "source": "LL_TIM",
+        "start_line": 2635,
+        "end_line": 2638,
+        "sha256": "de85b5b7a5b914b69e85bfbb261f232ef128f400bd82f68d92c5a1c50eb4ce15"
+      },
+      "LL.PSC": {
+        "source": "LL_TIM",
+        "start_line": 2665,
+        "end_line": 2668,
+        "sha256": "598b0ef5759add66eeb8a746e3d1997f3fc629260f27d822b2b793548d6f06de"
+      },
+      "LL.ARR": {
+        "source": "LL_TIM",
+        "start_line": 2695,
+        "end_line": 2698,
+        "sha256": "caaeb17fe27587c1b179cfbb4b59d0e5a867d0c36abc4fbf9c852093a652099f"
+      },
+      "LL.CC_disable": {
+        "source": "LL_TIM",
+        "start_line": 3033,
+        "end_line": 3037,
+        "sha256": "e39378ccbda70d2451f7b7702d52c90a7118a578b1f1819023787ab2fa669a43"
+      },
+      "LL.TRGO": {
+        "source": "LL_TIM",
+        "start_line": 5476,
+        "end_line": 5479,
+        "sha256": "e2ecb06150f955b61893eed063b2dc891962e77fbf68b56a905bf328dc4b8253"
+      },
+      "LL.slave_read": {
+        "source": "LL_TIM",
+        "start_line": 5642,
+        "end_line": 5645,
+        "sha256": "edd600f61a226d1d31ccb22c0313d3fab5715eb1c5b88d4691dbb3c579ebdd1b"
+      },
+      "LL.clear_UIF": {
+        "source": "LL_TIM",
+        "start_line": 8843,
+        "end_line": 8846,
+        "sha256": "561be9536f93a4fe1c8bd543e6a49d7b9f6c0136001559d692c6e492c08191aa"
+      },
+      "LL.overrun": {
+        "source": "LL_TIM",
+        "start_line": 9371,
+        "end_line": 9391,
+        "sha256": "3d20ace6b9bcb3af09d130b6b2186fa775cbd781104588fc898696270e704119"
+      },
+      "LL.DMA1_selectors": {
+        "source": "LL_DMA",
+        "start_line": 378,
+        "end_line": 379,
+        "sha256": "e2f53a0bfe251f3a7e4fac8da00dc577d5742124a4a2813c527417022054150a"
+      },
+      "LL.DMA2_selectors": {
+        "source": "LL_DMA",
+        "start_line": 508,
+        "end_line": 509,
+        "sha256": "d1427ca0cd18b35dd545251b8d7601a5ed949221427a1803b44603edffe7df25"
+      },
+      "header.TIM_layout": {
+        "source": "header",
+        "start_line": 970,
+        "end_line": 984,
+        "sha256": "ca3802067d6e9c98f93e97ef0cd61cc532b9b5841890d3fac7064398dea5114c"
+      },
+      "sdk.rcc_timer": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_rcc.c",
+        "start_line": 3653,
+        "end_line": 3667,
+        "text_sha256": "d7819ea5faa19f6cabbc0dd1d9f088cba32a776866fff511426d9ce0fe30caa4"
+      },
+      "sdk.tim_clock": {
+        "source": "HAL_TIM",
+        "start_line": 3855,
+        "end_line": 3862,
+        "text_sha256": "ed0f50cedf513ca264f9cb5105471430099b5c29f894f5e10cbc57e0998e5bb8"
+      },
+      "HAL.start_DMA_wrapper": {
+        "source": "HAL_TIM",
+        "start_line": 4856,
+        "end_line": 4880,
+        "text_sha256": "ba2fa1e6c9d9f660868abbeae38a483f6275108a7be2318e3aa9887f75c46c52"
+      },
+      "header.MMS": {
+        "source": "header",
+        "start_line": 11398,
+        "end_line": 11404,
+        "text_sha256": "44ff2e8b8d5d6d1866452c30eae5fd7f38d164b4f396be171da6cc91f9161bcc"
+      },
+      "LL.MMS_encoder": {
+        "source": "LL_TIM",
+        "start_line": 771,
+        "end_line": 783,
+        "text_sha256": "0420c820456e31d2bbfbcf8e58ad9e774483043c2b03a4c2613a877d970ccda3"
+      }
+    },
+    "scope": "TIM6/TIM7 basic timers only. No new executable profile, accepted catalog change, general/advanced timer admission or direct timer-to-DMA trigger chain.",
+    "provenance": {
+      "composition": "Existing composition.json is hash-bound as a source and unchanged. Its author-selected equal 144 MHz clock domain is preserved.",
+      "dma_routing": "Existing dma-routing.json is hash-bound as a source. DMA request identities are not trigger-selector identities or operational admission."
+    },
+    "finite_source_maps": {
+      "instances": [
+        "TIM6",
+        "TIM7"
+      ],
+      "IRQ": {
+        "TIM6": 42,
+        "TIM7": 43
+      },
+      "CR1_bits": {
+        "CEN": 0,
+        "UDIS": 1,
+        "URS": 2,
+        "OPM": 3,
+        "ARPE": 7,
+        "UIFREMAP": 11,
+        "DITHEN": 12
+      },
+      "CR2": {
+        "MMS_position": 4,
+        "MMS_values": {
+          "0": "UG_reset",
+          "1": "counter_enable",
+          "2": "update"
+        },
+        "ADSYNC_bit": 28
+      },
+      "DIER_bits": {
+        "UIE": 0,
+        "UDE": 8
+      },
+      "SR_bits": {
+        "UIF": 0,
+        "UIOVRF": 24
+      },
+      "EGR_UG_bit": 0,
+      "PSC": {
+        "min": 0,
+        "max": 65535,
+        "divisor": "PSC + 1",
+        "buffered": true
+      },
+      "CNT": {
+        "value_bits": [
+          0,
+          15
+        ],
+        "UIFCPY_bit": 31,
+        "fractional_part_readable": false
+      },
+      "ARR": {
+        "non_dithered_running_min": 1,
+        "non_dithered_max": 65535,
+        "zero_effect": "counter_blocked",
+        "dithered_integer_bits": [
+          4,
+          19
+        ],
+        "dithered_fraction_bits": [
+          0,
+          3
+        ],
+        "dithered_max_hex": "0xFFFEF"
+      },
+      "update_DMA_selector": {
+        "LPDMA1": {
+          "TIM6": 2,
+          "TIM7": 3
+        },
+        "LPDMA2": {
+          "TIM6": 2,
+          "TIM7": 3
+        }
+      },
+      "excluded_features": [
+        "capture_compare_channels",
+        "encoder",
+        "slave_controller",
+        "repetition_counter",
+        "DMA_burst",
+        "TRGO2",
+        "external_clock_input"
+      ],
+      "evidence": [
+        "header.IRQ",
+        "header.instances",
+        "RM0522:p1259",
+        "RM0522:p1273",
+        "RM0522:p1274",
+        "RM0522:p1275",
+        "RM0522:p1276",
+        "RM0522:p1277",
+        "RM0522:p1278",
+        "RM0522:p1279",
+        "RM0522:p1280",
+        "LL.DMA1_selectors",
+        "LL.DMA2_selectors"
+      ]
+    },
+    "nominal_formula": {
+      "id": "restricted_rate",
+      "detail": "Only within unchanged composition domain: TIM6/TIM7, HCLK = PCLK1 = 144000000 Hz, PSC 0..65535, ARR 1..65535, DITHEN = 0, OPM = 0, ADSYNC = 0, UDIS = 0. Derived nominal update rate = 144000000 / ((PSC + 1) * (ARR + 1)). Requires loaded effective registers, enabled unsuppressed steady counting and no debug/low-power stop or external reconfiguration. Does not qualify first-edge latency, ISR delivery rate, DMA sampling or trigger consumer timing. Unequal-clock identity remains unresolved. This is not a maximum-frequency claim; electrical tolerance and clock switching remain unqualified.",
+      "evidence": [
+        "RM0522:p271",
+        "RM0522:p1261",
+        "RM0522:p1262",
+        "RM0522:p1263",
+        "RM0522:p1278",
+        "RM0522:p1279"
+      ],
+      "fixed_mode": {
+        "DITHEN": 0,
+        "OPM": 0,
+        "ADSYNC": 0,
+        "UDIS": 0
+      }
+    },
+    "contracts": [
+      {
+        "id": "update_distinctions",
+        "detail": "ARPE selects immediate versus update-time ARR transfer; PSC is buffered. URS=1 suppresses UG-originated UIF/IRQ/DMA requests, not update events or TRGO. MMS=0 (reset) lets UG pulse TRGO, including SetConfig UG; MMS=2 exports updates. UDIS=1 suppresses updates/shadow reload and MMS=2 update TRGO, but UG still reinitializes counter/prescaler and drives MMS=0 TRGO. Establish downstream consumer ownership before UG.",
+        "evidence": [
+          "RM0522:p1261",
+          "RM0522:p1262",
+          "RM0522:p1263",
+          "RM0522:p1274",
+          "RM0522:p1277",
+          "RM0522:p1278",
+          "RM0522:p1275"
+        ]
+      },
+      {
+        "id": "one_pulse",
+        "detail": "OPM clears CEN at the next update event; a UG update while OPM=1 and CEN=1 can stop counting. UDIS=1 suppresses updates and therefore prevents OPM from clearing CEN through that path. This does not provide an output pulse pin on a basic timer. UG, UDIS and existing OPM require explicit startup policy.",
+        "evidence": [
+          "RM0522:p1273",
+          "RM0522:p1274",
+          "RM0522:p1280"
+        ]
+      },
+      {
+        "id": "start_stop",
+        "detail": "CEN starts counting; actual counter enable follows one clock later per RM. Inference from the documented CEN function and separate reset/flag controls: clearing CEN does not itself reset counter or pending flags. It does not establish downstream consumer quiescence. Restart is not qualified as a fresh period.",
+        "evidence": [
+          "RM0522:p1261",
+          "RM0522:p1262",
+          "RM0522:p1274",
+          "LL.counter_enable"
+        ]
+      },
+      {
+        "id": "pending_and_counter_snapshot",
+        "detail": "UIF is a pending indication, not a lossless event count. UIOVRF reports another update request while UIF is set; UG with URS=1 or UDIS=1 does not generate that request. Both flags clear by writing zero. With UIFREMAP enabled, raw CNT includes UIFCPY in bit31; LL returns the whole register.",
+        "evidence": [
+          "RM0522:p1262",
+          "RM0522:p1270",
+          "RM0522:p1277",
+          "RM0522:p1278",
+          "LL.counter_read",
+          "LL.clear_UIF",
+          "LL.overrun"
+        ]
+      },
+      {
+        "id": "dithering_transition",
+        "detail": "Dithering changes average period over 16 periods, not a fixed per-period interval. DITHEN changes require CEN = 0. Disabling requires CEN and ARPE cleared before DITHEN. No dithered runtime domain admitted.",
+        "evidence": [
+          "RM0522:p1267",
+          "RM0522:p1268",
+          "RM0522:p1269",
+          "RM0522:p1270",
+          "RM0522:p1273"
+        ]
+      },
+      {
+        "id": "consumer_clocks_ADSYNC",
+        "detail": "Receiving peripheral clocks must be enabled before TRGO and unchanged while receiving it. ADSYNC requires related timer/ADC clocks, integer ratio and period alignment; set up destination ADC clock, timer/ADSYNC, ADC trigger reception, then start timer. Do not change synchronization during operation. Generic compare references do not create compare channels on basic timers.",
+        "evidence": [
+          "RM0522:p1271",
+          "RM0522:p1272",
+          "RM0522:p1275"
+        ]
+      },
+      {
+        "id": "debug_low_power",
+        "detail": "Debug halt stops a timer only when its DBGMCU freeze control is selected. Those DBGMCU controls reset only on POR, so system reset alone does not clear them. Sleep operation requires the RCC low-power enable policy to retain its clock; Stop stops operation and retains registers; Standby requires reinitialization. Debug low-power emulation changes behavior. Clock, debug and reset owners remain part of the resource contract.",
+        "evidence": [
+          "RM0522:p1272",
+          "RM0522:p2540",
+          "RM0522:p2541",
+          "RM0522:p2543",
+          "RM0522:p271"
+        ]
+      },
+      {
+        "id": "DMA_request_scope",
+        "detail": "Only the update DMA request is established for each basic timer. HAL base DMA transfer targets ARR, not GPIO sampling. A request identity does not establish a DMA trigger selector, exclusivity/fanout policy, endpoint safety or completed transfer.",
+        "evidence": [
+          "RM0522:p1272",
+          "LL.DMA1_selectors",
+          "LL.DMA2_selectors",
+          "HAL.dma_start"
+        ]
+      },
+      {
+        "id": "clock_enable_delay_and_errata",
+        "detail": "Preserve the composition requirements: hold the timer RCC clock throughout use and wait the documented two bus cycles after enable (RM271). Exact silicon revision/errata screening remains open; no dedicated TIM6/7 errata headings does not establish absence. No new revision admission.",
+        "evidence": [
+          "RM0522:p271"
+        ]
+      },
+      {
+        "id": "access_width",
+        "detail": "RM permits half-word or word register accesses. DMA endpoint width is separately constrained: a full-word ARR write can set upper bits reserved when DITHEN=0. Validate exact mode and value, alignment and transfer width; no DMA runtime domain admitted.",
+        "evidence": [
+          "RM0522:p1273",
+          "RM0522:p1279",
+          "RM0522:p1280"
+        ]
+      }
+    ],
+    "source_derived_SDK_gates": [
+      {
+        "id": "ARR_crossmode_admission",
+        "detail": "SetConfig accepts a 16-bit timer period up to 0xFFFEF without checking DITHEN. Thus debug assertions can accept reserved upper ARR bits in non-dithered mode. Dedicated setters also require independently matching actual mode. LL writes raw values without field masking.",
+        "evidence": [
+          "HAL.period_guard",
+          "HAL.config",
+          "HAL.period_setters",
+          "LL.ARR",
+          "LL.PSC",
+          "RM0522:p1279"
+        ]
+      },
+      {
+        "id": "TRGO_instance_admission",
+        "detail": "Generic TRGO guard accepts compare and encoder sources, while basic-timer RM supplies only MMS 0, 1, 2. Master-instance acceptance is not a valid exact source check; independently restrict the domain. Exact header MMS mask 0x02000070 includes bit25; LL encoder-clock source sets that bit, reserved for basic timers. Even the generic LL mask touches that reserved position.",
+        "evidence": [
+          "HAL.trgo_guard",
+          "HAL.TRGO",
+          "LL.TRGO",
+          "header.instances",
+          "RM0522:p1275",
+          "header.MMS",
+          "LL.MMS_encoder"
+        ]
+      },
+      {
+        "id": "config_UG_side_effects",
+        "detail": "Init initializes the handle and optionally clock without resetting hardware. SetConfig uses UG and temporarily URS = 1 to avoid UIF, but does not neutralize MMS, OPM or UDIS. Existing UDIS may prevent intended shadow loading; UG still has counter/TRGO/one-pulse implications. HAL_OK is not a clean fresh configuration guarantee.",
+        "evidence": [
+          "HAL.init_deinit",
+          "HAL.config",
+          "RM0522:p1263",
+          "RM0522:p1273",
+          "RM0522:p1274",
+          "RM0522:p1275"
+        ]
+      },
+      {
+        "id": "state_and_transition_guards",
+        "detail": "State/parameter debug assertions are not release preflight. Dithering functions do not enforce full CEN/ARPE sequence; ADSYNC functions do not establish clock ratios or destination readiness. OPM hardware stop does not itself change handle ACTIVE state.",
+        "evidence": [
+          "HAL.dithering",
+          "HAL.ADCSYNC",
+          "HAL.one_pulse",
+          "HAL.start_stop",
+          "RM0522:p1268",
+          "RM0522:p1271",
+          "RM0522:p1274"
+        ]
+      },
+      {
+        "id": "start_stop_pending",
+        "detail": "Start_IT enables IRQ without clearing UIF. Stop_IT disables interrupts and counter without clearing flags. Polling Stop only disables counter and marks IDLE. Require explicit pending and downstream ownership policy before restart/release.",
+        "evidence": [
+          "HAL.start_IT_helper",
+          "HAL.start_stop"
+        ]
+      },
+      {
+        "id": "IRQ_dispatch",
+        "detail": "Generic handler tests SR & DIER, clears UIF then invokes callback. Dedicated UPD handler tests UIE alone, so invocation without UIF can still call the update callback. Neither update path accounts for UIOVRF or establishes one callback per overflow.",
+        "evidence": [
+          "HAL.IRQ",
+          "HAL.update_IRQ",
+          "RM0522:p1277"
+        ]
+      },
+      {
+        "id": "DMA_start_failure_residue",
+        "detail": "DMA configuration overwrites callback pointers and enables UDE before DMA start. On transfer-start failure, helper returns HAL_ERROR and marks IDLE without clearing that request. Require ownership and explicit failure cleanup; no hardware occurrence claimed. Public Start_DMA first marks the handle ACTIVE before invoking the helper.",
+        "evidence": [
+          "HAL.dma_config",
+          "HAL.dma_start",
+          "HAL.start_DMA_wrapper"
+        ]
+      },
+      {
+        "id": "DMA_completion_and_release",
+        "detail": "Completion/error callbacks forward without stopping timer. Stop_DMA disables requests, invokes abort, disables counter and returns IDLE/HAL_OK. Abort may be asynchronous; helper invokes stop callback even when Abort_IT returns non-OK. Callback or HAL_OK alone does not prove DMA quiescence or authorize buffer release. In silent mode the blocking HAL_DMA_Abort status is discarded and no stop callback is fired; quiescence still requires independent confirmation.",
+        "evidence": [
+          "HAL.dma_callbacks",
+          "HAL.stop_DMA",
+          "HAL.dma_abort"
+        ]
+      },
+      {
+        "id": "deinit_partial_reserved_access",
+        "detail": "DeInit clears CEN/DIER/SR and discards DMA abort status without resetting every register. Its generic channel loop invokes CCER read-modify-write even though basic-timer offsets 0x18..0x20 are reserved. Start helpers read SMCR at reserved offset 0x08 before checking slave capability. These are source-access qualification gaps, not demonstrated hardware failures.",
+        "evidence": [
+          "HAL.init_deinit",
+          "LL.CC_disable",
+          "HAL.start_stop",
+          "HAL.start_IT_helper",
+          "HAL.dma_start",
+          "LL.slave_read",
+          "RM0522:p1280",
+          "header.TIM_layout"
+        ]
+      },
+      {
+        "id": "clock_api_scope",
+        "detail": "Internal-clock configuration is the applicable basic-timer path. External/encoder helper branches rely on instance debug assertions before generic register writes. Do not admit those modes in release merely because the family API accepts an enum.",
+        "evidence": [
+          "HAL.clock",
+          "header.instances",
+          "RM0522:p1260",
+          "RM0522:p1280"
+        ]
+      }
+    ],
+    "conflicts": [
+      {
+        "id": "timer_clock_identity",
+        "detail": "RCC clock description and prior descriptor identify HCLK, whereas basic-timer RM1261 connects kernel to PCLK. RM1260 also permits synchronous integer kernel/APB ratio 1..16. Equal-clock composition is preserved; unequal domains remain unresolved. HAL_TIM_GetClockFreq delegates to HAL_RCC_TIM_GetKernelClkFreq, which computes HCLK for APB1/APB2 timers from settings; it does not measure the clock or resolve the RM disagreement.",
+        "evidence": [
+          "RM0522:p271",
+          "RM0522:p1260",
+          "RM0522:p1261",
+          "sdk.rcc_timer",
+          "sdk.tim_clock"
+        ]
+      },
+      {
+        "id": "prescaler_summary",
+        "detail": "RM1259 lists divisors 1..65535; RM1262 and PSC + 1 register formula establish 1..65536. Preserve summary discrepancy; existing bounded register interpretation unchanged.",
+        "evidence": [
+          "RM0522:p1259",
+          "RM0522:p1262",
+          "RM0522:p1278"
+        ]
+      },
+      {
+        "id": "generic_basic_prose",
+        "detail": "Basic chapter mentions slave controller, underflow, compare events and PWM in places, while exact counter/register/instance domain has no corresponding channels or slave controller. Preserve generic prose without promoting absent capabilities. DBGMCU RM2540 labels TIM6/7 general-purpose timers; no additional features inferred.",
+        "evidence": [
+          "RM0522:p1263",
+          "RM0522:p1269",
+          "RM0522:p1271",
+          "RM0522:p1274",
+          "RM0522:p1280",
+          "header.instances",
+          "RM0522:p2540"
+        ]
+      }
+    ],
+    "open_gates": [
+      "No executable timer, IRQ, ADC/DAC or DMA chain admitted",
+      "Physical clock and debug/reset ownership, start latency and ongoing consumer interactions unqualified",
+      "Exact DMA buffer/transfer widths, callback lifetime, abort completion and resource release unqualified",
+      "No compiler, timing, hardware or complete HAL/LL/SVD qualification",
+      "Full advanced/general timer chapters excluded",
+      "Existing composition and accepted catalog remain unchanged",
+      "Exact silicon revision and errata screening; absence of dedicated timer headings is not absence of applicable errata"
+    ]
+  }
+}

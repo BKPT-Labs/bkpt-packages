@@ -1,0 +1,395 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/icache-contracts.json",
+    "sha256": "178124755154130d17cf3ee052be8988a678d15622a785f1f861bbe1850e3311"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 37
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "schema": "bkpt.external.icache.contracts.v1",
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "review": "Claude I1/I2/I3 provenance and trigger refinements incorporated; correction review pending",
+    "sources": {
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "HAL_ICACHE": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_icache.c",
+        "sha256": "7f3fb0f3f3fc71152f5d45df62f787390cd25c975e461b9bcef3577a3410bdd3"
+      },
+      "LL_ICACHE": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_icache.h",
+        "sha256": "bef91249d83891d56078d4f7e91d23461525b41c91dd0a5f3d6f2145bd61c960"
+      }
+    },
+    "evidence": {
+      "RM0522:p207": {
+        "source": "RM0522",
+        "page": 207,
+        "sha256": "2898c760fce6c2fbd3e9f699a6190ee90598f0000772a180c9a6f77873efde74"
+      },
+      "RM0522:p208": {
+        "source": "RM0522",
+        "page": 208,
+        "sha256": "bfe3e08cc6a7c3351cb9307bbc083e6a05d7a5d2457bf4f64cf9c5cc2a1bc41a"
+      },
+      "RM0522:p209": {
+        "source": "RM0522",
+        "page": 209,
+        "sha256": "584281a615354c3a4d2d75f7f36ca16d8d38f9d179baf35f1aecda46c8318f56"
+      },
+      "RM0522:p210": {
+        "source": "RM0522",
+        "page": 210,
+        "sha256": "131c5070d0a1120f7706718373698c91c301b9c97cf05696ba4cad5ae8d8ebcd"
+      },
+      "RM0522:p211": {
+        "source": "RM0522",
+        "page": 211,
+        "sha256": "294d732d53856dd255edefe5c7614fc90fe02efd0d4ea6058aece7a9daf73283"
+      },
+      "RM0522:p212": {
+        "source": "RM0522",
+        "page": 212,
+        "sha256": "ce24c373f6e6b57cb6b3911067d9cd9528b3a13fb159f4dd9cf969db033fe25f"
+      },
+      "RM0522:p213": {
+        "source": "RM0522",
+        "page": 213,
+        "sha256": "1c54a4cf2bc8198c7d2eeb29130cff7b40d4eaf4cc278fb4474394b5fbd8a4fb"
+      },
+      "RM0522:p214": {
+        "source": "RM0522",
+        "page": 214,
+        "sha256": "b25a85bc8cd731f86c6829b26b399428e8fea77ab74c1258f9c9bcea4a72dfa8"
+      },
+      "RM0522:p215": {
+        "source": "RM0522",
+        "page": 215,
+        "sha256": "9fec724d5e3209b705731e799a3bb53a97d099e69a07e1c2f50a66f34abd2cc3"
+      },
+      "RM0522:p216": {
+        "source": "RM0522",
+        "page": 216,
+        "sha256": "1e535327da8dfd84af37ea7b2b3a34069f7936b7783dfebb5bc52970c46d0be9"
+      },
+      "RM0522:p217": {
+        "source": "RM0522",
+        "page": 217,
+        "sha256": "7555532e08e34baef9b80a0648945fce44cbd1d096245ebff003f8a2b6353b98"
+      },
+      "RM0522:p218": {
+        "source": "RM0522",
+        "page": 218,
+        "sha256": "2a16325abfbf2052725e1be1b61949d96a23f337ac6d21d13e6d6c39959f4bac"
+      },
+      "RM0522:p219": {
+        "source": "RM0522",
+        "page": 219,
+        "sha256": "9eea9cebcfb35eedb01cedbefae86477fedec1d769a75b16080bac05da5d141f"
+      },
+      "RM0522:p220": {
+        "source": "RM0522",
+        "page": 220,
+        "sha256": "5812f698f45d4e1d937c71a2bd24fd86884014e53bfdc73981324ef6a675d1c3"
+      },
+      "RM0522:p221": {
+        "source": "RM0522",
+        "page": 221,
+        "sha256": "55ae6f5ae757316ad88beecd006007d9bb9d60b16222872a3681bd683d2f075a"
+      },
+      "RM0522:p222": {
+        "source": "RM0522",
+        "page": 222,
+        "sha256": "c639f8da85294273f35b671c129ee0700d1d42aa33a599853fefdc869379fa49"
+      },
+      "RM0522:p223": {
+        "source": "RM0522",
+        "page": 223,
+        "sha256": "c34324c9a3f7838d5adb87751d0ad26a969095a537341a11a9af1e17dd956d8c"
+      },
+      "header.IRQ": {
+        "source": "header",
+        "start_line": 121,
+        "end_line": 121,
+        "sha256": "fbe86ac9655dd6954c1ba65746e25dba463b0bf139189a7e3aee7961a6c6e2ac"
+      },
+      "header.instance": {
+        "source": "header",
+        "start_line": 14099,
+        "end_line": 14099,
+        "sha256": "de6b6a14c9b834f1fffd9e159ad3e422706c2cf803aa0bff7b7d1ab9180cb3ec"
+      },
+      "header.layout": {
+        "source": "header",
+        "start_line": 660,
+        "end_line": 677,
+        "sha256": "e3c8f7346eb89a614129922cdebc92e55174042661701f843ffde1c14dea3d16"
+      },
+      "header.CRR": {
+        "source": "header",
+        "start_line": 8142,
+        "end_line": 8180,
+        "sha256": "b88281a57158a09578ad8d7a2d0e8271e50feb4997a733eca8363fb1c79892be"
+      },
+      "LL.master_mask": {
+        "source": "LL_ICACHE",
+        "start_line": 49,
+        "end_line": 53,
+        "sha256": "2c4b4a7f97fc7c9bd32a9577ab2bdf3c2bb4c6dea1c2633757927be33cc1af33"
+      },
+      "LL.master2": {
+        "source": "LL_ICACHE",
+        "start_line": 140,
+        "end_line": 154,
+        "sha256": "b4f9e16e8c50fdc10dc2ee318281d8d31a8afe19516b1058452fbce12a7b1b90"
+      },
+      "HAL.master_guard": {
+        "source": "HAL_ICACHE",
+        "start_line": 249,
+        "end_line": 254,
+        "sha256": "dae2abfba1762284392a1fc577b39906d0b24cfac2dbbdb074188a662e02deb3"
+      },
+      "HAL.remap": {
+        "source": "HAL_ICACHE",
+        "start_line": 453,
+        "end_line": 489,
+        "sha256": "759774b809d6a10ee71c5241a13af2a8e16b361b88b534bf0dd28045c05e833d"
+      },
+      "HAL.remap_enable": {
+        "source": "HAL_ICACHE",
+        "start_line": 616,
+        "end_line": 658,
+        "sha256": "d67dda318ba520adc247ac358c418785e519e09a47fea6c985a73185e811233b"
+      },
+      "HAL.init": {
+        "source": "HAL_ICACHE",
+        "start_line": 295,
+        "end_line": 327,
+        "sha256": "5457b5f31621867e7ac7a9a751f38a32e9d983c3663b81a02108a99f7cb98540"
+      },
+      "HAL.deinit": {
+        "source": "HAL_ICACHE",
+        "start_line": 342,
+        "end_line": 383,
+        "sha256": "6cd6620ccec83734cc2cac69a36d59fb9eebe37403433a4fab4d634b9c44a923"
+      },
+      "HAL.associativity": {
+        "source": "HAL_ICACHE",
+        "start_line": 405,
+        "end_line": 422,
+        "sha256": "0adfa689e4f01396a486358ffef190f4ac4b6d60f8f9969658a7d84b17b40a28"
+      },
+      "HAL.start": {
+        "source": "HAL_ICACHE",
+        "start_line": 552,
+        "end_line": 573,
+        "sha256": "f0fb1a4329a00303b75fe4a8dbdcfdc7a5863848296fc88e02e8af05108f495d"
+      },
+      "HAL.stop": {
+        "source": "HAL_ICACHE",
+        "start_line": 584,
+        "end_line": 607,
+        "sha256": "0af8e21956570da5246699c0dcdcdedabeb9d8bbc7d834abe1811e0a7eddf432"
+      },
+      "HAL.invalidate": {
+        "source": "HAL_ICACHE",
+        "start_line": 869,
+        "end_line": 927,
+        "sha256": "ffd72917a24e8f752ffe409e5e6c987f472cfcd7ed44eacd248670cefcd2d157"
+      },
+      "HAL.invalidate_IT": {
+        "source": "HAL_ICACHE",
+        "start_line": 935,
+        "end_line": 970,
+        "sha256": "648e607f6da12ee3edad4a5a90f7d932d192b0eab7515f54eba0473b5032bfc7"
+      },
+      "HAL.IRQ": {
+        "source": "HAL_ICACHE",
+        "start_line": 992,
+        "end_line": 1044,
+        "sha256": "03df58a7daae4805a8f54f8171607629651df900fecb54e50fff3fb8a4ec51f9"
+      },
+      "LL.reset_monitors": {
+        "source": "LL_ICACHE",
+        "start_line": 363,
+        "end_line": 369,
+        "sha256": "686837e0806bfbe33d41d6be142a31b0ca3dcd9b324de6242cbefa0a83f72079"
+      },
+      "HAL.timeout": {
+        "source": "HAL_ICACHE",
+        "start_line": 196,
+        "end_line": 196,
+        "sha256": "69ce8c36b96596f2253a9af040adfe6888e5edb427a0bb6ffcd769cbcf0ffbc9"
+      },
+      "HAL.IT_guard": {
+        "source": "HAL_ICACHE",
+        "start_line": 210,
+        "end_line": 215,
+        "sha256": "3cdaa1cd74560314499136c70bc6b1653cbc96cd2adfbb1b03b28a5927b4ad14"
+      }
+    },
+    "contracts": [
+      {
+        "id": "geometry",
+        "detail": "8KiB,16-byte cache lines; default2-way with256lines/way or direct-mapped1-way with512lines. WAYSEL changes require actual EN=0. IRQ66, one physical ICACHE.",
+        "evidence": [
+          "RM0522:p208",
+          "RM0522:p210",
+          "RM0522:p211",
+          "RM0522:p219",
+          "header.IRQ",
+          "header.instance"
+        ]
+      },
+      {
+        "id": "traffic",
+        "detail": "Cacheable C-AHB reads, including instruction fetches and data loads in code address0x00000000..0x1fffffff, use cache according to memory attributes. Noncacheable traffic bypasses. While cache enabled, cacheable writes are unsupported and set ERRF. This is not a general data-cache or DMA-coherency facility.",
+        "evidence": [
+          "RM0522:p208",
+          "RM0522:p212",
+          "RM0522:p213",
+          "RM0522:p218"
+        ]
+      },
+      {
+        "id": "invalidation",
+        "detail": "Reset release, disable and CACHEINV invalidate whole cache. Reset starts BUSYF=1; completion sets BSYENDF with EN=0. CACHEINV self-clears when BUSY starts. Maintenance noninterruptible; no per-line invalidate qualified.",
+        "evidence": [
+          "RM0522:p209",
+          "RM0522:p210",
+          "RM0522:p216",
+          "RM0522:p219",
+          "RM0522:p208"
+        ]
+      },
+      {
+        "id": "performance_monitors",
+        "detail": "32-bit hits and16-bit misses saturate, never wrap. Refill-buffer hits count. Monitors disabled by default; stopping does not reset. Reset bits must assert then release, as LL helper does. Atomic snapshots, saturation detection, workload attribution and measured performance remain open.",
+        "evidence": [
+          "RM0522:p217",
+          "RM0522:p218",
+          "RM0522:p219",
+          "RM0522:p221",
+          "LL.reset_monitors"
+        ]
+      },
+      {
+        "id": "IRQ_ownership",
+        "detail": "ERRF and BSYENDF share IRQ. FCR CERRF/CBSYENDF are write-one clear; no zero-write clear. Separate flag ownership and callback state transitions required.",
+        "evidence": [
+          "RM0522:p218",
+          "RM0522:p220",
+          "HAL.IRQ"
+        ]
+      }
+    ],
+    "source_derived_SDK_gates": [
+      {
+        "id": "remap_applicability",
+        "detail": "RM restricts external remapping and second master to C59x/5A3. Exact header omits MSTSEL, LL/HAL exclude master2 but retain CRRx and remap APIs. SDK declarations do not establish exact C542 remap capability; no executable remap/master2 admitted. Generic RM221..223 includes MSTSEL without local device footnote, unlike exact header; chapter-level restriction remains controlling candidate exclusion. DeInit also writes CRR0..3 unconditionally, so exclusion covers this side effect. RM213 requires disabled cache for region programming and RM221 explicitly locks address fields underEN1; HAL uses only handle debugIDLE. DisableRemapRegion comment requires cache disabled for REN changes; RM213 supports that broad requirement even though RM221 specifically describes only address-field write locks. No exact remap behavior admitted.",
+        "evidence": [
+          "RM0522:p207",
+          "RM0522:p212",
+          "RM0522:p213",
+          "RM0522:p216",
+          "header.CRR",
+          "LL.master_mask",
+          "LL.master2",
+          "HAL.master_guard",
+          "HAL.remap",
+          "HAL.remap_enable",
+          "RM0522:p221",
+          "RM0522:p222",
+          "RM0522:p223",
+          "header.layout",
+          "HAL.deinit"
+        ]
+      },
+      {
+        "id": "start_completion",
+        "detail": "RM212 says software must test BUSYF and/or BSYENDF before enabling for performance determinism and describes noncacheable fallback if enabled whilebusy. HAL Start does not perform that test. Stop initiates invalidation, so immediate restart can overlap it depending actual timing. HAL_OK proves neither warm cache nor invalidation completion.",
+        "evidence": [
+          "HAL.start",
+          "RM0522:p212"
+        ]
+      },
+      {
+        "id": "handle_vs_hardware",
+        "detail": "Init initializes handle, not peripheral state. Associativity setter relies on debug-only IDLE before WAYSEL write; actual EN0 still required. DeInit resets controls/flags without waiting maintenance completion; RESET does not establish BUSYF0.",
+        "evidence": [
+          "HAL.init",
+          "HAL.associativity",
+          "HAL.deinit",
+          "RM0522:p219"
+        ]
+      },
+      {
+        "id": "stop_completion_race",
+        "detail": "Stop accepts MAINTENANCE, clears EN, disables onlyERRIE/clearsERRF and marksIDLE, leavingBSYENDIE untouched. RM212 says ENclear initiates invalidation whose completion setsBSYENDF and raisesIRQ whenenabled. If pendingInvalidate_IT retainsBSYENDIE and completion handler runs after IDLE assignment, it can markACTIVE despiteEN0 or fail debugstate assertion. Release Start can also accept a BSYEND interrupt mask because ERROR-only guard is debug-only. Actual ordering/occurrence not observed; not a claim completion always follows software assignment. Coordinate IRQ/completion before release. If release Start enables BSYENDIE with a retained BSYENDF from reset, callback may occur without a newly requested invalidation; this is conditional pending-flag reasoning.",
+        "evidence": [
+          "HAL.stop",
+          "HAL.IRQ",
+          "HAL.invalidate_IT",
+          "HAL.start",
+          "HAL.IT_guard",
+          "RM0522:p212",
+          "RM0522:p216",
+          "RM0522:p218"
+        ]
+      },
+      {
+        "id": "polling_completion_provenance",
+        "detail": "Polling launches only when BUSYF0, otherwise waits existing operation. It does not first clear BSYENDF unlike IT variant. It clears completion and restores ACTIVE even after timeout. Whether stale BSYENDF can satisfy new wait is unresolved by inspected hardware prose; not a proven false-success bug. HAL tick must progress for timeout. Reset completion setsSR2 (BSYENDF1); Init/Start do not clear it, and Stop clearsERRFonly while disable produces a busy-end event. Thus firstpoll/Stop-Start may inherit completion state absent another owner clearing it. DeInit clears flags without waiting disable completion. RM219 busy-end0 wording suggests hardware clearing whenbusy whereas RM218 specifiesFCRclear; automatic clearing remains unresolved. The loop never rechecksBUSYF. SDK timeout constant1ms is not a hardware deadline guarantee.",
+        "evidence": [
+          "HAL.invalidate",
+          "HAL.invalidate_IT",
+          "RM0522:p216",
+          "RM0522:p219",
+          "HAL.timeout",
+          "HAL.init",
+          "HAL.start",
+          "HAL.stop",
+          "HAL.deinit",
+          "RM0522:p209",
+          "RM0522:p212",
+          "RM0522:p218"
+        ]
+      },
+      {
+        "id": "conditional_error_status",
+        "detail": "Polling checks ERRF and changes return to HAL_ERROR only under USE_HAL_ICACHE_GET_LAST_ERRORS==1. HAL_OK in other builds is not proof of no cacheable-write intrusion. ERRF is not cleared before this poll, so reported error can belong to an earlier intrusion; origin must be captured independently.",
+        "evidence": [
+          "HAL.invalidate"
+        ]
+      }
+    ],
+    "open_gates": [
+      "Exact code-mutation/coherency procedure and memory-barrier contract",
+      "Ownership across handles, callbacks and polling; complete interrupt release",
+      "No executable remapping or master2; source applicability distinction unresolved",
+      "No measured timing, power or performance result; saturation/snapshot measurement contract open",
+      "Exact SVD register reconciliation and complete SDK lifecycle qualification",
+      "Independent transcription and Claude review"
+    ]
+  }
+}

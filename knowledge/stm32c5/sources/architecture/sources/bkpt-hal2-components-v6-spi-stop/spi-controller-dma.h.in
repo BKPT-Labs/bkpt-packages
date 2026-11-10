@@ -1,0 +1,86 @@
+// SPDX-License-Identifier: LicenseRef-BKPT-Proprietary
+/*
+ * BKPT resource-bound initialization, adapted from ST HAL2 2.1.0 API contracts
+ * and STM32CubeC5 initialization examples. Manufacturer-derived portions:
+ * BSD 3-clause "New" or "Revised" License
+ * 
+ * Copyright (c) 2026, STMicroelectronics
+ * 
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ * 
+ *   * Redistributions of source code must retain the above copyright notice, this
+ *     list of conditions and the following disclaimer.
+ * 
+ *   * Redistributions in binary form must reproduce the above copyright notice,
+ *     this list of conditions and the following disclaimer in the documentation
+ *     and/or other materials provided with the distribution.
+ * 
+ *   * Neither the name of the STMicroelectronics nor the names of its contributors may
+ *     be used to endorse or promote products derived from this software without
+ *     specific prior written permission.
+ * 
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
+ * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+ * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+#ifndef {{unit}}_H
+#define {{unit}}_H
+#include "stm32_hal.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
+/* Called once after successful mx_system_init; later calls return saved status.
+ * A failed confirmed stop permanently changes that status to HAL_ERROR.
+ * Initialization failure is fail-stop: do not start transfers or reuse partial state.
+ * An active physical DMA channel fails with HAL_BUSY. Only each owned inactive
+ * channel is deinitialized/reinitialized; no controller-wide reset or transfer.
+ * No implicit wait, buffer allocation or application callback registration.
+ */
+hal_status_t {{unit}}_init(void);
+hal_spi_handle_t *{{unit}}_handle(void);
+/* Master full-duplex 8-bit mode 0, MSB, internal NSS, reviewed prescaler. Register SPI TxRx/error/abort callbacks; HAL owns DMA callbacks. DMA completion is not final SPI completion: EOT IRQ is installed. Application owns separate CS sequencing and SRAM buffers. Confirm SPI-level abort completion before reuse or release; count_packet equals bytes only for this 8-bit profile. */
+
+/* Owner-only synchronous stop for this finite, direct, master DMA profile.
+ * HAL_OK proves both private DMA channels software IDLE + physical IDLE=1/EN=0,
+ * SPI software IDLE, SPE=CSTART=0, both DMA request gates off, and master mode.
+ * This is buffer-reuse proof, not proof that a complete frame reached the slave.
+ * Use main/thread context, unmasked interrupts, live SysTick and one exclusive
+ * owner; no concurrent transfer/reconfiguration or callback restarting this SPI.
+ * HAL_BUSY rejects ISR/masked context without side effects, OR observes a vendor
+ * SPI/DMA ABORT in progress after transiently masking/restoring the owned IRQs.
+ * The latter leaves status/flags unacknowledged; pending callbacks may execute
+ * during re-enable. Original disabled IRQs stay disabled. Vendor interrupt-mode
+ * SPI abort may also leave ABORT indefinitely despite IRQ delivery. Progress is
+ * not assured: exhausted retries require caller-level recovery, retaining buffers.
+ * BUSY is NOT confirmation: retain buffers; use bounded caller retries that allow
+ * relevant IRQ delivery. No wait/retry loop or automatic rearm is generated.
+ * A failure after stop begins returns HAL_ERROR, permanently poisons handle/init,
+ * and leaves only the owned IRQs masked. Retain buffers and never use a cached
+ * handle after that failure. SUSPEND/FAULT/unknown states fail closed even when
+ * another handle is in ABORT. Do not restart transfers from callbacks.
+ * The pinned synchronous HAL_SPI_Abort -> HAL_DMA_Abort/SPI_AbortTransfer chain
+ * invokes no application callback; pending vendor abort IRQs are distinct.
+ * No callback is synthesized by this helper;
+ * unrelated interrupts remain enabled, so they must not access this component.
+ * On success callback registration and previous IRQ enables are preserved;
+ * discard old application completion/error flags before starting a new transfer.
+ * Blocking SPI abort uses up to three nominal 100 ms SystemCoreClock-scaled loop
+ * budgets, plus 1 ms timeout thresholds per DMA abort attempt. Valid SystemCoreClock
+ * and live SysTick are preconditions; this is not a hard wall-time guarantee.
+ * No whole-controller reset, CS change, electrical or external protocol recovery.
+ */
+hal_status_t {{unit}}_abort_confirmed(void);
+
+#ifdef __cplusplus
+}
+#endif
+#endif

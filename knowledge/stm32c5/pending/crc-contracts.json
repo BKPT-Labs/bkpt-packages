@@ -1,0 +1,511 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/crc-contracts.json",
+    "sha256": "f180e43648172d93c80df354e73fe147bde0f2e387362277f9d885ef02d725c7"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 30
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "schema": "bkpt.external.crc.source-contracts.v1",
+    "publication": "unpublished",
+    "target": {
+      "mcu": "STM32C542RCT6",
+      "package": "LQFP64",
+      "board": "NUCLEO-C542RC",
+      "silicon_revision": "unknown"
+    },
+    "base_candidate_sha256": "218a49767ba2ecf9e6e631a4109e4d76d7998e0b075395a32ec29ee1087c9336",
+    "sources": {
+      "HAL": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_crc.c",
+        "sha256": "cdaa85264c1ba905d17151fd3c6c4b5cec5d55cfda54929daec56e25af4d2595"
+      },
+      "LL": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_crc.h",
+        "sha256": "438630283ab6a719cccd9d1810681199172b78601ec517f885722b0aeb6ee371"
+      },
+      "HAL_def": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_def.h",
+        "sha256": "44149fa34fae22a75c3cfdf6607c5047d9f01141ba683b9b905c953ca31fb338"
+      },
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "SVD": {
+        "path": "bkpt-data://firmware/sources/st/c5/pack-2.1.0/device.svd",
+        "sha256": "79ecabb1331e08042904858e5986a2d41aad036fbf481f916abdfb6ce58f7c5b"
+      },
+      "HAL_common": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32_hal.h",
+        "sha256": "9ba2996204f3a2e6dbea34b9bbfd0836e37f46f13125a6de05685351bfee50c4"
+      },
+      "CMSIS": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/arch/cmsis/CMSIS/Core/Include/core_cm33.h",
+        "sha256": "47bd70aed10df47c7ca54bf049685d24ae886294b2d05ac6e411804dfe81b4b8"
+      }
+    },
+    "evidence": {
+      "HAL.validation": {
+        "source": "HAL",
+        "start_line": 145,
+        "end_line": 181,
+        "sha256": "1ed49d796ab489440c304017f4cbb522ba835a8de2117f676b6869fe47ace662"
+      },
+      "HAL.config": {
+        "source": "HAL",
+        "start_line": 328,
+        "end_line": 365,
+        "sha256": "fc361abf36d403885a9c799c6e40912da7b0d74cfe4ec53909796f55a437482c"
+      },
+      "HAL.polynomial_config": {
+        "source": "HAL",
+        "start_line": 432,
+        "end_line": 472,
+        "sha256": "3d01bf280b2af4b0e8078a615fd3e87e6791c8f1ebb8a240bd3d37b77a282f1c"
+      },
+      "HAL.calculate_accumulate": {
+        "source": "HAL",
+        "start_line": 633,
+        "end_line": 732,
+        "sha256": "e1218093421eb8242689b647ee673eeb5150a2e82841981529cdf0fff8cd0276"
+      },
+      "HAL.polynomial_validation": {
+        "source": "HAL",
+        "start_line": 805,
+        "end_line": 879,
+        "sha256": "e45fc97479426433f4df02c7df002a99570584bf06b533c6bf5e3caf35fca15a"
+      },
+      "HAL.feed": {
+        "source": "HAL",
+        "start_line": 881,
+        "end_line": 964,
+        "sha256": "408ffffd3ee1b54196251920ab5614fd3745dd549964db6083f19a271a6d88e1"
+      },
+      "LL.input_modes": {
+        "source": "LL",
+        "start_line": 62,
+        "end_line": 75,
+        "sha256": "b094ce9b26a871e790633f4a19e33de4a245e98587fc1e0b0771f3349ba8a35b"
+      },
+      "LL.init": {
+        "source": "LL",
+        "start_line": 313,
+        "end_line": 315,
+        "sha256": "19b2ff299088f3da29e6af9334ab67b57855d63eec4c7ff2a8d00a0ca5182845"
+      },
+      "LL.feed16": {
+        "source": "LL",
+        "start_line": 391,
+        "end_line": 397,
+        "sha256": "758f5deb5ac679e632266d94e04cc2859ca83b1587c060d9aa94da56cc180632"
+      },
+      "HAL.handle_guard": {
+        "source": "HAL_def",
+        "start_line": 112,
+        "end_line": 131,
+        "sha256": "8a0436bc4d76f5a88cd9f1b248684b3608a86ec0a2fe6e4de17e34cd234e4513"
+      },
+      "header.struct": {
+        "source": "header",
+        "start_line": 307,
+        "end_line": 319,
+        "sha256": "563262e56446a9fef480db1bb0e0f948f3ba49a8fa6c18f81aa7bbe3c4dfea79"
+      },
+      "header.idr": {
+        "source": "header",
+        "start_line": 2649,
+        "end_line": 2651,
+        "sha256": "7bba29f3dfddb241b60df040dafbc0b774f677ff993f96e4573e59d33866d3c9"
+      },
+      "header.base": {
+        "source": "header",
+        "start_line": 1233,
+        "end_line": 1233,
+        "sha256": "7c5e5ce7f10d2ab621c52aa2560b8fffdac77de4ad5a9cca075894b08bd8264a"
+      },
+      "RM0522:p472": {
+        "source": "RM0522",
+        "page": 472,
+        "sha256": "e3b3bc7d345f5084f4e1f93a292dfab9fa0db2c32b62a7cee9eef0bb372df830"
+      },
+      "RM0522:p473": {
+        "source": "RM0522",
+        "page": 473,
+        "sha256": "c658d813dad8605a0b4e20327f80bd79ad5b8a43c17dbb8f911e45b3c791ae93"
+      },
+      "RM0522:p474": {
+        "source": "RM0522",
+        "page": 474,
+        "sha256": "aeb2d1229fd1982443053a6c3bcbaf57cb749f21f609b617e3f8e670881ced9a"
+      },
+      "RM0522:p475": {
+        "source": "RM0522",
+        "page": 475,
+        "sha256": "f8294ec76c3ee579f499a2d44e9852228da2264103a00992be0f631279a1fd18"
+      },
+      "RM0522:p476": {
+        "source": "RM0522",
+        "page": 476,
+        "sha256": "4d7edbaf2146565667fe67a689474caad64bd0630d39d7b1fe9c7692b7dd55c4"
+      },
+      "RM0522:p477": {
+        "source": "RM0522",
+        "page": 477,
+        "sha256": "7098ecf5f31184bdf9c7b573d1821da82b62a9878d1404ada8da9c72f9d601fd"
+      },
+      "RM0522:p478": {
+        "source": "RM0522",
+        "page": 478,
+        "sha256": "df93ad1f35c8fc51aeb5cc1e62870a7ba6c755d153cf6344a5a2091167400455"
+      },
+      "HAL.init_deinit": {
+        "source": "HAL",
+        "start_line": 234,
+        "end_line": 278,
+        "sha256": "f647f5aed8c0ccacbb8d53b4a16dea7460a6158e357db9d44ce1893185830092"
+      },
+      "HAL.reset_config": {
+        "source": "HAL",
+        "start_line": 398,
+        "end_line": 421,
+        "sha256": "937a71069a7680b4b9c36e67515f102d57f0b2cdd40162459d7bc686c6bf29aa"
+      },
+      "HAL.reset_internal": {
+        "source": "HAL",
+        "start_line": 975,
+        "end_line": 990,
+        "sha256": "ef5fea3dd685cfc03ca337460b0283ddde050746baa7dd5d0c5fd8db12c0373f"
+      },
+      "HAL.input_mode": {
+        "source": "HAL",
+        "start_line": 488,
+        "end_line": 500,
+        "sha256": "74b0638ac0f274a3033108a0a4ae54c938aada4fcc76d091d631d4df208ea594"
+      },
+      "HAL.output_mode": {
+        "source": "HAL",
+        "start_line": 540,
+        "end_line": 574,
+        "sha256": "e92931258b4e9d2011c476da8c64c66460171e9f8f655ac8d768417f3b605a28"
+      },
+      "HAL.assert_fallback": {
+        "source": "HAL_common",
+        "start_line": 205,
+        "end_line": 222,
+        "sha256": "446741851a5c373ec1c7ae69e8c30b23f7a394010ab41d79709931738869ccc4"
+      },
+      "header.periph_base": {
+        "source": "header",
+        "start_line": 1155,
+        "end_line": 1155,
+        "sha256": "1595049998dbab5ea80885b1754a5e08dc4493e9743c4957a6579afe09a0f092"
+      },
+      "header.ahb1_base": {
+        "source": "header",
+        "start_line": 1176,
+        "end_line": 1176,
+        "sha256": "56c85422541a505121845f0d4f7bb9e8536dbb4e932ddbc5d2442f92c91d78aa"
+      },
+      "CMSIS.volatile": {
+        "source": "CMSIS",
+        "start_line": 294,
+        "end_line": 302,
+        "sha256": "e70e5c7f23e0aaf7a3cedd368909e4867347961cbf0ac002fcbea432c9ace63f"
+      },
+      "SVD.CRC": {
+        "source": "SVD",
+        "start_line": 4986,
+        "end_line": 5208,
+        "sha256": "7be9896052378cea9505e638f5732d124e3d085ea7fb2dd2c9130a235dd71c86"
+      }
+    },
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "review": "See current external review receipts; source-only retention without numerical, runtime or hardware qualification.",
+    "pinned_register_inventory": [
+      {
+        "name": "CRC_DR",
+        "offset": "0x00",
+        "reset": "0xFFFFFFFF",
+        "fields": [
+          {
+            "name": "DR",
+            "bit_offset": "0",
+            "bit_width": "32"
+          }
+        ],
+        "evidence": [
+          "SVD.CRC",
+          "RM0522:p478"
+        ]
+      },
+      {
+        "name": "CRC_IDR",
+        "offset": "0x04",
+        "reset": "0x00000000",
+        "fields": [
+          {
+            "name": "IDR",
+            "bit_offset": "0",
+            "bit_width": "32"
+          }
+        ],
+        "evidence": [
+          "SVD.CRC",
+          "RM0522:p478"
+        ]
+      },
+      {
+        "name": "CRC_CR",
+        "offset": "0x08",
+        "reset": "0x00000000",
+        "fields": [
+          {
+            "name": "RESET",
+            "bit_offset": "0",
+            "bit_width": "1"
+          },
+          {
+            "name": "POLYSIZE",
+            "bit_offset": "3",
+            "bit_width": "2"
+          },
+          {
+            "name": "REV_IN",
+            "bit_offset": "5",
+            "bit_width": "2"
+          },
+          {
+            "name": "REV_OUT",
+            "bit_offset": "7",
+            "bit_width": "2"
+          },
+          {
+            "name": "RTYPE_IN",
+            "bit_offset": "9",
+            "bit_width": "1"
+          },
+          {
+            "name": "RTYPE_OUT",
+            "bit_offset": "10",
+            "bit_width": "1"
+          }
+        ],
+        "evidence": [
+          "SVD.CRC",
+          "RM0522:p478"
+        ]
+      },
+      {
+        "name": "CRC_INIT",
+        "offset": "0x10",
+        "reset": "0xFFFFFFFF",
+        "fields": [
+          {
+            "name": "CRC_INIT",
+            "bit_offset": "0",
+            "bit_width": "32"
+          }
+        ],
+        "evidence": [
+          "SVD.CRC",
+          "RM0522:p478"
+        ]
+      },
+      {
+        "name": "CRC_POL",
+        "offset": "0x14",
+        "reset": "0x04C11DB7",
+        "fields": [
+          {
+            "name": "POL",
+            "bit_offset": "0",
+            "bit_width": "32"
+          }
+        ],
+        "evidence": [
+          "SVD.CRC",
+          "RM0522:p478"
+        ]
+      }
+    ],
+    "constraints": [
+      {
+        "id": "access_width",
+        "detail": "DR admits right-aligned 8/16/32-bit accesses only when RTYPE_IN=0. With RTYPE_IN=1 nonword writes are ignored. Other registers require 32-bit accesses. RM p473 explicitly names RTYPE_IN and ignored nonword accesses; p475 uses ambiguous RTYPE wording and states word-only access.",
+        "evidence": [
+          "RM0522:p472",
+          "RM0522:p473",
+          "RM0522:p475"
+        ]
+      },
+      {
+        "id": "polynomial",
+        "detail": "Polynomial widths 7/8/16/32; coefficients must be odd and fit the selected width. Do not change POL/value size during computation without first resetting or reading DR. SetConfig writes POL, POLYSIZE, INIT then reverse modes. Completion/read/reset must already be established before POL writes; a prior successful calculation ends with a DR read, but this does not cover unrelated or concurrent register actors.",
+        "evidence": [
+          "RM0522:p474",
+          "HAL.polynomial_validation",
+          "HAL.config",
+          "HAL.polynomial_config"
+        ]
+      },
+      {
+        "id": "stateful_reset_and_init",
+        "detail": "DR writes feed computation; CR.RESET loads INIT and self-clears. Writing INIT initializes DR. Calculate resets before feeding; Accumulate preserves existing state. SetConfig/SetConfigPolynomial change computation state. IDR is unaffected by CR.RESET. HAL Init initializes the handle without resetting CRC registers; inherited hardware configuration persists. DeInit resets configuration and clears IDR through software register writes, affecting any other handle, without RCC peripheral reset.",
+        "evidence": [
+          "RM0522:p473",
+          "RM0522:p474",
+          "RM0522:p477",
+          "HAL.calculate_accumulate",
+          "HAL.config",
+          "HAL.polynomial_config",
+          "LL.init",
+          "HAL.init_deinit",
+          "HAL.reset_internal",
+          "HAL.reset_config"
+        ]
+      },
+      {
+        "id": "ownership",
+        "detail": "Maintain exclusive physical-instance ownership through configuration and entire accumulation sequence. Per-handle state guard is conditional on USE_HAL_CHECK_PROCESS_STATE; otherwise state assignment only. Even enabled it does not exclude another handle or LL/register actor. Configuration setters do not acquire it. Setters use debug state assertions; nondebug builds do not enforce those assertions. SetConfig output-reversal/poly-size compatibility is debug-only, whereas SetConfigPolynomial and SetOutputReverseMode also check it when USE_HAL_CHECK_PARAM=1.",
+        "evidence": [
+          "HAL.handle_guard",
+          "HAL.config",
+          "HAL.polynomial_config",
+          "HAL.calculate_accumulate",
+          "HAL.assert_fallback",
+          "HAL.output_mode"
+        ]
+      },
+      {
+        "id": "reversal_context",
+        "detail": "RTYPE and REV fields jointly determine reversal; the SVD enum descriptions alone omit that dependence. Preserve mode, polynomial width, byte sequence, feed width and output interpretation as owned state.",
+        "evidence": [
+          "RM0522:p474",
+          "RM0522:p476",
+          "HAL.validation",
+          "HAL.feed"
+        ]
+      }
+    ],
+    "input_reversal": {
+      "RTYPE_IN=0": {
+        "0": "none",
+        "1": "bits within each byte",
+        "2": "bits within each halfword",
+        "3": "bits within word"
+      },
+      "RTYPE_IN=1": {
+        "0": "none",
+        "1": "swap halfwords within word",
+        "2": "reverse bytes within word",
+        "3": "none"
+      },
+      "evidence": [
+        "RM0522:p476"
+      ]
+    },
+    "output_reversal": {
+      "RTYPE_OUT=0": {
+        "0": "none",
+        "1": "reverse bits",
+        "2": "none",
+        "3": "none"
+      },
+      "RTYPE_OUT=1": {
+        "0": "none",
+        "1": "swap halfwords within word",
+        "2": "reverse bytes within word",
+        "3": "none"
+      },
+      "evidence": [
+        "RM0522:p476"
+      ]
+    },
+    "source_derived_findings": [
+      {
+        "id": "SDK.RTYPE_byte_by_word_accepts_halfword_tail",
+        "classification": "source_derived_defect_not_hardware_reproduced",
+        "preconditions": [
+          "Handle in HAL_CRC_STATE_IDLE, valid buffer/result pointers and otherwise admissible configuration.",
+          "Input mode BYTE_BYWORD: RTYPE_IN=1 and REV_IN=2",
+          "size_byte=2; arbitrary data bytes; no independent caller rejection",
+          "BYTE_BYWORD can be selected through HAL_CRC_SetInputReverseMode; Init also leaves inherited register configuration unchanged."
+        ],
+        "trace": [
+          "IS_CRC_DATA_SIZE_VALID checks REV_IN==2 first, admitting any positive even length before considering RTYPE_IN.",
+          "Optional runtime parameter check validates pointers/nonzero only; debug assertion also admits size2.",
+          "CRC_FeedData tail emits LL_CRC_FeedData16, a C store through a volatile uint16_t pointer. Compiler instruction selection is not verified.",
+          "RM says this nonword write is ignored with RTYPE_IN=1. Both callers reach HAL_OK after feed."
+        ],
+        "inference": "Input omission follows from the documented register rule and this code path; actual device result and timing have not been observed.",
+        "candidate_gate": "Independently require a multiple of four bytes for RTYPE_IN modes; no reliance on HAL_OK/debug/runtime parameter guard alone.",
+        "evidence": [
+          "LL.input_modes",
+          "HAL.validation",
+          "HAL.calculate_accumulate",
+          "HAL.feed",
+          "LL.feed16",
+          "RM0522:p473",
+          "HAL.input_mode",
+          "HAL.assert_fallback",
+          "CMSIS.volatile"
+        ],
+        "affected_lengths": "With debug check active: BYTE_BYWORD accepts positive lengths congruent to 2 modulo4. With debug check absent: both RTYPE_IN reversal modes admit other nonmultiples of4 unless caller rejects; nonword tails are ignored per RM.",
+        "inferred_state_for_size2": "Calculate resets accumulator state to INIT and consumes no input according to the ignored-write rule; Accumulate leaves prior accumulator state unchanged. Returned DR interpretation still depends on configured output reversal and polynomial width. No device result observed."
+      }
+    ],
+    "conflicts": [
+      {
+        "id": "IDR_width",
+        "detail": "RM p472 calls IDR 8-bit while p475 describes all32 bits/four bytes; exact header/SVD support32 bits. Keep prose conflict explicit.",
+        "evidence": [
+          "RM0522:p472",
+          "RM0522:p475",
+          "header.struct",
+          "header.idr"
+        ]
+      },
+      {
+        "id": "output_reversal_selector_label",
+        "detail": "RM p474 output examples label REV_IN; surrounding text and p476 identify REV_OUT. Do not copy the wrong selector into an adapter.",
+        "evidence": [
+          "RM0522:p474",
+          "RM0522:p476"
+        ]
+      }
+    ],
+    "open_gates": [
+      "Numerical test vectors and byte-order/output-xor conventions",
+      "Exact clock/reset/access sequencing and ownership integration",
+      "Compiler/build/runtime/hardware qualification; no automatic register access authorized",
+      "SVD access metadata lacks side effects and is not complete operation semantics"
+    ],
+    "base_address": {
+      "value": "0x40023000",
+      "derivation": "0x40000000 + 0x20000 + 0x3000",
+      "evidence": [
+        "header.periph_base",
+        "header.ahb1_base",
+        "header.base",
+        "SVD.CRC"
+      ]
+    }
+  }
+}

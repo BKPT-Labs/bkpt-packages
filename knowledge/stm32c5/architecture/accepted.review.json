@@ -1,0 +1,6 @@
+{
+  "decision": "accept",
+  "bundle_sha256": "e8c92d6edfeff13f3e95b59cefe96b010a851918982a45c3c4eb34fc43d6ab4f",
+  "reviewed_at": "2026-11-10T01:54:34.689425+00:00",
+  "reviewer": "Claude Fable5.1 subscription final acceptance 003cb8f4109fa04ccc924f6fdd2821042202d579e3d55f3a91d14c2298066c82; independent Codex corrected source/receipt/build acceptance; Harness dabcd59cdfc45e7452b1c64c36b4a05c8f12d2db; scoped internal evaluation only"
+}

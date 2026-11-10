@@ -1,0 +1,838 @@
+{
+  "schema": 1,
+  "owned": [
+    {
+      "id": "policy",
+      "source_path": "architecture/sources/bkpt-capability-policy-v2.txt",
+      "sha256": "be2865fb250365d2d035ca3c77e006772680868a4c7e1781464cbd0427d7255c",
+      "authority": "bkpt_engineering_policy_candidate",
+      "package_path": "sources/architecture/sources/bkpt-capability-policy-v2.txt"
+    },
+    {
+      "id": "template-dma-memory-copy-h",
+      "source_path": "architecture/sources/bkpt-hal2-components-v1/dma-memory-copy.h.in",
+      "sha256": "2a1f22864ef3cdabb30f2b8b15ee1850192ba2fc40217a1110e2d91de80ffef0",
+      "authority": "bkpt_authored_derived_implementation",
+      "package_path": "sources/architecture/sources/bkpt-hal2-components-v1/dma-memory-copy.h.in",
+      "attribution": {
+        "bkpt": "BKPT-authored component deliverable; not exclusively BKPT copyright",
+        "incorporated_portions": "STMicroelectronics manufacturer-derived portions under BSD-3-Clause; exact notice retained in this file",
+        "immutable_source": true
+      }
+    },
+    {
+      "id": "template-dma-memory-copy-c",
+      "source_path": "architecture/sources/bkpt-hal2-components-v1/dma-memory-copy.c.in",
+      "sha256": "fd4efd711b382cfe5199efb38f6cd404b10dd801eb3b92f53281c450bb8add1a",
+      "authority": "bkpt_authored_derived_implementation",
+      "package_path": "sources/architecture/sources/bkpt-hal2-components-v1/dma-memory-copy.c.in",
+      "attribution": {
+        "bkpt": "BKPT-authored component deliverable; not exclusively BKPT copyright",
+        "incorporated_portions": "STMicroelectronics manufacturer-derived portions under BSD-3-Clause; exact notice retained in this file",
+        "immutable_source": true
+      }
+    },
+    {
+      "id": "template-i2c-controller-dma-h",
+      "source_path": "architecture/sources/bkpt-hal2-components-v1/i2c-controller-dma.h.in",
+      "sha256": "d127350f8dd7b3a0ac7bb4446d335cdf8e07c8ab6b406029820b9064a7d6e3ab",
+      "authority": "bkpt_authored_derived_implementation",
+      "package_path": "sources/architecture/sources/bkpt-hal2-components-v1/i2c-controller-dma.h.in",
+      "attribution": {
+        "bkpt": "BKPT-authored component deliverable; not exclusively BKPT copyright",
+        "incorporated_portions": "STMicroelectronics manufacturer-derived portions under BSD-3-Clause; exact notice retained in this file",
+        "immutable_source": true
+      }
+    },
+    {
+      "id": "template-i2c-controller-dma-c",
+      "source_path": "architecture/sources/bkpt-hal2-components-v1/i2c-controller-dma.c.in",
+      "sha256": "35f2297b0f9a17c2bd07fa7f44e46a781a962c61d720dadbda2e6319c5a3ef38",
+      "authority": "bkpt_authored_derived_implementation",
+      "package_path": "sources/architecture/sources/bkpt-hal2-components-v1/i2c-controller-dma.c.in",
+      "attribution": {
+        "bkpt": "BKPT-authored component deliverable; not exclusively BKPT copyright",
+        "incorporated_portions": "STMicroelectronics manufacturer-derived portions under BSD-3-Clause; exact notice retained in this file",
+        "immutable_source": true
+      }
+    },
+    {
+      "id": "template-spi-controller-dma-h",
+      "source_path": "architecture/sources/bkpt-hal2-components-v1/spi-controller-dma.h.in",
+      "sha256": "6418ff794750ab6ea41193f90660850567a93b2444f1cf5e69b0cb8e1843e79e",
+      "authority": "bkpt_authored_derived_implementation",
+      "package_path": "sources/architecture/sources/bkpt-hal2-components-v1/spi-controller-dma.h.in",
+      "attribution": {
+        "bkpt": "BKPT-authored component deliverable; not exclusively BKPT copyright",
+        "incorporated_portions": "STMicroelectronics manufacturer-derived portions under BSD-3-Clause; exact notice retained in this file",
+        "immutable_source": true
+      }
+    },
+    {
+      "id": "template-spi-controller-dma-c",
+      "source_path": "architecture/sources/bkpt-hal2-components-v1/spi-controller-dma.c.in",
+      "sha256": "7516b8f42cc9d69b9601cdc4fa1a3dac8807156ffe52eb59ef22abb95f1ce665",
+      "authority": "bkpt_authored_derived_implementation",
+      "package_path": "sources/architecture/sources/bkpt-hal2-components-v1/spi-controller-dma.c.in",
+      "attribution": {
+        "bkpt": "BKPT-authored component deliverable; not exclusively BKPT copyright",
+        "incorporated_portions": "STMicroelectronics manufacturer-derived portions under BSD-3-Clause; exact notice retained in this file",
+        "immutable_source": true
+      }
+    },
+    {
+      "id": "template-v2-uart-tx-h",
+      "source_path": "architecture/sources/bkpt-hal2-components-v2/uart-tx.h.in",
+      "sha256": "9405e6f8f2393fc4c933a181997038f54ba31d97410623c525384ba120c358d9",
+      "authority": "bkpt_authored_derived_implementation",
+      "package_path": "sources/architecture/sources/bkpt-hal2-components-v2/uart-tx.h.in",
+      "attribution": {
+        "bkpt": "BKPT-authored component deliverable; not exclusively BKPT copyright",
+        "incorporated_portions": "STMicroelectronics manufacturer-derived portions under BSD-3-Clause; exact notice retained in this file",
+        "immutable_source": true
+      }
+    },
+    {
+      "id": "template-v2-uart-tx-c",
+      "source_path": "architecture/sources/bkpt-hal2-components-v2/uart-tx.c.in",
+      "sha256": "6f77e9f93af2d13bddd89e3ca0f34a94820f3a9dbbbb3aaa8f6edf205ddd4a11",
+      "authority": "bkpt_authored_derived_implementation",
+      "package_path": "sources/architecture/sources/bkpt-hal2-components-v2/uart-tx.c.in",
+      "attribution": {
+        "bkpt": "BKPT-authored component deliverable; not exclusively BKPT copyright",
+        "incorporated_portions": "STMicroelectronics manufacturer-derived portions under BSD-3-Clause; exact notice retained in this file",
+        "immutable_source": true
+      }
+    },
+    {
+      "id": "template-v2-uart-rx-h",
+      "source_path": "architecture/sources/bkpt-hal2-components-v2/uart-rx.h.in",
+      "sha256": "46adf327be9780e73afe5aa1a88b3b448a762624a5d14a449c5e9e405db179e4",
+      "authority": "bkpt_authored_derived_implementation",
+      "package_path": "sources/architecture/sources/bkpt-hal2-components-v2/uart-rx.h.in",
+      "attribution": {
+        "bkpt": "BKPT-authored component deliverable; not exclusively BKPT copyright",
+        "incorporated_portions": "STMicroelectronics manufacturer-derived portions under BSD-3-Clause; exact notice retained in this file",
+        "immutable_source": true
+      }
+    },
+    {
+      "id": "template-v2-uart-rx-c",
+      "source_path": "architecture/sources/bkpt-hal2-components-v2/uart-rx.c.in",
+      "sha256": "f36523f32e9ac1712e8e3a1d221ce38a2cc421b11f6fc5413485e2d2e41abedd",
+      "authority": "bkpt_authored_derived_implementation",
+      "package_path": "sources/architecture/sources/bkpt-hal2-components-v2/uart-rx.c.in",
+      "attribution": {
+        "bkpt": "BKPT-authored component deliverable; not exclusively BKPT copyright",
+        "incorporated_portions": "STMicroelectronics manufacturer-derived portions under BSD-3-Clause; exact notice retained in this file",
+        "immutable_source": true
+      }
+    },
+    {
+      "id": "template-v2-uart-duplex-h",
+      "source_path": "architecture/sources/bkpt-hal2-components-v2/uart-duplex.h.in",
+      "sha256": "77aa1f1901fa3ea13346127e9f2a3e5e47c105977f56d7e0bc064b31b0c16a37",
+      "authority": "bkpt_authored_derived_implementation",
+      "package_path": "sources/architecture/sources/bkpt-hal2-components-v2/uart-duplex.h.in",
+      "attribution": {
+        "bkpt": "BKPT-authored component deliverable; not exclusively BKPT copyright",
+        "incorporated_portions": "STMicroelectronics manufacturer-derived portions under BSD-3-Clause; exact notice retained in this file",
+        "immutable_source": true
+      }
+    },
+    {
+      "id": "template-v2-uart-duplex-c",
+      "source_path": "architecture/sources/bkpt-hal2-components-v2/uart-duplex.c.in",
+      "sha256": "fbb77ab4e9ccb786edfce7fb26da23c284569b7a1b84ac107501990f09a1c4d7",
+      "authority": "bkpt_authored_derived_implementation",
+      "package_path": "sources/architecture/sources/bkpt-hal2-components-v2/uart-duplex.c.in",
+      "attribution": {
+        "bkpt": "BKPT-authored component deliverable; not exclusively BKPT copyright",
+        "incorporated_portions": "STMicroelectronics manufacturer-derived portions under BSD-3-Clause; exact notice retained in this file",
+        "immutable_source": true
+      }
+    },
+    {
+      "id": "template-v2-periodic-timer-h",
+      "source_path": "architecture/sources/bkpt-hal2-components-v2/periodic-timer.h.in",
+      "sha256": "dd407eb942921629a50c2de77bdce56df6f7eb1ebf62e0651b31fcf78a0a351d",
+      "authority": "bkpt_authored_derived_implementation",
+      "package_path": "sources/architecture/sources/bkpt-hal2-components-v2/periodic-timer.h.in",
+      "attribution": {
+        "bkpt": "BKPT-authored component deliverable; not exclusively BKPT copyright",
+        "incorporated_portions": "STMicroelectronics manufacturer-derived portions under BSD-3-Clause; exact notice retained in this file",
+        "immutable_source": true
+      }
+    },
+    {
+      "id": "template-v2-periodic-timer-c",
+      "source_path": "architecture/sources/bkpt-hal2-components-v2/periodic-timer.c.in",
+      "sha256": "21ccf358a9ec6be3c997459f6f370cfc85091dcd949bae2bd7805a85413f1df1",
+      "authority": "bkpt_authored_derived_implementation",
+      "package_path": "sources/architecture/sources/bkpt-hal2-components-v2/periodic-timer.c.in",
+      "attribution": {
+        "bkpt": "BKPT-authored component deliverable; not exclusively BKPT copyright",
+        "incorporated_portions": "STMicroelectronics manufacturer-derived portions under BSD-3-Clause; exact notice retained in this file",
+        "immutable_source": true
+      }
+    },
+    {
+      "id": "v2-timer-policy",
+      "source_path": "architecture/sources/bkpt-hal2-components-v2/periodic-timer-rates.json",
+      "sha256": "9e5e6be67cb014afca5988787ac5b4fe994cbfbf746b2a694d052f8dd050a677",
+      "authority": "bkpt_engineering_policy",
+      "package_path": "sources/architecture/sources/bkpt-hal2-components-v2/periodic-timer-rates.json"
+    },
+    {
+      "id": "template-i2c-controller-dma-fmp-c",
+      "source_path": "architecture/sources/bkpt-hal2-components-v3-fmp/i2c-controller-dma.c.in",
+      "sha256": "39c8e5d9800b87b5b566e6de1af10853e9abc23c76549f544deb2a9876399dd3",
+      "authority": "bkpt_authored_derived_implementation",
+      "package_path": "sources/architecture/sources/bkpt-hal2-components-v3-fmp/i2c-controller-dma.c.in",
+      "attribution": {
+        "bkpt": "BKPT-authored component deliverable; not exclusively BKPT copyright",
+        "incorporated_portions": "STMicroelectronics manufacturer-derived portions under BSD-3-Clause; exact notice retained in this file",
+        "immutable_source": true
+      }
+    },
+    {
+      "id": "template-v6-spi-stop-c",
+      "source_path": "architecture/sources/bkpt-hal2-components-v6-spi-stop/spi-controller-dma.c.in",
+      "sha256": "6ea8c76d9a928760e84e7fd68cbcf0f733fbfdd3dc9a61bfd9608ac357e7e05a",
+      "authority": "BKPT authored derived integration artifact",
+      "package_path": "sources/architecture/sources/bkpt-hal2-components-v6-spi-stop/spi-controller-dma.c.in",
+      "attribution": {
+        "bkpt": "BKPT-authored component deliverable; not exclusively BKPT copyright",
+        "incorporated_portions": "STMicroelectronics manufacturer-derived portions under BSD-3-Clause; exact notice retained in this file",
+        "immutable_source": true
+      }
+    },
+    {
+      "id": "template-v6-spi-stop-h",
+      "source_path": "architecture/sources/bkpt-hal2-components-v6-spi-stop/spi-controller-dma.h.in",
+      "sha256": "064d77fb9c3dfe5bf18cbe99cd6ad2c21c51ad9fd85b48fbba185b39bb4a4446",
+      "authority": "BKPT authored derived integration artifact",
+      "package_path": "sources/architecture/sources/bkpt-hal2-components-v6-spi-stop/spi-controller-dma.h.in",
+      "attribution": {
+        "bkpt": "BKPT-authored component deliverable; not exclusively BKPT copyright",
+        "incorporated_portions": "STMicroelectronics manufacturer-derived portions under BSD-3-Clause; exact notice retained in this file",
+        "immutable_source": true
+      }
+    },
+    {
+      "id": "managed-lifecycle-h",
+      "source_path": "architecture/sources/bkpt-hal2-managed-operations-v2/operation.h",
+      "sha256": "2737154f9c86d3a95c3aea1e798633ee54d24b24f268999c61eb9e7408f56061",
+      "authority": "BKPT authored derived integration artifact",
+      "package_path": "sources/architecture/sources/bkpt-hal2-managed-operations-v2/operation.h"
+    },
+    {
+      "id": "managed-dma-memory-copy-h",
+      "source_path": "architecture/sources/bkpt-hal2-managed-operations-v2/dma-memory-copy.h.in",
+      "sha256": "2cab32a7f446396845afe400edceddb2d88fa02aece59ac06fc3f491ae642d10",
+      "authority": "BKPT authored derived integration artifact",
+      "package_path": "sources/architecture/sources/bkpt-hal2-managed-operations-v2/dma-memory-copy.h.in",
+      "attribution": {
+        "bkpt": "BKPT-authored component deliverable; not exclusively BKPT copyright",
+        "incorporated_portions": "STMicroelectronics manufacturer-derived portions under BSD-3-Clause; exact notice retained in this file",
+        "immutable_source": true
+      }
+    },
+    {
+      "id": "managed-dma-memory-copy-c",
+      "source_path": "architecture/sources/bkpt-hal2-managed-operations-v2/dma-memory-copy.c.in",
+      "sha256": "0ec0cfa132796d718eea011fd4a43e37d3e2a42920a5a9c1e75229d678d5508d",
+      "authority": "BKPT authored derived integration artifact",
+      "package_path": "sources/architecture/sources/bkpt-hal2-managed-operations-v2/dma-memory-copy.c.in",
+      "attribution": {
+        "bkpt": "BKPT-authored component deliverable; not exclusively BKPT copyright",
+        "incorporated_portions": "STMicroelectronics manufacturer-derived portions under BSD-3-Clause; exact notice retained in this file",
+        "immutable_source": true
+      }
+    },
+    {
+      "id": "managed-i2c-controller-dma-h",
+      "source_path": "architecture/sources/bkpt-hal2-managed-operations-v2/i2c-controller-dma.h.in",
+      "sha256": "fd370d3bb534c9bbe6c0829fb8612ffa82747dd0e5475beeb8aea525d7554e35",
+      "authority": "BKPT authored derived integration artifact",
+      "package_path": "sources/architecture/sources/bkpt-hal2-managed-operations-v2/i2c-controller-dma.h.in",
+      "attribution": {
+        "bkpt": "BKPT-authored component deliverable; not exclusively BKPT copyright",
+        "incorporated_portions": "STMicroelectronics manufacturer-derived portions under BSD-3-Clause; exact notice retained in this file",
+        "immutable_source": true
+      }
+    },
+    {
+      "id": "managed-i2c-controller-dma-c",
+      "source_path": "architecture/sources/bkpt-hal2-managed-operations-v2/i2c-controller-dma.c.in",
+      "sha256": "a70195a5fa8ef1497560571aa1d3f9420ff132ea6edbb01a50041b004d001480",
+      "authority": "BKPT authored derived integration artifact",
+      "package_path": "sources/architecture/sources/bkpt-hal2-managed-operations-v2/i2c-controller-dma.c.in",
+      "attribution": {
+        "bkpt": "BKPT-authored component deliverable; not exclusively BKPT copyright",
+        "incorporated_portions": "STMicroelectronics manufacturer-derived portions under BSD-3-Clause; exact notice retained in this file",
+        "immutable_source": true
+      }
+    },
+    {
+      "id": "transfer-rate-policy-source",
+      "source_path": "architecture/sources/bkpt-hal2-transfer-ops-v1/rate-policy.json",
+      "sha256": "3e7083abe774fdb0fa06366c42ca72dba5e7d13b717db1b3044a72a10d38ab2b",
+      "authority": "BKPT engineering policy",
+      "package_path": "sources/architecture/sources/bkpt-hal2-transfer-ops-v1/rate-policy.json"
+    },
+    {
+      "id": "transfer-i2c-c-source",
+      "source_path": "architecture/sources/bkpt-hal2-transfer-ops-v1/i2c-operation.c.in",
+      "sha256": "d21b5994522daddad6bf1a0ad69f1450977eb4f3d7862598902d6393d9896aec",
+      "authority": "BKPT authored derived integration artifact",
+      "package_path": "sources/architecture/sources/bkpt-hal2-transfer-ops-v1/i2c-operation.c.in",
+      "attribution": {
+        "bkpt": "BKPT-authored component deliverable; not exclusively BKPT copyright",
+        "incorporated_portions": "STMicroelectronics manufacturer-derived portions under BSD-3-Clause; exact notice retained in this file",
+        "immutable_source": true
+      }
+    },
+    {
+      "id": "transfer-spi-h-source",
+      "source_path": "architecture/sources/bkpt-hal2-transfer-ops-v1/spi-operation.h.in",
+      "sha256": "e788a8dcc3dc3301caf2c6c85297e3087fe06fa0bbddc65d276317c742238a1c",
+      "authority": "BKPT authored derived integration artifact",
+      "package_path": "sources/architecture/sources/bkpt-hal2-transfer-ops-v1/spi-operation.h.in",
+      "attribution": {
+        "bkpt": "BKPT-authored component deliverable; not exclusively BKPT copyright",
+        "incorporated_portions": "STMicroelectronics manufacturer-derived portions under BSD-3-Clause; exact notice retained in this file",
+        "immutable_source": true
+      }
+    },
+    {
+      "id": "transfer-spi-c-source",
+      "source_path": "architecture/sources/bkpt-hal2-transfer-ops-v1/spi-operation.c.in",
+      "sha256": "cdf12e487bccb5b80751a0ddee5558203fab540ee69b0fa8ee828229145ea948",
+      "authority": "BKPT authored derived integration artifact",
+      "package_path": "sources/architecture/sources/bkpt-hal2-transfer-ops-v1/spi-operation.c.in",
+      "attribution": {
+        "bkpt": "BKPT-authored component deliverable; not exclusively BKPT copyright",
+        "incorporated_portions": "STMicroelectronics manufacturer-derived portions under BSD-3-Clause; exact notice retained in this file",
+        "immutable_source": true
+      }
+    },
+    {
+      "id": "transfer-uart-h-source",
+      "source_path": "architecture/sources/bkpt-hal2-transfer-ops-v1/uart-operation.h.in",
+      "sha256": "5132e5c8ca4eb1f31d1854b25641faf2460fdb0f6be358bbbb0d2e7c5acdc763",
+      "authority": "BKPT authored derived integration artifact",
+      "package_path": "sources/architecture/sources/bkpt-hal2-transfer-ops-v1/uart-operation.h.in",
+      "attribution": {
+        "bkpt": "BKPT-authored component deliverable; not exclusively BKPT copyright",
+        "incorporated_portions": "STMicroelectronics manufacturer-derived portions under BSD-3-Clause; exact notice retained in this file",
+        "immutable_source": true
+      }
+    },
+    {
+      "id": "transfer-uart-c-source",
+      "source_path": "architecture/sources/bkpt-hal2-transfer-ops-v1/uart-operation.c.in",
+      "sha256": "3e8411ee57ccc89065599ab5f6d90e85b8f1f32c590129589d0cd07010f421a0",
+      "authority": "BKPT authored derived integration artifact",
+      "package_path": "sources/architecture/sources/bkpt-hal2-transfer-ops-v1/uart-operation.c.in",
+      "attribution": {
+        "bkpt": "BKPT-authored component deliverable; not exclusively BKPT copyright",
+        "incorporated_portions": "STMicroelectronics manufacturer-derived portions under BSD-3-Clause; exact notice retained in this file",
+        "immutable_source": true
+      }
+    },
+    {
+      "id": "idle-rx-lifecycle-source",
+      "source_path": "architecture/sources/bkpt-hal2-idle-rx-v1/operation.h",
+      "sha256": "eb1f16e3d97c56d9fbc971b7a417df0bf0c892c18a58affa3414a6ed46106569",
+      "authority": "BKPT authored integration artifact",
+      "package_path": "sources/architecture/sources/bkpt-hal2-idle-rx-v1/operation.h"
+    },
+    {
+      "id": "idle-rx-uart-h-source",
+      "source_path": "architecture/sources/bkpt-hal2-idle-rx-v1/uart-operation.h.in",
+      "sha256": "44307c76c15c927641d11ea9a368636e048b500f28b32b9dbaba8eedaa54cefa",
+      "authority": "BKPT authored integration artifact",
+      "package_path": "sources/architecture/sources/bkpt-hal2-idle-rx-v1/uart-operation.h.in",
+      "attribution": {
+        "bkpt": "BKPT-authored component deliverable; not exclusively BKPT copyright",
+        "incorporated_portions": "STMicroelectronics manufacturer-derived portions under BSD-3-Clause; exact notice retained in this file",
+        "immutable_source": true
+      }
+    },
+    {
+      "id": "idle-rx-uart-c-source",
+      "source_path": "architecture/sources/bkpt-hal2-idle-rx-v1/uart-operation.c.in",
+      "sha256": "ec700a76ad15a2e1f3f65f0531764fe13659eee00d32ef3e80f900c1920b40cf",
+      "authority": "BKPT authored integration artifact",
+      "package_path": "sources/architecture/sources/bkpt-hal2-idle-rx-v1/uart-operation.c.in",
+      "attribution": {
+        "bkpt": "BKPT-authored component deliverable; not exclusively BKPT copyright",
+        "incorporated_portions": "STMicroelectronics manufacturer-derived portions under BSD-3-Clause; exact notice retained in this file",
+        "immutable_source": true
+      }
+    },
+    {
+      "id": "exti-policy-source",
+      "source_path": "architecture/sources/bkpt-hal2-exti-v1/scope.txt",
+      "sha256": "7f634b0673d00e3ea7005513de2f5c82b76557102dd941a672343e580817155f",
+      "authority": "BKPT integration policy",
+      "package_path": "sources/architecture/sources/bkpt-hal2-exti-v1/scope.txt"
+    },
+    {
+      "id": "exti-template-h-source",
+      "source_path": "architecture/sources/bkpt-hal2-exti-v1/gpio-input-interrupt.h.in",
+      "sha256": "fe9dd12c70f357e4dd7cfc260c615c9ae3c56bc1c84aaee0a1c6b0e9019d76f8",
+      "authority": "BKPT authored integration artifact",
+      "package_path": "sources/architecture/sources/bkpt-hal2-exti-v1/gpio-input-interrupt.h.in"
+    },
+    {
+      "id": "exti-template-c-source",
+      "source_path": "architecture/sources/bkpt-hal2-exti-v1/gpio-input-interrupt.c.in",
+      "sha256": "463fcbbee0a25a4aafa6d0b9770642ef020a743744f187842843e702502ea4e4",
+      "authority": "BKPT authored integration artifact",
+      "package_path": "sources/architecture/sources/bkpt-hal2-exti-v1/gpio-input-interrupt.c.in"
+    },
+    {
+      "id": "exti-spi-header-source",
+      "source_path": "architecture/sources/bkpt-hal2-exti-v1/spi-operation.h.in",
+      "sha256": "8b2721a9f8f94039d58ea07bcc59f5eca8d85920c5315d73ffeb6f5010568589",
+      "authority": "BKPT authored integration artifact",
+      "package_path": "sources/architecture/sources/bkpt-hal2-exti-v1/spi-operation.h.in",
+      "attribution": {
+        "bkpt": "BKPT-authored component deliverable; not exclusively BKPT copyright",
+        "incorporated_portions": "STMicroelectronics manufacturer-derived portions under BSD-3-Clause; exact notice retained in this file",
+        "immutable_source": true
+      }
+    }
+  ],
+  "external": [
+    {
+      "id": "dfp",
+      "source_path": "architecture/sources/stm32c5-dfp-2.1.0/device.pdsc",
+      "sha256": "b9b64dc6b9d65d0ab7260cfbfcc7302d6502fc0627ba0d9d836e12a4dee9df31",
+      "authority": "manufacturer_machine_readable"
+    },
+    {
+      "id": "device-header",
+      "source_path": "architecture/sources/stm32c5-dfp-2.1.0/Include/stm32c542xx.h",
+      "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea",
+      "authority": "manufacturer_machine_readable"
+    },
+    {
+      "id": "header-router",
+      "source_path": "architecture/sources/stm32c5-dfp-2.1.0/Include/stm32c5xx.h",
+      "sha256": "61a0b8c2674d9e817d70aa8d2693339273f4283694f8ab5f8dca077bb69913f7",
+      "authority": "manufacturer_machine_readable"
+    },
+    {
+      "id": "pinout",
+      "source_path": "architecture/sources/stm32c5-dfp-2.1.0/pinout.json",
+      "sha256": "60555188e7a3b5a27aa82840cf8653c9291511a5e88504a33ec07ba25901205b",
+      "authority": "manufacturer_machine_readable"
+    },
+    {
+      "id": "board",
+      "source_path": "architecture/sources/nucleo-c542rc-2.1.0/board.pdsc",
+      "sha256": "2eafbeaf16faff84f7c133d061b6c3d0517637bb78da5c2162c95fe34b422686",
+      "authority": "manufacturer_machine_readable"
+    },
+    {
+      "id": "ds-timer",
+      "source_path": "architecture/sources/documents/DS15135-rev2-page22-extracted.txt",
+      "sha256": "14d6e8a3be5e67624118681743bd4526cd06dc32635bb4a95c91ee8dd1e31cc3",
+      "authority": "manufacturer_document_text_extraction"
+    },
+    {
+      "id": "tim-c",
+      "source_path": "sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_tim.c",
+      "sha256": "4c291c794c90050e75c8bb9f9da2d49ade984085f558088ce65eaf01824933e3",
+      "authority": "manufacturer_sdk"
+    },
+    {
+      "id": "tim-h",
+      "source_path": "sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_tim.h",
+      "sha256": "3372613c4ae355e160e7e8cc2166da5166b39fb77acc383740e5de8f453de4c5",
+      "authority": "manufacturer_sdk"
+    },
+    {
+      "id": "gpio-c",
+      "source_path": "sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_gpio.c",
+      "sha256": "3cf4bda1afb86547321e90bf6e762c813050994076a03a2630b27740c8bafb11",
+      "authority": "manufacturer_sdk"
+    },
+    {
+      "id": "uart-c",
+      "source_path": "sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_uart.c",
+      "sha256": "bacbdb4c890d08e184eb3ba2dd23c0b5fc8a1a0f8ae4979a56f7887f97f47633",
+      "authority": "manufacturer_sdk"
+    },
+    {
+      "id": "uart-h",
+      "source_path": "sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_uart.h",
+      "sha256": "7a8e9aa3174a89231ecac1211902fe8fc6429888a64e93561e5fae276082c744",
+      "authority": "manufacturer_sdk"
+    },
+    {
+      "id": "rcc-c",
+      "source_path": "sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_rcc.c",
+      "sha256": "241ee550685a75c6fcb02006ac3517c3a3c269d6f5cddface18c83ad70b6748f",
+      "authority": "manufacturer_sdk"
+    },
+    {
+      "id": "rcc-h",
+      "source_path": "sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_rcc.h",
+      "sha256": "29fb6354087a8ebed46e7d8bce100659d733df9c1b03c7dee35a1215dc2cefd5",
+      "authority": "manufacturer_sdk"
+    },
+    {
+      "id": "cortex-h",
+      "source_path": "sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_cortex.h",
+      "sha256": "eaf1c23b721d348cba7fcdf0ec3879f8755e2e5ef8fee1f397cffde7a93330c2",
+      "authority": "manufacturer_sdk"
+    },
+    {
+      "id": "hal-pack",
+      "source_path": "components/sources/c5-hal-2.1.0.pdsc",
+      "sha256": "c85e47ac2a60f6e0c0750a8ae8bacd749d02c9eae24e6606c509aee261ed43cb",
+      "authority": "manufacturer_machine_readable"
+    },
+    {
+      "id": "preset-rcc",
+      "source_path": "foundations/c5-hal2-base-1/files/generated/hal/mx_rcc.c",
+      "sha256": "c796ea3a1bec8dc452b0bd239eb2a454d30ed6949f4f1f5e47cd3d7d068cfbe3",
+      "authority": "captured_generated_source"
+    },
+    {
+      "id": "preset-uart",
+      "source_path": "foundations/c5-hal2-base-1/files/generated/hal/mx_usart2.c",
+      "sha256": "509fc531702f2679c32af943108ebbbb52a937012ecc3250e8d45476ef2cc4ea",
+      "authority": "captured_generated_source"
+    },
+    {
+      "id": "preset-gpio",
+      "source_path": "foundations/c5-hal2-base-1/files/generated/hal/mx_gpio_default.c",
+      "sha256": "3bfc7442a63d90bfe2872fc2249503fabca819941571a7e68f218bb22790848c",
+      "authority": "captured_generated_source"
+    },
+    {
+      "id": "preset-gpio-h",
+      "source_path": "foundations/c5-hal2-base-1/files/generated/hal/mx_gpio_default.h",
+      "sha256": "a3ddb8b8f6b556043f68427afb9254733240a3e855293f8a0f04dc6f84eb3913",
+      "authority": "captured_generated_source"
+    },
+    {
+      "id": "preset-system",
+      "source_path": "foundations/c5-hal2-base-1/files/generated/hal/mx_system.c",
+      "sha256": "ad3f2b882547a7fd0cb16578d0fa3bae57d900331d3894e72b3760c55e73c135",
+      "authority": "captured_generated_source"
+    },
+    {
+      "id": "preset-conf",
+      "source_path": "foundations/c5-hal2-base-1/files/generated/hal/stm32c5xx_hal_conf.h",
+      "sha256": "20be6e53113383ec1269942eb5ccf58f2f0690882cb968557af68f35dfe1931d",
+      "authority": "captured_generated_source"
+    },
+    {
+      "id": "preset-stdio",
+      "source_path": "foundations/c5-hal2-base-1/files/generated/utilities/mx_basic_stdio_app.h",
+      "sha256": "a8da23d53f3f48b999e5069e1d2ce56b028f8b3a52970a8f7d109172c034953d",
+      "authority": "captured_generated_source"
+    },
+    {
+      "id": "startup",
+      "source_path": "foundations/c5-hal2-base-1/files/user_modifiable/Device/STM32C542RCT6/startup_stm32c542xx.c",
+      "sha256": "cc3f71f21df0e7711798c5a18814dc8a021b41e91af00bfd1b2159fe22256907",
+      "authority": "captured_generated_source"
+    },
+    {
+      "id": "root-cmake",
+      "source_path": "foundations/c5-hal2-base-1/files/CMakeLists.txt",
+      "sha256": "cc62617a88d54489a2e79e173a4c64dd55a9339427fc84490aad3c9b3d21249f",
+      "authority": "captured_generated_source"
+    },
+    {
+      "id": "rm-clock-text",
+      "source_path": "architecture/sources/documents/RM0522-rev1-pages271-1261-extracted.txt",
+      "sha256": "342e37b1d349c52cf32a57f87539dfaa37b6039803e097c5aacb9ba9e2321550",
+      "authority": "manufacturer_document_text_extraction"
+    },
+    {
+      "id": "errata-text",
+      "source_path": "architecture/sources/documents/ES0676-rev2-pages1-9-extracted.txt",
+      "sha256": "094a4e5465b30e23ffe5939df8d01e0f87078e27ea54ae4cdd12d835cdf44aa4",
+      "authority": "manufacturer_document_text_extraction"
+    },
+    {
+      "id": "preset-components",
+      "source_path": "foundations/c5-hal2-base-1/files/cmake/components.cmake",
+      "sha256": "fd010911fb762ef847a981e54c8774f0db56028c98024e8fb43c506f0d95626e",
+      "authority": "captured_generated_source"
+    },
+    {
+      "id": "preset-nvic",
+      "source_path": "foundations/c5-hal2-base-1/files/generated/hal/mx_cortex_nvic.c",
+      "sha256": "2002fa00a57635bdf3994fb234a066229063ff900503bc7864c6df617abc8c16",
+      "authority": "captured_generated_source"
+    },
+    {
+      "id": "sdk-build",
+      "source_path": "sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/CMakeLists.txt",
+      "sha256": "8bb294a6d29536acdf21fff5d72df61e269f1ea5deb1a206227129a5f9d17c5c",
+      "authority": "manufacturer_sdk"
+    },
+    {
+      "id": "rm-dma",
+      "source_path": "architecture/sources/documents/RM0522-dma-expansion-extracted.txt",
+      "sha256": "708a58c97c6f76fe34699f5a2c971cb9cfb01361fcb75750deaaeed4ec8367e4",
+      "authority": "STMicroelectronics"
+    },
+    {
+      "id": "rm-bus-89",
+      "source_path": "architecture/sources/documents/RM0522-dma-page89-extracted.txt",
+      "sha256": "23655e74f8c7f7072bf9338eb1da33a91c48cfcb64ba5c94cfc5f02422c2ef62",
+      "authority": "STMicroelectronics"
+    },
+    {
+      "id": "errata-dma-1",
+      "source_path": "architecture/sources/documents/ES0676-dma-page1-extracted.txt",
+      "sha256": "6e2341949a77a3837e2886a95ecf54a940266da196bb41d33224563bd3b31744",
+      "authority": "STMicroelectronics"
+    },
+    {
+      "id": "errata-dma-2",
+      "source_path": "architecture/sources/documents/ES0676-dma-page2-extracted.txt",
+      "sha256": "5529394f31804533adce5e9a16faee50daaf2cba82e42e140778f94bb23af42f",
+      "authority": "STMicroelectronics"
+    },
+    {
+      "id": "errata-dma-3",
+      "source_path": "architecture/sources/documents/ES0676-dma-page3-extracted.txt",
+      "sha256": "d99b137037f2f54e689f79a1b50d35f3abf5b74c8ff3187598771b4bcd0d2d09",
+      "authority": "STMicroelectronics"
+    },
+    {
+      "id": "errata-dma-8",
+      "source_path": "architecture/sources/documents/ES0676-dma-page8-extracted.txt",
+      "sha256": "80d07fbb4c289c3a4e865a6f3943166ce615202ab666467b60d9d08ece620d9d",
+      "authority": "STMicroelectronics"
+    },
+    {
+      "id": "errata-dma-9",
+      "source_path": "architecture/sources/documents/ES0676-dma-page9-extracted.txt",
+      "sha256": "3119c44c5c358d0d7477bada0e40b64b91b3eb0384168f1b7e0873a3a3d1eb4a",
+      "authority": "STMicroelectronics"
+    },
+    {
+      "id": "errata-dma-10",
+      "source_path": "architecture/sources/documents/ES0676-dma-page10-extracted.txt",
+      "sha256": "4ceaf7fe95fee14ea5a256ab3ca3fa081b934e1825af7394f02ec855087c6282",
+      "authority": "STMicroelectronics"
+    },
+    {
+      "id": "dma-h",
+      "source_path": "sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_dma.h",
+      "sha256": "5d49348c4a091e965cb5512c4b9c1571d8046f0db690c69589cb2e0f31b5bde1",
+      "authority": "STMicroelectronics"
+    },
+    {
+      "id": "dma-c",
+      "source_path": "sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_dma.c",
+      "sha256": "d16d944625a8477b8b52fff2745e9ed58ded3d7438717185a1281abf4500f64e",
+      "authority": "STMicroelectronics"
+    },
+    {
+      "id": "i2c-h",
+      "source_path": "sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_i2c.h",
+      "sha256": "4826aa529b7cd4699503fa51f261075a0937fa672130143f38713e412cc59ae3",
+      "authority": "STMicroelectronics"
+    },
+    {
+      "id": "i2c-c",
+      "source_path": "sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_i2c.c",
+      "sha256": "443fd177dc679a9f645a58e22119643eb177c92d736e0b28ef5641a857e82be0",
+      "authority": "STMicroelectronics"
+    },
+    {
+      "id": "spi-h",
+      "source_path": "sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_spi.h",
+      "sha256": "784b814b2a2f4a927fadc130d8dffd91b5cb20f0b4bf74d0f884328cc622e792",
+      "authority": "STMicroelectronics"
+    },
+    {
+      "id": "spi-c",
+      "source_path": "sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_spi.c",
+      "sha256": "d19576e641358887a7dcfa10220f1529c78e936e5a2c3b721b9b25da8e73927e",
+      "authority": "STMicroelectronics"
+    },
+    {
+      "id": "dma-ll",
+      "source_path": "sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_dma.h",
+      "sha256": "0983050fda989d6c7577c49e52df21ed71055b48490017c20080b7b6e072dacd",
+      "authority": "STMicroelectronics"
+    },
+    {
+      "id": "cube-uart",
+      "source_path": "architecture/sources/cube-cadccf7-dma/uart/NUCLEO-C542RC/generated/hal/mx_usart2.c",
+      "sha256": "140f19d301e3653a7ba953400c6b6e6c4c691d1c475686f560ff202ced5fca64",
+      "authority": "STMicroelectronics"
+    },
+    {
+      "id": "cube-uart-app",
+      "source_path": "architecture/sources/cube-cadccf7-dma/uart/application/example.c",
+      "sha256": "bfb8237acea603c62b0f4b98e1442bb47470da7ca177c057c4a45781b21bf45a",
+      "authority": "STMicroelectronics"
+    },
+    {
+      "id": "cube-i2c",
+      "source_path": "architecture/sources/cube-cadccf7-dma/i2c/NUCLEO-C542RC/generated/hal/mx_i2c1.c",
+      "sha256": "f7c04dd43ce4fa01608df45d94afa2e2b1fbafca9d2e5606dfcb4451eb2bce9a",
+      "authority": "STMicroelectronics"
+    },
+    {
+      "id": "cube-i2c-app",
+      "source_path": "architecture/sources/cube-cadccf7-dma/i2c/application/example.c",
+      "sha256": "7be2052b30d336e957f873ea8cea2d00632e05d242cae53924f3daf6afc9dd67",
+      "authority": "STMicroelectronics"
+    },
+    {
+      "id": "cube-spi",
+      "source_path": "architecture/sources/cube-cadccf7-dma/spi/NUCLEO-C542RC/generated/hal/mx_spi1.c",
+      "sha256": "d04658f9130ddea987bdd9d14ab08f4ed443970fc5fe2ee1df07d529aebaad9b",
+      "authority": "STMicroelectronics"
+    },
+    {
+      "id": "cube-spi-app",
+      "source_path": "architecture/sources/cube-cadccf7-dma/spi/application/example.c",
+      "sha256": "ed84741580ffce51a18ef1b220023057dcd29292663a0860b192701ac00547d5",
+      "authority": "STMicroelectronics"
+    },
+    {
+      "id": "cube-memory-app",
+      "source_path": "architecture/sources/cube-cadccf7-dma/memory/application/example.c",
+      "sha256": "67e0e19ba37a90f20b12246a38560cc7ba7ae12d36594b424c545da22c6e2204",
+      "authority": "STMicroelectronics"
+    },
+    {
+      "id": "component-uart-foundation-header",
+      "source_path": "foundations/c5-hal2-base-1/files/generated/hal/mx_usart2.h",
+      "sha256": "7e5297d6f9a97f70bf746795096aecb02c13e862c33c06c61163c031c6e7f709",
+      "authority": "manufacturer_generated_code"
+    },
+    {
+      "id": "v2-cmsis-core",
+      "source_path": "sdk/stm32c5-hal2-2.1.0/arch/cmsis/CMSIS/Core/Include/core_cm33.h",
+      "sha256": "47bd70aed10df47c7ca54bf049685d24ae886294b2d05ac6e411804dfe81b4b8",
+      "authority": "manufacturer_sdk"
+    },
+    {
+      "id": "v2-cmsis-gcc",
+      "source_path": "sdk/stm32c5-hal2-2.1.0/arch/cmsis/CMSIS/Core/Include/cmsis_gcc.h",
+      "sha256": "7c34c8eb47e78acc8da3122fd27fc912b653b14817a2e1fb55ed41fb55c54281",
+      "authority": "manufacturer_sdk"
+    },
+    {
+      "id": "v2-cmsis-gcc-m",
+      "source_path": "sdk/stm32c5-hal2-2.1.0/arch/cmsis/CMSIS/Core/Include/m-profile/cmsis_gcc_m.h",
+      "sha256": "56241ce5b4798048f84429e28c1949d30bb907155f0b8351cb36aaaa9cbbeabb",
+      "authority": "manufacturer_sdk"
+    },
+    {
+      "id": "v2-usart-ll",
+      "source_path": "sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_usart.h",
+      "sha256": "044c41883df6073361b59f51593577061155eb96e2962164d8c36df069b8baa8",
+      "authority": "manufacturer_sdk"
+    },
+    {
+      "id": "v2-tim-ll",
+      "source_path": "sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_tim.h",
+      "sha256": "519e86c7740606eb87fbc6b5ebf7910e90256203d967feca07b3462f02431568",
+      "authority": "manufacturer_sdk"
+    },
+    {
+      "id": "v2-cortex-c",
+      "source_path": "sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_cortex.c",
+      "sha256": "ce4b71c591d43aced22fd6edf8f97470280af961f57fddb0e4ed6c179ae165f4",
+      "authority": "manufacturer_sdk"
+    },
+    {
+      "id": "v2-timer-rm",
+      "source_path": "architecture/sources/documents/RM0522-timer-v2-extracted.txt",
+      "sha256": "9810177a3faafd51fdb00ff39d46a79623a4c95c281eb3164402dd2031f85d4a",
+      "authority": "manufacturer_document_text_extraction"
+    },
+    {
+      "id": "fmp-rm-cr1",
+      "source_path": "architecture/sources/documents/RM0522-fmp-cr1-v1-extracted.txt",
+      "sha256": "51bb94a3ad642f79b944a590fc48ae0f455ba2437ab0777fe0463052f653521b",
+      "authority": "STMicroelectronics"
+    },
+    {
+      "id": "fmp-ds-pad-scope",
+      "source_path": "architecture/sources/documents/DS15135-fmp-pad-scope-v1-extracted.txt",
+      "sha256": "5b2407c37f60f1c07c12c9ce0dca0fe78c0ab6b81a88272c0f9487ff6c7ff97e",
+      "authority": "STMicroelectronics"
+    },
+    {
+      "id": "fmp-i2c-ll",
+      "source_path": "sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_i2c.h",
+      "sha256": "c3038a24033aa69a816f80ee3b6a2c39f94a875687aefc338b5f8c95815cd6d7",
+      "authority": "STMicroelectronics"
+    },
+    {
+      "id": "gpio-h",
+      "source_path": "sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_gpio.h",
+      "sha256": "1015ea4dfd9615cb644613e88e1a04c0d98d2f9f5a35e4698b3f0371be40fd40",
+      "authority": "STMicroelectronics"
+    },
+    {
+      "id": "operation-stm32-hal-h",
+      "source_path": "sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32_hal.h",
+      "sha256": "9ba2996204f3a2e6dbea34b9bbfd0836e37f46f13125a6de05685351bfee50c4",
+      "authority": "STMicroelectronics"
+    },
+    {
+      "id": "v6-spi-ll",
+      "source_path": "sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_spi.h",
+      "sha256": "bc64c4e1b6297712f58b6cc329149d169fc418b99df7b9c427113485bcc2cd15",
+      "authority": "STMicroelectronics"
+    },
+    {
+      "id": "transfer-rm-spi-stop-source",
+      "source_path": "architecture/sources/bkpt-hal2-transfer-ops-v1/transfer-rm-spi-stop.txt",
+      "sha256": "c0c10f5c96df3e18941685be1f1cab7f8a751fdd672e97dd47cf75597f5ef950",
+      "authority": "manufacturer_document_text_extraction"
+    },
+    {
+      "id": "transfer-rm-spi-registers-source",
+      "source_path": "architecture/sources/bkpt-hal2-transfer-ops-v1/transfer-rm-spi-registers.txt",
+      "sha256": "abcbcc6944719600bd43ea499237c68595c9ddc3432ad0698fd0c4d89914921b",
+      "authority": "manufacturer_document_text_extraction"
+    },
+    {
+      "id": "transfer-ds-pb8-pb9-source",
+      "source_path": "architecture/sources/bkpt-hal2-transfer-ops-v1/transfer-ds-pb8-pb9.txt",
+      "sha256": "8669b8b031c83c3f8edba7c978c5b53b338b3a294a860ec4c373b54a99639a54",
+      "authority": "manufacturer_document_text_extraction"
+    },
+    {
+      "id": "exti-c",
+      "source_path": "sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_exti.c",
+      "sha256": "0f8f45695293d91944a3b726cd64ed20b9de456b360ceb48a2ae0b7a17d7732e",
+      "authority": "manufacturer_sdk"
+    },
+    {
+      "id": "exti-h",
+      "source_path": "sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_exti.h",
+      "sha256": "0299a6ee6344dd2eb12a528b2db739b2c0e5f495bb0554007c1774eb972ee59e",
+      "authority": "manufacturer_sdk"
+    },
+    {
+      "id": "exti-ll",
+      "source_path": "sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_exti.h",
+      "sha256": "b21f641107e625967bc5371fe53d87c4404116b039efd6ef2ad40a8d985f79ec",
+      "authority": "manufacturer_sdk"
+    }
+  ],
+  "external_policy": "Vendor/generated sources remain outside this repository. Existing source paths and content hashes are preserved; provide an external source root when rebuilding."
+}

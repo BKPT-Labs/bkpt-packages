@@ -1,0 +1,1154 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/analog-comparators-contracts.json",
+    "sha256": "c9ce5b6424ecce9282ae55e3cab7809a7530cc6c56f23948a50d0e39dbdbbbd1"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 68
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "schema": "bkpt.external.analog_comparators.contracts.v1",
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "review": "Corrected against independent analog-ramcfg-review.json; false INPSEL conflict removed using exact header evaluation. Further independent review remains required; integrity checks are not semantic qualification.",
+    "package_routes_sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288",
+    "errata_sha256": "821c22f796a9ff723afee534fe5943c2b0506325ec871d890706d94414316416",
+    "sources": {
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "HAL_COMP": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_comp.c",
+        "sha256": "6a6ff2e0ddd7af3bf9e6c1d92d3002c6112d80766e7dddfe2755850e44379c80"
+      },
+      "HAL_COMP_H": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_comp.h",
+        "sha256": "13ac07b6759ba3b95507b7a4b90f24d4db4ac912efcc3a38712df47b6d3c8eac"
+      },
+      "LL_COMP": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_comp.h",
+        "sha256": "28b9385aa7a127ad0fec034eb0821de4c7adfbc1ef7c8cc5415427417accdaac"
+      },
+      "HAL_OPAMP": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_opamp.c",
+        "sha256": "bc158cf60846c4f49145d7b3a3748f39829a54fd7dbb04e6bde0a7f367732057"
+      },
+      "LL_OPAMP": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_opamp.h",
+        "sha256": "6b4c86489a484b78792701080e29246e2b57f13f439cc9e12c15e6d980e44aaa"
+      },
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "DS15135": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pdf",
+        "sha256": "1a3555f799297774a95978ab343ebc1f45ab9ef58d0dcf3600dec4fabed9355c",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pages.json",
+        "extraction_sha256": "b14b965adb6c1545edbca0e56b3c504e7ecc3a94bda197350ce2757b5a3d55dc"
+      },
+      "ES0676": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pdf",
+        "sha256": "a5463827337bcdbd3e5f2e0912a56307d78b568e5631b21cc9a25899c7d4a5e6",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pages.json",
+        "extraction_sha256": "2ab1b19e42b53e22ff5f3b98f6ed9a5f98f3b7b61a617abc3bb3b7fc050d1cb3"
+      }
+    },
+    "evidence": {
+      "RM0522:p711": {
+        "source": "RM0522",
+        "page": 711,
+        "sha256": "4ef53a321c6b3a37da28617475dc6e381122c281e25b4ea8a77a0c6f7e052b13"
+      },
+      "RM0522:p712": {
+        "source": "RM0522",
+        "page": 712,
+        "sha256": "080f109dde9aa86622f6d04ab960c18de18e1a27364d41d31d4a99efa85c13a8"
+      },
+      "RM0522:p713": {
+        "source": "RM0522",
+        "page": 713,
+        "sha256": "04d6748ad07665bc56c9ddc2c28b47833b8b40a0efe4609eb4827a28d66252b8"
+      },
+      "RM0522:p714": {
+        "source": "RM0522",
+        "page": 714,
+        "sha256": "6560f92baabf29de962f903b80220fb37507cfaac0d8e18ffb2238d0ee29f83a"
+      },
+      "RM0522:p715": {
+        "source": "RM0522",
+        "page": 715,
+        "sha256": "09ddf7d7b78f4e86ea716f11ab6e400eb0a1972184dedfe7107851eaca1820ca"
+      },
+      "RM0522:p716": {
+        "source": "RM0522",
+        "page": 716,
+        "sha256": "b0f2b60a0a6b78541fc81bf9eaf03a4a32dfd51f2c0383fa5daa26ebbba51038"
+      },
+      "RM0522:p717": {
+        "source": "RM0522",
+        "page": 717,
+        "sha256": "c68f86621f81d4e5d5413495304e60575bf2a6532824e5b5c787242a52cec290"
+      },
+      "RM0522:p718": {
+        "source": "RM0522",
+        "page": 718,
+        "sha256": "cc19c2d7e46c93c13e50c97cf4fd1a95c96587f512913e72346ed2b02f0bca06"
+      },
+      "RM0522:p719": {
+        "source": "RM0522",
+        "page": 719,
+        "sha256": "cf919dc8e9c3d07edc0a37549d5440c847b2dac7b983bcb63871c1799d1a7913"
+      },
+      "RM0522:p720": {
+        "source": "RM0522",
+        "page": 720,
+        "sha256": "adb9f01fa5c421da0cbc57671a4803d8f2b9b40c51792419b5f7daf85f921fa6"
+      },
+      "RM0522:p721": {
+        "source": "RM0522",
+        "page": 721,
+        "sha256": "a76f0265818fc30dd30656ccd09a8f999366d94654152ff118851165ba593afd"
+      },
+      "RM0522:p722": {
+        "source": "RM0522",
+        "page": 722,
+        "sha256": "3707eb251e39253da1fa2a889114373bc3186f39083fe567a6d1101484c438df"
+      },
+      "RM0522:p723": {
+        "source": "RM0522",
+        "page": 723,
+        "sha256": "fed29742f02b7a07d99228e257bd7ec346a3c34c22c02746b1a2f376dab5c590"
+      },
+      "RM0522:p724": {
+        "source": "RM0522",
+        "page": 724,
+        "sha256": "2173e03db3f1894808a05fe59ec74399d2b40c2f06ccabcf3b8f824c32d6555e"
+      },
+      "RM0522:p725": {
+        "source": "RM0522",
+        "page": 725,
+        "sha256": "0a6cf720ef352249df0c6e4187b3365b7921ef59dd8970f5612b8dbd300cd6cf"
+      },
+      "RM0522:p726": {
+        "source": "RM0522",
+        "page": 726,
+        "sha256": "dbe44a74cab3fa8d0c5ae31dc236a91a7e0799b6375984e14382374ff63d6b90"
+      },
+      "RM0522:p727": {
+        "source": "RM0522",
+        "page": 727,
+        "sha256": "040d47cb22622d77e980de21831678192b8d7c5d1637cbf02679aab4febb8198"
+      },
+      "RM0522:p728": {
+        "source": "RM0522",
+        "page": 728,
+        "sha256": "11f8412e5b44cb8896190eedef0aabc18784df11fc4aa2291c8fa1620f9a3b8e"
+      },
+      "RM0522:p729": {
+        "source": "RM0522",
+        "page": 729,
+        "sha256": "eece3b11e5217850c875b0e1b4573bc495e5cf8006f9e7968cd088a2f1df5b37"
+      },
+      "RM0522:p730": {
+        "source": "RM0522",
+        "page": 730,
+        "sha256": "414ec5e6026680b1277877d59f602db48031a74b1b4a4f05f21872b3e92176de"
+      },
+      "RM0522:p731": {
+        "source": "RM0522",
+        "page": 731,
+        "sha256": "6ffa60df3b77830b30a6552105b3eb2824b8633df619e27e3cdfb8ef57fbde00"
+      },
+      "RM0522:p732": {
+        "source": "RM0522",
+        "page": 732,
+        "sha256": "18f5eb71cd44d4716c4636a3252d68ac24dbb7d968dcbeed823bc0a7d38e3b38"
+      },
+      "RM0522:p733": {
+        "source": "RM0522",
+        "page": 733,
+        "sha256": "996d4a35abbd20c5aae05b20f8a3b73b31a5e13493e71fa7e66c57e54d0d09b5"
+      },
+      "RM0522:p734": {
+        "source": "RM0522",
+        "page": 734,
+        "sha256": "0ae65d0e3d688ed65932bf38c9621fa22ea75382b615bbf97ecc601c953581f9"
+      },
+      "RM0522:p735": {
+        "source": "RM0522",
+        "page": 735,
+        "sha256": "15f515ba604b70dd5bd158081f2666491b14455b584de8ff62048821482ae640"
+      },
+      "RM0522:p736": {
+        "source": "RM0522",
+        "page": 736,
+        "sha256": "ed173a604c3f5bdc5bbe8870eee6dd3c76f7ff1578c95851bff8c0245429fb18"
+      },
+      "RM0522:p737": {
+        "source": "RM0522",
+        "page": 737,
+        "sha256": "23f40ad33dc89706f12a1e2dccaf33ae41939531aa4581f2e1479a09a1a169bc"
+      },
+      "RM0522:p738": {
+        "source": "RM0522",
+        "page": 738,
+        "sha256": "66a997a129fe010f0f5a96eaa8a6986876c5d04ea0b6cef4e4fcd23dad42b6d9"
+      },
+      "RM0522:p739": {
+        "source": "RM0522",
+        "page": 739,
+        "sha256": "285a0559d4c38d84213a257a288dec8bf8cea70928987847e39494e4d85ed38c"
+      },
+      "RM0522:p740": {
+        "source": "RM0522",
+        "page": 740,
+        "sha256": "6484bcacd40de3924a2bc4f3393ce6ed53bde86dbf3535f8516c44a5bbf0334e"
+      },
+      "RM0522:p741": {
+        "source": "RM0522",
+        "page": 741,
+        "sha256": "c3e256e561bc429782b6f9fb40f78bb822997129a710c78fef24ab77e947a976"
+      },
+      "RM0522:p742": {
+        "source": "RM0522",
+        "page": 742,
+        "sha256": "5faeca729bfd711d2be2b61da341c2089a9fa352a674d57e2d12aa4c437de150"
+      },
+      "RM0522:p743": {
+        "source": "RM0522",
+        "page": 743,
+        "sha256": "99fac6bb30896c2d2689fd33969e3d2dec547bcbad371712a2ffc57e7446a538"
+      },
+      "RM0522:p744": {
+        "source": "RM0522",
+        "page": 744,
+        "sha256": "735c75c7c21a9b7487aac4170015fcc36b5e6d76f7ae9117dfa5629786d3a808"
+      },
+      "RM0522:p745": {
+        "source": "RM0522",
+        "page": 745,
+        "sha256": "5ecda268565c9839bc0b1fdcdbc6979611c80a02f6c31e19bd8f6aef8b73fa84"
+      },
+      "RM0522:p746": {
+        "source": "RM0522",
+        "page": 746,
+        "sha256": "4691def160a92610c85f17edffbe5723a908c11b73c89c5f052d5714d8b3e54f"
+      },
+      "DS15135:p17": {
+        "source": "DS15135",
+        "page": 17,
+        "sha256": "4395b78a3e7974b7310bf8a90e56230fa5428a9b94befc691d8f04bec2973941"
+      },
+      "DS15135:p18": {
+        "source": "DS15135",
+        "page": 18,
+        "sha256": "aa009ce6be09df61ab4acbb1f142e20379463bfd5056a26c6a778677a68a2e7b"
+      },
+      "ES0676:p1": {
+        "source": "ES0676",
+        "page": 1,
+        "sha256": "c36bb50f3ba55f82de59b1a5aa62c5ca6b1d3ea938ac9451545a442e65dd25c8"
+      },
+      "ES0676:p2": {
+        "source": "ES0676",
+        "page": 2,
+        "sha256": "3fed5303e4a0fc65ed4dbe6aae1c297605837e2da15bb0e24928d26b0d25eb95"
+      },
+      "ES0676:p3": {
+        "source": "ES0676",
+        "page": 3,
+        "sha256": "6682207b964f905ea8f0e452bc5cff546dfb08622fca9ce2f979b0e43cd6d157"
+      },
+      "ES0676:p6": {
+        "source": "ES0676",
+        "page": 6,
+        "sha256": "67192cb102783988744a71ca6f88c36b938faf48d360a4834496df7e76a4b915"
+      },
+      "header.COMP_instances": {
+        "source": "header",
+        "start_line": 14026,
+        "end_line": 14026,
+        "sha256": "37a7b6989968153af79a3232a1b7b0eacbcbb27a9a3df3d76171b69d20ba6932"
+      },
+      "header.OPAMP_instance": {
+        "source": "header",
+        "start_line": 14111,
+        "end_line": 14111,
+        "sha256": "9f848d971b30b1626af63d65219948b4dd07cdcfc75927ae9a409b66545113f4"
+      },
+      "header.window": {
+        "source": "header",
+        "start_line": 2695,
+        "end_line": 2695,
+        "sha256": "831b9277667f9b5d729f928c156c958450873b8199da47dee00a9a9a21b608d1"
+      },
+      "COMP.delay_guards": {
+        "source": "HAL_COMP",
+        "start_line": 181,
+        "end_line": 264,
+        "sha256": "3f4ec0d2b7224dec2a93031cdd8873074c87a1282123a59e056e9ddc011bdc01"
+      },
+      "COMP.enums": {
+        "source": "HAL_COMP_H",
+        "start_line": 83,
+        "end_line": 150,
+        "sha256": "b501feb79a816252c9b32bf67a5c6f7b6f942b142fc8a6ba5f07d67808c7a0da"
+      },
+      "COMP.LL_modes_inputs": {
+        "source": "LL_COMP",
+        "start_line": 213,
+        "end_line": 300,
+        "sha256": "06d77a17e30e9f5c18a2c0ad9959d94ed241d60b8432b60dca6fdad15841c25b"
+      },
+      "COMP.activate": {
+        "source": "HAL_COMP",
+        "start_line": 1933,
+        "end_line": 1962,
+        "sha256": "088db80bdd67e3cb8c122a951cc6477ea416b6f769db5118733618f256654cdb"
+      },
+      "COMP.window_activate": {
+        "source": "HAL_COMP",
+        "start_line": 1964,
+        "end_line": 2012,
+        "sha256": "13c1e83cc31b9fed0a47b89fb94aa41b72ca066b1997b04553ad7109b3e816ca"
+      },
+      "COMP.stop": {
+        "source": "HAL_COMP",
+        "start_line": 1446,
+        "end_line": 1473,
+        "sha256": "1d3c95e4e2b3854f984cbb69d07aa2fd0f6514919da6b9384425f8834f485cbc"
+      },
+      "COMP.stop_IT": {
+        "source": "HAL_COMP",
+        "start_line": 1522,
+        "end_line": 1545,
+        "sha256": "484cd2579d43f985b4ff36c93117d9401cc8731610beae83da6bcaed23ceb16e"
+      },
+      "COMP.IRQ": {
+        "source": "HAL_COMP",
+        "start_line": 1237,
+        "end_line": 1320,
+        "sha256": "f6d06415e0d3d2e17143da2cbcb4d889c693d1893916d054d7c023f2669ac975"
+      },
+      "OPAMP.init_deinit": {
+        "source": "HAL_OPAMP",
+        "start_line": 332,
+        "end_line": 407,
+        "sha256": "fdbf6f3ea5205aeb59d1a48ed656c041d41d3d449b03d952a7fa8a661736749a"
+      },
+      "OPAMP.config": {
+        "source": "HAL_OPAMP",
+        "start_line": 415,
+        "end_line": 470,
+        "sha256": "221d4941fc0981e8ca3d68c4bb25a4d7bcac774905c3e6a7988c866e5ab7a61a"
+      },
+      "OPAMP.start_stop": {
+        "source": "HAL_OPAMP",
+        "start_line": 682,
+        "end_line": 717,
+        "sha256": "9213a80c6c7e3807174cdeba7a2c5eb4aefc357b64888b4755d597aaf21f3abe"
+      },
+      "OPAMP.calibrate": {
+        "source": "HAL_OPAMP",
+        "start_line": 543,
+        "end_line": 566,
+        "sha256": "d98db4d3a6c1a8141e14c427fc26809321f8649f3ecc2dc13f009fab09778266"
+      },
+      "OPAMP.calibrate_helper": {
+        "source": "HAL_OPAMP",
+        "start_line": 1310,
+        "end_line": 1410,
+        "sha256": "13a854eb9592e615ff684321e65fcc0a973787daae23dfc7951c948ddadc20a0"
+      },
+      "OPAMP.LL_internal_input": {
+        "source": "LL_OPAMP",
+        "start_line": 194,
+        "end_line": 209,
+        "sha256": "020461ce1d1b4618bcbd14c8d0f4006547a77682b1ab444496ed83c85f4a201d"
+      },
+      "OPAMP.LL_timer_mux": {
+        "source": "LL_OPAMP",
+        "start_line": 285,
+        "end_line": 318,
+        "sha256": "ac3ba4c8202d004f3a15f65f2e7f55d68f056d926bc718059f5022b2ce0077ef"
+      },
+      "OPAMP.LL_reset": {
+        "source": "LL_OPAMP",
+        "start_line": 55,
+        "end_line": 73,
+        "sha256": "ff1425800ad8f5b936cc0985156262d4e573caa20e0c300eef03cc0e8fc1365c"
+      },
+      "OPAMP.LL_reset_helper": {
+        "source": "LL_OPAMP",
+        "start_line": 393,
+        "end_line": 396,
+        "sha256": "cf78f8cc8abe03a20146f0078f9cb43246aa7593294260a92d74b449fbba4192"
+      },
+      "OPAMP.LL_trim_setter": {
+        "source": "LL_OPAMP",
+        "start_line": 959,
+        "end_line": 992,
+        "sha256": "00b500ead419531890ddc76aea10fce2a12a575b2cc98f110b6a6093accd82d9"
+      },
+      "header.TIM_instances": {
+        "source": "header",
+        "start_line": 14163,
+        "end_line": 14169,
+        "sha256": "a2101b8ecee8d5ddaa7a7819a84502b6fba53102371f23cae414ffa7111b5633"
+      },
+      "header.COMP_INPSEL": {
+        "source": "header",
+        "start_line": 2769,
+        "end_line": 2773,
+        "sha256": "b123328f1053aaf0d20b0d4f1be49cf565acc7f396dd2e2f58dbae0ceb25a44d"
+      },
+      "COMP.LL_blanking": {
+        "source": "LL_COMP",
+        "start_line": 319,
+        "end_line": 335,
+        "sha256": "8dc9383f17f1458627067a0960fa22772aece1158a075ec850ee38514f20a65f"
+      },
+      "OPAMP.LL_calibration_mode": {
+        "source": "LL_OPAMP",
+        "start_line": 120,
+        "end_line": 124,
+        "sha256": "081c43b387aad489bbda5f251b75695b53bf3512fe6ef6209ceeb3456192f95f"
+      },
+      "OPAMP.power_guard": {
+        "source": "HAL_OPAMP",
+        "start_line": 241,
+        "end_line": 241,
+        "sha256": "b872baa5342764672c1a66d5b6658cee7356814a31b07f7db3eb6599e67a3b88"
+      }
+    },
+    "inventory": {
+      "id": "physical_instances",
+      "detail": "Two comparators COMP1/COMP2 and one OPAMP1. Window capability is described for C542 but revision-dependent concurrency erratum remains an independent gate; no executable profile.",
+      "evidence": [
+        "header.COMP_instances",
+        "header.OPAMP_instance",
+        "header.window",
+        "RM0522:p712",
+        "DS15135:p17"
+      ]
+    },
+    "package_routes": [
+      {
+        "route_id": "descriptor.signal.68",
+        "pin": "PC4",
+        "pad": 24,
+        "signal": "COMP1_INM1",
+        "instance": "COMP1",
+        "function": {
+          "type": "analog"
+        },
+        "unresolved_refs": []
+      },
+      {
+        "route_id": "descriptor.signal.69",
+        "pin": "PB1",
+        "pad": 27,
+        "signal": "COMP1_INM2",
+        "instance": "COMP1",
+        "function": {
+          "type": "analog"
+        },
+        "unresolved_refs": [
+          "IO_structure_comparison:PB1"
+        ]
+      },
+      {
+        "route_id": "descriptor.signal.70",
+        "pin": "PA5",
+        "pad": 21,
+        "signal": "COMP1_INM3",
+        "instance": "COMP1",
+        "function": {
+          "type": "analog"
+        },
+        "unresolved_refs": []
+      },
+      {
+        "route_id": "descriptor.signal.71",
+        "pin": "PA0",
+        "pad": 14,
+        "signal": "COMP1_INP1",
+        "instance": "COMP1",
+        "function": {
+          "type": "analog"
+        },
+        "unresolved_refs": []
+      },
+      {
+        "route_id": "descriptor.signal.72",
+        "pin": "PB0",
+        "pad": 26,
+        "signal": "COMP1_INP2",
+        "instance": "COMP1",
+        "function": {
+          "type": "analog"
+        },
+        "unresolved_refs": [
+          "IO_structure_comparison:PB0"
+        ]
+      },
+      {
+        "route_id": "descriptor.signal.73",
+        "pin": "PB2",
+        "pad": 28,
+        "signal": "COMP1_INP3",
+        "instance": "COMP1",
+        "function": {
+          "type": "analog"
+        },
+        "unresolved_refs": []
+      },
+      {
+        "route_id": "descriptor.signal.74",
+        "pin": "PA13",
+        "pad": 46,
+        "signal": "COMP1_OUT",
+        "instance": "COMP1",
+        "function": {
+          "type": "alternate",
+          "id": "AF14"
+        },
+        "unresolved_refs": []
+      },
+      {
+        "route_id": "descriptor.signal.75",
+        "pin": "PA3",
+        "pad": 17,
+        "signal": "COMP1_OUT",
+        "instance": "COMP1",
+        "function": {
+          "type": "alternate",
+          "id": "AF14"
+        },
+        "unresolved_refs": []
+      },
+      {
+        "route_id": "descriptor.signal.76",
+        "pin": "PB1",
+        "pad": 27,
+        "signal": "COMP1_OUT",
+        "instance": "COMP1",
+        "function": {
+          "type": "alternate",
+          "id": "AF14"
+        },
+        "unresolved_refs": [
+          "IO_structure_comparison:PB1"
+        ]
+      },
+      {
+        "route_id": "descriptor.signal.77",
+        "pin": "PC5",
+        "pad": 25,
+        "signal": "COMP1_OUT",
+        "instance": "COMP1",
+        "function": {
+          "type": "alternate",
+          "id": "AF14"
+        },
+        "unresolved_refs": []
+      },
+      {
+        "route_id": "descriptor.signal.78",
+        "pin": "PC1",
+        "pad": 9,
+        "signal": "COMP2_INM1",
+        "instance": "COMP2",
+        "function": {
+          "type": "analog"
+        },
+        "unresolved_refs": []
+      },
+      {
+        "route_id": "descriptor.signal.79",
+        "pin": "PC5",
+        "pad": 25,
+        "signal": "COMP2_INM2",
+        "instance": "COMP2",
+        "function": {
+          "type": "analog"
+        },
+        "unresolved_refs": []
+      },
+      {
+        "route_id": "descriptor.signal.80",
+        "pin": "PA2",
+        "pad": 16,
+        "signal": "COMP2_INM3",
+        "instance": "COMP2",
+        "function": {
+          "type": "analog"
+        },
+        "unresolved_refs": []
+      },
+      {
+        "route_id": "descriptor.signal.81",
+        "pin": "PA3",
+        "pad": 17,
+        "signal": "COMP2_INP1",
+        "instance": "COMP2",
+        "function": {
+          "type": "analog"
+        },
+        "unresolved_refs": []
+      },
+      {
+        "route_id": "descriptor.signal.82",
+        "pin": "PB15",
+        "pad": 36,
+        "signal": "COMP2_INP2",
+        "instance": "COMP2",
+        "function": {
+          "type": "analog"
+        },
+        "unresolved_refs": [
+          "IO_structure_comparison:PB15"
+        ]
+      },
+      {
+        "route_id": "descriptor.signal.83",
+        "pin": "PC0",
+        "pad": 8,
+        "signal": "COMP2_INP3",
+        "instance": "COMP2",
+        "function": {
+          "type": "analog"
+        },
+        "unresolved_refs": []
+      },
+      {
+        "route_id": "descriptor.signal.84",
+        "pin": "PA12",
+        "pad": 45,
+        "signal": "COMP2_OUT",
+        "instance": "COMP2",
+        "function": {
+          "type": "alternate",
+          "id": "AF14"
+        },
+        "unresolved_refs": [
+          "IO_structure_comparison:PA12"
+        ]
+      },
+      {
+        "route_id": "descriptor.signal.85",
+        "pin": "PA2",
+        "pad": 16,
+        "signal": "COMP2_OUT",
+        "instance": "COMP2",
+        "function": {
+          "type": "alternate",
+          "id": "AF14"
+        },
+        "unresolved_refs": []
+      },
+      {
+        "route_id": "descriptor.signal.86",
+        "pin": "PA7",
+        "pad": 23,
+        "signal": "COMP2_OUT",
+        "instance": "COMP2",
+        "function": {
+          "type": "alternate",
+          "id": "AF14"
+        },
+        "unresolved_refs": []
+      },
+      {
+        "route_id": "descriptor.signal.217",
+        "pin": "PA2",
+        "pad": 16,
+        "signal": "OPAMP1_VINM0",
+        "instance": "OPAMP1",
+        "function": {
+          "type": "analog"
+        },
+        "unresolved_refs": []
+      },
+      {
+        "route_id": "descriptor.signal.218",
+        "pin": "PB1",
+        "pad": 27,
+        "signal": "OPAMP1_VINM1",
+        "instance": "OPAMP1",
+        "function": {
+          "type": "analog"
+        },
+        "unresolved_refs": [
+          "IO_structure_comparison:PB1"
+        ]
+      },
+      {
+        "route_id": "descriptor.signal.219",
+        "pin": "PA1",
+        "pad": 15,
+        "signal": "OPAMP1_VINP0",
+        "instance": "OPAMP1",
+        "function": {
+          "type": "analog"
+        },
+        "unresolved_refs": [
+          "IO_structure_comparison:PA1"
+        ]
+      },
+      {
+        "route_id": "descriptor.signal.220",
+        "pin": "PB0",
+        "pad": 26,
+        "signal": "OPAMP1_VINP1",
+        "instance": "OPAMP1",
+        "function": {
+          "type": "analog"
+        },
+        "unresolved_refs": [
+          "IO_structure_comparison:PB0"
+        ]
+      },
+      {
+        "route_id": "descriptor.signal.221",
+        "pin": "PB15",
+        "pad": 36,
+        "signal": "OPAMP1_VINP2",
+        "instance": "OPAMP1",
+        "function": {
+          "type": "analog"
+        },
+        "unresolved_refs": [
+          "IO_structure_comparison:PB15"
+        ]
+      },
+      {
+        "route_id": "descriptor.signal.222",
+        "pin": "PA6",
+        "pad": 22,
+        "signal": "OPAMP1_VOUT",
+        "instance": "OPAMP1",
+        "function": {
+          "type": "analog"
+        },
+        "unresolved_refs": []
+      }
+    ],
+    "package_qualification": "Literal identities copied from hash-bound package-routes.json; all source conflicts, pad qualifications and board limitations remain in force. No new electrical, pin-sharing, debug-pad availability or bridge-conduction qualification. PA5 DAC naming conflict remains unresolved; no DAC2 inferred.",
+    "errata_gate": {
+      "inventory_binding": {
+        "file": "errata.json",
+        "index": 6,
+        "section": "2.4.1",
+        "revision_status": {
+          "Z": "N",
+          "Y": "-"
+        }
+      },
+      "detail": "ES2.4.1 forbids simultaneous COMP1/COMP2 operation on revision Z, with no workaround. Revision Y marks this limitation not applicable; that does not qualify other behavior. Physical revision must be established before concurrency could be considered. Individual operation remains subject to every other gate. DIE_ID0x44F is shared by revisions Z/Y and cannot distinguish them; establish REV_ID or package revision marking.",
+      "evidence": [
+        "ES0676:p1",
+        "ES0676:p2",
+        "ES0676:p3",
+        "ES0676:p6"
+      ]
+    },
+    "finite_source_maps": {
+      "COMP_INPSEL_RM_C542": {
+        "values": {
+          "0": "INP1",
+          "1": "INP2",
+          "4": "INP3",
+          "5": "DAC1_CHx"
+        },
+        "qualification": "Exact-header agreement: INPSEL_1 is 0x4<<20, not 0x2<<20; LL IO3 therefore encodes4 and DAC aliases encode5. Channel identity follows COMP instance. Family Table167 encodings2/3 do not apply to C542.",
+        "evidence": [
+          "RM0522:p712",
+          "COMP.LL_modes_inputs",
+          "header.COMP_INPSEL"
+        ]
+      },
+      "COMP_INMSEL_RM": {
+        "values": {
+          "0": "quarter_VREFINT",
+          "1": "half_VREFINT",
+          "2": "three_quarters_VREFINT",
+          "3": "VREFINT",
+          "5": "INM1",
+          "6": "INM2",
+          "7": "INM3"
+        },
+        "unresolved_selector4": "RM duplicates DAC1_CHx and VSENSE/OPAMP1 rows. LL uses8 for temperature/OPAMP.",
+        "evidence": [
+          "RM0522:p714",
+          "COMP.LL_modes_inputs",
+          "RM0522:p719"
+        ],
+        "reference_controls": "Fractions require SCALEN and BRGEN; full VREFINT uses SCALEN. LL input constants include these controls; selector values alone do not configure the reference path."
+      },
+      "COMP_controls_RM": {
+        "power_mode": {
+          "0": "high_speed_high_power",
+          "1": "medium_speed_medium_power"
+        },
+        "hysteresis": {
+          "0": "none",
+          "1": "low",
+          "2": "medium",
+          "3": "high"
+        },
+        "polarity": {
+          "0": "noninverted",
+          "1": "inverted"
+        },
+        "qualification": "Power encodings2/3 reserved in RM; SDK3 conflict retained. Hysteresis labels do not establish electrical values.",
+        "evidence": [
+          "RM0522:p722",
+          "RM0522:p724"
+        ]
+      },
+      "OPAMP_input_modes": {
+        "VM_SEL": {
+          "0": "VINM0",
+          "1": "VINM1",
+          "2": "internal_divider_PGA",
+          "3": "output_follower"
+        },
+        "VP_SEL": {
+          "0": "VINP0",
+          "1": "VINP1",
+          "2": "VINP2",
+          "3": "internal_DAC_candidate"
+        },
+        "output": {
+          "0": "VOUT_pad",
+          "1": "internal_COMP"
+        },
+        "qualification": "Secondary VMS_SEL interpretation depends on primary VM_SEL; routing is not Cartesian. Internal DAC identity remains conflicted.",
+        "evidence": [
+          "RM0522:p727",
+          "RM0522:p742",
+          "RM0522:p743",
+          "RM0522:p745"
+        ]
+      },
+      "OPAMP_timer_input_mux": {
+        "0": "none",
+        "1": "TIM1_OC6",
+        "2": "TIM2_OC4",
+        "3": "TIM12_OC1",
+        "4": "TIM15_OC2"
+      },
+      "OPAMP_timer_gain_mux": {
+        "0": "none",
+        "1": "TIM1_OC6",
+        "2": "TIM2_OC4",
+        "3": "TIM12_OC2",
+        "4": "TIM15_OC2"
+      },
+      "OPAMP_timer_evidence": [
+        "RM0522:p739",
+        "RM0522:p740",
+        "OPAMP.LL_timer_mux"
+      ],
+      "OPAMP_PGA": {
+        "gain_codes": {
+          "0": 2,
+          "1": 4,
+          "2": 8,
+          "3": 16
+        },
+        "flavor_offsets": {
+          "0": "noninverting",
+          "8": "external_bias_or_inverting",
+          "16": "external_filter",
+          "24": "external_bias_and_filter"
+        },
+        "inverting_alternatives": [
+          -1,
+          -3,
+          -7,
+          -15
+        ],
+        "qualification": "Only literal sums of listed gain codes and flavor offsets are listed by RM. Other encodings unused. Actual gain depends on external circuit and source impedance.",
+        "evidence": [
+          "RM0522:p736",
+          "RM0522:p742",
+          "RM0522:p744"
+        ],
+        "inverting_flavor_offsets": [
+          8,
+          24
+        ]
+      }
+    },
+    "contracts": [
+      {
+        "id": "COMP.lock",
+        "detail": "LOCK makes channel configuration read-only until system reset, including EN/ITEN. This is irreversible within a live session, not a releasable software reservation. HAL Stop and Stop_IT return HAL_ERROR when locked.",
+        "evidence": [
+          "RM0522:p715",
+          "RM0522:p721",
+          "RM0522:p723",
+          "COMP.stop",
+          "COMP.stop_IT"
+        ]
+      },
+      {
+        "id": "COMP.startup_consumers",
+        "detail": "Output is undefined during startup. Downstream critical consumers need stabilization before connection. HAL enables then delays using SystemCoreClock arithmetic; it does not gate already connected timer/output consumers. Delay adequacy is unqualified.",
+        "evidence": [
+          "RM0522:p717",
+          "COMP.activate",
+          "COMP.delay_guards"
+        ]
+      },
+      {
+        "id": "COMP.interrupt_paths",
+        "detail": "Wake EXTI, clock-dependent EXTI and direct CPU interrupt are distinct documented paths. Direct interrupt needs APB clock. HAL handler under USE_HAL_COMP_EXTI consumes EXTI edge flags; API existence does not qualify direct IRQ routing or ownership. Window handler clears paired flags, requiring ownership of both.",
+        "evidence": [
+          "RM0522:p718",
+          "RM0522:p719",
+          "COMP.IRQ"
+        ]
+      },
+      {
+        "id": "COMP.low_power",
+        "detail": "RM describes Sleep/Stop operation but excludes wake when internal reference is switched off. Reference-path stabilization and APB-dependent interrupt conditions remain separate.",
+        "evidence": [
+          "RM0522:p715",
+          "RM0522:p717",
+          "RM0522:p718"
+        ]
+      },
+      {
+        "id": "OPAMP.timer_selection",
+        "detail": "Timer low selects primary input/gain controls; high selects secondary. Input and gain selection are distinct fields and TIM12 channels differ. Selectors5..7 reserved by implementation tables. Delivered timing and analog settling remain unqualified.",
+        "evidence": [
+          "RM0522:p739",
+          "RM0522:p740",
+          "RM0522:p745",
+          "OPAMP.LL_timer_mux"
+        ]
+      },
+      {
+        "id": "OPAMP.locks",
+        "detail": "CSR and TCMR have separate locks cleared by system reset. Start/Stop, SetConfig, Calibrate and DeInit do not verify lock readback. Calibrate can return HAL_OK after its void helper even when CSR writes are locked out; successful handle transitions do not prove hardware changed.",
+        "evidence": [
+          "RM0522:p741",
+          "RM0522:p744",
+          "OPAMP.start_stop",
+          "OPAMP.config",
+          "OPAMP.calibrate",
+          "OPAMP.calibrate_helper",
+          "OPAMP.init_deinit"
+        ]
+      },
+      {
+        "id": "OPAMP.handle_and_configuration",
+        "detail": "Init sets handle state and optionally clock without resetting hardware configuration. SetConfig relies on debug IDLE and replaces input selections with mode defaults. Actual disabled state and ownership must be established, especially before OPAHSM changes.",
+        "evidence": [
+          "OPAMP.init_deinit",
+          "OPAMP.config",
+          "RM0522:p742"
+        ]
+      },
+      {
+        "id": "OPAMP.start_readiness",
+        "detail": "HAL Start enables without stabilization wait. HAL_OK is not an analog readiness or settling guarantee. Electrical timing remains unqualified.",
+        "evidence": [
+          "OPAMP.start_stop"
+        ]
+      },
+      {
+        "id": "OPAMP.calibration_external_effect",
+        "detail": "Calibration temporarily routes output to external VOUT, enables the amplifier and uses user trimming. RM requires external load current not exceed500uA and avoiding pin conflicts during calibration. Helper does not establish external loading/pin conditions. HAL_Delay requires a progressing timebase. It ends disabled and restores mode/output, not previous active operation.",
+        "evidence": [
+          "RM0522:p737",
+          "RM0522:p738",
+          "OPAMP.calibrate",
+          "OPAMP.calibrate_helper"
+        ]
+      },
+      {
+        "id": "OPAMP.calibration_result",
+        "detail": "HAL calibrate returns HAL_OK after a void helper. Final adjustment lacks an independent final success determination. This does not qualify calibrated analog offset. Algorithm direction disagrees with inspected RM prose and remains unresolved.",
+        "evidence": [
+          "OPAMP.calibrate",
+          "OPAMP.calibrate_helper",
+          "RM0522:p737",
+          "RM0522:p741"
+        ]
+      },
+      {
+        "id": "OPAMP.low_power",
+        "detail": "Sleep/Stop preserve OPAMP according to RM; Standby powers down registers and requires reinitialization. This says nothing about continued timer-source operation.",
+        "evidence": [
+          "RM0522:p740"
+        ]
+      },
+      {
+        "id": "COMP.direct_interrupt_lock",
+        "detail": "RM719 describes a level-sensitive direct interrupt, deasserted through ITEN=0 or changing POLARITY. LOCK prevents both configuration changes; locking with ITEN=1 removes these software deassertion methods and can leave an asserted level interrupt. This is conditional on the comparator level, not a claim that locking always asserts it. HAL IRQ handler does no work when USE_HAL_COMP_EXTI is disabled; direct-path servicing remains unqualified.",
+        "evidence": [
+          "RM0522:p719",
+          "RM0522:p721",
+          "RM0522:p723",
+          "COMP.IRQ"
+        ]
+      },
+      {
+        "id": "OPAMP.deinit_residue",
+        "detail": "When CSR writes are permitted, DeInit calls LL ResetConfig, which zeroes trim fields but preserves USERTRIM and LOCK. After calibration has selected user trimming, DeInit can therefore leave zero user trims, not restored factory trims. Subsequent explicit trim writes or reset can change this; no permanent-zero claim. DeInit does not reset TCMR. RM739 says timer mux operation continues with OPAMP clock disabled, so clock gating is not sufficient release.",
+        "evidence": [
+          "OPAMP.init_deinit",
+          "OPAMP.LL_reset",
+          "OPAMP.LL_reset_helper",
+          "OPAMP.calibrate_helper",
+          "RM0522:p737",
+          "RM0522:p739"
+        ]
+      },
+      {
+        "id": "OPAMP.calibration_speed",
+        "detail": "Debug power_mode predicate accepts only NORMAL. The calibration helper does not use that parameter to change OPAHSM; calibration is scoped to the current speed setting. RM describes calibration for each required speed (unused speeds may be omitted); no two-speed calibration is established.",
+        "evidence": [
+          "OPAMP.power_guard",
+          "OPAMP.calibrate",
+          "OPAMP.calibrate_helper",
+          "RM0522:p738"
+        ]
+      }
+    ],
+    "source_derived_SDK_gates": [
+      {
+        "id": "COMP.instance_aliases",
+        "detail": "HAL input predicates accept encoded values without using the instance parameter. DAC channel1/channel2 aliases share encoding; temperature/OPAMP aliases also share encoding. Acceptance does not establish physical source routing for a particular comparator.",
+        "evidence": [
+          "COMP.delay_guards",
+          "COMP.enums",
+          "COMP.LL_modes_inputs"
+        ]
+      },
+      {
+        "id": "COMP.window_concurrency",
+        "detail": "Window activation enables both comparators without revision exclusion. It checks only the first lock under a symmetric-configuration assumption. Require both physical resources and locks verified, plus the revision gate; do not admit a partial/asymmetric window setup.",
+        "evidence": [
+          "COMP.window_activate",
+          "ES0676:p6"
+        ]
+      },
+      {
+        "id": "COMP.blanking_admission",
+        "detail": "HAL accepts family TIM5 sources although C542 lacks TIM5, and COMP1 TIM8_OC5 despite exact RM exclusion. For COMP2 accepted names are not instance-safe: codes3/4 have no assignment on every family, code1 means TIM1_OC6 rather than TIM1_OC5, code6 means LPTIM1_CH1 rather than TIM15_OC2, code7 means LPTIM1_CH2 rather than LPTIM1_OC1. No executable blanking domain.",
+        "evidence": [
+          "COMP.delay_guards",
+          "COMP.LL_blanking",
+          "RM0522:p714",
+          "header.TIM_instances"
+        ]
+      },
+      {
+        "id": "OPAMP.calibration_trim_overflow",
+        "detail": "If CALOUT remains0 at every sampled comparison, helper updates trim16->24->28->30->31 and final increment writes32, outside5-bit trim range. LL setter shifts supplied value without masking it to field width: NMOS32 reachesCSRbit29(TSTREF); PMOS32 reachesbit24(other trim field). Conditional source arithmetic; no compiled/hardware occurrence claimed. Require bounded trim and explicit failed-calibration outcome, not HAL_OK alone.",
+        "evidence": [
+          "OPAMP.calibrate_helper",
+          "OPAMP.LL_trim_setter",
+          "RM0522:p741"
+        ]
+      }
+    ],
+    "conflicts": [
+      {
+        "id": "COMP.power_mode",
+        "detail": "RM reserves power codes2/3; LL/HAL admit ultra-low-power3. DS ultralow-power label is not evidence resolving register encoding.",
+        "evidence": [
+          "RM0522:p722",
+          "RM0522:p724",
+          "DS15135:p17",
+          "COMP.LL_modes_inputs",
+          "COMP.delay_guards",
+          "COMP.enums"
+        ]
+      },
+      {
+        "id": "COMP.INMSEL",
+        "detail": "RM714 duplicates selector4 for DAC and VSENSE/OPAMP, whereas LL assigns temperature/OPAMP8. Preserve duplicate source rows and SDK disagreement.",
+        "evidence": [
+          "RM0522:p714",
+          "COMP.LL_modes_inputs"
+        ]
+      },
+      {
+        "id": "OPAMP.internal_DAC_name",
+        "detail": "RM727 calls internal input dac2_int; LL names DAC1_CH2. Exact device has DAC1, not a qualified DAC2 instance. No executable internal loopback admitted.",
+        "evidence": [
+          "RM0522:p727",
+          "OPAMP.LL_internal_input"
+        ]
+      },
+      {
+        "id": "OPAMP.gain_bit_description",
+        "detail": "RM742/744 prose names gain bits[2:1] but literal gain encodings vary low bits0..1; RM736 says[2:0]. Preserve prose/table discrepancy and literal listed codes without operational admission.",
+        "evidence": [
+          "RM0522:p736",
+          "RM0522:p742",
+          "RM0522:p744"
+        ]
+      },
+      {
+        "id": "OPAMP.calibration_search_direction",
+        "detail": "RM737/741 describes increasing trim until CALOUT transitions1 to0. HAL helper decreases trim when CALOUT1 and increases when0. Source directions disagree; no corrected algorithm or calibration success inferred.",
+        "evidence": [
+          "RM0522:p737",
+          "RM0522:p741",
+          "OPAMP.calibrate_helper"
+        ]
+      },
+      {
+        "id": "OPAMP.calibration_FORCE_VP",
+        "detail": "RM742 states CALSEL applies when CALON and FORCE_VP are set; RM737 describes CALON alone. LL calibration mode sets CALON only and the helper does not establish FORCE_VP. Preserve unresolved requirement; no algorithm correction inferred.",
+        "evidence": [
+          "RM0522:p737",
+          "RM0522:p742",
+          "OPAMP.LL_calibration_mode",
+          "OPAMP.calibrate_helper"
+        ]
+      },
+      {
+        "id": "COMP.WINMODE_field_prose",
+        "detail": "RM window-mode prose names INPSEL[1:0], whereas exact C542 header and Table169 require selector bit2 for encodings4/5. Preserve prose width discrepancy; exact LL numeric encodings agree with Table169.",
+        "evidence": [
+          "RM0522:p722",
+          "RM0522:p724",
+          "RM0522:p712",
+          "header.COMP_INPSEL"
+        ]
+      }
+    ],
+    "open_gates": [
+      "No executable COMP/OPAMP profiles or internal loopback chains",
+      "Physical silicon revision and ES2.4.1 concurrency admission",
+      "Resolve exact selector/power/blanking and calibration source conflicts",
+      "Electrical ranges, hysteresis values, stabilization, loading and measured accuracy",
+      "Complete EXTI/direct IRQ/timer consumer ownership and stop/release lifecycle",
+      "Package pad sharing, debug ownership, actual board population and bridges",
+      "Full SDK argument guards, SVD register reconciliation and calibration qualification",
+      "Independent root and Claude review; no build or hardware observation"
+    ]
+  }
+}

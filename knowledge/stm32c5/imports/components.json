@@ -1,0 +1,18 @@
+{
+  "rule_sources": [],
+  "sdk": "stm32-hal2-2.1.0",
+  "schema": 1,
+  "packs": [
+    {
+      "authority": "manufacturer_machine_readable",
+      "project_prefix": "stm32c5xx_drivers",
+      "id": "c5-hal-2.1.0",
+      "asset_root": "c5_hal_pack",
+      "sha256": "c85e47ac2a60f6e0c0750a8ae8bacd749d02c9eae24e6606c509aee261ed43cb",
+      "path": "c5-hal-2.1.0.pdsc",
+      "uri": "pack://STMicroelectronics.stm32c5xx_hal_drivers/2.1.0/STMicroelectronics.stm32c5xx_hal_drivers.pdsc",
+      "revision": "2.1.0"
+    }
+  ],
+  "rules": []
+}

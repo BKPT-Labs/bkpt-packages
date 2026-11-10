@@ -1,0 +1,489 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/watchdog-contracts.json",
+    "sha256": "3dc00beca3553199f6bcd957bf358157954d3819c5107818c02a75bee68d55df"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 41
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "schema": "bkpt.external.watchdog.contracts.v1",
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "sources": {
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "HAL_IWDG": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_iwdg.c",
+        "sha256": "c48281be1fb6dc4813a6be264080ddd2dd8d7eb03a66a4b71d66c67592ca9f4c"
+      },
+      "HAL_WWDG": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_wwdg.c",
+        "sha256": "40ad668dd3f3782f175a3e952b06c478b3d9cdef108de2348f9b22b2e189d771"
+      },
+      "LL_WWDG": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_wwdg.h",
+        "sha256": "b964a72fed6a28566fe7bdbdd3a78355f4887b74f277472022b2aae12ee60296"
+      },
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "LL_IWDG": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_iwdg.h",
+        "sha256": "e306ee6c8476a1ea02dec48cb7cde65338767bfd9e496edf6fff2f39a2325ef8"
+      }
+    },
+    "evidence": {
+      "header.instances": {
+        "source": "header",
+        "start_line": 14102,
+        "end_line": 14105,
+        "sha256": "7ba09206da6afa9bae077621de9d972c01de23163efc8680240c3592e8108989"
+      },
+      "IWDG.start": {
+        "source": "HAL_IWDG",
+        "start_line": 397,
+        "end_line": 473,
+        "sha256": "2dc82a9c64363e36a78ec0a139f2fead9f45a23e31044e9855d2876d91491a32"
+      },
+      "IWDG.refresh": {
+        "source": "HAL_IWDG",
+        "start_line": 491,
+        "end_line": 499,
+        "sha256": "f2719accb3a30933c60346305208a4b374083469268dc799da50fd856a7f56c8"
+      },
+      "IWDG.window_set": {
+        "source": "HAL_IWDG",
+        "start_line": 607,
+        "end_line": 642,
+        "sha256": "a49e20c93b76a2e525c708ecb626ed660d7a936d494271fca1f0c44b3edfffef"
+      },
+      "IWDG.early_set": {
+        "source": "HAL_IWDG",
+        "start_line": 668,
+        "end_line": 704,
+        "sha256": "99b2ad4134826ba15d562144709ad2f9e5a44b663fd16281bbdc64ba4e296dd7"
+      },
+      "IWDG.LSI_set": {
+        "source": "HAL_IWDG",
+        "start_line": 721,
+        "end_line": 759,
+        "sha256": "dd6486f267efec8f8c95d7ed4db2891e4162752e6ceebcba97782e9c5ae969b8"
+      },
+      "IWDG.IRQ": {
+        "source": "HAL_IWDG",
+        "start_line": 788,
+        "end_line": 802,
+        "sha256": "6cd36a602f33c46a8012118d555dc77828e608753106ec70cd383032109b7f23"
+      },
+      "IWDG.config_helpers": {
+        "source": "HAL_IWDG",
+        "start_line": 1059,
+        "end_line": 1104,
+        "sha256": "7ef4b28f674c2ccfb7f8c9e6b5a5f4b179ccd336e28ab6f46be091e1a8385d26"
+      },
+      "WWDG.start": {
+        "source": "HAL_WWDG",
+        "start_line": 378,
+        "end_line": 425,
+        "sha256": "3a5f404113f48cd8da99566ab0ef08b5f3cd7a331fa0ebd66dfb7493b349c588"
+      },
+      "WWDG.refresh": {
+        "source": "HAL_WWDG",
+        "start_line": 442,
+        "end_line": 450,
+        "sha256": "b893e7f807f6188f37a872b135176bc7780db1d7ddbe5000a6194b71676f0a6e"
+      },
+      "WWDG.IRQ": {
+        "source": "HAL_WWDG",
+        "start_line": 615,
+        "end_line": 632,
+        "sha256": "bfb17ae02d62c848041013f465cfb256ec6cd1fef31fdca1d83cb4ec4d438515"
+      },
+      "WWDG.LL_controls": {
+        "source": "LL_WWDG",
+        "start_line": 307,
+        "end_line": 341,
+        "sha256": "5c806c4f4b2c94c5f9b7b365fa46e27a8a76cf75466086ead8ad7ad8949b528d"
+      },
+      "RM0522:p1528": {
+        "source": "RM0522",
+        "page": 1528,
+        "sha256": "99df0c0bb8855915be98b0a34a7e663b0a59d2b01e6d9c7f92aaa3ccac80c258"
+      },
+      "RM0522:p1529": {
+        "source": "RM0522",
+        "page": 1529,
+        "sha256": "7bb8b57d12ca3155cf0a83eeadcb6e3da8c57f228ea392138db32fe68a62f53d"
+      },
+      "RM0522:p1530": {
+        "source": "RM0522",
+        "page": 1530,
+        "sha256": "3693544d8b2d827a52f74291f02a2539f10378b598589986b8b5048c304be1cf"
+      },
+      "RM0522:p1531": {
+        "source": "RM0522",
+        "page": 1531,
+        "sha256": "9e53fc713231df06d1a014ea4d706479fec52e1717ffa0d80174987aa13b4cae"
+      },
+      "RM0522:p1532": {
+        "source": "RM0522",
+        "page": 1532,
+        "sha256": "a728b62cd8757a0023b94adab51e669ea70e9ed38f05046851b3afb74ca14744"
+      },
+      "RM0522:p1533": {
+        "source": "RM0522",
+        "page": 1533,
+        "sha256": "437b0d0caf205e040d9923a63c1ad6c905bff2d7ccb1d630b1f7cc0fe9aebbe3"
+      },
+      "RM0522:p1534": {
+        "source": "RM0522",
+        "page": 1534,
+        "sha256": "8ffe563427ab33d75ad10e70b5c02ec96c3bf7666b9fe7204c4c3b868bae51dd"
+      },
+      "RM0522:p1535": {
+        "source": "RM0522",
+        "page": 1535,
+        "sha256": "adb1cc19b957215ea3fdf3ccf46d469022a0ee3b12cf3fce918e6e03dc382f02"
+      },
+      "RM0522:p1536": {
+        "source": "RM0522",
+        "page": 1536,
+        "sha256": "a7102ba6803bc70e33b808b81425f464818d0ca4065285359a6ad09228ec4005"
+      },
+      "RM0522:p1537": {
+        "source": "RM0522",
+        "page": 1537,
+        "sha256": "83cc6e6576e9b804a64b25b74433d8cfc2e6f45c565c2a2d5b30e2ad7e590fa4"
+      },
+      "RM0522:p1538": {
+        "source": "RM0522",
+        "page": 1538,
+        "sha256": "266f9f8665ee148c1ab5372643969b9b0430a3185e0fd7b335cb0dce5423e1d9"
+      },
+      "RM0522:p1539": {
+        "source": "RM0522",
+        "page": 1539,
+        "sha256": "a089ac621c827d5f29828e23311f6b8f2cf7863c7c81da6f1635e8cc397481f8"
+      },
+      "RM0522:p1540": {
+        "source": "RM0522",
+        "page": 1540,
+        "sha256": "63a5cd028b1c34357b6f014ec1f5c51cf706f858bd662fa674e5ebfc60b25159"
+      },
+      "RM0522:p1541": {
+        "source": "RM0522",
+        "page": 1541,
+        "sha256": "4aca7260a66e78ce3355dac01a31b58ab29f84c9ee1063e18c72693e3b576e16"
+      },
+      "RM0522:p1542": {
+        "source": "RM0522",
+        "page": 1542,
+        "sha256": "3347b73155acb9f26a154467ace563d18fd69ad2fc765d0e877d177f25a4bab9"
+      },
+      "RM0522:p1543": {
+        "source": "RM0522",
+        "page": 1543,
+        "sha256": "75cb9a11b46fc7e1267d847879001286ffdaacabcc43ffef87b28b1884771c54"
+      },
+      "RM0522:p1544": {
+        "source": "RM0522",
+        "page": 1544,
+        "sha256": "c16e432272d65360d77ef77bb300be3f51d59944f8f5c385a9fac6b5aa520207"
+      },
+      "RM0522:p1545": {
+        "source": "RM0522",
+        "page": 1545,
+        "sha256": "6079fd19eec0edb5407664c12fdfb017e4d9e6089fdb956be5c12eaa9639ab66"
+      },
+      "RM0522:p1546": {
+        "source": "RM0522",
+        "page": 1546,
+        "sha256": "bd45722e8da33dcd78de1b9cf93434db665c8bc4cad14660e29388840bb4df84"
+      },
+      "RM0522:p1547": {
+        "source": "RM0522",
+        "page": 1547,
+        "sha256": "b665e385dbd45c95eacd6546e2be61919210503c78fc1700b25a5f5c68216ac1"
+      },
+      "RM0522:p1548": {
+        "source": "RM0522",
+        "page": 1548,
+        "sha256": "db0d22fb7c24e43a3a284de528f15e06017f4b641f7f09a3d2ffe033128d4751"
+      },
+      "RM0522:p1549": {
+        "source": "RM0522",
+        "page": 1549,
+        "sha256": "59f2e3f1a142a290d3255c7a9e8addcb01612d674088c0dabb48d34d0d3926a0"
+      },
+      "RM0522:p1550": {
+        "source": "RM0522",
+        "page": 1550,
+        "sha256": "6905c5332a6feefe8a2f181afaba6c4f2dcb2d285d4220425c17b87fa9c1a69c"
+      },
+      "WWDG.LL_EWI_enable": {
+        "source": "LL_WWDG",
+        "start_line": 290,
+        "end_line": 292,
+        "sha256": "cd4c9774ea1d580b620627ebfbdf87398840d9bc767bffd887a6a2aa67d1b3f4"
+      },
+      "IWDG.LL_window": {
+        "source": "LL_IWDG",
+        "start_line": 238,
+        "end_line": 241,
+        "sha256": "8031da6c21504fc6f6002a21b7c5fed7a76658635434735463c66517c00c598b"
+      },
+      "IWDG.LL_EWI_disable": {
+        "source": "LL_IWDG",
+        "start_line": 303,
+        "end_line": 306,
+        "sha256": "759753430186aac880c52e9dca655b16bb99680503d8afce9a9fad66d1fac0f5"
+      },
+      "IWDG.LL_EWIF_clear": {
+        "source": "LL_IWDG",
+        "start_line": 420,
+        "end_line": 423,
+        "sha256": "8e54ee32c84326a91e790fe5c326342c6a1da1283666da1dcc11738211c81c55"
+      },
+      "IWDG.LL_reload": {
+        "source": "LL_IWDG",
+        "start_line": 138,
+        "end_line": 141,
+        "sha256": "cbb6a48e8bfcccbe8ac4dd37510348ef4140d540660327c3fadf0f4673ce7c72"
+      },
+      "WWDG.calculate_reload": {
+        "source": "HAL_WWDG",
+        "start_line": 765,
+        "end_line": 783,
+        "sha256": "42b2206df235505b62f08e5ac684822048797a89a8ff94711dfcf82a7b389248"
+      }
+    },
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "review": "pending_independent_source_review",
+    "contracts": [
+      {
+        "id": "start_is_not_reversible_stop",
+        "detail": "Once started, IWDG stops only via its reset; WWDG WDGA clears only on reset. Hardware option mode can start them automatically. Neither is a freely start/stop peripheral; no watchdog start, option-byte mutation or reset is authorized by this artifact.",
+        "evidence": [
+          "RM0522:p1530",
+          "RM0522:p1538",
+          "RM0522:p1546",
+          "RM0522:p1549"
+        ]
+      },
+      {
+        "id": "IWDG.clocks_power",
+        "detail": "LSI clocks the watchdog function in VDD; APB clocks register/IRQ interface in VCORE. IWDG may run in Stop/Standby according to option bytes; wake interrupt can exit Stop but not Standby. Debug freeze is a separate configuration, not automatic on attach.",
+        "evidence": [
+          "RM0522:p1528",
+          "RM0522:p1529",
+          "RM0522:p1534",
+          "RM0522:p1535"
+        ]
+      },
+      {
+        "id": "IWDG.keys_and_shadow_updates",
+        "detail": "KR 0xCCCC starts and locks;0x5555 unlocks protected PR/RLR/WINR/EWCR;0xAAAA refreshes and locks; other values lock. Reads of PR/RLR/WINR/EWCR are valid only after their corresponding update flag clears. Wait for the corresponding flag before rewriting, and complete synchronization before removing required clocks/entering low power.",
+        "evidence": [
+          "RM0522:p1534",
+          "RM0522:p1535",
+          "RM0522:p1538",
+          "RM0522:p1539",
+          "RM0522:p1540",
+          "RM0522:p1541",
+          "RM0522:p1542"
+        ]
+      },
+      {
+        "id": "IWDG.refresh_side_effects",
+        "detail": "EWCR writes cause automatic reload; HAL Start writes EWCR even when disabling EWI through a read-modify-write. WINR reload wording conflicts: RM1531 says when the value changes, RM1532/1534 say on a write. Preserve that distinction rather than asserting unchanged writes always reload. Configuration can shift deadlines; a new refresh while the prior refresh is incomplete is ignored. Whether automatic WINR/EWCR reloads are window-checked remains unresolved. HAL ConfigureMinTime uses an ordinary KR refresh when a nonzero computed window equals the current window; SetMinTime or active re-Start can therefore request a window-checked refresh. A request above WIN+1 can cause reset per RM1531; equality remains disputed. HAL_OK does not prove each refresh was consumed.",
+        "evidence": [
+          "RM0522:p1531",
+          "RM0522:p1532",
+          "RM0522:p1533",
+          "RM0522:p1534",
+          "RM0522:p1535",
+          "RM0522:p1536",
+          "IWDG.start",
+          "IWDG.window_set",
+          "IWDG.config_helpers",
+          "IWDG.LL_window",
+          "IWDG.LL_EWI_disable",
+          "IWDG.LL_reload"
+        ]
+      },
+      {
+        "id": "IWDG.start_error_lifetime",
+        "detail": "HAL Start enables IWDG before waiting for synchronization. Timeout exits lock writes and return HAL_ERROR but cannot undo the already-started watchdog. Global state can already be ACTIVE. Recovery policy must account for remaining watchdog deadlines and an advancing HAL tick; no hardware timeout behavior observed.",
+        "evidence": [
+          "RM0522:p1530",
+          "IWDG.start"
+        ]
+      },
+      {
+        "id": "IWDG.parameter_prerequisites",
+        "detail": "PR encodes divisors4..512 for codes0..7 and1024 for remaining encodings. Reload is12bits; RM recommends not below2. EWIT must exceed1 when used. Requested time conversion and LSI tolerance are not qualified here. Dynamic LSI setter only stores a caller-provided frequency in the handle; it does not measure/calibrate the oscillator.",
+        "evidence": [
+          "RM0522:p1539",
+          "RM0522:p1542",
+          "IWDG.LSI_set"
+        ]
+      },
+      {
+        "id": "IWDG.window_and_EWI",
+        "detail": "Reset-point wording conflicts: RM1530/1538 say counter reaches0, while1531 says refresh before reaching1; no exact last-safe boundary is admitted. Window upper-bound equality wording also conflicts. EWI source describes EWIT-1 while a summary table says EWIT; exact boundary remains unresolved. EWI flag clears via ICR.EWIC write1, independent of refresh. HAL ConfigureEarlyWakeupInterruptTime clears EWIF before enabling EWIE for a nonzero requested wakeup, unlike WWDG Start.",
+        "evidence": [
+          "RM0522:p1530",
+          "RM0522:p1531",
+          "RM0522:p1535",
+          "RM0522:p1537",
+          "RM0522:p1538",
+          "RM0522:p1541",
+          "RM0522:p1542",
+          "IWDG.config_helpers",
+          "IWDG.LL_EWIF_clear",
+          "WWDG.start"
+        ]
+      },
+      {
+        "id": "WWDG.window_and_clock",
+        "detail": "Counter is7bits and free-runs even while watchdog disabled. Once activated, reset occurs on0x40->0x3f; valid refresh requires current count>0x3f and<=window. CR writes need T6=1 to avoid immediate reset. Counter clock derives from PCLK divided by4096 then2^WDGTB, WDGTB0..7. Prescaler phase introduces timing range; nominal timeout formula is not a precise refresh deadline.",
+        "evidence": [
+          "RM0522:p1544",
+          "RM0522:p1545",
+          "RM0522:p1546",
+          "RM0522:p1547",
+          "RM0522:p1549"
+        ]
+      },
+      {
+        "id": "WWDG.EWI_lifetime",
+        "detail": "EWIF sets at0x40 even if interrupt disabled and clears by writing0; IWDG uses a different write1-clear register. WWDG EWI enable is set-only until reset. HAL Start with ewi_status=0 cannot be treated as disabling an already enabled EWI. Both HAL IRQ handlers clear flags then call callbacks; neither inspected handler automatically refreshes.",
+        "evidence": [
+          "RM0522:p1548",
+          "RM0522:p1549",
+          "RM0522:p1550",
+          "WWDG.start",
+          "WWDG.IRQ",
+          "IWDG.IRQ"
+        ]
+      },
+      {
+        "id": "WWDG.reconfigure_and_refresh",
+        "detail": "HAL Start accepts ACTIVE through debug assertions, captures PCLK1, writes enabled/reloaded CR before new CFR prescaler/window. Reconfiguration must satisfy the old live window at that write; accepting ACTIVE is not sufficient safety. HAL Refresh writes stored reload without checking live window. Clock changes invalidate a prior timing plan.",
+        "evidence": [
+          "RM0522:p1545",
+          "RM0522:p1546",
+          "WWDG.start",
+          "WWDG.refresh",
+          "WWDG.LL_controls"
+        ]
+      },
+      {
+        "id": "WWDG.low_power_debug",
+        "detail": "WWDG does not operate in Stop/Standby per exact feature table; debug freeze is separately configured. A low-power transition is not a generic software stop/deinitialize operation.",
+        "evidence": [
+          "RM0522:p1544",
+          "RM0522:p1547",
+          "RM0522:p1548"
+        ]
+      },
+      {
+        "id": "WWDG.initial_EWI_pending",
+        "detail": "RM1548 requires clearing unwanted EWIF before enabling EWI; HAL Start enables EWI without a preceding flag clear, and LL enable only sets CFR.EWI. RM1550 says EWIF sets even if its interrupt is disabled, but RM1544 qualifies EWI by watchdog activation. These passages do not establish EWIF generation while WDGA=0. A stale flag on re-Start while active remains a source-supported concern; Start does not itself establish a clean pending-flag state. This is a prerequisite gap, not evidence of a pending flag before first activation or observed interrupt behavior.",
+        "evidence": [
+          "RM0522:p1544",
+          "RM0522:p1548",
+          "RM0522:p1550",
+          "WWDG.start",
+          "WWDG.LL_EWI_enable"
+        ]
+      },
+      {
+        "id": "IWDG.update_preflight_gap",
+        "detail": "HAL Start writes PR/RLR before its RVU wait and configures EWCR/WINR before its final update-flag wait; it does not first establish PVU/RVU/EWU/WVU clear for the respective writes. ACTIVE re-Start is accepted by debug assertions. RM requires corresponding flags clear before updating; re-entry while an earlier update remains pending, including after HAL_ERROR, can therefore lose intended writes despite a later HAL_OK. SetMinTime and SetEarlyWakeupInterruptTime also read PR without checking PVU; their timing computation does not establish that the prescaler read was valid. Require serialized ownership, clear update flags before reads/writes, and independent configuration verification; no dropped write was observed on hardware.",
+        "evidence": [
+          "IWDG.start",
+          "IWDG.window_set",
+          "IWDG.early_set",
+          "IWDG.config_helpers",
+          "RM0522:p1539",
+          "RM0522:p1540",
+          "RM0522:p1541",
+          "RM0522:p1542"
+        ]
+      },
+      {
+        "id": "WWDG.release_arithmetic_admission",
+        "detail": "WWDG_CalculateReload returns a uint16_t calculated value; Start passes the stored reload to LL_WWDG_SetControl, which writes the whole CR with WDGA and the supplied value, without masking to T[6:0]. Input bounds in Start are debug assertions. Out-of-domain arithmetic is not safely clamped: for example, a supplied reload of0x80 yields T=0 with WDGA set, for which RM1549 specifies immediate reset. Values>=0x80 can affect bits outside T; their consequences depend on the resulting low7bits and reserved-bit writes. This is a source-derived conditional example, not a demonstrated reachable valid-input result or hardware failure. Full overflow, truncation, rounding and release-build input validation remain open.",
+        "evidence": [
+          "WWDG.start",
+          "WWDG.calculate_reload",
+          "WWDG.LL_controls",
+          "RM0522:p1549"
+        ]
+      }
+    ],
+    "conflicts": [
+      {
+        "id": "IWDG.window_equality",
+        "detail": "RM1531 says reset when counter>WIN+1, while1541 says refresh only when counter<WIN+1 and>1. Equality at WIN+1 is not resolved by this candidate.",
+        "evidence": [
+          "RM0522:p1531",
+          "RM0522:p1541"
+        ]
+      },
+      {
+        "id": "IWDG.EWI_boundary",
+        "detail": "RM1535/1542 specify EWIT-1 or <=EWIT-1; Table384 on1537 says reaches EWIT. Preserve the summary/detail discrepancy.",
+        "evidence": [
+          "RM0522:p1535",
+          "RM0522:p1537",
+          "RM0522:p1542"
+        ]
+      },
+      {
+        "id": "IWDG.WINR_write_vs_change",
+        "detail": "RM1531 promises reload when the window value changes; RM1532/1534 describe reload on a WINR write. Unchanged-write behavior and window checking of automatic WINR/EWCR refreshes are not resolved. HAL skips an unchanged nonzero window write and requests an ordinary KR refresh instead.",
+        "evidence": [
+          "RM0522:p1531",
+          "RM0522:p1532",
+          "RM0522:p1534",
+          "IWDG.config_helpers",
+          "IWDG.LL_reload"
+        ]
+      },
+      {
+        "id": "IWDG.reset_point",
+        "detail": "RM1530/1538 describe reset when IWDCNT reaches0; RM1531 says reset unless refreshed before reaching1. Preserve this boundary discrepancy; do not derive a last-safe scheduling instant.",
+        "evidence": [
+          "RM0522:p1530",
+          "RM0522:p1531",
+          "RM0522:p1538"
+        ]
+      }
+    ],
+    "open_gates": [
+      "Full timing arithmetic, rounding/overflow and release-build validation audit",
+      "Actual LSI/PCLK bounds, clock changes, prescaler phase and scheduler/interrupt latency margins",
+      "Option-byte state and reset policy; no option programming or hardware execution authorized",
+      "Physical ownership across handles and callback paths, including hardware-start conditions",
+      "Exact SVD/header register-side-effect reconciliation and downstream importer behavior",
+      "Independent source review; no whole-device or watchdog operation qualified"
+    ]
+  }
+}

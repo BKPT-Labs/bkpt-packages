@@ -1,0 +1,2305 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/composition.json",
+    "sha256": "54516e25013d6f4e71b89346974d8229efd87b0fe9140e48399165ff70e9a4ff"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 61
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "schema": "bkpt.c5-composition-candidate/1",
+    "publication": "unpublished",
+    "target": {
+      "device": "STM32C542RCT6",
+      "device_group": "STM32C542xx",
+      "package": "LQFP64",
+      "silicon_revision": "unknown",
+      "sdk": "stm32c5-hal2-2.1.0"
+    },
+    "base_candidate_sha256": "218a49767ba2ecf9e6e631a4109e4d76d7998e0b075395a32ec29ee1087c9336",
+    "sources": {
+      "DS15135": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pdf",
+        "sha256": "1a3555f799297774a95978ab343ebc1f45ab9ef58d0dcf3600dec4fabed9355c",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pages.json",
+        "extraction_sha256": "b14b965adb6c1545edbca0e56b3c504e7ecc3a94bda197350ce2757b5a3d55dc"
+      },
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "ES0676": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pdf",
+        "sha256": "a5463827337bcdbd3e5f2e0912a56307d78b568e5631b21cc9a25899c7d4a5e6",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pages.json",
+        "extraction_sha256": "2ab1b19e42b53e22ff5f3b98f6ed9a5f98f3b7b61a617abc3bb3b7fc050d1cb3"
+      },
+      "stm32c5xx_drivers/hal/stm32c5xx_hal_gpio.c": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_gpio.c",
+        "sha256": "3cf4bda1afb86547321e90bf6e762c813050994076a03a2630b27740c8bafb11",
+        "kind": "SDK_source",
+        "version_context": "pinned_HAL2_2.1.0"
+      },
+      "stm32c5xx_drivers/hal/stm32c5xx_hal_exti.c": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_exti.c",
+        "sha256": "0f8f45695293d91944a3b726cd64ed20b9de456b360ceb48a2ae0b7a17d7732e",
+        "kind": "SDK_source",
+        "version_context": "pinned_HAL2_2.1.0"
+      },
+      "stm32c5xx_drivers/hal/stm32c5xx_hal_exti.h": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_exti.h",
+        "sha256": "0299a6ee6344dd2eb12a528b2db739b2c0e5f495bb0554007c1774eb972ee59e",
+        "kind": "SDK_source",
+        "version_context": "pinned_HAL2_2.1.0"
+      },
+      "stm32c5xx_dfp/Include/stm32c542xx.h": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea",
+        "kind": "SDK_source",
+        "version_context": "pinned_HAL2_2.1.0"
+      },
+      "stm32c5xx_drivers/ll/stm32c5xx_ll_dma.h": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_dma.h",
+        "sha256": "0983050fda989d6c7577c49e52df21ed71055b48490017c20080b7b6e072dacd",
+        "kind": "SDK_source",
+        "version_context": "pinned_HAL2_2.1.0"
+      },
+      "stm32c5xx_drivers/hal/stm32c5xx_hal_rcc.c": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_rcc.c",
+        "sha256": "241ee550685a75c6fcb02006ac3517c3a3c269d6f5cddface18c83ad70b6748f",
+        "kind": "SDK_source",
+        "version_context": "pinned_HAL2_2.1.0"
+      },
+      "stm32c5xx_drivers/hal/stm32c5xx_hal_tim.c": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_tim.c",
+        "sha256": "4c291c794c90050e75c8bb9f9da2d49ade984085f558088ce65eaf01824933e3",
+        "kind": "SDK_source",
+        "version_context": "pinned_HAL2_2.1.0"
+      },
+      "clock_descriptor": {
+        "path": "C:\\Users\\Eddie\\AppData\\Local\\stm32cube\\packs\\STMicroelectronics\\stm32c5xx_dfp\\2.1.0\\Descriptors\\clock\\STM32C542(C-K-R)C(T-U)x_clock.json",
+        "sha256": "6e295905c6786e3e72bcb67d7f082376f1abff26715fe78716ed865a0b79119b",
+        "version": "4.0.0",
+        "qualification": "literal_descriptor_not_measured_clock"
+      }
+    },
+    "evidence": {
+      "sdk.gpio_init": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_gpio.c",
+        "start_line": 93,
+        "end_line": 115,
+        "text_sha256": "73517c699f4ee91f5de455219a2af22d1503043297e4e3a15a06951039f2a931"
+      },
+      "sdk.exti_lifecycle": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_exti.c",
+        "start_line": 60,
+        "end_line": 93,
+        "text_sha256": "3629d845f01d5d2239c85bd486e6fd4094bc4cd3f9da7ee9a730e5f89e23abd2"
+      },
+      "sdk.exti_config": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_exti.c",
+        "start_line": 318,
+        "end_line": 400,
+        "text_sha256": "044cffbf7d35a585ec919f1ecccdb45b976a63b16aad0d192a2e3092079b7b65"
+      },
+      "sdk.exti_enable": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_exti.c",
+        "start_line": 495,
+        "end_line": 537,
+        "text_sha256": "155f63ecebb2d7268a51dfe22121349a7397b2ccbab2f80f4bc9fd48333e392d"
+      },
+      "sdk.exti_irq": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_exti.c",
+        "start_line": 745,
+        "end_line": 807,
+        "text_sha256": "69a8e5317c691580b829b10cffd074f13536f4f6cd294f843dd28efd7d2630a5"
+      },
+      "sdk.exti_callback": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_exti.c",
+        "start_line": 809,
+        "end_line": 842,
+        "text_sha256": "2ee12a5cce3b049a1a71028fc7dc84bbec532ba7b18c088a6783f0e9c0989f06"
+      },
+      "sdk.exti_disable": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_exti.c",
+        "start_line": 540,
+        "end_line": 564,
+        "text_sha256": "394a25c042cefb7a5968bee5e4c46d5e36465c9b285237d6491843f913954696"
+      },
+      "sdk.exti_deinit": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_exti.c",
+        "start_line": 261,
+        "end_line": 308,
+        "text_sha256": "49613f751b68d23fabbf5f19a04b7cd143237862d07907203247af2a83f53471"
+      },
+      "sdk.exti_types": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_exti.h",
+        "start_line": 117,
+        "end_line": 181,
+        "text_sha256": "77d2af31c52bc292a1ba091cb448aa64b24c0f45058ed88c6fa716ebd9235485"
+      },
+      "sdk.exti_irqs": {
+        "source": "stm32c5xx_dfp/Include/stm32c542xx.h",
+        "start_line": 72,
+        "end_line": 87,
+        "text_sha256": "3f709504d1511c9d8a1b414f71a819a19e5040f0079dd9745035a415a61e255b"
+      },
+      "sdk.dma_trigger_modes": {
+        "source": "stm32c5xx_drivers/ll/stm32c5xx_ll_dma.h",
+        "start_line": 296,
+        "end_line": 317,
+        "text_sha256": "a6231c44d44b39d4fc025fd3b14d6cec4df939646938025dada85e4cd8a566e8"
+      },
+      "sdk.dma_exti_triggers": {
+        "source": "stm32c5xx_drivers/ll/stm32c5xx_ll_dma.h",
+        "start_line": 640,
+        "end_line": 648,
+        "text_sha256": "02fd20836c9f91bc2d349ec9a5cc36c8ca266aee055d2a2436304e8c27e4a599"
+      },
+      "sdk.dma2_exti_triggers": {
+        "source": "stm32c5xx_drivers/ll/stm32c5xx_ll_dma.h",
+        "start_line": 703,
+        "end_line": 710,
+        "text_sha256": "f528bd5573060224eaf426bb2a2cde6e4814c7454f089a0a00da08aa651721ed"
+      },
+      "sdk.dma_trigger_scope": {
+        "source": "stm32c5xx_drivers/ll/stm32c5xx_ll_dma.h",
+        "start_line": 663,
+        "end_line": 699,
+        "text_sha256": "eda049922f01a7c329365418c894f083d376c80e76acf0ff065dcf4816cb05d6"
+      },
+      "sdk.rcc_timer": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_rcc.c",
+        "start_line": 3653,
+        "end_line": 3667,
+        "text_sha256": "d7819ea5faa19f6cabbc0dd1d9f088cba32a776866fff511426d9ce0fe30caa4"
+      },
+      "sdk.tim_clock": {
+        "source": "stm32c5xx_drivers/hal/stm32c5xx_hal_tim.c",
+        "start_line": 3855,
+        "end_line": 3862,
+        "text_sha256": "ed0f50cedf513ca264f9cb5105471430099b5c29f894f5e10cbc57e0998e5bb8"
+      },
+      "sdk.tim_instances": {
+        "source": "stm32c5xx_dfp/Include/stm32c542xx.h",
+        "start_line": 14309,
+        "end_line": 14317,
+        "text_sha256": "1f38f98ee74175db70de625f110f48b04075124f3ba2e27f2bcec3f3c96fad25"
+      },
+      "descriptor.elements.48": {
+        "source": "clock_descriptor",
+        "pointer": "/tree/elements/48",
+        "value": {
+          "id": "TIMx_Input_Clock",
+          "type": "editableValue",
+          "label": {
+            "align": "right"
+          },
+          "default": 48000000,
+          "value": 48000000,
+          "description": "",
+          "outputTargets": [],
+          "position": {
+            "x": 1253.5847997540461,
+            "y": 216.70206375909683
+          },
+          "clocked_instance": [
+            "TIM2",
+            "TIM6",
+            "TIM12",
+            "TIM7"
+          ],
+          "unit": {
+            "factor": "1/1000000"
+          },
+          "max": 144000000,
+          "role": "PCLK1TIM",
+          "block": "BUSSES",
+          "isTrustZone": false,
+          "size": {
+            "width": 244.77685546875,
+            "height": 78
+          },
+          "outputClockId": "timx_ck"
+        },
+        "text_sha256": "d0163e775ea662c5fea734571545b77c8e4423b097dc6f5758931c9677374b13"
+      },
+      "descriptor.elements.49": {
+        "source": "clock_descriptor",
+        "pointer": "/tree/elements/49",
+        "value": {
+          "id": "TIMx2_Input_Clock",
+          "type": "editableValue",
+          "label": {
+            "align": "right"
+          },
+          "default": 48000000,
+          "value": 48000000,
+          "description": "",
+          "outputTargets": [],
+          "position": {
+            "x": 1253.5847997540461,
+            "y": 372.50754294941777
+          },
+          "clocked_instance": [
+            "TIM1",
+            "TIM15",
+            "TIM8"
+          ],
+          "unit": {
+            "factor": "1/1000000"
+          },
+          "max": 144000000,
+          "role": "PCLK2TIM",
+          "block": "BUSSES",
+          "isTrustZone": false,
+          "size": {
+            "width": 233.93505859375,
+            "height": 78
+          },
+          "outputClockId": "timx2_ck"
+        },
+        "text_sha256": "21e3a6097d5829ae68c360de578e18078f032e569c311058b6af365f2456f174"
+      },
+      "descriptor.transitions.50": {
+        "source": "clock_descriptor",
+        "pointer": "/tree/transitions/50",
+        "value": {
+          "id": "590e2339-2e83-460c-8e28-19a93a326517",
+          "sourceTaskId": "HCLK_Frequency_output",
+          "targetTaskId": "TIMx_Input_Clock_input",
+          "transitionRoutingPoint": [
+            {
+              "kind": "linear",
+              "x": 987.1332929714797,
+              "y": 177.73377113281873,
+              "pointIndex": 0
+            },
+            {
+              "kind": "linear",
+              "x": 987.0332929714797,
+              "y": 255.70206375909683,
+              "pointIndex": 1
+            }
+          ]
+        },
+        "text_sha256": "a9bcc2e3d72c59665a436d7f8ab0fc81b2f395eaf1de02e479a650003c55363a"
+      },
+      "descriptor.transitions.52": {
+        "source": "clock_descriptor",
+        "pointer": "/tree/transitions/52",
+        "value": {
+          "id": "c1a9f3d7-cedc-4219-8917-3aba039fc2c0",
+          "sourceTaskId": "HCLK_Frequency_output",
+          "targetTaskId": "TIMx2_Input_Clock_input",
+          "transitionRoutingPoint": [
+            {
+              "kind": "linear",
+              "x": 987.1332929714797,
+              "y": 177.73377113281873,
+              "pointIndex": 0
+            },
+            {
+              "kind": "linear",
+              "x": 987.0832929714798,
+              "y": 411.50754294941777,
+              "pointIndex": 1
+            }
+          ]
+        },
+        "text_sha256": "94046ad952be3fe9ff4a724d970f445fa0b67bd42b530ed4703786280c0d67bc"
+      },
+      "RM0522:p383": {
+        "source": "RM0522",
+        "page": 383,
+        "text_sha256": "ed3ab885be9e571ab3ba0230efa344b125fbacbc09dc127d0019b533cdcc769a",
+        "visual_validation": "not_claimed_here"
+      },
+      "DS15135:p13": {
+        "source": "DS15135",
+        "page": 13,
+        "text_sha256": "ba026b8b364c6db4bbbd938def7bb45af3c5da17c2f4e3957a965e67a8baa06e",
+        "visual_validation": "not_claimed_here"
+      },
+      "RM0522:p408": {
+        "source": "RM0522",
+        "page": 408,
+        "text_sha256": "8cef56f9765faa0601f7f1ebd42d8e2d7b8a7095401683f4e37e98f98ff010a8",
+        "visual_validation": "not_claimed_here"
+      },
+      "RM0522:p430": {
+        "source": "RM0522",
+        "page": 430,
+        "text_sha256": "a892dacf5f85b950df226bc08ddd45d3e5e51d5ff2ffb7fc0479f806a3f9cd9e",
+        "visual_validation": "not_claimed_here"
+      },
+      "RM0522:p434": {
+        "source": "RM0522",
+        "page": 434,
+        "text_sha256": "4d09ae36a51302380605044cf397eeab9295975535b5366b2e9cb83e1fc88ceb",
+        "visual_validation": "not_claimed_here"
+      },
+      "RM0522:p410": {
+        "source": "RM0522",
+        "page": 410,
+        "text_sha256": "265915199c739ad1e2d878c64d05e5c55ef501b4e465d496a28c2f696cc99bd2",
+        "visual_validation": "not_claimed_here"
+      },
+      "RM0522:p433": {
+        "source": "RM0522",
+        "page": 433,
+        "text_sha256": "9e0910612336df4d1b252640857c1730be640a405c832fa0831e08b644570f51",
+        "visual_validation": "not_claimed_here"
+      },
+      "RM0522:p415": {
+        "source": "RM0522",
+        "page": 415,
+        "text_sha256": "d32d2cc2228c113718ccee0df89962b235855c1a24d53eb750de328a8cecc312",
+        "visual_validation": "not_claimed_here"
+      },
+      "RM0522:p414": {
+        "source": "RM0522",
+        "page": 414,
+        "text_sha256": "d35e6f57aedd1bad907469a26c0c6eed9aeaae13d8b8c32c46697c4bbd13b371",
+        "visual_validation": "not_claimed_here"
+      },
+      "RM0522:p432": {
+        "source": "RM0522",
+        "page": 432,
+        "text_sha256": "b9d2b0fd5a137fc8870995e953010eb87393394a566a89590c4ae3b95cd331bd",
+        "visual_validation": "not_claimed_here"
+      },
+      "RM0522:p392": {
+        "source": "RM0522",
+        "page": 392,
+        "text_sha256": "7ffb703bde6311f8304046a76c2034ccfffa4debbd052ef1c560a22713d8ad73",
+        "visual_validation": "not_claimed_here"
+      },
+      "RM0522:p393": {
+        "source": "RM0522",
+        "page": 393,
+        "text_sha256": "a41e38d93fb937f3e5cbdd8dcb3d1bee6ce0bc8f182b9e940cc9e362d16963ee",
+        "visual_validation": "not_claimed_here"
+      },
+      "RM0522:p87": {
+        "source": "RM0522",
+        "page": 87,
+        "text_sha256": "979857ff27a50b4d658525ce23d2d4f605b54d3886d5be51ae4b82564fcf9efd",
+        "visual_validation": "not_claimed_here"
+      },
+      "RM0522:p88": {
+        "source": "RM0522",
+        "page": 88,
+        "text_sha256": "8a95f64a701e3c79702162c2b70cdddd00a9589898d071ec8514e97ad94011db",
+        "visual_validation": "not_claimed_here"
+      },
+      "RM0522:p89": {
+        "source": "RM0522",
+        "page": 89,
+        "text_sha256": "ccf45dfa4c6e8eccf52f850270dd058f5fe15d36009c3d7bbdf9425b3b5d169b",
+        "visual_validation": "not_claimed_here"
+      },
+      "RM0522:p343": {
+        "source": "RM0522",
+        "page": 343,
+        "text_sha256": "8146fbeee16d9ee20551f11895fe622d42834f775a7b090de8b9701e8df7c0aa",
+        "visual_validation": "not_claimed_here"
+      },
+      "RM0522:p450": {
+        "source": "RM0522",
+        "page": 450,
+        "text_sha256": "608cb8ce34dc6880d40513898900c5b0d049ced89401ec0aae972364ef268800",
+        "visual_validation": "not_claimed_here"
+      },
+      "RM0522:p451": {
+        "source": "RM0522",
+        "page": 451,
+        "text_sha256": "7e13f669630590ebfbd7b34fa255ad74a3aaba719333264de0536a8682a1b465",
+        "visual_validation": "not_claimed_here"
+      },
+      "RM0522:p271": {
+        "source": "RM0522",
+        "page": 271,
+        "text_sha256": "d19f60266d8f67a35d953bb0bfda7ec6247a4b6b51d4a36b6361dd6a9ca887c9",
+        "visual_validation": "not_claimed_here"
+      },
+      "RM0522:p1261": {
+        "source": "RM0522",
+        "page": 1261,
+        "text_sha256": "88b67f77558c0add6da4752e55ddf1eac583d25bea4cfbffa4c2d1c53a7bc232",
+        "visual_validation": "not_claimed_here"
+      },
+      "RM0522:p1259": {
+        "source": "RM0522",
+        "page": 1259,
+        "text_sha256": "90d304b1fd43a0035819a2f74361c76a4aa27b279df153cbddf7ee4d513a875b",
+        "visual_validation": "not_claimed_here"
+      },
+      "RM0522:p1262": {
+        "source": "RM0522",
+        "page": 1262,
+        "text_sha256": "6cc8eb69c6b6e7cba7e53144059bb1b32bbd594214ed9cd40ee63596123d1b34",
+        "visual_validation": "not_claimed_here"
+      },
+      "RM0522:p1278": {
+        "source": "RM0522",
+        "page": 1278,
+        "text_sha256": "172eb06c995c815fc26f4116b9e282f59a77bf5cde9753be46c1afde08ee31a9",
+        "visual_validation": "not_claimed_here"
+      },
+      "RM0522:p1279": {
+        "source": "RM0522",
+        "page": 1279,
+        "text_sha256": "6d0af27bce29cfc4a3a9ffeceff724e9baba9dee95372e8ab5e511e56bf84722",
+        "visual_validation": "not_claimed_here"
+      },
+      "RM0522:p1274": {
+        "source": "RM0522",
+        "page": 1274,
+        "text_sha256": "c959cdf6bf258c93c7b4d4696463da2c43dae2cded1e3ba8f0eff3ec5271dfdb",
+        "visual_validation": "not_claimed_here"
+      },
+      "RM0522:p1277": {
+        "source": "RM0522",
+        "page": 1277,
+        "text_sha256": "6f8d0e4b727da1762210402401695be7338f1dd87d46fa539cd56ce8bb488dcb",
+        "visual_validation": "not_claimed_here"
+      },
+      "RM0522:p1275": {
+        "source": "RM0522",
+        "page": 1275,
+        "text_sha256": "ff00c88fea6f9b0b83f571b48c254648fc6aefe0930d02d9478a1df53388684b",
+        "visual_validation": "not_claimed_here"
+      },
+      "RM0522:p388": {
+        "source": "RM0522",
+        "page": 388,
+        "text_sha256": "65a7e878a7e3266a6b310138c6b1429cbe4edb545e5796e16fcd7ed48ee9da04",
+        "visual_validation": "not_claimed_here"
+      },
+      "RM0522:p390": {
+        "source": "RM0522",
+        "page": 390,
+        "text_sha256": "312958f124aa3a675049c7895f6c0a92cf3dfee9399d224d343085f227165b44",
+        "visual_validation": "not_claimed_here"
+      },
+      "RM0522:p389": {
+        "source": "RM0522",
+        "page": 389,
+        "text_sha256": "7d5ded108c546100e7a9e995a7ac92808088b858399a81e5341fe078d59fb1c5",
+        "visual_validation": "not_claimed_here"
+      },
+      "ES0676:p1": {
+        "source": "ES0676",
+        "page": 1,
+        "text_sha256": "c36bb50f3ba55f82de59b1a5aa62c5ca6b1d3ea938ac9451545a442e65dd25c8",
+        "visual_validation": "not_claimed_here"
+      },
+      "ES0676:p2": {
+        "source": "ES0676",
+        "page": 2,
+        "text_sha256": "3fed5303e4a0fc65ed4dbe6aae1c297605837e2da15bb0e24928d26b0d25eb95",
+        "visual_validation": "not_claimed_here"
+      },
+      "ES0676:p3": {
+        "source": "ES0676",
+        "page": 3,
+        "text_sha256": "6682207b964f905ea8f0e452bc5cff546dfb08622fca9ce2f979b0e43cd6d157",
+        "visual_validation": "not_claimed_here"
+      },
+      "RM0522:p1134": {
+        "source": "RM0522",
+        "page": 1134,
+        "text_sha256": "dfe31c7d190827c1619972adb540a99b6058f9932b305634c049e9f45ea8ba8a",
+        "visual_validation": "not_claimed_here"
+      },
+      "DS15135:p20": {
+        "source": "DS15135",
+        "page": 20,
+        "text_sha256": "5fce2a7fa8c3453b62555c778af0d5106fe8c755a4cdb66b2cca792e7e63f0da",
+        "visual_validation": "not_claimed_here"
+      },
+      "DS15135:p21": {
+        "source": "DS15135",
+        "page": 21,
+        "text_sha256": "415dcce808abcec03ac5103b525a2967fd1bac5bcddf7b1222d9a2679ba3ea2b",
+        "visual_validation": "not_claimed_here"
+      }
+    },
+    "rules": [
+      {
+        "id": "dma.channel.domain",
+        "predicate": "channel_domain",
+        "value": {
+          "LPDMA1": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "LPDMA2": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        "evidence": [
+          "RM0522:p383",
+          "DS15135:p13"
+        ],
+        "conditions": [
+          "DS Table2 x=0..4 conflict preserved in base candidate."
+        ],
+        "review": "candidate",
+        "implementation": "not_integrated",
+        "hardware": "not_observed",
+        "errata_coverage": "incomplete"
+      },
+      {
+        "id": "dma.width",
+        "predicate": "single_width_bytes",
+        "value": [
+          1,
+          2,
+          4
+        ],
+        "evidence": [
+          "RM0522:p408",
+          "RM0522:p430"
+        ],
+        "conditions": [],
+        "review": "candidate",
+        "implementation": "not_integrated",
+        "hardware": "not_observed",
+        "errata_coverage": "incomplete"
+      },
+      {
+        "id": "dma.alignment",
+        "predicate": "address_mod_width_equals",
+        "value": 0,
+        "evidence": [
+          "RM0522:p408",
+          "RM0522:p430"
+        ],
+        "conditions": [],
+        "review": "candidate",
+        "implementation": "not_integrated",
+        "hardware": "not_observed",
+        "errata_coverage": "incomplete"
+      },
+      {
+        "id": "dma.block",
+        "predicate": "source_block",
+        "value": {
+          "min_nonzero": 1,
+          "max_bytes": 65535,
+          "multiple_of": "source_width"
+        },
+        "evidence": [
+          "RM0522:p434"
+        ],
+        "conditions": [],
+        "review": "candidate",
+        "implementation": "not_integrated",
+        "hardware": "not_observed",
+        "errata_coverage": "incomplete"
+      },
+      {
+        "id": "dma.request.exclusion",
+        "predicate": "active_hardware_request_capacity",
+        "value": 1,
+        "evidence": [
+          "RM0522:p410",
+          "RM0522:p433"
+        ],
+        "conditions": [
+          "Across-controller reservation is conservative author policy, not proven hardware arbitration scope.",
+          "Hardware request identities are outside the reviewed checker domain; SWREQ=0 requires future finite selector binding.",
+          "Time-sharing requires a separately reviewed schedule; this contract reserves for full lifetime."
+        ],
+        "review": "candidate",
+        "implementation": "not_integrated",
+        "hardware": "not_observed",
+        "errata_coverage": "incomplete"
+      },
+      {
+        "id": "dma.trigger.broadcast",
+        "predicate": "trigger_fanout",
+        "value": "multiple_channels_allowed",
+        "evidence": [
+          "RM0522:p415"
+        ],
+        "conditions": [],
+        "review": "candidate",
+        "implementation": "not_integrated",
+        "hardware": "not_observed",
+        "errata_coverage": "incomplete"
+      },
+      {
+        "id": "dma.trigger.overrun",
+        "predicate": "trigger_overrun",
+        "value": {
+          "pending_hits": 1,
+          "next_hit": "lost_with_TOF",
+          "channel_auto_disables": false
+        },
+        "evidence": [
+          "RM0522:p414",
+          "RM0522:p432"
+        ],
+        "conditions": [],
+        "review": "candidate",
+        "implementation": "not_integrated",
+        "hardware": "not_observed",
+        "errata_coverage": "incomplete"
+      },
+      {
+        "id": "dma.trigger.granularity",
+        "predicate": "TRIGM",
+        "value": {
+          "block": 0,
+          "link": 2,
+          "single": 3
+        },
+        "evidence": [
+          "RM0522:p432",
+          "sdk.dma_trigger_modes"
+        ],
+        "conditions": [],
+        "review": "candidate",
+        "implementation": "not_integrated",
+        "hardware": "not_observed",
+        "errata_coverage": "incomplete"
+      },
+      {
+        "id": "dma.trigger.polarity",
+        "predicate": "TRIGPOL",
+        "value": {
+          "masked": 0,
+          "rising": 1,
+          "falling": 2
+        },
+        "evidence": [
+          "RM0522:p432",
+          "sdk.dma_trigger_modes"
+        ],
+        "conditions": [
+          "RM p432 TRIGSEL prose says active for 00, contradicting TRIGPOL/TRIGM and SDK comments; use only corroborated 01/10 in candidate profiles."
+        ],
+        "review": "candidate",
+        "implementation": "not_integrated",
+        "hardware": "not_observed",
+        "errata_coverage": "incomplete"
+      },
+      {
+        "id": "dma.abort",
+        "predicate": "stop_order",
+        "value": [
+          "set_SUSP",
+          "observe_SUSPF",
+          "set_RESET",
+          "reprogram_before_restart"
+        ],
+        "evidence": [
+          "RM0522:p392",
+          "RM0522:p393"
+        ],
+        "conditions": [
+          "Adapter must also synchronize callbacks and verify physical release before releasing memory."
+        ],
+        "review": "candidate",
+        "implementation": "not_integrated",
+        "hardware": "not_observed",
+        "errata_coverage": "incomplete"
+      },
+      {
+        "id": "dma.bus",
+        "predicate": "reachable_bus_classes",
+        "value": [
+          "FLASH",
+          "SRAM1",
+          "SRAM2",
+          "AHB1/APB1/APB2",
+          "AHB2",
+          "AHB3/APB3"
+        ],
+        "evidence": [
+          "RM0522:p87",
+          "RM0522:p88",
+          "RM0522:p89"
+        ],
+        "conditions": [
+          "Intersect family bus statement with C542 implementation; AHB4 excluded.",
+          "Bus reachability is not permission to read/write every address."
+        ],
+        "review": "candidate",
+        "implementation": "not_integrated",
+        "hardware": "not_observed",
+        "errata_coverage": "incomplete"
+      },
+      {
+        "id": "gpio.input.register",
+        "predicate": "IDR_access",
+        "value": "read_only",
+        "evidence": [
+          "RM0522:p343"
+        ],
+        "conditions": [],
+        "review": "candidate",
+        "implementation": "not_integrated",
+        "hardware": "not_observed",
+        "errata_coverage": "incomplete"
+      },
+      {
+        "id": "gpio.software_dma",
+        "predicate": "software_request_endpoints",
+        "value": "GPIO_to_or_from_memory_explicitly_described",
+        "evidence": [
+          "RM0522:p410"
+        ],
+        "conditions": [],
+        "review": "candidate",
+        "implementation": "not_integrated",
+        "hardware": "not_observed",
+        "errata_coverage": "incomplete"
+      },
+      {
+        "id": "exti.mux",
+        "predicate": "selected_port_per_numbered_line",
+        "value": 1,
+        "evidence": [
+          "RM0522:p450"
+        ],
+        "conditions": [],
+        "review": "candidate",
+        "implementation": "not_integrated",
+        "hardware": "not_observed",
+        "errata_coverage": "incomplete"
+      },
+      {
+        "id": "exti.delivery",
+        "predicate": "mux_output_independent_of_IMR_EMR",
+        "value": true,
+        "evidence": [
+          "RM0522:p450"
+        ],
+        "conditions": [
+          "Disabling CPU interrupt/event delivery is not quiescence for DMA consumers."
+        ],
+        "review": "candidate",
+        "implementation": "not_integrated",
+        "hardware": "not_observed",
+        "errata_coverage": "incomplete"
+      },
+      {
+        "id": "exti.pending",
+        "predicate": "configurable_pending_clear",
+        "value": "write_1",
+        "evidence": [
+          "RM0522:p451",
+          "sdk.exti_irq"
+        ],
+        "conditions": [
+          "Rising and falling pending states are distinct; direct events use originating peripheral flags."
+        ],
+        "review": "candidate",
+        "implementation": "not_integrated",
+        "hardware": "not_observed",
+        "errata_coverage": "incomplete"
+      },
+      {
+        "id": "exti.callback",
+        "predicate": "callback_registration_requires",
+        "value": {
+          "macro": "USE_HAL_EXTI_REGISTER_CALLBACKS",
+          "value": 1,
+          "states": [
+            "INIT",
+            "IDLE"
+          ],
+          "signature": "void (*)(hal_exti_handle_t *, hal_exti_trigger_t)"
+        },
+        "evidence": [
+          "sdk.exti_types",
+          "sdk.exti_callback"
+        ],
+        "conditions": [
+          "State checks are ASSERT_DBG_STATE, not release-build enforcement; adapter must preflight state."
+        ],
+        "review": "candidate",
+        "implementation": "not_integrated",
+        "hardware": "not_observed",
+        "errata_coverage": "incomplete"
+      },
+      {
+        "id": "exti.release",
+        "predicate": "release_semantics",
+        "value": {
+          "Disable": "masks_IT_and_event_only",
+          "DeInit": "also_disables_edges_clears_pending_and_resets_GPIO_mux_to_port_A"
+        },
+        "evidence": [
+          "sdk.exti_disable",
+          "sdk.exti_deinit"
+        ],
+        "conditions": [
+          "Quiesce all consumers before DeInit; CPU masking alone does not release DMA consumers.",
+          "DeInit lacks a state assertion and resets handle state; SetConfig/Enable/Disable state assertions are debug-only."
+        ],
+        "review": "candidate",
+        "implementation": "not_integrated",
+        "hardware": "not_observed",
+        "errata_coverage": "incomplete"
+      },
+      {
+        "id": "exti.callback.order",
+        "predicate": "IRQ_clears_flags_before_callback",
+        "value": true,
+        "evidence": [
+          "sdk.exti_irq"
+        ],
+        "conditions": [
+          "Callback may report both edges; no edge count or ordering guarantee."
+        ],
+        "review": "candidate",
+        "implementation": "not_integrated",
+        "hardware": "not_observed",
+        "errata_coverage": "incomplete"
+      },
+      {
+        "id": "gpio.clock",
+        "predicate": "clock_before_configuration",
+        "value": true,
+        "evidence": [
+          "sdk.gpio_init",
+          "RM0522:p271"
+        ],
+        "conditions": [
+          "HAL clock-enable model must be pinned; manual gate requires documented two bus cycles."
+        ],
+        "review": "candidate",
+        "implementation": "not_integrated",
+        "hardware": "not_observed",
+        "errata_coverage": "incomplete"
+      },
+      {
+        "id": "timer.kernel.models",
+        "predicate": "non_LPTIM_clock_models",
+        "value": {
+          "RM_RCC": "HCLK",
+          "HAL_calculation": "HCLK",
+          "descriptor": "HCLK",
+          "RM_TIM6_7": "PCLK1"
+        },
+        "evidence": [
+          "RM0522:p271",
+          "RM0522:p1261",
+          "sdk.rcc_timer",
+          "sdk.tim_clock",
+          "sdk.tim_instances",
+          "descriptor.transitions.50",
+          "descriptor.transitions.52"
+        ],
+        "conditions": [
+          "TIM6/7 unequal-HCLK/PCLK1 remains conflicting; no majority-vote resolution.",
+          "SDK frequency getter computes from settings, not measured clock or readiness."
+        ],
+        "review": "candidate",
+        "implementation": "not_integrated",
+        "hardware": "not_observed",
+        "errata_coverage": "incomplete"
+      },
+      {
+        "id": "timer.basic.domain",
+        "predicate": "basic_timer_candidate_domain",
+        "value": {
+          "instances": [
+            "TIM6",
+            "TIM7"
+          ],
+          "hclk_hz": 144000000,
+          "pclk1_hz": 144000000,
+          "psc_min": 0,
+          "psc_max": 65535,
+          "arr_min": 1,
+          "arr_max": 65535,
+          "DITHEN": 0
+        },
+        "evidence": [
+          "RM0522:p1259",
+          "RM0522:p1261",
+          "RM0522:p1262",
+          "RM0522:p1278",
+          "RM0522:p1279"
+        ],
+        "conditions": [
+          "144 MHz is an author-selected foundation constraint, not a maximum-frequency claim.",
+          "Nominal fixed-clock foundation only; electrical frequency tolerance and clock switching are not qualified."
+        ],
+        "review": "candidate",
+        "implementation": "not_integrated",
+        "hardware": "not_observed",
+        "errata_coverage": "incomplete"
+      },
+      {
+        "id": "timer.prescaler.load",
+        "predicate": "PSC_effective_on",
+        "value": "update_event",
+        "evidence": [
+          "RM0522:p1262",
+          "RM0522:p1278"
+        ],
+        "conditions": [],
+        "review": "candidate",
+        "implementation": "not_integrated",
+        "hardware": "not_observed",
+        "errata_coverage": "incomplete"
+      },
+      {
+        "id": "timer.UG.side_effect",
+        "predicate": "UG_can_generate_IRQ_DMA_if",
+        "value": {
+          "URS": 0,
+          "UDIS": 0
+        },
+        "evidence": [
+          "RM0522:p1274",
+          "RM0522:p1277"
+        ],
+        "conditions": [
+          "Initializing buffered PSC/ARR must use an explicit pending/request policy before enabling consumers."
+        ],
+        "review": "candidate",
+        "implementation": "not_integrated",
+        "hardware": "not_observed",
+        "errata_coverage": "incomplete"
+      },
+      {
+        "id": "timer.trigger.clock",
+        "predicate": "TRGO_consumer_clock_requires",
+        "value": {
+          "enabled_before_trigger": true,
+          "no_on_the_fly_change": true
+        },
+        "evidence": [
+          "RM0522:p1275"
+        ],
+        "conditions": [],
+        "review": "candidate",
+        "implementation": "not_integrated",
+        "hardware": "not_observed",
+        "errata_coverage": "incomplete"
+      }
+    ],
+    "gpio_exti_routes": [
+      {
+        "pin": "PE2",
+        "pad": 1,
+        "port": "E",
+        "exti_line": 2,
+        "irq": 9,
+        "irq_symbol": "EXTI2_IRQn",
+        "dma_trigger_selector": 2,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PC13",
+        "pad": 2,
+        "port": "C",
+        "exti_line": 13,
+        "irq": 20,
+        "irq_symbol": "EXTI13_IRQn",
+        "dma_trigger_selector": null,
+        "context_constraints": [
+          "LSE_crystal_interaction_requires_revision_context"
+        ],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PC14",
+        "pad": 3,
+        "port": "C",
+        "exti_line": 14,
+        "irq": 21,
+        "irq_symbol": "EXTI14_IRQn",
+        "dma_trigger_selector": null,
+        "context_constraints": [
+          "OSC32_IN"
+        ],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PC15",
+        "pad": 4,
+        "port": "C",
+        "exti_line": 15,
+        "irq": 22,
+        "irq_symbol": "EXTI15_IRQn",
+        "dma_trigger_selector": null,
+        "context_constraints": [
+          "OSC32_OUT"
+        ],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PH0",
+        "pad": 5,
+        "port": "H",
+        "exti_line": 0,
+        "irq": 7,
+        "irq_symbol": "EXTI0_IRQn",
+        "dma_trigger_selector": 0,
+        "context_constraints": [
+          "OSC_IN"
+        ],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PH1",
+        "pad": 6,
+        "port": "H",
+        "exti_line": 1,
+        "irq": 8,
+        "irq_symbol": "EXTI1_IRQn",
+        "dma_trigger_selector": 1,
+        "context_constraints": [
+          "OSC_OUT"
+        ],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PC0",
+        "pad": 8,
+        "port": "C",
+        "exti_line": 0,
+        "irq": 7,
+        "irq_symbol": "EXTI0_IRQn",
+        "dma_trigger_selector": 0,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PC1",
+        "pad": 9,
+        "port": "C",
+        "exti_line": 1,
+        "irq": 8,
+        "irq_symbol": "EXTI1_IRQn",
+        "dma_trigger_selector": 1,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PC2",
+        "pad": 10,
+        "port": "C",
+        "exti_line": 2,
+        "irq": 9,
+        "irq_symbol": "EXTI2_IRQn",
+        "dma_trigger_selector": 2,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PC3",
+        "pad": 11,
+        "port": "C",
+        "exti_line": 3,
+        "irq": 10,
+        "irq_symbol": "EXTI3_IRQn",
+        "dma_trigger_selector": 3,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PA0",
+        "pad": 14,
+        "port": "A",
+        "exti_line": 0,
+        "irq": 7,
+        "irq_symbol": "EXTI0_IRQn",
+        "dma_trigger_selector": 0,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PA1",
+        "pad": 15,
+        "port": "A",
+        "exti_line": 1,
+        "irq": 8,
+        "irq_symbol": "EXTI1_IRQn",
+        "dma_trigger_selector": 1,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PA2",
+        "pad": 16,
+        "port": "A",
+        "exti_line": 2,
+        "irq": 9,
+        "irq_symbol": "EXTI2_IRQn",
+        "dma_trigger_selector": 2,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PA3",
+        "pad": 17,
+        "port": "A",
+        "exti_line": 3,
+        "irq": 10,
+        "irq_symbol": "EXTI3_IRQn",
+        "dma_trigger_selector": 3,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PA4",
+        "pad": 20,
+        "port": "A",
+        "exti_line": 4,
+        "irq": 11,
+        "irq_symbol": "EXTI4_IRQn",
+        "dma_trigger_selector": 4,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PA5",
+        "pad": 21,
+        "port": "A",
+        "exti_line": 5,
+        "irq": 12,
+        "irq_symbol": "EXTI5_IRQn",
+        "dma_trigger_selector": 5,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PA6",
+        "pad": 22,
+        "port": "A",
+        "exti_line": 6,
+        "irq": 13,
+        "irq_symbol": "EXTI6_IRQn",
+        "dma_trigger_selector": 6,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PA7",
+        "pad": 23,
+        "port": "A",
+        "exti_line": 7,
+        "irq": 14,
+        "irq_symbol": "EXTI7_IRQn",
+        "dma_trigger_selector": 7,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PC4",
+        "pad": 24,
+        "port": "C",
+        "exti_line": 4,
+        "irq": 11,
+        "irq_symbol": "EXTI4_IRQn",
+        "dma_trigger_selector": 4,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PC5",
+        "pad": 25,
+        "port": "C",
+        "exti_line": 5,
+        "irq": 12,
+        "irq_symbol": "EXTI5_IRQn",
+        "dma_trigger_selector": 5,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PB0",
+        "pad": 26,
+        "port": "B",
+        "exti_line": 0,
+        "irq": 7,
+        "irq_symbol": "EXTI0_IRQn",
+        "dma_trigger_selector": 0,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PB1",
+        "pad": 27,
+        "port": "B",
+        "exti_line": 1,
+        "irq": 8,
+        "irq_symbol": "EXTI1_IRQn",
+        "dma_trigger_selector": 1,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PB2",
+        "pad": 28,
+        "port": "B",
+        "exti_line": 2,
+        "irq": 9,
+        "irq_symbol": "EXTI2_IRQn",
+        "dma_trigger_selector": 2,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PB10",
+        "pad": 29,
+        "port": "B",
+        "exti_line": 10,
+        "irq": 17,
+        "irq_symbol": "EXTI10_IRQn",
+        "dma_trigger_selector": null,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PB12",
+        "pad": 33,
+        "port": "B",
+        "exti_line": 12,
+        "irq": 19,
+        "irq_symbol": "EXTI12_IRQn",
+        "dma_trigger_selector": null,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PB13",
+        "pad": 34,
+        "port": "B",
+        "exti_line": 13,
+        "irq": 20,
+        "irq_symbol": "EXTI13_IRQn",
+        "dma_trigger_selector": null,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PB14",
+        "pad": 35,
+        "port": "B",
+        "exti_line": 14,
+        "irq": 21,
+        "irq_symbol": "EXTI14_IRQn",
+        "dma_trigger_selector": null,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PB15",
+        "pad": 36,
+        "port": "B",
+        "exti_line": 15,
+        "irq": 22,
+        "irq_symbol": "EXTI15_IRQn",
+        "dma_trigger_selector": null,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PC6",
+        "pad": 37,
+        "port": "C",
+        "exti_line": 6,
+        "irq": 13,
+        "irq_symbol": "EXTI6_IRQn",
+        "dma_trigger_selector": 6,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PC7",
+        "pad": 38,
+        "port": "C",
+        "exti_line": 7,
+        "irq": 14,
+        "irq_symbol": "EXTI7_IRQn",
+        "dma_trigger_selector": 7,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PC8",
+        "pad": 39,
+        "port": "C",
+        "exti_line": 8,
+        "irq": 15,
+        "irq_symbol": "EXTI8_IRQn",
+        "dma_trigger_selector": null,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PC9",
+        "pad": 40,
+        "port": "C",
+        "exti_line": 9,
+        "irq": 16,
+        "irq_symbol": "EXTI9_IRQn",
+        "dma_trigger_selector": null,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PA8",
+        "pad": 41,
+        "port": "A",
+        "exti_line": 8,
+        "irq": 15,
+        "irq_symbol": "EXTI8_IRQn",
+        "dma_trigger_selector": null,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PA9",
+        "pad": 42,
+        "port": "A",
+        "exti_line": 9,
+        "irq": 16,
+        "irq_symbol": "EXTI9_IRQn",
+        "dma_trigger_selector": null,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PA10",
+        "pad": 43,
+        "port": "A",
+        "exti_line": 10,
+        "irq": 17,
+        "irq_symbol": "EXTI10_IRQn",
+        "dma_trigger_selector": null,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PA11",
+        "pad": 44,
+        "port": "A",
+        "exti_line": 11,
+        "irq": 18,
+        "irq_symbol": "EXTI11_IRQn",
+        "dma_trigger_selector": null,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PA12",
+        "pad": 45,
+        "port": "A",
+        "exti_line": 12,
+        "irq": 19,
+        "irq_symbol": "EXTI12_IRQn",
+        "dma_trigger_selector": null,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PA13",
+        "pad": 46,
+        "port": "A",
+        "exti_line": 13,
+        "irq": 20,
+        "irq_symbol": "EXTI13_IRQn",
+        "dma_trigger_selector": null,
+        "context_constraints": [
+          "JTMS",
+          "SWDIO"
+        ],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PA14",
+        "pad": 49,
+        "port": "A",
+        "exti_line": 14,
+        "irq": 21,
+        "irq_symbol": "EXTI14_IRQn",
+        "dma_trigger_selector": null,
+        "context_constraints": [
+          "JTCK",
+          "SWCLK"
+        ],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PA15",
+        "pad": 50,
+        "port": "A",
+        "exti_line": 15,
+        "irq": 22,
+        "irq_symbol": "EXTI15_IRQn",
+        "dma_trigger_selector": null,
+        "context_constraints": [
+          "JTDI"
+        ],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PC10",
+        "pad": 51,
+        "port": "C",
+        "exti_line": 10,
+        "irq": 17,
+        "irq_symbol": "EXTI10_IRQn",
+        "dma_trigger_selector": null,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PC11",
+        "pad": 52,
+        "port": "C",
+        "exti_line": 11,
+        "irq": 18,
+        "irq_symbol": "EXTI11_IRQn",
+        "dma_trigger_selector": null,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PC12",
+        "pad": 53,
+        "port": "C",
+        "exti_line": 12,
+        "irq": 19,
+        "irq_symbol": "EXTI12_IRQn",
+        "dma_trigger_selector": null,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PD2",
+        "pad": 54,
+        "port": "D",
+        "exti_line": 2,
+        "irq": 9,
+        "irq_symbol": "EXTI2_IRQn",
+        "dma_trigger_selector": 2,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PB3",
+        "pad": 55,
+        "port": "B",
+        "exti_line": 3,
+        "irq": 10,
+        "irq_symbol": "EXTI3_IRQn",
+        "dma_trigger_selector": 3,
+        "context_constraints": [
+          "JTDO",
+          "TRACESWO"
+        ],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PB4",
+        "pad": 56,
+        "port": "B",
+        "exti_line": 4,
+        "irq": 11,
+        "irq_symbol": "EXTI4_IRQn",
+        "dma_trigger_selector": 4,
+        "context_constraints": [
+          "NJTRST"
+        ],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PB5",
+        "pad": 57,
+        "port": "B",
+        "exti_line": 5,
+        "irq": 12,
+        "irq_symbol": "EXTI5_IRQn",
+        "dma_trigger_selector": 5,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PB6",
+        "pad": 58,
+        "port": "B",
+        "exti_line": 6,
+        "irq": 13,
+        "irq_symbol": "EXTI6_IRQn",
+        "dma_trigger_selector": 6,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PB7",
+        "pad": 59,
+        "port": "B",
+        "exti_line": 7,
+        "irq": 14,
+        "irq_symbol": "EXTI7_IRQn",
+        "dma_trigger_selector": 7,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PH2",
+        "pad": 60,
+        "port": "H",
+        "exti_line": 2,
+        "irq": 9,
+        "irq_symbol": "EXTI2_IRQn",
+        "dma_trigger_selector": 2,
+        "context_constraints": [
+          "BOOT0"
+        ],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PB8",
+        "pad": 61,
+        "port": "B",
+        "exti_line": 8,
+        "irq": 15,
+        "irq_symbol": "EXTI8_IRQn",
+        "dma_trigger_selector": null,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      },
+      {
+        "pin": "PB9",
+        "pad": 62,
+        "port": "B",
+        "exti_line": 9,
+        "irq": 16,
+        "irq_symbol": "EXTI9_IRQn",
+        "dma_trigger_selector": null,
+        "context_constraints": [],
+        "evidence": [
+          "base:package_pads",
+          "RM0522:p450",
+          "RM0522:p388",
+          "sdk.exti_irqs",
+          "sdk.dma_exti_triggers"
+        ],
+        "scope": "package_route_only_not_electrical_or_board_qualification"
+      }
+    ],
+    "profiles": [
+      {
+        "id": "gpio.exti.input",
+        "kind": "interrupt_source",
+        "pins": [
+          "PE2",
+          "PC13",
+          "PC14",
+          "PC15",
+          "PH0",
+          "PH1",
+          "PC0",
+          "PC1",
+          "PC2",
+          "PC3",
+          "PA0",
+          "PA1",
+          "PA2",
+          "PA3",
+          "PA4",
+          "PA5",
+          "PA6",
+          "PA7",
+          "PC4",
+          "PC5",
+          "PB0",
+          "PB1",
+          "PB2",
+          "PB10",
+          "PB12",
+          "PB13",
+          "PB14",
+          "PB15",
+          "PC6",
+          "PC7",
+          "PC8",
+          "PC9",
+          "PA8",
+          "PA9",
+          "PA10",
+          "PA11",
+          "PA12",
+          "PA13",
+          "PA14",
+          "PA15",
+          "PC10",
+          "PC11",
+          "PC12",
+          "PD2",
+          "PB3",
+          "PB4",
+          "PB5",
+          "PB6",
+          "PB7",
+          "PH2",
+          "PB8",
+          "PB9"
+        ],
+        "parameters": {
+          "gpio_mode": [
+            "input"
+          ],
+          "edge": [
+            "rising",
+            "falling",
+            "both"
+          ],
+          "cpu_delivery": [
+            "interrupt",
+            "event",
+            "both"
+          ]
+        },
+        "evidence": [
+          "RM0522:p451"
+        ],
+        "required_resources": [
+          "physical_pad",
+          "exti_port_selection",
+          "line_configuration_owner",
+          "NVIC_handler_if_interrupt"
+        ],
+        "sdk_steps": [
+          {
+            "action": "configure_GPIO_clock_and_input",
+            "evidence": [
+              "sdk.gpio_init"
+            ]
+          },
+          {
+            "action": "HAL_EXTI_Init_then_SetConfig",
+            "evidence": [
+              "sdk.exti_lifecycle",
+              "sdk.exti_config"
+            ]
+          },
+          {
+            "action": "register_callback_or_bind_weak_callback",
+            "applies_when": "interrupt_or_both_only",
+            "evidence": [
+              "sdk.exti_types",
+              "sdk.exti_callback"
+            ]
+          },
+          {
+            "action": "set_pending_policy_and_NVIC_then_enable_delivery",
+            "evidence": [
+              "RM0522:p451",
+              "sdk.exti_enable"
+            ],
+            "qualification": "author_integration_requirement_not_complete_source_prescribed_order"
+          }
+        ],
+        "release_requirements": [
+          "mask_owned_CPU_delivery",
+          "synchronize_IRQ_and_callback",
+          "quiesce_all_mux_consumers_before_reassignment"
+        ],
+        "limits": [
+          "Event-only delivery does not latch pending flags under RM Table104.",
+          "One adapter owner per IRQ vector and line; no independent handles clearing the same pending state."
+        ],
+        "unknown_gates": [
+          "board_electrical_and_reservations",
+          "exact_silicon_revision_errata",
+          "NVIC_priority_policy",
+          "race_safe_start_stop_adapter"
+        ],
+        "review": "candidate",
+        "implementation": "not_authored",
+        "build": "not_tested",
+        "hardware": "not_observed"
+      },
+      {
+        "id": "gpio.idr_to_sram.triggered",
+        "kind": "DMA_endpoint_pair",
+        "source": {
+          "class": "GPIO_IDR",
+          "ports": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "H"
+          ],
+          "addressing": "fixed",
+          "width_bytes": 4
+        },
+        "destination": {
+          "class": "authorized_SRAM_buffer",
+          "addressing": "increment",
+          "width_bytes": 4
+        },
+        "request": {
+          "kind": "software",
+          "SWREQ": 1,
+          "hardware_request": "ignored"
+        },
+        "trigger": {
+          "selector_domain": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "source": "Table94_exti0_to_exti7",
+          "stage_relative_to_EXTI_edge_detector": "unresolved",
+          "polarity": [
+            "rising",
+            "falling"
+          ],
+          "TRIGM": 3
+        },
+        "constraints": {
+          "block_bytes_multiple": 4,
+          "max_block_bytes": 65532,
+          "min_block_bytes": 4,
+          "source_alignment": 4,
+          "destination_alignment": 4
+        },
+        "evidence": [
+          "RM0522:p89",
+          "RM0522:p343",
+          "RM0522:p388",
+          "RM0522:p390",
+          "RM0522:p408",
+          "RM0522:p410",
+          "RM0522:p432",
+          "RM0522:p434",
+          "RM0522:p450",
+          "sdk.dma_exti_triggers",
+          "sdk.dma2_exti_triggers"
+        ],
+        "required_resources": [
+          "one_LPDMA_channel",
+          "exti_port_selection",
+          "source_GPIO_configuration_owner",
+          "destination_buffer_exclusive_writer",
+          "GPIO_clock_held_while_active",
+          "LPDMA_clock_held_while_active",
+          "completion_and_error_delivery_owner"
+        ],
+        "unknown_gates": [
+          "SDK_adapter_not_authored",
+          "SRAM_range_and_access_authorization",
+          "GPIO_port_clock",
+          "pin_input_configuration",
+          "trigger_rate_and_overrun_policy",
+          "exact_silicon_revision_errata",
+          "buffer_release_and_callback_synchronization",
+          "EXTI_trigger_stage_and_edge_configuration"
+        ],
+        "limits": [
+          "Reads a port register; pin mask filtering is separate software processing.",
+          "The register read occurs after trigger arbitration, not a synchronous pad latch at the edge.",
+          "Trigger overrun can lose samples without disabling the channel.",
+          "Direct single block only: LLR=0; completion clears EN. Later edges do not restart the channel.",
+          "Line mux and edge configuration are jointly owned until the trigger stage is resolved.",
+          "No claim of tested throughput or lossless sampling."
+        ],
+        "review": "candidate",
+        "implementation": "not_authored",
+        "build": "not_tested",
+        "hardware": "not_observed"
+      },
+      {
+        "id": "timer.basic.fixed_clock",
+        "kind": "periodic_update",
+        "instances": [
+          "TIM6",
+          "TIM7"
+        ],
+        "parameter_domain_rule": "timer.basic.domain",
+        "formula": "nominal_update_hz = HCLK / ((PSC+1)*(ARR+1))",
+        "formula_kind": "derived_from_upcounter_and_prescaler_no_float_rounding",
+        "evidence": [
+          "RM0522:p271",
+          "RM0522:p388",
+          "RM0522:p389",
+          "RM0522:p1261",
+          "RM0522:p1262",
+          "RM0522:p1278",
+          "RM0522:p1279"
+        ],
+        "fixed_mode": {
+          "DITHEN": 0,
+          "OPM": 0,
+          "ADSYNC": 0,
+          "UDIS": 0
+        },
+        "required_resources": [
+          "TIM6_or_TIM7_RCC_clock_held_while_active_with_documented_enable_delay"
+        ],
+        "start_requirements": [
+          "Load buffered PSC/ARR with UG and apply pending/request policy before starting consumers."
+        ],
+        "limits": [
+          "TIM6/7 TRGO is not a Table94 LPDMA trigger; these profiles do not form a direct hardware chain."
+        ],
+        "unknown_gates": [
+          "race_safe_SDK_start_stop",
+          "clock_accuracy",
+          "exact_silicon_revision_errata",
+          "IRQ_DMA_consumer_ownership"
+        ],
+        "review": "candidate",
+        "implementation": "not_authored",
+        "build": "not_tested",
+        "hardware": "not_observed"
+      }
+    ],
+    "errata_screen": {
+      "evidence": [
+        "ES0676:p1",
+        "ES0676:p2",
+        "ES0676:p3"
+      ],
+      "scope": "Applicability and complete summary screened for LPDMA, EXTI, TIM6/7 headings.",
+      "result": "No dedicated headings; this does not establish absence of limitations.",
+      "remaining": "Core/system and application-dependent effects, silicon revision and workarounds remain gates.",
+      "GPIO_PC13": "ES2.2.2 applies to both listed revisions for LQFP crystal LSE with PC13 toggling; revision alone does not clear this condition."
+    },
+    "conflicts": [
+      {
+        "id": "trigger_masked_typo",
+        "evidence": [
+          "RM0522:p432"
+        ],
+        "state": "conflicting_prose",
+        "detail": "TRIGSEL prose active for00 conflicts with TRIGPOL00 masked and TRIGM00/11 ignored; SDK comments corroborate rising01/falling10."
+      },
+      {
+        "id": "comp2_trigger36",
+        "evidence": [
+          "sdk.dma_trigger_scope",
+          "RM0522:p389"
+        ],
+        "state": "unresolved_source_divergence",
+        "detail": "SDK declares COMP2 trigger36; RM Table94 ends at35. Not admitted to finite trigger domain."
+      },
+      {
+        "id": "timer_clock",
+        "evidence": [
+          "RM0522:p271",
+          "RM0522:p1261"
+        ],
+        "state": "conflicting",
+        "detail": "Only equal HCLK/PCLK1 admitted for TIM6/7."
+      },
+      {
+        "id": "timer_prescaler_range",
+        "evidence": [
+          "RM0522:p1259",
+          "RM0522:p1262",
+          "RM0522:p1278"
+        ],
+        "state": "conflicting_prose",
+        "detail": "Feature summary says divisor 1..65535; functional/register model says PSC+1 up to65536. Candidate uses register model; unresolved prose remains explicit."
+      },
+      {
+        "id": "TIM5_presence",
+        "evidence": [
+          "RM0522:p1134",
+          "DS15135:p20",
+          "DS15135:p21",
+          "sdk.tim_instances"
+        ],
+        "state": "conflicting_presence",
+        "detail": "Family RM table lists TIM5; exact DS inventory and SDK predicates do not. Excluded from executable candidates."
+      }
+    ],
+    "full_device_coverage": false,
+    "operation_permission": "none"
+  }
+}

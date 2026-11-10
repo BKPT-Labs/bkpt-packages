@@ -1,0 +1,88 @@
+// SPDX-License-Identifier: LicenseRef-BKPT-Proprietary
+#include "{{unit}}.h"
+#if USE_HAL_EXTI_MODULE != 1 || USE_HAL_EXTI_REGISTER_CALLBACKS != 1
+#error "GPIO interrupt component requires EXTI and per-handle callbacks"
+#endif
+static hal_exti_handle_t exti;
+static unsigned initialized;
+static volatile unsigned started;
+static hal_status_t status = HAL_ERROR;
+static void (*volatile callback_fn)(unsigned);
+static int foreground(void)
+{
+  return __get_IPSR()==0U && __get_PRIMASK()==0U && __get_BASEPRI()==0U && __get_FAULTMASK()==0U;
+}
+static void mask_irq(void)
+{
+  HAL_CORTEX_NVIC_DisableIRQ({{irq}});
+  __DSB(); __ISB();
+}
+static void drain_pending(void)
+{
+  HAL_EXTI_ClearPending(&exti,HAL_EXTI_TRIGGER_RISING_FALLING);
+  HAL_CORTEX_NVIC_ClearPendingIRQ({{irq}});
+}
+static void triggered(hal_exti_handle_t *handle,hal_exti_trigger_t trigger)
+{
+  unsigned edges=0U;
+  (void)handle;
+  if (trigger==HAL_EXTI_TRIGGER_RISING || trigger==HAL_EXTI_TRIGGER_RISING_FALLING) { edges|={{unit}}_RISING; }
+  if (trigger==HAL_EXTI_TRIGGER_FALLING || trigger==HAL_EXTI_TRIGGER_RISING_FALLING) { edges|={{unit}}_FALLING; }
+  if (started && callback_fn!=NULL && edges!=0U) { callback_fn(edges); }
+}
+hal_status_t {{unit}}_init(void)
+{
+  if (!foreground()) { return HAL_BUSY; }
+  if (initialized) { return status; }
+  initialized=1U;
+  mask_irq();
+  {{clock_enable}}();
+  hal_gpio_config_t gpio={0};
+  gpio.mode=HAL_GPIO_MODE_INPUT;
+  gpio.pull={{pull}};
+  if (HAL_GPIO_Init({{port}},{{pin_mask}},&gpio)!=HAL_OK ||
+      HAL_EXTI_Init(&exti,{{line}})!=HAL_OK) { return status; }
+  /* Exclusive low GPIO line: mask inherited CPU/event delivery before changing
+   * its selector. Other trigger consumers are excluded by the resource contract. */
+  LL_EXTI_DisableIT_0_31(HAL_EXTI_GetLLInstance(&exti));
+  LL_EXTI_DisableEvent_0_31(HAL_EXTI_GetLLInstance(&exti));
+  hal_exti_config_t config={.trigger={{trigger}},.gpio_port={{exti_port}}};
+  if (HAL_EXTI_SetConfig(&exti,&config)!=HAL_OK ||
+      HAL_EXTI_RegisterTriggerCallback(&exti,triggered)!=HAL_OK) { return status; }
+  drain_pending();
+  HAL_CORTEX_NVIC_SetPriority({{irq}},{{priority}}U,0U);
+  status=HAL_OK;
+  return status;
+}
+hal_status_t {{unit}}_start(void (*callback)(unsigned edges))
+{
+  if (!foreground()) { return HAL_BUSY; }
+  if (!initialized || status!=HAL_OK || callback==NULL || started) { return HAL_ERROR; }
+  mask_irq();
+  if (HAL_EXTI_GetState(&exti)!=HAL_EXTI_STATE_IDLE) { return HAL_ERROR; }
+  callback_fn=callback;
+  drain_pending();
+  /* Enable sets both global and previous state; bypassing it makes HAL's IRQ
+   * handler self-mask after a first event. */
+  if (HAL_EXTI_Enable(&exti,HAL_EXTI_MODE_INTERRUPT)!=HAL_OK) {
+    callback_fn=NULL;status=HAL_ERROR;return status;
+  }
+  started=1U;
+  HAL_CORTEX_NVIC_EnableIRQ({{irq}});
+  return HAL_OK;
+}
+hal_status_t {{unit}}_stop(void)
+{
+  if (!foreground()) { return HAL_BUSY; }
+  if (!initialized || status!=HAL_OK) { return HAL_ERROR; }
+  mask_irq();
+  if (started && HAL_EXTI_Disable(&exti)!=HAL_OK) { status=HAL_ERROR;return status; }
+  started=0U;
+  callback_fn=NULL;
+  drain_pending();
+  return HAL_OK;
+}
+void {{handler}}(void)
+{
+  if (initialized && status==HAL_OK) { HAL_EXTI_IRQHandler(&exti); }
+}

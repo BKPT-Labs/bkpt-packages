@@ -1,0 +1,5125 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/dma-routing.json",
+    "sha256": "6f5d4d59950941a32d983ccc0907dda996415c9fd201cce9b2e8777bd86ae41d"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 26
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "schema": "bkpt.external.dma-routing.v1",
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "sources": {
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "LL": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_dma.h",
+        "sha256": "0983050fda989d6c7577c49e52df21ed71055b48490017c20080b7b6e072dacd"
+      },
+      "SVD": {
+        "path": "bkpt-data://firmware/sources/st/c5/pack-2.1.0/device.svd",
+        "sha256": "79ecabb1331e08042904858e5986a2d41aad036fbf481f916abdfb6ce58f7c5b"
+      },
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      }
+    },
+    "evidence": {
+      "LL.requests_and_triggers": {
+        "source": "LL",
+        "start_line": 370,
+        "end_line": 760,
+        "sha256": "ad6b2f716fd26a152d4a31e81547806941fa083348a399ca7f15f25e77569fdf"
+      },
+      "LL.trigger_modes": {
+        "source": "LL",
+        "start_line": 296,
+        "end_line": 340,
+        "sha256": "874272a5f0ca682b6a02c48cea108ce131726f1bb6feced9d4a85ce25c8d1350"
+      },
+      "header.channels": {
+        "source": "header",
+        "start_line": 14041,
+        "end_line": 14063,
+        "sha256": "18355e3b6fde4da1993a3a97bb4eea3d8825a53437cfef0d448f84967aeb6635"
+      },
+      "header.trigger_width": {
+        "source": "header",
+        "start_line": 3963,
+        "end_line": 3966,
+        "sha256": "7b36043f92e9e216e38dedd6ebe11188d0fde5be7651295e5d4416007ed0c2b9"
+      },
+      "header.DAC_channels": {
+        "source": "header",
+        "start_line": 3023,
+        "end_line": 3023,
+        "sha256": "dbe8bdd58e2f530340bdacb96496f38041def89d500a17f3b8ad1df6ba5888be"
+      },
+      "SVD.LPDMA1.LPDMA_C0TR2": {
+        "source": "SVD",
+        "start_line": 40671,
+        "end_line": 40840,
+        "sha256": "40e4a4c6d8abcbaa3a55ed0dd18e223075163c1ff77ed131f049a9e4589781cc"
+      },
+      "SVD.LPDMA1.LPDMA_C1TR2": {
+        "source": "SVD",
+        "start_line": 41736,
+        "end_line": 41905,
+        "sha256": "e51ac22122b8decf84aac3dc8f719bbe548e4d1bf16e21e7b0412df13a151bfc"
+      },
+      "SVD.LPDMA1.LPDMA_C2TR2": {
+        "source": "SVD",
+        "start_line": 42801,
+        "end_line": 42970,
+        "sha256": "b59258c911b20c4a3a3baf59b9c4a1a6dcb9329044b40f9ba15726fc58872157"
+      },
+      "SVD.LPDMA1.LPDMA_C3TR2": {
+        "source": "SVD",
+        "start_line": 43866,
+        "end_line": 44035,
+        "sha256": "e7e61749f915ca99952d54ea1f5fa70c8ae6ef7cea2a2cca5671bb51262fa6ed"
+      },
+      "SVD.LPDMA2.LPDMA_C0TR2": {
+        "source": "SVD",
+        "start_line": 45228,
+        "end_line": 45397,
+        "sha256": "40e4a4c6d8abcbaa3a55ed0dd18e223075163c1ff77ed131f049a9e4589781cc"
+      },
+      "SVD.LPDMA2.LPDMA_C1TR2": {
+        "source": "SVD",
+        "start_line": 46293,
+        "end_line": 46462,
+        "sha256": "e51ac22122b8decf84aac3dc8f719bbe548e4d1bf16e21e7b0412df13a151bfc"
+      },
+      "SVD.LPDMA2.LPDMA_C2TR2": {
+        "source": "SVD",
+        "start_line": 47358,
+        "end_line": 47527,
+        "sha256": "b59258c911b20c4a3a3baf59b9c4a1a6dcb9329044b40f9ba15726fc58872157"
+      },
+      "SVD.LPDMA2.LPDMA_C3TR2": {
+        "source": "SVD",
+        "start_line": 48423,
+        "end_line": 48592,
+        "sha256": "e7e61749f915ca99952d54ea1f5fa70c8ae6ef7cea2a2cca5671bb51262fa6ed"
+      },
+      "RM0522:p383": {
+        "source": "RM0522",
+        "page": 383,
+        "sha256": "ed3ab885be9e571ab3ba0230efa344b125fbacbc09dc127d0019b533cdcc769a"
+      },
+      "RM0522:p384": {
+        "source": "RM0522",
+        "page": 384,
+        "sha256": "91ccfa0d764cd1d83f48cdf4b14f4f7833ed2c81829ddd2fc75b1b619c8c1cb8"
+      },
+      "RM0522:p385": {
+        "source": "RM0522",
+        "page": 385,
+        "sha256": "b84c538214629ba19de4298c326e16cac4d2c0cb7070043603658d5a3ce1e688"
+      },
+      "RM0522:p386": {
+        "source": "RM0522",
+        "page": 386,
+        "sha256": "24354b64130fef8806fafcd15ffd8ad3280ddc7334b420898689a511af9797ea"
+      },
+      "RM0522:p387": {
+        "source": "RM0522",
+        "page": 387,
+        "sha256": "0314de2d4c215ee99b90e669564e5d117705d5ed857a5b8aebe5c88849c3150d"
+      },
+      "RM0522:p388": {
+        "source": "RM0522",
+        "page": 388,
+        "sha256": "65a7e878a7e3266a6b310138c6b1429cbe4edb545e5796e16fcd7ed48ee9da04"
+      },
+      "RM0522:p389": {
+        "source": "RM0522",
+        "page": 389,
+        "sha256": "7d5ded108c546100e7a9e995a7ac92808088b858399a81e5341fe078d59fb1c5"
+      },
+      "RM0522:p410": {
+        "source": "RM0522",
+        "page": 410,
+        "sha256": "265915199c739ad1e2d878c64d05e5c55ef501b4e465d496a28c2f696cc99bd2"
+      },
+      "RM0522:p414": {
+        "source": "RM0522",
+        "page": 414,
+        "sha256": "d35e6f57aedd1bad907469a26c0c6eed9aeaae13d8b8c32c46697c4bbd13b371"
+      },
+      "RM0522:p415": {
+        "source": "RM0522",
+        "page": 415,
+        "sha256": "d32d2cc2228c113718ccee0df89962b235855c1a24d53eb750de328a8cecc312"
+      },
+      "RM0522:p431": {
+        "source": "RM0522",
+        "page": 431,
+        "sha256": "b5c5ef3b2b7e03aa482e67f695120f32e407dff02071725283b401c1f28673b6"
+      },
+      "RM0522:p432": {
+        "source": "RM0522",
+        "page": 432,
+        "sha256": "b9d2b0fd5a137fc8870995e953010eb87393394a566a89590c4ae3b95cd331bd"
+      },
+      "RM0522:p433": {
+        "source": "RM0522",
+        "page": 433,
+        "sha256": "9e0910612336df4d1b252640857c1730be640a405c832fa0831e08b644570f51"
+      }
+    },
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "review": "See current external review receipts; source-only retention, no expanded composition admission.",
+    "LL_literal_definitions": [
+      {
+        "name": "LL_LPDMA1_REQUEST_ADC1",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 0,
+        "line": 374,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_ADC2",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 1,
+        "line": 376,
+        "presence_guards": [
+          {
+            "condition": "defined(ADC2)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM6_UPD",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 2,
+        "line": 378,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM7_UPD",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 3,
+        "line": 379,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_SPI1_RX",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 4,
+        "line": 380,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_SPI1_TX",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 5,
+        "line": 381,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_SPI2_RX",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 6,
+        "line": 382,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_SPI2_TX",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 7,
+        "line": 383,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_SPI3_RX",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 8,
+        "line": 385,
+        "presence_guards": [
+          {
+            "condition": "defined(SPI3)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_SPI3_TX",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 9,
+        "line": 386,
+        "presence_guards": [
+          {
+            "condition": "defined(SPI3)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_I2C1_RX",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 10,
+        "line": 388,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_I2C1_TX",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 11,
+        "line": 389,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_USART1_RX",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 12,
+        "line": 390,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_USART1_TX",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 13,
+        "line": 391,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_USART2_RX",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 14,
+        "line": 392,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_USART2_TX",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 15,
+        "line": 393,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_USART3_RX",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 16,
+        "line": 395,
+        "presence_guards": [
+          {
+            "condition": "defined(USART3)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_USART3_TX",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 17,
+        "line": 396,
+        "presence_guards": [
+          {
+            "condition": "defined(USART3)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_UART4_RX",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 18,
+        "line": 398,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_UART4_TX",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 19,
+        "line": 399,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_UART5_RX",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 20,
+        "line": 400,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_UART5_TX",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 21,
+        "line": 401,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_LPUART1_RX",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 22,
+        "line": 402,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_LPUART1_TX",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 23,
+        "line": 403,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM1_CC1",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 24,
+        "line": 404,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM1_CC2",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 25,
+        "line": 405,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM1_CC3",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 26,
+        "line": 406,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM1_CC4",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 27,
+        "line": 407,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM1_UPD",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 28,
+        "line": 408,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM1_TRGI",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 29,
+        "line": 409,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM1_COM",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 30,
+        "line": 410,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM2_CC1",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 31,
+        "line": 411,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM2_CC2",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 32,
+        "line": 412,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM2_CC3",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 33,
+        "line": 413,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM2_CC4",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 34,
+        "line": 414,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM2_UPD",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 35,
+        "line": 415,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM2_TRGI",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 36,
+        "line": 416,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM5_CC1",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 37,
+        "line": 418,
+        "presence_guards": [
+          {
+            "condition": "defined(TIM5)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM5_CC2",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 38,
+        "line": 419,
+        "presence_guards": [
+          {
+            "condition": "defined(TIM5)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM5_CC3",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 39,
+        "line": 420,
+        "presence_guards": [
+          {
+            "condition": "defined(TIM5)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM5_CC4",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 40,
+        "line": 421,
+        "presence_guards": [
+          {
+            "condition": "defined(TIM5)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM5_UPD",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 41,
+        "line": 422,
+        "presence_guards": [
+          {
+            "condition": "defined(TIM5)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM5_TRGI",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 42,
+        "line": 423,
+        "presence_guards": [
+          {
+            "condition": "defined(TIM5)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM15_CC1",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 43,
+        "line": 425,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM15_CC2",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 44,
+        "line": 426,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM15_UPD",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 45,
+        "line": 427,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM15_TRGI",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 46,
+        "line": 428,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM15_COM",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 47,
+        "line": 429,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM16_CC1",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 48,
+        "line": 431,
+        "presence_guards": [
+          {
+            "condition": "defined(TIM16)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM16_UPD",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 49,
+        "line": 432,
+        "presence_guards": [
+          {
+            "condition": "defined(TIM16)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM17_CC1",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 50,
+        "line": 435,
+        "presence_guards": [
+          {
+            "condition": "defined(TIM17)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM17_UPD",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 51,
+        "line": 436,
+        "presence_guards": [
+          {
+            "condition": "defined(TIM17)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_LPTIM1_IC1",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 52,
+        "line": 439,
+        "presence_guards": [
+          {
+            "condition": "defined(LPTIM1)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_LPTIM1_IC2",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 53,
+        "line": 440,
+        "presence_guards": [
+          {
+            "condition": "defined(LPTIM1)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_LPTIM1_UE",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 54,
+        "line": 441,
+        "presence_guards": [
+          {
+            "condition": "defined(LPTIM1)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_CORDIC_RD",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 55,
+        "line": 443,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_CORDIC_WR",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 56,
+        "line": 444,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_I3C1_RX",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 57,
+        "line": 445,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_I3C1_TX",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 58,
+        "line": 446,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_I3C1_TC",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 59,
+        "line": 447,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_I3C1_RS",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 60,
+        "line": 448,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_AES_OUT",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 61,
+        "line": 449,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_AES_IN",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 62,
+        "line": 450,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_HASH_IN",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 63,
+        "line": 451,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_I2C2_RX",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 64,
+        "line": 453,
+        "presence_guards": [
+          {
+            "condition": "defined(I2C2)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_I2C2_TX",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 65,
+        "line": 454,
+        "presence_guards": [
+          {
+            "condition": "defined(I2C2)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM8_CC1",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 66,
+        "line": 456,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM8_CC2",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 67,
+        "line": 457,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM8_CC3",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 68,
+        "line": 458,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM8_CC4",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 69,
+        "line": 459,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM8_UPD",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 70,
+        "line": 460,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM8_TRGI",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 71,
+        "line": 461,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM8_COM",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 72,
+        "line": 462,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_DAC1_CH1",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 73,
+        "line": 463,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_DAC1_CH2",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 74,
+        "line": 465,
+        "presence_guards": [
+          {
+            "condition": "defined(DAC_NB_OF_CHANNEL) && (DAC_NB_OF_CHANNEL == 2UL)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_USART6_RX",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 75,
+        "line": 468,
+        "presence_guards": [
+          {
+            "condition": "defined(USART6)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_USART6_TX",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 76,
+        "line": 469,
+        "presence_guards": [
+          {
+            "condition": "defined(USART6)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_UART7_TX",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 77,
+        "line": 472,
+        "presence_guards": [
+          {
+            "condition": "defined(UART7)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_UART7_RX",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 78,
+        "line": 473,
+        "presence_guards": [
+          {
+            "condition": "defined(UART7)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_ADC3",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 79,
+        "line": 476,
+        "presence_guards": [
+          {
+            "condition": "defined(ADC3)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM3_CC1",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 80,
+        "line": 479,
+        "presence_guards": [
+          {
+            "condition": "defined(TIM3)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM3_CC2",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 81,
+        "line": 480,
+        "presence_guards": [
+          {
+            "condition": "defined(TIM3)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM3_CC3",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 82,
+        "line": 481,
+        "presence_guards": [
+          {
+            "condition": "defined(TIM3)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM3_CC4",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 83,
+        "line": 482,
+        "presence_guards": [
+          {
+            "condition": "defined(TIM3)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM3_UPD",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 84,
+        "line": 483,
+        "presence_guards": [
+          {
+            "condition": "defined(TIM3)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM3_TRGI",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 85,
+        "line": 484,
+        "presence_guards": [
+          {
+            "condition": "defined(TIM3)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM4_CC1",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 86,
+        "line": 487,
+        "presence_guards": [
+          {
+            "condition": "defined(TIM4)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM4_CC2",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 87,
+        "line": 488,
+        "presence_guards": [
+          {
+            "condition": "defined(TIM4)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM4_CC3",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 88,
+        "line": 489,
+        "presence_guards": [
+          {
+            "condition": "defined(TIM4)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM4_CC4",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 89,
+        "line": 490,
+        "presence_guards": [
+          {
+            "condition": "defined(TIM4)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM4_UPD",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 90,
+        "line": 491,
+        "presence_guards": [
+          {
+            "condition": "defined(TIM4)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_TIM4_TRGI",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 91,
+        "line": 492,
+        "presence_guards": [
+          {
+            "condition": "defined(TIM4)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_SAES_OUT",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 92,
+        "line": 495,
+        "presence_guards": [
+          {
+            "condition": "defined(SAES)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_SAES_IN",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 93,
+        "line": 496,
+        "presence_guards": [
+          {
+            "condition": "defined(SAES)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_REQUEST_XSPI1",
+        "controller": "LPDMA1",
+        "kind": "request",
+        "selector": 94,
+        "line": 499,
+        "presence_guards": [
+          {
+            "condition": "defined(XSPI1)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_ADC1",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 0,
+        "line": 504,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_ADC2",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 1,
+        "line": 506,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(ADC2)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM6_UPD",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 2,
+        "line": 508,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM7_UPD",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 3,
+        "line": 509,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_SPI2S1_RX",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 4,
+        "line": 510,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_SPI1_RX",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 4,
+        "line": 511,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_SPI1_TX",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 5,
+        "line": 512,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_SPI2_RX",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 6,
+        "line": 513,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_SPI2_TX",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 7,
+        "line": 514,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_SPI3_RX",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 8,
+        "line": 516,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(SPI3)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_SPI3_TX",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 9,
+        "line": 517,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(SPI3)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_I2C1_RX",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 10,
+        "line": 519,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_I2C1_TX",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 11,
+        "line": 520,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_USART1_RX",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 12,
+        "line": 521,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_USART1_TX",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 13,
+        "line": 522,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_USART2_RX",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 14,
+        "line": 523,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_USART2_TX",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 15,
+        "line": 524,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_USART3_RX",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 16,
+        "line": 526,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(USART3)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_USART3_TX",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 17,
+        "line": 527,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(USART3)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_UART4_RX",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 18,
+        "line": 529,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_UART4_TX",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 19,
+        "line": 530,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_UART5_RX",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 20,
+        "line": 531,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_UART5_TX",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 21,
+        "line": 532,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_LPUART1_RX",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 22,
+        "line": 533,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_LPUART1_TX",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 23,
+        "line": 534,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM1_CC1",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 24,
+        "line": 535,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM1_CC2",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 25,
+        "line": 536,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM1_CC3",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 26,
+        "line": 537,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM1_CC4",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 27,
+        "line": 538,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM1_UPD",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 28,
+        "line": 539,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM1_TRGI",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 29,
+        "line": 540,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM1_COM",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 30,
+        "line": 541,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM2_CC1",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 31,
+        "line": 542,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM2_CC2",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 32,
+        "line": 543,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM2_CC3",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 33,
+        "line": 544,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM2_CC4",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 34,
+        "line": 545,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM2_UPD",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 35,
+        "line": 546,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM2_TRGI",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 36,
+        "line": 547,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM5_CC1",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 37,
+        "line": 549,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(TIM5)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM5_CC2",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 38,
+        "line": 550,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(TIM5)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM5_CC3",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 39,
+        "line": 551,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(TIM5)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM5_CC4",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 40,
+        "line": 552,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(TIM5)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM5_UPD",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 41,
+        "line": 553,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(TIM5)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM5_TRGI",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 42,
+        "line": 554,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(TIM5)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM15_CC1",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 43,
+        "line": 556,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM15_CC2",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 44,
+        "line": 557,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM15_UPD",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 45,
+        "line": 558,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM15_TRGI",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 46,
+        "line": 559,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM15_COM",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 47,
+        "line": 560,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM16_CC1",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 48,
+        "line": 562,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(TIM16)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM16_UPD",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 49,
+        "line": 563,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(TIM16)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM17_CC1",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 50,
+        "line": 566,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(TIM17)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM17_UPD",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 51,
+        "line": 567,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(TIM17)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_LPTIM1_IC1",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 52,
+        "line": 570,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(LPTIM1)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_LPTIM1_IC2",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 53,
+        "line": 571,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(LPTIM1)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_LPTIM1_UE",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 54,
+        "line": 572,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(LPTIM1)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_CORDIC_RD",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 55,
+        "line": 574,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_CORDIC_WR",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 56,
+        "line": 575,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_I3C1_RX",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 57,
+        "line": 576,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_I3C1_TX",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 58,
+        "line": 577,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_I3C1_TC",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 59,
+        "line": 578,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_I3C1_RS",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 60,
+        "line": 579,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_AES_OUT",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 61,
+        "line": 580,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_AES_IN",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 62,
+        "line": 581,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_HASH_IN",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 63,
+        "line": 582,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_I2C2_RX",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 64,
+        "line": 584,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(I2C2)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_I2C2_TX",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 65,
+        "line": 585,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(I2C2)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM8_CC1",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 66,
+        "line": 587,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM8_CC2",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 67,
+        "line": 588,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM8_CC3",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 68,
+        "line": 589,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM8_CC4",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 69,
+        "line": 590,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM8_UPD",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 70,
+        "line": 591,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM8_TRGI",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 71,
+        "line": 592,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM8_COM",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 72,
+        "line": 593,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_DAC1_CH1",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 73,
+        "line": 594,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_DAC1_CH2",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 74,
+        "line": 596,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(DAC_NB_OF_CHANNEL) && (DAC_NB_OF_CHANNEL == 2UL)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_USART6_RX",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 75,
+        "line": 599,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(USART6)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_USART6_TX",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 76,
+        "line": 600,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(USART6)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_UART7_TX",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 77,
+        "line": 603,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(UART7)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_UART7_RX",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 78,
+        "line": 604,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(UART7)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_ADC3",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 79,
+        "line": 607,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(ADC3)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM3_CC1",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 80,
+        "line": 610,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(TIM3)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM3_CC2",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 81,
+        "line": 611,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(TIM3)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM3_CC3",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 82,
+        "line": 612,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(TIM3)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM3_CC4",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 83,
+        "line": 613,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(TIM3)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM3_UPD",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 84,
+        "line": 614,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(TIM3)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM3_TRGI",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 85,
+        "line": 615,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(TIM3)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM4_CC1",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 86,
+        "line": 618,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(TIM4)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM4_CC2",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 87,
+        "line": 619,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(TIM4)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM4_CC3",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 88,
+        "line": 620,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(TIM4)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM4_CC4",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 89,
+        "line": 621,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(TIM4)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM4_UPD",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 90,
+        "line": 622,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(TIM4)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_TIM4_TRGI",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 91,
+        "line": 623,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(TIM4)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_SAES_OUT",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 92,
+        "line": 626,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(SAES)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_SAES_IN",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 93,
+        "line": 627,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(SAES)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_REQUEST_XSPI1",
+        "controller": "LPDMA2",
+        "kind": "request",
+        "selector": 94,
+        "line": 630,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(XSPI1)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_EXTI0",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 0,
+        "line": 641,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_EXTI1",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 1,
+        "line": 642,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_EXTI2",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 2,
+        "line": 643,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_EXTI3",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 3,
+        "line": 644,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_EXTI4",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 4,
+        "line": 645,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_EXTI5",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 5,
+        "line": 646,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_EXTI6",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 6,
+        "line": 647,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_EXTI7",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 7,
+        "line": 648,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_TAMP_TRG1",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 8,
+        "line": 649,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_TAMP_TRG2",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 9,
+        "line": 650,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_TAMP_TRG3",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 10,
+        "line": 651,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_LPTIM1_CH1",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 11,
+        "line": 653,
+        "presence_guards": [
+          {
+            "condition": "defined(LPTIM1)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_LPTIM1_CH2",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 12,
+        "line": 654,
+        "presence_guards": [
+          {
+            "condition": "defined(LPTIM1)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_RTC_ALRA_TRG",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 13,
+        "line": 656,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_RTC_ALRB_TRG",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 14,
+        "line": 657,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_RTC_WUT_TRG",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 15,
+        "line": 658,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_TIM2_TRGO",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 16,
+        "line": 659,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_TIM15_TRGO",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 17,
+        "line": 660,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_COMP1_OUT",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 18,
+        "line": 661,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_EVENTOUT",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 19,
+        "line": 662,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_LPDMA1_CH0_TC",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 20,
+        "line": 663,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_LPDMA1_CH1_TC",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 21,
+        "line": 664,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_LPDMA1_CH2_TC",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 22,
+        "line": 665,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_LPDMA1_CH3_TC",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 23,
+        "line": 666,
+        "presence_guards": [],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_LPDMA1_CH4_TC",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 24,
+        "line": 668,
+        "presence_guards": [
+          {
+            "condition": "defined (LPDMA1_CH4)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_LPDMA1_CH5_TC",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 25,
+        "line": 671,
+        "presence_guards": [
+          {
+            "condition": "defined (LPDMA1_CH5)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_LPDMA1_CH6_TC",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 26,
+        "line": 674,
+        "presence_guards": [
+          {
+            "condition": "defined (LPDMA1_CH6)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_LPDMA1_CH7_TC",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 27,
+        "line": 677,
+        "presence_guards": [
+          {
+            "condition": "defined (LPDMA1_CH7)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_LPDMA2_CH0_TC",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 28,
+        "line": 680,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_LPDMA2_CH1_TC",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 29,
+        "line": 681,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_LPDMA2_CH2_TC",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 30,
+        "line": 682,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_LPDMA2_CH3_TC",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 31,
+        "line": 683,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_LPDMA2_CH4_TC",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 32,
+        "line": 685,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined (LPDMA2_CH4)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_LPDMA2_CH5_TC",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 33,
+        "line": 688,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined (LPDMA2_CH5)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_LPDMA2_CH6_TC",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 34,
+        "line": 691,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined (LPDMA2_CH6)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_LPDMA2_CH7_TC",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 35,
+        "line": 694,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined (LPDMA2_CH7)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA1_TRIGGER_COMP2_OUT",
+        "controller": "LPDMA1",
+        "kind": "trigger",
+        "selector": 36,
+        "line": 698,
+        "presence_guards": [
+          {
+            "condition": "defined(COMP2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_EXTI0",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 0,
+        "line": 703,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_EXTI1",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 1,
+        "line": 704,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_EXTI2",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 2,
+        "line": 705,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_EXTI3",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 3,
+        "line": 706,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_EXTI4",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 4,
+        "line": 707,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_EXTI5",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 5,
+        "line": 708,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_EXTI6",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 6,
+        "line": 709,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_EXTI7",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 7,
+        "line": 710,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_TAMP_TRG1",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 8,
+        "line": 711,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_TAMP_TRG2",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 9,
+        "line": 712,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_TAMP_TRG3",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 10,
+        "line": 713,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_LPTIM1_CH1",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 11,
+        "line": 715,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(LPTIM1)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_LPTIM1_CH2",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 12,
+        "line": 716,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(LPTIM1)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_RTC_ALRA_TRG",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 13,
+        "line": 718,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_RTC_ALRB_TRG",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 14,
+        "line": 719,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_RTC_WUT_TRG",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 15,
+        "line": 720,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_TIM2_TRGO",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 16,
+        "line": 721,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_TIM15_TRGO",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 17,
+        "line": 722,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_COMP1_OUT",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 18,
+        "line": 723,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_EVENTOUT",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 19,
+        "line": 724,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_LPDMA1_CH0_TC",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 20,
+        "line": 725,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_LPDMA1_CH1_TC",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 21,
+        "line": 726,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_LPDMA1_CH2_TC",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 22,
+        "line": 727,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_LPDMA1_CH3_TC",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 23,
+        "line": 728,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_LPDMA1_CH4_TC",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 24,
+        "line": 730,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined (LPDMA1_CH4)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_LPDMA1_CH5_TC",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 25,
+        "line": 733,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined (LPDMA1_CH5)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_LPDMA1_CH6_TC",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 26,
+        "line": 736,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined (LPDMA1_CH6)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_LPDMA1_CH7_TC",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 27,
+        "line": 739,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined (LPDMA1_CH7)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_LPDMA2_CH0_TC",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 28,
+        "line": 741,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_LPDMA2_CH1_TC",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 29,
+        "line": 742,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_LPDMA2_CH2_TC",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 30,
+        "line": 743,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_LPDMA2_CH3_TC",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 31,
+        "line": 744,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_LPDMA2_CH4_TC",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 32,
+        "line": 746,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined (LPDMA2_CH4)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_LPDMA2_CH5_TC",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 33,
+        "line": 749,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined (LPDMA2_CH5)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_LPDMA2_CH6_TC",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 34,
+        "line": 752,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined (LPDMA2_CH6)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_LPDMA2_CH7_TC",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 35,
+        "line": 755,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined (LPDMA2_CH7)",
+            "present": false
+          }
+        ],
+        "exact_header_presence_candidate": false,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      },
+      {
+        "name": "LL_LPDMA2_TRIGGER_COMP2_OUT",
+        "controller": "LPDMA2",
+        "kind": "trigger",
+        "selector": 36,
+        "line": 758,
+        "presence_guards": [
+          {
+            "condition": "defined(LPDMA2)",
+            "present": true
+          },
+          {
+            "condition": "defined(COMP2)",
+            "present": true
+          }
+        ],
+        "exact_header_presence_candidate": true,
+        "evidence": [
+          "LL.requests_and_triggers"
+        ]
+      }
+    ],
+    "presence_evaluation": {
+      "scope": "Only explicit guards in the pinned LL map slice against literal definitions in the exact header; not a full C preprocessor or operation admission.",
+      "symbols": {
+        "ADC2": false,
+        "ADC3": false,
+        "COMP2": true,
+        "DAC_NB_OF_CHANNEL": true,
+        "I2C2": false,
+        "LPDMA1_CH4": false,
+        "LPDMA1_CH5": false,
+        "LPDMA1_CH6": false,
+        "LPDMA1_CH7": false,
+        "LPDMA2": true,
+        "LPDMA2_CH4": false,
+        "LPDMA2_CH5": false,
+        "LPDMA2_CH6": false,
+        "LPDMA2_CH7": false,
+        "LPTIM1": true,
+        "SAES": false,
+        "SPI3": false,
+        "TIM16": false,
+        "TIM17": false,
+        "TIM3": false,
+        "TIM4": false,
+        "TIM5": false,
+        "UART7": false,
+        "USART3": false,
+        "USART6": false,
+        "XSPI1": false
+      }
+    },
+    "counts": {
+      "LPDMA1": {
+        "request_names": 58,
+        "request_selector_values": [
+          0,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          43,
+          44,
+          45,
+          46,
+          47,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          62,
+          63,
+          66,
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74
+        ],
+        "trigger_names": 29,
+        "trigger_selector_values": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          28,
+          29,
+          30,
+          31,
+          36
+        ]
+      },
+      "LPDMA2": {
+        "request_names": 59,
+        "request_selector_values": [
+          0,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          43,
+          44,
+          45,
+          46,
+          47,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          62,
+          63,
+          66,
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74
+        ],
+        "trigger_names": 29,
+        "trigger_selector_values": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          28,
+          29,
+          30,
+          31,
+          36
+        ]
+      }
+    },
+    "SVD_channel_fields": [
+      {
+        "controller": "LPDMA1",
+        "register": "LPDMA_C0TR2",
+        "field": "PFREQ",
+        "bit_offset": 12,
+        "bit_width": 1,
+        "source": "SVD",
+        "evidence": [
+          "SVD.LPDMA1.LPDMA_C0TR2"
+        ]
+      },
+      {
+        "controller": "LPDMA1",
+        "register": "LPDMA_C0TR2",
+        "field": "TRIGSEL",
+        "bit_offset": 16,
+        "bit_width": 5,
+        "source": "SVD",
+        "evidence": [
+          "SVD.LPDMA1.LPDMA_C0TR2"
+        ]
+      },
+      {
+        "controller": "LPDMA1",
+        "register": "LPDMA_C1TR2",
+        "field": "PFREQ",
+        "bit_offset": 12,
+        "bit_width": 1,
+        "source": "SVD",
+        "evidence": [
+          "SVD.LPDMA1.LPDMA_C1TR2"
+        ]
+      },
+      {
+        "controller": "LPDMA1",
+        "register": "LPDMA_C1TR2",
+        "field": "TRIGSEL",
+        "bit_offset": 16,
+        "bit_width": 5,
+        "source": "SVD",
+        "evidence": [
+          "SVD.LPDMA1.LPDMA_C1TR2"
+        ]
+      },
+      {
+        "controller": "LPDMA1",
+        "register": "LPDMA_C2TR2",
+        "field": "PFREQ",
+        "bit_offset": 12,
+        "bit_width": 1,
+        "source": "SVD",
+        "evidence": [
+          "SVD.LPDMA1.LPDMA_C2TR2"
+        ]
+      },
+      {
+        "controller": "LPDMA1",
+        "register": "LPDMA_C2TR2",
+        "field": "TRIGSEL",
+        "bit_offset": 16,
+        "bit_width": 5,
+        "source": "SVD",
+        "evidence": [
+          "SVD.LPDMA1.LPDMA_C2TR2"
+        ]
+      },
+      {
+        "controller": "LPDMA1",
+        "register": "LPDMA_C3TR2",
+        "field": "PFREQ",
+        "bit_offset": 12,
+        "bit_width": 1,
+        "source": "SVD",
+        "evidence": [
+          "SVD.LPDMA1.LPDMA_C3TR2"
+        ]
+      },
+      {
+        "controller": "LPDMA1",
+        "register": "LPDMA_C3TR2",
+        "field": "TRIGSEL",
+        "bit_offset": 16,
+        "bit_width": 5,
+        "source": "SVD",
+        "evidence": [
+          "SVD.LPDMA1.LPDMA_C3TR2"
+        ]
+      },
+      {
+        "controller": "LPDMA2",
+        "register": "LPDMA_C0TR2",
+        "field": "PFREQ",
+        "bit_offset": 12,
+        "bit_width": 1,
+        "source": "SVD",
+        "evidence": [
+          "SVD.LPDMA2.LPDMA_C0TR2"
+        ]
+      },
+      {
+        "controller": "LPDMA2",
+        "register": "LPDMA_C0TR2",
+        "field": "TRIGSEL",
+        "bit_offset": 16,
+        "bit_width": 5,
+        "source": "SVD",
+        "evidence": [
+          "SVD.LPDMA2.LPDMA_C0TR2"
+        ]
+      },
+      {
+        "controller": "LPDMA2",
+        "register": "LPDMA_C1TR2",
+        "field": "PFREQ",
+        "bit_offset": 12,
+        "bit_width": 1,
+        "source": "SVD",
+        "evidence": [
+          "SVD.LPDMA2.LPDMA_C1TR2"
+        ]
+      },
+      {
+        "controller": "LPDMA2",
+        "register": "LPDMA_C1TR2",
+        "field": "TRIGSEL",
+        "bit_offset": 16,
+        "bit_width": 5,
+        "source": "SVD",
+        "evidence": [
+          "SVD.LPDMA2.LPDMA_C1TR2"
+        ]
+      },
+      {
+        "controller": "LPDMA2",
+        "register": "LPDMA_C2TR2",
+        "field": "PFREQ",
+        "bit_offset": 12,
+        "bit_width": 1,
+        "source": "SVD",
+        "evidence": [
+          "SVD.LPDMA2.LPDMA_C2TR2"
+        ]
+      },
+      {
+        "controller": "LPDMA2",
+        "register": "LPDMA_C2TR2",
+        "field": "TRIGSEL",
+        "bit_offset": 16,
+        "bit_width": 5,
+        "source": "SVD",
+        "evidence": [
+          "SVD.LPDMA2.LPDMA_C2TR2"
+        ]
+      },
+      {
+        "controller": "LPDMA2",
+        "register": "LPDMA_C3TR2",
+        "field": "PFREQ",
+        "bit_offset": 12,
+        "bit_width": 1,
+        "source": "SVD",
+        "evidence": [
+          "SVD.LPDMA2.LPDMA_C3TR2"
+        ]
+      },
+      {
+        "controller": "LPDMA2",
+        "register": "LPDMA_C3TR2",
+        "field": "TRIGSEL",
+        "bit_offset": 16,
+        "bit_width": 5,
+        "source": "SVD",
+        "evidence": [
+          "SVD.LPDMA2.LPDMA_C3TR2"
+        ]
+      }
+    ],
+    "channels": {
+      "LPDMA1": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "LPDMA2": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "evidence": [
+        "header.channels",
+        "RM0522:p383"
+      ]
+    },
+    "RM_trigger_selector_intersection": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      28,
+      29,
+      30,
+      31
+    ],
+    "conflicts": [
+      {
+        "id": "PFREQ_channel_domain",
+        "detail": "RM Table92: CH0/CH7, intersecting exact inventory to CH0. Header: CH0/CH3 on both controllers. SVD exposes PFREQ on all four. CH0 is a common candidate, not full-domain resolution.",
+        "evidence": [
+          "RM0522:p387",
+          "header.channels",
+          "SVD.LPDMA1.LPDMA_C0TR2",
+          "SVD.LPDMA1.LPDMA_C1TR2",
+          "SVD.LPDMA1.LPDMA_C2TR2",
+          "SVD.LPDMA1.LPDMA_C3TR2",
+          "SVD.LPDMA2.LPDMA_C0TR2",
+          "SVD.LPDMA2.LPDMA_C1TR2",
+          "SVD.LPDMA2.LPDMA_C2TR2",
+          "SVD.LPDMA2.LPDMA_C3TR2"
+        ]
+      },
+      {
+        "id": "TRIGSEL_width",
+        "detail": "RM/header specify six bits; all eight SVD channel TR2 fields specify five. Do not truncate a future selector based on SVD width.",
+        "evidence": [
+          "RM0522:p432",
+          "header.trigger_width",
+          "SVD.LPDMA1.LPDMA_C0TR2",
+          "SVD.LPDMA1.LPDMA_C1TR2",
+          "SVD.LPDMA1.LPDMA_C2TR2",
+          "SVD.LPDMA1.LPDMA_C3TR2",
+          "SVD.LPDMA2.LPDMA_C0TR2",
+          "SVD.LPDMA2.LPDMA_C1TR2",
+          "SVD.LPDMA2.LPDMA_C2TR2",
+          "SVD.LPDMA2.LPDMA_C3TR2"
+        ]
+      },
+      {
+        "id": "COMP2_trigger",
+        "detail": "LL provides COMP2_OUT selector36 under exact COMP2 presence. RM Table94 ends at35; SVD five-bit field cannot encode36. SDK-only candidate, no admitted routing.",
+        "evidence": [
+          "LL.requests_and_triggers",
+          "RM0522:p388",
+          "RM0522:p389",
+          "SVD.LPDMA1.LPDMA_C0TR2",
+          "SVD.LPDMA1.LPDMA_C1TR2",
+          "SVD.LPDMA1.LPDMA_C2TR2",
+          "SVD.LPDMA1.LPDMA_C3TR2",
+          "SVD.LPDMA2.LPDMA_C0TR2",
+          "SVD.LPDMA2.LPDMA_C1TR2",
+          "SVD.LPDMA2.LPDMA_C2TR2",
+          "SVD.LPDMA2.LPDMA_C3TR2"
+        ]
+      },
+      {
+        "id": "TRIGSEL_polarity_prose",
+        "detail": "RM p432 TRIGSEL prose says active for TRIGPOL=00, contradicting its polarity table and pp388/414. Preserve this source defect.",
+        "evidence": [
+          "RM0522:p432",
+          "RM0522:p388",
+          "RM0522:p414"
+        ]
+      }
+    ],
+    "contracts": [
+      {
+        "id": "distinct_roles",
+        "detail": "Request source, transfer address and trigger source are distinct. A peripheral request can support data/control/status transfers, but arbitrary endpoint pairings are not qualified.",
+        "evidence": [
+          "RM0522:p410"
+        ]
+      },
+      {
+        "id": "software_request",
+        "detail": "SWREQ=1 ignores REQSEL, BREQ and PFREQ. GPIO IDR reads do not create a GPIO hardware-request selector.",
+        "evidence": [
+          "RM0522:p432",
+          "RM0522:p433",
+          "RM0522:p410"
+        ]
+      },
+      {
+        "id": "special_protocols",
+        "detail": "LPTIM1_UE selector54 requires BREQ=1. I3C1_RX selector57 is listed for early termination; PFREQ channel conflict remains material.",
+        "evidence": [
+          "RM0522:p387",
+          "RM0522:p388",
+          "RM0522:p386"
+        ]
+      },
+      {
+        "id": "request_ownership",
+        "detail": "Do not assign one physical hardware request to simultaneously active competing channels, including aliases/controller routes; no setting-error report is supplied. LPDMA2 SPI2S1_RX and SPI1_RX both encode4, not two endpoints.",
+        "evidence": [
+          "RM0522:p410",
+          "RM0522:p433",
+          "LL.requests_and_triggers",
+          "RM0522:p384",
+          "RM0522:p385",
+          "RM0522:p386"
+        ]
+      },
+      {
+        "id": "trigger_fanout_and_loss",
+        "detail": "Trigger fanout is permitted; one hit may pend, another can be lost with TOF without automatic channel disable. Fanout does not promise simultaneous sampling or completion order. Arbitration precedes the read, so GPIO state is not captured at the trigger edge.",
+        "evidence": [
+          "RM0522:p414",
+          "RM0522:p415",
+          "RM0522:p410"
+        ]
+      },
+      {
+        "id": "channel_lifecycle",
+        "detail": "No FIFO: one internally registered source-transfer cell. TR2 is read-only while enabled; configure only with EN=0/completed channel. Block/link/single trigger modes have distinct gating semantics.",
+        "evidence": [
+          "RM0522:p383",
+          "RM0522:p384",
+          "RM0522:p431",
+          "RM0522:p432",
+          "LL.trigger_modes"
+        ]
+      },
+      {
+        "id": "DAC_channel_presence",
+        "detail": "DAC1_CH2 selector74 survives exact two-channel declaration; package naming/electrical conflict remains separate.",
+        "evidence": [
+          "header.DAC_channels",
+          "LL.requests_and_triggers",
+          "RM0522:p386"
+        ]
+      }
+    ],
+    "remaining": [
+      "EXTI trigger stage before/after edge detector remains unresolved.",
+      "No hardware-request endpoint/address/width protocol admitted; all peripheral lifecycle and ownership gates remain.",
+      "Do not broaden composition.json admission or mutate the active executable catalog.",
+      "DAC1_CH2 selector74 survives exact two-channel guard; package DAC identity conflict remains separate.",
+      "LL TIM*_TRGI versus RM tim*_trig_dma naming is selector correspondence, not signal-delivery qualification."
+    ]
+  }
+}

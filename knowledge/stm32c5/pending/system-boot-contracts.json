@@ -1,0 +1,502 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/system-boot-contracts.json",
+    "sha256": "db3979f05e3f0e21a230d9ae7dc60342f20fa7900d296f5f3de2695f832cc7a2"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 31
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "schema": "bkpt.external.system_boot.contracts.v1",
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "review": "independent_source_review_pending",
+    "scope": "Full RM system-security chapter99–111 and boot chapter112–113, exact C542 applicability; no provisioning, bootloader or security operation authorized.",
+    "sources": {
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "DS15135": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pdf",
+        "sha256": "1a3555f799297774a95978ab343ebc1f45ab9ef58d0dcf3600dec4fabed9355c",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pages.json",
+        "extraction_sha256": "b14b965adb6c1545edbca0e56b3c504e7ecc3a94bda197350ce2757b5a3d55dc"
+      },
+      "ES0676": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pdf",
+        "sha256": "a5463827337bcdbd3e5f2e0912a56307d78b568e5631b21cc9a25899c7d4a5e6",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pages.json",
+        "extraction_sha256": "2ab1b19e42b53e22ff5f3b98f6ed9a5f98f3b7b61a617abc3bb3b7fc050d1cb3"
+      },
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "package_routes": {
+        "path": "research://c5-reference/package-routes.json",
+        "sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288"
+      },
+      "FLASH": {
+        "path": "research://c5-reference/flash-contracts.json",
+        "sha256": "0038b89cfd54ed13d576216b77c3bb8dc617102400fe7432757b07d0359336cb"
+      },
+      "SBS": {
+        "path": "research://c5-reference/sbs-contracts.json",
+        "sha256": "a2fa7a7b12683ff778719b8f07d2b550c8d7d252ed02538ea5e6a8245e51a341"
+      },
+      "DBG": {
+        "path": "research://c5-reference/dbg-contracts.json",
+        "sha256": "3dc80328d34b07f863d655e21cdbcb4ff0eeb79625f0e5920dd822ec0cd06ce2"
+      },
+      "inventory": {
+        "path": "research://c5-reference/device-inventory.json",
+        "sha256": "510a01b74b20e1e400e60a461e55c9cd5977faa489e146dea0ca851c3e176aa3"
+      }
+    },
+    "evidence": {
+      "RM0522:p99": {
+        "source": "RM0522",
+        "page": 99,
+        "sha256": "279c01f03fa28292aed9ff1f3ace7528dc749417c15e24981b972b3e67f8332d"
+      },
+      "RM0522:p100": {
+        "source": "RM0522",
+        "page": 100,
+        "sha256": "1f362c615faeb8b55999404ef4db57db5895c0af50dfe6d86f5a5844da4b1f47"
+      },
+      "RM0522:p101": {
+        "source": "RM0522",
+        "page": 101,
+        "sha256": "3212c3b8beb05942a92d1484f455609784e4e96a30caf57e2f34a67650397b83"
+      },
+      "RM0522:p102": {
+        "source": "RM0522",
+        "page": 102,
+        "sha256": "6be29b6287e9ca2aee1af61846b6f90097ec041fbd66e798224fe4ace4be2fb9"
+      },
+      "RM0522:p103": {
+        "source": "RM0522",
+        "page": 103,
+        "sha256": "2ba64237b7d4e9c3cca7c5e9e569d31bf6e03a36bf40d35df09ae3066c71b4b9"
+      },
+      "RM0522:p104": {
+        "source": "RM0522",
+        "page": 104,
+        "sha256": "c9619fcfcda839fbd1662fb26680a98f629f6caef28b5a0fa00d92609626637b"
+      },
+      "RM0522:p105": {
+        "source": "RM0522",
+        "page": 105,
+        "sha256": "8d2b6e18d37503972dad7ccdc0c311ada7e1560d4719daec3d0834937c85c2ab"
+      },
+      "RM0522:p106": {
+        "source": "RM0522",
+        "page": 106,
+        "sha256": "a9dd7bd14b651c760e9c4f4ef15bb8933cb568386fb45837c9fcdbf894bfe765"
+      },
+      "RM0522:p107": {
+        "source": "RM0522",
+        "page": 107,
+        "sha256": "fadd81c62e467f60ae54c47c92d227fefd81683fc20777c10f1de18fcbe3ffa4"
+      },
+      "RM0522:p108": {
+        "source": "RM0522",
+        "page": 108,
+        "sha256": "49c216efd5b2da94e0206ceffafc5c322953b8cd6d93b91a8942320b284ed075"
+      },
+      "RM0522:p109": {
+        "source": "RM0522",
+        "page": 109,
+        "sha256": "766b8f1bb2b05fdf36017f5b8c41fccdb772f99d9cdfe6716441b3f844a66c46"
+      },
+      "RM0522:p110": {
+        "source": "RM0522",
+        "page": 110,
+        "sha256": "e9326ba387f515924d737bffac6f431d54d271af32e804a3d2590734c697f9c6"
+      },
+      "RM0522:p111": {
+        "source": "RM0522",
+        "page": 111,
+        "sha256": "9aba277c65eb1164a85a9aa67ba16b119c47180344b4f7be6268a2537e03d8c5"
+      },
+      "RM0522:p112": {
+        "source": "RM0522",
+        "page": 112,
+        "sha256": "ca70f599fc2774efb693e12f7f6c0e92bd9ffb7fcdb7259d7ccc4dcd0a134027"
+      },
+      "RM0522:p113": {
+        "source": "RM0522",
+        "page": 113,
+        "sha256": "29024bd82a22ab595fae36a53abddf1cf77214e2ce977b2028b2d0985f98666f"
+      },
+      "RM0522:p114": {
+        "source": "RM0522",
+        "page": 114,
+        "sha256": "c7b4d08f5f0cddb8a107f52e32aec6446e22a06270b98e5ff6bfb96868e983bb"
+      },
+      "RM0522:p150": {
+        "source": "RM0522",
+        "page": 150,
+        "sha256": "ca7cdbb73c5b174595ecd5e1f829f12e366b924523553e7cfcb50ea472248f05"
+      },
+      "RM0522:p160": {
+        "source": "RM0522",
+        "page": 160,
+        "sha256": "fe79e2514a712938ab499566bc47e8f81c24e3d2728baab6e8fa7e8fc86830ac"
+      },
+      "RM0522:p161": {
+        "source": "RM0522",
+        "page": 161,
+        "sha256": "d2224dd39654ac0fbf30f1b86f5d69e6ff475fb8c3c80286cd26e434ed13612d"
+      },
+      "RM0522:p162": {
+        "source": "RM0522",
+        "page": 162,
+        "sha256": "de5bbac7268ca0b9f84597944cca9dd742dcb1a7583cfb1d7f1612f48875d711"
+      },
+      "RM0522:p163": {
+        "source": "RM0522",
+        "page": 163,
+        "sha256": "f99a7bf127e78c76f52798b1c0c261324826245557444b6689d18e7cf5182be3"
+      },
+      "RM0522:p190": {
+        "source": "RM0522",
+        "page": 190,
+        "sha256": "f8c66d88b3c5cae496d3567536b7c7c716e8b7da26aeec3aebddf9c6584040c2"
+      },
+      "RM0522:p196": {
+        "source": "RM0522",
+        "page": 196,
+        "sha256": "9c59a86824f958c460c342bfea6d67ef6cbea37e77950cc45eeced0b344bc141"
+      },
+      "RM0522:p201": {
+        "source": "RM0522",
+        "page": 201,
+        "sha256": "63f189ac6e653f3022e5e1e72d7495d21ea276103a47e52421f5d2c20a2910e1"
+      },
+      "RM0522:p1600": {
+        "source": "RM0522",
+        "page": 1600,
+        "sha256": "4b8963047998a587ee2b36c8bf12c2c828728a0a607a1aa2e632acb2eb6839af"
+      },
+      "DS15135:p9": {
+        "source": "DS15135",
+        "page": 9,
+        "sha256": "bdf1244c83727d2a38580125ecce4dec522e0113327dc0f9affeed70913f09d7"
+      },
+      "DS15135:p24": {
+        "source": "DS15135",
+        "page": 24,
+        "sha256": "19550c9e500c68e610efad6da37abb6257db76c70ad625081424113a86eed44b"
+      },
+      "ES0676:p2": {
+        "source": "ES0676",
+        "page": 2,
+        "sha256": "3fed5303e4a0fc65ed4dbe6aae1c297605837e2da15bb0e24928d26b0d25eb95"
+      },
+      "ES0676:p4": {
+        "source": "ES0676",
+        "page": 4,
+        "sha256": "3b0e6d179a6d3b6701ddfa31ce87f44ef4d62c59d79a1f01184c77a212d7774c"
+      },
+      "RM0522:p174": {
+        "source": "RM0522",
+        "page": 174,
+        "sha256": "37440e8b872d1a8490b7e836be1c4ca77177a68b2687001e968eb06fc891b247"
+      },
+      "RM0522:p1604": {
+        "source": "RM0522",
+        "page": 1604,
+        "sha256": "8c63f26354425933de6d964fe1c86d6240e375956039783d6662c672069d8cf7"
+      }
+    },
+    "contracts": [
+      {
+        "id": "exact_security_filter",
+        "detail": "C542 has AES, HASH SHA1/224/256 and RNG. SAES/PKA/CCB and hardware DHUK/BHK/XORK service descriptions apply to C59x/C5Ax and must not be imported as C542 features. RM3.4 explicitly scopes secure storage to those larger devices; UID96 is an identifier, not evidence of a secret-key derivation engine.",
+        "evidence": [
+          "RM0522:p99",
+          "RM0522:p103",
+          "RM0522:p104",
+          "RM0522:p105",
+          "RM0522:p106"
+        ]
+      },
+      {
+        "id": "privileged_isolation",
+        "detail": "RM describes eight MPU regions at 32-byte granularity for privileged/unprivileged memory isolation. This is a source inventory statement, not a full Arm architecture/MPU setup contract, TrustZone claim or protection against DMA masters. Exact MPU register/SDK/barrier semantics remain open.",
+        "evidence": [
+          "RM0522:p100",
+          "RM0522:p101"
+        ]
+      },
+      {
+        "id": "temporal_hide",
+        "detail": "HDP original region is denied for reads/writes/fetch at HDPL>=2 until device reset; dynamic extension becomes protected at HDPL3. Bank erase aborts with protected WRP/HDP regions. Region contents, physical bank swap, execution residency and level transition must use the existing exact FLASH/SBS contracts; a level increment is not reversible ordinary state.",
+        "evidence": [
+          "RM0522:p100",
+          "RM0522:p196",
+          "RM0522:p201"
+        ]
+      },
+      {
+        "id": "tamper_system_effects",
+        "detail": "Three external inputs on five pads plus six exact internal sources. Potential tamper blocks backup registers/SRAM2 and resets present AES/HASH while erasing ICACHE. Confirmed tamper erases protected memory as detailed by TAMP. Disabled interrupts do not disable these effects. Clearing flags can release blocking and consume security evidence; source summaries must be filtered against the detailed TAMP chapter.",
+        "evidence": [
+          "RM0522:p101",
+          "RM0522:p102",
+          "RM0522:p103",
+          "RM0522:p1600"
+        ]
+      },
+      {
+        "id": "RDP_lifecycle",
+        "detail": "Exact option codes are L0=0xED, L2_wBS=0xD1 and L2=0x72; an incorrect code at option loading is interpreted as L2. L0-to-closed progression takes effect after next system or power reset. Password-based OEM regression and BS progression have the separate power-cycle sequences in RM110/162. OEMLOCK1 can permit password regression; OEMLOCK0 makes L2 permanent. L2-to-L2_wBS is forbidden and raises OPTCHANGEERR. Regression erases user FLASH/EDATA and SRAMs/secrets but preserves OTP; no OTP confidentiality guarantee survives return to L0. Closed states still allow user-code flash read/write/erase and the specified SWAP_BANK/LOCKBL changes; WRP changes require L0. Once provisioned, OEMLOCK remains set and the key may be reprogrammed in L0 but not erased. A validated OEM key status must be cleared by power cycle before entering L2. Authentication and transitions are not read-only diagnostics.",
+        "evidence": [
+          "RM0522:p108",
+          "RM0522:p109",
+          "RM0522:p110",
+          "RM0522:p160",
+          "RM0522:p161",
+          "RM0522:p162",
+          "RM0522:p163",
+          "RM0522:p101"
+        ]
+      },
+      {
+        "id": "password_transport",
+        "detail": "OEM authentication shifts four 32-bit words low word first through DBG_AUTH_HOST; BS key is one 32-bit word through DBG_BSKEY_PWD. RM110 limits unlocking to once per power cycle. Mismatch leaves protections until POR; detailed FLASH adds BS-mismatch flash-access blocking. Default BS word 0xAAAAAAAA is documented, not permission to send it. Debug identity registers are not secrets.",
+        "evidence": [
+          "RM0522:p109",
+          "RM0522:p110",
+          "RM0522:p163"
+        ]
+      },
+      {
+        "id": "boot_source_selection",
+        "detail": "Table 13 selects boot from BOOTADD in main user flash excluding EDATA or from system bootloader. L0 BOOT_SEL=1 uses BOOT0 pin and ignores EMPTY in the table; BOOT_SEL=0 uses BOOT0 option and EMPTY as shown in finite map. Closed L2/L2_wBS always select BOOTADD. BOOT_LOCK restricts option modification but does not alter empty-check mechanism.",
+        "evidence": [
+          "RM0522:p112",
+          "RM0522:p113",
+          "RM0522:p190"
+        ]
+      },
+      {
+        "id": "empty_check_lifetime",
+        "detail": "RM112 says EMPTY is set during option loading when the word at BOOTADD is 0xFFFFFFFF; it does not explicitly describe clearing it in that footnote. RM174 says EMPTY is software-modifiable and not reset by system reset. RM150 lists loading of read-only _CUR option registers at POR, Standby wake and option change, while RM160 says a new RDP level takes effect after system or power reset. Preserve this reset/option-load tension: no fresh empty-check or stale-value behavior on every plain system reset is established here. EMPTY is not proof of flash-wide blankness, image validity or authenticated firmware.",
+        "evidence": [
+          "RM0522:p112",
+          "RM0522:p113",
+          "RM0522:p150",
+          "RM0522:p174",
+          "RM0522:p160"
+        ]
+      },
+      {
+        "id": "boot_address_safety",
+        "detail": "BOOTADD occupies bits31:8; 256-byte address granularity is inferred from that encoding. User boot must select valid main flash, excluding SRAM and EDATA. RM190 warns an invalid address stalls boot and makes flash unreadable. BOOT_LOCK0xC3 permits modification under individual rules;0xB4 freezes BOOTADD, BOOT0, BOOT_SEL and SWAP_BANK. Double-ECC default FLASH_BOOTR=0xFFFFFFB4 decodes to address0xFFFFFF00 and frozen lock: this is a derived invalid-address risk, not an observed failure. Existing FLASH SDK endpoint, low-byte OR and option-lock gates apply. No option write, erase, boot request or reset is admitted.",
+        "evidence": [
+          "RM0522:p112",
+          "RM0522:p190"
+        ]
+      },
+      {
+        "id": "bootloader_scope",
+        "detail": "RM names USART, SPI, FDCAN and USB DFU generically and directs readers to AN2606. Exact C542 ROM revision, supported peripheral instances/pins, protocol/version and entry/exit preconditions have not been pinned here. Family peripheral presence or AF routes alone cannot establish a supported bootloader transport.",
+        "evidence": [
+          "RM0522:p112",
+          "RM0522:p113"
+        ]
+      },
+      {
+        "id": "reset_asset_matrix",
+        "detail": "Table 12 distinguishes erase, block, reset and no effect per asset. Potential tamper does not erase SRAM1/SRAM2 but blocks SRAM2; confirmed tamper erases SRAM2. SRAM1/2 reset erasure depends on active-low option bits. FDCAN/USB RAM are not erased by the listed transitions in this table. Filter out ETH/PKA/SAES/CCB absence; cross-document contradictions below prevent unconditional reset preservation claims. Table 12 marks SRAM1 unaffected by POR and SRAM2 erased; this table-specific asymmetry is not a blanket retention guarantee.",
+        "evidence": [
+          "RM0522:p110",
+          "RM0522:p111"
+        ]
+      }
+    ],
+    "source_derived_SDK_gates": [],
+    "conflicts": [
+      {
+        "id": "SRAM2_RTC_domain_reset",
+        "detail": "Table 12 says RTC domain reset has no effect on SRAM2; RAMCFG114 says SRAM2 is erased by backup-domain reset. Preserve contradiction; do not assert SRAM2 preservation or erase on RTCDRST without reconciliation.",
+        "evidence": [
+          "RM0522:p110",
+          "RM0522:p114"
+        ]
+      },
+      {
+        "id": "system_reset_secrets",
+        "detail": "RM102 broadly says device secrets are not reset by system reset, while Table 12 marks AES/HASH and ICACHE reset/erase and SRAM erasure option-dependent. Use per-resource detailed constraints, not blanket preservation.",
+        "evidence": [
+          "RM0522:p102",
+          "RM0522:p110",
+          "RM0522:p111"
+        ]
+      },
+      {
+        "id": "family_crypto_and_keys",
+        "detail": "RM105 permits alternative DHUK identity and Table7 lists larger-family crypto without repeating exact filters; RM103 scopes key storage to C59x/C5Ax. No extra C542 engine or DHUK capability is admitted.",
+        "evidence": [
+          "RM0522:p99",
+          "RM0522:p103",
+          "RM0522:p104",
+          "RM0522:p105",
+          "RM0522:p106"
+        ]
+      },
+      {
+        "id": "tamper_filter_and_timestamp",
+        "detail": "RM101 says two false comparisons in four samples and automatic timestamp; detailed TAMP uses configurable consecutive 2/4/8 samples and RTC.TAMPTS. Preserve existing TAMP conflict rather than treating summary as executable.",
+        "evidence": [
+          "RM0522:p101",
+          "RM0522:p1600",
+          "RM0522:p1604"
+        ]
+      },
+      {
+        "id": "boot_page_footer",
+        "detail": "Boot pages 112/113 print /638 despite complete RM0522 having 2572 pages. Physical PDF page and pinned extraction determine evidence location; this is source pagination residue.",
+        "evidence": [
+          "RM0522:p112",
+          "RM0522:p113"
+        ]
+      },
+      {
+        "id": "datasheet_boot_summary",
+        "detail": "DS9 describes BOOT0 pin selection without BOOT_SEL, BOOT0 option or EMPTY qualifications. Treat it as an incomplete summary, not a competing exhaustive truth table; RM112 detailed rows remain the candidate.",
+        "evidence": [
+          "DS15135:p9",
+          "RM0522:p112"
+        ]
+      },
+      {
+        "id": "tamper_reset_erase_terms",
+        "detail": "RM102 uses RCC reset for crypto on potential tamper, RM1600 uses erase and Table 12 uses R. DS24 describes software-launched potential-mode secret erasure while detailed RM1600 specifies hardware effects on ICACHE/AES/HASH. RM102 names internal source6 JTAG/SWD access while RM1600 says unexpected debug activation. Preserve these scopes/wording rather than infer no hardware effects.",
+        "evidence": [
+          "RM0522:p102",
+          "RM0522:p110",
+          "RM0522:p1600",
+          "DS15135:p24"
+        ]
+      },
+      {
+        "id": "BS_power_cycle_wording",
+        "detail": "RM110 explicitly directs the user to apply POR after BS progression; RM162 passive wording says a POR is applied. Do not infer automatic device power cycling. RM110 uses DBG_BSKEY_PWD while RM162 uses DBGMCU_BSKEY_PWD; these are source naming variants, not separate interfaces.",
+        "evidence": [
+          "RM0522:p110",
+          "RM0522:p162"
+        ]
+      }
+    ],
+    "visual_checks": [
+      {
+        "path": "research://c5-reference/boot-rm-table13.png",
+        "sha256": "6e240298215de7ffc1ffcbb890ced6828303e347b4a67c866b7c3448bb81d942",
+        "scope": "RM0522 physicalPDFpage112 Table13 row and merged-cell mapping visually inspected by root"
+      }
+    ],
+    "finite_source_maps": {
+      "RDP_states": [
+        "L0",
+        "L2_wBS",
+        "L2"
+      ],
+      "OEM_word_order": [
+        "31:0",
+        "63:32",
+        "95:64",
+        "127:96"
+      ],
+      "boot_rows": [
+        {
+          "RDP": "L0",
+          "BOOT_SEL": 1,
+          "BOOT0_option": "x",
+          "BOOT0_pin": 0,
+          "EMPTY": "x",
+          "destination": "BOOTADD"
+        },
+        {
+          "RDP": "L0",
+          "BOOT_SEL": 1,
+          "BOOT0_option": "x",
+          "BOOT0_pin": 1,
+          "EMPTY": "x",
+          "destination": "system_bootloader"
+        },
+        {
+          "RDP": "L0",
+          "BOOT_SEL": 0,
+          "BOOT0_option": 0,
+          "BOOT0_pin": "x",
+          "EMPTY": 0,
+          "destination": "BOOTADD"
+        },
+        {
+          "RDP": "L0",
+          "BOOT_SEL": 0,
+          "BOOT0_option": 0,
+          "BOOT0_pin": "x",
+          "EMPTY": 1,
+          "destination": "system_bootloader"
+        },
+        {
+          "RDP": "L0",
+          "BOOT_SEL": 0,
+          "BOOT0_option": 1,
+          "BOOT0_pin": "x",
+          "EMPTY": "x",
+          "destination": "system_bootloader"
+        },
+        {
+          "RDP": "L2_or_L2_wBS",
+          "BOOT_SEL": "x",
+          "BOOT0_option": "x",
+          "BOOT0_pin": "x",
+          "EMPTY": "x",
+          "destination": "BOOTADD"
+        }
+      ],
+      "evidence": [
+        "RM0522:p108",
+        "RM0522:p110",
+        "RM0522:p112"
+      ]
+    },
+    "chapter_audit": {
+      "RM0522_full_chapters": {
+        "system_security": [
+          99,
+          111
+        ],
+        "boot_modes": [
+          112,
+          113
+        ]
+      },
+      "qualification": "full_chapter_read_not_full_semantic_or_operational_closure"
+    },
+    "open_gates": [
+      "AN2606 exact C542 ROM/bootloader version and protocol sources absent from local corpus search; acquisition/reconciliation remains open.",
+      "Arm CPU/MPU/FPU architecture and SDK semantics not closed by system security overview.",
+      "No provisioning,password submission,option edits,reset,bootloader access orhardware activity.",
+      "Cross-resource effects,boot image/vector validation,compiler,build,timing,power-loss andhardware qualification remain open."
+    ]
+  }
+}

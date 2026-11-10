@@ -1,0 +1,556 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/errata.json",
+    "sha256": "821c22f796a9ff723afee534fe5943c2b0506325ec871d890706d94414316416"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 11
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "schema": "bkpt.c5-errata-inventory/1",
+    "publication": "unpublished",
+    "target": {
+      "device": "STM32C542RCT6",
+      "device_group": "STM32C542xx",
+      "package": "LQFP64",
+      "silicon_revision": "unknown",
+      "sdk": "stm32c5-hal2-2.1.0"
+    },
+    "base_candidate_sha256": "218a49767ba2ecf9e6e631a4109e4d76d7998e0b075395a32ec29ee1087c9336",
+    "source": {
+      "pdf": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pdf",
+      "sha256": "a5463827337bcdbd3e5f2e0912a56307d78b568e5631b21cc9a25899c7d4a5e6",
+      "extraction": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pages.json",
+      "extraction_sha256": "2ab1b19e42b53e22ff5f3b98f6ed9a5f98f3b7b61a617abc3bb3b7fc050d1cb3",
+      "revision": 2
+    },
+    "evidence": {
+      "1": {
+        "page": 1,
+        "text_sha256": "c36bb50f3ba55f82de59b1a5aa62c5ca6b1d3ea938ac9451545a442e65dd25c8"
+      },
+      "2": {
+        "page": 2,
+        "text_sha256": "3fed5303e4a0fc65ed4dbe6aae1c297605837e2da15bb0e24928d26b0d25eb95"
+      },
+      "3": {
+        "page": 3,
+        "text_sha256": "6682207b964f905ea8f0e452bc5cff546dfb08622fca9ce2f979b0e43cd6d157"
+      },
+      "4": {
+        "page": 4,
+        "text_sha256": "3b0e6d179a6d3b6701ddfa31ce87f44ef4d62c59d79a1f01184c77a212d7774c"
+      },
+      "5": {
+        "page": 5,
+        "text_sha256": "b1c29e54e422b77b7a01a6dea47789196c0a8d23aed2f9a68f6a91698ae66d9d"
+      },
+      "6": {
+        "page": 6,
+        "text_sha256": "67192cb102783988744a71ca6f88c36b938faf48d360a4834496df7e76a4b915"
+      },
+      "7": {
+        "page": 7,
+        "text_sha256": "ae251fcee43cc089851cf652083da87910ac36c57afdcaee5a38ebf1eb2ecb9d"
+      },
+      "8": {
+        "page": 8,
+        "text_sha256": "bbdb92e175f8101da1467e00b7fa2894fb9e3e1f2b0bd5937f5a865428c2ce5b"
+      },
+      "9": {
+        "page": 9,
+        "text_sha256": "16f3f6e7cf8092fc36fa0c23e0e1346aa2510f7a06639a41f90caf8bab393c84"
+      },
+      "10": {
+        "page": 10,
+        "text_sha256": "68b80618adcb6cf1f68aa4d5221444fc774b33c9a168223465e8f9334996a4aa"
+      },
+      "11": {
+        "page": 11,
+        "text_sha256": "f3433686e725b795145e0f5945a8735b0aa23657c7f34885d86cc028e6cc9b4e"
+      }
+    },
+    "visual_table_checks": [
+      {
+        "page": 2,
+        "path": "research://c5-reference/errata-table-check-02.png",
+        "sha256": "85972be5e2ebbf9b45fe6305d2040f5d22d93554219191880e3bc3a495a5077d",
+        "status": "visually_checked_revision_columns"
+      },
+      {
+        "page": 3,
+        "path": "research://c5-reference/errata-table-check-03.png",
+        "sha256": "06d9e042b025a3eb5600fca1ff83db2544ae258b04ef65bc00d219487dc337d4",
+        "status": "visually_checked_revision_columns"
+      }
+    ],
+    "visual_source_defects": [
+      {
+        "page": 8,
+        "path": "research://c5-reference/errata-protection-check-08.png",
+        "sha256": "e2bcf0741bc7b4d7edcb7838e088979ba8d4c1fdf5cc25c1d638a663321bd6cb",
+        "finding": "PWR protection field is blank in original rendered PDF; not extraction loss."
+      }
+    ],
+    "entries": [
+      {
+        "section": "2.1.1",
+        "domain": "Core",
+        "detail_pages": [
+          4
+        ],
+        "revision_status": {
+          "Z": "N",
+          "Y": "N"
+        },
+        "condition": "MPU enabled; unaligned load/store hits exactly one device-memory region whose permissions prohibit the access.",
+        "response": "No workaround. Do not depend on UsageFault taking priority over the access-permission MemManage fault.",
+        "exact_device_applicability": "conditional_on_application_context",
+        "review": "candidate",
+        "implementation": "not_audited",
+        "build": "not_tested",
+        "hardware": "not_observed",
+        "execution_permission": "none"
+      },
+      {
+        "section": "2.2.1",
+        "domain": "RCC",
+        "detail_pages": [
+          4
+        ],
+        "revision_status": {
+          "Z": "A",
+          "Y": "A"
+        },
+        "condition": "LSE analog bypass: LSEBYP=1 and LSEEXT=0.",
+        "response": "Use digital bypass instead: LSEBYP=1 and LSEEXT=1.",
+        "exact_device_applicability": "conditional_on_application_context",
+        "review": "candidate",
+        "implementation": "not_audited",
+        "build": "not_tested",
+        "hardware": "not_observed",
+        "execution_permission": "none"
+      },
+      {
+        "section": "2.2.2",
+        "domain": "RCC/GPIOC",
+        "detail_pages": [
+          4,
+          5
+        ],
+        "revision_status": {
+          "Z": "N",
+          "Y": "N"
+        },
+        "condition": "LQFP package, LSE crystal operating, PC13 toggling as input or output.",
+        "response": "No workaround in table; avoid PC13 toggling while using the crystal. Bypass is unaffected by this entry only; analog bypass has its own erratum.",
+        "exact_device_applicability": "conditional_on_application_context",
+        "review": "candidate",
+        "implementation": "not_audited",
+        "build": "not_tested",
+        "hardware": "not_observed",
+        "execution_permission": "none"
+      },
+      {
+        "section": "2.2.3",
+        "domain": "RCC",
+        "detail_pages": [
+          5
+        ],
+        "revision_status": {
+          "Z": "N",
+          "Y": "N"
+        },
+        "condition": "LSEDRV=00 low drive.",
+        "response": "Mode forbidden; no workaround. Other drive modes still require electrical qualification.",
+        "exact_device_applicability": "conditional_on_application_context",
+        "review": "candidate",
+        "implementation": "not_audited",
+        "build": "not_tested",
+        "hardware": "not_observed",
+        "execution_permission": "none"
+      },
+      {
+        "section": "2.3.1",
+        "domain": "ADC1/ADCC12",
+        "detail_pages": [
+          5
+        ],
+        "revision_status": {
+          "Z": "A",
+          "Y": "A"
+        },
+        "condition": "Family description requires ADC1 and ADC2 simultaneous regular mode DUAL=0x06, with injected stop coinciding with injected trigger.",
+        "response": "Family alternatives: prevent the listed events coinciding; stop regular before injected conversions; stop injected trigger source first; or use DUAL=0x01/0x02. These are not admitted C542 modes.",
+        "exact_device_applicability": "unresolved_family_applicability_exact_C542_has_one_ADC_do_not_infer_ADC2_or_dual_mode",
+        "review": "candidate",
+        "implementation": "not_audited",
+        "build": "not_tested",
+        "hardware": "not_observed",
+        "execution_permission": "none"
+      },
+      {
+        "section": "2.3.2",
+        "domain": "ADC1",
+        "detail_pages": [
+          5
+        ],
+        "revision_status": {
+          "Z": "A",
+          "Y": "A"
+        },
+        "condition": "SMPTRIG set, regular conversion starts then stops, SMPTRIG cleared, then injected conversion attempted.",
+        "response": "Disable ADC, clear SMPTRIG, then re-enable ADC before injected conversions.",
+        "exact_device_applicability": "conditional_on_application_context",
+        "review": "candidate",
+        "implementation": "not_audited",
+        "build": "not_tested",
+        "hardware": "not_observed",
+        "execution_permission": "none"
+      },
+      {
+        "section": "2.4.1",
+        "domain": "COMP1/COMP2",
+        "detail_pages": [
+          6
+        ],
+        "revision_status": {
+          "Z": "N",
+          "Y": "-"
+        },
+        "condition": "Both comparators enabled simultaneously.",
+        "response": "Rev Z: use individually; no workaround for concurrent operation. Rev Y: this specific limitation is marked not applicable; other constraints still apply.",
+        "exact_device_applicability": "conditional_on_application_context",
+        "review": "candidate",
+        "implementation": "not_audited",
+        "build": "not_tested",
+        "hardware": "not_observed",
+        "execution_permission": "none"
+      },
+      {
+        "section": "2.5.1",
+        "domain": "RNG",
+        "detail_pages": [
+          6
+        ],
+        "revision_status": {
+          "Z": "N",
+          "Y": "N"
+        },
+        "condition": "Supply, temperature and process combinations cause insufficient analog entropy and continuous seed errors.",
+        "response": "Table status N; body requires standard RNG error-management procedure for detection and recovery. No extra application workaround is specified; do not accept seed-error output.",
+        "exact_device_applicability": "conditional_on_application_context",
+        "review": "candidate",
+        "implementation": "not_audited",
+        "build": "not_tested",
+        "hardware": "not_observed",
+        "execution_permission": "none"
+      },
+      {
+        "section": "2.6.1",
+        "domain": "LPTIM1",
+        "detail_pages": [
+          6
+        ],
+        "revision_status": {
+          "Z": "A",
+          "Y": "A"
+        },
+        "condition": "Clearing ENABLE near an interrupt can leave wake signal active and prevent entry to any Stop mode.",
+        "response": "Disable through assert/deassert of the RCC peripheral reset, rather than clearing ENABLE. Reset impacts the entire owned peripheral configuration.",
+        "exact_device_applicability": "conditional_on_application_context",
+        "review": "candidate",
+        "implementation": "not_audited",
+        "build": "not_tested",
+        "hardware": "not_observed",
+        "execution_permission": "none"
+      },
+      {
+        "section": "2.6.2",
+        "domain": "LPTIM1",
+        "detail_pages": [
+          6,
+          7
+        ],
+        "revision_status": {
+          "Z": "A",
+          "Y": "A"
+        },
+        "condition": "One-shot, APB slower than kernel, odd programmed REP value (not parity of effective REP+1).",
+        "response": "Require both ARR and CMP >= KER_CLK/(2*APB_CLK). Use integer-safe comparison; source example REP=3 has four effective repetitions.",
+        "exact_device_applicability": "conditional_on_application_context",
+        "review": "candidate",
+        "implementation": "not_audited",
+        "build": "not_tested",
+        "hardware": "not_observed",
+        "execution_permission": "none"
+      },
+      {
+        "section": "2.6.3",
+        "domain": "LPTIM1",
+        "detail_pages": [
+          7
+        ],
+        "revision_status": {
+          "Z": "N",
+          "Y": "N"
+        },
+        "condition": "Modification of an interrupt bit in LPTIM_DIER.",
+        "response": "Corresponding ISR flag is cleared by hardware; no workaround. Changing enables must account for pending-event loss.",
+        "exact_device_applicability": "conditional_on_application_context",
+        "review": "candidate",
+        "implementation": "not_audited",
+        "build": "not_tested",
+        "hardware": "not_observed",
+        "execution_permission": "none"
+      },
+      {
+        "section": "2.7.1",
+        "domain": "RTC",
+        "detail_pages": [
+          7
+        ],
+        "revision_status": {
+          "Z": "N",
+          "Y": "N"
+        },
+        "condition": "Core halted in debug; MASKSS nonzero; subsecond alarm met just before halt/printf, even with RTC freeze configured.",
+        "response": "No workaround. ALRAF/ALRBF may repeatedly reassert; clearing while halted can be ineffective.",
+        "exact_device_applicability": "conditional_on_application_context",
+        "review": "candidate",
+        "implementation": "not_audited",
+        "build": "not_tested",
+        "hardware": "not_observed",
+        "execution_permission": "none"
+      },
+      {
+        "section": "2.7.2",
+        "domain": "RTC",
+        "detail_pages": [
+          7,
+          8
+        ],
+        "revision_status": {
+          "Z": "A",
+          "Y": "A"
+        },
+        "condition": "Calendar read while BYPSHAD=0; shadow copy can transiently be incorrect.",
+        "response": "Set BYPSHAD=1; read calendar twice and repeat until consecutive readings agree; follow RM bypass calendar-read protocol.",
+        "exact_device_applicability": "conditional_on_application_context",
+        "review": "candidate",
+        "implementation": "not_audited",
+        "build": "not_tested",
+        "hardware": "not_observed",
+        "execution_permission": "none"
+      },
+      {
+        "section": "2.7.3",
+        "domain": "RTC/TAMP/PWR",
+        "detail_pages": [
+          8
+        ],
+        "revision_status": {
+          "Z": "N",
+          "Y": "N"
+        },
+        "condition": "Write 1 to RTC_SCR, TAMP_SCR or TAMP_CR2.BKERASE while backup-domain writes are protected in PWR.",
+        "response": "Follow correct write-access sequence before touching these bits. No recovery workaround; system reset is required after lockup. PWR bit name is missing in both extraction and rendered PDF, so exact field binding remains unresolved.",
+        "exact_device_applicability": "conditional_on_application_context",
+        "review": "candidate",
+        "implementation": "not_audited",
+        "build": "not_tested",
+        "hardware": "not_observed",
+        "execution_permission": "none"
+      },
+      {
+        "section": "2.8.1",
+        "domain": "I2C1",
+        "detail_pages": [
+          8
+        ],
+        "revision_status": {
+          "Z": "P",
+          "Y": "P"
+        },
+        "condition": "Transmitter minimum data setup time is shorter than one I2C kernel-clock period.",
+        "response": "Increase kernel frequency or transmitter setup time. At standard minima 250/100/50 ns, require respectively >=4/10/20 MHz. Partial workaround status P is preserved.",
+        "exact_device_applicability": "conditional_on_application_context",
+        "review": "candidate",
+        "implementation": "not_audited",
+        "build": "not_tested",
+        "hardware": "not_observed",
+        "execution_permission": "none"
+      },
+      {
+        "section": "2.8.2",
+        "domain": "I2C1",
+        "detail_pages": [
+          9
+        ],
+        "revision_status": {
+          "Z": "A",
+          "Y": "A"
+        },
+        "condition": "Controller-mode spurious BERR and optional error interrupt; transfer itself continues.",
+        "response": "Clear BERR in software and continue normal handling. Do not infer this action for target mode or unrelated faults; source register spelling needs SDK reconciliation.",
+        "exact_device_applicability": "conditional_on_application_context",
+        "review": "candidate",
+        "implementation": "not_audited",
+        "build": "not_tested",
+        "hardware": "not_observed",
+        "execution_permission": "none"
+      },
+      {
+        "section": "2.9.1",
+        "domain": "USART capability intersection",
+        "detail_pages": [
+          9
+        ],
+        "revision_status": {
+          "Z": "A",
+          "Y": "A"
+        },
+        "condition": "Disable autobaud by clearing ABREN after detection while reception continues.",
+        "response": "Do not clear ABREN. Apply only to exact instances with autobaud capability; inherited register layout is insufficient.",
+        "exact_device_applicability": "conditional_on_application_context",
+        "review": "candidate",
+        "implementation": "not_audited",
+        "build": "not_tested",
+        "hardware": "not_observed",
+        "execution_permission": "none"
+      },
+      {
+        "section": "2.9.2",
+        "domain": "USART capability intersection",
+        "detail_pages": [
+          9
+        ],
+        "revision_status": {
+          "Z": "N",
+          "Y": "N"
+        },
+        "condition": "ONEBIT=1 and noise detected on START bit.",
+        "response": "NE may set despite single-sample mode; no workaround. Bind to exact supported instances before implementation.",
+        "exact_device_applicability": "conditional_on_application_context",
+        "review": "candidate",
+        "implementation": "not_audited",
+        "build": "not_tested",
+        "hardware": "not_observed",
+        "execution_permission": "none"
+      },
+      {
+        "section": "2.10.1",
+        "domain": "LPUART1",
+        "detail_pages": [
+          9,
+          10
+        ],
+        "revision_status": {
+          "Z": "P",
+          "Y": "P"
+        },
+        "condition": "Noninteger kernel-frequency/baud ratio between three and four; example 32768/9600.",
+        "response": "Increase transmitter ratio by raising kernel frequency or lowering baud; alternatively use higher-frequency receiver oversampling if supported. Partial workaround; no proven universal ratio threshold supplied.",
+        "exact_device_applicability": "conditional_on_application_context",
+        "review": "candidate",
+        "implementation": "not_audited",
+        "build": "not_tested",
+        "hardware": "not_observed",
+        "execution_permission": "none"
+      },
+      {
+        "section": "2.11.1",
+        "domain": "SPI capability intersection",
+        "detail_pages": [
+          10
+        ],
+        "revision_status": {
+          "Z": "N",
+          "Y": "N"
+        },
+        "condition": "Target/slave with RDY output enabled via RDIOM; serial clock exceeds 2*APB for 8..15 bits, 6*APB for 16..23, or 14*APB for 24..32.",
+        "response": "No workaround for affected configuration. Do not infer safety or applicability for unlisted widths or instances without RDY support.",
+        "exact_device_applicability": "conditional_on_application_context",
+        "review": "candidate",
+        "implementation": "not_audited",
+        "build": "not_tested",
+        "hardware": "not_observed",
+        "execution_permission": "none"
+      },
+      {
+        "section": "2.12.1",
+        "domain": "FDCAN1/FDCAN2",
+        "detail_pages": [
+          10
+        ],
+        "revision_status": {
+          "Z": "A",
+          "Y": "A"
+        },
+        "condition": "EFBI enabled and integration-phase end coincides with falling RX edge.",
+        "response": "Disable edge filtering or rely on retransmission. Source separately says standard-frame reception is unaffected; preserve that qualifier pending exact protocol interpretation.",
+        "exact_device_applicability": "conditional_on_application_context",
+        "review": "candidate",
+        "implementation": "not_audited",
+        "build": "not_tested",
+        "hardware": "not_observed",
+        "execution_permission": "none"
+      },
+      {
+        "section": "2.12.2",
+        "domain": "FDCAN1/FDCAN2",
+        "detail_pages": [
+          10,
+          11
+        ],
+        "revision_status": {
+          "Z": "A",
+          "Y": "A"
+        },
+        "condition": "Dedicated Tx buffer plus Tx FIFO (TFQM=0), with buffer messages having higher internal CAN priority.",
+        "response": "Choose one documented strategy: only one FIFO transmission pending at once; exclusively use FIFO; or schedule dedicated buffers. Do not treat example buffer numbers as guaranteed exact-device allocation.",
+        "exact_device_applicability": "conditional_on_application_context",
+        "review": "candidate",
+        "implementation": "not_audited",
+        "build": "not_tested",
+        "hardware": "not_observed",
+        "execution_permission": "none"
+      },
+      {
+        "section": "2.13.1",
+        "domain": "USB",
+        "detail_pages": [
+          11
+        ],
+        "revision_status": {
+          "Z": "A",
+          "Y": "A"
+        },
+        "condition": "OUT-transfer CTR arrives before final USB SRAM accesses finish.",
+        "response": "Delay before SRAM access: 800 ns Full Speed, 6.4 us Low Speed. Retain both family values; admit only exact-device supported speed modes.",
+        "exact_device_applicability": "conditional_on_application_context",
+        "review": "candidate",
+        "implementation": "not_audited",
+        "build": "not_tested",
+        "hardware": "not_observed",
+        "execution_permission": "none"
+      }
+    ],
+    "inventory_scope": "All 23 Table3 entries transcribed and detail sections read; source inventory only.",
+    "exact_device_semantic_closure": false,
+    "execution_permission": "none",
+    "remaining": [
+      "Exact-instance SDK workaround audit",
+      "Family-only mode intersection",
+      "Board/revision/context binding",
+      "Missing PWR field and source register spellings",
+      "Implementation/build/hardware qualification"
+    ]
+  }
+}

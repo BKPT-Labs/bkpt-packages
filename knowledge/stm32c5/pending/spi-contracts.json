@@ -1,0 +1,5377 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/spi-contracts.json",
+    "sha256": "b34fd7eaf0ca387cbf36d407c14a6ffab436eff1308e98ae31594295c70d9ac4"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 144
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "schema": "bkpt.external.spi.contracts.v1",
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "review": "Independent source and regression review pending.",
+    "scope": "Data-only SPI1/SPI2 and their mutually exclusive I2S modes. Full RM chapter text read; selected HAL/LL lifecycle paths audited. No executable profile, electrical or audio accuracy qualification, DMA admission or whole-device closure.",
+    "sources": {
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "DS15135": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pdf",
+        "sha256": "1a3555f799297774a95978ab343ebc1f45ab9ef58d0dcf3600dec4fabed9355c",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pages.json",
+        "extraction_sha256": "b14b965adb6c1545edbca0e56b3c504e7ecc3a94bda197350ce2757b5a3d55dc"
+      },
+      "ES0676": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pdf",
+        "sha256": "a5463827337bcdbd3e5f2e0912a56307d78b568e5631b21cc9a25899c7d4a5e6",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pages.json",
+        "extraction_sha256": "2ab1b19e42b53e22ff5f3b98f6ed9a5f98f3b7b61a617abc3bb3b7fc050d1cb3"
+      },
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "HAL_SPI": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_spi.c",
+        "sha256": "d19576e641358887a7dcfa10220f1529c78e936e5a2c3b721b9b25da8e73927e"
+      },
+      "HAL_I2S": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_i2s.c",
+        "sha256": "0871924a317c6638ab8cf43c07d17d41ea55408a5b4f5c3f81b2fb8ba989948e"
+      },
+      "HAL_SPI_H": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_spi.h",
+        "sha256": "784b814b2a2f4a927fadc130d8dffd91b5cb20f0b4bf74d0f884328cc622e792"
+      },
+      "HAL_I2S_H": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_i2s.h",
+        "sha256": "a5b0a25510099cbd3cf70cd703d750a369ccf4124069d87cfb69c6946380c5a8"
+      },
+      "LL": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_spi.h",
+        "sha256": "bc64c4e1b6297712f58b6cc329149d169fc418b99df7b9c427113485bcc2cd15"
+      },
+      "HAL_def": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_def.h",
+        "sha256": "44149fa34fae22a75c3cfdf6607c5047d9f01141ba683b9b905c953ca31fb338"
+      },
+      "assert_template": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/templates/common/stm32_assert.h",
+        "sha256": "811b45570fdc34fc5ad7b308625795b0a8c2aff53c1a261694772df6b7fb205c"
+      },
+      "package": {
+        "path": "research://c5-reference/package-routes.json",
+        "sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288"
+      },
+      "errata": {
+        "path": "research://c5-reference/errata.json",
+        "sha256": "821c22f796a9ff723afee534fe5943c2b0506325ec871d890706d94414316416"
+      },
+      "dma_routing": {
+        "path": "research://c5-reference/dma-routing.json",
+        "sha256": "6f5d4d59950941a32d983ccc0907dda996415c9fd201cce9b2e8777bd86ae41d"
+      },
+      "family_header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c5xx.h",
+        "sha256": "61a0b8c2674d9e817d70aa8d2693339273f4283694f8ab5f8dca077bb69913f7"
+      }
+    },
+    "evidence": {
+      "RM0522:p314": {
+        "source": "RM0522",
+        "page": 314,
+        "sha256": "9e1eeb856182a7a43bed9cb25adbe63a2c536234980d6fa10c4b9df82007ab21"
+      },
+      "RM0522:p1945": {
+        "source": "RM0522",
+        "page": 1945,
+        "sha256": "158e578fa0c8d70cbd79ed92a37db9bd231eb03e000aafe0fdfcce8c6c5f1eb3"
+      },
+      "RM0522:p1946": {
+        "source": "RM0522",
+        "page": 1946,
+        "sha256": "8fb7e9d1606e80fd4b7ce7e7a4ba4a9fd8f5818663d4a9df0042bc44f99293c1"
+      },
+      "RM0522:p1947": {
+        "source": "RM0522",
+        "page": 1947,
+        "sha256": "dae025d30b9c7fd543a2c82ff528c96942acc89b6e4c8641def09bf4f5a1f257"
+      },
+      "RM0522:p1948": {
+        "source": "RM0522",
+        "page": 1948,
+        "sha256": "85055b5735c86aee3f883bb4e51e9c28b5c15f987f9bc186208a68718c184721"
+      },
+      "RM0522:p1949": {
+        "source": "RM0522",
+        "page": 1949,
+        "sha256": "d3332164d67850dc481d926d09d1aad04c191ecaf1f4e099c8c134d3ada7c27a"
+      },
+      "RM0522:p1950": {
+        "source": "RM0522",
+        "page": 1950,
+        "sha256": "47d85df421129aa7b49e5b1d7ca459239abf301918cba4840792ba0d06871f1e"
+      },
+      "RM0522:p1951": {
+        "source": "RM0522",
+        "page": 1951,
+        "sha256": "b432aa497ffa6ca28999b2fa495d4927955707a6ec010c75c7f01d6c9ca78c70"
+      },
+      "RM0522:p1952": {
+        "source": "RM0522",
+        "page": 1952,
+        "sha256": "f876f64ff71cbd480b96e60f496279bd8e1200ef9699769373c928c9385d4778"
+      },
+      "RM0522:p1953": {
+        "source": "RM0522",
+        "page": 1953,
+        "sha256": "8ce1d75795d8c38f0f0ebdd01cb07c12bc091f462469959aeed34aae173eff2a"
+      },
+      "RM0522:p1954": {
+        "source": "RM0522",
+        "page": 1954,
+        "sha256": "3b4b3c0a0d436fe9a58f1c9d5db36cdd6a7dd1309aa56071d8c2b5e9d0f4451a"
+      },
+      "RM0522:p1955": {
+        "source": "RM0522",
+        "page": 1955,
+        "sha256": "e70867e7a1329dce1a1700f41794153765ba722c1bf9d074ba2eeda97515103d"
+      },
+      "RM0522:p1956": {
+        "source": "RM0522",
+        "page": 1956,
+        "sha256": "2b258c378c183728bcdb330a3dfee882cdd884d9731daff6d7ec9222e4d7916f"
+      },
+      "RM0522:p1957": {
+        "source": "RM0522",
+        "page": 1957,
+        "sha256": "d21ac74f45fe80e7ac0539cae06ba8881c3e9a0cfe01ea7be18aed255b293003"
+      },
+      "RM0522:p1958": {
+        "source": "RM0522",
+        "page": 1958,
+        "sha256": "9ebbf04de54329f163f2df11f896e06313c3f3431b3f3f1c234ecfce2fd46d04"
+      },
+      "RM0522:p1959": {
+        "source": "RM0522",
+        "page": 1959,
+        "sha256": "1d6c960087a5457a0226e770ba9d72e0848482b22d2ea7772e2f232a61f95370"
+      },
+      "RM0522:p1960": {
+        "source": "RM0522",
+        "page": 1960,
+        "sha256": "4d6f5864a55d72d2a85b4a44b0146e0f4ca2257a6a46fc912b6336ff2db05e20"
+      },
+      "RM0522:p1961": {
+        "source": "RM0522",
+        "page": 1961,
+        "sha256": "31d97fe69360f2571303b4b5c8c14f69940f378e366b88be5684a658c21e1594"
+      },
+      "RM0522:p1962": {
+        "source": "RM0522",
+        "page": 1962,
+        "sha256": "df13b36da61322e2fba660a235d4751fd798750a8492cb7f48dd6f70b9ae1916"
+      },
+      "RM0522:p1963": {
+        "source": "RM0522",
+        "page": 1963,
+        "sha256": "108c142d350bf753df673a229d4e1a6834c88af89f480a3596b9d6ed6222acc2"
+      },
+      "RM0522:p1964": {
+        "source": "RM0522",
+        "page": 1964,
+        "sha256": "c7b00c993256eddfdb2d6093de50e31a7c96a27789294065b432d27d9119be39"
+      },
+      "RM0522:p1965": {
+        "source": "RM0522",
+        "page": 1965,
+        "sha256": "87a5cd95790fa624bc450e717405ab43eaf383de1ea15f996447cc0049248dd0"
+      },
+      "RM0522:p1966": {
+        "source": "RM0522",
+        "page": 1966,
+        "sha256": "4271430a35b82c9354ea758c9c29b91cc8c3ba454c4b2a1597cd34ca54e03ff2"
+      },
+      "RM0522:p1967": {
+        "source": "RM0522",
+        "page": 1967,
+        "sha256": "09f8bd30859cd928d1b2b3b1ead52bfb422db0960c1bc38194b6b5427c93b31f"
+      },
+      "RM0522:p1968": {
+        "source": "RM0522",
+        "page": 1968,
+        "sha256": "96b962c0a0b9a4e7437fe063d81a777d656ef8e57f7436b92893712e96ce0dfb"
+      },
+      "RM0522:p1969": {
+        "source": "RM0522",
+        "page": 1969,
+        "sha256": "8d3910d8752a7c6e2f328201fb2a2ef20e48516647f23a43417a2c491ec7cade"
+      },
+      "RM0522:p1970": {
+        "source": "RM0522",
+        "page": 1970,
+        "sha256": "702a31cb0bf76465c83e3391991e50737ba339b9eb729641cfd457c5ae8df000"
+      },
+      "RM0522:p1971": {
+        "source": "RM0522",
+        "page": 1971,
+        "sha256": "f5d92c56ea4557b0eda97a3ad096ff926c9fe772842618e5ff53d90f0ded21d3"
+      },
+      "RM0522:p1972": {
+        "source": "RM0522",
+        "page": 1972,
+        "sha256": "46490433d2ea0c409d48fe13107f5b6d381b8c3957c7ad18d504c6d19a18d1ef"
+      },
+      "RM0522:p1973": {
+        "source": "RM0522",
+        "page": 1973,
+        "sha256": "7cf6b26cc3e5672489d979a3d761671aef0cbca593845d563152a9e6f8ab23ac"
+      },
+      "RM0522:p1974": {
+        "source": "RM0522",
+        "page": 1974,
+        "sha256": "5d197a0edf133098a159965182787246532a37c41aab71b476c02f969442751e"
+      },
+      "RM0522:p1975": {
+        "source": "RM0522",
+        "page": 1975,
+        "sha256": "28482df64c9307bda6940ca53ed6c01f44bdd886741ea489cf00c3e0d9c40d77"
+      },
+      "RM0522:p1976": {
+        "source": "RM0522",
+        "page": 1976,
+        "sha256": "e314635f1dbad50d4a0295d11084257bf8633b985ced8ec346f8886e2f8971a7"
+      },
+      "RM0522:p1977": {
+        "source": "RM0522",
+        "page": 1977,
+        "sha256": "ad6dfc5f3fe8b5f07c93eacd2d43c8a34a0da3ad75caca15664baba55ad0e2bc"
+      },
+      "RM0522:p1978": {
+        "source": "RM0522",
+        "page": 1978,
+        "sha256": "e39679fb972eba1c627a2025240bc6af42dd29bb42031f501f02d84d55869791"
+      },
+      "RM0522:p1979": {
+        "source": "RM0522",
+        "page": 1979,
+        "sha256": "3bae65cc1f04859600fcb722c6f0359b17d636fa50649fe6a10c9402e0dcb880"
+      },
+      "RM0522:p1980": {
+        "source": "RM0522",
+        "page": 1980,
+        "sha256": "bbcc17241cdef9e94f9f8a3f40328731d363a7fc2d5e60b8e3eb4e10d18adca5"
+      },
+      "RM0522:p1981": {
+        "source": "RM0522",
+        "page": 1981,
+        "sha256": "91cb955168c2584c702ef014804c2e499aaf7a1c48645f2c282f3db033deedc1"
+      },
+      "RM0522:p1982": {
+        "source": "RM0522",
+        "page": 1982,
+        "sha256": "dacfdcec678f23cda53efe3926e5adacfda25faa03b41c120f5a9c7e28e263cb"
+      },
+      "RM0522:p1983": {
+        "source": "RM0522",
+        "page": 1983,
+        "sha256": "be02e67dc6b7fc8b0395b799095299313a1e38d4dddab9bbbeba4298cb24fca4"
+      },
+      "RM0522:p1984": {
+        "source": "RM0522",
+        "page": 1984,
+        "sha256": "c9e56aca22a91980a2a39a4320d7b2002f65539eaca94feec5f8bb07e7484a71"
+      },
+      "RM0522:p1985": {
+        "source": "RM0522",
+        "page": 1985,
+        "sha256": "e7f6b3ee036115b203745d3f9b79114b22db48f15ee100c72183f3fd29ed7974"
+      },
+      "RM0522:p1986": {
+        "source": "RM0522",
+        "page": 1986,
+        "sha256": "2c2db62da393d45123f4fb7f0b05300802473b09cb0ea17fa85cdb51584932ea"
+      },
+      "RM0522:p1987": {
+        "source": "RM0522",
+        "page": 1987,
+        "sha256": "b00b6ccf73e5a025935b806ec728a9a060fa1bdd390665869e62c1b3e7b8c404"
+      },
+      "RM0522:p1988": {
+        "source": "RM0522",
+        "page": 1988,
+        "sha256": "51dbee4d4f786220fd983cf2fa340af743cd86d9d7b88835392d23ecad343b1d"
+      },
+      "RM0522:p1989": {
+        "source": "RM0522",
+        "page": 1989,
+        "sha256": "70fa8eb4fe1e8a3eba16c53093c5f400ccb4f7bcf43bddacac8e45e762ff94f3"
+      },
+      "RM0522:p1990": {
+        "source": "RM0522",
+        "page": 1990,
+        "sha256": "a3418308b03c7ec5ea9e4d892ef79a504f3b1327664c1fa01a8cba2c51df3d7a"
+      },
+      "RM0522:p1991": {
+        "source": "RM0522",
+        "page": 1991,
+        "sha256": "2050039b912d14564fbf8d4e164d1b748a5e84ebf5ef9ba204211cf3a8b80048"
+      },
+      "RM0522:p1992": {
+        "source": "RM0522",
+        "page": 1992,
+        "sha256": "f86f4cf73e9bc49b2c3788dc731e7246e9a3cd5e86a30b447589068d808e167d"
+      },
+      "RM0522:p1993": {
+        "source": "RM0522",
+        "page": 1993,
+        "sha256": "37b37c9b8bafe468e57c18fdfd46b05e89b8b27de2776ca8e79efc32c26b29db"
+      },
+      "RM0522:p1994": {
+        "source": "RM0522",
+        "page": 1994,
+        "sha256": "b59a28bcc0c536db4c9b8cf04642563260f06a845630b819052ba93ff0425b78"
+      },
+      "RM0522:p1995": {
+        "source": "RM0522",
+        "page": 1995,
+        "sha256": "953af91e51dbb4d827044d00887fde8d79aab73b8fe6f7b6e21c4b3fe65c7a78"
+      },
+      "RM0522:p1996": {
+        "source": "RM0522",
+        "page": 1996,
+        "sha256": "14d11f80740bfb23acdaa1064a44ad4d318e618e297fbdef33b1d5816f57fd49"
+      },
+      "RM0522:p1997": {
+        "source": "RM0522",
+        "page": 1997,
+        "sha256": "73c50ecf2d490ecb88dffaf5590dc244aac83c30d50ced9972d166d90b620b23"
+      },
+      "RM0522:p1998": {
+        "source": "RM0522",
+        "page": 1998,
+        "sha256": "2738eb2876992f76f0762ceea858a88860179302769d051c06b9b05aaf14c53e"
+      },
+      "RM0522:p1999": {
+        "source": "RM0522",
+        "page": 1999,
+        "sha256": "ffe921473f01d494a0fed4022b69fd04f86066f2eefb9c35dc8864acd916ad3c"
+      },
+      "RM0522:p2000": {
+        "source": "RM0522",
+        "page": 2000,
+        "sha256": "8aa13fd8825e44ffa7e993b5b753244bfad6d2b53d2c6896d0b4d544a43a6d57"
+      },
+      "RM0522:p2001": {
+        "source": "RM0522",
+        "page": 2001,
+        "sha256": "b3d0a7b6d7536b0d7c12315eb86babb0946481480b1fe302a0948373f863f21d"
+      },
+      "RM0522:p2002": {
+        "source": "RM0522",
+        "page": 2002,
+        "sha256": "8b419fd41c3cc67b413fa78da3cdffb8b43642c644fec7d7654b9f8ad5ef11fe"
+      },
+      "RM0522:p2003": {
+        "source": "RM0522",
+        "page": 2003,
+        "sha256": "32cfc2ddf7ecdb374f732f9158ab1e3527be7e11ada694485ae87a9f0906510c"
+      },
+      "RM0522:p2004": {
+        "source": "RM0522",
+        "page": 2004,
+        "sha256": "fe808a4c5df86f5d57efae62935aa7b4efd6b0ce101a3444df33d40bb9bec5a4"
+      },
+      "RM0522:p2005": {
+        "source": "RM0522",
+        "page": 2005,
+        "sha256": "d6a89e391ba3ca0bd9765a6e3bc44a8b751b0f26a5ef45649e7e7e56a83a1f23"
+      },
+      "RM0522:p2006": {
+        "source": "RM0522",
+        "page": 2006,
+        "sha256": "f52fb697e62ea2394c83ed9196554433ce9e0f3da3f009644d78b75caba3ee2e"
+      },
+      "RM0522:p2007": {
+        "source": "RM0522",
+        "page": 2007,
+        "sha256": "918a9857e0ca8acc3ffb2d0a81dcd95ff0357942890f9d0041344ca1f0ec66ed"
+      },
+      "RM0522:p2008": {
+        "source": "RM0522",
+        "page": 2008,
+        "sha256": "ab6f3e0e196af61d00fb955c8603790bab10ec8a61baa988ab9f934007d8ca21"
+      },
+      "RM0522:p2009": {
+        "source": "RM0522",
+        "page": 2009,
+        "sha256": "e553b2e695cde27ad8e8451e7002ca65d035c02b514c3551910fa25cd2b33b26"
+      },
+      "RM0522:p2010": {
+        "source": "RM0522",
+        "page": 2010,
+        "sha256": "c7ddc3fc2b1cd865e00b880f01b68e1eb4fd63399a0509aed9e9e36ae3ce153a"
+      },
+      "RM0522:p2011": {
+        "source": "RM0522",
+        "page": 2011,
+        "sha256": "1f772d26cd04e68072f139367250feb110a3220143c67b280bbee97503d3f982"
+      },
+      "RM0522:p2012": {
+        "source": "RM0522",
+        "page": 2012,
+        "sha256": "1d78e88726afc09d1a8e9ba5ed21c9dbac64bcc6afe9d150ca223c9d37d30c00"
+      },
+      "RM0522:p2013": {
+        "source": "RM0522",
+        "page": 2013,
+        "sha256": "3cacc9a3d1b7725e8c1ea061789e874c8d9408d60ce1a327ce49981a810a2cf8"
+      },
+      "RM0522:p2014": {
+        "source": "RM0522",
+        "page": 2014,
+        "sha256": "1a41e3ea19facbe6749d84f5a1ab60464c53031dd334a7191b303cfc23f42460"
+      },
+      "RM0522:p2015": {
+        "source": "RM0522",
+        "page": 2015,
+        "sha256": "50e1a9f1e09286476bbdb671600d5abf851f44554beb6444590b59c3d852092d"
+      },
+      "RM0522:p2016": {
+        "source": "RM0522",
+        "page": 2016,
+        "sha256": "f17d6764fc4e13c2257f4391bfe76bd51256202e2ba8ce1ce0d67134a3fa4909"
+      },
+      "RM0522:p2017": {
+        "source": "RM0522",
+        "page": 2017,
+        "sha256": "42b0d531f0242b18b54b070c9a8c6d67fe29a3baa9e7ef677a4c067f059b5d22"
+      },
+      "RM0522:p2018": {
+        "source": "RM0522",
+        "page": 2018,
+        "sha256": "3715b180262d96260aab3a30fbbd0f08188669fcef613c528be5ec78aae4e272"
+      },
+      "RM0522:p2019": {
+        "source": "RM0522",
+        "page": 2019,
+        "sha256": "6dadb0cc5d6816900ab1cfa5cd7b96036ff4cf3e5350d738c20e742bf47a2f1f"
+      },
+      "RM0522:p2020": {
+        "source": "RM0522",
+        "page": 2020,
+        "sha256": "46341e45dbaf34f94985cbe07da5c3ae353268b337b96f478a494b9533c2bc14"
+      },
+      "DS15135:p30": {
+        "source": "DS15135",
+        "page": 30,
+        "sha256": "4075b0a5bc1d6f6ff14fadd7747b0b7702a583a80a6dd6bd87ccda556ab9b8a6"
+      },
+      "DS15135:p31": {
+        "source": "DS15135",
+        "page": 31,
+        "sha256": "7967bb4e2e83361d8dcfb3cb73023dda89d0575ec2aca1edd605a54cb13078e7"
+      },
+      "DS15135:p32": {
+        "source": "DS15135",
+        "page": 32,
+        "sha256": "0f09aec61635d2c1d7f21c9d95ab47501152a071f46c57f5296e8fcc13152978"
+      },
+      "ES0676:p1": {
+        "source": "ES0676",
+        "page": 1,
+        "sha256": "c36bb50f3ba55f82de59b1a5aa62c5ca6b1d3ea938ac9451545a442e65dd25c8"
+      },
+      "ES0676:p2": {
+        "source": "ES0676",
+        "page": 2,
+        "sha256": "3fed5303e4a0fc65ed4dbe6aae1c297605837e2da15bb0e24928d26b0d25eb95"
+      },
+      "ES0676:p10": {
+        "source": "ES0676",
+        "page": 10,
+        "sha256": "68b80618adcb6cf1f68aa4d5221444fc774b33c9a168223465e8f9334996a4aa"
+      },
+      "header.IRQ": {
+        "source": "header",
+        "start_line": 100,
+        "end_line": 110,
+        "sha256": "1bd5e807894b025df754fe9647a5f943a74f4b2752efd0fd6197acfca094b591"
+      },
+      "header.struct": {
+        "source": "header",
+        "start_line": 888,
+        "end_line": 910,
+        "sha256": "fa9aa1547bb4f69f4a8039a7bba0f9956c79d9e2051dc57ccb7bc26611a82096"
+      },
+      "header.bases": {
+        "source": "header",
+        "start_line": 1155,
+        "end_line": 1210,
+        "sha256": "6fad11bc030499152da70fcd7e9eaac040cf667f768176f11e88f7ae5f5d0c44"
+      },
+      "header.instances": {
+        "source": "header",
+        "start_line": 14152,
+        "end_line": 14157,
+        "sha256": "89acf673ea0265c363d390ad70a7fd11f21e5a2ed432a91f1e66a667660acb40"
+      },
+      "header.SPI_fields": {
+        "source": "header",
+        "start_line": 10554,
+        "end_line": 10890,
+        "sha256": "da165e8f41177a65e58af0a704f561c5ad30b0c75919646c0a7a466fa0b76879"
+      },
+      "header.RCC_reset": {
+        "source": "header",
+        "start_line": 8980,
+        "end_line": 9030,
+        "sha256": "2717b6c80a7f86819ad8346854ee169deea39e3cee16492ceda0af35265aa3a0"
+      },
+      "header.RCC_enable": {
+        "source": "header",
+        "start_line": 9128,
+        "end_line": 9178,
+        "sha256": "a176cc7a3032e3ca8163dc8b69cecad4b0d9c376c5ecf832f7a53ef1469f5871"
+      },
+      "header.RCC_sleep": {
+        "source": "header",
+        "start_line": 9307,
+        "end_line": 9366,
+        "sha256": "d51a46930652508be871152686433b5399f8aa50081afe542a906d9ac7558b39"
+      },
+      "header.RCC_mux": {
+        "source": "header",
+        "start_line": 9431,
+        "end_line": 9442,
+        "sha256": "e41780f98c1ee21ad3642d0c3aed8eebc392ac76a7da22085fe4fea63c98d8d2"
+      },
+      "HAL.state_guard": {
+        "source": "HAL_def",
+        "start_line": 90,
+        "end_line": 131,
+        "sha256": "ec05f156b5890534af384b3b4fe7a7a65d06200afd567c1ce0fb40006cc55110"
+      },
+      "SDK.assertions": {
+        "source": "assert_template",
+        "start_line": 32,
+        "end_line": 66,
+        "sha256": "861f103410d3abf19ca2c0d7ebce70a0487134fd24a261f44885e14c19324da4"
+      },
+      "LL.config": {
+        "source": "LL",
+        "start_line": 1358,
+        "end_line": 1378,
+        "sha256": "c6de86195616e1e2bd1266dc8147701ea02b03de220cfa53d984a1573e34fc4c"
+      },
+      "LL.count": {
+        "source": "LL",
+        "start_line": 775,
+        "end_line": 784,
+        "sha256": "0f46352b77e94f49af5bc8ee1a149feb93c9de31102306e8ddff648ab8843ee8"
+      },
+      "LL.halfduplex": {
+        "source": "LL",
+        "start_line": 1410,
+        "end_line": 1457,
+        "sha256": "86bfe35546779e541ce1db1b8f8648e31420d688ff674a297d64dc288487fa6a"
+      },
+      "LL.I2S_config": {
+        "source": "LL",
+        "start_line": 3120,
+        "end_line": 3131,
+        "sha256": "8aff97f06b8b602a7bc5d6ea36559727f5f51553bdc6766c722b263dcb4d017b"
+      },
+      "LL.I2S_divider": {
+        "source": "LL",
+        "start_line": 3630,
+        "end_line": 3704,
+        "sha256": "2785ced6fb151730ef181e1d123d3bbd7e983c53a678b685ef42065f5c34766c"
+      },
+      "LL.audio_values": {
+        "source": "LL",
+        "start_line": 2970,
+        "end_line": 2981,
+        "sha256": "04e0a6ffbda63191b5f00b1bcd29406e6f9cfffc8d7d2e3a29f721fcf2648768"
+      },
+      "SPI.enums": {
+        "source": "HAL_SPI_H",
+        "start_line": 40,
+        "end_line": 370,
+        "sha256": "0a0678a229fdb54102fb02ea46b4b801833aa23e57fe6617409349fe1b6b32d0"
+      },
+      "I2S.enums": {
+        "source": "HAL_I2S_H",
+        "start_line": 40,
+        "end_line": 138,
+        "sha256": "925004ad934acaea1f0afe4c27623e328a9ea7912146e630f95822dad3af75e8"
+      },
+      "SPI.packet_guard": {
+        "source": "HAL_SPI",
+        "start_line": 215,
+        "end_line": 248,
+        "sha256": "7b07686a53ca91bfbcddec7bb8c2b892c8e07ac3b1d630ed19c65fa66ed118a4"
+      },
+      "SPI.count_guard": {
+        "source": "HAL_SPI",
+        "start_line": 450,
+        "end_line": 472,
+        "sha256": "78b7d75929b39a4d1e63b6499d4637b88bff8397247d228e7da71fef2ec4105a"
+      },
+      "SPI.init_deinit": {
+        "source": "HAL_SPI",
+        "start_line": 563,
+        "end_line": 705,
+        "sha256": "d909806ac182af7f3478b05947102bd25c55f243417a3ad940d5d94353bc74da"
+      },
+      "SPI.config": {
+        "source": "HAL_SPI",
+        "start_line": 734,
+        "end_line": 778,
+        "sha256": "7f52e1adeb8722c0f26a41fd492e00b3f53402033e6336d719f1834bb7734ee2"
+      },
+      "SPI.CRC": {
+        "source": "HAL_SPI",
+        "start_line": 883,
+        "end_line": 945,
+        "sha256": "956d267125e35b9ce6078fceecda196d9d4128b28c29aa3cfc274470aca31aaa"
+      },
+      "SPI.RDY": {
+        "source": "HAL_SPI",
+        "start_line": 1393,
+        "end_line": 1415,
+        "sha256": "9979d253a6c130bf7423c028c9a14e6c7c00dcb59618fd9daced0e0662985fb3"
+      },
+      "SPI.threshold": {
+        "source": "HAL_SPI",
+        "start_line": 1991,
+        "end_line": 2008,
+        "sha256": "b425db9ce3dc61ae90331cc6dc1b076a558078c13b34f0cc0bcda40da26b4cf1"
+      },
+      "SPI.tx_poll": {
+        "source": "HAL_SPI",
+        "start_line": 2197,
+        "end_line": 2370,
+        "sha256": "238a8ebe8e290757d40cb9ba2cc3c9e3bf050a8541c5b397b445138acc10255b"
+      },
+      "SPI.tx_dma": {
+        "source": "HAL_SPI",
+        "start_line": 3077,
+        "end_line": 3251,
+        "sha256": "d850a89041c7742767286dfa16270fc5222fb444bf0f3b07584c18afdf0daf30"
+      },
+      "SPI.abort": {
+        "source": "HAL_SPI",
+        "start_line": 3708,
+        "end_line": 3812,
+        "sha256": "85460f035572be0b3ee50112f78ac1ed640203325b17f80494d84d4336162cec"
+      },
+      "SPI.abort_it": {
+        "source": "HAL_SPI",
+        "start_line": 3830,
+        "end_line": 3987,
+        "sha256": "3980980062fe7774d6a16390688a71fd3364a398b05426a1583421288e7b6288"
+      },
+      "SPI.IRQ_completion": {
+        "source": "HAL_SPI",
+        "start_line": 4060,
+        "end_line": 4198,
+        "sha256": "2a8a697d74c0c9208bef8fe8b9564a6cfd6bc9c478e1d10bc3cf6eadab4633d3"
+      },
+      "SPI.dma_completion": {
+        "source": "HAL_SPI",
+        "start_line": 4820,
+        "end_line": 4914,
+        "sha256": "644f4b951b976dad1584391cea44af691592767bd7c3086e5b4695dd32362e5c"
+      },
+      "SPI.close": {
+        "source": "HAL_SPI",
+        "start_line": 5218,
+        "end_line": 5352,
+        "sha256": "5a670cc297e60237a6d3d7d346d3e2466c268690ed085fd61e587d85ffd6c241"
+      },
+      "SPI.wait_end": {
+        "source": "HAL_SPI",
+        "start_line": 5363,
+        "end_line": 5381,
+        "sha256": "dc2e237833691d4442fde1d227433b50e8ead9975e2cb2635d1b5873b35f39bf"
+      },
+      "I2S.size_constant": {
+        "source": "HAL_I2S",
+        "start_line": 190,
+        "end_line": 194,
+        "sha256": "d02daf2a0a6dc2a6d593dfd1d56e2e78781c9a2b86c12f413a064a99f2727045"
+      },
+      "I2S.domain_guard": {
+        "source": "HAL_I2S",
+        "start_line": 201,
+        "end_line": 306,
+        "sha256": "fa0d7bac0c67f50141e5e45c8187465e94b44db8251a0ff64f72c93a713c4e48"
+      },
+      "I2S.init_deinit": {
+        "source": "HAL_I2S",
+        "start_line": 408,
+        "end_line": 547,
+        "sha256": "291a2bd50ffdd73cca35da25de68962a73b35c3d1685ab2691e20fa30f24c96f"
+      },
+      "I2S.config": {
+        "source": "HAL_I2S",
+        "start_line": 585,
+        "end_line": 701,
+        "sha256": "79bc989a4135eedadde66af565e87e21ef763c2c853764f9559edd4b00272633"
+      },
+      "I2S.threshold": {
+        "source": "HAL_I2S",
+        "start_line": 1287,
+        "end_line": 1305,
+        "sha256": "143c846bd2ae76109f5830014004b02bb562cb9f3f9fd19889a875c6ab0060de"
+      },
+      "I2S.real_frequency": {
+        "source": "HAL_I2S",
+        "start_line": 1787,
+        "end_line": 1860,
+        "sha256": "284455aeef3cb4ea401bdf313b0c44e91765a85b497b3ad6aa72cba91eae49a8"
+      },
+      "I2S.tx_poll": {
+        "source": "HAL_I2S",
+        "start_line": 1871,
+        "end_line": 1963,
+        "sha256": "b5da099bb09b4af11f01fa5304bcaec839075c162e2c36a3f8829d6de6ff4034"
+      },
+      "I2S.tx_dma": {
+        "source": "HAL_I2S",
+        "start_line": 2466,
+        "end_line": 2586,
+        "sha256": "65216c69561991c8292dbe55f602d315064db8a9bc37616956256a1314bebf6b"
+      },
+      "I2S.pause_resume": {
+        "source": "HAL_I2S",
+        "start_line": 2920,
+        "end_line": 3050,
+        "sha256": "5ba8bee47a511b2d206131ea3735a7ad3c99929c7a631a09701f43828e84f006"
+      },
+      "I2S.abort": {
+        "source": "HAL_I2S",
+        "start_line": 3058,
+        "end_line": 3142,
+        "sha256": "bcc7b1369f08b3e36602351bebffa8657a3f567e3ae1e4f501534ae6b8b87039"
+      },
+      "I2S.abort_it": {
+        "source": "HAL_I2S",
+        "start_line": 3150,
+        "end_line": 3298,
+        "sha256": "1db6c083436e570b99b2b9d5718e67604089efd89d497a2c45d258a284944cc8"
+      },
+      "I2S.IRQ": {
+        "source": "HAL_I2S",
+        "start_line": 3362,
+        "end_line": 3483,
+        "sha256": "c33b34dac39372672dc67853945076eb88d9c8cf71450a4476f1bd0a274e50da"
+      },
+      "I2S.dma_tx_complete": {
+        "source": "HAL_I2S",
+        "start_line": 3997,
+        "end_line": 4029,
+        "sha256": "1e2e4f3b75b69cc5d421b55a90cb2818d97e070716a232b9d918f81c64666729"
+      },
+      "I2S.dma_rx_complete": {
+        "source": "HAL_I2S",
+        "start_line": 4053,
+        "end_line": 4084,
+        "sha256": "831b6054d3b4d7e8098906358421ba37dee45251b4e9461fba4912d152165004"
+      },
+      "I2S.dma_duplex_complete": {
+        "source": "HAL_I2S",
+        "start_line": 4108,
+        "end_line": 4144,
+        "sha256": "6784eeaac347645525e329b7812b5d4a8c6e76bb573b54baffea53af6112ef9e"
+      },
+      "I2S.dma_error_abort": {
+        "source": "HAL_I2S",
+        "start_line": 4168,
+        "end_line": 4255,
+        "sha256": "bfb133f39a1e25600990f4b9804587d8b8adae8b09dee92c23090244361f15b6"
+      },
+      "I2S.close": {
+        "source": "HAL_I2S",
+        "start_line": 4469,
+        "end_line": 4557,
+        "sha256": "881534d2c26a82735db3bdb2d9b4f671c2c357c26414793c9a04fde4efbb7f0b"
+      },
+      "I2S.freq_helpers": {
+        "source": "HAL_I2S",
+        "start_line": 4567,
+        "end_line": 4743,
+        "sha256": "4d370f9c2caa0c1ed22182e455a67d8a57c84aad0c2a1aacec56cc4437537d52"
+      },
+      "I2S.delay_helper": {
+        "source": "HAL_I2S",
+        "start_line": 4750,
+        "end_line": 4785,
+        "sha256": "5fee3c44de1dbe69131434c8dc0619665c064ddc907f8c18d85d6c3221fe099b"
+      },
+      "family.macros": {
+        "source": "family_header",
+        "start_line": 130,
+        "end_line": 142,
+        "sha256": "53238037d4d5827a42b9177f5166478587104441da533848b840727019c41699"
+      },
+      "SPI.duplex_DMA": {
+        "source": "HAL_SPI",
+        "start_line": 3448,
+        "end_line": 3689,
+        "sha256": "34575d41d9247ea0179c96e489a1edb0a68b6521d929605ae1631c3aa7e46dd5"
+      },
+      "SPI.IRQ_error": {
+        "source": "HAL_SPI",
+        "start_line": 4200,
+        "end_line": 4309,
+        "sha256": "0b69b2d1310967d7fb19a9d42d854e4dfac3231c2760791022c3fb5ce809531a"
+      },
+      "SPI.DMA_error_abort": {
+        "source": "HAL_SPI",
+        "start_line": 4969,
+        "end_line": 5074,
+        "sha256": "c7c3122f396746d71c35a21f60693f846da73a272b7c83fc6d46471fbd879019"
+      },
+      "I2S.duplex_DMA": {
+        "source": "HAL_I2S",
+        "start_line": 2737,
+        "end_line": 2908,
+        "sha256": "e705d3083de8748918cc7732f33ad79feb7d08ffe2a36197806b2c5a76e19853"
+      },
+      "I2S.link_TX_DMA": {
+        "source": "HAL_I2S",
+        "start_line": 1709,
+        "end_line": 1730,
+        "sha256": "a8aedb4ccfa8bf3a838e3e9c7e84e1adf3af1dacb5cff5a7a4e163d0e195173e"
+      },
+      "DS15135:p46": {
+        "source": "DS15135",
+        "page": 46,
+        "sha256": "6d3ea235bffc5fd4cc64517ff32cd2b29a37014ab6305628204e1fd9f3146269"
+      },
+      "DS15135:p47": {
+        "source": "DS15135",
+        "page": 47,
+        "sha256": "a55c52b1f30142be5ad3fea2a1cc16b519930dd08b32d16d646101500967a3b1"
+      }
+    },
+    "package_routes_sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288",
+    "errata_sha256": "821c22f796a9ff723afee534fe5943c2b0506325ec871d890706d94414316416",
+    "contracts": [
+      {
+        "id": "SPI.exact_identity",
+        "detail": "SPI1 and SPI2 are the only exact SPI and I2S instances. I2S1/I2S2 share the corresponding SPI registers, FIFO, IRQ, DMA requests, clocks and pads; they are modes, not additional independently ownable peripherals. SPI3 and autonomous low-power operation remain excluded.",
+        "evidence": [
+          "header.instances",
+          "header.bases",
+          "header.IRQ",
+          "RM0522:p1946",
+          "DS15135:p30"
+        ]
+      },
+      {
+        "id": "SPI.clock_identity",
+        "detail": "SPI1 is APB2, SPI2 APB1. Kernel selector 0 is the respective PCLK, 1 PSIK, 2 HSIK, 3 external AUDIOCLK. Keep bus, kernel, serial clock and their readiness/ownership distinct. SPI slave external SCK can operate without kernel except TI release timing; this does not authorize APB register/DMA access without clocks. Master MBR divides by 2..256, BPASS bypasses. No frequency or pin timing admitted.",
+        "evidence": [
+          "RM0522:p1947",
+          "RM0522:p1948",
+          "RM0522:p1971",
+          "RM0522:p2004",
+          "RM0522:p314",
+          "header.RCC_mux",
+          "header.RCC_enable",
+          "header.RCC_sleep",
+          "header.RCC_reset"
+        ]
+      },
+      {
+        "id": "SPI.configure_and_select",
+        "detail": "Configure mode, frame, clock, NSS and FIFO while disabled. Hardware slave NSS must transition inactive to active after enable; a permanently active NSS does not replace that edge. Software SSI must change at idle SCK between transfers. Hardware master NSS requires a finite TSIZE for correct control. SSOM plus MIDI > 1 can pulse NSS; MSSI takes effect with disable/re-enable. IOLOCK protects CFG2 and does not create an ownership lock in software.",
+        "evidence": [
+          "RM0522:p1956",
+          "RM0522:p1957",
+          "RM0522:p1963",
+          "RM0522:p2001",
+          "RM0522:p2007",
+          "RM0522:p2009"
+        ]
+      },
+      {
+        "id": "SPI.direction_and_pins",
+        "detail": "COMM selects full duplex, simplex TX, simplex RX or half duplex. Half duplex uses HDDIR, with endpoint direction changes and IOSWP restricted to disabled configuration under the conservative RM interpretation. Own every selected pad and external peer direction; no simultaneous opposite drivers. AFCNTR can retain driven outputs while SPE is zero and configuration can toggle pins; it must not be set in slave mode. A disabled peripheral is not proof that all pads are released.",
+        "evidence": [
+          "RM0522:p1950",
+          "RM0522:p1951",
+          "RM0522:p1963",
+          "RM0522:p2007",
+          "RM0522:p2008"
+        ]
+      },
+      {
+        "id": "SPI.FIFO_and_access",
+        "detail": "Each FIFO is 16 bytes. Raw FTHLV 0..15 denotes 1..16 frames, not bytes. Frame storage is 1/2/3/4 bytes for widths 4..8/9..16/17..24/25..32. Preserve the half-FIFO packet constraint pending the conflicting wording. TXDR writes enqueue, RXDR reads consume; no automatic probing. Access widths are 8/16/32 and must not be smaller than a frame. Packing orders low bytes/halfwords first, requires capacity/data and buffer alignment. SPE=0 flushes both FIFOs and blocks data-register access even if TXP=1.",
+        "evidence": [
+          "RM0522:p1962",
+          "RM0522:p1964",
+          "RM0522:p1965",
+          "RM0522:p2014"
+        ]
+      },
+      {
+        "id": "SPI.tail_and_status",
+        "detail": "RXP/TXP are threshold packet conditions. Service a complete packet before relying on the flag again. A finite TSIZE tail can be smaller than threshold; TSIZE=0 can leave an unreported partial packet. RXWNE counts at least four occupied bytes; RXPLVL only reports frames up to 16 bits when RXWNE=0. A single 17..24-bit residual frame is invisible to both and needs TSIZE/EOT accounting or FTHLV=0. CTSIZE is unreliable during traffic.",
+        "evidence": [
+          "RM0522:p1966",
+          "RM0522:p2010",
+          "RM0522:p2011",
+          "RM0522:p2013"
+        ]
+      },
+      {
+        "id": "SPI.RDY_errata",
+        "detail": "RDIOM must remain zero below 8-bit frames under RM1960/2008. ES2.11.1 applies to revisions Z and Y, slave RDY output enabled: failure may occur when SCK exceeds 2*APB for 8..15 bits, 6*APB for 16..23 bits, or 14*APB for 24..32 bits. No workaround is supplied. Remaining below those thresholds does not establish electrical timing or successful flow control.",
+        "evidence": [
+          "RM0522:p1960",
+          "RM0522:p1968",
+          "RM0522:p2008",
+          "ES0676:p2",
+          "ES0676:p10"
+        ]
+      },
+      {
+        "id": "SPI.completion_and_release",
+        "detail": "TXTF means TSIZE frames uploaded to FIFO, not bus completion. DMA completion similarly does not establish the final serial bit. With TSIZE>0, EOT includes CRC and TXC copies EOT; with TSIZE=0, TXC means FIFO empty and no bus activity. Master suspend completes the current frame, clears CSTART and sets SUSP; drain relevant RX data, clear SUSP before disabling, and reinitialize after disable. SPE=0 flushes data; slave disable can discard ongoing data. External hold time and AFCNTR behavior can require additional delay after EOT.",
+        "evidence": [
+          "RM0522:p1967",
+          "RM0522:p1968",
+          "RM0522:p1969",
+          "RM0522:p1970",
+          "RM0522:p2011",
+          "RM0522:p2012"
+        ]
+      },
+      {
+        "id": "SPI.DMA_ownership",
+        "detail": "RM startup orders RXDMAEN, DMA channel enable, TXDMAEN and SPE. Shutdown requires DMA requests/channels and the SPI disable procedure to be reconciled before reuse. Keep ownership of both channels, authorized buffers, data registers, clocks, IRQ and pads until separately proven quiescent. No CPU TXDR/RXDR access while DMA owns them. Existing DMA selector inventory is provenance only and no composition domain is broadened. RM1970 explicitly orders closure as DMA requests disabled in DMA registers, then the SPI disable procedure, then clearing peripheral TXDMAEN/RXDMAEN. In simplex enable only the needed channel. This SPI sequence is not silently generalized to the distinct I2S examples.",
+        "evidence": [
+          "RM0522:p1970",
+          "RM0522:p2014"
+        ]
+      },
+      {
+        "id": "SPI.errors",
+        "detail": "OVR discards received frames and recovery must account for FIFO content. UDR applies to SPI slave but I2S master and slave; constant-pattern and last-received-data behaviors differ, including first-frame caveats and flag latency requiring SCK. MODF forces disable and blocks re-enable until cleared. TI frame errors can lose frames. Capture flags/data-loss state before destructive clears or disable. MODF also clears IOLOCK; a prior I/O configuration lock is not permanent across that error.",
+        "evidence": [
+          "RM0522:p1972",
+          "RM0522:p1973",
+          "RM0522:p1974",
+          "RM0522:p2011",
+          "RM0522:p2012",
+          "RM0522:p2013"
+        ]
+      },
+      {
+        "id": "SPI.CRC",
+        "detail": "Keep data width, polynomial length and transmitted CRC frame width distinct. Polynomial length must exceed data width, with CRC33_17 for maximum width. CRC frame width is 4..32, equal to or an integer multiple of data width; CRC requires nonzero TSIZE and excludes 65535. Configure polynomial only while disabled until contradictory prose is resolved. CRC registers read during traffic can be incorrect and unused high bits are not masked. No algorithm/interoperability qualification.",
+        "evidence": [
+          "RM0522:p1975",
+          "RM0522:p1976",
+          "RM0522:p2015",
+          "RM0522:p2016",
+          "SPI.CRC"
+        ]
+      },
+      {
+        "id": "I2S.mode_and_register_subset",
+        "detail": "I2SMOD selects I2S on the same physical SPI. Table464 requires CR2, CRC and underrun-pattern registers at reset and restricts usable SPI fields. Do not inherit SPI TSIZE/EOT/CRC/RDY/automatic-suspend settings. I2S master and slave both require CSTART after SPE; slave uses external WS/CK. Configuration, I2SCFGR and FIFO state require an explicit mode-transition/reset plan.",
+        "evidence": [
+          "RM0522:p1978",
+          "RM0522:p1979",
+          "RM0522:p1980",
+          "RM0522:p1988",
+          "RM0522:p2017"
+        ]
+      },
+      {
+        "id": "I2S.audio_formats",
+        "detail": "I2S supports Philips, MSB justified, LSB justified and PCM short/long; left then right in stereo. DATLEN 0/1/2 is 16/24/32, 3 forbidden. CHLEN 0/1 is 16/32; for slave DATLEN=24/32, CHLEN must be 1 even with variable length. LSB-justified needs fixed 16/32 channels. Master PCM 32/32 remains disputed against the narrower format list. DATFMT=0 is right aligned and 1 left aligned. CKPOL, WSINV and protocol determine edge/channel polarity.",
+        "evidence": [
+          "RM0522:p1980",
+          "RM0522:p1981",
+          "RM0522:p1982",
+          "RM0522:p1983",
+          "RM0522:p1984",
+          "RM0522:p1985",
+          "RM0522:p1986",
+          "RM0522:p1987",
+          "RM0522:p1993",
+          "RM0522:p2018",
+          "RM0522:p2019"
+        ]
+      },
+      {
+        "id": "I2S.divider",
+        "detail": "For nonzero I2SDIV, D=2*I2SDIV+ODD; zero I2SDIV forces D=1 independently of ODD. I2S master MCK=kernel/D and WS=MCK/256, PCM WS=MCK/128. Without MCK, WS=kernel/[32*(CHLEN+1)*D] for stereo I2S and denominator16*(CHLEN+1)*D for PCM. Source selection, oscillator tolerance, actual MCK/WS and audio quality are unqualified. MCK generation has its own I2SMOD/master/MCKOE conditions and cannot be assumed stopped solely from SPE=0. The raw encoding ranges are not a permitted Cartesian product. SDK SetAudioFrequency rejects computed divider3, corresponding to I2SDIV=1/ODD=1; RM2018 visually only refers to the clock-generator section, and RM1991–1992 does not state that prohibition. Preserve the narrower SDK domain separately from the RM raw encodings.",
+        "evidence": [
+          "RM0522:p1991",
+          "RM0522:p1992",
+          "RM0522:p2017",
+          "I2S.real_frequency",
+          "LL.I2S_divider",
+          "I2S.freq_helpers",
+          "RM0522:p2018"
+        ]
+      },
+      {
+        "id": "I2S.FIFO_errors_stop",
+        "detail": "I2S uses the shared 16-byte FIFOs, accommodating 8x16, 5x24 or 4x32 bits. 16-bit samples can pack two in a word only with adequate FIFO/buffer availability. No SPI finite-TSIZE tail rule is admitted. Clearing SPE is an immediate stop in either master or slave mode. A master can instead request CSUSP and wait for CSTART=0 to stop at the stereo/mono boundary; this boundary-stop option does not apply to the slave. OVR/UDR do not gate master clocks; repeated output/channel alignment depends on actual channel length. Combined OVR and early frame error needs disable/re-enable.",
+        "evidence": [
+          "RM0522:p1990",
+          "RM0522:p1993",
+          "RM0522:p1994",
+          "RM0522:p1995",
+          "RM0522:p1996",
+          "RM0522:p1997",
+          "RM0522:p1998"
+        ]
+      },
+      {
+        "id": "SPI_I2S.package",
+        "detail": "Copied descriptor/DS-crosschecked routes are alternatives, not simultaneously valid configurations. I2S names belong to SPI1/SPI2. RCC_AUDIOCLK on PC9 is an external kernel option. Preserve every inherited unresolved_refs, pad qualification, debug reservation and board-membership limit; selecting an AF is not electrical or board-population evidence. DS Table13 PC9 uses AUDIOCLK; RCC_AUDIOCLK is the normalized descriptor name under the package inventory naming map, not the literal printed DS token. Exact copied route provenance remains unchanged.",
+        "evidence": [
+          "header.instances",
+          "DS15135:p30",
+          "DS15135:p32",
+          "RM0522:p314",
+          "DS15135:p46",
+          "DS15135:p47"
+        ]
+      },
+      {
+        "id": "low_power_and_pending_interrupts",
+        "detail": "RM1976 Table462 requires disabling an instance before Stop if it is not functional in that Stop mode, and reinitialization after Standby. RM2002 requires master communication suspension before low power. Exact mode-specific clocks, wakeup, FIFO retention and DMA ownership remain separately gated; pending flags and an IDLE handle are not a completed low-power transition.",
+        "evidence": [
+          "RM0522:p1976",
+          "RM0522:p2002",
+          "RM0522:p1947"
+        ]
+      }
+    ],
+    "source_derived_SDK_gates": [
+      {
+        "id": "SDK.validation",
+        "detail": "Parameter/state ASSERT_DBG checks are optional; USE_HAL_CHECK_PARAM adds only the shown null/zero checks. HAL_CHECK_UPDATE_STATE is atomic conditional checking only with USE_HAL_CHECK_PROCESS_STATE=1, otherwise plain assignment. None provides physical peripheral, shared SPI/I2S instance, pad or DMA ownership. Release validation and race control remain required.",
+        "evidence": [
+          "SDK.assertions",
+          "HAL.state_guard",
+          "SPI.config",
+          "I2S.config",
+          "SPI.tx_poll",
+          "I2S.tx_poll"
+        ]
+      },
+      {
+        "id": "SPI.config_not_reset",
+        "detail": "Init initializes the handle and optionally enables bus clock; DeInit disables without resetting all registers and ignores DMA abort return values on active-state branches. SetConfig checks IOLOCK but does not disable SPE, clear I2SMOD or reset unrelated fields. An IDLE handle is not sufficient proof of disabled hardware or SPI mode, especially after timeout or prior I2S use.",
+        "evidence": [
+          "SPI.init_deinit",
+          "SPI.config",
+          "LL.config",
+          "I2S.init_deinit"
+        ]
+      },
+      {
+        "id": "SPI.ready_and_threshold_admission",
+        "detail": "EnableReadyPin checks IOLOCK but not frame width, APB/SCK ratio or ES2.11.1. SetFifoThreshold tests packet capacity only in an assertion branch; its macro accepts up to the full 16-byte FIFO, not the stricter half-FIFO RM wording. Invalid combinations are not admitted merely because an enum/API accepts them.",
+        "evidence": [
+          "SPI.RDY",
+          "SPI.threshold",
+          "SPI.packet_guard",
+          "RM0522:p1964",
+          "RM0522:p2006",
+          "ES0676:p10"
+        ]
+      },
+      {
+        "id": "SPI.poll_timeout_not_release",
+        "detail": "Transmit FIFO-service timeout invokes CloseTransfer (which disables/flushed FIFO), but an EOT wait timeout sets IDLE in SPI_WaitEndOfTransfer and returns directly without CloseTransfer. That source path can leave SPE/CSTART and residual transfer state untouched. Keep clocks/pads/handle ownership until recovery verifies hardware; no hardware outcome is claimed. HAL_GetTick timeout requires a progressing timebase. Subsequent SetConfig, CRC, FIFO-threshold and RDY calls can pass software-state checks while SPE remains set; their shown paths do not disable it. RM write protection can then prevent intended configuration even where HAL_OK is returned. A subsequent Transmit also attempts COMM and TSIZE changes. Require physical SPE=0 and clear SUSP before the appropriate disable/reconfiguration sequence. Conversely, FIFO-service timeout calls CloseTransfer without proving the master frame finished; RM1968 cautions that clearing SPE during unsuspended activity can stop mid-frame and flush FIFO. HAL_MAX_DELAY omits finite timeout exit; it is not a completion guarantee.",
+        "evidence": [
+          "SPI.tx_poll",
+          "SPI.wait_end",
+          "SPI.close",
+          "SPI.config",
+          "SPI.CRC",
+          "SPI.threshold",
+          "SPI.RDY",
+          "RM0522:p1968",
+          "RM0522:p1969",
+          "RM0522:p2003",
+          "RM0522:p2007",
+          "RM0522:p2011",
+          "RM0522:p2015"
+        ]
+      },
+      {
+        "id": "SPI.frame_and_DMA_byte_count",
+        "detail": "Polling Transmit counts frames, using 1 byte for <=8 bits, 2 for 9..16, 4 for >16 including 24-bit frames. DMA Transmit ultimately overwrites packing-adjusted count with uint16_t(count_packet*1/2/4) and passes it as byte count. The assertion only requires 1..65534 frames, so it does not prevent byte-count narrowing for >=32768 halfword or >=16384 word frames. Example 32768*2 becomes zero; no observed DMA result is asserted. Require bounded byte size, readable padding/alignment and independent peripheral-side DMA width validation. Frame counters themselves narrow to uint16 before service, while LL_SetTransferSize ORs the unmasked uint32 count into CR2. With assertions not enforcing the domain, count65536 yields a zero low TSIZE field/counter and attempts reserved bit16; no deterministic hardware result of a reserved write is inferred. Independently enforce the finite frame domain and byte domain. For <=8-bit data, the shown DMA call still passes count_packet bytes even with halfword/word memory width; nonmultiple tails need independent DMA packing/alignment qualification, not an assumed success or failure.",
+        "evidence": [
+          "SPI.count_guard",
+          "SPI.tx_poll",
+          "SPI.tx_dma",
+          "LL.count",
+          "family.macros",
+          "RM0522:p2003",
+          "RM0522:p1970"
+        ]
+      },
+      {
+        "id": "SPI.DMA_callbacks",
+        "detail": "Noncircular SPI DMA completion enables EOT interrupt; circular linked-list completion calls the user callback while the stream remains active. The EOT IRQ calls CloseTransfer, may call error callback and then still invokes the completion callback using the earlier state. Thus callback occurrence alone is not success; inspect error/stream state and maintain ownership through both paths.",
+        "evidence": [
+          "SPI.dma_completion",
+          "SPI.IRQ_completion",
+          "SPI.close"
+        ]
+      },
+      {
+        "id": "SPI.abort_error_lifetime",
+        "detail": "Blocking Abort tries master suspend and DMA aborts, records error but proceeds to disable/flush and sets IDLE even when DMA abort failed. Abort_IT can return with state ABORT awaiting DMA callbacks, and failed abort submission is not proof of channel completion. Counter loops depend on SystemCoreClock; no elapsed-time guarantee. Do not free buffers/IRQ/clock resources solely on handle IDLE or an abort request.",
+        "evidence": [
+          "SPI.abort",
+          "SPI.abort_it",
+          "SPI.close"
+        ]
+      },
+      {
+        "id": "I2S.config_partial_and_cross_mode",
+        "detail": "Master/Slave SetConfig explicitly disables an enabled peripheral, which flushes FIFO, then modifies only selected I2SCFGR/CFG2 fields. It does not restore all Table464 reset-required fields inherited from SPI. Master frequency calculation can return error after the bus configuration has changed; no rollback is shown. Enum acceptance does not enforce the protocol/data-width combination restriction.",
+        "evidence": [
+          "I2S.config",
+          "LL.I2S_config",
+          "I2S.domain_guard",
+          "RM0522:p1979",
+          "RM0522:p1980",
+          "RM0522:p1981"
+        ]
+      },
+      {
+        "id": "I2S.size_and_timeout",
+        "detail": "Polling TX takes uint32 size_sample but stores it in uint16 counters; assertions shown only check nonzero. Each sample consumes 2 bytes for 16-bit formats or 4 for 24/32. DMA TX further narrows multiplied byte counts to uint16, so require <=32767 halfword or <=16383 word samples for that shown direct path. Poll TX timeout sets IDLE without disable/close; pause timeout also sets IDLE without proving CSTART cleared. Source paths require retained ownership and recovery, not inferred completed transfer. The duplex path independently narrows both TX and RX multiplied byte counts to uint16, so the same direct-path byte limits apply in both directions.",
+        "evidence": [
+          "I2S.tx_poll",
+          "I2S.tx_dma",
+          "I2S.pause_resume",
+          "I2S.duplex_DMA"
+        ]
+      },
+      {
+        "id": "I2S.delay_not_bus_observation",
+        "detail": "I2S_WaitTxFifoEmpty uses a software loop based on SystemCoreClock, kernel getter and prescaler, not a status observation. It skips the delay if kernel getter is zero; slave estimate assumes 8 kHz; master calculation does not implement the I2SDIV=0 special case. If computed count is zero, do-while decrement wraps uint32. DMA TX/full-duplex direct completion and CloseTransfer call this helper then disable/IDLE. This establishes neither measured timing failure nor a generally sufficient drain delay. Linked-list modes can bypass this direct cleanup.",
+        "evidence": [
+          "I2S.delay_helper",
+          "I2S.size_constant",
+          "I2S.dma_tx_complete",
+          "I2S.dma_duplex_complete",
+          "I2S.close",
+          "RM0522:p1991",
+          "RM0522:p1992"
+        ]
+      },
+      {
+        "id": "I2S.error_reporting",
+        "detail": "CloseTransfer optionally records/clears UDR/OVR but does not change its return status for those flags; only shown frame error changes status. IRQ UDR/OVR/FRE handlers can set IDLE and call error callback without disabling SPE or DMA requests. DMAError disables peripheral and requests but does not itself prove the other DMA channel quiescent. Error policy must consider compile options and own both directions. The IRQ uses a saved trigger snapshot and separate UDR/OVR/TIFRE if branches; with applicable options and multiple saved flags, more than one error callback can occur in a pass despite an earlier branch changing state/IER. Callbacks must not release or restart shared state before all paths are reconciled.",
+        "evidence": [
+          "I2S.close",
+          "I2S.IRQ",
+          "I2S.dma_error_abort"
+        ]
+      },
+      {
+        "id": "I2S.abort_and_deinit",
+        "detail": "Abort_IT with no DMA request only sets ABORT and returns; subsequent IRQ processing supplies cleanup, so IRQ delivery must remain available and a paused/no-event case is not proven complete. Full-duplex DMA abort callback submits RX abort and ignores its result. Blocking Abort proceeds to IDLE after timeout/DMA error. DeInit performs its DMA abort branch only for active states, excluding PAUSED/ABORT/IDLE, ignores abort results and clears I2SMOD before SPE. Reset-handle state is not proof of DMA release or full hardware reset. DeInit clearing I2SMOD before SPE conflicts with RM2017 write-only-while-disabled admission when entered with SPE=1. Abort_IT suspend timeout sets IDLE then continues submitting DMA aborts; later callbacks can disable or change state after that early IDLE, so no reuse before full quiescence. The IRQ ABORT branch also exposes IDLE on suspend timeout before synchronous I2S_AbortTransfer, rather than itself submitting DMA aborts. RM1976/2003 blocks pending interrupts except MODF when SPE=0; IRQ-dependent cleanup needs an independently live delivery path. A failed DMA abort request can leave the handle in ABORT, or already IDLE if the earlier suspend wait timed out. A later delivered I2S IRQ can run the ABORT cleanup branch only if the handle is still ABORT. Neither the failed request nor that possible later branch guarantees DMA quiescence or interrupt delivery.",
+        "evidence": [
+          "I2S.abort_it",
+          "I2S.IRQ",
+          "I2S.dma_error_abort",
+          "I2S.abort",
+          "I2S.init_deinit",
+          "RM0522:p2017",
+          "RM0522:p1976",
+          "RM0522:p2003"
+        ]
+      },
+      {
+        "id": "I2S.frequency_utility",
+        "detail": "SetAudioFrequency rounds from the kernel getter and rejects divider 3 and values >255; invalid nonzero frequency outside its accepted enum can fall through with default divider2/odd0 when assertions do not stop it. Master SetConfig may already have modified registers before a frequency error. GetConfig helper selects the closest supported nominal enum; GetRealAudioFrequency derives integer Hz from getters. Neither measures physical rate or accuracy.",
+        "evidence": [
+          "I2S.freq_helpers",
+          "I2S.real_frequency",
+          "I2S.config",
+          "LL.audio_values"
+        ]
+      },
+      {
+        "id": "SPI_I2S.shared_handle_interlock",
+        "detail": "SPI and I2S Init accept the same exact SPI1/SPI2 instances and initialize separate software handles. No cross-handle ownership interlock is present in these bound initialization/configuration paths. One physical-instance owner must cover both API families, registers, IRQ, TX/RX requests, clocks and pads; an IDLE handle of one API does not establish the other mode inactive.",
+        "evidence": [
+          "header.instances",
+          "SPI.init_deinit",
+          "I2S.init_deinit",
+          "SPI.config",
+          "I2S.config",
+          "header.IRQ"
+        ]
+      },
+      {
+        "id": "duplex_partial_start_and_callbacks",
+        "detail": "SPI duplex starts RX DMA before TX; if TX start returns error, the shown branch sets IDLE and returns without aborting RX. I2S duplex starts TX before RX; RX-start failure similarly returns IDLE without aborting TX. Started does not prove traffic occurred, but ownership cannot be released. I2S duplex assigns only RX callbacks, and SetTxDMA only links handles. A retained TX completion/error callback remains possible; if it is the noncircular I2S_DMATxCplt from earlier TX use, its completion path can disable the peripheral and set IDLE without checking RX completion. SPI duplex explicitly assigns empty TX completion callbacks. Callback initialization and both-channel recovery are independent admission gates.",
+        "evidence": [
+          "SPI.duplex_DMA",
+          "I2S.duplex_DMA",
+          "I2S.link_TX_DMA",
+          "I2S.tx_dma",
+          "I2S.dma_tx_complete"
+        ]
+      },
+      {
+        "id": "SPI.error_abort_callback_lifetime",
+        "detail": "SPI DMAError calls CloseTransfer and the error callback without aborting the other duplex channel. IRQ error handling disables SPE before submitting direction-specific DMA aborts. Each delivered SPI_DMAAbortOnError independently closes and calls the error callback; if both callbacks arrive, a later one can act after the first callback starts new work unless ownership prevents reuse. Failed abort submissions only record optional errors and do not prove completion or a particular final state (MODF may already select FAULT). Abort_IT leaves a failed TX abort callback installed; a later RX abort callback returns while that TX callback remains non-NULL, so no combined completion is established on that path. These are conditional source paths, not observed callbacks or transfers. Symmetrically, a failed RX abort request leaves its callback installed, causing a later TX abort callback to return while that RX pointer remains non-NULL.",
+        "evidence": [
+          "SPI.IRQ_error",
+          "SPI.DMA_error_abort",
+          "SPI.abort_it",
+          "SPI.close"
+        ]
+      }
+    ],
+    "conflicts": [
+      {
+        "id": "AUTOCR_family_residue",
+        "detail": "Exact header SPI_TypeDef includes AUTOCR at 0x1C, but RM register map marks 0x1C reserved and Table459 excludes autonomous mode for SPI1/SPI2. Do not access or admit autonomous operation from the structure member.",
+        "evidence": [
+          "header.struct",
+          "RM0522:p1946",
+          "RM0522:p2019"
+        ]
+      },
+      {
+        "id": "CRC_polynomial_length",
+        "detail": "DS Table10 states 5..32-bit polynomial length while RM Table459 and CRC description support 5..33 with CRC33_17. Preserve the distinction; no silently normalized executable CRC domain.",
+        "evidence": [
+          "DS15135:p30",
+          "RM0522:p1946",
+          "RM0522:p1975",
+          "RM0522:p2015"
+        ]
+      },
+      {
+        "id": "FIFO_half_capacity",
+        "detail": "RM1964 says a packet must not exceed half the FIFO; RM2006 calls half FIFO recommended and HAL packet assertion allows full FIFO capacity. Use the stricter bound only as a candidate constraint, not a resolved vendor interpretation.",
+        "evidence": [
+          "RM0522:p1964",
+          "RM0522:p2006",
+          "SPI.packet_guard",
+          "SPI.threshold"
+        ]
+      },
+      {
+        "id": "RDY_sub8",
+        "detail": "RM1960 and register2008 prohibit RDY for widths below8; RM1968 discusses extra MIDI cycles for RDY/MASRX shorter frames. Preserve contradiction and keep RDY<8 excluded.",
+        "evidence": [
+          "RM0522:p1960",
+          "RM0522:p1968",
+          "RM0522:p2008"
+        ]
+      },
+      {
+        "id": "CRC_write_protection",
+        "detail": "RM1975 permits polynomial modification while enabled if no traffic, whereas register2015 explicitly write-protects CRCPOLY when enabled. Require disabled configuration pending resolution. RM2016 also misnames CRCEN as CR1 although actual CFG1 field is bound.",
+        "evidence": [
+          "RM0522:p1975",
+          "RM0522:p2015",
+          "RM0522:p2016",
+          "header.SPI_fields"
+        ]
+      },
+      {
+        "id": "I2S_PCM_formats",
+        "detail": "RM1981 master PCM format list omits 32-bit data in32-bit channel, while broad DS/I2S domains and independent HAL format/protocol assertions include32-bit. Do not infer PCM32 support from independent enums.",
+        "evidence": [
+          "RM0522:p1981",
+          "DS15135:p32",
+          "I2S.domain_guard",
+          "I2S.config"
+        ]
+      },
+      {
+        "id": "I2S_register_subset_DXP",
+        "detail": "RM Table464 restricts I2S IER/SR to listed fields without DXP, but HAL I2S pause/IRQ/close paths use DXP. Keep this discrepancy; source use is not proof of exact register subset applicability.",
+        "evidence": [
+          "RM0522:p1979",
+          "RM0522:p1980",
+          "I2S.IRQ",
+          "I2S.pause_resume"
+        ]
+      },
+      {
+        "id": "halfduplex_change",
+        "detail": "LL transfer-direction comment permits half-duplex direction change while enabled; RM1950/2002 requires disabled HDDIR configuration. Keep conservative disabled switching.",
+        "evidence": [
+          "LL.halfduplex",
+          "RM0522:p1950",
+          "RM0522:p2002"
+        ]
+      },
+      {
+        "id": "header_UDRCFG_comment",
+        "detail": "Exact header UDRCFG mask expression is 1<<9 =0x200, while its hex comment says0x600. Use the literal expression plus RM bit9; do not infer a second field bit from the comment.",
+        "evidence": [
+          "header.SPI_fields",
+          "RM0522:p2005"
+        ]
+      },
+      {
+        "id": "I2S_DATFMT_map",
+        "detail": "RM2020 register map labels bit14 reserved while detailed2018 and exact header define DATFMT there. Preserve the map disagreement and no automatic register access.",
+        "evidence": [
+          "RM0522:p2020",
+          "RM0522:p2018",
+          "header.SPI_fields"
+        ]
+      },
+      {
+        "id": "status_reenable_wording",
+        "detail": "RM2010 says flags are not cleared automatically on re-enable, while detailed2011/2012 describes automatic clearing for CRCE/OVR/UDR/EOT; EOT prose also says set when re-enabled then says cleared when re-enabled. Use explicit per-flag sequencing only after resolution, not a blanket flag reset assumption.",
+        "evidence": [
+          "RM0522:p2010",
+          "RM0522:p2011",
+          "RM0522:p2012"
+        ]
+      },
+      {
+        "id": "SPI_DMA_start_stop_order",
+        "detail": "RM1970 orders RXDMAEN before DMA-channel enable and requires channel shutdown before the SPI disable procedure. The duplex SDK starts both DMA channels before setting RXDMAEN; the IRQ error path disables SPE before asynchronous DMA abort submissions. Preserve the order discrepancy; it does not by itself establish hardware corruption.",
+        "evidence": [
+          "RM0522:p1970",
+          "SPI.duplex_DMA",
+          "SPI.IRQ_error"
+        ]
+      },
+      {
+        "id": "I2S_mode_specific_DMA_sequences",
+        "detail": "RM1999 master example sets peripheral DMA enable bits before SPE, then enables DMA channels after SPE; its stop sequence is CSUSP, wait CSTART=0, clear SUSP, stop DMA/bus clock, clear SPE. Stopping the needed bus clock before a register write is an unresolved ordering ambiguity, not a safe executable sequence. RM2000 slave stop instead clears SPE before stopping DMA. These are mode-specific examples and differ from the SPI RM1970 order; do not impose one universal sequence. RM2000 slave start enables the RX DMA channel before setting peripheral RXDMAEN, another mode-specific ordering difference from RM1970.",
+        "evidence": [
+          "RM0522:p1970",
+          "RM0522:p1999",
+          "RM0522:p2000"
+        ]
+      },
+      {
+        "id": "I2S_suspend_resume_and_disable",
+        "detail": "RM1988 says CSTART has no effect with SUSP set; RM2002 requires clearing SUSP and disable/re-enable after software suspension, and RM2011 requires SUSP clear before disable. Bound Pause/Resume does not clear SUSP; Resume sets CSTART. Bound polling/DMA starts also do not first clear SUSP. AbortTransfer clears SUSP only after disabling. A pending SUSP therefore requires independent recovery, not assumed successful resume. Close/direct DMA completion disable after a calculated delay without CSUSP; RM1990 permits immediate stop but distinguishes it from frame-boundary suspension. Do not assert the SDK always cuts a frame or that immediate stop is forbidden.",
+        "evidence": [
+          "RM0522:p1988",
+          "RM0522:p1990",
+          "RM0522:p2002",
+          "RM0522:p2011",
+          "I2S.pause_resume",
+          "I2S.tx_poll",
+          "I2S.tx_dma",
+          "I2S.duplex_DMA",
+          "I2S.close",
+          "I2S.dma_tx_complete",
+          "I2S.dma_duplex_complete"
+        ]
+      },
+      {
+        "id": "I2S_FIXCH_CHLEN_wording",
+        "detail": "RM2018 FIXCH=0 parenthetical says CHLEN must be set. RM1986 explicitly requires CHLEN=1 for DATLEN1/2, while RM2000 variable-length example uses DATLEN0 and does not specify CHLEN. The example is an omission, not proof of CHLEN=0. Preserve the stronger field wording and unresolved cross-field domain rather than admitting the full Cartesian encoding product.",
+        "evidence": [
+          "RM0522:p2018",
+          "RM0522:p1986",
+          "RM0522:p2000"
+        ]
+      }
+    ],
+    "finite_source_maps": {
+      "qualification": "Literal/source-derived finite encodings, not admitted execution domains. Cross-field restrictions and conflicts apply.",
+      "instances": [
+        {
+          "name": "SPI1",
+          "I2S_alias": "I2S1",
+          "base": "0x40013000",
+          "irq": 48,
+          "bus": "APB2",
+          "enable_reset_sleep_bit": 12
+        },
+        {
+          "name": "SPI2",
+          "I2S_alias": "I2S2",
+          "base": "0x40003800",
+          "irq": 49,
+          "bus": "APB1L",
+          "enable_reset_sleep_bit": 14
+        }
+      ],
+      "SPI": {
+        "DSIZE_raw": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31
+        ],
+        "frame_bits": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32
+        ],
+        "FTHLV_raw": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "threshold_frames": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16
+        ],
+        "TSIZE_raw_min": 0,
+        "TSIZE_raw_max": 65535,
+        "zero_means": "Undetermined stream; hardware NSS and CRC restrictions apply.",
+        "HAL_asserted_frame_domain": [
+          1,
+          65534
+        ],
+        "COMM": {
+          "0": "full duplex",
+          "1": "simplex transmitter",
+          "2": "simplex receiver",
+          "3": "half duplex"
+        },
+        "SP": {
+          "0": "Motorola",
+          "1": "TI",
+          "2..7": "reserved"
+        },
+        "MBR_dividers": [
+          2,
+          4,
+          8,
+          16,
+          32,
+          64,
+          128,
+          256
+        ],
+        "BPASS": "1 bypasses MBR",
+        "MSSI_cycles": [
+          0,
+          15
+        ],
+        "MIDI_cycles": [
+          0,
+          15
+        ],
+        "FIFO_bytes_each": 16,
+        "CRC_frame_bits": [
+          4,
+          32
+        ]
+      },
+      "I2S": {
+        "I2SCFG": {
+          "0": "slave transmit",
+          "1": "slave receive",
+          "2": "master transmit",
+          "3": "master receive",
+          "4": "slave full duplex",
+          "5": "master full duplex",
+          "6..7": "unused"
+        },
+        "I2SSTD": {
+          "0": "Philips",
+          "1": "MSB justified",
+          "2": "LSB justified",
+          "3": "PCM"
+        },
+        "PCMSYNC": {
+          "0": "short",
+          "1": "long"
+        },
+        "DATLEN": {
+          "0": 16,
+          "1": 24,
+          "2": 32,
+          "3": "forbidden"
+        },
+        "CHLEN": {
+          "0": 16,
+          "1": 32
+        },
+        "DATFMT": {
+          "0": "right aligned",
+          "1": "left aligned"
+        },
+        "I2SDIV_raw": [
+          0,
+          255
+        ],
+        "ODD_raw": [
+          0,
+          1
+        ],
+        "SDK_nominal_Hz": [
+          8000,
+          11025,
+          16000,
+          22050,
+          32000,
+          44100,
+          48000,
+          96000,
+          192000
+        ],
+        "cross_field_gate": "Raw fields only; divider1/ODD1 is rejected by the shown SDK frequency helper. FIXCH/CHLEN wording remains disputed. No product-domain admission."
+      },
+      "registers": [
+        {
+          "name": "CR1",
+          "offset": "0x00",
+          "reset": "0x00000000"
+        },
+        {
+          "name": "CR2",
+          "offset": "0x04",
+          "reset": "0x00000000"
+        },
+        {
+          "name": "CFG1",
+          "offset": "0x08",
+          "reset": "0x00070007"
+        },
+        {
+          "name": "CFG2",
+          "offset": "0x0C",
+          "reset": "0x00000000"
+        },
+        {
+          "name": "IER",
+          "offset": "0x10",
+          "reset": "0x00000000"
+        },
+        {
+          "name": "SR",
+          "offset": "0x14",
+          "reset": "0x00001002"
+        },
+        {
+          "name": "IFCR",
+          "offset": "0x18",
+          "reset": "0x00000000"
+        },
+        {
+          "name": "TXDR",
+          "offset": "0x20",
+          "reset": "0x00000000"
+        },
+        {
+          "name": "RXDR",
+          "offset": "0x30",
+          "reset": "0x00000000"
+        },
+        {
+          "name": "CRCPOLY",
+          "offset": "0x40",
+          "reset": "0x00000107"
+        },
+        {
+          "name": "TXCRC",
+          "offset": "0x44",
+          "reset": "0x00000000"
+        },
+        {
+          "name": "RXCRC",
+          "offset": "0x48",
+          "reset": "0x00000000"
+        },
+        {
+          "name": "UDRDR",
+          "offset": "0x4C",
+          "reset": "0x00000000"
+        },
+        {
+          "name": "I2SCFGR",
+          "offset": "0x50",
+          "reset": "0x00000000"
+        }
+      ],
+      "package_route_count": 93,
+      "package_routes": [
+        {
+          "id": "descriptor.signal.137",
+          "pin": "PA5",
+          "pad": 21,
+          "signal": "I2S1_CK",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/137",
+          "source_record": {
+            "name": "I2S1_CK",
+            "instance": "SPI1",
+            "die_pad": "PA5",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA5",
+            "af": "AF5",
+            "DS_signal": "I2S1_CK",
+            "descriptor_name": "I2S1_CK",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 7,
+            "raw_cell": "SPI1_SCK/\nI2S1_CK"
+          }
+        },
+        {
+          "id": "descriptor.signal.138",
+          "pin": "PB3",
+          "pad": 55,
+          "signal": "I2S1_CK",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/138",
+          "source_record": {
+            "name": "I2S1_CK",
+            "instance": "SPI1",
+            "die_pad": "PB3(JTDO/TRACESWO)",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB3",
+            "af": "AF5",
+            "DS_signal": "I2S1_CK",
+            "descriptor_name": "I2S1_CK",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 21,
+            "raw_cell": "SPI1_SCK/\nI2S1_CK"
+          }
+        },
+        {
+          "id": "descriptor.signal.139",
+          "pin": "PB7",
+          "pad": 59,
+          "signal": "I2S1_CK",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF6"
+          },
+          "source_pointer": "/signals/139",
+          "source_record": {
+            "name": "I2S1_CK",
+            "instance": "SPI1",
+            "die_pad": "PB7",
+            "function": {
+              "type": "alternate",
+              "id": "AF6"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB7",
+            "af": "AF6",
+            "DS_signal": "I2S1_CK",
+            "descriptor_name": "I2S1_CK",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 2,
+            "raw_cell": "SPI1_SCK/\nI2S1_CK"
+          }
+        },
+        {
+          "id": "descriptor.signal.140",
+          "pin": "PB9",
+          "pad": 62,
+          "signal": "I2S1_CK",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF6"
+          },
+          "source_pointer": "/signals/140",
+          "source_record": {
+            "name": "I2S1_CK",
+            "instance": "SPI1",
+            "die_pad": "PB9",
+            "function": {
+              "type": "alternate",
+              "id": "AF6"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB9",
+            "af": "AF6",
+            "DS_signal": "I2S1_CK",
+            "descriptor_name": "I2S1_CK",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 4,
+            "raw_cell": "SPI1_SCK/\nI2S1_CK"
+          }
+        },
+        {
+          "id": "descriptor.signal.141",
+          "pin": "PC4",
+          "pad": 24,
+          "signal": "I2S1_MCK",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/141",
+          "source_record": {
+            "name": "I2S1_MCK",
+            "instance": "SPI1",
+            "die_pad": "PC4",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PC4",
+            "af": "AF5",
+            "DS_signal": "I2S1_MCK",
+            "descriptor_name": "I2S1_MCK",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 14,
+            "raw_cell": "I2S1_MCK"
+          }
+        },
+        {
+          "id": "descriptor.signal.142",
+          "pin": "PC7",
+          "pad": 38,
+          "signal": "I2S1_MCK",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF6"
+          },
+          "source_pointer": "/signals/142",
+          "source_record": {
+            "name": "I2S1_MCK",
+            "instance": "SPI1",
+            "die_pad": "PC7",
+            "function": {
+              "type": "alternate",
+              "id": "AF6"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PC7",
+            "af": "AF6",
+            "DS_signal": "I2S1_MCK",
+            "descriptor_name": "I2S1_MCK",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 17,
+            "raw_cell": "I2S1_MCK"
+          }
+        },
+        {
+          "id": "descriptor.signal.143",
+          "pin": "PA6",
+          "pad": 22,
+          "signal": "I2S1_SDI",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/143",
+          "source_record": {
+            "name": "I2S1_SDI",
+            "instance": "SPI1",
+            "die_pad": "PA6",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA6",
+            "af": "AF5",
+            "DS_signal": "I2S1_SDI",
+            "descriptor_name": "I2S1_SDI",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 8,
+            "raw_cell": "SPI1_MISO/\nI2S1_SDI"
+          }
+        },
+        {
+          "id": "descriptor.signal.144",
+          "pin": "PB0",
+          "pad": 26,
+          "signal": "I2S1_SDI",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/144",
+          "source_record": {
+            "name": "I2S1_SDI",
+            "instance": "SPI1",
+            "die_pad": "PB0",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PB0"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PB0",
+            "af": "AF5",
+            "DS_signal": "I2S1_SDI",
+            "descriptor_name": "I2S1_SDI",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 18,
+            "raw_cell": "SPI1_MISO/\nI2S1_SDI"
+          }
+        },
+        {
+          "id": "descriptor.signal.145",
+          "pin": "PB4",
+          "pad": 56,
+          "signal": "I2S1_SDI",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/145",
+          "source_record": {
+            "name": "I2S1_SDI",
+            "instance": "SPI1",
+            "die_pad": "PB4(NJTRST)",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB4",
+            "af": "AF5",
+            "DS_signal": "I2S1_SDI",
+            "descriptor_name": "I2S1_SDI",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 22,
+            "raw_cell": "SPI1_MISO/\nI2S1_SDI"
+          }
+        },
+        {
+          "id": "descriptor.signal.146",
+          "pin": "PB6",
+          "pad": 58,
+          "signal": "I2S1_SDI",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF6"
+          },
+          "source_pointer": "/signals/146",
+          "source_record": {
+            "name": "I2S1_SDI",
+            "instance": "SPI1",
+            "die_pad": "PB6",
+            "function": {
+              "type": "alternate",
+              "id": "AF6"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB6",
+            "af": "AF6",
+            "DS_signal": "I2S1_SDI",
+            "descriptor_name": "I2S1_SDI",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 24,
+            "raw_cell": "SPI1_MISO/\nI2S1_SDI"
+          }
+        },
+        {
+          "id": "descriptor.signal.147",
+          "pin": "PA4",
+          "pad": 20,
+          "signal": "I2S1_SDO",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF4"
+          },
+          "source_pointer": "/signals/147",
+          "source_record": {
+            "name": "I2S1_SDO",
+            "instance": "SPI1",
+            "die_pad": "PA4",
+            "function": {
+              "type": "alternate",
+              "id": "AF4"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA4",
+            "af": "AF4",
+            "DS_signal": "I2S1_SDO",
+            "descriptor_name": "I2S1_SDO",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 6,
+            "raw_cell": "SPI1_MOSI/\nI2S1_SDO"
+          }
+        },
+        {
+          "id": "descriptor.signal.148",
+          "pin": "PA7",
+          "pad": 23,
+          "signal": "I2S1_SDO",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/148",
+          "source_record": {
+            "name": "I2S1_SDO",
+            "instance": "SPI1",
+            "die_pad": "PA7",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA7",
+            "af": "AF5",
+            "DS_signal": "I2S1_SDO",
+            "descriptor_name": "I2S1_SDO",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 9,
+            "raw_cell": "SPI1_MOSI/\nI2S1_SDO"
+          }
+        },
+        {
+          "id": "descriptor.signal.149",
+          "pin": "PB15",
+          "pad": 36,
+          "signal": "I2S1_SDO",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF6"
+          },
+          "source_pointer": "/signals/149",
+          "source_record": {
+            "name": "I2S1_SDO",
+            "instance": "SPI1",
+            "die_pad": "PB15",
+            "function": {
+              "type": "alternate",
+              "id": "AF6"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PB15"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PB15",
+            "af": "AF6",
+            "DS_signal": "I2S1_SDO",
+            "descriptor_name": "I2S1_SDO",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 9,
+            "raw_cell": "SPI1_MOSI/\nI2S1_SDO"
+          }
+        },
+        {
+          "id": "descriptor.signal.150",
+          "pin": "PB5",
+          "pad": 57,
+          "signal": "I2S1_SDO",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/150",
+          "source_record": {
+            "name": "I2S1_SDO",
+            "instance": "SPI1",
+            "die_pad": "PB5",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PB5"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PB5",
+            "af": "AF5",
+            "DS_signal": "I2S1_SDO",
+            "descriptor_name": "I2S1_SDO",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 23,
+            "raw_cell": "SPI1_MOSI/\nI2S1_SDO"
+          }
+        },
+        {
+          "id": "descriptor.signal.151",
+          "pin": "PA15",
+          "pad": 50,
+          "signal": "I2S1_WS",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/151",
+          "source_record": {
+            "name": "I2S1_WS",
+            "instance": "SPI1",
+            "die_pad": "PA15(JTDI)",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA15",
+            "af": "AF5",
+            "DS_signal": "I2S1_WS",
+            "descriptor_name": "I2S1_WS",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 17,
+            "raw_cell": "SPI1_NSS/\nI2S1_WS"
+          }
+        },
+        {
+          "id": "descriptor.signal.152",
+          "pin": "PA4",
+          "pad": 20,
+          "signal": "I2S1_WS",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/152",
+          "source_record": {
+            "name": "I2S1_WS",
+            "instance": "SPI1",
+            "die_pad": "PA4",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA4",
+            "af": "AF5",
+            "DS_signal": "I2S1_WS",
+            "descriptor_name": "I2S1_WS",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 6,
+            "raw_cell": "SPI1_NSS/\nI2S1_WS"
+          }
+        },
+        {
+          "id": "descriptor.signal.153",
+          "pin": "PB8",
+          "pad": 61,
+          "signal": "I2S1_WS",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF6"
+          },
+          "source_pointer": "/signals/153",
+          "source_record": {
+            "name": "I2S1_WS",
+            "instance": "SPI1",
+            "die_pad": "PB8",
+            "function": {
+              "type": "alternate",
+              "id": "AF6"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB8",
+            "af": "AF6",
+            "DS_signal": "I2S1_WS",
+            "descriptor_name": "I2S1_WS",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 3,
+            "raw_cell": "SPI1_NSS/\nI2S1_WS"
+          }
+        },
+        {
+          "id": "descriptor.signal.154",
+          "pin": "PA12",
+          "pad": 45,
+          "signal": "I2S2_CK",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/154",
+          "source_record": {
+            "name": "I2S2_CK",
+            "instance": "SPI2",
+            "die_pad": "PA12",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PA12"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PA12",
+            "af": "AF5",
+            "DS_signal": "I2S2_CK",
+            "descriptor_name": "I2S2_CK",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 14,
+            "raw_cell": "SPI2_SCK/\nI2S2_CK"
+          }
+        },
+        {
+          "id": "descriptor.signal.155",
+          "pin": "PA5",
+          "pad": 21,
+          "signal": "I2S2_CK",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF6"
+          },
+          "source_pointer": "/signals/155",
+          "source_record": {
+            "name": "I2S2_CK",
+            "instance": "SPI2",
+            "die_pad": "PA5",
+            "function": {
+              "type": "alternate",
+              "id": "AF6"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA5",
+            "af": "AF6",
+            "DS_signal": "I2S2_CK",
+            "descriptor_name": "I2S2_CK",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 7,
+            "raw_cell": "SPI2_SCK/\nI2S2_CK"
+          }
+        },
+        {
+          "id": "descriptor.signal.156",
+          "pin": "PA9",
+          "pad": 42,
+          "signal": "I2S2_CK",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/156",
+          "source_record": {
+            "name": "I2S2_CK",
+            "instance": "SPI2",
+            "die_pad": "PA9",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PA9"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PA9",
+            "af": "AF5",
+            "DS_signal": "I2S2_CK",
+            "descriptor_name": "I2S2_CK",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 11,
+            "raw_cell": "SPI2_SCK/\nI2S2_CK"
+          }
+        },
+        {
+          "id": "descriptor.signal.157",
+          "pin": "PB10",
+          "pad": 29,
+          "signal": "I2S2_CK",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/157",
+          "source_record": {
+            "name": "I2S2_CK",
+            "instance": "SPI2",
+            "die_pad": "PB10",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB10",
+            "af": "AF5",
+            "DS_signal": "I2S2_CK",
+            "descriptor_name": "I2S2_CK",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 5,
+            "raw_cell": "SPI2_SCK/\nI2S2_CK"
+          }
+        },
+        {
+          "id": "descriptor.signal.158",
+          "pin": "PB13",
+          "pad": 34,
+          "signal": "I2S2_CK",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/158",
+          "source_record": {
+            "name": "I2S2_CK",
+            "instance": "SPI2",
+            "die_pad": "PB13",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB13",
+            "af": "AF5",
+            "DS_signal": "I2S2_CK",
+            "descriptor_name": "I2S2_CK",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 7,
+            "raw_cell": "SPI2_SCK/\nI2S2_CK"
+          }
+        },
+        {
+          "id": "descriptor.signal.159",
+          "pin": "PB2",
+          "pad": 28,
+          "signal": "I2S2_CK",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF6"
+          },
+          "source_pointer": "/signals/159",
+          "source_record": {
+            "name": "I2S2_CK",
+            "instance": "SPI2",
+            "die_pad": "PB2",
+            "function": {
+              "type": "alternate",
+              "id": "AF6"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB2",
+            "af": "AF6",
+            "DS_signal": "I2S2_CK",
+            "descriptor_name": "I2S2_CK",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 20,
+            "raw_cell": "SPI2_SCK/\nI2S2_CK"
+          }
+        },
+        {
+          "id": "descriptor.signal.160",
+          "pin": "PC10",
+          "pad": 51,
+          "signal": "I2S2_CK",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF6"
+          },
+          "source_pointer": "/signals/160",
+          "source_record": {
+            "name": "I2S2_CK",
+            "instance": "SPI2",
+            "die_pad": "PC10",
+            "function": {
+              "type": "alternate",
+              "id": "AF6"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PC10"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PC10",
+            "af": "AF6",
+            "DS_signal": "I2S2_CK",
+            "descriptor_name": "I2S2_CK",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 20,
+            "raw_cell": "SPI2_SCK/\nI2S2_CK"
+          }
+        },
+        {
+          "id": "descriptor.signal.161",
+          "pin": "PC6",
+          "pad": 37,
+          "signal": "I2S2_MCK",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/161",
+          "source_record": {
+            "name": "I2S2_MCK",
+            "instance": "SPI2",
+            "die_pad": "PC6",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PC6",
+            "af": "AF5",
+            "DS_signal": "I2S2_MCK",
+            "descriptor_name": "I2S2_MCK",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 16,
+            "raw_cell": "I2S2_MCK"
+          }
+        },
+        {
+          "id": "descriptor.signal.162",
+          "pin": "PA7",
+          "pad": 23,
+          "signal": "I2S2_SDI",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF6"
+          },
+          "source_pointer": "/signals/162",
+          "source_record": {
+            "name": "I2S2_SDI",
+            "instance": "SPI2",
+            "die_pad": "PA7",
+            "function": {
+              "type": "alternate",
+              "id": "AF6"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA7",
+            "af": "AF6",
+            "DS_signal": "I2S2_SDI",
+            "descriptor_name": "I2S2_SDI",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 9,
+            "raw_cell": "SPI2_MISO/\nI2S2_SDI"
+          }
+        },
+        {
+          "id": "descriptor.signal.163",
+          "pin": "PB14",
+          "pad": 35,
+          "signal": "I2S2_SDI",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/163",
+          "source_record": {
+            "name": "I2S2_SDI",
+            "instance": "SPI2",
+            "die_pad": "PB14",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB14",
+            "af": "AF5",
+            "DS_signal": "I2S2_SDI",
+            "descriptor_name": "I2S2_SDI",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 8,
+            "raw_cell": "SPI2_MISO/\nI2S2_SDI"
+          }
+        },
+        {
+          "id": "descriptor.signal.164",
+          "pin": "PC11",
+          "pad": 52,
+          "signal": "I2S2_SDI",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF6"
+          },
+          "source_pointer": "/signals/164",
+          "source_record": {
+            "name": "I2S2_SDI",
+            "instance": "SPI2",
+            "die_pad": "PC11",
+            "function": {
+              "type": "alternate",
+              "id": "AF6"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PC11"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PC11",
+            "af": "AF6",
+            "DS_signal": "I2S2_SDI",
+            "descriptor_name": "I2S2_SDI",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 21,
+            "raw_cell": "SPI2_MISO/\nI2S2_SDI"
+          }
+        },
+        {
+          "id": "descriptor.signal.165",
+          "pin": "PC2",
+          "pad": 10,
+          "signal": "I2S2_SDI",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/165",
+          "source_record": {
+            "name": "I2S2_SDI",
+            "instance": "SPI2",
+            "die_pad": "PC2",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PC2",
+            "af": "AF5",
+            "DS_signal": "I2S2_SDI",
+            "descriptor_name": "I2S2_SDI",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 12,
+            "raw_cell": "SPI2_MISO/\nI2S2_SDI"
+          }
+        },
+        {
+          "id": "descriptor.signal.166",
+          "pin": "PA3",
+          "pad": 17,
+          "signal": "I2S2_SDO",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF6"
+          },
+          "source_pointer": "/signals/166",
+          "source_record": {
+            "name": "I2S2_SDO",
+            "instance": "SPI2",
+            "die_pad": "PA3",
+            "function": {
+              "type": "alternate",
+              "id": "AF6"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA3",
+            "af": "AF6",
+            "DS_signal": "I2S2_SDO",
+            "descriptor_name": "I2S2_SDO",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 5,
+            "raw_cell": "SPI2_MOSI/\nI2S2_SDO"
+          }
+        },
+        {
+          "id": "descriptor.signal.167",
+          "pin": "PA8",
+          "pad": 41,
+          "signal": "I2S2_SDO",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF6"
+          },
+          "source_pointer": "/signals/167",
+          "source_record": {
+            "name": "I2S2_SDO",
+            "instance": "SPI2",
+            "die_pad": "PA8",
+            "function": {
+              "type": "alternate",
+              "id": "AF6"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA8",
+            "af": "AF6",
+            "DS_signal": "I2S2_SDO",
+            "descriptor_name": "I2S2_SDO",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 10,
+            "raw_cell": "SPI2_MOSI/\nI2S2_SDO"
+          }
+        },
+        {
+          "id": "descriptor.signal.168",
+          "pin": "PB15",
+          "pad": 36,
+          "signal": "I2S2_SDO",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/168",
+          "source_record": {
+            "name": "I2S2_SDO",
+            "instance": "SPI2",
+            "die_pad": "PB15",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PB15"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PB15",
+            "af": "AF5",
+            "DS_signal": "I2S2_SDO",
+            "descriptor_name": "I2S2_SDO",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 9,
+            "raw_cell": "SPI2_MOSI/\nI2S2_SDO"
+          }
+        },
+        {
+          "id": "descriptor.signal.169",
+          "pin": "PB2",
+          "pad": 28,
+          "signal": "I2S2_SDO",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/169",
+          "source_record": {
+            "name": "I2S2_SDO",
+            "instance": "SPI2",
+            "die_pad": "PB2",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB2",
+            "af": "AF7",
+            "DS_signal": "I2S2_SDO",
+            "descriptor_name": "I2S2_SDO",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 20,
+            "raw_cell": "SPI2_MOSI/\nI2S2_SDO"
+          }
+        },
+        {
+          "id": "descriptor.signal.170",
+          "pin": "PC1",
+          "pad": 9,
+          "signal": "I2S2_SDO",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/170",
+          "source_record": {
+            "name": "I2S2_SDO",
+            "instance": "SPI2",
+            "die_pad": "PC1",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PC1",
+            "af": "AF5",
+            "DS_signal": "I2S2_SDO",
+            "descriptor_name": "I2S2_SDO",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 11,
+            "raw_cell": "SPI2_MOSI/\nI2S2_SDO"
+          }
+        },
+        {
+          "id": "descriptor.signal.171",
+          "pin": "PC12",
+          "pad": 53,
+          "signal": "I2S2_SDO",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF6"
+          },
+          "source_pointer": "/signals/171",
+          "source_record": {
+            "name": "I2S2_SDO",
+            "instance": "SPI2",
+            "die_pad": "PC12",
+            "function": {
+              "type": "alternate",
+              "id": "AF6"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PC12",
+            "af": "AF6",
+            "DS_signal": "I2S2_SDO",
+            "descriptor_name": "I2S2_SDO",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 22,
+            "raw_cell": "SPI2_MOSI/\nI2S2_SDO"
+          }
+        },
+        {
+          "id": "descriptor.signal.172",
+          "pin": "PC3",
+          "pad": 11,
+          "signal": "I2S2_SDO",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/172",
+          "source_record": {
+            "name": "I2S2_SDO",
+            "instance": "SPI2",
+            "die_pad": "PC3",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PC3",
+            "af": "AF5",
+            "DS_signal": "I2S2_SDO",
+            "descriptor_name": "I2S2_SDO",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 13,
+            "raw_cell": "SPI2_MOSI/\nI2S2_SDO"
+          }
+        },
+        {
+          "id": "descriptor.signal.173",
+          "pin": "PA0",
+          "pad": 14,
+          "signal": "I2S2_WS",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF9"
+          },
+          "source_pointer": "/signals/173",
+          "source_record": {
+            "name": "I2S2_WS",
+            "instance": "SPI2",
+            "die_pad": "PA0",
+            "function": {
+              "type": "alternate",
+              "id": "AF9"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA0",
+            "af": "AF9",
+            "DS_signal": "I2S2_WS",
+            "descriptor_name": "I2S2_WS",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 2,
+            "raw_cell": "SPI2_NSS/\nI2S2_WS"
+          }
+        },
+        {
+          "id": "descriptor.signal.174",
+          "pin": "PA11",
+          "pad": 44,
+          "signal": "I2S2_WS",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/174",
+          "source_record": {
+            "name": "I2S2_WS",
+            "instance": "SPI2",
+            "die_pad": "PA11",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PA11"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PA11",
+            "af": "AF5",
+            "DS_signal": "I2S2_WS",
+            "descriptor_name": "I2S2_WS",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 13,
+            "raw_cell": "SPI2_NSS/\nI2S2_WS"
+          }
+        },
+        {
+          "id": "descriptor.signal.175",
+          "pin": "PA15",
+          "pad": 50,
+          "signal": "I2S2_WS",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF6"
+          },
+          "source_pointer": "/signals/175",
+          "source_record": {
+            "name": "I2S2_WS",
+            "instance": "SPI2",
+            "die_pad": "PA15(JTDI)",
+            "function": {
+              "type": "alternate",
+              "id": "AF6"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA15",
+            "af": "AF6",
+            "DS_signal": "I2S2_WS",
+            "descriptor_name": "I2S2_WS",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 17,
+            "raw_cell": "SPI2_NSS/\nI2S2_WS"
+          }
+        },
+        {
+          "id": "descriptor.signal.176",
+          "pin": "PA3",
+          "pad": 17,
+          "signal": "I2S2_WS",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/176",
+          "source_record": {
+            "name": "I2S2_WS",
+            "instance": "SPI2",
+            "die_pad": "PA3",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA3",
+            "af": "AF5",
+            "DS_signal": "I2S2_WS",
+            "descriptor_name": "I2S2_WS",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 5,
+            "raw_cell": "SPI2_NSS/\nI2S2_WS"
+          }
+        },
+        {
+          "id": "descriptor.signal.177",
+          "pin": "PA4",
+          "pad": 20,
+          "signal": "I2S2_WS",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF6"
+          },
+          "source_pointer": "/signals/177",
+          "source_record": {
+            "name": "I2S2_WS",
+            "instance": "SPI2",
+            "die_pad": "PA4",
+            "function": {
+              "type": "alternate",
+              "id": "AF6"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA4",
+            "af": "AF6",
+            "DS_signal": "I2S2_WS",
+            "descriptor_name": "I2S2_WS",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 6,
+            "raw_cell": "SPI2_NSS/\nI2S2_WS"
+          }
+        },
+        {
+          "id": "descriptor.signal.178",
+          "pin": "PB1",
+          "pad": 27,
+          "signal": "I2S2_WS",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/178",
+          "source_record": {
+            "name": "I2S2_WS",
+            "instance": "SPI2",
+            "die_pad": "PB1",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PB1"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PB1",
+            "af": "AF5",
+            "DS_signal": "I2S2_WS",
+            "descriptor_name": "I2S2_WS",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 19,
+            "raw_cell": "SPI2_NSS/\nI2S2_WS"
+          }
+        },
+        {
+          "id": "descriptor.signal.179",
+          "pin": "PB12",
+          "pad": 33,
+          "signal": "I2S2_WS",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/179",
+          "source_record": {
+            "name": "I2S2_WS",
+            "instance": "SPI2",
+            "die_pad": "PB12",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB12",
+            "af": "AF5",
+            "DS_signal": "I2S2_WS",
+            "descriptor_name": "I2S2_WS",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 6,
+            "raw_cell": "SPI2_NSS/\nI2S2_WS"
+          }
+        },
+        {
+          "id": "descriptor.signal.180",
+          "pin": "PB4",
+          "pad": 56,
+          "signal": "I2S2_WS",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/180",
+          "source_record": {
+            "name": "I2S2_WS",
+            "instance": "SPI2",
+            "die_pad": "PB4(NJTRST)",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB4",
+            "af": "AF7",
+            "DS_signal": "I2S2_WS",
+            "descriptor_name": "I2S2_WS",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 22,
+            "raw_cell": "SPI2_NSS/\nI2S2_WS"
+          }
+        },
+        {
+          "id": "descriptor.signal.181",
+          "pin": "PB9",
+          "pad": 62,
+          "signal": "I2S2_WS",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/181",
+          "source_record": {
+            "name": "I2S2_WS",
+            "instance": "SPI2",
+            "die_pad": "PB9",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB9",
+            "af": "AF5",
+            "DS_signal": "I2S2_WS",
+            "descriptor_name": "I2S2_WS",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 4,
+            "raw_cell": "SPI2_NSS/\nI2S2_WS"
+          }
+        },
+        {
+          "id": "descriptor.signal.230",
+          "pin": "PC9",
+          "pad": 40,
+          "signal": "RCC_AUDIOCLK",
+          "instance": "RCC",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/230",
+          "source_record": {
+            "name": "RCC_AUDIOCLK",
+            "instance": "RCC",
+            "die_pad": "PC9",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PC9",
+            "af": "AF5",
+            "DS_signal": "AUDIOCLK",
+            "descriptor_name": "RCC_AUDIOCLK",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 19,
+            "raw_cell": "AUDIOCLK"
+          }
+        },
+        {
+          "id": "descriptor.signal.244",
+          "pin": "PA6",
+          "pad": 22,
+          "signal": "SPI1_MISO",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/244",
+          "source_record": {
+            "name": "SPI1_MISO",
+            "instance": "SPI1",
+            "die_pad": "PA6",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA6",
+            "af": "AF5",
+            "DS_signal": "SPI1_MISO",
+            "descriptor_name": "SPI1_MISO",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 8,
+            "raw_cell": "SPI1_MISO/\nI2S1_SDI"
+          }
+        },
+        {
+          "id": "descriptor.signal.245",
+          "pin": "PB0",
+          "pad": 26,
+          "signal": "SPI1_MISO",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/245",
+          "source_record": {
+            "name": "SPI1_MISO",
+            "instance": "SPI1",
+            "die_pad": "PB0",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PB0"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PB0",
+            "af": "AF5",
+            "DS_signal": "SPI1_MISO",
+            "descriptor_name": "SPI1_MISO",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 18,
+            "raw_cell": "SPI1_MISO/\nI2S1_SDI"
+          }
+        },
+        {
+          "id": "descriptor.signal.246",
+          "pin": "PB4",
+          "pad": 56,
+          "signal": "SPI1_MISO",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/246",
+          "source_record": {
+            "name": "SPI1_MISO",
+            "instance": "SPI1",
+            "die_pad": "PB4(NJTRST)",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB4",
+            "af": "AF5",
+            "DS_signal": "SPI1_MISO",
+            "descriptor_name": "SPI1_MISO",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 22,
+            "raw_cell": "SPI1_MISO/\nI2S1_SDI"
+          }
+        },
+        {
+          "id": "descriptor.signal.247",
+          "pin": "PB6",
+          "pad": 58,
+          "signal": "SPI1_MISO",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF6"
+          },
+          "source_pointer": "/signals/247",
+          "source_record": {
+            "name": "SPI1_MISO",
+            "instance": "SPI1",
+            "die_pad": "PB6",
+            "function": {
+              "type": "alternate",
+              "id": "AF6"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB6",
+            "af": "AF6",
+            "DS_signal": "SPI1_MISO",
+            "descriptor_name": "SPI1_MISO",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 24,
+            "raw_cell": "SPI1_MISO/\nI2S1_SDI"
+          }
+        },
+        {
+          "id": "descriptor.signal.248",
+          "pin": "PA4",
+          "pad": 20,
+          "signal": "SPI1_MOSI",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF4"
+          },
+          "source_pointer": "/signals/248",
+          "source_record": {
+            "name": "SPI1_MOSI",
+            "instance": "SPI1",
+            "die_pad": "PA4",
+            "function": {
+              "type": "alternate",
+              "id": "AF4"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA4",
+            "af": "AF4",
+            "DS_signal": "SPI1_MOSI",
+            "descriptor_name": "SPI1_MOSI",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 6,
+            "raw_cell": "SPI1_MOSI/\nI2S1_SDO"
+          }
+        },
+        {
+          "id": "descriptor.signal.249",
+          "pin": "PA7",
+          "pad": 23,
+          "signal": "SPI1_MOSI",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/249",
+          "source_record": {
+            "name": "SPI1_MOSI",
+            "instance": "SPI1",
+            "die_pad": "PA7",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA7",
+            "af": "AF5",
+            "DS_signal": "SPI1_MOSI",
+            "descriptor_name": "SPI1_MOSI",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 9,
+            "raw_cell": "SPI1_MOSI/\nI2S1_SDO"
+          }
+        },
+        {
+          "id": "descriptor.signal.250",
+          "pin": "PB15",
+          "pad": 36,
+          "signal": "SPI1_MOSI",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF6"
+          },
+          "source_pointer": "/signals/250",
+          "source_record": {
+            "name": "SPI1_MOSI",
+            "instance": "SPI1",
+            "die_pad": "PB15",
+            "function": {
+              "type": "alternate",
+              "id": "AF6"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PB15"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PB15",
+            "af": "AF6",
+            "DS_signal": "SPI1_MOSI",
+            "descriptor_name": "SPI1_MOSI",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 9,
+            "raw_cell": "SPI1_MOSI/\nI2S1_SDO"
+          }
+        },
+        {
+          "id": "descriptor.signal.251",
+          "pin": "PB5",
+          "pad": 57,
+          "signal": "SPI1_MOSI",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/251",
+          "source_record": {
+            "name": "SPI1_MOSI",
+            "instance": "SPI1",
+            "die_pad": "PB5",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PB5"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PB5",
+            "af": "AF5",
+            "DS_signal": "SPI1_MOSI",
+            "descriptor_name": "SPI1_MOSI",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 23,
+            "raw_cell": "SPI1_MOSI/\nI2S1_SDO"
+          }
+        },
+        {
+          "id": "descriptor.signal.252",
+          "pin": "PA15",
+          "pad": 50,
+          "signal": "SPI1_NSS",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/252",
+          "source_record": {
+            "name": "SPI1_NSS",
+            "instance": "SPI1",
+            "die_pad": "PA15(JTDI)",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA15",
+            "af": "AF5",
+            "DS_signal": "SPI1_NSS",
+            "descriptor_name": "SPI1_NSS",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 17,
+            "raw_cell": "SPI1_NSS/\nI2S1_WS"
+          }
+        },
+        {
+          "id": "descriptor.signal.253",
+          "pin": "PA4",
+          "pad": 20,
+          "signal": "SPI1_NSS",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/253",
+          "source_record": {
+            "name": "SPI1_NSS",
+            "instance": "SPI1",
+            "die_pad": "PA4",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA4",
+            "af": "AF5",
+            "DS_signal": "SPI1_NSS",
+            "descriptor_name": "SPI1_NSS",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 6,
+            "raw_cell": "SPI1_NSS/\nI2S1_WS"
+          }
+        },
+        {
+          "id": "descriptor.signal.254",
+          "pin": "PB8",
+          "pad": 61,
+          "signal": "SPI1_NSS",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF6"
+          },
+          "source_pointer": "/signals/254",
+          "source_record": {
+            "name": "SPI1_NSS",
+            "instance": "SPI1",
+            "die_pad": "PB8",
+            "function": {
+              "type": "alternate",
+              "id": "AF6"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB8",
+            "af": "AF6",
+            "DS_signal": "SPI1_NSS",
+            "descriptor_name": "SPI1_NSS",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 3,
+            "raw_cell": "SPI1_NSS/\nI2S1_WS"
+          }
+        },
+        {
+          "id": "descriptor.signal.255",
+          "pin": "PA0",
+          "pad": 14,
+          "signal": "SPI1_RDY",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF6"
+          },
+          "source_pointer": "/signals/255",
+          "source_record": {
+            "name": "SPI1_RDY",
+            "instance": "SPI1",
+            "die_pad": "PA0",
+            "function": {
+              "type": "alternate",
+              "id": "AF6"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA0",
+            "af": "AF6",
+            "DS_signal": "SPI1_RDY",
+            "descriptor_name": "SPI1_RDY",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 2,
+            "raw_cell": "SPI1_RDY"
+          }
+        },
+        {
+          "id": "descriptor.signal.256",
+          "pin": "PA8",
+          "pad": 41,
+          "signal": "SPI1_RDY",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/256",
+          "source_record": {
+            "name": "SPI1_RDY",
+            "instance": "SPI1",
+            "die_pad": "PA8",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA8",
+            "af": "AF5",
+            "DS_signal": "SPI1_RDY",
+            "descriptor_name": "SPI1_RDY",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 10,
+            "raw_cell": "SPI1_RDY"
+          }
+        },
+        {
+          "id": "descriptor.signal.257",
+          "pin": "PB2",
+          "pad": 28,
+          "signal": "SPI1_RDY",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF4"
+          },
+          "source_pointer": "/signals/257",
+          "source_record": {
+            "name": "SPI1_RDY",
+            "instance": "SPI1",
+            "die_pad": "PB2",
+            "function": {
+              "type": "alternate",
+              "id": "AF4"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB2",
+            "af": "AF4",
+            "DS_signal": "SPI1_RDY",
+            "descriptor_name": "SPI1_RDY",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 20,
+            "raw_cell": "SPI1_RDY"
+          }
+        },
+        {
+          "id": "descriptor.signal.258",
+          "pin": "PA5",
+          "pad": 21,
+          "signal": "SPI1_SCK",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/258",
+          "source_record": {
+            "name": "SPI1_SCK",
+            "instance": "SPI1",
+            "die_pad": "PA5",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA5",
+            "af": "AF5",
+            "DS_signal": "SPI1_SCK",
+            "descriptor_name": "SPI1_SCK",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 7,
+            "raw_cell": "SPI1_SCK/\nI2S1_CK"
+          }
+        },
+        {
+          "id": "descriptor.signal.259",
+          "pin": "PB3",
+          "pad": 55,
+          "signal": "SPI1_SCK",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/259",
+          "source_record": {
+            "name": "SPI1_SCK",
+            "instance": "SPI1",
+            "die_pad": "PB3(JTDO/TRACESWO)",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB3",
+            "af": "AF5",
+            "DS_signal": "SPI1_SCK",
+            "descriptor_name": "SPI1_SCK",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 21,
+            "raw_cell": "SPI1_SCK/\nI2S1_CK"
+          }
+        },
+        {
+          "id": "descriptor.signal.260",
+          "pin": "PB7",
+          "pad": 59,
+          "signal": "SPI1_SCK",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF6"
+          },
+          "source_pointer": "/signals/260",
+          "source_record": {
+            "name": "SPI1_SCK",
+            "instance": "SPI1",
+            "die_pad": "PB7",
+            "function": {
+              "type": "alternate",
+              "id": "AF6"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB7",
+            "af": "AF6",
+            "DS_signal": "SPI1_SCK",
+            "descriptor_name": "SPI1_SCK",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 2,
+            "raw_cell": "SPI1_SCK/\nI2S1_CK"
+          }
+        },
+        {
+          "id": "descriptor.signal.261",
+          "pin": "PB9",
+          "pad": 62,
+          "signal": "SPI1_SCK",
+          "instance": "SPI1",
+          "function": {
+            "type": "alternate",
+            "id": "AF6"
+          },
+          "source_pointer": "/signals/261",
+          "source_record": {
+            "name": "SPI1_SCK",
+            "instance": "SPI1",
+            "die_pad": "PB9",
+            "function": {
+              "type": "alternate",
+              "id": "AF6"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB9",
+            "af": "AF6",
+            "DS_signal": "SPI1_SCK",
+            "descriptor_name": "SPI1_SCK",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 4,
+            "raw_cell": "SPI1_SCK/\nI2S1_CK"
+          }
+        },
+        {
+          "id": "descriptor.signal.262",
+          "pin": "PA7",
+          "pad": 23,
+          "signal": "SPI2_MISO",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF6"
+          },
+          "source_pointer": "/signals/262",
+          "source_record": {
+            "name": "SPI2_MISO",
+            "instance": "SPI2",
+            "die_pad": "PA7",
+            "function": {
+              "type": "alternate",
+              "id": "AF6"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA7",
+            "af": "AF6",
+            "DS_signal": "SPI2_MISO",
+            "descriptor_name": "SPI2_MISO",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 9,
+            "raw_cell": "SPI2_MISO/\nI2S2_SDI"
+          }
+        },
+        {
+          "id": "descriptor.signal.263",
+          "pin": "PB14",
+          "pad": 35,
+          "signal": "SPI2_MISO",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/263",
+          "source_record": {
+            "name": "SPI2_MISO",
+            "instance": "SPI2",
+            "die_pad": "PB14",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB14",
+            "af": "AF5",
+            "DS_signal": "SPI2_MISO",
+            "descriptor_name": "SPI2_MISO",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 8,
+            "raw_cell": "SPI2_MISO/\nI2S2_SDI"
+          }
+        },
+        {
+          "id": "descriptor.signal.264",
+          "pin": "PC11",
+          "pad": 52,
+          "signal": "SPI2_MISO",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF6"
+          },
+          "source_pointer": "/signals/264",
+          "source_record": {
+            "name": "SPI2_MISO",
+            "instance": "SPI2",
+            "die_pad": "PC11",
+            "function": {
+              "type": "alternate",
+              "id": "AF6"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PC11"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PC11",
+            "af": "AF6",
+            "DS_signal": "SPI2_MISO",
+            "descriptor_name": "SPI2_MISO",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 21,
+            "raw_cell": "SPI2_MISO/\nI2S2_SDI"
+          }
+        },
+        {
+          "id": "descriptor.signal.265",
+          "pin": "PC2",
+          "pad": 10,
+          "signal": "SPI2_MISO",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/265",
+          "source_record": {
+            "name": "SPI2_MISO",
+            "instance": "SPI2",
+            "die_pad": "PC2",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PC2",
+            "af": "AF5",
+            "DS_signal": "SPI2_MISO",
+            "descriptor_name": "SPI2_MISO",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 12,
+            "raw_cell": "SPI2_MISO/\nI2S2_SDI"
+          }
+        },
+        {
+          "id": "descriptor.signal.266",
+          "pin": "PA3",
+          "pad": 17,
+          "signal": "SPI2_MOSI",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF6"
+          },
+          "source_pointer": "/signals/266",
+          "source_record": {
+            "name": "SPI2_MOSI",
+            "instance": "SPI2",
+            "die_pad": "PA3",
+            "function": {
+              "type": "alternate",
+              "id": "AF6"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA3",
+            "af": "AF6",
+            "DS_signal": "SPI2_MOSI",
+            "descriptor_name": "SPI2_MOSI",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 5,
+            "raw_cell": "SPI2_MOSI/\nI2S2_SDO"
+          }
+        },
+        {
+          "id": "descriptor.signal.267",
+          "pin": "PA8",
+          "pad": 41,
+          "signal": "SPI2_MOSI",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF6"
+          },
+          "source_pointer": "/signals/267",
+          "source_record": {
+            "name": "SPI2_MOSI",
+            "instance": "SPI2",
+            "die_pad": "PA8",
+            "function": {
+              "type": "alternate",
+              "id": "AF6"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA8",
+            "af": "AF6",
+            "DS_signal": "SPI2_MOSI",
+            "descriptor_name": "SPI2_MOSI",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 10,
+            "raw_cell": "SPI2_MOSI/\nI2S2_SDO"
+          }
+        },
+        {
+          "id": "descriptor.signal.268",
+          "pin": "PB15",
+          "pad": 36,
+          "signal": "SPI2_MOSI",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/268",
+          "source_record": {
+            "name": "SPI2_MOSI",
+            "instance": "SPI2",
+            "die_pad": "PB15",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PB15"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PB15",
+            "af": "AF5",
+            "DS_signal": "SPI2_MOSI",
+            "descriptor_name": "SPI2_MOSI",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 9,
+            "raw_cell": "SPI2_MOSI/\nI2S2_SDO"
+          }
+        },
+        {
+          "id": "descriptor.signal.269",
+          "pin": "PB2",
+          "pad": 28,
+          "signal": "SPI2_MOSI",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/269",
+          "source_record": {
+            "name": "SPI2_MOSI",
+            "instance": "SPI2",
+            "die_pad": "PB2",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB2",
+            "af": "AF7",
+            "DS_signal": "SPI2_MOSI",
+            "descriptor_name": "SPI2_MOSI",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 20,
+            "raw_cell": "SPI2_MOSI/\nI2S2_SDO"
+          }
+        },
+        {
+          "id": "descriptor.signal.270",
+          "pin": "PC1",
+          "pad": 9,
+          "signal": "SPI2_MOSI",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/270",
+          "source_record": {
+            "name": "SPI2_MOSI",
+            "instance": "SPI2",
+            "die_pad": "PC1",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PC1",
+            "af": "AF5",
+            "DS_signal": "SPI2_MOSI",
+            "descriptor_name": "SPI2_MOSI",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 11,
+            "raw_cell": "SPI2_MOSI/\nI2S2_SDO"
+          }
+        },
+        {
+          "id": "descriptor.signal.271",
+          "pin": "PC12",
+          "pad": 53,
+          "signal": "SPI2_MOSI",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF6"
+          },
+          "source_pointer": "/signals/271",
+          "source_record": {
+            "name": "SPI2_MOSI",
+            "instance": "SPI2",
+            "die_pad": "PC12",
+            "function": {
+              "type": "alternate",
+              "id": "AF6"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PC12",
+            "af": "AF6",
+            "DS_signal": "SPI2_MOSI",
+            "descriptor_name": "SPI2_MOSI",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 22,
+            "raw_cell": "SPI2_MOSI/\nI2S2_SDO"
+          }
+        },
+        {
+          "id": "descriptor.signal.272",
+          "pin": "PC3",
+          "pad": 11,
+          "signal": "SPI2_MOSI",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/272",
+          "source_record": {
+            "name": "SPI2_MOSI",
+            "instance": "SPI2",
+            "die_pad": "PC3",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PC3",
+            "af": "AF5",
+            "DS_signal": "SPI2_MOSI",
+            "descriptor_name": "SPI2_MOSI",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 13,
+            "raw_cell": "SPI2_MOSI/\nI2S2_SDO"
+          }
+        },
+        {
+          "id": "descriptor.signal.273",
+          "pin": "PA0",
+          "pad": 14,
+          "signal": "SPI2_NSS",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF9"
+          },
+          "source_pointer": "/signals/273",
+          "source_record": {
+            "name": "SPI2_NSS",
+            "instance": "SPI2",
+            "die_pad": "PA0",
+            "function": {
+              "type": "alternate",
+              "id": "AF9"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA0",
+            "af": "AF9",
+            "DS_signal": "SPI2_NSS",
+            "descriptor_name": "SPI2_NSS",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 2,
+            "raw_cell": "SPI2_NSS/\nI2S2_WS"
+          }
+        },
+        {
+          "id": "descriptor.signal.274",
+          "pin": "PA11",
+          "pad": 44,
+          "signal": "SPI2_NSS",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/274",
+          "source_record": {
+            "name": "SPI2_NSS",
+            "instance": "SPI2",
+            "die_pad": "PA11",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PA11"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PA11",
+            "af": "AF5",
+            "DS_signal": "SPI2_NSS",
+            "descriptor_name": "SPI2_NSS",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 13,
+            "raw_cell": "SPI2_NSS/\nI2S2_WS"
+          }
+        },
+        {
+          "id": "descriptor.signal.275",
+          "pin": "PA15",
+          "pad": 50,
+          "signal": "SPI2_NSS",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF6"
+          },
+          "source_pointer": "/signals/275",
+          "source_record": {
+            "name": "SPI2_NSS",
+            "instance": "SPI2",
+            "die_pad": "PA15(JTDI)",
+            "function": {
+              "type": "alternate",
+              "id": "AF6"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA15",
+            "af": "AF6",
+            "DS_signal": "SPI2_NSS",
+            "descriptor_name": "SPI2_NSS",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 17,
+            "raw_cell": "SPI2_NSS/\nI2S2_WS"
+          }
+        },
+        {
+          "id": "descriptor.signal.276",
+          "pin": "PA3",
+          "pad": 17,
+          "signal": "SPI2_NSS",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/276",
+          "source_record": {
+            "name": "SPI2_NSS",
+            "instance": "SPI2",
+            "die_pad": "PA3",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA3",
+            "af": "AF5",
+            "DS_signal": "SPI2_NSS",
+            "descriptor_name": "SPI2_NSS",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 5,
+            "raw_cell": "SPI2_NSS/\nI2S2_WS"
+          }
+        },
+        {
+          "id": "descriptor.signal.277",
+          "pin": "PA4",
+          "pad": 20,
+          "signal": "SPI2_NSS",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF6"
+          },
+          "source_pointer": "/signals/277",
+          "source_record": {
+            "name": "SPI2_NSS",
+            "instance": "SPI2",
+            "die_pad": "PA4",
+            "function": {
+              "type": "alternate",
+              "id": "AF6"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA4",
+            "af": "AF6",
+            "DS_signal": "SPI2_NSS",
+            "descriptor_name": "SPI2_NSS",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 6,
+            "raw_cell": "SPI2_NSS/\nI2S2_WS"
+          }
+        },
+        {
+          "id": "descriptor.signal.278",
+          "pin": "PB1",
+          "pad": 27,
+          "signal": "SPI2_NSS",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/278",
+          "source_record": {
+            "name": "SPI2_NSS",
+            "instance": "SPI2",
+            "die_pad": "PB1",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PB1"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PB1",
+            "af": "AF5",
+            "DS_signal": "SPI2_NSS",
+            "descriptor_name": "SPI2_NSS",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 19,
+            "raw_cell": "SPI2_NSS/\nI2S2_WS"
+          }
+        },
+        {
+          "id": "descriptor.signal.279",
+          "pin": "PB12",
+          "pad": 33,
+          "signal": "SPI2_NSS",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/279",
+          "source_record": {
+            "name": "SPI2_NSS",
+            "instance": "SPI2",
+            "die_pad": "PB12",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB12",
+            "af": "AF5",
+            "DS_signal": "SPI2_NSS",
+            "descriptor_name": "SPI2_NSS",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 6,
+            "raw_cell": "SPI2_NSS/\nI2S2_WS"
+          }
+        },
+        {
+          "id": "descriptor.signal.280",
+          "pin": "PB4",
+          "pad": 56,
+          "signal": "SPI2_NSS",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/280",
+          "source_record": {
+            "name": "SPI2_NSS",
+            "instance": "SPI2",
+            "die_pad": "PB4(NJTRST)",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB4",
+            "af": "AF7",
+            "DS_signal": "SPI2_NSS",
+            "descriptor_name": "SPI2_NSS",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 22,
+            "raw_cell": "SPI2_NSS/\nI2S2_WS"
+          }
+        },
+        {
+          "id": "descriptor.signal.281",
+          "pin": "PB9",
+          "pad": 62,
+          "signal": "SPI2_NSS",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/281",
+          "source_record": {
+            "name": "SPI2_NSS",
+            "instance": "SPI2",
+            "die_pad": "PB9",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB9",
+            "af": "AF5",
+            "DS_signal": "SPI2_NSS",
+            "descriptor_name": "SPI2_NSS",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 4,
+            "raw_cell": "SPI2_NSS/\nI2S2_WS"
+          }
+        },
+        {
+          "id": "descriptor.signal.282",
+          "pin": "PA0",
+          "pad": 14,
+          "signal": "SPI2_RDY",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/282",
+          "source_record": {
+            "name": "SPI2_RDY",
+            "instance": "SPI2",
+            "die_pad": "PA0",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA0",
+            "af": "AF5",
+            "DS_signal": "SPI2_RDY",
+            "descriptor_name": "SPI2_RDY",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 2,
+            "raw_cell": "SPI2_RDY"
+          }
+        },
+        {
+          "id": "descriptor.signal.283",
+          "pin": "PC0",
+          "pad": 8,
+          "signal": "SPI2_RDY",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/283",
+          "source_record": {
+            "name": "SPI2_RDY",
+            "instance": "SPI2",
+            "die_pad": "PC0",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PC0",
+            "af": "AF7",
+            "DS_signal": "SPI2_RDY",
+            "descriptor_name": "SPI2_RDY",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 10,
+            "raw_cell": "SPI2_RDY"
+          }
+        },
+        {
+          "id": "descriptor.signal.284",
+          "pin": "PA12",
+          "pad": 45,
+          "signal": "SPI2_SCK",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/284",
+          "source_record": {
+            "name": "SPI2_SCK",
+            "instance": "SPI2",
+            "die_pad": "PA12",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PA12"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PA12",
+            "af": "AF5",
+            "DS_signal": "SPI2_SCK",
+            "descriptor_name": "SPI2_SCK",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 14,
+            "raw_cell": "SPI2_SCK/\nI2S2_CK"
+          }
+        },
+        {
+          "id": "descriptor.signal.285",
+          "pin": "PA5",
+          "pad": 21,
+          "signal": "SPI2_SCK",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF6"
+          },
+          "source_pointer": "/signals/285",
+          "source_record": {
+            "name": "SPI2_SCK",
+            "instance": "SPI2",
+            "die_pad": "PA5",
+            "function": {
+              "type": "alternate",
+              "id": "AF6"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA5",
+            "af": "AF6",
+            "DS_signal": "SPI2_SCK",
+            "descriptor_name": "SPI2_SCK",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 7,
+            "raw_cell": "SPI2_SCK/\nI2S2_CK"
+          }
+        },
+        {
+          "id": "descriptor.signal.286",
+          "pin": "PA9",
+          "pad": 42,
+          "signal": "SPI2_SCK",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/286",
+          "source_record": {
+            "name": "SPI2_SCK",
+            "instance": "SPI2",
+            "die_pad": "PA9",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PA9"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PA9",
+            "af": "AF5",
+            "DS_signal": "SPI2_SCK",
+            "descriptor_name": "SPI2_SCK",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 11,
+            "raw_cell": "SPI2_SCK/\nI2S2_CK"
+          }
+        },
+        {
+          "id": "descriptor.signal.287",
+          "pin": "PB10",
+          "pad": 29,
+          "signal": "SPI2_SCK",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/287",
+          "source_record": {
+            "name": "SPI2_SCK",
+            "instance": "SPI2",
+            "die_pad": "PB10",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB10",
+            "af": "AF5",
+            "DS_signal": "SPI2_SCK",
+            "descriptor_name": "SPI2_SCK",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 5,
+            "raw_cell": "SPI2_SCK/\nI2S2_CK"
+          }
+        },
+        {
+          "id": "descriptor.signal.288",
+          "pin": "PB13",
+          "pad": 34,
+          "signal": "SPI2_SCK",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF5"
+          },
+          "source_pointer": "/signals/288",
+          "source_record": {
+            "name": "SPI2_SCK",
+            "instance": "SPI2",
+            "die_pad": "PB13",
+            "function": {
+              "type": "alternate",
+              "id": "AF5"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB13",
+            "af": "AF5",
+            "DS_signal": "SPI2_SCK",
+            "descriptor_name": "SPI2_SCK",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 7,
+            "raw_cell": "SPI2_SCK/\nI2S2_CK"
+          }
+        },
+        {
+          "id": "descriptor.signal.289",
+          "pin": "PB2",
+          "pad": 28,
+          "signal": "SPI2_SCK",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF6"
+          },
+          "source_pointer": "/signals/289",
+          "source_record": {
+            "name": "SPI2_SCK",
+            "instance": "SPI2",
+            "die_pad": "PB2",
+            "function": {
+              "type": "alternate",
+              "id": "AF6"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB2",
+            "af": "AF6",
+            "DS_signal": "SPI2_SCK",
+            "descriptor_name": "SPI2_SCK",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 20,
+            "raw_cell": "SPI2_SCK/\nI2S2_CK"
+          }
+        },
+        {
+          "id": "descriptor.signal.290",
+          "pin": "PC10",
+          "pad": 51,
+          "signal": "SPI2_SCK",
+          "instance": "SPI2",
+          "function": {
+            "type": "alternate",
+            "id": "AF6"
+          },
+          "source_pointer": "/signals/290",
+          "source_record": {
+            "name": "SPI2_SCK",
+            "instance": "SPI2",
+            "die_pad": "PC10",
+            "function": {
+              "type": "alternate",
+              "id": "AF6"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PC10"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PC10",
+            "af": "AF6",
+            "DS_signal": "SPI2_SCK",
+            "descriptor_name": "SPI2_SCK",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 20,
+            "raw_cell": "SPI2_SCK/\nI2S2_CK"
+          }
+        }
+      ],
+      "evidence": [
+        "header.instances",
+        "header.bases",
+        "header.IRQ",
+        "header.RCC_enable",
+        "header.RCC_reset",
+        "header.RCC_sleep",
+        "RM0522:p2003",
+        "RM0522:p2004",
+        "RM0522:p2005",
+        "RM0522:p2006",
+        "RM0522:p2007",
+        "RM0522:p2008",
+        "RM0522:p2009",
+        "RM0522:p2010",
+        "RM0522:p2017",
+        "RM0522:p2018",
+        "RM0522:p2019",
+        "RM0522:p2020",
+        "LL.audio_values",
+        "SPI.count_guard"
+      ]
+    },
+    "chapter_audit": {
+      "document": "RM0522",
+      "chapter": 45,
+      "pages_read": [
+        1945,
+        1946,
+        1947,
+        1948,
+        1949,
+        1950,
+        1951,
+        1952,
+        1953,
+        1954,
+        1955,
+        1956,
+        1957,
+        1958,
+        1959,
+        1960,
+        1961,
+        1962,
+        1963,
+        1964,
+        1965,
+        1966,
+        1967,
+        1968,
+        1969,
+        1970,
+        1971,
+        1972,
+        1973,
+        1974,
+        1975,
+        1976,
+        1977,
+        1978,
+        1979,
+        1980,
+        1981,
+        1982,
+        1983,
+        1984,
+        1985,
+        1986,
+        1987,
+        1988,
+        1989,
+        1990,
+        1991,
+        1992,
+        1993,
+        1994,
+        1995,
+        1996,
+        1997,
+        1998,
+        1999,
+        2000,
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020
+      ],
+      "evidence": [
+        "RM0522:p1945",
+        "RM0522:p1946",
+        "RM0522:p1947",
+        "RM0522:p1948",
+        "RM0522:p1949",
+        "RM0522:p1950",
+        "RM0522:p1951",
+        "RM0522:p1952",
+        "RM0522:p1953",
+        "RM0522:p1954",
+        "RM0522:p1955",
+        "RM0522:p1956",
+        "RM0522:p1957",
+        "RM0522:p1958",
+        "RM0522:p1959",
+        "RM0522:p1960",
+        "RM0522:p1961",
+        "RM0522:p1962",
+        "RM0522:p1963",
+        "RM0522:p1964",
+        "RM0522:p1965",
+        "RM0522:p1966",
+        "RM0522:p1967",
+        "RM0522:p1968",
+        "RM0522:p1969",
+        "RM0522:p1970",
+        "RM0522:p1971",
+        "RM0522:p1972",
+        "RM0522:p1973",
+        "RM0522:p1974",
+        "RM0522:p1975",
+        "RM0522:p1976",
+        "RM0522:p1977",
+        "RM0522:p1978",
+        "RM0522:p1979",
+        "RM0522:p1980",
+        "RM0522:p1981",
+        "RM0522:p1982",
+        "RM0522:p1983",
+        "RM0522:p1984",
+        "RM0522:p1985",
+        "RM0522:p1986",
+        "RM0522:p1987",
+        "RM0522:p1988",
+        "RM0522:p1989",
+        "RM0522:p1990",
+        "RM0522:p1991",
+        "RM0522:p1992",
+        "RM0522:p1993",
+        "RM0522:p1994",
+        "RM0522:p1995",
+        "RM0522:p1996",
+        "RM0522:p1997",
+        "RM0522:p1998",
+        "RM0522:p1999",
+        "RM0522:p2000",
+        "RM0522:p2001",
+        "RM0522:p2002",
+        "RM0522:p2003",
+        "RM0522:p2004",
+        "RM0522:p2005",
+        "RM0522:p2006",
+        "RM0522:p2007",
+        "RM0522:p2008",
+        "RM0522:p2009",
+        "RM0522:p2010",
+        "RM0522:p2011",
+        "RM0522:p2012",
+        "RM0522:p2013",
+        "RM0522:p2014",
+        "RM0522:p2015",
+        "RM0522:p2016",
+        "RM0522:p2017",
+        "RM0522:p2018",
+        "RM0522:p2019",
+        "RM0522:p2020"
+      ],
+      "qualification": "Full chapter extracted text including register maps read. Diagrams not independently rendered. Selected complete SDK configuration/TX/DMA-completion/abort/IRQ functions read; not every RX/duplex or linked-list path audited."
+    },
+    "open_gates": [
+      "No SPI/I2S runtime admission, automatic data-register access, mode transition, pin drive or clock operation.",
+      "Full RX/duplex transfer-start paths, DMA driver internals, linked-list modes, emitted C accesses, buffer padding, alignment and interrupt races remain independently unqualified.",
+      "Independent semantic/source review pending; integrity verification alone does not close claims.",
+      "Board population, external peers, silicon revision, waveform/timing/electrical compatibility, audio clock tolerance and CRC interoperability not observed or qualified.",
+      "No active catalog, existing EXTI line ownership, composition or DMA execution domains changed.",
+      "Shutdown needs retained peripheral, clock, IRQ, DMA and buffer ownership until status-specific release; an IDLE handle or callback is insufficient by itself.",
+      "Expanded duplex and abort evidence is bounded to the cited paths; all SPI/I2S RX, linked-list, callback reentrancy, buffer tails and actual DMA/hardware timing remain unqualified."
+    ],
+    "visual_checks": [
+      {
+        "source": "RM0522",
+        "page": 2018,
+        "path": "research://c5-reference/spi-rm2018-check.png",
+        "sha256": "c07ad9e1bf752e7426a7a1f72ffd7c30d148984a5d4f0a3104dc8c19b4d6d94b",
+        "detail": "Visually inspected full page. I2SDIV description refers to section45.9.9, with no additional encoding restriction printed. FIXCH=0 parenthetical says CHLEN must be set."
+      }
+    ],
+    "package_route_constraints": [
+      {
+        "route_id": "descriptor.signal.138",
+        "pin": "PB3",
+        "constraint": "Shared debug pad; require explicit debug/trace ownership and physical mode release before alternate routing. No automatic reservation change.",
+        "evidence": [
+          "DS15135:p46"
+        ]
+      },
+      {
+        "route_id": "descriptor.signal.145",
+        "pin": "PB4",
+        "constraint": "Shared debug pad; require explicit debug/trace ownership and physical mode release before alternate routing. No automatic reservation change.",
+        "evidence": [
+          "DS15135:p46"
+        ]
+      },
+      {
+        "route_id": "descriptor.signal.151",
+        "pin": "PA15",
+        "constraint": "Shared debug pad; require explicit debug/trace ownership and physical mode release before alternate routing. No automatic reservation change.",
+        "evidence": [
+          "DS15135:p46"
+        ]
+      },
+      {
+        "route_id": "descriptor.signal.175",
+        "pin": "PA15",
+        "constraint": "Shared debug pad; require explicit debug/trace ownership and physical mode release before alternate routing. No automatic reservation change.",
+        "evidence": [
+          "DS15135:p46"
+        ]
+      },
+      {
+        "route_id": "descriptor.signal.180",
+        "pin": "PB4",
+        "constraint": "Shared debug pad; require explicit debug/trace ownership and physical mode release before alternate routing. No automatic reservation change.",
+        "evidence": [
+          "DS15135:p46"
+        ]
+      },
+      {
+        "route_id": "descriptor.signal.246",
+        "pin": "PB4",
+        "constraint": "Shared debug pad; require explicit debug/trace ownership and physical mode release before alternate routing. No automatic reservation change.",
+        "evidence": [
+          "DS15135:p46"
+        ]
+      },
+      {
+        "route_id": "descriptor.signal.252",
+        "pin": "PA15",
+        "constraint": "Shared debug pad; require explicit debug/trace ownership and physical mode release before alternate routing. No automatic reservation change.",
+        "evidence": [
+          "DS15135:p46"
+        ]
+      },
+      {
+        "route_id": "descriptor.signal.259",
+        "pin": "PB3",
+        "constraint": "Shared debug pad; require explicit debug/trace ownership and physical mode release before alternate routing. No automatic reservation change.",
+        "evidence": [
+          "DS15135:p46"
+        ]
+      },
+      {
+        "route_id": "descriptor.signal.275",
+        "pin": "PA15",
+        "constraint": "Shared debug pad; require explicit debug/trace ownership and physical mode release before alternate routing. No automatic reservation change.",
+        "evidence": [
+          "DS15135:p46"
+        ]
+      },
+      {
+        "route_id": "descriptor.signal.280",
+        "pin": "PB4",
+        "constraint": "Shared debug pad; require explicit debug/trace ownership and physical mode release before alternate routing. No automatic reservation change.",
+        "evidence": [
+          "DS15135:p46"
+        ]
+      }
+    ]
+  }
+}

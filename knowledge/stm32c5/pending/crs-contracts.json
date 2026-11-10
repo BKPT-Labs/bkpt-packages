@@ -1,0 +1,485 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/crs-contracts.json",
+    "sha256": "45ac1a935467076f2e0a8adbfa62417cba0da9f17dce530b9ce19710885fa8e1"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 30
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "schema": "bkpt.external.crs.contracts.v1",
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "review": "Claude C1/C2 and provenance corrections incorporated; final correction review pending",
+    "package_routes_sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288",
+    "sources": {
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "HAL": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_crs.c",
+        "sha256": "333185664f79f39db16387b84dfacb3c1f191d7ab0060965fc82bf2f1eef8605"
+      },
+      "HAL_H": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_crs.h",
+        "sha256": "2a31153400396d69a0b7364f62f23e1bd138046da1635112a5409ab5974a48ef"
+      },
+      "LL": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_crs.h",
+        "sha256": "ff0d91614d65e3869e37759132f18388d193e4cf3bb55be0951a5c761c641630"
+      },
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "DS15135": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pdf",
+        "sha256": "1a3555f799297774a95978ab343ebc1f45ab9ef58d0dcf3600dec4fabed9355c",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pages.json",
+        "extraction_sha256": "b14b965adb6c1545edbca0e56b3c504e7ecc3a94bda197350ce2757b5a3d55dc"
+      }
+    },
+    "evidence": {
+      "RM0522:p327": {
+        "source": "RM0522",
+        "page": 327,
+        "sha256": "f6f4a9d4a2713620791cba8f2f58d0dfe8437c248d864b7bbf51fcb4cf84b1ad"
+      },
+      "RM0522:p328": {
+        "source": "RM0522",
+        "page": 328,
+        "sha256": "baadf4c9fd18194402ef6a6f625ba5428a7573ce3e732a689442c8d72f549c48"
+      },
+      "RM0522:p329": {
+        "source": "RM0522",
+        "page": 329,
+        "sha256": "b8b1729bd4120cca111bb555a40a3569b051e0feec3fb517788e0282cfe82f44"
+      },
+      "RM0522:p330": {
+        "source": "RM0522",
+        "page": 330,
+        "sha256": "32dfdc5b79a46cd6d6c75c39e1dd1d653e43297ee6f60df189743c4d38dfa753"
+      },
+      "RM0522:p331": {
+        "source": "RM0522",
+        "page": 331,
+        "sha256": "176d4881f59c188f63497c131a9a16c453e240f991448960fea45d7a61802374"
+      },
+      "RM0522:p332": {
+        "source": "RM0522",
+        "page": 332,
+        "sha256": "cdee6448214bb433038915a3fd25dde993011c1ec5aa4ba161ea18bdd20fd7ef"
+      },
+      "RM0522:p333": {
+        "source": "RM0522",
+        "page": 333,
+        "sha256": "3418611169576666610574b8e6076bcc816f45ece8bba81420edeb37adfa94f8"
+      },
+      "RM0522:p334": {
+        "source": "RM0522",
+        "page": 334,
+        "sha256": "39a36f3efc25a52c6d3153dbc8f7108f3d69a05242c7ade6a402736ec0adfa07"
+      },
+      "RM0522:p335": {
+        "source": "RM0522",
+        "page": 335,
+        "sha256": "353a8700d3fb5caea2dca38c0afbf13b6bbc4f2baef27b00b110c22dca2d5ac2"
+      },
+      "RM0522:p336": {
+        "source": "RM0522",
+        "page": 336,
+        "sha256": "8b56af5505e5c987576d06e626dc6d7a5d11cec7d0512ac3a96b27e554d493e9"
+      },
+      "RM0522:p337": {
+        "source": "RM0522",
+        "page": 337,
+        "sha256": "57b9ca9cd43a2be3da29d51952e9b3d2548096e1e9a57d41efddf5572ecf0cc0"
+      },
+      "RM0522:p338": {
+        "source": "RM0522",
+        "page": 338,
+        "sha256": "058fc10f1729d40813de8759af5932939faa666730e622920f33ca204cd2c790"
+      },
+      "DS15135:p63": {
+        "source": "DS15135",
+        "page": 63,
+        "sha256": "996edfa6f29e6ad48d642869cc1b53e4adc218e0b5f51c56c57907cf6b78c7fa"
+      },
+      "header.IRQ": {
+        "source": "header",
+        "start_line": 118,
+        "end_line": 118,
+        "sha256": "28ef44fbb606523185f476e3de154a2cf92cea8f74c0b18f84be057778219763"
+      },
+      "header.instance": {
+        "source": "header",
+        "start_line": 14035,
+        "end_line": 14035,
+        "sha256": "c0a4e7d1a6ea509b0e3713982e5b29232df37322eda95da4510ddc8e55f03a38"
+      },
+      "header.trim": {
+        "source": "header",
+        "start_line": 2948,
+        "end_line": 2950,
+        "sha256": "371e062340250f2e2de23157073bbbc333e5f62d2b5b733d5422d0a06e99ce68"
+      },
+      "HAL.guards": {
+        "source": "HAL",
+        "start_line": 162,
+        "end_line": 200,
+        "sha256": "5051da1c6125e1c76a97b731bdccde38a2bf9188c6cd5ee4caeaa25a7e0f5d90"
+      },
+      "HAL.init_deinit": {
+        "source": "HAL",
+        "start_line": 235,
+        "end_line": 291,
+        "sha256": "5b346237eea2b2dc3fbdc73c1181bf51cb2ff65a9683056e2bd4a0fc5e6d9879"
+      },
+      "HAL.config": {
+        "source": "HAL",
+        "start_line": 319,
+        "end_line": 351,
+        "sha256": "823682cc85defdb03f140644462076dc1504aa8cb4fc67323ffd39f2670399af"
+      },
+      "HAL.trim": {
+        "source": "HAL",
+        "start_line": 431,
+        "end_line": 449,
+        "sha256": "5a8021d4b57dc0eb76878505696278e80243a20bc681f4941d6a8de1204b2137"
+      },
+      "HAL.capture": {
+        "source": "HAL",
+        "start_line": 475,
+        "end_line": 496,
+        "sha256": "f9d9fe3144af54db2125326c677cc247ea5ec879c6506b0223b841cb6c9e44e5"
+      },
+      "HAL.start_stop": {
+        "source": "HAL",
+        "start_line": 576,
+        "end_line": 669,
+        "sha256": "7f422e4f6c21e6feacb90467cf939ab8e5ff1bf756c9f0c165efc9688a02befe"
+      },
+      "HAL.poll": {
+        "source": "HAL",
+        "start_line": 713,
+        "end_line": 802,
+        "sha256": "d4876ef3fdd7e78efcc945903b336341c5114c55018777590a9c7cfcd9d0f7be"
+      },
+      "HAL.IRQ": {
+        "source": "HAL",
+        "start_line": 832,
+        "end_line": 913,
+        "sha256": "f2685bc6e4bd1f026efdc24227b4efb91f5222160988afec0ca93a5b100e8ff7"
+      },
+      "HAL_H.reload": {
+        "source": "HAL_H",
+        "start_line": 113,
+        "end_line": 113,
+        "sha256": "dc47e4f65fb36d22f75136a60cd2dc8e080fcc0f8bcbb79c64a1e99e3f60b2ef"
+      },
+      "LL.source_defaults": {
+        "source": "LL",
+        "start_line": 95,
+        "end_line": 166,
+        "sha256": "da5ec5e0b0d11b500462204f77401baed271dd9fd8026c380e62dc6e0128ebcd"
+      },
+      "LL.reload": {
+        "source": "LL",
+        "start_line": 218,
+        "end_line": 218,
+        "sha256": "ea48b1bfaeb070775a35b00c361e33dfee8840262d04e63bdd4c62cc8b122631"
+      },
+      "LL.trim": {
+        "source": "LL",
+        "start_line": 320,
+        "end_line": 331,
+        "sha256": "824fb22927e690a1985798ee61f268f1ec2f0d20db8d5ce76ec339ecb14c8c34"
+      },
+      "LL.config": {
+        "source": "LL",
+        "start_line": 496,
+        "end_line": 537,
+        "sha256": "76b514c4e9cf29be54735f422d7324b73770a13b5c6bc4a7ff495367a617e914"
+      },
+      "DS15135:p12": {
+        "source": "DS15135",
+        "page": 12,
+        "sha256": "1d8726d82b20009d19aa8a5a03bf5a24f2ef7bd42f83967ae8869906cf437ae3"
+      }
+    },
+    "package_routes": [
+      {
+        "id": "descriptor.signal.87",
+        "pin": "PB3",
+        "pad": 55,
+        "signal": "CRS_SYNC",
+        "instance": "CRS",
+        "function": {
+          "type": "alternate",
+          "id": "AF10"
+        }
+      }
+    ],
+    "package_qualification": "Hash-bound descriptor route PB3/pad55/AF10; all package qualifications, debug/pin ownership and board limitations remain in force. No sync waveform or board conduction qualification.",
+    "finite_source_domains": {
+      "sync_source": {
+        "0": "GPIO_AF",
+        "1": "LSE",
+        "2": "USB_SOF",
+        "3": "HSE_1MHz_from_RTCPRE"
+      },
+      "divider_code_to_divisor": {
+        "0": 1,
+        "1": 2,
+        "2": 4,
+        "3": 8,
+        "4": 16,
+        "5": 32,
+        "6": 64,
+        "7": 128
+      },
+      "polarity": {
+        "0": "rising",
+        "1": "falling"
+      },
+      "software_sync": "Separate SWSYNC write-one command, self-cleared; not a fifth source selector.",
+      "reload_field": [
+        0,
+        65535
+      ],
+      "felim_field": [
+        0,
+        255
+      ],
+      "trim_field": [
+        0,
+        127
+      ],
+      "SDK_trim_guard": [
+        0,
+        95
+      ],
+      "reset_trim": 48,
+      "reset_reload": 47999,
+      "reset_felim": 34,
+      "qualification": "Encoded fields are not independently admissible operating settings; frequency, cross-field, electrical and lifecycle gates remain.",
+      "evidence": [
+        "RM0522:p329",
+        "RM0522:p333",
+        "RM0522:p334",
+        "RM0522:p335",
+        "HAL.guards",
+        "LL.source_defaults",
+        "header.trim"
+      ],
+      "reset_sync_source": 2,
+      "reset_divider_code": 0,
+      "reset_polarity": 0
+    },
+    "contracts": [
+      {
+        "id": "clock_identity",
+        "detail": "CRS measures HSIDIV3 nominal48MHz and adjusts HSI144 via7-bit smooth trim. fTARGET in reload math is the measured clock domain, not144MHz. Actual source availability, clock readiness/rate and all consumers affected by HSI trim require ownership. One physical CRS, IRQ63.",
+        "evidence": [
+          "RM0522:p327",
+          "RM0522:p328",
+          "header.IRQ",
+          "header.instance",
+          "RM0522:p329",
+          "RM0522:p331"
+        ]
+      },
+      {
+        "id": "configuration_constraints",
+        "detail": "fSYNC is synchronization frequency after prescaling. RELOAD=(fTARGET/fSYNC)-1; RM requires RELOAD strictly greater than128*FELIM and warns no hardware protection against bad configuration. FELIM is based on half typical trim step in counter ticks and rounded upward. Register widths alone do not qualify zero values or frequency ratios.",
+        "evidence": [
+          "RM0522:p331",
+          "RM0522:p334"
+        ]
+      },
+      {
+        "id": "evaluation",
+        "detail": "Error magnitude belowFELIM:SYNCOK/no trim. FromFELIM inclusive to3*FELIM exclusive:SYNCOK/one-step trim. From3*FELIM inclusive to128*FELIM exclusive:SYNCWARN/two-step trim. At or beyond128*FELIM:SYNCERR orSYNCMISS/no adjustment. Saturation clips trim at limit and signalsTRIMOVF. SYNCOK need not mean zero error or completed convergence. SYNCERR is an early SYNC before ESYNC; SYNCMISS occurs when up-count reaches128*FELIM. SYNCWARNF register prose says two steps or more, whereas functional description says two. Hardware7-bit auto-trim range may reach96..127 outside SDK manual-trim guard; actual convergence remains unqualified.",
+        "evidence": [
+          "RM0522:p330",
+          "RM0522:p331",
+          "RM0522:p335",
+          "RM0522:p336"
+        ]
+      },
+      {
+        "id": "capture_and_clear",
+        "detail": "FECAP/FEDIR latch on lastSYNC; FEDIR0 means up-count/above target,1 down-count/below. ERRF is OR ofTRIMOVF/SYNCMISS/SYNCERR; ERRC clears all three. ICR flags clear by writing1. Flags do not provide lossless event counts or independent sample timestamps.",
+        "evidence": [
+          "RM0522:p335",
+          "RM0522:p336",
+          "RM0522:p337"
+        ]
+      },
+      {
+        "id": "write_conditions",
+        "detail": "CFGR writable only with CEN0; TRIM read-only while AUTOTRIMEN1. HAL SetTrimming explicitly rejects automatic trimming, but debug handleIDLE is not sufficient evidence for all actual hardware-state prerequisites. Registers require32-bit accesses.",
+        "evidence": [
+          "RM0522:p332",
+          "RM0522:p333",
+          "RM0522:p334",
+          "HAL.trim"
+        ]
+      },
+      {
+        "id": "low_power_USB_limits",
+        "detail": "Sleep has no general CRS effect, but USB LPM can suppress hostSOF. RM calls for LSE orSYNC pin for its post-wake precision condition. Stop freezesCRS until exit andHSI144 restart; Standby requires reinitialization. Synchronization flags and DS oscillator characteristics do not establish USB accuracy/compliance across voltage,temperature,source loss or clock changes.",
+        "evidence": [
+          "RM0522:p332",
+          "RM0522:p334",
+          "DS15135:p63"
+        ]
+      }
+    ],
+    "source_derived_SDK_gates": [
+      {
+        "id": "independent_fields",
+        "detail": "HAL checks widths/enums independently through debug assertions; optional runtime check is null pointer only. No RELOAD>128*FELIM, actual frequency, divider or oscillator-readiness check. LL synchronization writer shifts/ORs values without field masks on input, so invalid release inputs can affect adjacent controls.",
+        "evidence": [
+          "HAL.guards",
+          "HAL.config",
+          "LL.config",
+          "RM0522:p331"
+        ]
+      },
+      {
+        "id": "reload_arithmetic",
+        "detail": "Macro is integer(ftarget/fsync)-1. Caller must reject zero divisor, quotient0 underflow, unsuitable fractional ratios and out-of-field results. No arithmetic or rounding qualification from macro availability.",
+        "evidence": [
+          "LL.reload",
+          "HAL_H.reload"
+        ]
+      },
+      {
+        "id": "whole_control_write",
+        "detail": "LL ConfigTrimming writes the wholeCR, clearingCEN and interrupt enables while writingtrim/auto. HAL SetConfig performs this beforeCFGR update. Configuration is not a passive trim-only change; previously enabled auto-trim and read-only trimming semantics require separate state qualification. Clearing CEN releases CFGR write lock even if hardware was running behind an IDLE handle. Whether TRIM updates in the same write clearing AUTOTRIMEN are accepted remains unresolved.",
+        "evidence": [
+          "LL.config",
+          "HAL.config",
+          "RM0522:p333"
+        ]
+      },
+      {
+        "id": "start_freshness",
+        "detail": "Init initializes handle and optionally CRS clock without resetting registers or establishing oscillator/source readiness. Start enablescounter without convergence wait or stale-flag clear; Start_IT enables allfour IRQsources. HAL_OK is not a new sync observation or clock-accuracy guarantee.",
+        "evidence": [
+          "HAL.init_deinit",
+          "HAL.start_stop"
+        ]
+      },
+      {
+        "id": "stop_release",
+        "detail": "Polling Stop andDeInit disablecounter but do not clear pendingflags, disableIRQs, resettrim or clearAUTOTRIMEN. Stop_IT additionally disablesfourIRQs and clearsflags. Neither path alone establishes oscillator/consumer ownership release or pendingNVIC drain.",
+        "evidence": [
+          "HAL.init_deinit",
+          "HAL.start_stop"
+        ]
+      },
+      {
+        "id": "poll_priority_and_timeout",
+        "detail": "Poll returnsHAL_OK onSYNCOK before inspecting concurrentERR/SYNCWARN flags. Sticky/accumulated status can satisfypoll; no clean new-sample guarantee. Error/timeout does not stopcounter. HALtick must advance for finite timeout; HAL_MAX_DELAY permits unboundedwait. An error can be cleared then the timeout check returnHAL_TIMEOUT rather thanHAL_ERROR when deadline expired. Conditional source reasoning, not observed hardware failure. A warning-only path returns HAL_ERROR even though RM describes an in-range two-step adjustment, so this status may mean convergence rather than an out-of-range failure. With GET_LAST_ERRORS, normal ESYNC counter-zero status is recorded as ERROR_EXPECTED_SYNC; HAL_OK can coexist with this code.",
+        "evidence": [
+          "HAL.poll",
+          "RM0522:p336",
+          "RM0522:p331"
+        ]
+      },
+      {
+        "id": "IRQ_evidence_loss",
+        "detail": "Handler clearsflags beforecallbacks. Error classification prioritizesSYNCERR thenSYNCMISS thenTRIMOVF and storesonecode underoptionalGET_LAST_ERRORS, then clearsallerrorflags. Concurrent causes are not all retained. Snapshot/flag ownership and callback reentrancy need qualification. Handler has no state assertion and rereads SYNCERR/SYNCMISS rather than using only the initial snapshot. A later error classification overwrites the expected-sync code when both are handled.",
+        "evidence": [
+          "HAL.IRQ",
+          "RM0522:p337"
+        ]
+      },
+      {
+        "id": "capture_freshness",
+        "detail": "GetFrequencyErrorInfo obtainscapture/direction fromoneISRread, but its association with a specificcallback or freshSYNC remains unproven without ownership and event provenance.",
+        "evidence": [
+          "HAL.capture",
+          "RM0522:p335"
+        ]
+      }
+    ],
+    "conflicts": [
+      {
+        "id": "trim_range",
+        "detail": "RM seven-bit/128step domain and exactheader0x7F mask differ from HALguard/LL documented0..0x5F. DS63 describes48negative/80positive steps. Preserve sources; neither extendSDK admission nor reducephysical range silently. LL calls reset0x30 the middle of the interval, consistent with0..95 rather than0..127. DS80 positive steps from48 would reach128 if interpreted as80 increments; a7-bit field permits79 increments to127. Preserve this counting ambiguity.",
+        "evidence": [
+          "RM0522:p327",
+          "RM0522:p333",
+          "header.trim",
+          "HAL.guards",
+          "LL.trim",
+          "LL.config",
+          "DS15135:p63",
+          "LL.source_defaults"
+        ]
+      },
+      {
+        "id": "LL_reload_FELIM_comments",
+        "detail": "LL ConfigSynchronization comments give reload0..255 andFELIM0..0xFFFF, reversed from RM fields andHALguards. Literal implementation writes reloadlow16 andFELIMshift16; comments do not override register-domain evidence.",
+        "evidence": [
+          "LL.config",
+          "HAL.guards",
+          "RM0522:p334",
+          "RM0522:p335"
+        ]
+      },
+      {
+        "id": "DS_sync_source_inventory",
+        "detail": "DS12 lists USB SOF,LSE,GPIO andsoftware synchronization but omits RM/SDK HSE_1MHz/RTCPRE source. This is an inventory coverage difference, not proof the HSE selector is unavailable. DS describes optimal accuracy over the operating range; that vendor statement does not independently qualify this candidate, its reference quality, clock prerequisites or USB behavior.",
+        "evidence": [
+          "DS15135:p12",
+          "RM0522:p329",
+          "RM0522:p334",
+          "LL.source_defaults"
+        ]
+      },
+      {
+        "id": "reset_FELIM_step_assumption",
+        "detail": "RM331 resetFELIM34 uses48000 ratio and0.14% typical step (ceil33.6). DS63 gives0.1% typical and0.15% maximum, yielding24/36 from the same formula. Reset value is not derived from exactDS typical step; do not silently replace it or treat any setting as qualified.",
+        "evidence": [
+          "RM0522:p331",
+          "DS15135:p63"
+        ]
+      },
+      {
+        "id": "SYNCWARN_adjustment_wording",
+        "detail": "Functional description says two-step automatic adjustment; SYNCWARNF register description says two steps or more. Retain both wordings without assuming exact convergence trajectory.",
+        "evidence": [
+          "RM0522:p331",
+          "RM0522:p336"
+        ]
+      }
+    ],
+    "open_gates": [
+      "No executable CRS configuration or automatic trimming admission",
+      "Clock identity/readiness and all HSI144 consumer ownership",
+      "Source accuracy/pulse quality/prescaler choices and GPIO/RTCPRE/LSE/USB prerequisites",
+      "Cross-field constraints and overflow-safe release validation",
+      "IRQ/NVIC/polling callback ownership, stale status and stop/release",
+      "No USB frequency-accuracy/compliance or convergence proof",
+      "Resolve source conflicts; full SVD and SDK lifecycle qualification remains open",
+      "Independent review, builds and hardware not performed"
+    ]
+  }
+}

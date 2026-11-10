@@ -1,0 +1,1572 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/dma-controller-contracts.json",
+    "sha256": "6d538556dcde72c81aadb02183f23c36b7d7109edca3279c3efc5b776d730a6f"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 136
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "schema": "bkpt.external.dma-controller.contracts.v1",
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "review": "New bounded source candidate; root and independent semantic review pending.",
+    "scope": "Full RM0522 LPDMA chapter382–439 read, exact device header and bounded HAL/LL lifecycle and node paths inspected. This does not close all queue conversion, peripheral protocols, caller paths, compiler behavior or hardware qualification.",
+    "sources": {
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "DS15135": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pdf",
+        "sha256": "1a3555f799297774a95978ab343ebc1f45ab9ef58d0dcf3600dec4fabed9355c",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pages.json",
+        "extraction_sha256": "b14b965adb6c1545edbca0e56b3c504e7ecc3a94bda197350ce2757b5a3d55dc"
+      },
+      "ES0676": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pdf",
+        "sha256": "a5463827337bcdbd3e5f2e0912a56307d78b568e5631b21cc9a25899c7d4a5e6",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pages.json",
+        "extraction_sha256": "2ab1b19e42b53e22ff5f3b98f6ed9a5f98f3b7b61a617abc3bb3b7fc050d1cb3"
+      },
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "HAL_DMA": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_dma.c",
+        "sha256": "d16d944625a8477b8b52fff2745e9ed58ded3d7438717185a1281abf4500f64e"
+      },
+      "HAL_DMA_H": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_dma.h",
+        "sha256": "5d49348c4a091e965cb5512c4b9c1571d8046f0db690c69589cb2e0f31b5bde1"
+      },
+      "LL_DMA": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_dma.h",
+        "sha256": "0983050fda989d6c7577c49e52df21ed71055b48490017c20080b7b6e072dacd"
+      },
+      "HAL_def": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_def.h",
+        "sha256": "44149fa34fae22a75c3cfdf6607c5047d9f01141ba683b9b905c953ca31fb338"
+      },
+      "family": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c5xx.h",
+        "sha256": "61a0b8c2674d9e817d70aa8d2693339273f4283694f8ab5f8dca077bb69913f7"
+      },
+      "routing": {
+        "path": "research://c5-reference/dma-routing.json",
+        "sha256": "6f5d4d59950941a32d983ccc0907dda996415c9fd201cce9b2e8777bd86ae41d"
+      },
+      "composition": {
+        "path": "research://c5-reference/composition.json",
+        "sha256": "54516e25013d6f4e71b89346974d8229efd87b0fe9140e48399165ff70e9a4ff"
+      }
+    },
+    "evidence": {
+      "RM0522:p382": {
+        "source": "RM0522",
+        "page": 382,
+        "sha256": "523abf59694883954a0cfce1238e07f7763736b2145e6b8676972875e66e1b5a"
+      },
+      "RM0522:p383": {
+        "source": "RM0522",
+        "page": 383,
+        "sha256": "ed3ab885be9e571ab3ba0230efa344b125fbacbc09dc127d0019b533cdcc769a"
+      },
+      "RM0522:p384": {
+        "source": "RM0522",
+        "page": 384,
+        "sha256": "91ccfa0d764cd1d83f48cdf4b14f4f7833ed2c81829ddd2fc75b1b619c8c1cb8"
+      },
+      "RM0522:p385": {
+        "source": "RM0522",
+        "page": 385,
+        "sha256": "b84c538214629ba19de4298c326e16cac4d2c0cb7070043603658d5a3ce1e688"
+      },
+      "RM0522:p386": {
+        "source": "RM0522",
+        "page": 386,
+        "sha256": "24354b64130fef8806fafcd15ffd8ad3280ddc7334b420898689a511af9797ea"
+      },
+      "RM0522:p387": {
+        "source": "RM0522",
+        "page": 387,
+        "sha256": "0314de2d4c215ee99b90e669564e5d117705d5ed857a5b8aebe5c88849c3150d"
+      },
+      "RM0522:p388": {
+        "source": "RM0522",
+        "page": 388,
+        "sha256": "65a7e878a7e3266a6b310138c6b1429cbe4edb545e5796e16fcd7ed48ee9da04"
+      },
+      "RM0522:p389": {
+        "source": "RM0522",
+        "page": 389,
+        "sha256": "7d5ded108c546100e7a9e995a7ac92808088b858399a81e5341fe078d59fb1c5"
+      },
+      "RM0522:p390": {
+        "source": "RM0522",
+        "page": 390,
+        "sha256": "312958f124aa3a675049c7895f6c0a92cf3dfee9399d224d343085f227165b44"
+      },
+      "RM0522:p391": {
+        "source": "RM0522",
+        "page": 391,
+        "sha256": "8131d5546598813896e556afe0f8ab9fba18fac415772f286c9265bed86bde9b"
+      },
+      "RM0522:p392": {
+        "source": "RM0522",
+        "page": 392,
+        "sha256": "7ffb703bde6311f8304046a76c2034ccfffa4debbd052ef1c560a22713d8ad73"
+      },
+      "RM0522:p393": {
+        "source": "RM0522",
+        "page": 393,
+        "sha256": "a41e38d93fb937f3e5cbdd8dcb3d1bee6ce0bc8f182b9e940cc9e362d16963ee"
+      },
+      "RM0522:p394": {
+        "source": "RM0522",
+        "page": 394,
+        "sha256": "d84dce8edee4039ed11bcef0826de4e7fa37781950f2a0fc046fb191f3c7d89c"
+      },
+      "RM0522:p395": {
+        "source": "RM0522",
+        "page": 395,
+        "sha256": "e2110a32b2cef90b3a4776b24e9b3526353877c68860ecca2519a747f86959a7"
+      },
+      "RM0522:p396": {
+        "source": "RM0522",
+        "page": 396,
+        "sha256": "9805b656ea8ec5939326fe2a3876385ac3dc9544a0ed22986185105d5b1b9eae"
+      },
+      "RM0522:p397": {
+        "source": "RM0522",
+        "page": 397,
+        "sha256": "3489e2cb61f70dc5f2415d845482bb93ce52bd233306d83f9ad3187b05fa4b15"
+      },
+      "RM0522:p398": {
+        "source": "RM0522",
+        "page": 398,
+        "sha256": "718cc361ae119642d2a38d53b850c49d5ab5e1d94f6197846cd8651a27c39270"
+      },
+      "RM0522:p399": {
+        "source": "RM0522",
+        "page": 399,
+        "sha256": "cc1ffaba786e1b30f5d0660ab5f5dca065dc136471b453e8eaa7d2d353dbdf6d"
+      },
+      "RM0522:p400": {
+        "source": "RM0522",
+        "page": 400,
+        "sha256": "81f2c5c28c52ffcc909b225e7b06740342abb97a4cbaa20d055cca36b4fcdfb6"
+      },
+      "RM0522:p401": {
+        "source": "RM0522",
+        "page": 401,
+        "sha256": "64bcefc982d5bce475147200e76b6981354b98ddbde1ff06cb0f285c84f03981"
+      },
+      "RM0522:p402": {
+        "source": "RM0522",
+        "page": 402,
+        "sha256": "6d039085891868e0d48bf1b3efbaaec9964037571a16dbbdeb065076b9a90f29"
+      },
+      "RM0522:p403": {
+        "source": "RM0522",
+        "page": 403,
+        "sha256": "bb9bfa1739e5a0e04317c78ad68e2a02f3b54e89d3197d7799a1baf58c02215b"
+      },
+      "RM0522:p404": {
+        "source": "RM0522",
+        "page": 404,
+        "sha256": "334be74cc70230accd9b508ba11aafd9f2884ebf9e912d722345922912e5e79a"
+      },
+      "RM0522:p405": {
+        "source": "RM0522",
+        "page": 405,
+        "sha256": "a7d446ba43e14740f15616ce67de4cd8f84fb67f1e32bf0b06b4ce3e77d2107e"
+      },
+      "RM0522:p406": {
+        "source": "RM0522",
+        "page": 406,
+        "sha256": "ab015d3add9dac0128581dcbd79e16f6c1397519c954283d55098877ddc10a22"
+      },
+      "RM0522:p407": {
+        "source": "RM0522",
+        "page": 407,
+        "sha256": "013837c99fcd13e376f7913a2a8ef835718713148939f975f1ff989b5e838d37"
+      },
+      "RM0522:p408": {
+        "source": "RM0522",
+        "page": 408,
+        "sha256": "8cef56f9765faa0601f7f1ebd42d8e2d7b8a7095401683f4e37e98f98ff010a8"
+      },
+      "RM0522:p409": {
+        "source": "RM0522",
+        "page": 409,
+        "sha256": "4742fcf29a76419fcd6f48736f1cb01e16c67d7e9e91d2b83491b3599bfb7b58"
+      },
+      "RM0522:p410": {
+        "source": "RM0522",
+        "page": 410,
+        "sha256": "265915199c739ad1e2d878c64d05e5c55ef501b4e465d496a28c2f696cc99bd2"
+      },
+      "RM0522:p411": {
+        "source": "RM0522",
+        "page": 411,
+        "sha256": "d20e1f26d75420b4c45afe9eac1c644ce1cfc5d470c8a639dcbfdb9fc1b75752"
+      },
+      "RM0522:p412": {
+        "source": "RM0522",
+        "page": 412,
+        "sha256": "520e4563a47c7a99e9e1079cd314cec50bde313e9a7f34cf640b1b557035829a"
+      },
+      "RM0522:p413": {
+        "source": "RM0522",
+        "page": 413,
+        "sha256": "d61e7a41fd6e6f6d22f5857c0a4a2fd124df61efe2cf0fa7a1a2e1543f9b7621"
+      },
+      "RM0522:p414": {
+        "source": "RM0522",
+        "page": 414,
+        "sha256": "d35e6f57aedd1bad907469a26c0c6eed9aeaae13d8b8c32c46697c4bbd13b371"
+      },
+      "RM0522:p415": {
+        "source": "RM0522",
+        "page": 415,
+        "sha256": "d32d2cc2228c113718ccee0df89962b235855c1a24d53eb750de328a8cecc312"
+      },
+      "RM0522:p416": {
+        "source": "RM0522",
+        "page": 416,
+        "sha256": "58e91656b1279ad08b1b7ac8bdbd239871d12ce47aed554ceb0fd4f1286cd88e"
+      },
+      "RM0522:p417": {
+        "source": "RM0522",
+        "page": 417,
+        "sha256": "e6ea583ac5e5e78f6b06571c839fef0ba2259506a5dd7b8a99f7a64a8ff4a710"
+      },
+      "RM0522:p418": {
+        "source": "RM0522",
+        "page": 418,
+        "sha256": "a02974dd1b13120ed5bb682420d59dd1a93b82497c4c92b6baad0f97b7003348"
+      },
+      "RM0522:p419": {
+        "source": "RM0522",
+        "page": 419,
+        "sha256": "ef9f2b3455b275917e08ce2a0d12d5443d6eec6c9b6c918bd3afaa098751d2cd"
+      },
+      "RM0522:p420": {
+        "source": "RM0522",
+        "page": 420,
+        "sha256": "d3516f455a8266a3c9bd4fe87e9322c8ce82bd82ce07ebe721f7dbf76c87de1d"
+      },
+      "RM0522:p421": {
+        "source": "RM0522",
+        "page": 421,
+        "sha256": "bf05246def7f613bfd8888a896ba3144676becdc89f3dc4d80ea8da7396dd405"
+      },
+      "RM0522:p422": {
+        "source": "RM0522",
+        "page": 422,
+        "sha256": "509f44075c823920dae49b0847541028574a20e36b8917902ffb39d96eff4aa2"
+      },
+      "RM0522:p423": {
+        "source": "RM0522",
+        "page": 423,
+        "sha256": "06dfb6a92a9c4386fabb43feddf62de9fb643cc7be7ffe67c425bd8fb6207e8d"
+      },
+      "RM0522:p424": {
+        "source": "RM0522",
+        "page": 424,
+        "sha256": "9dce5cd594bcf9e003d05b976953db65f30592e6b365e641f19c98ed0120885a"
+      },
+      "RM0522:p425": {
+        "source": "RM0522",
+        "page": 425,
+        "sha256": "2b79e16fb75fc90224852ef2b6b8c120ee4e12d2ed8c4340c45af73702869972"
+      },
+      "RM0522:p426": {
+        "source": "RM0522",
+        "page": 426,
+        "sha256": "281859496d772f6f0d61ca4eb47df08e87fc477d66d93be58d3dad1ca43944d4"
+      },
+      "RM0522:p427": {
+        "source": "RM0522",
+        "page": 427,
+        "sha256": "d87d4c5dd18e13de2554e9e7d455f1e2d978a06e1992be1612cdc1b46b1ee131"
+      },
+      "RM0522:p428": {
+        "source": "RM0522",
+        "page": 428,
+        "sha256": "898ce7f1fef268caaab66c1deceb8ecac10ecb7726609b15d8013e0eced7c3bd"
+      },
+      "RM0522:p429": {
+        "source": "RM0522",
+        "page": 429,
+        "sha256": "715040e2866697f5074e0a89830aa099efde3a811e1ee454a32f2b8a3a8b8f14"
+      },
+      "RM0522:p430": {
+        "source": "RM0522",
+        "page": 430,
+        "sha256": "a892dacf5f85b950df226bc08ddd45d3e5e51d5ff2ffb7fc0479f806a3f9cd9e"
+      },
+      "RM0522:p431": {
+        "source": "RM0522",
+        "page": 431,
+        "sha256": "b5c5ef3b2b7e03aa482e67f695120f32e407dff02071725283b401c1f28673b6"
+      },
+      "RM0522:p432": {
+        "source": "RM0522",
+        "page": 432,
+        "sha256": "b9d2b0fd5a137fc8870995e953010eb87393394a566a89590c4ae3b95cd331bd"
+      },
+      "RM0522:p433": {
+        "source": "RM0522",
+        "page": 433,
+        "sha256": "9e0910612336df4d1b252640857c1730be640a405c832fa0831e08b644570f51"
+      },
+      "RM0522:p434": {
+        "source": "RM0522",
+        "page": 434,
+        "sha256": "4d09ae36a51302380605044cf397eeab9295975535b5366b2e9cb83e1fc88ceb"
+      },
+      "RM0522:p435": {
+        "source": "RM0522",
+        "page": 435,
+        "sha256": "fe6f1a6ec097890af8f1e66a5bb5ce9b349f89018b3c3add2fc005f8e11182b0"
+      },
+      "RM0522:p436": {
+        "source": "RM0522",
+        "page": 436,
+        "sha256": "a8378fafc1260795c63292855b5eece4704313b32b071e0ddae6596cd86ef817"
+      },
+      "RM0522:p437": {
+        "source": "RM0522",
+        "page": 437,
+        "sha256": "6f24086360b36218a7412e6830bb5684bf7e57d4763f4247cd3cde7706566ff5"
+      },
+      "RM0522:p438": {
+        "source": "RM0522",
+        "page": 438,
+        "sha256": "d1799ead8e43473ec1391939b67b56883a34c9aa11db5410f796fcc47584641d"
+      },
+      "RM0522:p439": {
+        "source": "RM0522",
+        "page": 439,
+        "sha256": "85ad89572202d6b531b003ff0ed4ce18e342c1b6f320740426bc3a1ff7981c38"
+      },
+      "RM0522:p87": {
+        "source": "RM0522",
+        "page": 87,
+        "sha256": "979857ff27a50b4d658525ce23d2d4f605b54d3886d5be51ae4b82564fcf9efd"
+      },
+      "RM0522:p88": {
+        "source": "RM0522",
+        "page": 88,
+        "sha256": "8a95f64a701e3c79702162c2b70cdddd00a9589898d071ec8514e97ad94011db"
+      },
+      "RM0522:p89": {
+        "source": "RM0522",
+        "page": 89,
+        "sha256": "ccf45dfa4c6e8eccf52f850270dd058f5fe15d36009c3d7bbdf9425b3b5d169b"
+      },
+      "RM0522:p90": {
+        "source": "RM0522",
+        "page": 90,
+        "sha256": "3343572221a8c1995fcb9ae072c0d1c53fbb88ea1566482a64604a489e7f50c8"
+      },
+      "RM0522:p98": {
+        "source": "RM0522",
+        "page": 98,
+        "sha256": "c8af969ef68f658fecdf04ad622e202745123bd784b5fbb233d8f978912170be"
+      },
+      "RM0522:p271": {
+        "source": "RM0522",
+        "page": 271,
+        "sha256": "d19f60266d8f67a35d953bb0bfda7ec6247a4b6b51d4a36b6361dd6a9ca887c9"
+      },
+      "RM0522:p288": {
+        "source": "RM0522",
+        "page": 288,
+        "sha256": "e91ca929946492c636fa1b6697fc45d17201a9362ceddea4cd8a33045ebfad0e"
+      },
+      "DS15135:p6": {
+        "source": "DS15135",
+        "page": 6,
+        "sha256": "cd5f4c2a48587f853f5522ea515bffd49dace27e505266ed57a2eddadafac701"
+      },
+      "DS15135:p9": {
+        "source": "DS15135",
+        "page": 9,
+        "sha256": "bdf1244c83727d2a38580125ecce4dec522e0113327dc0f9affeed70913f09d7"
+      },
+      "DS15135:p12": {
+        "source": "DS15135",
+        "page": 12,
+        "sha256": "1d8726d82b20009d19aa8a5a03bf5a24f2ef7bd42f83967ae8869906cf437ae3"
+      },
+      "DS15135:p13": {
+        "source": "DS15135",
+        "page": 13,
+        "sha256": "ba026b8b364c6db4bbbd938def7bb45af3c5da17c2f4e3957a965e67a8baa06e"
+      },
+      "ES0676:p1": {
+        "source": "ES0676",
+        "page": 1,
+        "sha256": "c36bb50f3ba55f82de59b1a5aa62c5ca6b1d3ea938ac9451545a442e65dd25c8"
+      },
+      "ES0676:p2": {
+        "source": "ES0676",
+        "page": 2,
+        "sha256": "3fed5303e4a0fc65ed4dbe6aae1c297605837e2da15bb0e24928d26b0d25eb95"
+      },
+      "ES0676:p3": {
+        "source": "ES0676",
+        "page": 3,
+        "sha256": "6682207b964f905ea8f0e452bc5cff546dfb08622fca9ce2f979b0e43cd6d157"
+      },
+      "header.IRQ1": {
+        "source": "header",
+        "start_line": 84,
+        "end_line": 94,
+        "sha256": "479a27bc95b7eeefea92ee748885495dc0d8109e0ae31da88f79639d5e1f0511"
+      },
+      "header.IRQ2": {
+        "source": "header",
+        "start_line": 129,
+        "end_line": 138,
+        "sha256": "213d9ea221c2b79541f3e5fdc4efc9e309afc4ec6362b6a707c17176fde1773d"
+      },
+      "header.layout": {
+        "source": "header",
+        "start_line": 390,
+        "end_line": 416,
+        "sha256": "1badc98c1e76426095160a0e1f99154abd5775e1081a3835dcdbf29db1dfd1bd"
+      },
+      "header.memory": {
+        "source": "header",
+        "start_line": 1151,
+        "end_line": 1179,
+        "sha256": "677500e87643da4e10ea770e7f35b20a0fb35104a24d93da949010b57aaa8b00"
+      },
+      "header.bases": {
+        "source": "header",
+        "start_line": 1222,
+        "end_line": 1231,
+        "sha256": "aabf65d9719511cc1758f248d32ca757ca743b41e2b274ff7078b162bb033c57"
+      },
+      "header.instances": {
+        "source": "header",
+        "start_line": 14040,
+        "end_line": 14063,
+        "sha256": "201945fa43f0d9dd518d8f38aeedda97697f12437d74da00fd80409cc0ebc756"
+      },
+      "header.fields": {
+        "source": "header",
+        "start_line": 3705,
+        "end_line": 4024,
+        "sha256": "173c9ca6cf87e21b327a74b8a968a3d99ff6ed66329843781f32e1fe13136124"
+      },
+      "header.clock": {
+        "source": "header",
+        "start_line": 9052,
+        "end_line": 9060,
+        "sha256": "6f31451f3f3fa7e3553e8e1c1c3948b89ebe0b121844c7875fbd61035177146f"
+      },
+      "header.reset": {
+        "source": "header",
+        "start_line": 8917,
+        "end_line": 8925,
+        "sha256": "a7281ce3ad7bc2a5c1a6d42d465cb09435755f3e915d9dfbb30b9cef07d06f20"
+      },
+      "header.sleep": {
+        "source": "header",
+        "start_line": 9203,
+        "end_line": 9212,
+        "sha256": "8106015865e5cbc2726cf9409107a76711544c48cc0606688408ad21b2702e40"
+      },
+      "header.debug": {
+        "source": "header",
+        "start_line": 3537,
+        "end_line": 3569,
+        "sha256": "e52b1fe4e7f41a569e821af2d3d8be14425cce9dbf5427a02fe9b5d034cec007"
+      },
+      "HAL.guards": {
+        "source": "HAL_DMA",
+        "start_line": 378,
+        "end_line": 563,
+        "sha256": "d298e2a15bb272c00a2d708f4c1cd752dcbacb7359b685a1bf26d84fa59acb54"
+      },
+      "HAL.constants": {
+        "source": "HAL_DMA",
+        "start_line": 606,
+        "end_line": 624,
+        "sha256": "7507e287e67471caab62303dee7c45f453a6af774bf1129ea04ca90add8d1592"
+      },
+      "HAL.init_deinit": {
+        "source": "HAL_DMA",
+        "start_line": 708,
+        "end_line": 777,
+        "sha256": "bbc87b60d6aadd88cb8b3af3609ff2dda29545fff88eff2c225bee9a2dd3953a"
+      },
+      "HAL.config": {
+        "source": "HAL_DMA",
+        "start_line": 927,
+        "end_line": 955,
+        "sha256": "b5d73faf23e9050a66cfe7dbd235e8e99502dd990fa15bd5973459ab008f2a49"
+      },
+      "HAL.flow": {
+        "source": "HAL_DMA",
+        "start_line": 1046,
+        "end_line": 1091,
+        "sha256": "bfc80e09dcb3761ed75e35aa503cfef821c15dc090e3c0edbd65746557591381"
+      },
+      "HAL.trigger": {
+        "source": "HAL_DMA",
+        "start_line": 1099,
+        "end_line": 1170,
+        "sha256": "b9cb6c850785343930c62f7f6d6f45db16a2c078025ed887703b6179741036f7"
+      },
+      "HAL.privilege": {
+        "source": "HAL_DMA",
+        "start_line": 1254,
+        "end_line": 1317,
+        "sha256": "e4f6e33b3e3037272424d6612f4327718b7a88fd70c6f97e070e44af16d20d44"
+      },
+      "HAL.circular_config": {
+        "source": "HAL_DMA",
+        "start_line": 1618,
+        "end_line": 1662,
+        "sha256": "43459e33cc75dfc3a29d0a0d5dfa6d8e56208ba094b6c43185f4bd8bf2ad7f3f"
+      },
+      "HAL.node_fill": {
+        "source": "HAL_DMA",
+        "start_line": 1774,
+        "end_line": 1805,
+        "sha256": "8518380de99e77ac10145c11976f45612202e7cee94e3214a69b44ada1ce5011"
+      },
+      "HAL.node_data": {
+        "source": "HAL_DMA",
+        "start_line": 2091,
+        "end_line": 2105,
+        "sha256": "a2f03f02639825d355333e659e8afb8cc7367b36ee4ccf19d566f49ad94e441e"
+      },
+      "HAL.conversion_entry": {
+        "source": "HAL_DMA",
+        "start_line": 2138,
+        "end_line": 2174,
+        "sha256": "7b6a5b2b3b79fea93f22f0ea18d07c2ee9d6845f8c9935dfd1e377e183d40352"
+      },
+      "HAL.start_direct": {
+        "source": "HAL_DMA",
+        "start_line": 2231,
+        "end_line": 2332,
+        "sha256": "bef43497961d334b4a1c48462b542fbc21ae95d3ecfe4039a64ff275b0f87b88"
+      },
+      "HAL.start_periph": {
+        "source": "HAL_DMA",
+        "start_line": 2347,
+        "end_line": 2378,
+        "sha256": "6ba6bcd1115c4012a3c940627e44c551e6bb88b57fdab66bb08d00b43ec940f7"
+      },
+      "HAL.start_list": {
+        "source": "HAL_DMA",
+        "start_line": 2389,
+        "end_line": 2512,
+        "sha256": "681d73aa5533daedb9629d35d4226ada171014f4769de80362fd00f01a854d17"
+      },
+      "HAL.abort": {
+        "source": "HAL_DMA",
+        "start_line": 2521,
+        "end_line": 2596,
+        "sha256": "0c6376e2db2d5ada593e3e63bae54180d9e61be7c376dd2040100976b97fa1f1"
+      },
+      "HAL.suspend_resume": {
+        "source": "HAL_DMA",
+        "start_line": 2604,
+        "end_line": 2683,
+        "sha256": "3090906b7ba80d9640284d602f49256ca9e709be9459a307f8f493b7185023f5"
+      },
+      "HAL.poll": {
+        "source": "HAL_DMA",
+        "start_line": 2694,
+        "end_line": 2786,
+        "sha256": "d248137a6328f81fe9b75b552e5d2145a8cb1b2e7536d0e310f99fb125e8c1c7"
+      },
+      "HAL.IRQ": {
+        "source": "HAL_DMA",
+        "start_line": 2792,
+        "end_line": 2877,
+        "sha256": "7b36228141174a728147eff9e3c677ec93deffbcd4667004dbd4a74c70e7b761"
+      },
+      "HAL.config_helpers": {
+        "source": "HAL_DMA",
+        "start_line": 3187,
+        "end_line": 3242,
+        "sha256": "4a806c4f08f6cd65fd155933ac16d2647a09f4d850557a5f7479c38cc6327438"
+      },
+      "HAL.fill_helper": {
+        "source": "HAL_DMA",
+        "start_line": 3250,
+        "end_line": 3300,
+        "sha256": "f74c3af2b46bfd952f8be2d264ad9426142c0903f3351566d0b06d464c351598"
+      },
+      "HAL.node_defaults": {
+        "source": "HAL_DMA",
+        "start_line": 3374,
+        "end_line": 3414,
+        "sha256": "91f68b8794c9b9b72ad1f2861d752eabd5003e3d9a1266e281125a68255a671d"
+      },
+      "HAL.convert_helpers": {
+        "source": "HAL_DMA",
+        "start_line": 3420,
+        "end_line": 3543,
+        "sha256": "360ec7d7f6f19c3a0c53191ef6c39d3931a4499fd9a3182db3a2e050af77d051"
+      },
+      "HAL.dynamic_links": {
+        "source": "HAL_DMA",
+        "start_line": 3661,
+        "end_line": 3727,
+        "sha256": "0e0da57f88911ddf774f9559b8bfdbf8ab8b52831203fc545df188617d57bb33"
+      },
+      "HAL.static_links": {
+        "source": "HAL_DMA",
+        "start_line": 3734,
+        "end_line": 3782,
+        "sha256": "495b903868e72d93864cf4e72b7a9c03bc3b46da22b2c903a731025df0ed3fe0"
+      },
+      "HAL.start_helpers": {
+        "source": "HAL_DMA",
+        "start_line": 3853,
+        "end_line": 3905,
+        "sha256": "23b444616223a8cb8f5c321956ae03dbce8f2ed153641c1cf977da9c848e2e30"
+      },
+      "HAL.error": {
+        "source": "HAL_DMA",
+        "start_line": 3912,
+        "end_line": 3958,
+        "sha256": "8ef96931ea2606434452b177354e767551895fd56d0cb1d2c9e8d2f6eea6efa4"
+      },
+      "HAL.options": {
+        "source": "HAL_DMA_H",
+        "start_line": 65,
+        "end_line": 80,
+        "sha256": "a5895c9e85aee1da02c2d8b5e84bfb99ed47c96faa4abf48effa2a361af6bf01"
+      },
+      "HAL.types": {
+        "source": "HAL_DMA_H",
+        "start_line": 739,
+        "end_line": 779,
+        "sha256": "9596ecf65eac16f0fad0c34b9d68c7b3dd61873ad53d3c215f1721303a5151ca"
+      },
+      "LL.disable": {
+        "source": "LL_DMA",
+        "start_line": 1101,
+        "end_line": 1104,
+        "sha256": "7326cd4df91c4770102f1e59dd5a8395e164773a7d2ab1651accaa30b3cc0643"
+      },
+      "LL.reset": {
+        "source": "LL_DMA",
+        "start_line": 1208,
+        "end_line": 1211,
+        "sha256": "451bd143544030805051bd6f4860f18dc41ade3012b872998e33dcd0cd598d60"
+      },
+      "LL.suspend": {
+        "source": "LL_DMA",
+        "start_line": 1261,
+        "end_line": 1264,
+        "sha256": "f0a77c398e0c4c14ff609be68e9ff47a980d5149d80559bd32634fddd0eee999"
+      },
+      "LL.resume": {
+        "source": "LL_DMA",
+        "start_line": 1314,
+        "end_line": 1317,
+        "sha256": "cd9c26dd717eee922f05da14072cf673af68bcfbe465df90b0db55d9a80630fc"
+      },
+      "LL.base": {
+        "source": "LL_DMA",
+        "start_line": 1423,
+        "end_line": 1426,
+        "sha256": "cfd9f9fd50d90fbcfd0959401d2793783150339e8c4794956b48e7af8412500f"
+      },
+      "LL.control": {
+        "source": "LL_DMA",
+        "start_line": 1536,
+        "end_line": 1539,
+        "sha256": "437899bf68dcf647acc3dbe9fb5fdcdef50e59ba476ba1b97c054ed79e779485"
+      },
+      "LL.transfer": {
+        "source": "LL_DMA",
+        "start_line": 1827,
+        "end_line": 1832,
+        "sha256": "4c979c9f31d48ae3ca5aee263b10b782a965a4f5bf098851e212b9ae47be6cfc"
+      },
+      "LL.direction": {
+        "source": "LL_DMA",
+        "start_line": 3355,
+        "end_line": 3358,
+        "sha256": "15c450b9afb16d7454cbc88f5802b2200312ef79bd939cd6a811e7b8b9667d70"
+      },
+      "LL.request_mode": {
+        "source": "LL_DMA",
+        "start_line": 3468,
+        "end_line": 3471,
+        "sha256": "1d8ae032de9b069aaacda21a537526104501dbd2ee806858a876b882f052deae"
+      },
+      "LL.size": {
+        "source": "LL_DMA",
+        "start_line": 4638,
+        "end_line": 4641,
+        "sha256": "d3000b0ef88e35a0b1e968cc2f52c3a84679708a0a14981884e086e9bafc332d"
+      },
+      "LL.link": {
+        "source": "LL_DMA",
+        "start_line": 5032,
+        "end_line": 5039,
+        "sha256": "31b6752130bbf5cd18a169d5bb143a9f043994bfb66848e0b9e89f394cd752df"
+      },
+      "LL.privilege": {
+        "source": "LL_DMA",
+        "start_line": 6130,
+        "end_line": 6133,
+        "sha256": "2e76ba8a62916770ea6b2f351bf192d142bee7fabb9b4713a2f2f50c2871b750"
+      },
+      "HAL.state_macro": {
+        "source": "HAL_def",
+        "start_line": 92,
+        "end_line": 131,
+        "sha256": "382c2eac336e7a589e34f32ab0ff77544b2d69d2f1ac3b45a086e8b058628e4f"
+      },
+      "family.modify": {
+        "source": "family",
+        "start_line": 139,
+        "end_line": 141,
+        "sha256": "8e296fb9c4d59e8bc2e84594758457ced1ee95a4622a542db50023ec6876e723"
+      },
+      "RM0522:p296": {
+        "source": "RM0522",
+        "page": 296,
+        "sha256": "f6a7eecc324712da50314b8828dceaf8eeadeb1dcfc59997a31bdcf8b0b98e00"
+      },
+      "RM0522:p297": {
+        "source": "RM0522",
+        "page": 297,
+        "sha256": "b56b6f328de5c2ece3f9db7867c329ff6423a1b5798d5509edba343c893e2e96"
+      },
+      "RM0522:p305": {
+        "source": "RM0522",
+        "page": 305,
+        "sha256": "d512608bcb5f300d1090bbb3369d121478870554867ca48c5b3e39cc47db23cd"
+      },
+      "RM0522:p306": {
+        "source": "RM0522",
+        "page": 306,
+        "sha256": "95a7bc28fc9d6917e2c4893d9e195f05c72c97074a1c361b7c15f448ce62cec8"
+      },
+      "HAL.request_enum": {
+        "source": "HAL_DMA_H",
+        "start_line": 250,
+        "end_line": 263,
+        "sha256": "51f8c896d7efdb6f5e03052ab1b6518d7c2e7b750812c4c08991e0a3619610d3"
+      },
+      "HAL.request_mode_enum": {
+        "source": "HAL_DMA_H",
+        "start_line": 429,
+        "end_line": 447,
+        "sha256": "d87c268cfbb587c67a5192b44f8eb797755cca9486d5f6a5f67a13eb171cec33"
+      },
+      "LL.request_mode_constants": {
+        "source": "LL_DMA",
+        "start_line": 267,
+        "end_line": 275,
+        "sha256": "27ef98562d66ae56ba9e8917734e594d1c13cda0bdd6b73f423399478b575ad2"
+      },
+      "LL.DAC2_request": {
+        "source": "LL_DMA",
+        "start_line": 461,
+        "end_line": 467,
+        "sha256": "7cbe243ee4e9208c5ec0b9b59d35780355a587cdf4e21f329155defc603a1f19"
+      },
+      "LL.node_count": {
+        "source": "LL_DMA",
+        "start_line": 66,
+        "end_line": 75,
+        "sha256": "b83b4bcb2e8bc67bd0c78087e2f85491fd9647daff01617819408a1d78c62ec7"
+      },
+      "HAL.node_flow": {
+        "source": "HAL_DMA",
+        "start_line": 1922,
+        "end_line": 1937,
+        "sha256": "9505b63dba8296a6af101ba84acab1be9b5a8dd2fef486e81b004705a8329d9c"
+      },
+      "RM0522:p2541": {
+        "source": "RM0522",
+        "page": 2541,
+        "sha256": "2c46b817302497caf225a9923cc7aa3a4d65f0e7f02a70c47f8fdd6407804276"
+      }
+    },
+    "errata_sha256": "821c22f796a9ff723afee534fe5943c2b0506325ec871d890706d94414316416",
+    "dma_routing_sha256": "6f5d4d59950941a32d983ccc0907dda996415c9fd201cce9b2e8777bd86ae41d",
+    "composition_sha256": "54516e25013d6f4e71b89346974d8229efd87b0fe9140e48399165ff70e9a4ff",
+    "finite_source_maps": {
+      "controllers": [
+        {
+          "name": "LPDMA1",
+          "base": "0x40020000",
+          "channels": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "IRQ_by_channel": [
+            23,
+            24,
+            25,
+            26
+          ],
+          "RCC_AHB1_enable_reset_sleep_bit": 0
+        },
+        {
+          "name": "LPDMA2",
+          "base": "0x40021000",
+          "channels": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "IRQ_by_channel": [
+            78,
+            79,
+            80,
+            81
+          ],
+          "RCC_AHB1_enable_reset_sleep_bit": 1
+        }
+      ],
+      "FIFO_bytes": 0,
+      "source_transfer_cell": "one registered single; not a multi-element FIFO",
+      "single_width_bytes": [
+        1,
+        2,
+        4
+      ],
+      "width_raw_codes": {
+        "0": 1,
+        "1": 2,
+        "2": 4,
+        "3": "forbidden; USEF"
+      },
+      "address_mode": {
+        "0": "fixed",
+        "1": "contiguously incremented by respective width"
+      },
+      "normal_source_block_bytes": {
+        "min": 1,
+        "max": 65535,
+        "constraint": "multiple of source width"
+      },
+      "PFREQ_channel_intersection": [
+        0
+      ],
+      "PFREQ_channel3": "unresolved RM/header disagreement; not admitted",
+      "PFREQ_request": "I3C1 RX only in RM Table93; no tested protocol",
+      "PFREQ_zero_BNDT": "Unresolved: RM417 assigns a 65536-byte maximum with PFREQ=1; RM419 lists BNDT=0 with UB1=0 as USEF without a PFREQ exception. Zero BNDT under PFREQ is not admitted.",
+      "TRIGPOL": {
+        "0": "masked",
+        "1": "rising",
+        "2": "falling",
+        "3": "masked"
+      },
+      "TRIGM": {
+        "0": "first source read per block",
+        "1": "same as0",
+        "2": "link transfer only",
+        "3": "each single source read"
+      },
+      "TCEM": {
+        "0": "block",
+        "1": "same as0",
+        "2": "LLI including next-node load",
+        "3": "last LLI / channel; no event for infinite list"
+      },
+      "priority_raw": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "LLI_register_order": [
+        "CTR1",
+        "CTR2",
+        "CBR1",
+        "CSAR",
+        "CDAR",
+        "CLLR"
+      ],
+      "LLI_max_hardware_words": 6,
+      "LLI_window_bytes": 65536,
+      "LLI_address_alignment": 4,
+      "channel_stride": "0x80",
+      "global_register_offsets": {
+        "PRIVCFGR": "0x004",
+        "RCFGLOCKR": "0x008",
+        "MISR": "0x00C"
+      },
+      "channel_register_offsets_at_channel0": {
+        "CLBAR": "0x050",
+        "CFCR": "0x05C",
+        "CSR": "0x060",
+        "CCR": "0x064",
+        "CTR1": "0x090",
+        "CTR2": "0x094",
+        "CBR1": "0x098",
+        "CSAR": "0x09C",
+        "CDAR": "0x0A0",
+        "CLLR": "0x0CC"
+      },
+      "SRAM_regions": [
+        {
+          "name": "SRAM1",
+          "start": "0x20000000",
+          "end_inclusive": "0x20007FFF",
+          "bytes": 32768
+        },
+        {
+          "name": "SRAM2",
+          "start": "0x20008000",
+          "end_inclusive": "0x2000FFFF",
+          "bytes": 32768,
+          "ECC": "optional; RAMCFG policy separate"
+        }
+      ],
+      "evidence": [
+        "header.IRQ1",
+        "header.IRQ2",
+        "header.bases",
+        "header.memory",
+        "header.layout",
+        "header.instances",
+        "header.clock",
+        "header.reset",
+        "header.sleep",
+        "RM0522:p383",
+        "RM0522:p387",
+        "RM0522:p388",
+        "RM0522:p408",
+        "RM0522:p417",
+        "RM0522:p431",
+        "RM0522:p432",
+        "RM0522:p434",
+        "RM0522:p438",
+        "DS15135:p13",
+        "RM0522:p419"
+      ]
+    },
+    "contracts": [
+      {
+        "id": "exact_scope",
+        "detail": "Two controllers, four channels each. Family x0..7 tables and generic bitfield definitions do not instantiate channels4..7 on C542. Each controller has one bidirectional AHB master, and one dedicated IRQ per implemented channel. Request and trigger selectors remain the separate hash-bound routing survey, including its unresolved conflicts.",
+        "evidence": [
+          "RM0522:p382",
+          "RM0522:p383",
+          "DS15135:p13",
+          "header.instances",
+          "header.IRQ1",
+          "header.IRQ2"
+        ]
+      },
+      {
+        "id": "reachability",
+        "detail": "Both DMA masters target flash, SRAM1/2 and implemented AHB/APB peripheral slaves. Exact SRAM ranges are two contiguous 32-KiB regions. A bus route does not grant permission, power, clock, alignment, peripheral access width or buffer lifetime; SRAM2 ECC/write protection and flash protection remain separate constraints. No AHB4/XSPI endpoint is inferred on C542. CPU MPU permission is not a DMA ownership mechanism.",
+        "evidence": [
+          "RM0522:p87",
+          "RM0522:p88",
+          "RM0522:p89",
+          "RM0522:p98",
+          "DS15135:p9",
+          "DS15135:p12",
+          "header.memory"
+        ]
+      },
+      {
+        "id": "width_and_size",
+        "detail": "Every source read and destination write is a single transfer of1/2/4 bytes, aligned to its respective width. Source BNDT counts bytes, not destination bytes or items. A nonzero source length must be a multiple of source width. Different widths pad, sign-extend or truncate one source datum into one destination datum; they do not pack several source values together. Destination capacity must account for destination width independently.",
+        "evidence": [
+          "RM0522:p408",
+          "RM0522:p409",
+          "RM0522:p430",
+          "RM0522:p434"
+        ]
+      },
+      {
+        "id": "single_arbitration",
+        "detail": "A source read followed by its destination write is atomic with respect to the DMA channel arbiter. Each linked-list word read is separately arbitrated. This is not system-wide atomicity or a guaranteed sample time. Queue3 has fixed priority over residual weighted queues0..2; equal-priority requests round-robin. RM bandwidth examples assume perpetually active requests and do not qualify worst-case application latency.",
+        "evidence": [
+          "RM0522:p410",
+          "RM0522:p411",
+          "RM0522:p412",
+          "RM0522:p413",
+          "RM0522:p414"
+        ]
+      },
+      {
+        "id": "request_ownership",
+        "detail": "Do not assign the same asserted peripheral hardware request to multiple concurrently ready channels; RM433 additionally states not to duplicate across active SWREQ=0 channels. No USEF reports this misuse. Treat the peripheral request signal as shared across both controllers. In contrast, the same trigger may broadcast to multiple channels. SWREQ=1 ignores REQSEL/BREQ/PFREQ and can support memory-mapped GPIO transfers, subject to separate endpoint safety.",
+        "evidence": [
+          "RM0522:p410",
+          "RM0522:p415",
+          "RM0522:p432",
+          "RM0522:p433"
+        ]
+      },
+      {
+        "id": "block_and_early_termination",
+        "detail": "LPTIM1 update is the RM-listed mandatory block request (BREQ=1). Peripheral early termination requires PFREQ, a supported channel and I3C1 RX request. Channel0 is the RM/header common set; channel3 remains unresolved. Require PFREQ=0 in every direct configuration and reachable node used on channels other than0; HAL assertions and channel-independent node construction do not enforce this. PFREQ can terminate with BNDT nonzero. RM417 calls its readback transferred bytes while RM434 describes a decrementing remaining quantity programmed in bytes but calls it data items; do not silently equate these descriptions. RM417 gives zero a 65536-byte maximum meaning, conflicting with RM419 null-size USEF conditions. BNDT=0 under PFREQ remains unadmitted.",
+        "evidence": [
+          "RM0522:p387",
+          "RM0522:p388",
+          "RM0522:p417",
+          "RM0522:p434",
+          "header.instances",
+          "HAL.flow",
+          "HAL.node_fill",
+          "HAL.fill_helper",
+          "HAL.node_flow",
+          "RM0522:p419",
+          "RM0522:p432"
+        ]
+      },
+      {
+        "id": "trigger_state",
+        "detail": "Trigger polarity is rising/falling or masked, not both edges. Block, link or each-single gating are distinct. Monitoring starts with the enabled active configuration, retains one subsequent hit while a transfer is incomplete, and reports further lost hits as TOF without disabling the channel. Changing selector/polarity through a new LLI discards the memorized hit. Suspension does not stop existing trigger detection. No accepted EXTI timing or trigger-stage contract is widened.",
+        "evidence": [
+          "RM0522:p388",
+          "RM0522:p392",
+          "RM0522:p414",
+          "RM0522:p415",
+          "RM0522:p432"
+        ]
+      },
+      {
+        "id": "direct_lifecycle",
+        "detail": "Direct mode uses CLLR=0. Configure only with EN=0, then enable; hardware clears EN on channel completion or fatal error. Writing EN=0 is ignored. IDLEF covers both suspended and disabled states, so IDLEF alone is not proof EN=0 or permission to rewrite protected transfer registers.",
+        "evidence": [
+          "RM0522:p390",
+          "RM0522:p391",
+          "RM0522:p426",
+          "RM0522:p428",
+          "RM0522:p429",
+          "RM0522:p431"
+        ]
+      },
+      {
+        "id": "suspend_resume",
+        "detail": "Request SUSP, then establish actual completed suspension before observing hardware-modified state. Suspension completes ongoing read/write or link transfers and retains EN. Resume clears SUSP; separately manage sticky event flags and pending triggers. A request or software SUSPEND state alone is not completed suspension.",
+        "evidence": [
+          "RM0522:p391",
+          "RM0522:p392",
+          "RM0522:p425",
+          "RM0522:p428"
+        ]
+      },
+      {
+        "id": "abort_restart",
+        "detail": "Abort requires suspension to steady state then RESET. Reset clears internal channel state, EN and SUSP, but is not a full register-file reset. Restart requires explicit reprogramming of hardware-modified BNDT/SAR/DAR and a valid configuration before enable. No buffer release is inferred until bus inactivity, IRQ/callback ownership and peripheral request quiescence are reconciled.",
+        "evidence": [
+          "RM0522:p392",
+          "RM0522:p393",
+          "RM0522:p428"
+        ]
+      },
+      {
+        "id": "LLI_storage",
+        "detail": "Hardware node loads use a64-KiB-aligned CLBAR plus word-aligned low16-bit LA offset; every complete node must remain inside the same64-KiB window. Up to six hardware words in fixed register order are selectively loaded according to the preceding CLLR update bits. Dynamic compaction changes offsets; ULL=0 can preserve a link and create repetition. The extra HAL info word is software metadata, not a seventh hardware register.",
+        "evidence": [
+          "RM0522:p393",
+          "RM0522:p394",
+          "RM0522:p395",
+          "RM0522:p437",
+          "RM0522:p438",
+          "HAL.types",
+          "LL.node_count"
+        ]
+      },
+      {
+        "id": "LLI_lifetime",
+        "detail": "Keep all reachable node data resident, aligned and immutable while DMA may fetch it, except under a separately proven runtime-update protocol. Masking NVIC does not prevent DMA fetching a node. RM runtime insertion examples depend on link-step completion or explicit link-trigger ordering, not arbitrary concurrent writes. Data transfers and next-node loads are separate portions of each LLI.",
+        "evidence": [
+          "RM0522:p395",
+          "RM0522:p398",
+          "RM0522:p399",
+          "RM0522:p400",
+          "RM0522:p402",
+          "RM0522:p403",
+          "RM0522:p404",
+          "RM0522:p405",
+          "RM0522:p406"
+        ]
+      },
+      {
+        "id": "LLI_completion",
+        "detail": "Run-to-completion stays enabled across LLIs and can run forever for circular lists. Link-step completes one current data transfer plus conditional next-node load before disabling. The initial internal LLI can be null with UB1 set and a non-null next transfer; ordinary subsequent null LLIs cause USEF. CLLR=0 terminates; nonzero LA with no update bits can repeat the current transfer. Preserve contradictory BNDT prose below rather than infer new execution domains.",
+        "evidence": [
+          "RM0522:p395",
+          "RM0522:p396",
+          "RM0522:p400",
+          "RM0522:p406",
+          "RM0522:p419",
+          "RM0522:p433",
+          "RM0522:p434",
+          "RM0522:p438"
+        ]
+      },
+      {
+        "id": "events_not_release",
+        "detail": "TCEM selects block, LLI or channel events; a TC callback can occur before whole-channel completion. Half events follow half the source byte count rounded up and do not release the full buffer. Circular buffering needs an independently bounded processing deadline. TC output pulse is one clock cycle; event flags are sticky and require W1C to rearm reporting. TCEM3 produces no events for infinite lists.",
+        "evidence": [
+          "RM0522:p415",
+          "RM0522:p416",
+          "RM0522:p417",
+          "RM0522:p420",
+          "RM0522:p421",
+          "RM0522:p431"
+        ]
+      },
+      {
+        "id": "error_recovery",
+        "detail": "DTEF disables the channel and requires reset before reuse. ULEF disables it and requires rewriting the complete linked-list register file before reuse. USEF disables on invalid length/alignment/width/null-node configuration. TOF is a lossy-trigger notification that leaves hardware enabled. Neither error callback nor cleared flag independently proves correct partial results or complete recovery.",
+        "evidence": [
+          "RM0522:p418",
+          "RM0522:p419",
+          "RM0522:p432"
+        ]
+      },
+      {
+        "id": "privilege_lock",
+        "detail": "PRIVx controls register accessibility and master-transfer privilege, including LLI reads. Handover to unprivileged ownership requires completion/abort with EN=0. CLBAR is privileged-write only even for an unprivileged channel. RCFGLOCKR locks per-channel privilege until global DMA reset, which affects all sibling channels. Avoid global reset as a private channel cleanup.",
+        "evidence": [
+          "RM0522:p418",
+          "RM0522:p422",
+          "RM0522:p423",
+          "RM0522:p424"
+        ]
+      },
+      {
+        "id": "clock_sleep_debug",
+        "detail": "Controller gates/reset/Sleep gates are shared across its four channels. Peripheral and memory clocks must remain valid through transfer completion. Sleep operation/wake is supported; Stop register retention is not autonomous transfer support and Standby requires reinitialization. Debug defaults to continued DMA; per-channel DBG suspension does not set SUSPF, so IDLEF is the documented debug-suspension indication. No hardware debug or low-power sequence is qualified.",
+        "evidence": [
+          "RM0522:p271",
+          "RM0522:p288",
+          "RM0522:p384",
+          "RM0522:p420",
+          "header.clock",
+          "header.reset",
+          "header.sleep",
+          "header.debug",
+          "RM0522:p296",
+          "RM0522:p297",
+          "RM0522:p305",
+          "RM0522:p306"
+        ]
+      }
+    ],
+    "source_derived_SDK_gates": [
+      {
+        "id": "validation_and_ownership",
+        "detail": "Most size, instance, width, request and state checks are debug assertions. Optional parameter checks do not cover buffer extents, address overflow, endpoint widths, clocks, permissions, complete node windows or concurrent handles. HAL_CHECK_UPDATE_STATE is optional and protects a handle transition, not physical-channel ownership across handles. Successful start returns before hardware completion or hardware error detection.",
+        "evidence": [
+          "HAL.guards",
+          "HAL.config",
+          "HAL.start_direct",
+          "HAL.start_periph",
+          "HAL.start_list",
+          "HAL.state_macro",
+          "HAL.start_helpers"
+        ]
+      },
+      {
+        "id": "request_range_guard",
+        "detail": "Exact C542 selection of IS_DMA_REQUEST permits every raw value up to DAC1_CH2=74 plus software request, not just existing-device endpoints. Family holes such as ADC2 remain within that range; this debug guard does not replace the exact routing whitelist. Trigger validator is likewise a range, subject to the separate routing conflicts.",
+        "evidence": [
+          "HAL.guards",
+          "header.instances",
+          "HAL.request_enum",
+          "LL.DAC2_request"
+        ]
+      },
+      {
+        "id": "init_is_not_reset",
+        "detail": "HAL_DMA_Init assigns handle fields and optional controller clock but neither resets nor checks that the physical channel is idle. It initializes callbacks but not p_parent or p_head_node. Reinitializing a live handle/channel can lose software ownership. DeInit leaves CLBAR/SAR/DAR and global privilege/lock state untouched; it is not full erasure.",
+        "evidence": [
+          "HAL.init_deinit",
+          "HAL.types"
+        ]
+      },
+      {
+        "id": "deinit_steady_state",
+        "detail": "DeInit invokes LL_DisableChannel, which writes SUSP and RESET together, then clears flags and writes configuration without polling SUSPF/IDLEF. RM says RESET is effective only in steady suspended/disabled state and says RESET clears SUSP irrespective of its written value. If reset does not disable an active channel, CTR1, CTR2, CBR1 and CLLR are read-only while EN=1 and their zero writes are ignored, while the handle still becomes RESET. The later CCR=0 write clears SUSP but cannot clear EN. LL ResumeChannel, SuspendChannel and ResetChannel also write EN=0; this does not disable hardware because RM428 says EN=0 writes are ignored. Active-channel DeInit is not a proven suspend-then-reset or buffer-release sequence; no observed failure is asserted.",
+        "evidence": [
+          "HAL.init_deinit",
+          "LL.disable",
+          "RM0522:p392",
+          "RM0522:p428",
+          "RM0522:p429",
+          "RM0522:p431",
+          "RM0522:p433",
+          "RM0522:p437",
+          "LL.resume",
+          "LL.suspend",
+          "LL.reset"
+        ]
+      },
+      {
+        "id": "abort_idle_ambiguity",
+        "detail": "Abort and Abort_IT assert handle state IDLE or ACTIVE, excluding SUSPEND; the state-checked HAL route from SUSPEND requires Resume before Abort. Both initially test IDLEF. If already1 they set software IDLE and return HAL_ERROR without RESET even if EN remains1. With assertions disabled, an abort of a SUSPEND handle in SUSPF=IDLEF=EN=1 follows this source path and leaves the channel enabled/suspended. After Resume the same branch is conditional on IDLEF still being1; source does not specify its clearing latency. DBGMCU suspension is not a demonstrated running-CPU example: RM2541 requires HALTED=1 for freeze, and HALTED=0 resumes operation. Debugger stepping or post-halt flag timing remains unqualified. RM428 requires SUSPF=IDLEF=EN=1 for suspended reset steady state, so debug IDLEF alone does not prove RESET effectiveness. Software IDLE is not a disabled-hardware or release receipt.",
+        "evidence": [
+          "HAL.abort",
+          "RM0522:p426",
+          "RM0522:p428",
+          "HAL.suspend_resume",
+          "RM0522:p420",
+          "RM0522:p2541"
+        ]
+      },
+      {
+        "id": "abort_timeout",
+        "detail": "Blocking Abort requests suspension and waits with a1ms HAL-tick-based threshold. On timeout it resets only if IDLEF has become1, otherwise leaves ABORT and the pending suspend request. Even the timeout branch that resets returns HAL_ERROR and does not clear all flags. Success clears flags and sets IDLE but does not disable all interrupt enables. A stalled/preempted tick can make the wait unbounded; application recovery remains required.",
+        "evidence": [
+          "HAL.abort",
+          "HAL.constants",
+          "LL.reset"
+        ]
+      },
+      {
+        "id": "suspend_stale_flag",
+        "detail": "Blocking Suspend sets software SUSPEND before waiting and leaves it and the request on timeout. Neither blocking Suspend nor Resume clears SUSPF. Within one transfer, a later suspend or abort may see a prior sticky SUSPF and skip waiting for the new suspension; every Start helper clears all flags, so this claim does not assume stale flags survive Start. Abort can then issue RESET before actual steady suspension, although RM428 limits effective reset to steady states, and subsequently clear flags, return HAL_OK and set software IDLE while EN can still be1. LL_ResetChannel does not clear SUSP in its software write mask. However RM428 also says a RESET write deasserts SUSP regardless of bit2, so an ineffective reset does not establish whether SUSP remains pending or is cleared; continued activity or later suspension cannot be ruled out. Resume only clears SUSP and sets ACTIVE without verifying completion or clearing stale flags.",
+        "evidence": [
+          "HAL.suspend_resume",
+          "HAL.abort",
+          "LL.suspend",
+          "LL.resume",
+          "RM0522:p425",
+          "RM0522:p428",
+          "HAL.start_helpers",
+          "LL.reset"
+        ]
+      },
+      {
+        "id": "IT_request_not_completion",
+        "detail": "Abort_IT and Suspend_IT return HAL_OK after enabling SUSPIE and requesting suspension. Completion occurs in the IRQ path, subject to IRQ enable, flags, races and callback ownership. Their initial IDLEF test can race ordinary completion; a returned HAL_OK is not an immediate release receipt.",
+        "evidence": [
+          "HAL.abort",
+          "HAL.suspend_resume",
+          "HAL.IRQ"
+        ]
+      },
+      {
+        "id": "poll_late_errors",
+        "detail": "PollForXfer samples errors and trigger overrun only once before the wait. Its wait loop checks the requested event and timeout, not newly arriving DTE/ULE/USE or TO flags. A later fatal error can therefore lead to timeout, or an unbounded HAL_MAX_DELAY wait if the event never occurs; a later trigger overrun is also not reported by that invocation. Timeout leaves state and hardware unchanged. A successful HT poll sets IDLE, so a subsequent TC poll fails the ACTIVE assertion when assertions are enabled; disabling assertions does not establish safe lifecycle.",
+        "evidence": [
+          "HAL.poll"
+        ]
+      },
+      {
+        "id": "poll_half_sets_idle",
+        "detail": "After either half-transfer or full-transfer event, PollForXfer sets software state IDLE. On half completion hardware may still be enabled and transferring. State IDLE must not authorize buffer reuse, reconfiguration or a second start; it can also conflict with a subsequent PollForXfer ACTIVE assertion. Full TC can be intermediate for linked lists depending on TCEM.",
+        "evidence": [
+          "HAL.poll",
+          "RM0522:p421",
+          "RM0522:p431"
+        ]
+      },
+      {
+        "id": "IRQ_order_and_reentry",
+        "detail": "IRQ snapshots interrupt enables and flags, handles HT before TC before SUSP before errors, and returns after HT without TC, after TC, or after SUSP. HT plus error without TC defers error processing with error enables still set. TC plus fatal error with IDLEF=1 disables all interrupts and sets software IDLE before invoking completion: the error flag remains but cannot raise a subsequent IRQ through its now-disabled enable, so the error callback can be lost outright. SUSP plus error while the handle is ABORT similarly disables all interrupts and returns after the abort callback. This is not merely deferred error reporting. HT callback reentry can mutate state or restart a channel while old snapshots continue. Completion or abort callback is not proof that no error occurred.",
+        "evidence": [
+          "HAL.IRQ",
+          "HAL.error"
+        ]
+      },
+      {
+        "id": "error_callback_not_release",
+        "detail": "DMA_HandleErrorIT clears all flags, but resets and disables interrupts only for fatal error bits. Trigger-overrun-only handling invokes the error callback while transfer state remains ACTIVE. A TC or HT arriving after the IRQ snapshot but before this blanket flag clear can be erased without its callback; after an erased terminal TC, software can remain ACTIVE without a completion notification. Newly arriving error flags can likewise be erased. ULE recovery requires complete register-file reinitialization, which this helper does not itself perform. Together with the TC/ABORT interrupt-disable paths, callbacks are not reliable standalone release receipts.",
+        "evidence": [
+          "HAL.error",
+          "RM0522:p419",
+          "RM0522:p432",
+          "HAL.IRQ"
+        ]
+      },
+      {
+        "id": "size_write_not_masked",
+        "detail": "Start sizes1..65535 are assertion-only; LL_SetBlkDataLength passes the supplied value unmasked to MODIFY_REG. Larger values can form reserved CBR1 set bits and a truncated low16-bit size; zero has mode-dependent hardware meaning. Node fill masks size to16bits, but FillNodeData/UpdateDataNode writes it directly. Reject invalid sizes before either path rather than rely on hardware error or implicit truncation.",
+        "evidence": [
+          "HAL.start_direct",
+          "HAL.start_periph",
+          "LL.size",
+          "HAL.fill_helper",
+          "HAL.node_data",
+          "HAL.node_defaults",
+          "family.modify",
+          "RM0522:p434"
+        ]
+      },
+      {
+        "id": "config_retains_other_modes",
+        "detail": "Direct config writes priority, widths/increments, request/direction and BREQ=single, clearing PAM through LL_ConfigTransfer. It does not clear existing PFREQ, trigger configuration, TCEM or LSM. StartDirect clears CLLR but not those mode fields. A direct reconfiguration is not a clean default profile; explicitly reconcile retained settings.",
+        "evidence": [
+          "HAL.config_helpers",
+          "HAL.start_helpers",
+          "LL.transfer",
+          "LL.direction",
+          "LL.request_mode",
+          "LL.control",
+          "HAL.request_mode_enum",
+          "LL.request_mode_constants"
+        ]
+      },
+      {
+        "id": "NONE_is_not_silent",
+        "detail": "HAL_DMA_OPT_IT_NONE means no optional HT/TO interrupts, not no interrupts. Start helpers still enable TC and fatal-error interrupt bits unless the option is SILENT=0xFFFFFFFF. Default enables HT and TO as well. Match peripheral driver callback expectations to these actual enables.",
+        "evidence": [
+          "HAL.options",
+          "HAL.start_helpers"
+        ]
+      },
+      {
+        "id": "list_storage_checks",
+        "detail": "Linked-list start optionally checks p_q and mode but not p_head_node, nonempty count, node alignment, reachable memory, same64-KiB window or entire node containment. LL masks base/offset fields, which can silently round a misaligned head address. Hardware privilege and CLBAR write restrictions remain. All node payloads and software metadata need independent validation and lifetime ownership.",
+        "evidence": [
+          "HAL.start_list",
+          "HAL.start_helpers",
+          "LL.base",
+          "LL.link",
+          "RM0522:p394",
+          "RM0522:p424",
+          "RM0522:p438"
+        ]
+      },
+      {
+        "id": "circular_to_linear_state",
+        "detail": "StartLinkedListXfer variants set xfer_mode=CIRCULAR when p_first_circular_node is non-null but do not set it back to LINEAR for a linear queue. Reusing a circular-mode handle with a linear queue can retain stale mode metadata unless explicitly reconfigured first; polling rejects circular mode under optional checks, and peripheral-start dispatch uses this field.",
+        "evidence": [
+          "HAL.start_list",
+          "HAL.start_periph",
+          "HAL.poll"
+        ]
+      },
+      {
+        "id": "circular_node_mutation",
+        "detail": "Peripheral circular start updates the stored head node addresses/size in place before starting. Node storage must remain caller-owned and appropriate for static layout; no concurrent DMA or queue reader may observe partial mutation. The API rejects linear linked-list mode, but successful circular start is not proof of endpoint or list correctness.",
+        "evidence": [
+          "HAL.circular_config",
+          "HAL.start_periph",
+          "HAL.node_defaults"
+        ]
+      },
+      {
+        "id": "privilege_success",
+        "detail": "SetPrivAttr checks CPU privileged execution but not EN=0 or per-channel lock and does not read back. It can return HAL_OK after a hardware-ignored write. LockAttr is irreversible until controller reset; sibling-channel impact requires shared ownership.",
+        "evidence": [
+          "HAL.privilege",
+          "LL.privilege",
+          "RM0522:p422",
+          "RM0522:p423"
+        ]
+      },
+      {
+        "id": "static_conversion_tail_read",
+        "detail": "DMA_List_UpdateStaticQueueNodesCLLR computes the next address and reads its info after every iteration, including the final linear node. For terminating LA=0, the address becomes the containing 64-KiB base and info is at base+0x18 for the six-word hardware-node layout. The resulting current_cllr_offset is unused after that final iteration: this is a dead source-level out-of-list read, not demonstrated state corruption, and compiler-emitted access has not been qualified. For nodes in C542 SRAM1 or SRAM2 both regions share the 0x20000000 window, so the extra address is mapped SRAM at 0x20000018, not inherently an unmapped fault. An emitted read matters if that address is inaccessible; node validity alone does not establish its access permissions. Both static-conversion passes call the helper; no fault is claimed observed.",
+        "evidence": [
+          "HAL.static_links",
+          "HAL.convert_helpers",
+          "HAL.conversion_entry",
+          "HAL.types",
+          "LL.node_count",
+          "header.memory",
+          "DS15135:p13"
+        ]
+      }
+    ],
+    "conflicts": [
+      {
+        "id": "PFREQ_channels",
+        "detail": "RM Table92 lists channels0 and7 for each controller; exact header predicate permits0 and3. C542 only has0..3, so channel3 early termination is unresolved, while0 is common. RM432 makes PFREQ reserved on channels without the feature. HAL direct flow APIs use the instance predicate only in debug assertions; with assertions disabled the setter can write PFREQ on any channel. FillNodeConfig and FillNodeFlowControlMode have no assigned-channel check and can encode PFREQ for a later load on any channel. Require PFREQ=0 outside channel0 in both initial registers and every reachable node; no early-termination operation is admitted.",
+        "evidence": [
+          "RM0522:p383",
+          "RM0522:p387",
+          "header.instances",
+          "RM0522:p432",
+          "HAL.flow",
+          "HAL.node_fill",
+          "HAL.fill_helper",
+          "HAL.node_flow"
+        ]
+      },
+      {
+        "id": "DS_channel_count",
+        "detail": "DS13 states four channels per controller but Table2 says x=0 to4. RM383 and exact header agree0..3. Preserve the Table2 off-by-one rather than create channel4.",
+        "evidence": [
+          "DS15135:p13",
+          "RM0522:p383",
+          "header.instances"
+        ]
+      },
+      {
+        "id": "BNDT_terminal_condition",
+        "detail": "RM433/434 introductory bullets describe continuous execution when all update bits are0 and LA is nonzero, but the BNDT field bullet on434 says LA=0 for infinite last LLI, immediately followed by CLLR=0 terminates. RM438 also states all update bits0 plus LA0 is terminal. Do not adopt the contradictory field bullet as a repeat condition.",
+        "evidence": [
+          "RM0522:p433",
+          "RM0522:p434",
+          "RM0522:p438"
+        ]
+      },
+      {
+        "id": "PFREQ_count_wording",
+        "detail": "RM417 calls BNDT the current number of transferred bytes after early completion. RM434 defines the field in source bytes, says it decrements, but describes the readback as the remaining number of data items. This is not an explicit unambiguous remaining-source-bytes definition. Preserve transferred-versus-remaining and byte-versus-item wording conflicts; no accepted result-count formula or zero-encoding behavior follows from this inventory.",
+        "evidence": [
+          "RM0522:p417",
+          "RM0522:p434"
+        ]
+      },
+      {
+        "id": "trigger_polarity_prose",
+        "detail": "RM432 TRIGSEL description says active with TRIGPOL=00, whereas the same page polarity definitions and monitoring text, plus RM388/414, require01/10 and mask00/11. Preserve the contradiction; no trigger-on-zero domain.",
+        "evidence": [
+          "RM0522:p388",
+          "RM0522:p414",
+          "RM0522:p432"
+        ]
+      },
+      {
+        "id": "PAM_condition",
+        "detail": "RM430 states both PAM_1 and PAM_2 conditions as destination width higher than source. The PAM_2 truncation text and RM409 describe destination width lower. Table96 also has inconsistent data-stream examples/word labels; use width semantics without treating those printed examples as executable vectors.",
+        "evidence": [
+          "RM0522:p409",
+          "RM0522:p430"
+        ]
+      },
+      {
+        "id": "CSR_TOF_description",
+        "detail": "RM425 declares CSR read-only but its TOF description is copied as flag-clear0=no effect/1=clear. CFCR is the write-only clear register; no CSR write-clear operation is admitted.",
+        "evidence": [
+          "RM0522:p424",
+          "RM0522:p425",
+          "header.layout",
+          "header.fields"
+        ]
+      },
+      {
+        "id": "family_stale_names",
+        "detail": "RM418 references SECCFGR although exact DMA layout has no such register. RM396/400/406 mention2D block events despite exact single-level BNDT and TCEM01 aliasing00; RM396 names LSM in CLLR, whereas it is CCR. These do not add security/2D register capability.",
+        "evidence": [
+          "RM0522:p396",
+          "RM0522:p400",
+          "RM0522:p406",
+          "RM0522:p418",
+          "RM0522:p427",
+          "RM0522:p431",
+          "header.layout"
+        ]
+      },
+      {
+        "id": "PFREQ_zero_BNDT",
+        "detail": "RM417 assigns BNDT=0 a 64-KiB maximum when PFREQ=1. RM419 lists BNDT=0 with UB1=0 as a user-setting error without a PFREQ exception, and also prohibits a subsequent null LLI. These conflicting statements do not establish an executable zero-length PFREQ domain. BNDT=0 under PFREQ is not admitted.",
+        "evidence": [
+          "RM0522:p417",
+          "RM0522:p419"
+        ]
+      }
+    ],
+    "errata_gate": {
+      "detail": "ES0676 applicability and complete summary pages are bound; no dedicated LPDMA limitation is listed there. This is not immunity to peripheral, clock, memory, core or composed-operation errata. Exact silicon revision and each attached peripheral remain independent gates.",
+      "evidence": [
+        "ES0676:p1",
+        "ES0676:p2",
+        "ES0676:p3"
+      ]
+    },
+    "integration_gates": [
+      "Keep existing composition.json fixed-width GPIO/DMA proposal and accepted EXTI physical-resource ownership unchanged. No new route, execution profile or cloned peripheral request is admitted.",
+      "No active hardware, runtime adapter, build, timing, memory ordering or compiler qualification.",
+      "Full queue construction/conversion audit, all SDK caller paths, exact bus protection interactions and all peripheral flow-control protocols remain open.",
+      "Resource ownership covers physical controller/channel, request signal, trigger producer, memory/node storage, IRQ/handle/callbacks and clocks; global controller reset requires every sibling owner to quiesce."
+    ],
+    "chapter_audit": {
+      "read_pages": "RM0522 382–439 inclusive plus separately cited memory/RCC context",
+      "evidence": [
+        "RM0522:p382",
+        "RM0522:p383",
+        "RM0522:p384",
+        "RM0522:p385",
+        "RM0522:p386",
+        "RM0522:p387",
+        "RM0522:p388",
+        "RM0522:p389",
+        "RM0522:p390",
+        "RM0522:p391",
+        "RM0522:p392",
+        "RM0522:p393",
+        "RM0522:p394",
+        "RM0522:p395",
+        "RM0522:p396",
+        "RM0522:p397",
+        "RM0522:p398",
+        "RM0522:p399",
+        "RM0522:p400",
+        "RM0522:p401",
+        "RM0522:p402",
+        "RM0522:p403",
+        "RM0522:p404",
+        "RM0522:p405",
+        "RM0522:p406",
+        "RM0522:p407",
+        "RM0522:p408",
+        "RM0522:p409",
+        "RM0522:p410",
+        "RM0522:p411",
+        "RM0522:p412",
+        "RM0522:p413",
+        "RM0522:p414",
+        "RM0522:p415",
+        "RM0522:p416",
+        "RM0522:p417",
+        "RM0522:p418",
+        "RM0522:p419",
+        "RM0522:p420",
+        "RM0522:p421",
+        "RM0522:p422",
+        "RM0522:p423",
+        "RM0522:p424",
+        "RM0522:p425",
+        "RM0522:p426",
+        "RM0522:p427",
+        "RM0522:p428",
+        "RM0522:p429",
+        "RM0522:p430",
+        "RM0522:p431",
+        "RM0522:p432",
+        "RM0522:p433",
+        "RM0522:p434",
+        "RM0522:p435",
+        "RM0522:p436",
+        "RM0522:p437",
+        "RM0522:p438",
+        "RM0522:p439"
+      ],
+      "closure": "Source reading only; full device coverage remains incomplete."
+    }
+  }
+}

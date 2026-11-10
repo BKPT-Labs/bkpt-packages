@@ -1,0 +1,459 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/cordic-registers.json",
+    "sha256": "0c00d7b23ae1592b2ad6d454427aff16c2349091d26a4082b5cc4f53a448a630"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 17
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "schema": "bkpt.c5-cordic-register-supplement/1",
+    "publication": "unpublished",
+    "target": {
+      "device": "STM32C542RCT6",
+      "device_group": "STM32C542xx",
+      "package": "LQFP64",
+      "silicon_revision": "unknown",
+      "sdk": "stm32c5-hal2-2.1.0"
+    },
+    "base_candidate_sha256": "218a49767ba2ecf9e6e631a4109e4d76d7998e0b075395a32ec29ee1087c9336",
+    "sources": {
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "pinned_SVD": {
+        "path": "bkpt-data://firmware/sources/st/c5/pack-2.1.0/device.svd",
+        "sha256": "79ecabb1331e08042904858e5986a2d41aad036fbf481f916abdfb6ce58f7c5b"
+      },
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      }
+    },
+    "evidence": {
+      "header.struct": {
+        "source": "header",
+        "start_line": 295,
+        "end_line": 303,
+        "sha256": "834147cfc2ea69119facbac45a7c23cd31f44cff7abd9d3f3922aaf4a0f981a9"
+      },
+      "header.fields": {
+        "source": "header",
+        "start_line": 2859,
+        "end_line": 2913,
+        "sha256": "4647e493c4d8209b3d1cea340477c28826adf15914850c5587ef29a59b3d9a9f"
+      },
+      "header.IRQ": {
+        "source": "header",
+        "start_line": 122,
+        "end_line": 122,
+        "sha256": "0d2c6c49ebcc1df989436dda0e7f3e59fbf1bd4f9b1eac365834282b573a518d"
+      },
+      "header.PERIPH_BASE": {
+        "source": "header",
+        "start_line": 1155,
+        "end_line": 1155,
+        "sha256": "1595049998dbab5ea80885b1754a5e08dc4493e9743c4957a6579afe09a0f092"
+      },
+      "header.AHB1_BASE": {
+        "source": "header",
+        "start_line": 1176,
+        "end_line": 1176,
+        "sha256": "56c85422541a505121845f0d4f7bb9e8536dbb4e932ddbc5d2442f92c91d78aa"
+      },
+      "header.CORDIC_BASE": {
+        "source": "header",
+        "start_line": 1234,
+        "end_line": 1234,
+        "sha256": "ea812e9d3645003381dc4d824e63baad0d12cbd739ad44c81397ceb475e6b119"
+      },
+      "header.RCC_reset": {
+        "source": "header",
+        "start_line": 8926,
+        "end_line": 8928,
+        "sha256": "9e503cf3e2627add051cb83e8e8a2011848f6fe68ded6801164eeea33d08b677"
+      },
+      "header.RCC_enable": {
+        "source": "header",
+        "start_line": 9064,
+        "end_line": 9066,
+        "sha256": "3e39be9d120940ee657c56d1a478c5af511c9ef9589ac3698343cc36e998e13e"
+      },
+      "RM0522:p490": {
+        "source": "RM0522",
+        "page": 490,
+        "sha256": "3a5afca1c85b4aa1cc6af2261df3a99c017e9fa582cf620d1d97d9c159000c37"
+      },
+      "RM0522:p491": {
+        "source": "RM0522",
+        "page": 491,
+        "sha256": "44af1edc4a951d8985e0940996ccdbe58b9541561f9e41cc95d369a3845bca73"
+      },
+      "RM0522:p492": {
+        "source": "RM0522",
+        "page": 492,
+        "sha256": "54808f3ef36d3b8e1c665a9b75fc786087a83588bc32077a4b631eaec7c1b9b0"
+      },
+      "RM0522:p493": {
+        "source": "RM0522",
+        "page": 493,
+        "sha256": "650ea398654de5d10a8cedec5c3ae98417397525d237d20a38bf0e7d360943ed"
+      },
+      "RM0522:p494": {
+        "source": "RM0522",
+        "page": 494,
+        "sha256": "2083e28c04809e479198c5da88a922783cbfe6bad125b96e84fed8e2cff5a226"
+      },
+      "RM0522:p495": {
+        "source": "RM0522",
+        "page": 495,
+        "sha256": "9e12faf5d74c8e5999d13ccce715a934eef70f77b0c1a4ef2b7dc455a5fc99d4"
+      },
+      "RM0522:p496": {
+        "source": "RM0522",
+        "page": 496,
+        "sha256": "7464c83bdf4c85fa4017d26ffd15184ddb6266a79b6c9695041669ffc62b8996"
+      },
+      "header.RCC_sleep_enable": {
+        "source": "header",
+        "start_line": 9219,
+        "end_line": 9222,
+        "sha256": "6b97b3fdf77657bfb507a913beb5dade7b3b355dea0576bb0341d28adcab039e"
+      },
+      "RM0522:p96": {
+        "source": "RM0522",
+        "page": 96,
+        "sha256": "f4d8880b1098cf7d89d335368d435e59fe3a307f76b591632e9517378161ca5d"
+      }
+    },
+    "origin": "Derived from exact C542 CMSIS header and RM; not an ST-issued SVD correction. Pinned SVD is unchanged.",
+    "peripheral": {
+      "name": "CORDIC",
+      "base_address": "0x40023800",
+      "base_derivation": "0x40000000 + 0x20000 + 0x3800",
+      "interrupt": {
+        "symbol": "CORDIC_IRQn",
+        "number": 67
+      },
+      "access_width_bits": 32,
+      "clock_gate": "RCC_AHB1ENR.CORDICEN bit14",
+      "reset_gate": "RCC_AHB1RSTR.CORDICRST bit14",
+      "registers": [
+        {
+          "name": "CSR",
+          "offset": 0,
+          "access": "mixed",
+          "reset_value": "0x00000050",
+          "fields": [
+            {
+              "register": "CSR",
+              "name": "FUNC",
+              "bit_offset": 0,
+              "bit_width": 4,
+              "mask": "0xf",
+              "access": "read-write"
+            },
+            {
+              "register": "CSR",
+              "name": "PRECISION",
+              "bit_offset": 4,
+              "bit_width": 4,
+              "mask": "0xf0",
+              "access": "read-write"
+            },
+            {
+              "register": "CSR",
+              "name": "SCALE",
+              "bit_offset": 8,
+              "bit_width": 3,
+              "mask": "0x700",
+              "access": "read-write"
+            },
+            {
+              "register": "CSR",
+              "name": "IEN",
+              "bit_offset": 16,
+              "bit_width": 1,
+              "mask": "0x10000",
+              "access": "read-write"
+            },
+            {
+              "register": "CSR",
+              "name": "DMAREN",
+              "bit_offset": 17,
+              "bit_width": 1,
+              "mask": "0x20000",
+              "access": "read-write"
+            },
+            {
+              "register": "CSR",
+              "name": "DMAWEN",
+              "bit_offset": 18,
+              "bit_width": 1,
+              "mask": "0x40000",
+              "access": "read-write"
+            },
+            {
+              "register": "CSR",
+              "name": "NRES",
+              "bit_offset": 19,
+              "bit_width": 1,
+              "mask": "0x80000",
+              "access": "read-write"
+            },
+            {
+              "register": "CSR",
+              "name": "NARGS",
+              "bit_offset": 20,
+              "bit_width": 1,
+              "mask": "0x100000",
+              "access": "read-write"
+            },
+            {
+              "register": "CSR",
+              "name": "RESSIZE",
+              "bit_offset": 21,
+              "bit_width": 1,
+              "mask": "0x200000",
+              "access": "read-write"
+            },
+            {
+              "register": "CSR",
+              "name": "ARGSIZE",
+              "bit_offset": 22,
+              "bit_width": 1,
+              "mask": "0x400000",
+              "access": "read-write"
+            },
+            {
+              "register": "CSR",
+              "name": "RRDY",
+              "bit_offset": 31,
+              "bit_width": 1,
+              "mask": "0x80000000",
+              "access": "read-only"
+            }
+          ],
+          "automatic_access_authorized": false,
+          "read_side_effects": false,
+          "read_safety": "polling_only_after_clock_access_and_ownership_authorization",
+          "reserved_bits_must_be_zero": "0x7f80f800",
+          "side_effect_evidence": [
+            "RM0522:p491",
+            "RM0522:p493",
+            "RM0522:p494",
+            "RM0522:p490",
+            "RM0522:p492"
+          ],
+          "write_side_effects": [
+            "Enabling DMAWEN/DMAREN enables request generation under the documented request conditions.",
+            "Setting IEN while RRDY is set raises the interrupt.",
+            "Changing FUNC invalidates the retained ARG2 assumption.",
+            "Size/count changes can affect an already pending operation; quiescence must be established."
+          ]
+        },
+        {
+          "name": "WDATA",
+          "offset": 4,
+          "access": "write-only",
+          "reset_value": null,
+          "reset_qualification": "RM explicitly unknown; do not manufacture zero",
+          "fields": [
+            {
+              "register": "WDATA",
+              "name": "ARG",
+              "bit_offset": 0,
+              "bit_width": 32,
+              "mask": "0xffffffff",
+              "access": "write-only"
+            }
+          ],
+          "automatic_access_authorized": false,
+          "read_safety": "unsupported_write_only_register",
+          "write_side_effects": "launch_or_queue_or_overwrite_pending_operation",
+          "side_effect_evidence": [
+            "RM0522:p490",
+            "RM0522:p491",
+            "RM0522:p495"
+          ]
+        },
+        {
+          "name": "RDATA",
+          "offset": 8,
+          "access": "read-only",
+          "reset_value": "0x00000000",
+          "fields": [
+            {
+              "register": "RDATA",
+              "name": "RES",
+              "bit_offset": 0,
+              "bit_width": 32,
+              "mask": "0xffffffff",
+              "access": "read-only",
+              "read_action": "modify",
+              "read_may_stall": true
+            }
+          ],
+          "automatic_access_authorized": false,
+          "read_action": "modify",
+          "read_may_stall": true,
+          "read_safety": "not_safe_for_unowned_refresh_or_dump",
+          "side_effect_evidence": [
+            "RM0522:p491",
+            "RM0522:p493",
+            "RM0522:p496"
+          ]
+        }
+      ],
+      "field_domains": {
+        "FUNC": {
+          "values": {
+            "0": "cosine",
+            "1": "sine",
+            "2": "phase",
+            "3": "modulus",
+            "4": "arctangent",
+            "5": "hyperbolic_cosine",
+            "6": "hyperbolic_sine",
+            "7": "hyperbolic_arctangent",
+            "8": "natural_logarithm",
+            "9": "square_root"
+          },
+          "reserved": [
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ]
+        },
+        "PRECISION": {
+          "encoded_cycles": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ],
+          "iterations_per_cycle": 4,
+          "reserved": [
+            0
+          ]
+        },
+        "SCALE": {
+          "encoded_range": [
+            0,
+            7
+          ],
+          "function_specific_admissibility": "not_established_here"
+        }
+      },
+      "base_evidence": [
+        "header.PERIPH_BASE",
+        "header.AHB1_BASE",
+        "header.CORDIC_BASE",
+        "RM0522:p96"
+      ],
+      "access_width_evidence": [
+        "RM0522:p493"
+      ],
+      "sleep_clock_gate": "RCC_AHB1LPENR.CORDICLPEN bit14; no low-power execution policy implied"
+    },
+    "access_side_effects": [
+      {
+        "register": "WDATA",
+        "rule": "Writing the configured number of argument words launches or queues a calculation. Additional writes while an operation is pending cancel/overwrite pending arguments.",
+        "evidence": [
+          "RM0522:p490",
+          "RM0522:p491",
+          "RM0522:p495"
+        ]
+      },
+      {
+        "register": "RDATA",
+        "rule": "Reads consume results; NRES+1 reads clear RRDY. Early read during calculation can stall the bus until completion.",
+        "evidence": [
+          "RM0522:p491",
+          "RM0522:p493",
+          "RM0522:p496"
+        ]
+      },
+      {
+        "register": "CSR",
+        "rule": "RRDY polling avoids the read-result wait-state stall; writable fields still require operation ownership and function-domain validation.",
+        "evidence": [
+          "RM0522:p491"
+        ]
+      },
+      {
+        "register": "WDATA/RDATA",
+        "rule": "CPU must not access the register owned by an enabled corresponding CORDIC DMA channel; premature acknowledgement can block DMA.",
+        "evidence": [
+          "RM0522:p493"
+        ]
+      }
+    ],
+    "packing": {
+      "q31": "Two arguments/results require ordered 32-bit writes/reads when NARGS/NRES=1.",
+      "q15": "ARGSIZE=1 requires NARGS=0; RESSIZE=1 requires NRES=0 independently. Packed ARG1/RES1 occupy the low half and ARG2/RES2 the high half; all register accesses are 32-bit.",
+      "evidence": [
+        "RM0522:p490",
+        "RM0522:p491",
+        "RM0522:p495",
+        "RM0522:p496"
+      ],
+      "internal_ARG2_state": "Reset code 0x7FFFFFFF (RM calls it +1); not WDATA readback/reset. Reuse only with established value and unchanged function; no omitted-y-is-zero assumption."
+    },
+    "conflicts": [
+      {
+        "id": "header_NARGS_NRES_comments",
+        "detail": "Header comments swap RDATA/WDATA descriptions for NARGS/NRES; bit masks agree with RM. RM p494 establishes NARGS counts writes to WDATA, NRES counts reads from RDATA.",
+        "evidence": [
+          "header.fields",
+          "RM0522:p494"
+        ]
+      },
+      {
+        "id": "q15_count_wording",
+        "detail": "RM p491 describes a second discarded read if q15 NRES=1, while p496 requires NRES=0. Candidate rules are independent: ARGSIZE=1 requires NARGS=0; RESSIZE=1 requires NRES=0. No executable domain is admitted.",
+        "evidence": [
+          "RM0522:p491",
+          "RM0522:p495",
+          "RM0522:p496"
+        ]
+      }
+    ],
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "review": "See current external review receipts; source-only retention without numerical, runtime or hardware qualification.",
+    "execution_permission": "none",
+    "open_gates": [
+      "All numerical input/function/scale/precision domains and accuracy",
+      "SDK lifecycle and finite deadlines",
+      "RCC/IRQ/DMA ownership and release",
+      "Generic importer integration and independent source review",
+      "No SVD reload or runtime register access authorized"
+    ]
+  }
+}

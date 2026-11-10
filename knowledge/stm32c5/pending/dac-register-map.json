@@ -1,0 +1,384 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/dac-register-map.json",
+    "sha256": "cef5f92f2f00e7c27dd819b1d2355ba4f047e27dc17c3181b053de229ce890b9"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 13
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "schema": "bkpt.c5.dac-register-map-survey.v1",
+    "review": "source_candidate_pending_independent_review",
+    "scope": "RM0522 Table165 pages709-710 supplement to stable DAC survey; exact availability conflicts remain unchanged",
+    "sources": {
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "dac-contracts": {
+        "path": "research://c5-reference/dac-contracts.json",
+        "sha256": "fb4b3ed91ef8d8082442a6ce01083a2d24b94e10531e82de522917280464d566"
+      }
+    },
+    "evidence": {
+      "RM0522:p673": {
+        "source": "RM0522",
+        "page": 673,
+        "sha256": "7060f2f253423c457f58e0576e329b37bebd2e8193ec425dbcdbeca60d085294"
+      },
+      "RM0522:p694": {
+        "source": "RM0522",
+        "page": 694,
+        "sha256": "6f97a3d5a4ae9242d26b61ef48613cf54df7c15cde9cf9d158b0baab8dfdcc0c"
+      },
+      "RM0522:p703": {
+        "source": "RM0522",
+        "page": 703,
+        "sha256": "7725590b1e9086cf3f4ad5d159ef12edb213dc6f4f74365688634a15304570a4"
+      },
+      "RM0522:p704": {
+        "source": "RM0522",
+        "page": 704,
+        "sha256": "8a9d452e3579a2cb991f9bed59c797b53f6ef982f48f934e4cdd6bc0dfe17901"
+      },
+      "RM0522:p705": {
+        "source": "RM0522",
+        "page": 705,
+        "sha256": "7af757811ac3088fa5ad0ec5353dcda7e8bfbff90cfa32f7a8dc7e43a1af67e7"
+      },
+      "RM0522:p706": {
+        "source": "RM0522",
+        "page": 706,
+        "sha256": "0456eb176360e1020dbb2787c18b0ed8dade967348b5cb3c01b1e5dfcc1a4a35"
+      },
+      "RM0522:p707": {
+        "source": "RM0522",
+        "page": 707,
+        "sha256": "78a018f6b7e3795092fe61b0fee0c7b8ee7965128738f57dc52dea7b4d9dba81"
+      },
+      "RM0522:p708": {
+        "source": "RM0522",
+        "page": 708,
+        "sha256": "a69960228a98da90615d85408b33c36b9c8642046282c36eca83ec46571415e3"
+      },
+      "RM0522:p709": {
+        "source": "RM0522",
+        "page": 709,
+        "sha256": "e6dd6bc6fdefb1f770fffc364372cbdf41a4db4acba32c99b1706302e814f5e5"
+      },
+      "RM0522:p710": {
+        "source": "RM0522",
+        "page": 710,
+        "sha256": "13613b0817aa050e48c382b0a82ff938e0c598a42efbaebd1ba10e4a13157ddf"
+      },
+      "header.struct": {
+        "source": "header",
+        "start_line": 330,
+        "end_line": 354,
+        "sha256": "9ec960458fa8deeb1a3287e87af4298c4cadd31f40eba4ca8ee0fa2c755fd637"
+      },
+      "header.WAVE2": {
+        "source": "header",
+        "start_line": 3075,
+        "end_line": 3078,
+        "sha256": "4cb9a85f2ba6263e21c367c1f5d830fa6be07f59002cc4225dea4ad38af9bc65"
+      },
+      "header.HFSEL": {
+        "source": "header",
+        "start_line": 3355,
+        "end_line": 3361,
+        "sha256": "d513325d44965c3ac891f8bd9a3aea47e9bf2f644ad5e300ff3e43cdf1461ffc"
+      }
+    },
+    "contracts": [
+      {
+        "id": "map_not_admission",
+        "detail": "Twenty named word positions0x00..0x4C agree with the exact header structure. Table165 reserved rows cover word offsets0x50..0x68. A map position does not override channel2/dual-register availability conflict in stable DAC survey, prove arbitrary access widths, or authorize writes. Preserve existing package/PA5 and internal-routing gates.",
+        "evidence": [
+          "RM0522:p673",
+          "RM0522:p709",
+          "RM0522:p710",
+          "header.struct"
+        ]
+      },
+      {
+        "id": "reset_scope",
+        "detail": "The map shows zero in defined reset fields except factory-dependent OTRIM bits in CCR and THOLD/TREFRESH reset1 per channel (SHHR/SHRR0x00010001). Reserved blank cells are not separate writable reset fields. CCR0x00XX00XX is a register reset notation; do not assign deterministic trim values or write reserved bits.",
+        "evidence": [
+          "RM0522:p704",
+          "RM0522:p707",
+          "RM0522:p708",
+          "RM0522:p709",
+          "RM0522:p710"
+        ]
+      },
+      {
+        "id": "shared_register_owner",
+        "detail": "Both channels share CR,SWTRGR,SR,CCR,MCR,SHHR,SHRR and packed dual-data registers. Channel-scoped changes require preserving other channel fields and correct side-effect semantics. SR mixes hardware status with W1C DMA underrun flags; generic read-modify-write can retire unrelated pending underrun evidence. Raw map is not a safe generic register-update contract.",
+        "evidence": [
+          "RM0522:p703",
+          "RM0522:p704",
+          "RM0522:p709",
+          "RM0522:p710"
+        ]
+      },
+      {
+        "id": "HFSEL_map_agreement",
+        "detail": "Table165, detailed RM705/706 and exact header agree HFSEL[2:0] at bits15:13, with12:10 reserved. An initial visual column-count error was rejected during independent review. Stable HAL frequency-boundary and encoding gates remain unchanged.",
+        "evidence": [
+          "RM0522:p710",
+          "RM0522:p705",
+          "RM0522:p706",
+          "header.HFSEL"
+        ]
+      }
+    ],
+    "conflicts": [
+      {
+        "id": "map_WAVE2_width",
+        "detail": "Rendered Table165 labels WAVE2[2:0] inside bits23:22, while detailed RM694 and exact header declare two-bit WAVE2[1:0]. Preserve label defect; no third WAVE bit inferred. Channel2 availability remains separately unresolved.",
+        "evidence": [
+          "RM0522:p709",
+          "RM0522:p694",
+          "header.WAVE2"
+        ]
+      }
+    ],
+    "finite_source_maps": {
+      "registers": [
+        {
+          "name": "DAC_CR",
+          "offset": "0x00",
+          "reset_literal": "0x00000000",
+          "evidence": [
+            "RM0522:p709",
+            "header.struct"
+          ]
+        },
+        {
+          "name": "DAC_SWTRGR",
+          "offset": "0x04",
+          "reset_literal": "0x00000000",
+          "evidence": [
+            "RM0522:p709",
+            "header.struct"
+          ]
+        },
+        {
+          "name": "DAC_DHR12R1",
+          "offset": "0x08",
+          "reset_literal": "0x00000000",
+          "evidence": [
+            "RM0522:p709",
+            "header.struct"
+          ]
+        },
+        {
+          "name": "DAC_DHR12L1",
+          "offset": "0x0C",
+          "reset_literal": "0x00000000",
+          "evidence": [
+            "RM0522:p709",
+            "header.struct"
+          ]
+        },
+        {
+          "name": "DAC_DHR8R1",
+          "offset": "0x10",
+          "reset_literal": "0x00000000",
+          "evidence": [
+            "RM0522:p709",
+            "header.struct"
+          ]
+        },
+        {
+          "name": "DAC_DHR12R2",
+          "offset": "0x14",
+          "reset_literal": "0x00000000",
+          "evidence": [
+            "RM0522:p709",
+            "header.struct"
+          ]
+        },
+        {
+          "name": "DAC_DHR12L2",
+          "offset": "0x18",
+          "reset_literal": "0x00000000",
+          "evidence": [
+            "RM0522:p709",
+            "header.struct"
+          ]
+        },
+        {
+          "name": "DAC_DHR8R2",
+          "offset": "0x1C",
+          "reset_literal": "0x00000000",
+          "evidence": [
+            "RM0522:p709",
+            "header.struct"
+          ]
+        },
+        {
+          "name": "DAC_DHR12RD",
+          "offset": "0x20",
+          "reset_literal": "0x00000000",
+          "evidence": [
+            "RM0522:p709",
+            "header.struct"
+          ]
+        },
+        {
+          "name": "DAC_DHR12LD",
+          "offset": "0x24",
+          "reset_literal": "0x00000000",
+          "evidence": [
+            "RM0522:p709",
+            "header.struct"
+          ]
+        },
+        {
+          "name": "DAC_DHR8RD",
+          "offset": "0x28",
+          "reset_literal": "0x00000000",
+          "evidence": [
+            "RM0522:p709",
+            "header.struct"
+          ]
+        },
+        {
+          "name": "DAC_DOR1",
+          "offset": "0x2C",
+          "reset_literal": "0x00000000",
+          "evidence": [
+            "RM0522:p709",
+            "header.struct"
+          ]
+        },
+        {
+          "name": "DAC_DOR2",
+          "offset": "0x30",
+          "reset_literal": "0x00000000",
+          "evidence": [
+            "RM0522:p709",
+            "header.struct"
+          ]
+        },
+        {
+          "name": "DAC_SR",
+          "offset": "0x34",
+          "reset_literal": "0x00000000",
+          "evidence": [
+            "RM0522:p710",
+            "header.struct"
+          ]
+        },
+        {
+          "name": "DAC_CCR",
+          "offset": "0x38",
+          "reset_literal": "0x00XX00XX",
+          "evidence": [
+            "RM0522:p710",
+            "header.struct"
+          ]
+        },
+        {
+          "name": "DAC_MCR",
+          "offset": "0x3C",
+          "reset_literal": "0x00000000",
+          "evidence": [
+            "RM0522:p710",
+            "header.struct"
+          ]
+        },
+        {
+          "name": "DAC_SHSR1",
+          "offset": "0x40",
+          "reset_literal": "0x00000000",
+          "evidence": [
+            "RM0522:p710",
+            "header.struct"
+          ]
+        },
+        {
+          "name": "DAC_SHSR2",
+          "offset": "0x44",
+          "reset_literal": "0x00000000",
+          "evidence": [
+            "RM0522:p710",
+            "header.struct"
+          ]
+        },
+        {
+          "name": "DAC_SHHR",
+          "offset": "0x48",
+          "reset_literal": "0x00010001",
+          "evidence": [
+            "RM0522:p710",
+            "header.struct"
+          ]
+        },
+        {
+          "name": "DAC_SHRR",
+          "offset": "0x4C",
+          "reset_literal": "0x00010001",
+          "evidence": [
+            "RM0522:p710",
+            "header.struct"
+          ]
+        }
+      ],
+      "reserved_word_offsets": [
+        "0x50",
+        "0x54",
+        "0x58",
+        "0x5C",
+        "0x60",
+        "0x64",
+        "0x68"
+      ]
+    },
+    "visual_checks": [
+      {
+        "path": "research://c5-reference/dac-rm709.png",
+        "sha256": "ad9f9b07e00c61a99cef5bea460176c682bd82add1b579cfe09a2ce1a93b6bc2",
+        "source": "RM0522",
+        "page": 709,
+        "source_sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "render_recipe": "pdftoppm -f 709 -l 709 -scale-to 1900 -png -singlefile",
+        "finding": "Offsets, reset cells and rotated field placement visually checked; overview conflicts retained."
+      },
+      {
+        "path": "research://c5-reference/dac-rm710.png",
+        "sha256": "05fd495b21015f4beeb3a4b49b8a0034bee298b814386c184ee5ba6e7bf5913c",
+        "source": "RM0522",
+        "page": 710,
+        "source_sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "render_recipe": "pdftoppm -f 710 -l 710 -scale-to 1900 -png -singlefile",
+        "finding": "Offsets and reset cells checked; independent review corrected initial column count: HFSEL is15:13, agreeing with detail and header; no HFSEL map conflict."
+      }
+    ],
+    "open_gates": [
+      "No operational, build, hardware or performance qualification.",
+      "No repair of stable channel2/dual-channel availability, PA5 identity or internal routing conflicts.",
+      "Map read does not prove full DAC SDK lifecycle or all register side effects."
+    ]
+  }
+}

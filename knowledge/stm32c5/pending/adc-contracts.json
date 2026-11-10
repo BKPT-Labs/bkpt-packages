@@ -1,0 +1,1239 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/adc-contracts.json",
+    "sha256": "160348a1a4cb233b8aab5e24d28633ff0fe3c5326d7d171648106b5c8b33512f"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 49
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "schema": "bkpt.external.adc.contracts.v1",
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "sources": {
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "LL_ADC": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_adc.h",
+        "sha256": "c924768418a5d6883b328af001cfc59a0c0db9b26bd7c29d083d8aee1aa8e6a7"
+      },
+      "HAL_ADC": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_adc.c",
+        "sha256": "59e018ab39fd8cec11b4380ea3fa6b186c7a37d0c4b701556edd79fd2df33100"
+      },
+      "LL_SBS": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_sbs.h",
+        "sha256": "cf4cb1682f9f928a186b675ad220772f51f2160f401ad65ea7d99f3b9d937258"
+      },
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "DS15135": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pdf",
+        "sha256": "1a3555f799297774a95978ab343ebc1f45ab9ef58d0dcf3600dec4fabed9355c",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pages.json",
+        "extraction_sha256": "b14b965adb6c1545edbca0e56b3c504e7ecc3a94bda197350ce2757b5a3d55dc"
+      },
+      "ES0676": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pdf",
+        "sha256": "a5463827337bcdbd3e5f2e0912a56307d78b568e5631b21cc9a25899c7d4a5e6",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pages.json",
+        "extraction_sha256": "2ab1b19e42b53e22ff5f3b98f6ed9a5f98f3b7b61a617abc3bb3b7fc050d1cb3"
+      },
+      "HAL_ADC_header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_adc.h",
+        "sha256": "72648d1b40168566918532dec8fe51bf1e6ab1a49f15c07cab0d6bb6b8dbcf0e"
+      }
+    },
+    "evidence": {
+      "header.instances": {
+        "source": "header",
+        "start_line": 14015,
+        "end_line": 14023,
+        "sha256": "ec5f772f0ba34d007d9fb479ada0b34f2beff8cfc7e3593aa91e4754bd98777d"
+      },
+      "header.JOVSE": {
+        "source": "header",
+        "start_line": 1579,
+        "end_line": 1581,
+        "sha256": "6ada5e61cbc3a94979f3952ae0f60cc78e10c2ab75e6800a4f6eb4b358992e30"
+      },
+      "LL.internal_channels": {
+        "source": "LL_ADC",
+        "start_line": 693,
+        "end_line": 699,
+        "sha256": "15bbd44f5ff15d72701f78559dd3d5a98736294bcbe4e41a09607fa23717aee1"
+      },
+      "LL.REG_TIM5": {
+        "source": "LL_ADC",
+        "start_line": 747,
+        "end_line": 752,
+        "sha256": "7ba57bbfc4686666afe5e2ec960f030b6fad721addc88e0d7c81ee957f78b91b"
+      },
+      "LL.INJ_TIM5": {
+        "source": "LL_ADC",
+        "start_line": 990,
+        "end_line": 1003,
+        "sha256": "8017ac5bf2b3efb0f50f089359e8fbf3d95b588526f28f5ae26516fc7a8e6f59"
+      },
+      "HAL.REG_trigger_guard": {
+        "source": "HAL_ADC",
+        "start_line": 271,
+        "end_line": 310,
+        "sha256": "343a1da5c9bfdb3d64cb12df046fd8392837620ca1294d9f395582e06b34d7a2"
+      },
+      "HAL.INJ_trigger_guard": {
+        "source": "HAL_ADC",
+        "start_line": 344,
+        "end_line": 391,
+        "sha256": "358628206884aa8047f357adc84f989a357c5a78da755bd09513705c6ea63221"
+      },
+      "HAL.REG_config": {
+        "source": "HAL_ADC",
+        "start_line": 1125,
+        "end_line": 1194,
+        "sha256": "19986262efa0bb4dd798b646189e895a498b71014f44096e0cc39bf687c93160"
+      },
+      "HAL.INJ_config": {
+        "source": "HAL_ADC",
+        "start_line": 1230,
+        "end_line": 1297,
+        "sha256": "abca97fccd2616cba75143858a0decb203a51a6c3137c72473ac2a46848804b7"
+      },
+      "HAL.channel_enable": {
+        "source": "HAL_ADC",
+        "start_line": 1380,
+        "end_line": 1407,
+        "sha256": "c38369b95b783a235da223f2d56ec6c49ce34a7985fd97f2fe10297735a627af"
+      },
+      "HAL.shift_guard": {
+        "source": "HAL_ADC",
+        "start_line": 603,
+        "end_line": 611,
+        "sha256": "23264346ed4b266c1bbdabc257431ca36e673c4f2df36fe0c906d6ec108f435c"
+      },
+      "HAL.oversampling": {
+        "source": "HAL_ADC",
+        "start_line": 2217,
+        "end_line": 2257,
+        "sha256": "0f425250427a3c32b6c5db050210898be3166ddd52d75b12ce188926ce7f08db"
+      },
+      "LL.shift": {
+        "source": "LL_ADC",
+        "start_line": 5397,
+        "end_line": 5441,
+        "sha256": "01cb320b81eaf874a99989845cbfdad873c3bc12639a0c442121ffaaadac5d63"
+      },
+      "LL.injected_trigger": {
+        "source": "LL_ADC",
+        "start_line": 3729,
+        "end_line": 3731,
+        "sha256": "2f6a53cf07a9ab0869995bfb70e1738487edb5a64f30d91161efa741451bff49"
+      },
+      "LL.single_ended": {
+        "source": "LL_ADC",
+        "start_line": 4349,
+        "end_line": 4355,
+        "sha256": "cc987565bca8a6efc9d296640432ad6a91b5292ed5aacc015f0ef9f23b2cb9c1"
+      },
+      "LL.SBS_pin_select": {
+        "source": "LL_SBS",
+        "start_line": 80,
+        "end_line": 83,
+        "sha256": "1d383691c0f603aa6df201c281f6311618bc4d6ba5176f70ffcaef46b8b88e86"
+      },
+      "RM0522:p363": {
+        "source": "RM0522",
+        "page": 363,
+        "sha256": "94f3972bff47c4d4901b139e2ac57d07a667055969da72821deb752f7f3adaed"
+      },
+      "RM0522:p364": {
+        "source": "RM0522",
+        "page": 364,
+        "sha256": "e6edc69b1ea4b6385068fdcc6606ad75002d9c836e715cd513f63c8798471209"
+      },
+      "RM0522:p563": {
+        "source": "RM0522",
+        "page": 563,
+        "sha256": "14d1eb7ef0761f2c8f105990a0b4dc0b502be2965b8606b2632b4a2f812185c8"
+      },
+      "RM0522:p565": {
+        "source": "RM0522",
+        "page": 565,
+        "sha256": "db4cb1d1faf26d4e07aa37d7d49328d606991b496e00909b015e97b848b238b9"
+      },
+      "RM0522:p566": {
+        "source": "RM0522",
+        "page": 566,
+        "sha256": "5029be88bfdb6f9650840f42bcfca27805aec5fa56abfa80f9af23bdb147e193"
+      },
+      "RM0522:p567": {
+        "source": "RM0522",
+        "page": 567,
+        "sha256": "717c6a87e19d9e40ce6763ea64672ea3414df3ff61f0aa5f653038ea1393d43a"
+      },
+      "RM0522:p568": {
+        "source": "RM0522",
+        "page": 568,
+        "sha256": "2f0aa70298251af17881acba4e57f66a3c56a618f78ac3efb6a9c57a3cb60647"
+      },
+      "RM0522:p569": {
+        "source": "RM0522",
+        "page": 569,
+        "sha256": "ff7e3b589479274645099d61ea33090b463942dad540537a476014e9f8c8b0c6"
+      },
+      "RM0522:p576": {
+        "source": "RM0522",
+        "page": 576,
+        "sha256": "faad87a3b05ba81ede96c760d24ee74f7c82d9aa120664a0e78cf5bb0742d3f6"
+      },
+      "RM0522:p577": {
+        "source": "RM0522",
+        "page": 577,
+        "sha256": "fddf36434849f4a4c72e2ebb5ef02b35e549d0cee641c8c95c5122fe9e655618"
+      },
+      "RM0522:p578": {
+        "source": "RM0522",
+        "page": 578,
+        "sha256": "c85513aab804ede7409622d38c5b959d58c2c645a02f71af3f88bd82a47022f1"
+      },
+      "RM0522:p579": {
+        "source": "RM0522",
+        "page": 579,
+        "sha256": "fffb50e74c5cd53e10dff2d29b8c2d3aa712ae827ade294a032fdab0ac477882"
+      },
+      "RM0522:p580": {
+        "source": "RM0522",
+        "page": 580,
+        "sha256": "8c8a432fa0d9fe09029d2546e6aa32c9df9a2baec84a6635175de2e4ee81f869"
+      },
+      "RM0522:p581": {
+        "source": "RM0522",
+        "page": 581,
+        "sha256": "fe403f257984cd66e789308d2aeaba26cc1f29fe310fb5f14e148fc6d82d8c7d"
+      },
+      "RM0522:p585": {
+        "source": "RM0522",
+        "page": 585,
+        "sha256": "5dc72e59fc3efefc9dd8254e2156ce7f846186cd07782ad738224018aae3589d"
+      },
+      "RM0522:p587": {
+        "source": "RM0522",
+        "page": 587,
+        "sha256": "20e406864caecf51f7a023e5ddd3edb0409b83bcf2b8215a958646e5477734da"
+      },
+      "RM0522:p591": {
+        "source": "RM0522",
+        "page": 591,
+        "sha256": "6d055651d1f6f10553fd4810f0213df3cbc1fa6ebaea855508c12997f48734d5"
+      },
+      "RM0522:p596": {
+        "source": "RM0522",
+        "page": 596,
+        "sha256": "3da92a2ad44e7e19db5ad994ef92f412bdda6913488f7b5a7e685a653fe9fdb1"
+      },
+      "RM0522:p611": {
+        "source": "RM0522",
+        "page": 611,
+        "sha256": "15bcfe76d9e230fd7df755140fbae12402daa438c6bf5227f330c96a4b85459f"
+      },
+      "RM0522:p612": {
+        "source": "RM0522",
+        "page": 612,
+        "sha256": "39491b54661a20a052e0f803594d7659f90dac81db9bea9017499d501c59e960"
+      },
+      "RM0522:p613": {
+        "source": "RM0522",
+        "page": 613,
+        "sha256": "db1efb86b36153bc908008e7ff2544901d1f9037f8f9b270c61b3d590ed477c6"
+      },
+      "RM0522:p614": {
+        "source": "RM0522",
+        "page": 614,
+        "sha256": "35a72705571b0015e285edfd8c6df6f21a27994830d62fa800e02a11da669106"
+      },
+      "RM0522:p644": {
+        "source": "RM0522",
+        "page": 644,
+        "sha256": "94e06321f0589c2d826bc999ca2cec3011c20c6094c980f09aedcb1e591f9f6a"
+      },
+      "RM0522:p645": {
+        "source": "RM0522",
+        "page": 645,
+        "sha256": "d6fd26c0dfabeb73c9e877189d71b6938b91751985acfe24822391e9860b6ab4"
+      },
+      "RM0522:p647": {
+        "source": "RM0522",
+        "page": 647,
+        "sha256": "8868a8e844d2bd20657b60a1ec44f967e621be08b18842964c3a4fc48574b2e0"
+      },
+      "DS15135:p4": {
+        "source": "DS15135",
+        "page": 4,
+        "sha256": "9bd359262ece49d8a277ec8e49f1c3be8d04e2ef80052d63d8bcb5d263a2f4f7"
+      },
+      "DS15135:p15": {
+        "source": "DS15135",
+        "page": 15,
+        "sha256": "5a8754d4f7fb5085c0b8fe46df10ae8ad5783e1d0a6d066b9cd41cca361b7685"
+      },
+      "ES0676:p5": {
+        "source": "ES0676",
+        "page": 5,
+        "sha256": "b1c29e54e422b77b7a01a6dea47789196c0a8d23aed2f9a68f6a91698ae66d9d"
+      },
+      "HAL.OVS_guards": {
+        "source": "HAL_ADC",
+        "start_line": 578,
+        "end_line": 610,
+        "sha256": "4cfe691c6648ed00f7be7d6054a71327ba452a7564122d73b375edc908d9be52"
+      },
+      "LL.OVS_scope": {
+        "source": "LL_ADC",
+        "start_line": 1195,
+        "end_line": 1220,
+        "sha256": "64eb6a789bf79e5f3a2af1bea6f2bc97da10722bc433b9c0f61a98f55b39cd5f"
+      },
+      "LL.OVS_scope_setters": {
+        "source": "LL_ADC",
+        "start_line": 5280,
+        "end_line": 5349,
+        "sha256": "257a3be83fc54b56ce79e78a46722db280d74c7ca736844c99aa15d250793c93"
+      },
+      "HAL.OVS_enums": {
+        "source": "HAL_ADC_header",
+        "start_line": 781,
+        "end_line": 819,
+        "sha256": "77ba0928103e6b6262aa9554e20b6efe542554836f1d303daadd5f3dc72f449e"
+      },
+      "LL.OVS_discont": {
+        "source": "LL_ADC",
+        "start_line": 1225,
+        "end_line": 1236,
+        "sha256": "e065af73a24f50117a4241e1985bb30b5e808f9d3a247a343458fbc2a6e06074"
+      }
+    },
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "review": "Claude initial findings incorporated; independent correction review pending",
+    "package_routes_sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288",
+    "sdk_lifecycle_sha256": "09c4f0f44f862065fa5164ae937b15923e9b702455aae1dc1e215a9ef7783c4c",
+    "external_channel_routes": [
+      {
+        "channel": 0,
+        "signal": "ADC1_IN0",
+        "package_routes": [
+          {
+            "pin": "PA0",
+            "pad": 14,
+            "route_id": "descriptor.signal.52",
+            "board_binding": {
+              "file": "package-routes.json",
+              "pointer": "/board/U1_net_memberships/13",
+              "members": [
+                {
+                  "reference": "CN7",
+                  "pin": "28"
+                },
+                {
+                  "reference": "CN8",
+                  "pin": "1"
+                },
+                {
+                  "reference": "U1",
+                  "pin": "14"
+                }
+              ],
+              "qualification": "Literal net membership only; bridge conduction, actual population and board state unqualified."
+            },
+            "package_conflict_ids": []
+          }
+        ],
+        "qualification": "Logical channel identity; electrical and live mux state unqualified."
+      },
+      {
+        "channel": 1,
+        "signal": "ADC1_IN1",
+        "package_routes": [
+          {
+            "pin": "PA1",
+            "pad": 15,
+            "route_id": "descriptor.signal.53",
+            "board_binding": {
+              "file": "package-routes.json",
+              "pointer": "/board/U1_net_memberships/14",
+              "members": [
+                {
+                  "reference": "CN7",
+                  "pin": "30"
+                },
+                {
+                  "reference": "CN8",
+                  "pin": "2"
+                },
+                {
+                  "reference": "U1",
+                  "pin": "15"
+                }
+              ],
+              "qualification": "Literal net membership only; bridge conduction, actual population and board state unqualified."
+            },
+            "package_conflict_ids": [
+              "PA1_IO_structure"
+            ]
+          }
+        ],
+        "qualification": "Logical channel identity; electrical and live mux state unqualified."
+      },
+      {
+        "channel": 2,
+        "signal": "ADC1_IN2",
+        "package_routes": [
+          {
+            "pin": "PA2",
+            "pad": 16,
+            "route_id": "descriptor.signal.56",
+            "board_binding": {
+              "file": "package-routes.json",
+              "pointer": "/board/U1_net_memberships/15",
+              "members": [
+                {
+                  "reference": "CN7",
+                  "pin": "9"
+                },
+                {
+                  "reference": "SB26",
+                  "pin": "1"
+                },
+                {
+                  "reference": "U1",
+                  "pin": "16"
+                }
+              ],
+              "qualification": "Literal net membership only; bridge conduction, actual population and board state unqualified."
+            },
+            "package_conflict_ids": []
+          },
+          {
+            "pin": "PC4",
+            "pad": 24,
+            "route_id": "descriptor.signal.57",
+            "board_binding": {
+              "file": "package-routes.json",
+              "pointer": "/board/U1_net_memberships/23",
+              "members": [
+                {
+                  "reference": "CN10",
+                  "pin": "34"
+                },
+                {
+                  "reference": "SB33",
+                  "pin": "2"
+                },
+                {
+                  "reference": "U1",
+                  "pin": "24"
+                }
+              ],
+              "qualification": "Literal net membership only; bridge conduction, actual population and board state unqualified."
+            },
+            "package_conflict_ids": []
+          }
+        ],
+        "qualification": "Logical channel identity; electrical and live mux state unqualified."
+      },
+      {
+        "channel": 3,
+        "signal": "ADC1_IN3",
+        "package_routes": [
+          {
+            "pin": "PA3",
+            "pad": 17,
+            "route_id": "descriptor.signal.58",
+            "board_binding": {
+              "file": "package-routes.json",
+              "pointer": "/board/U1_net_memberships/16",
+              "members": [
+                {
+                  "reference": "CN7",
+                  "pin": "11"
+                },
+                {
+                  "reference": "SB12",
+                  "pin": "1"
+                },
+                {
+                  "reference": "U1",
+                  "pin": "17"
+                }
+              ],
+              "qualification": "Literal net membership only; bridge conduction, actual population and board state unqualified."
+            },
+            "package_conflict_ids": []
+          }
+        ],
+        "qualification": "Logical channel identity; electrical and live mux state unqualified."
+      },
+      {
+        "channel": 4,
+        "signal": "ADC1_IN4",
+        "package_routes": [
+          {
+            "pin": "PA4",
+            "pad": 20,
+            "route_id": "descriptor.signal.59",
+            "board_binding": {
+              "file": "package-routes.json",
+              "pointer": "/board/U1_net_memberships/19",
+              "members": [
+                {
+                  "reference": "SB24",
+                  "pin": "1"
+                },
+                {
+                  "reference": "SB46",
+                  "pin": "1"
+                },
+                {
+                  "reference": "U1",
+                  "pin": "20"
+                }
+              ],
+              "qualification": "Literal net membership only; bridge conduction, actual population and board state unqualified."
+            },
+            "package_conflict_ids": []
+          }
+        ],
+        "qualification": "Logical channel identity; electrical and live mux state unqualified."
+      },
+      {
+        "channel": 5,
+        "signal": "ADC1_IN5",
+        "package_routes": [
+          {
+            "pin": "PA5",
+            "pad": 21,
+            "route_id": "descriptor.signal.60",
+            "board_binding": {
+              "file": "package-routes.json",
+              "pointer": "/board/U1_net_memberships/20",
+              "members": [
+                {
+                  "reference": "CN5",
+                  "pin": "6"
+                },
+                {
+                  "reference": "CN10",
+                  "pin": "11"
+                },
+                {
+                  "reference": "SB8",
+                  "pin": "1"
+                },
+                {
+                  "reference": "U1",
+                  "pin": "21"
+                }
+              ],
+              "qualification": "Literal net membership only; bridge conduction, actual population and board state unqualified."
+            },
+            "package_conflict_ids": [
+              "PA5_DAC_identity"
+            ]
+          },
+          {
+            "pin": "PC5",
+            "pad": 25,
+            "route_id": "descriptor.signal.61",
+            "board_binding": {
+              "file": "package-routes.json",
+              "pointer": "/board/U1_net_memberships/24",
+              "members": [
+                {
+                  "reference": "SB27",
+                  "pin": "1"
+                },
+                {
+                  "reference": "SB43",
+                  "pin": "1"
+                },
+                {
+                  "reference": "U1",
+                  "pin": "25"
+                }
+              ],
+              "qualification": "Literal net membership only; bridge conduction, actual population and board state unqualified."
+            },
+            "package_conflict_ids": []
+          }
+        ],
+        "qualification": "Logical channel identity; electrical and live mux state unqualified."
+      },
+      {
+        "channel": 6,
+        "signal": "ADC1_IN6",
+        "package_routes": [
+          {
+            "pin": "PA6",
+            "pad": 22,
+            "route_id": "descriptor.signal.62",
+            "board_binding": {
+              "file": "package-routes.json",
+              "pointer": "/board/U1_net_memberships/21",
+              "members": [
+                {
+                  "reference": "CN5",
+                  "pin": "5"
+                },
+                {
+                  "reference": "CN10",
+                  "pin": "13"
+                },
+                {
+                  "reference": "U1",
+                  "pin": "22"
+                }
+              ],
+              "qualification": "Literal net membership only; bridge conduction, actual population and board state unqualified."
+            },
+            "package_conflict_ids": []
+          },
+          {
+            "pin": "PB0",
+            "pad": 26,
+            "route_id": "descriptor.signal.63",
+            "board_binding": {
+              "file": "package-routes.json",
+              "pointer": "/board/U1_net_memberships/25",
+              "members": [
+                {
+                  "reference": "CN7",
+                  "pin": "34"
+                },
+                {
+                  "reference": "CN8",
+                  "pin": "4"
+                },
+                {
+                  "reference": "U1",
+                  "pin": "26"
+                }
+              ],
+              "qualification": "Literal net membership only; bridge conduction, actual population and board state unqualified."
+            },
+            "package_conflict_ids": []
+          }
+        ],
+        "qualification": "Logical channel identity; electrical and live mux state unqualified."
+      },
+      {
+        "channel": 7,
+        "signal": "ADC1_IN7",
+        "package_routes": [
+          {
+            "pin": "PA7",
+            "pad": 23,
+            "route_id": "descriptor.signal.64",
+            "board_binding": {
+              "file": "package-routes.json",
+              "pointer": "/board/U1_net_memberships/22",
+              "members": [
+                {
+                  "reference": "CN5",
+                  "pin": "4"
+                },
+                {
+                  "reference": "CN10",
+                  "pin": "15"
+                },
+                {
+                  "reference": "U1",
+                  "pin": "23"
+                }
+              ],
+              "qualification": "Literal net membership only; bridge conduction, actual population and board state unqualified."
+            },
+            "package_conflict_ids": []
+          },
+          {
+            "pin": "PB1",
+            "pad": 27,
+            "route_id": "descriptor.signal.65",
+            "board_binding": {
+              "file": "package-routes.json",
+              "pointer": "/board/U1_net_memberships/26",
+              "members": [
+                {
+                  "reference": "SB29",
+                  "pin": "1"
+                },
+                {
+                  "reference": "SB45",
+                  "pin": "1"
+                },
+                {
+                  "reference": "U1",
+                  "pin": "27"
+                }
+              ],
+              "qualification": "Literal net membership only; bridge conduction, actual population and board state unqualified."
+            },
+            "package_conflict_ids": []
+          }
+        ],
+        "qualification": "Logical channel identity; electrical and live mux state unqualified."
+      },
+      {
+        "channel": 8,
+        "signal": "ADC1_IN8",
+        "package_routes": [
+          {
+            "pin": "PC0",
+            "pad": 8,
+            "route_id": "descriptor.signal.66",
+            "board_binding": {
+              "file": "package-routes.json",
+              "pointer": "/board/U1_net_memberships/7",
+              "members": [
+                {
+                  "reference": "CN7",
+                  "pin": "38"
+                },
+                {
+                  "reference": "CN8",
+                  "pin": "6"
+                },
+                {
+                  "reference": "U1",
+                  "pin": "8"
+                }
+              ],
+              "qualification": "Literal net membership only; bridge conduction, actual population and board state unqualified."
+            },
+            "package_conflict_ids": []
+          }
+        ],
+        "qualification": "Logical channel identity; electrical and live mux state unqualified."
+      },
+      {
+        "channel": 9,
+        "signal": "ADC1_IN9",
+        "package_routes": [
+          {
+            "pin": "PC1",
+            "pad": 9,
+            "route_id": "descriptor.signal.67",
+            "board_binding": {
+              "file": "package-routes.json",
+              "pointer": "/board/U1_net_memberships/8",
+              "members": [
+                {
+                  "reference": "SB30",
+                  "pin": "1"
+                },
+                {
+                  "reference": "SB47",
+                  "pin": "1"
+                },
+                {
+                  "reference": "U1",
+                  "pin": "9"
+                }
+              ],
+              "qualification": "Literal net membership only; bridge conduction, actual population and board state unqualified."
+            },
+            "package_conflict_ids": []
+          }
+        ],
+        "qualification": "Logical channel identity; electrical and live mux state unqualified."
+      },
+      {
+        "channel": 10,
+        "signal": "ADC1_IN10",
+        "package_routes": [
+          {
+            "pin": "PC2",
+            "pad": 10,
+            "route_id": "descriptor.signal.54",
+            "board_binding": {
+              "file": "package-routes.json",
+              "pointer": "/board/U1_net_memberships/9",
+              "members": [
+                {
+                  "reference": "CN7",
+                  "pin": "35"
+                },
+                {
+                  "reference": "U1",
+                  "pin": "10"
+                }
+              ],
+              "qualification": "Literal net membership only; bridge conduction, actual population and board state unqualified."
+            },
+            "package_conflict_ids": []
+          }
+        ],
+        "qualification": "Logical channel identity; electrical and live mux state unqualified."
+      },
+      {
+        "channel": 11,
+        "signal": "ADC1_IN11",
+        "package_routes": [
+          {
+            "pin": "PC3",
+            "pad": 11,
+            "route_id": "descriptor.signal.55",
+            "board_binding": {
+              "file": "package-routes.json",
+              "pointer": "/board/U1_net_memberships/10",
+              "members": [
+                {
+                  "reference": "CN7",
+                  "pin": "37"
+                },
+                {
+                  "reference": "U1",
+                  "pin": "11"
+                }
+              ],
+              "qualification": "Literal net membership only; bridge conduction, actual population and board state unqualified."
+            },
+            "package_conflict_ids": []
+          }
+        ],
+        "qualification": "Logical channel identity; electrical and live mux state unqualified."
+      }
+    ],
+    "SBS_route_selection": [
+      {
+        "channel": 2,
+        "PMCR_bit": 0,
+        "zero_pin": "PA2",
+        "one_pin": "PC4",
+        "evidence": [
+          "RM0522:p363",
+          "RM0522:p364",
+          "LL.SBS_pin_select"
+        ],
+        "reset_bit": 0,
+        "reset_pin": "PA2"
+      },
+      {
+        "channel": 5,
+        "PMCR_bit": 1,
+        "zero_pin": "PA5",
+        "one_pin": "PC5",
+        "evidence": [
+          "RM0522:p363",
+          "RM0522:p364",
+          "LL.SBS_pin_select"
+        ],
+        "reset_bit": 0,
+        "reset_pin": "PA5"
+      },
+      {
+        "channel": 6,
+        "PMCR_bit": 2,
+        "zero_pin": "PA6",
+        "one_pin": "PB0",
+        "evidence": [
+          "RM0522:p363",
+          "RM0522:p364",
+          "LL.SBS_pin_select"
+        ],
+        "reset_bit": 0,
+        "reset_pin": "PA6"
+      },
+      {
+        "channel": 7,
+        "PMCR_bit": 3,
+        "zero_pin": "PA7",
+        "one_pin": "PB1",
+        "evidence": [
+          "RM0522:p363",
+          "RM0522:p364",
+          "LL.SBS_pin_select"
+        ],
+        "reset_bit": 0,
+        "reset_pin": "PA7"
+      }
+    ],
+    "internal_channels": [
+      {
+        "channel": 12,
+        "source": "temperature_sensor",
+        "evidence": [
+          "RM0522:p565",
+          "RM0522:p569",
+          "LL.internal_channels"
+        ]
+      },
+      {
+        "channel": 13,
+        "source": "VREFINT",
+        "qualification": "RM565 alternatively mentions dac_int1; loopback not admitted.",
+        "evidence": [
+          "RM0522:p565",
+          "RM0522:p569",
+          "LL.internal_channels"
+        ]
+      }
+    ],
+    "hardware_trigger_candidates": {
+      "regular_EXTSEL": [
+        {
+          "selector": 0,
+          "source": "EXTI11"
+        },
+        {
+          "selector": 1,
+          "source": "TIM1_OC1"
+        },
+        {
+          "selector": 2,
+          "source": "TIM1_OC2"
+        },
+        {
+          "selector": 3,
+          "source": "TIM1_OC3"
+        },
+        {
+          "selector": 4,
+          "source": "TIM1_TRGO"
+        },
+        {
+          "selector": 5,
+          "source": "TIM1_TRGO2"
+        },
+        {
+          "selector": 6,
+          "source": "TIM2_OC2"
+        },
+        {
+          "selector": 7,
+          "source": "TIM2_TRGO"
+        },
+        {
+          "selector": 12,
+          "source": "TIM6_TRGO"
+        },
+        {
+          "selector": 13,
+          "source": "TIM8_TRGO"
+        },
+        {
+          "selector": 14,
+          "source": "TIM8_TRGO2"
+        },
+        {
+          "selector": 15,
+          "source": "TIM15_TRGO"
+        },
+        {
+          "selector": 16,
+          "source": "LPTIM1_CH1"
+        }
+      ],
+      "injected_JEXTSEL": [
+        {
+          "selector": 0,
+          "source": "EXTI15"
+        },
+        {
+          "selector": 1,
+          "source": "TIM1_OC4"
+        },
+        {
+          "selector": 2,
+          "source": "TIM1_TRGO"
+        },
+        {
+          "selector": 3,
+          "source": "TIM1_TRGO2"
+        },
+        {
+          "selector": 4,
+          "source": "TIM2_OC1"
+        },
+        {
+          "selector": 5,
+          "source": "TIM2_TRGO"
+        },
+        {
+          "selector": 14,
+          "source": "TIM7_TRGO"
+        },
+        {
+          "selector": 15,
+          "source": "TIM8_OC4"
+        },
+        {
+          "selector": 16,
+          "source": "TIM8_TRGO"
+        },
+        {
+          "selector": 17,
+          "source": "TIM8_TRGO2"
+        },
+        {
+          "selector": 18,
+          "source": "TIM12_TRGO"
+        },
+        {
+          "selector": 19,
+          "source": "TIM15_TRGO"
+        },
+        {
+          "selector": 20,
+          "source": "LPTIM1_CH1"
+        }
+      ],
+      "evidence": [
+        "RM0522:p565",
+        "RM0522:p566",
+        "RM0522:p567"
+      ],
+      "qualification": "Software trigger and JAUTO are separate controls, not added selectors. Source availability does not establish delivered trigger, arm state, polarity or EXTI ownership. LL calls LPTIM1_CH1 LPTIM1_OC1."
+    },
+    "contracts": [
+      {
+        "id": "physical_inventory",
+        "detail": "One physical ADC1,12 external channel identities with16 package pin alternatives, two internal inputs. ADC12_COMMON is not ADC2. Preserve family dual-ADC erratum without fabricating an ADC2 topology.",
+        "evidence": [
+          "DS15135:p4",
+          "DS15135:p15",
+          "RM0522:p569",
+          "header.instances",
+          "ES0676:p5"
+        ]
+      },
+      {
+        "id": "sequence_identity",
+        "detail": "Regular sequencer1..16 ranks; injected1..4. Repeated channels allowed; this does not establish a queued injected-context facility. Sampling time belongs to a channel, not separately to each occurrence in a rank.",
+        "evidence": [
+          "RM0522:p576",
+          "RM0522:p577"
+        ]
+      },
+      {
+        "id": "input_setup",
+        "detail": "External channels need PCSEL before conversion; internal sources need common-path enabling plus stabilization and electrical sampling constraints. Exact peripheral is single-ended; LL SingleDiff configuration is a no-op.",
+        "evidence": [
+          "HAL.channel_enable",
+          "RM0522:p563",
+          "LL.single_ended"
+        ]
+      },
+      {
+        "id": "sampling_cycles",
+        "detail": "SMP codes0..7 select3,5,8,13,25,48,139,289 ADC clocks. This is not a total conversion-time or analog accuracy guarantee.",
+        "evidence": [
+          "RM0522:p577"
+        ]
+      },
+      {
+        "id": "data_ownership",
+        "detail": "Regular FIFO has eight32-bit entries when OVRMOD=0; OVRMOD=1 disables FIFO and overwrites unread data. Injected results use four JDRs. Read/flag/DMA ownership and loss handling remain unqualified.",
+        "evidence": [
+          "RM0522:p579",
+          "RM0522:p591",
+          "RM0522:p596"
+        ]
+      },
+      {
+        "id": "trigger_arming",
+        "detail": "Hardware selectors require ADSTART/JADSTART arming and matching EXTEN/JEXTEN. Polarity0 denotes software,1 rising,2 falling,3 both. Regular polarity cannot change on the fly. EXTI11/15 signal-stage and consumer-sharing qualification remain separate.",
+        "evidence": [
+          "RM0522:p585"
+        ]
+      },
+      {
+        "id": "discontinuous_modes",
+        "detail": "Continuous is regular-only. Regular discontinuous subgroup size1..8; injected discontinuous advances one rank per trigger. JAUTO plus discontinuous is excluded pending contradictory RM wording.",
+        "evidence": [
+          "RM0522:p579",
+          "RM0522:p580",
+          "RM0522:p581",
+          "RM0522:p587"
+        ]
+      },
+      {
+        "id": "sampling_control",
+        "detail": "BULB/SMPTRIG are mutually exclusive and regular-only. BULB uses programmed SMP for first conversion and applies from second. SMPTRIG ignores SMP; documented hardware mode EXTEN=01 rising starts sampling and falling starts conversion with minimum pulse7 ADC clocks. Software uses SWTRIG set/clear. SMPTRIG requires documented discontinuous/DISCNUM0 setup and excludes injected/autoinjected operation. Honor actual disabled-state requirements and ES disable/clear/re-enable transition. EXTEN=10/11 SMPTRIG behavior is not admitted; discontinuous requirement wording conflicts with CFGR2 description.",
+        "evidence": [
+          "RM0522:p577",
+          "RM0522:p578",
+          "RM0522:p645",
+          "ES0676:p5"
+        ]
+      },
+      {
+        "id": "oversampling",
+        "detail": "Effective ratio = OVSR + 1; OVSR stores ratio - 1. Ratios 1..1024 are encoded, with 1 meaning no oversampling; feature prose describes2..1024. Shift0..10 only. TROVS excludes software trigger and JAUTO; combined regular/injected modes need separate ROVSM/TROVS constraints, not a Cartesian product.",
+        "evidence": [
+          "RM0522:p611",
+          "RM0522:p612",
+          "RM0522:p613",
+          "RM0522:p614",
+          "RM0522:p645",
+          "RM0522:p647",
+          "DS15135:p15"
+        ]
+      },
+      {
+        "id": "register_update_latency",
+        "detail": "When AHB is faster than ADC clock, RM requires four ADC-kernel cycles after register updates. Full clock/calibration/enable/internal-source startup remains a separate audit.",
+        "evidence": [
+          "RM0522:p568"
+        ]
+      }
+    ],
+    "source_derived_SDK_gaps": [
+      {
+        "id": "reserved_TIM5_triggers",
+        "detail": "Exact C53x/542 RM reserves regular10/11 and injected10..13. LL unconditionally defines TIM5 sources and exact HAL debug predicates accept them. Several LL TIM5_TRGO comments say TIM15. These selectors are excluded from RM-confirmed candidates.",
+        "evidence": [
+          "RM0522:p567",
+          "LL.REG_TIM5",
+          "LL.INJ_TIM5",
+          "HAL.REG_trigger_guard",
+          "HAL.INJ_trigger_guard"
+        ]
+      },
+      {
+        "id": "oversampling_shift11",
+        "detail": "HAL IS_ADC_OVS_SHIFT admits11 while RM OVSS11..15 is reserved; LL documents0..10 but directly writes the supplied shift. Independently bound0..10; assertions/API success do not establish this. No hardware observation.",
+        "evidence": [
+          "HAL.shift_guard",
+          "HAL.oversampling",
+          "LL.shift",
+          "RM0522:p647"
+        ]
+      },
+      {
+        "id": "JAUTO_sticky_configuration",
+        "detail": "HAL injected config sets JAUTO for FROM_REGULAR but does not clear it when later selecting software/external trigger. LL trigger setter changes JSQR only. A new trigger selection alone does not prove leaving autoinjection. RM587 requires external injected trigger disabled with JAUTO. HAL can select it while JAUTO remains set; regular/injected config also lacks JAUTO cross-checks against DISCEN/JDISCEN (RM581).",
+        "evidence": [
+          "HAL.INJ_config",
+          "LL.injected_trigger",
+          "HAL.REG_config",
+          "RM0522:p581",
+          "RM0522:p587"
+        ]
+      },
+      {
+        "id": "regular_config_error_mutates",
+        "detail": "HAL regular config records HAL_ERROR for continuous+non-normal sampling but continues writing trigger/sequence/CFGR1 and group IDLE. Error is not rollback; caller must not assume prior hardware configuration remains.",
+        "evidence": [
+          "HAL.REG_config"
+        ]
+      },
+      {
+        "id": "oversampling_unsupported_combinations",
+        "detail": "HAL validates scope and discontinuity independently. REG_CONTINUED+DISCONT and INJ_REG_RESUMED+DISCONT pass debug predicates although RM Table150 marks their tuples unsupported. No cross-check enforces TROVS exclusion with software trigger/JAUTO. No execution admitted.",
+        "evidence": [
+          "HAL.OVS_guards",
+          "HAL.OVS_enums",
+          "HAL.oversampling",
+          "LL.OVS_scope",
+          "RM0522:p611",
+          "RM0522:p614",
+          "LL.OVS_discont"
+        ]
+      },
+      {
+        "id": "oversampling_unmasked_fields",
+        "detail": "LL ratio/shift write is unmasked. Ratio0 underflows ratio-1 and sets upper CFGR2 bits beyond OVSR; shift16 or above can spill beyond OVSS into other controls. HAL bounds are debug assertions only. Independently validate ratio1..1024, shift0..10 and cross-field feasibility before any candidate operation. Source reasoning, not observed hardware behavior.",
+        "evidence": [
+          "LL.shift",
+          "HAL.OVS_guards",
+          "HAL.oversampling",
+          "RM0522:p645",
+          "RM0522:p647"
+        ]
+      }
+    ],
+    "conflicts": [
+      {
+        "id": "JAUTO_discontinuous",
+        "detail": "RM581 forbids DISCEN/JDISCEN with JAUTO; RM587 says autoinjection compatible with discontinuous. Combination not admitted.",
+        "evidence": [
+          "RM0522:p581",
+          "RM0522:p587"
+        ]
+      },
+      {
+        "id": "JOVSE_register",
+        "detail": "RM644/647 mark CFGR2 bit1 reserved while exact header defines JOVSE there and functional prose describes injected oversampling. Parallel injected oversampling/CFGR3 references are not established by inspected exact header/LL. LL scope constants/setters and HAL guards actively admit/write JOVSE. RM591 separately qualifies JOVSS/JLSHIFT availability by product; this does not resolve exact JOVSE support.",
+        "evidence": [
+          "RM0522:p644",
+          "RM0522:p647",
+          "header.JOVSE",
+          "RM0522:p611",
+          "RM0522:p612",
+          "RM0522:p613",
+          "RM0522:p614",
+          "LL.OVS_scope",
+          "LL.OVS_scope_setters",
+          "HAL.OVS_guards",
+          "RM0522:p591"
+        ]
+      },
+      {
+        "id": "internal_channel13_source",
+        "detail": "RM565 says VREFINT or dac_int1; Figure87 shows VREFINT. No DAC loopback admitted.",
+        "evidence": [
+          "RM0522:p565",
+          "RM0522:p569"
+        ]
+      },
+      {
+        "id": "external_channel_count",
+        "detail": "RM565/576 use 14 external channels and DS15 up to14 GPIO pads, while exact route inventory has12 channel identities over16 alternative pads. Preserve literal statements; do not infer extra channels.",
+        "evidence": [
+          "RM0522:p565",
+          "RM0522:p576",
+          "DS15135:p15"
+        ]
+      },
+      {
+        "id": "DISCEN_CONT",
+        "detail": "RM579 forbids DISCEN+CONT; RM580 describes behavior as continuous disabled. Description of behavior is not permission; combination excluded.",
+        "evidence": [
+          "RM0522:p579",
+          "RM0522:p580"
+        ]
+      },
+      {
+        "id": "SMPTRIG_discontinuous",
+        "detail": "RM578 requires discontinuous mode; RM645 constrains DISCNUM only when discontinuous mode is used. Do not admit non-discontinuous SMPTRIG from this ambiguity.",
+        "evidence": [
+          "RM0522:p578",
+          "RM0522:p645"
+        ]
+      }
+    ],
+    "open_gates": [
+      "Full calibration/enable/disable lifecycle, timing and electrical qualification",
+      "Exact DMA/FIFO/IRQ draining and ownership",
+      "Mode-combination feasibility beyond these bounded maps; no executable ADC domain",
+      "Existing SDK Stop error/ADDIS and ES2.3.2 transition gates in sdk-lifecycle.json remain in force",
+      "Package electrical differences and actual SBS/PCSEL/common-path state",
+      "Transcription/Claude review and independent build/hardware qualification"
+    ],
+    "route_qualification": "All package pad/electrical qualifications and conflicts in hash-bound package-routes.json remain in force. PA1 TT_a/FT disagreement prohibits inferred 5V tolerance. PA5 DAC naming conflict does not fabricate DAC2 or qualify executable analog sharing. PC1/PA4/PC5/PB1 have bridge-only memberships beyond U1; PA2/PA3 also have direct CN7 membership as well as SB26/SB12. Never infer actual bridge conduction."
+  }
+}

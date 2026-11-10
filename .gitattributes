@@ -1,2 +1,4 @@
 # Vendored recorder hashes must survive checkout on Windows, Linux and macOS.
 viewalyzer-recorder/recorder/** text=auto eol=lf
+# Reviewed firmware inputs retain their exact hashes, including CRLF inputs.
+knowledge/stm32c5/** -text

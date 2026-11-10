@@ -1,0 +1,109 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/contracts.json",
+    "sha256": "f234611f192dd5f517253efdecdf58a2f1a89872a965e89590aba43ed521f9c8"
+  },
+  "transform": {
+    "removed_vendor_fields": {},
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "schema": "bkpt.coverage-contract-proposal/1",
+    "publication": "unpublished",
+    "target": "STM32C542RCT6/LQFP64",
+    "purpose": "Candidate constraints for later engine integration, not an executable capability or runtime authorization",
+    "requirements": [
+      {
+        "id": "physical-pin",
+        "identity": [
+          "package",
+          "pad"
+        ],
+        "capacity": 1,
+        "rule": "GPIO input plus EXTI may compose under the same explicit owner. Incompatible owners conflict; device boot/oscillator/debug constraints and board reservations remain additional requirements",
+        "evidence": [
+          "DS15135:p37",
+          "RM0522:p341",
+          "RM0522:p342"
+        ]
+      },
+      {
+        "id": "exti-mux",
+        "identity": [
+          "EXTI",
+          "line"
+        ],
+        "capacity": 1,
+        "domain": {
+          "min": 0,
+          "max": 15,
+          "inclusive": true
+        },
+        "rule": "One port selection per line. Multiple consumers may share the selected signal under an explicit owner and agreeing edge configuration. CPU masks do not disable the interconnect output. Fixture evaluator tests ownership only, not edge/delivery semantics",
+        "evidence": [
+          "RM0522:p450"
+        ]
+      },
+      {
+        "id": "dma-channel",
+        "identity": [
+          "controller",
+          "channel"
+        ],
+        "capacity": 1,
+        "candidate_domain": {
+          "LPDMA1": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "LPDMA2": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        "rule": "Do not clone physical channels for alternative requests; preserve DS Table 2 inconsistency as a conflict",
+        "evidence": [
+          "DS15135:p13",
+          "RM0522:p383"
+        ]
+      },
+      {
+        "id": "dma-endpoint-pair",
+        "rule": "Direction-class support does not establish a concrete pair. Require source and destination reachability, access width/alignment, request pacing/trigger semantics, side effects, and ownership/lifecycle evidence",
+        "evidence": [
+          "DS15135:p13"
+        ]
+      },
+      {
+        "id": "direct-event",
+        "rule": "Pending flag ownership is in the originating peripheral; never clear an invented EXTI pending bit",
+        "evidence": [
+          "RM0522:p447"
+        ]
+      },
+      {
+        "id": "publication-gate",
+        "rule": "Fail closed for unknown device/package/revision/SDK applicability, unresolved applicable errata, missing claim evidence, absent independent review, and missing implementation evidence. Build and hardware status remain independent; no runtime promotion from this fixture evaluator",
+        "evidence": []
+      }
+    ],
+    "integration_request": {
+      "owner": "main engineering chat / BKPAI-14",
+      "bounded_scope": "Inspect whether current graph contracts can represent separate knowledge/presence versus executable-support states and shared EXTI line resources. Reuse existing resource identities and citation machinery. No core change requested unless these cannot be expressed in data.",
+      "not_requested": [
+        "automatic publication",
+        "hardware tests",
+        "benchmark campaign",
+        "new UI",
+        "vendor-specific engine branches"
+      ]
+    }
+  }
+}

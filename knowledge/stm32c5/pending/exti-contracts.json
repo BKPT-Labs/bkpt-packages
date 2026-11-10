@@ -1,0 +1,772 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/exti-contracts.json",
+    "sha256": "1c13d267a6cf5bc23ef7299d62dfb785c227e93b2d136f7f2428f02744c6d791"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 58
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "schema": "bkpt.external.exti.contracts.v1",
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "review": "Source candidate; independent semantic review pending",
+    "sources": {
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "HAL": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_exti.c",
+        "sha256": "0f8f45695293d91944a3b726cd64ed20b9de456b360ceb48a2ae0b7a17d7732e"
+      },
+      "HAL_H": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_exti.h",
+        "sha256": "0299a6ee6344dd2eb12a528b2db739b2c0e5f495bb0554007c1774eb972ee59e"
+      },
+      "LL": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_exti.h",
+        "sha256": "b21f641107e625967bc5371fe53d87c4404116b039efd6ef2ad40a8d985f79ec"
+      },
+      "composition": {
+        "path": "research://c5-reference/composition.json",
+        "sha256": "54516e25013d6f4e71b89346974d8229efd87b0fe9140e48399165ff70e9a4ff"
+      },
+      "package-routes": {
+        "path": "research://c5-reference/package-routes.json",
+        "sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288"
+      },
+      "device-inventory": {
+        "path": "research://c5-reference/device-inventory.json",
+        "sha256": "510a01b74b20e1e400e60a461e55c9cd5977faa489e146dea0ca851c3e176aa3"
+      },
+      "dma-routing": {
+        "path": "research://c5-reference/dma-routing.json",
+        "sha256": "6f5d4d59950941a32d983ccc0907dda996415c9fd201cce9b2e8777bd86ae41d"
+      },
+      "family": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c5xx.h",
+        "sha256": "61a0b8c2674d9e817d70aa8d2693339273f4283694f8ab5f8dca077bb69913f7"
+      }
+    },
+    "evidence": {
+      "RM0522:p445": {
+        "source": "RM0522",
+        "page": 445,
+        "text_sha256": "e39979b88e3971505bb58f9080a40c3319b99aa39963aef31002c9356a804ab5"
+      },
+      "RM0522:p446": {
+        "source": "RM0522",
+        "page": 446,
+        "text_sha256": "06c11a8d4320cc508ee2b0708326c80e455e48eec3057df3c3fe9e543b6a9d1c"
+      },
+      "RM0522:p447": {
+        "source": "RM0522",
+        "page": 447,
+        "text_sha256": "a8cac27713e918c6363c0047c18b383ec33b5cbcc1b20f500991c37d91cdb31b"
+      },
+      "RM0522:p448": {
+        "source": "RM0522",
+        "page": 448,
+        "text_sha256": "cf675618ceec5022439f4e938ad45271e71ec90fea994f44c1577e09af0dfbab"
+      },
+      "RM0522:p449": {
+        "source": "RM0522",
+        "page": 449,
+        "text_sha256": "b6a0f585d040bb85a9ab72f3552247a869f9e56b5219a2ccf3cfb1f2de23d393"
+      },
+      "RM0522:p450": {
+        "source": "RM0522",
+        "page": 450,
+        "text_sha256": "608cb8ce34dc6880d40513898900c5b0d049ced89401ec0aae972364ef268800"
+      },
+      "RM0522:p451": {
+        "source": "RM0522",
+        "page": 451,
+        "text_sha256": "7e13f669630590ebfbd7b34fa255ad74a3aaba719333264de0536a8682a1b465"
+      },
+      "RM0522:p452": {
+        "source": "RM0522",
+        "page": 452,
+        "text_sha256": "fa566a56b2300cc72e547c67d18710c2636de4ef3905a3e69ff5d9884c05ce29"
+      },
+      "RM0522:p453": {
+        "source": "RM0522",
+        "page": 453,
+        "text_sha256": "598e03b9e32f063edac064e12ef7ef4f71d65b3e8ec52beca863dd2f9cdf178a"
+      },
+      "RM0522:p454": {
+        "source": "RM0522",
+        "page": 454,
+        "text_sha256": "e0346dece86ec2de1c66adc5065b6d93c1fd67186f59b23f74c5e6a8197c3846"
+      },
+      "RM0522:p455": {
+        "source": "RM0522",
+        "page": 455,
+        "text_sha256": "b512a56da0d40952a538b67a4421ebd44b79a2e827cc51d1f344040706d19870"
+      },
+      "RM0522:p456": {
+        "source": "RM0522",
+        "page": 456,
+        "text_sha256": "fc687b01ac172729d4641089bb8498ea53cf21d60afcd6b51e816b7c03ca9b34"
+      },
+      "RM0522:p457": {
+        "source": "RM0522",
+        "page": 457,
+        "text_sha256": "169f35088bd9b53653cf8412d93b01daae5b8f6d656062018aa0bb24fafc36e1"
+      },
+      "RM0522:p458": {
+        "source": "RM0522",
+        "page": 458,
+        "text_sha256": "69a85d248d08603de65f5ec47a0b8ee58081c40e2321872dc34fe8878a69e427"
+      },
+      "RM0522:p459": {
+        "source": "RM0522",
+        "page": 459,
+        "text_sha256": "485d458bee1dc51d04d977456a80dfe06d9dd58b6febd6d09498747052a98537"
+      },
+      "RM0522:p460": {
+        "source": "RM0522",
+        "page": 460,
+        "text_sha256": "0a6c2a5f83447a30b9c3801df88ca0c68de6d360117c67393fb34c19088dac7e"
+      },
+      "RM0522:p461": {
+        "source": "RM0522",
+        "page": 461,
+        "text_sha256": "b103a665daf6f631c3f7ed6d3b8c043502fd650993839fa60ca425094a304697"
+      },
+      "RM0522:p462": {
+        "source": "RM0522",
+        "page": 462,
+        "text_sha256": "ad6e6d509bb02b35ba42b00ea3989fdd04f7f10f895e70b106fccffc31044c0a"
+      },
+      "RM0522:p463": {
+        "source": "RM0522",
+        "page": 463,
+        "text_sha256": "20993b512ea9e0523377a04c6d5282a39274c9e71cf164bae70ea2093793fc6c"
+      },
+      "RM0522:p464": {
+        "source": "RM0522",
+        "page": 464,
+        "text_sha256": "d0fca7a70864e92de12264de71465779757eaf5b3efbb67450ae7bb8f35a0902"
+      },
+      "RM0522:p465": {
+        "source": "RM0522",
+        "page": 465,
+        "text_sha256": "22303d2ddc4d30f5bc7e6a5eeb99499a9b93a022324e634ed842533eb1589c58"
+      },
+      "RM0522:p466": {
+        "source": "RM0522",
+        "page": 466,
+        "text_sha256": "05e476c98b4dac4c73fdf8a243a5e9377e753efd578fb8af43fa16e6d0eed7a1"
+      },
+      "RM0522:p467": {
+        "source": "RM0522",
+        "page": 467,
+        "text_sha256": "16eaf578e689d0b817b7df521689d611157286134dd471e7be07af478a58b7be"
+      },
+      "RM0522:p468": {
+        "source": "RM0522",
+        "page": 468,
+        "text_sha256": "df321a0d5fb809fadfc3d290aec15f0fc3db639e82d07a1f9ca5da998921ce01"
+      },
+      "RM0522:p469": {
+        "source": "RM0522",
+        "page": 469,
+        "text_sha256": "0a006e10d768c26c0c694ed8ac539a6cb1e1699a78d3323f0414889d2883aa73"
+      },
+      "RM0522:p470": {
+        "source": "RM0522",
+        "page": 470,
+        "text_sha256": "d80a31ded67e422c6330ab33f8dbd5dfd3e9061bc0a36d20c2112744adbd7d38"
+      },
+      "RM0522:p471": {
+        "source": "RM0522",
+        "page": 471,
+        "text_sha256": "60f7dcc5aadfbac6e5b2614ef36cddb84c66cad0429f6032af14bbb12b7f932e"
+      },
+      "header.layout": {
+        "source": "header",
+        "start_line": 418,
+        "end_line": 446,
+        "text_sha256": "c9ef7ddeb8a25877c42ea5f9291cd973b7deddd75ee6579350605678f35bb78d"
+      },
+      "header.instances": {
+        "source": "header",
+        "start_line": 1300,
+        "end_line": 1378,
+        "text_sha256": "7842fbfb0016c6b1780ec8f094dedd9c246a495ec15e0949dd2d44021eba3743"
+      },
+      "header.base": {
+        "source": "header",
+        "start_line": 1155,
+        "end_line": 1258,
+        "text_sha256": "ac968709245d35cf07f66393aa09b66ee685c3a0bc587dfc741829088ba4baaf"
+      },
+      "header.IRQ": {
+        "source": "header",
+        "start_line": 60,
+        "end_line": 155,
+        "text_sha256": "1402420e82f2d354e81d208d59a529ec369509facff676a6ffebd18971a5ce26"
+      },
+      "header.bank2": {
+        "source": "header",
+        "start_line": 4907,
+        "end_line": 4954,
+        "text_sha256": "c8d085137f224476d2bc094002e43b16335054906e9c38907e8622a0d6b31156"
+      },
+      "HAL.guards": {
+        "source": "HAL",
+        "start_line": 123,
+        "end_line": 182,
+        "text_sha256": "a47c8e6164148ca7a25e2cd7ba75a90e530e6dd8ddc1810bc7bb5bbb87026ef6"
+      },
+      "HAL.init_deinit": {
+        "source": "HAL",
+        "start_line": 221,
+        "end_line": 309,
+        "text_sha256": "42dc02d4dd7f5ba7f57cd2df2cb1a14d9e51496858f4057b75e114441f33bd15"
+      },
+      "HAL.config": {
+        "source": "HAL",
+        "start_line": 318,
+        "end_line": 400,
+        "text_sha256": "044cffbf7d35a585ec919f1ecccdb45b976a63b16aad0d192a2e3092079b7b65"
+      },
+      "HAL.getconfig": {
+        "source": "HAL",
+        "start_line": 407,
+        "end_line": 475,
+        "text_sha256": "419d647a3b1420a3d43ec2a00a6716b7969da50e341845fd10dfc9d757b4b005"
+      },
+      "HAL.enable": {
+        "source": "HAL",
+        "start_line": 500,
+        "end_line": 564,
+        "text_sha256": "e5cf1fbd754546d5a1444b2349a9cc69070d350e9cc57be1ae11942e0d15401d"
+      },
+      "HAL.SWI": {
+        "source": "HAL",
+        "start_line": 572,
+        "end_line": 604,
+        "text_sha256": "d3a779ff78456175dd8b6d4aa70afcc6b01757978fc914ee92afe3b4bfe10c33"
+      },
+      "HAL.pending": {
+        "source": "HAL",
+        "start_line": 611,
+        "end_line": 718,
+        "text_sha256": "92f23f203eb2c40789b6d894e2c0db09c2b986c4ffb3bbef4e1e8266ef9e6daf"
+      },
+      "HAL.IRQ": {
+        "source": "HAL",
+        "start_line": 745,
+        "end_line": 807,
+        "text_sha256": "69a8e5317c691580b829b10cffd074f13536f4f6cd294f843dd28efd7d2630a5"
+      },
+      "HAL.callback": {
+        "source": "HAL",
+        "start_line": 818,
+        "end_line": 840,
+        "text_sha256": "9f1bd12dcf478ddb364cb846b393fe4d5fd230712d752dfa3615999d43cb77d8"
+      },
+      "HAL.privilege": {
+        "source": "HAL",
+        "start_line": 970,
+        "end_line": 1019,
+        "text_sha256": "fcae6ccd0068e87a632494fcc78edb5623b3c23fd1e3aaacc965618bbbb2506b"
+      },
+      "HAL.enums": {
+        "source": "HAL_H",
+        "start_line": 45,
+        "end_line": 149,
+        "text_sha256": "860ac7a2925f091b173adc70a75023a4879637649c7a09c60e253f1d6ef39228"
+      },
+      "LL.encoding": {
+        "source": "LL",
+        "start_line": 48,
+        "end_line": 91,
+        "text_sha256": "c134566f5782acd43fd320ebbf8086b30bda4fd95e0a983634388c3a25e3c532"
+      },
+      "LL.ports": {
+        "source": "LL",
+        "start_line": 190,
+        "end_line": 215,
+        "text_sha256": "067b4cfb2bc23dd060cf9e1899f60f67f3ee62a34780678946d73671ec90d355"
+      },
+      "LL.SWI1": {
+        "source": "LL",
+        "start_line": 1252,
+        "end_line": 1256,
+        "text_sha256": "200b96dacabe0e7f381e9e8849b228de66d90d5c7a27a1dc61c3b354123245dc"
+      },
+      "LL.SWI2": {
+        "source": "LL",
+        "start_line": 1276,
+        "end_line": 1280,
+        "text_sha256": "00110fc37373d52a881a2db2f613698aa31999ed43fd6a047d2debca78ccb80c"
+      },
+      "LL.clearR1": {
+        "source": "LL",
+        "start_line": 1425,
+        "end_line": 1429,
+        "text_sha256": "4a1331c0af3e0f8625261211ec4ba70a2c8702d22bfe0682d842cd4c80675fb9"
+      },
+      "LL.clearR2": {
+        "source": "LL",
+        "start_line": 1446,
+        "end_line": 1450,
+        "text_sha256": "8f44da96bff29fea3278459c6e2ebb7b482cf64318a6b082e74dfe4eb7807470"
+      },
+      "LL.clearF1": {
+        "source": "LL",
+        "start_line": 1587,
+        "end_line": 1591,
+        "text_sha256": "286db05119cda5ca8467042657e5037cf05f25718c745caaf1be331d61479f25"
+      },
+      "LL.clearF2": {
+        "source": "LL",
+        "start_line": 1608,
+        "end_line": 1612,
+        "text_sha256": "4687f89731d1cb834c4a6e928270c15e8727fd9d19b8f47d5ea1febd1dbaffd5"
+      },
+      "LL.mux": {
+        "source": "LL",
+        "start_line": 1674,
+        "end_line": 1678,
+        "text_sha256": "821705f5639b6c37fba02eeb1261b8a355fd5f34803f3e3953aba07b37596cec"
+      },
+      "LL.getmux": {
+        "source": "LL",
+        "start_line": 1734,
+        "end_line": 1741,
+        "text_sha256": "1cd171a357fd35017d405f446a1ff47ea827f97a864b1d8e620f5acb9f5bc135"
+      },
+      "LL.privilege1": {
+        "source": "LL",
+        "start_line": 1790,
+        "end_line": 1794,
+        "text_sha256": "72975a9d28f2c88963d86501cc93e26d707cacb8b323842195859543b3c436df"
+      },
+      "LL.privilege2": {
+        "source": "LL",
+        "start_line": 1834,
+        "end_line": 1838,
+        "text_sha256": "a0475d52579502161a7a0f4ebf2243625f15d761f51bfc1f86a871a76e869dc7"
+      },
+      "family.atomic_byte": {
+        "source": "family",
+        "start_line": 217,
+        "end_line": 234,
+        "text_sha256": "57dc8d29341afc1516f2728c0a69ee6b40154f4502f2c786f4a991bf2fee395d"
+      },
+      "header.mux": {
+        "source": "header",
+        "start_line": 4528,
+        "end_line": 4641,
+        "text_sha256": "c374da6dcf8e5052d1773e81a450abbe05a701189918760f3428301385000a0e"
+      },
+      "header.family_IM": {
+        "source": "header",
+        "start_line": 4744,
+        "end_line": 4761,
+        "text_sha256": "8f0afad610b4f6a71d0b0c31f9869160b7da85e42086392f105e6947cdcf9895"
+      }
+    },
+    "package_routes_sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288",
+    "scope": "Full RM445..471 plus bounded SDK lifecycle source audit. Existing accepted PA4/PA5 dedicated IRQ capability remains unchanged. One physical EXTI line across ports/consumers; no cloned resource or new runtime mode.",
+    "provenance": {
+      "composition": "Hash-bound existing composition and its 52 GPIO routes remain unchanged; preserves clock, electrical, revision, ISR ownership and race-safe release gates.",
+      "device-inventory": "Hash-bound exact instance and vector inventory filters family mappings.",
+      "dma-routing": "Hash-bound trigger inventory; no resolution of physical trigger stage or new DMA admission."
+    },
+    "finite_source_maps": {
+      "base_hex": "0x44022000",
+      "GPIO_lines": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "GPIO_IRQ_formula": "IRQ=7+line for0..15, exact header",
+      "configurable_internal": {
+        "16": "PVD",
+        "34": "COMP1",
+        "36": "COMP2"
+      },
+      "direct_candidates": {
+        "17": "RTC",
+        "18": "TAMP",
+        "19": "LSE_CSS",
+        "20": "I2C1",
+        "21": "I3C1",
+        "22": "SPI1",
+        "23": "SPI2",
+        "25": "USART1",
+        "26": "USART2",
+        "28": "UART4",
+        "29": "UART5",
+        "30": "LPUART1",
+        "31": "LPTIM1",
+        "32": "USB",
+        "35": "IWDG"
+      },
+      "excluded_family_sources": {
+        "24": "SPI3 absent",
+        "27": "USART3 absent",
+        "33": "I2C2 absent despite field/enum",
+        "37": "USART6 absent",
+        "38": "UART7 absent",
+        "39": "ETH1 absent"
+      },
+      "configurable_bank_masks": {
+        "bank1": "0x0001FFFF",
+        "bank2": "0x00000014"
+      },
+      "port_codes": {
+        "A": 0,
+        "B": 1,
+        "C": 2,
+        "D": 3,
+        "E": 4,
+        "H": 7
+      },
+      "mux_field_bits": 8,
+      "mux_register_formula": "offset0x60+4*(line//4), shift8*(line%4)",
+      "package_GPIO_routes": 52,
+      "GPIO_route_qualification": "Use only existing composition/package bonded routes, excludes PB11 and unbonded pins. Port code alone does not admit every pin.",
+      "reset_literals": {
+        "IMR1": "0xFFFE0000",
+        "IMR2_C542": "0x0000000B",
+        "other_listed_registers": 0
+      },
+      "reset_qualification": "IMR literals include family or reserved positions; do not infer an available source from reset bits. Table107 IMR2 differs, retained as conflict.",
+      "evidence": [
+        "RM0522:p447",
+        "RM0522:p448",
+        "RM0522:p461",
+        "RM0522:p465",
+        "RM0522:p468",
+        "RM0522:p469",
+        "header.base",
+        "header.instances",
+        "header.IRQ",
+        "header.bank2",
+        "HAL.enums",
+        "LL.ports"
+      ]
+    },
+    "contracts": [
+      {
+        "id": "physical_mux_ownership",
+        "detail": "One source port per EXTI line0..15, shared by CPU and peripheral consumers. Mux outputs reach interconnect regardless of IMR/EMR. Masking CPU delivery does not quiesce DMA/ADC/DAC or other users. Reassignment requires all consumers stopped and common port/edge policy; no separate cloned line resources.",
+        "evidence": [
+          "RM0522:p446",
+          "RM0522:p450"
+        ]
+      },
+      {
+        "id": "pending_masks",
+        "detail": "Configurable hardware edges latch rising/falling pending only with IMR unmasked; event-only delivery does not latch EXTI flags (Table104). RPR/FPR are independent W1C bits, not edge counters. Pending interrupts prevent low-power entry per RM. Masking is not clearing existing pending state.",
+        "evidence": [
+          "RM0522:p449",
+          "RM0522:p451",
+          "RM0522:p454",
+          "RM0522:p455"
+        ]
+      },
+      {
+        "id": "direct_event",
+        "detail": "Direct lines have fixed rising wake-up and no EXTI pending/SWI. Peripheral interrupt reaches NVIC directly and is acknowledged in that peripheral. EXTI event may precede its peripheral status flag. Disabling EXTI masks does not establish that the peripheral NVIC source is disabled.",
+        "evidence": [
+          "RM0522:p445",
+          "RM0522:p447",
+          "RM0522:p449",
+          "RM0522:p450"
+        ]
+      },
+      {
+        "id": "software_trigger",
+        "detail": "SWIER write1 generates a rising event independently of edge settings; reads return0 and writing0 has no effect. It does not emulate a pad transition or prove downstream DMA/ADC routing. CPU mask behavior must follow the applicable source semantics; generic pending prose is retained separately.",
+        "evidence": [
+          "RM0522:p451",
+          "RM0522:p454",
+          "RM0522:p458"
+        ]
+      },
+      {
+        "id": "reconfiguration_loss",
+        "detail": "RM warns that an edge during writing its trigger selection register does not set pending. Mux/edge reconfiguration is not lossless acquisition; no glitch filter or debounce guarantee is inferred. Interrupt/event handover needs a declared loss policy.",
+        "evidence": [
+          "RM0522:p453",
+          "RM0522:p456",
+          "RM0522:p457"
+        ]
+      },
+      {
+        "id": "privilege",
+        "detail": "Per-line privilege protects mux, trigger, pending and CPU masks. RTSR/FTSR/SWIER/RPR/FPR descriptions explicitly specify protected reads return0 and writes are discarded. General RM452 extends RAZ/WI to associated controls, while mux/mask descriptions only specify writes discarded; do not infer successful configuration from an unprivileged zero read. PRIVCFGR itself permits unprivileged reads but requires privileged writes.",
+        "evidence": [
+          "RM0522:p451",
+          "RM0522:p452",
+          "RM0522:p455",
+          "RM0522:p461"
+        ]
+      },
+      {
+        "id": "access_and_events",
+        "detail": "Registers permit byte, half-word and word access. Events OR into one CPU event signal and are not independent callbacks or counted delivery. GPIO digital-mode/package/electrical and CPU event-consumption requirements remain open.",
+        "evidence": [
+          "RM0522:p449",
+          "RM0522:p452"
+        ]
+      }
+    ],
+    "source_derived_SDK_gates": [
+      {
+        "id": "guard_not_exact_domain",
+        "detail": "IS_EXTI_LINE checks encoded property bits but low5 bits are always<=31, so comparison against count36 admits every low-bit value. Bank0 or REG1|REG2 also passes and dispatches as bank2 or bank1 respectively. GPIO-tagged pin20 aliases mux line4 through line&15 while ll_line selects bit20. HAL exposes absent24/27/33/37..39; configurable line39 can write reserved bank2 bit7. Independently validate exact canonical encoding, physical source and bonded route even with assertions enabled.",
+        "evidence": [
+          "HAL.guards",
+          "LL.encoding",
+          "HAL.enums",
+          "header.instances",
+          "header.bank2",
+          "LL.mux",
+          "header.family_IM"
+        ]
+      },
+      {
+        "id": "init_state_not_hardware",
+        "detail": "Init sets handle, ll_line and callbacks but does not reset hardware or establish ownership. Direct lines become ACTIVE in the handle without hardware enable verification. prev_state is not initialized here; IRQ path uses it, so calling handler before a proper Enable/SWI requires separately initialized lifecycle.",
+        "evidence": [
+          "HAL.init_deinit",
+          "HAL.IRQ"
+        ]
+      },
+      {
+        "id": "config_order",
+        "detail": "SetConfig changes rising/falling triggers before mux source, without first masking delivery, clearing pending or quiescing other consumers. Handle state assertions do not prove hardware inactive. HAL_OK lacks privilege/readback verification. Switching a shared line can affect existing owners before new source is installed.",
+        "evidence": [
+          "HAL.config",
+          "RM0522:p450",
+          "RM0522:p453",
+          "RM0522:p452"
+        ]
+      },
+      {
+        "id": "enable_accumulates",
+        "detail": "Enable sets selected IMR/EMR bits without clearing unselected mode. Interrupt then event Enable leaves both enabled; it does not replace the old mode. Neither call clears stale pending or configures/synchronizes NVIC.",
+        "evidence": [
+          "HAL.enable"
+        ]
+      },
+      {
+        "id": "disable_deinit_release",
+        "detail": "Disable masks both CPU interrupt and event but preserves triggers, mux and pending. DeInit additionally disables triggers and clears flags for configurable lines; for GPIO lines it resets mux to port A, potentially redirecting shared interconnect consumers. It leaves privilege and callback storage. Neither synchronizes NVIC/in-flight callbacks nor peripheral consumers. Coordinated release must precede DeInit; return state is not release completion. Direct-line masks cleared by these calls can have reset value1, so this is not restoration of reset wake policy. DeInit lacks a state assertion and can reset GPIO mux after Init alone; mux reassignment follows trigger disable.",
+        "evidence": [
+          "HAL.enable",
+          "HAL.init_deinit",
+          "RM0522:p450"
+        ]
+      },
+      {
+        "id": "SWI_temporarily_unmasks",
+        "detail": "GenerateSWI accepts INIT/IDLE in debug, saves prev_state, marks ACTIVE and enables IMR before SWIER. IRQ restores prior handle state and masks IMR if prev_state was not ACTIVE, before checking flags. A stale/external pending edge can take that path before SWIER; no ISR/NVIC delivery means restoration is not established. Do not use as side-effect-free inspection.",
+        "evidence": [
+          "HAL.SWI",
+          "HAL.IRQ"
+        ]
+      },
+      {
+        "id": "IRQ_snapshot_and_callback",
+        "detail": "Handler reads rising and falling pending separately, clears each then invokes one callback with a combined edge enum. It has no current IMR/global-state preflight; stale/manual invocation may consume masked pending. Callback cannot establish edge order, count, simultaneous occurrence or a lossless timestamp. Serialize one handler owner and callback lifetime.",
+        "evidence": [
+          "HAL.IRQ",
+          "LL.clearR1",
+          "LL.clearR2",
+          "LL.clearF1",
+          "LL.clearF2"
+        ]
+      },
+      {
+        "id": "mux_upper_bits",
+        "detail": "LL SetEXTISource uses an atomic byte RMW but clears only low nibble0xF; RM mux field is8bits. Existing upper-nibble reserved state is retained; release port values are unmasked after uint8 conversion. Valid port values and package route require independent checks.",
+        "evidence": [
+          "LL.mux",
+          "RM0522:p461",
+          "HAL.config",
+          "header.mux",
+          "family.atomic_byte",
+          "LL.getmux"
+        ]
+      },
+      {
+        "id": "privilege_owner",
+        "detail": "HAL SetPrivAttr explicitly rejects unprivileged execution, unlike most configuration calls, but uses a non-atomic LL read-modify-write across the shared PRIVCFGR word. Serialize concurrent attribute updates. It does not quiesce line consumers before changing their access. priv_attr has only debug validation; invalid2 produces exti_line & (-2), making line0/32 unprivileged while other single-bit lines become privileged. Invalid line encodings can also address reserved PRIV bits.",
+        "evidence": [
+          "HAL.privilege",
+          "LL.privilege1",
+          "LL.privilege2"
+        ]
+      }
+    ],
+    "conflicts": [
+      {
+        "id": "line_inventory",
+        "detail": "RM family states40 inputs; exact physical sources exclude24/27/33/37..39, while header still exposes I2C2 bit33 and HAL exposes37..39. LL count condition tests EXTI_IMR2_EM36/EM37 rather than IM36/37 and falls to36 for this exact header. Do not derive physical line admission from enum/count/field presence. HAL also exposes absent24/27 because their mask macros remain in the exact header.",
+        "evidence": [
+          "RM0522:p445",
+          "RM0522:p447",
+          "RM0522:p448",
+          "LL.encoding",
+          "HAL.enums",
+          "header.bank2",
+          "header.instances",
+          "header.family_IM"
+        ]
+      },
+      {
+        "id": "IMR2_reset",
+        "detail": "RM469 exact C542 reset is0xB; Table107 p471 renders0x6B. Preserve the exact prose value and conflict; no measured reset claim.",
+        "evidence": [
+          "RM0522:p469",
+          "RM0522:p471"
+        ]
+      },
+      {
+        "id": "generic_pending_prose",
+        "detail": "RPR/FPR descriptions broadly say an arriving edge sets pending; Table104 and functional prose condition it on IMR. SWIER says rising pending regardless of RTSR, not independently proven regardless of IMR. Keep mask interpretation explicit and no new software-trigger profile.",
+        "evidence": [
+          "RM0522:p451",
+          "RM0522:p454",
+          "RM0522:p455"
+        ]
+      },
+      {
+        "id": "map_and_label_typos",
+        "detail": "Table106 calls bank2 event57:32 despite chapter40 inputs; IMR descriptions say configurable though direct mask bits are included; FPR2 text names PRIVCFGR.FPIF36 rather than PRIV36. These do not create extra fields or capabilities. Table104 footnote2 calls IMR CPU-event enable, whereas the columns distinguish EMR; Figure61 labels line15 as EXTICR1 instead of EXTICR4.",
+        "evidence": [
+          "RM0522:p452",
+          "RM0522:p460",
+          "RM0522:p468",
+          "RM0522:p469",
+          "RM0522:p451",
+          "RM0522:p450"
+        ]
+      },
+      {
+        "id": "privileged_read_scope",
+        "detail": "General16.5.1 says protected configuration/control unprivileged reads return0; mux and IMR/EMR field descriptions mention ignored writes but omit read behavior. Preserve scope ambiguity; no unprivileged readback qualification.",
+        "evidence": [
+          "RM0522:p452",
+          "RM0522:p461",
+          "RM0522:p468",
+          "RM0522:p469"
+        ]
+      }
+    ],
+    "open_gates": [
+      "No expanded executable CPU/event/DMA/ADC/DAC profile",
+      "Preserve accepted PA4/PA5 dedicated IRQ profile and physical-line identity",
+      "Exact revision/errata, electrical thresholds/pulse width and actual privilege/clock/reset state",
+      "Lossless edge capture, timing, CPU wake/low-power behavior unqualified",
+      "Compiler/runtime/ISR handover and race-safe callback release not tested"
+    ],
+    "accepted_catalog_comparison": {
+      "path": "bkpt-data://architecture/stm32c5-exti-v1.json",
+      "sha256_at_review": "e8c92d6edfeff13f3e95b59cefe96b010a851918982a45c3c4eb34fc43d6ab4f",
+      "qualification": "Read-only comparison recorded in exti-sbs-review.json; mutable owning-chat catalog is not an immutable input or permission to alter it."
+    },
+    "chapter_audit": {
+      "detail": "Full chapter excerpts retained for reviewed coverage, including register-map and repeated port listings; not a completeness or execution claim. Additional SDK getter/callback excerpts retained as source context.",
+      "evidence": [
+        "RM0522:p445",
+        "RM0522:p446",
+        "RM0522:p447",
+        "RM0522:p448",
+        "RM0522:p449",
+        "RM0522:p450",
+        "RM0522:p451",
+        "RM0522:p452",
+        "RM0522:p453",
+        "RM0522:p454",
+        "RM0522:p455",
+        "RM0522:p456",
+        "RM0522:p457",
+        "RM0522:p458",
+        "RM0522:p459",
+        "RM0522:p460",
+        "RM0522:p461",
+        "RM0522:p462",
+        "RM0522:p463",
+        "RM0522:p464",
+        "RM0522:p465",
+        "RM0522:p466",
+        "RM0522:p467",
+        "RM0522:p468",
+        "RM0522:p469",
+        "RM0522:p470",
+        "RM0522:p471",
+        "header.layout",
+        "header.instances",
+        "header.base",
+        "header.IRQ",
+        "header.bank2",
+        "HAL.guards",
+        "HAL.init_deinit",
+        "HAL.config",
+        "HAL.getconfig",
+        "HAL.enable",
+        "HAL.SWI",
+        "HAL.pending",
+        "HAL.IRQ",
+        "HAL.callback",
+        "HAL.privilege",
+        "HAL.enums",
+        "LL.encoding",
+        "LL.ports",
+        "LL.SWI1",
+        "LL.SWI2",
+        "LL.clearR1",
+        "LL.clearR2",
+        "LL.clearF1",
+        "LL.clearF2",
+        "LL.mux",
+        "LL.getmux",
+        "LL.privilege1",
+        "LL.privilege2",
+        "family.atomic_byte",
+        "header.mux",
+        "header.family_IM"
+      ]
+    }
+  }
+}

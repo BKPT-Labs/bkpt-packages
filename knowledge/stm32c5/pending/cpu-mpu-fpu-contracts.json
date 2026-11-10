@@ -1,0 +1,764 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/cpu-mpu-fpu-contracts.json",
+    "sha256": "d01197b2f8beec8a287e9d4d240e9dcf0e94fd113785005f8f312231948512be"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 50
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "schema": "bkpt.external.cpu_mpu_fpu.contracts.v1",
+    "review": "Independent source and regression review pending.",
+    "scope": "Exact C542 CPU/FPU/DSP/MPU implementation declarations and bounded pinned SDK source paths. RM has no complete core programming chapter; selected full relevant sections read. No full Arm architecture, instruction-set, fault recovery, RTOS, ABI, numerical or execution qualification.",
+    "sources": {
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "family": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c5xx.h",
+        "sha256": "61a0b8c2674d9e817d70aa8d2693339273f4283694f8ab5f8dca077bb69913f7"
+      },
+      "HAL": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_cortex.c",
+        "sha256": "ce4b71c591d43aced22fd6edf8f97470280af961f57fddb0e4ed6c179ae165f4"
+      },
+      "HAL_H": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_cortex.h",
+        "sha256": "eaf1c23b721d348cba7fcdf0ec3879f8755e2e5ef8fee1f397cffde7a93330c2"
+      },
+      "CMSIS": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/arch/cmsis/CMSIS/Core/Include/core_cm33.h",
+        "sha256": "47bd70aed10df47c7ca54bf049685d24ae886294b2d05ac6e411804dfe81b4b8"
+      },
+      "DS15135": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pdf",
+        "sha256": "1a3555f799297774a95978ab343ebc1f45ab9ef58d0dcf3600dec4fabed9355c",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pages.json",
+        "extraction_sha256": "b14b965adb6c1545edbca0e56b3c504e7ecc3a94bda197350ce2757b5a3d55dc"
+      },
+      "ES0676": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pdf",
+        "sha256": "a5463827337bcdbd3e5f2e0912a56307d78b568e5631b21cc9a25899c7d4a5e6",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pages.json",
+        "extraction_sha256": "2ab1b19e42b53e22ff5f3b98f6ed9a5f98f3b7b61a617abc3bb3b7fc050d1cb3"
+      },
+      "assert_template": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/templates/common/stm32_assert.h",
+        "sha256": "811b45570fdc34fc5ad7b308625795b0a8c2aff53c1a261694772df6b7fb205c"
+      },
+      "MPU_API": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/arch/cmsis/CMSIS/Core/Include/m-profile/armv8m_mpu.h",
+        "sha256": "3540efc65de718421637748878159d19e2aabc53609eb4bd02d6894cc9977582"
+      },
+      "GCC": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/arch/cmsis/CMSIS/Core/Include/cmsis_gcc.h",
+        "sha256": "7c34c8eb47e78acc8da3122fd27fc912b653b14817a2e1fb55ed41fb55c54281"
+      },
+      "GCC_M": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/arch/cmsis/CMSIS/Core/Include/m-profile/cmsis_gcc_m.h",
+        "sha256": "56241ce5b4798048f84429e28c1949d30bb907155f0b8351cb36aaaa9cbbeabb"
+      },
+      "startup": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Source/Templates/system_stm32c5xx.c",
+        "sha256": "3756864b21d695eeeebdbf5b569570b783b4627f42bc7494b96fe5f217a1e12b"
+      },
+      "nvic_systick": {
+        "path": "research://c5-reference/nvic-systick-contracts.json",
+        "sha256": "d5d1f873f5042f94359955fdda0530c305d0c7c7d9c209e082120966d7d6907d"
+      },
+      "SBS_candidate": {
+        "path": "research://c5-reference/sbs-contracts.json",
+        "sha256": "a2fa7a7b12683ff778719b8f07d2b550c8d7d252ed02538ea5e6a8245e51a341"
+      },
+      "errata": {
+        "path": "research://c5-reference/errata.json",
+        "sha256": "821c22f796a9ff723afee534fe5943c2b0506325ec871d890706d94414316416"
+      },
+      "reset_startup": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Source/startup_stm32c542xx.c",
+        "sha256": "cc3f71f21df0e7711798c5a18814dc8a021b41e91af00bfd1b2159fe22256907"
+      }
+    },
+    "evidence": {
+      "RM0522:p1": {
+        "source": "RM0522",
+        "page": 1,
+        "sha256": "53d4acda1b4a180e7e6d0adc0fd589eab7a886c20fd75790db15470e2fbf5faa"
+      },
+      "RM0522:p85": {
+        "source": "RM0522",
+        "page": 85,
+        "sha256": "d99ded41493622c67b5c0d6a65bcc86db9c091804b13a5bea5886aef2bdfee97"
+      },
+      "RM0522:p86": {
+        "source": "RM0522",
+        "page": 86,
+        "sha256": "b3efb343a160d7a90b81539c83a49fc8342f4ce34640e40b4d4418f7e563c0d7"
+      },
+      "RM0522:p87": {
+        "source": "RM0522",
+        "page": 87,
+        "sha256": "979857ff27a50b4d658525ce23d2d4f605b54d3886d5be51ae4b82564fcf9efd"
+      },
+      "RM0522:p88": {
+        "source": "RM0522",
+        "page": 88,
+        "sha256": "8a95f64a701e3c79702162c2b70cdddd00a9589898d071ec8514e97ad94011db"
+      },
+      "RM0522:p89": {
+        "source": "RM0522",
+        "page": 89,
+        "sha256": "ccf45dfa4c6e8eccf52f850270dd058f5fe15d36009c3d7bbdf9425b3b5d169b"
+      },
+      "RM0522:p90": {
+        "source": "RM0522",
+        "page": 90,
+        "sha256": "3343572221a8c1995fcb9ae072c0d1c53fbb88ea1566482a64604a489e7f50c8"
+      },
+      "RM0522:p100": {
+        "source": "RM0522",
+        "page": 100,
+        "sha256": "1f362c615faeb8b55999404ef4db57db5895c0af50dfe6d86f5a5844da4b1f47"
+      },
+      "RM0522:p101": {
+        "source": "RM0522",
+        "page": 101,
+        "sha256": "3212c3b8beb05942a92d1484f455609784e4e96a30caf57e2f34a67650397b83"
+      },
+      "RM0522:p364": {
+        "source": "RM0522",
+        "page": 364,
+        "sha256": "e6edc69b1ea4b6385068fdcc6606ad75002d9c836e715cd513f63c8798471209"
+      },
+      "RM0522:p368": {
+        "source": "RM0522",
+        "page": 368,
+        "sha256": "f400e954f6a2cdc7d1135b74ee149db475e4de7039f22d7f7ba22a09f31b9849"
+      },
+      "DS15135:p1": {
+        "source": "DS15135",
+        "page": 1,
+        "sha256": "7260339fe599ceb292f39b4de5dee69e73f9624fca2dca03c5294b11c3fa6d0f"
+      },
+      "DS15135:p7": {
+        "source": "DS15135",
+        "page": 7,
+        "sha256": "f1bd7af28a5bbbad150c89aa5e67005f4ebbd301bc2f117493bcb72c21bd7377"
+      },
+      "DS15135:p8": {
+        "source": "DS15135",
+        "page": 8,
+        "sha256": "137ddb29977042aa60c349d45126694acfd1d62d9656ace585be4919c81089e9"
+      },
+      "ES0676:p1": {
+        "source": "ES0676",
+        "page": 1,
+        "sha256": "c36bb50f3ba55f82de59b1a5aa62c5ca6b1d3ea938ac9451545a442e65dd25c8"
+      },
+      "ES0676:p2": {
+        "source": "ES0676",
+        "page": 2,
+        "sha256": "3fed5303e4a0fc65ed4dbe6aae1c297605837e2da15bb0e24928d26b0d25eb95"
+      },
+      "ES0676:p4": {
+        "source": "ES0676",
+        "page": 4,
+        "sha256": "3b0e6d179a6d3b6701ddfa31ce87f44ef4d62c59d79a1f01184c77a212d7774c"
+      },
+      "header.core": {
+        "source": "header",
+        "start_line": 160,
+        "end_line": 182,
+        "sha256": "b233908891b52137d5badf535b90e1d1de6bbfe7304dd60985e181ce21b3b298"
+      },
+      "header.FPU_IRQ": {
+        "source": "header",
+        "start_line": 117,
+        "end_line": 122,
+        "sha256": "11fc091a96540bb07a9ac7902bf7e1231676d73235376d6bc453bdecb4e8f156"
+      },
+      "header.FPU_mask": {
+        "source": "header",
+        "start_line": 10445,
+        "end_line": 10455,
+        "sha256": "5f66f675f5ae28080d3e0d988eafeadf0cb80e29668ffb4aef701212bee96b12"
+      },
+      "header.MPU_lock": {
+        "source": "header",
+        "start_line": 10533,
+        "end_line": 10541,
+        "sha256": "2af34596caa25ef6f64b43afd1670c87d84df61b2573008941ca922add826649"
+      },
+      "CMSIS.features": {
+        "source": "CMSIS",
+        "start_line": 65,
+        "end_line": 226,
+        "sha256": "6f15513f789e8ef3e29d0a483cefa20356cf4eb008fc9175d13e5722ec3ae261"
+      },
+      "CMSIS.control": {
+        "source": "CMSIS",
+        "start_line": 447,
+        "end_line": 472,
+        "sha256": "a0285e728061ca31701527c55fa3e20b29b31a4c9e14176ade083e03cf2c94be"
+      },
+      "CMSIS.SCB": {
+        "source": "CMSIS",
+        "start_line": 510,
+        "end_line": 585,
+        "sha256": "9760c273d39b4fafdbfea80119ea5440032dad63546c27b2d0ad7c9685ea02d3"
+      },
+      "CMSIS.faults": {
+        "source": "CMSIS",
+        "start_line": 680,
+        "end_line": 879,
+        "sha256": "69dd479f9ffb3366552396d4ce9c5fb2c680b145fa25dd5f52a10e4fd994e365"
+      },
+      "CMSIS.MPU": {
+        "source": "CMSIS",
+        "start_line": 1451,
+        "end_line": 1564,
+        "sha256": "381dcbfe401203caed61df6cfb044f5524a5b57969ff0ab4a9906c0087489be7"
+      },
+      "CMSIS.SAU_condition": {
+        "source": "CMSIS",
+        "start_line": 1567,
+        "end_line": 1591,
+        "sha256": "05c8281bd16f4699e7f66e28571c181c9b3691c4bd64e128d848d9c41af1e06b"
+      },
+      "CMSIS.FPU": {
+        "source": "CMSIS",
+        "start_line": 1654,
+        "end_line": 1786,
+        "sha256": "9615de2815b732b3f5936b82bdd8e1124313bcd5f2c252968a6c3b2e4e05c0e3"
+      },
+      "CMSIS.bases": {
+        "source": "CMSIS",
+        "start_line": 2044,
+        "end_line": 2082,
+        "sha256": "8cb7c4dcb1221f669d3dcae886cf20dd1677093c495ad19c14430b8e05d9b1b1"
+      },
+      "CMSIS.FPU_type": {
+        "source": "CMSIS",
+        "start_line": 2928,
+        "end_line": 2953,
+        "sha256": "e040c72e20be2a26474a4bce6dd2a05300c46041ffadf5c177831e1f755b08d5"
+      },
+      "MPU.encodings": {
+        "source": "MPU_API",
+        "start_line": 32,
+        "end_line": 177,
+        "sha256": "777dd77c4c7fd4b861533db2653eb7dfa46784e05fe6adf4c7874f051caaea02"
+      },
+      "MPU.enable": {
+        "source": "MPU_API",
+        "start_line": 179,
+        "end_line": 221,
+        "sha256": "936b6d34d231b49214a0c2058133ee6ca3deb54b7254b92710b1bba13c854745"
+      },
+      "MPU.attributes": {
+        "source": "MPU_API",
+        "start_line": 252,
+        "end_line": 277,
+        "sha256": "dad33fa585bd86825863b2fd1bd3c2ab8dbfe90850dc283f2bc6e9bf138f5e87"
+      },
+      "MPU.region": {
+        "source": "MPU_API",
+        "start_line": 290,
+        "end_line": 339,
+        "sha256": "d7002019119310fc089b16f0a055b96c9f74244893761700551219b4a02b51ed"
+      },
+      "MPU.load": {
+        "source": "MPU_API",
+        "start_line": 353,
+        "end_line": 406,
+        "sha256": "2c9a00865680a30206d6a0b6924ed1c91aeeaac560917c3d3cedb3a367ce3764"
+      },
+      "HAL.constants": {
+        "source": "HAL",
+        "start_line": 195,
+        "end_line": 201,
+        "sha256": "2e2e209d4b58858373f07068c189bfcaae071c6f2a71dd42f0cf968200feb475"
+      },
+      "HAL.guards": {
+        "source": "HAL",
+        "start_line": 246,
+        "end_line": 306,
+        "sha256": "d45a7b53857f29ae8495d03e33e64f8b077d19d07546fe8cce5336ec55f7e031"
+      },
+      "HAL.MPU_global": {
+        "source": "HAL",
+        "start_line": 661,
+        "end_line": 694,
+        "sha256": "5a460b18ebd84978b8bf7efdc92e2aec32ee4377e0e8d6b2f742e76456103aeb"
+      },
+      "HAL.MAIR": {
+        "source": "HAL",
+        "start_line": 696,
+        "end_line": 788,
+        "sha256": "b176b2686e03b478ebffda1254073d60b015bb940df2130880449264e9c9c3f3"
+      },
+      "HAL.region": {
+        "source": "HAL",
+        "start_line": 790,
+        "end_line": 889,
+        "sha256": "230f8fe9c2642a033cbb5ab44d1e932ecaaf2f1d2d12b5ae10bcd3c1d1f1571e"
+      },
+      "HAL.SCB": {
+        "source": "HAL",
+        "start_line": 908,
+        "end_line": 945,
+        "sha256": "70d5f7ac2d79d2326d363eb8a66156203f224b3297fbfb29393df2f0f4ec9172"
+      },
+      "HAL.enums": {
+        "source": "HAL_H",
+        "start_line": 124,
+        "end_line": 236,
+        "sha256": "74b3e7b6dcf601455ff178312b57c771b876fe65a7b445eea1caa54d850f720e"
+      },
+      "family.FPU_faults": {
+        "source": "family",
+        "start_line": 351,
+        "end_line": 397,
+        "sha256": "ce5cd8c6450e962d95679b4003df2ed057eda8ce71c5a919b63f25b3894e25c1"
+      },
+      "startup.FPU": {
+        "source": "startup",
+        "start_line": 142,
+        "end_line": 157,
+        "sha256": "8988dafe135317dc05f803c58d6558be1db39fb0f1029eb728040407fc3c771a"
+      },
+      "GCC.barriers": {
+        "source": "GCC",
+        "start_line": 167,
+        "end_line": 198,
+        "sha256": "607613d38db7e52f56799c0c952eab06cea5dde7fd3629f064a1d38b4a73b20d"
+      },
+      "GCC.FPSCR": {
+        "source": "GCC",
+        "start_line": 838,
+        "end_line": 875,
+        "sha256": "c86d07b8aaa5b032b2b3797325b253580538bc87fe77c389076a2f445cf27d70"
+      },
+      "GCC.DSP": {
+        "source": "GCC",
+        "start_line": 881,
+        "end_line": 946,
+        "sha256": "8a284163169e7df18c4d80eec43fe2d38a8cadad8b3eb02712707dfba9235cc4"
+      },
+      "GCC.control": {
+        "source": "GCC_M",
+        "start_line": 126,
+        "end_line": 165,
+        "sha256": "6376fe1d75faf20c87f9f6ec911b17b7fb3a2ef16dea5d77a3759793ad3eaa21"
+      },
+      "SDK.assertions": {
+        "source": "assert_template",
+        "start_line": 32,
+        "end_line": 66,
+        "sha256": "861f103410d3abf19ca2c0d7ebce70a0487134fd24a261f44885e14c19324da4"
+      },
+      "startup.reset": {
+        "source": "reset_startup",
+        "start_line": 250,
+        "end_line": 264,
+        "sha256": "9b91183f2b4cfcc9ec594531f3da1980e93905c64dbd39ba08a74ed281ed255d"
+      }
+    },
+    "contracts": [
+      {
+        "id": "exact_core",
+        "detail": "Exact header declares Cortex-M33, MPU/FPU/DSP present and SAU regions absent. DS qualifies single-precision floating point and DSP instructions, with eight MPU regions. Generic CMSIS double-precision detection and CMSE/SAU/nonsecure aliases do not establish those exact-device features. No physical identification register was read.",
+        "evidence": [
+          "header.core",
+          "DS15135:p7",
+          "DS15135:p8",
+          "CMSIS.features",
+          "CMSIS.SAU_condition",
+          "CMSIS.FPU_type"
+        ]
+      },
+      {
+        "id": "CPU_memory_scope",
+        "detail": "MPU governs CPU memory accesses by privilege and instruction/data permission. It is not a DMA firewall or proof of isolation for other masters. Exact C542 has fast C-bus and S-bus; slow external-memory C-bus is family-only here. Little-endian organization and APB subword replication are source facts, not permission to use narrower access than a peripheral requires. Bus arbitration and complete apertures remain a separate survey.",
+        "evidence": [
+          "RM0522:p87",
+          "RM0522:p88",
+          "RM0522:p89",
+          "RM0522:p90",
+          "RM0522:p100",
+          "RM0522:p101",
+          "DS15135:p8"
+        ]
+      },
+      {
+        "id": "MPU_finite_domain",
+        "detail": "RM100/101 describe eight regions (also phrased up to eight) and 32-byte alignment. The following field semantics are SDK-derived from CMSIS/HAL, not additional RM architecture qualification: region and MAIR indexes0..7; RBAR base masked to bits31:5 and HAL getter limit reconstructed with low5 bits set for an inclusive end; AP0 privileged RW,1 all RW,2 privileged RO,3 all RO; XN0 permits execution subject to permissions,1 prohibits; SH0 nonshareable,2 outer,3 inner, with1 undefined in inspected API. PM0264 is unavailable locally. Overlap priority, defaults and exact architecture behavior remain unqualified.",
+        "evidence": [
+          "RM0522:p100",
+          "RM0522:p101",
+          "CMSIS.MPU",
+          "MPU.encodings",
+          "HAL.enums",
+          "HAL.region"
+        ]
+      },
+      {
+        "id": "MPU_global_policy",
+        "detail": "CTRL ENABLE bit0, HFNMIENA bit1, PRIVDEFENA bit2 are separate policy controls. HAL describes HFNMIENA0 as handler bypass and PRIVDEFENA as privileged default-map enable. These settings change fault and privileged access policy globally and require a coordinated owner; no temporary unprotected window or handler recovery is admitted. CMSIS Enable overwrites CTRL, while Disable clears ENABLE by RMW and preserves HFNMIENA/PRIVDEFENA. Both RMW SHCSR, which also contains active/pending state; concurrency effects are unqualified.",
+        "evidence": [
+          "CMSIS.MPU",
+          "HAL.enums",
+          "HAL.MPU_global",
+          "MPU.enable",
+          "CMSIS.faults"
+        ]
+      },
+      {
+        "id": "memory_attributes",
+        "detail": "Device MAIR bytes are0x00/0x04/0x08/0x0C for nGnRnE/nGnRE/nGRE/GRE. Normal attributes have independent outer and inner nibbles. Exact C542 has an 8 KiB instruction cache on C-bus. Inspected sources do not establish how these MPU attributes interact with that ICACHE or prove DMA coherence; defer cache behavior to the separate ICACHE survey. Any MAIR update affects every enabled region referring to that index; serialize users and qualify barriers, cache maintenance and active code/data dependencies. DS8 describes detection of unexpected cacheable write access; this is not proof of a particular MPU/cache outcome.",
+        "evidence": [
+          "MPU.encodings",
+          "MPU.attributes",
+          "HAL.MAIR",
+          "DS15135:p8",
+          "RM0522:p87",
+          "RM0522:p88"
+        ]
+      },
+      {
+        "id": "MPU_enable_and_fault_enable",
+        "detail": "CMSIS ARM_MPU_Enable executes DMB, writes CTRL with ENABLE, enables MemManage in SHCSR, then DSB/ISB. Disable executes DMB, disables MemManage, clears ENABLE and executes DSB/ISB. This also changes fault escalation policy and does not clear regions, MAIR or pending fault history. Barriers are not interrupt exclusion or a DMA completion receipt.",
+        "evidence": [
+          "MPU.enable",
+          "GCC.barriers",
+          "HAL.MPU_global",
+          "family.FPU_faults"
+        ]
+      },
+      {
+        "id": "FPU_enable_and_context",
+        "detail": "Startup enables the FPU only when both __FPU_PRESENT and compiler-derived __FPU_USED are1. The family helper sets CP10/CP11 fields to3 and its inverse clears them. The inspected helper does not initialize FPSCR, FPDSCR or lazy context settings, save task state, or synchronize with another context owner. FPCCR ASPEN/LSPEN/LSPACT and CONTROL FPCA exist in CMSIS; their defaults and complete lazy-stacking protocol are not qualified here. The exact startup Reset_Handler sets PSP/MSPLIM/PSPLIM, calls SystemInit, then __PROGRAM_START. These supplied startup/system sources may be replaced by a project. No build establishes whether any FP instruction executes before CPACR setup.",
+        "evidence": [
+          "startup.FPU",
+          "family.FPU_faults",
+          "CMSIS.features",
+          "CMSIS.FPU",
+          "CMSIS.control",
+          "startup.reset"
+        ]
+      },
+      {
+        "id": "FPU_interrupt_interface",
+        "detail": "Exact external FPU IRQ is65, distinct from CPU fault exceptions. SBS FPUIMR is privileged-only with six enable bits, system-reset value0x1F: invalid operation0, divide-by-zero1, underflow2, overflow3, input abnormal4, inexact5. Bit5 is disabled at reset. The inspected SBS source does not state that mask selection clears FPSCR. Handler installation is separate; source/CPU/NVIC ownership remains coordinated with the existing NVIC survey. This is shared context for the hash-bound SBS candidate FPU_masks contract, not a separate owner or second IRQ resource.",
+        "evidence": [
+          "header.FPU_IRQ",
+          "header.FPU_mask",
+          "RM0522:p364",
+          "CMSIS.FPU"
+        ]
+      },
+      {
+        "id": "DSP_compiler_boundary",
+        "detail": "DSP presence is an exact-device declaration. Pinned GCC intrinsics expose saturating/packed arithmetic and dual multiply-accumulate aliases only under __ARM_FEATURE_DSP=1. This is a conditional compiler interface, not a complete executable instruction inventory, timing guarantee, numerical test or proof that a particular binary uses DSP.",
+        "evidence": [
+          "header.core",
+          "DS15135:p7",
+          "CMSIS.features",
+          "GCC.DSP"
+        ]
+      },
+      {
+        "id": "privilege_and_SCB",
+        "detail": "CONTROL nPRIV, SPSEL and FPCA fields and CMSIS MRS/MSR helpers are source interfaces. GetConfigRegion/IsEnabledRegion and CPUID getters are not permission to touch live hardware. Fault enable/disable APIs modify SHCSR, affecting routing/escalation; enabling a handler is not proof its stack, vector, priority and recovery policy are valid. Existing NVIC and SysTick contracts retain vector/interrupt ownership. HAL EnableHardFaultEscalation clears SHCSR fault enables; DisableHardFaultEscalation sets them. Names describe escalation, inversely to enabling the configurable fault handlers.",
+        "evidence": [
+          "CMSIS.control",
+          "GCC.control",
+          "HAL.SCB",
+          "family.FPU_faults",
+          "CMSIS.SCB"
+        ]
+      },
+      {
+        "id": "MPU_lock",
+        "detail": "SBS LOCKMPU is privileged-only and clears only by system reset. RM368 says write access to CTRL/RNR/RBAR is disabled but does not specify ignored-write versus fault behavior or enumerate RLAR/MAIR/aliases. If a locked write fails to change RNR and execution continues, a later RLAR access may target the old selected region. SHCSR is not listed in the lock: MPU Disable may clear its MemManage enable even if CTRL cannot change; Enable may set it despite an ineffective CTRL write if execution continues. HAL region enable/disable then RMW RLAR through the selected region. These conditional source risks are not observed outcomes; complete lock semantics remain unqualified. No lock/reset operation is admitted.",
+        "evidence": [
+          "RM0522:p368",
+          "header.MPU_lock",
+          "HAL.region",
+          "MPU.enable",
+          "MPU.region"
+        ]
+      },
+      {
+        "id": "ES_fault_order",
+        "detail": "ES2.1.1: with MPU enabled, a misaligned load/store hitting one Device-memory region whose AP denies access reports MemManage ahead of UNALIGNED UsageFault. All listed conditions matter. No workaround is given. Preserve classification and diagnostics without claiming fault order immunity or a software fix. General core revision applicability remains an explicit source discrepancy. ES Table3 marks this limitation N for both silicon Z and Y. Actual exception routing also depends on SHCSR MemManage enable; HAL escalation and MPU Disable clear that enable. The routing consequence remains an architecture-unqualified inference, not a promise of delivered MemManage in every configuration.",
+        "evidence": [
+          "ES0676:p2",
+          "ES0676:p4",
+          "RM0522:p101",
+          "HAL.SCB",
+          "family.FPU_faults",
+          "MPU.enable"
+        ]
+      }
+    ],
+    "source_derived_SDK_gates": [
+      {
+        "id": "region_address_and_enable",
+        "detail": "HAL SetConfigRegion masks base and limit with0xFFFFFFE0, does not check alignment or base<=limit, and omits RLAR EN in the value it writes. Thus valid configuration finishes with region disabled, independent of prior enable; explicit EnableRegion is separate. Misaligned bounds can expand the effective protected interval relative to caller intent. No guarantee follows for invalid ranges.",
+        "evidence": [
+          "HAL.constants",
+          "HAL.region",
+          "CMSIS.MPU",
+          "MPU.encodings"
+        ]
+      },
+      {
+        "id": "region_nonatomic_update",
+        "detail": "ARM_MPU_SetRegion writes RNR then RBAR then RLAR. Neither it nor HAL first disables an already enabled region, masks interrupts or inserts barriers. Live observers can encounter intermediate configuration. GetConfigRegion also writes RNR and reads several registers separately; Enable/Disable/IsEnabledRegion mutate the same selector. Require exclusive serialization and an architecture-qualified transition protocol, including interrupt/fault code and current stack. If an enabled region accepts the sequential writes, the interval after RBAR but before RLAR combines the new base/AP/XN/SH with old limit/attribute/enable. GetConfigRegion reads RBAR three times and RLAR twice and omits SH and EN, so it is not an atomic complete-policy snapshot.",
+        "evidence": [
+          "HAL.region",
+          "MPU.region",
+          "MPU.load"
+        ]
+      },
+      {
+        "id": "attribute_subset",
+        "detail": "HAL SetCacheMemAttr ORs the chosen outer nibble with0x0F. For its NONCACHEABLE enum0x40 this writes0x4F, not0x44; the inner nibble is fixed write-back/read-write allocate in the inspected CMSIS encoding. GetCacheMemAttr returns only outer nibble and cannot prove matching inner policy. HAL region configuration sets SH0 and omits PXN. These APIs represent a subset, not all MPU policies. GetCacheMemAttr accepts any nonzero outer nibble: raw0x2F returns0x20, outside its enum, and raw0x40/0x44 are indistinguishable. With assertions disabled, either setter accepts its INVALID sentinel0xFF and writes MAIR0xFF at a valid index, which the SDK encodes as Normal write-back. GetDeviceMemAttr reports raw0x00 as nGnRnE regardless of whether software configured it; reset state is not qualified.",
+        "evidence": [
+          "HAL.constants",
+          "HAL.MAIR",
+          "HAL.region",
+          "HAL.enums",
+          "MPU.encodings",
+          "CMSIS.MPU"
+        ]
+      },
+      {
+        "id": "release_validation",
+        "detail": "HAL assertions are optional. SetConfigRegion has a USE_HAL_CHECK_PARAM null rejection, but debug assertions dereference p_config before that runtime check. With USE_ASSERT_DBG_PARAM enabled, a returning failed-assert handler allows the next assertion to dereference NULL; a nonreturning handler prevents reaching runtime rejection. Assertions compiled out permit the optional runtime rejection to handle NULL. Other parameter/state validation and GetConfigRegion pointer validation are assertion-only. Region index is written to RNR without runtime bounds or narrowing. No readback proves lock acceptance or requested configuration. Unmasked attr_idx values8..15 set RLAR bit4 (named PXN in generic CMSIS, exact applicability unqualified); value16 sets a limit bit. AP value4 sets SH and execution value2 sets AP. Larger invalid values can spill further; reject operands before shifts rather than infer hardware response.",
+        "evidence": [
+          "SDK.assertions",
+          "HAL.guards",
+          "HAL.region",
+          "CMSIS.MPU",
+          "MPU.region"
+        ]
+      },
+      {
+        "id": "MAIR_index_asymmetry",
+        "detail": "HAL setters narrow attribute index to uint8_t; CMSIS SetMemAttrEx rejects resulting MAIR register index>=2 without status. Values congruent to0..7 modulo256 can alias valid attributes after narrowing. HAL getters narrow then index MAIR directly without the CMSIS bounds check, so invalid values can produce out-of-array access. Validate original index0..7 before calling; no hardware outcome is inferred.",
+        "evidence": [
+          "HAL.MAIR",
+          "MPU.attributes",
+          "CMSIS.MPU"
+        ]
+      },
+      {
+        "id": "MPU_enable_policy_side_effect",
+        "detail": "Enable/Disable MPU also sets/clears MemManage enable. HAL IsEnabled checks only CTRL ENABLE and cannot confirm region completeness, attribute validity, fault delivery or expected HFNMIENA/PRIVDEFENA state. No caller policy restoration is implemented by these simple helpers.",
+        "evidence": [
+          "HAL.MPU_global",
+          "MPU.enable"
+        ]
+      },
+      {
+        "id": "FPU_helper_barriers_and_FPSCR",
+        "detail": "SCB_EnableFPU/DisableFPU only RMW CPACR without DSB/ISB or context-state checks. GCC FPSCR helpers access hardware only under defined(__ARM_FP) && (__ARM_FP >= 1); otherwise getter returns0 and setter is a no-op. This differs from the GCC __FPU_USED gate based on __VFP_FP__ and absence of __SOFTFP__; equivalence is not established. FPSCR uses a compiler intrinsic or VMRS/VMSR in the active branch. ABI, lazy context and exception ordering still need integration qualification.",
+        "evidence": [
+          "family.FPU_faults",
+          "GCC.FPSCR",
+          "GCC.barriers",
+          "startup.FPU",
+          "CMSIS.features"
+        ]
+      },
+      {
+        "id": "bulk_region_loader",
+        "detail": "CMSIS bulk loader accepts starting region and count without checking the exact eight-region boundary or table length; it changes RNR and writes aliases. Count0 still takes the multi-region path and changes RNR. Ordered volatile stores are not a complete atomic update or barrier protocol. Validate count, range, buffer and ownership before any eventual use.",
+        "evidence": [
+          "MPU.load",
+          "CMSIS.MPU"
+        ]
+      }
+    ],
+    "conflicts": [
+      {
+        "id": "core_revision",
+        "detail": "Exact header __CM33_REV=0x0004 with comment r0p4_p1, while ES0676 core introduction names r0p1. Neither is a physical CPUID read or a basis to discard ES2.1.1. Keep both source identities and defer silicon/core revision reconciliation.",
+        "evidence": [
+          "header.core",
+          "ES0676:p4",
+          "HAL.SCB"
+        ]
+      },
+      {
+        "id": "MPU_lock_scope",
+        "detail": "RM labels MPU register lock but enumerates only CTRL,RNR,RBAR; generic CMSIS additionally exposes RLAR, aliases and MAIR. The exact effect on omitted registers is not established by the inspected text.",
+        "evidence": [
+          "RM0522:p368",
+          "CMSIS.MPU"
+        ]
+      },
+      {
+        "id": "normal_noncacheable_label",
+        "detail": "HAL enum NORMAL_MEM_NCACHEABLE controls the outer nibble while the setter forces inner0xF. The broad label must not be transcribed as both inner and outer noncacheable. Literal0x4F and API subset are retained.",
+        "evidence": [
+          "HAL.enums",
+          "HAL.constants",
+          "HAL.MAIR",
+          "MPU.encodings"
+        ]
+      }
+    ],
+    "finite_source_maps": {
+      "core": "Cortex-M33",
+      "MPU_regions": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "MAIR_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "MPU_base": "0xE000ED90",
+      "FPU_base": "0xE000EF30",
+      "FPU_IRQ": 65,
+      "address_granule_bytes": 32,
+      "MPU_CTRL_bits": {
+        "ENABLE": 0,
+        "HFNMIENA": 1,
+        "PRIVDEFENA": 2
+      },
+      "MPU_AP_raw": {
+        "0": "privileged RW",
+        "1": "all RW",
+        "2": "privileged RO",
+        "3": "all RO"
+      },
+      "MPU_SH_raw": {
+        "0": "nonshareable",
+        "2": "outer shareable",
+        "3": "inner shareable"
+      },
+      "XN_raw": {
+        "0": "execution subject to permission",
+        "1": "execute never"
+      },
+      "device_MAIR_bytes": [
+        "0x00",
+        "0x04",
+        "0x08",
+        "0x0C"
+      ],
+      "HAL_normal_MAIR_bytes": [
+        "0x4F",
+        "0x8F",
+        "0x9F",
+        "0xAF",
+        "0xBF",
+        "0xCF",
+        "0xDF",
+        "0xEF",
+        "0xFF"
+      ],
+      "MPU_register_offsets": {
+        "TYPE": "0x00",
+        "CTRL": "0x04",
+        "RNR": "0x08",
+        "RBAR": "0x0C",
+        "RLAR": "0x10",
+        "RBAR_A1": "0x14",
+        "RLAR_A1": "0x18",
+        "RBAR_A2": "0x1C",
+        "RLAR_A2": "0x20",
+        "RBAR_A3": "0x24",
+        "RLAR_A3": "0x28",
+        "MAIR0": "0x30",
+        "MAIR1": "0x34"
+      },
+      "FPU_register_offsets": {
+        "FPCCR": "0x04",
+        "FPCAR": "0x08",
+        "FPDSCR": "0x0C",
+        "MVFR0": "0x10",
+        "MVFR1": "0x14",
+        "MVFR2": "0x18"
+      },
+      "evidence": [
+        "CMSIS.bases",
+        "CMSIS.MPU",
+        "CMSIS.FPU",
+        "HAL.enums",
+        "HAL.MAIR",
+        "MPU.encodings"
+      ],
+      "qualification": "Finite SDK declarations/encodings, with RM region-count/alignment corroboration only. No architecture reset-value, overlap-priority, lock-effect or executable-region admission."
+    },
+    "source_audit": {
+      "RM_full_pages_read": [
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        100,
+        101,
+        364,
+        368
+      ],
+      "DS_full_pages_read": [
+        1,
+        7,
+        8
+      ],
+      "ES_core_read": [
+        1,
+        2,
+        4
+      ],
+      "SDK_scope": "Complete MPU API421-line header and HAL MPU functions; bounded SCB/FPU/GCC paths. No full core_cm33 instruction architecture or complete compiler audit.",
+      "missing_source": "PM0264 and corresponding Arm architecture/TRM not present in inspected local C5 sources/SDK; no network fetch performed."
+    },
+    "errata_sha256": "821c22f796a9ff723afee534fe5943c2b0506325ec871d890706d94414316416",
+    "open_gates": [
+      "No operational profile, protection configuration, privilege change, core register access or reset authorized.",
+      "Full Arm architecture and instruction encodings, core reset defaults, overlapping-region behavior, fault escalation details, lazy FPU context and RTOS isolation remain unqualified.",
+      "Do not promote generic CMSIS PXN/security-bank symbols to exact implementation capability without additional source evidence.",
+      "Memory-bus, ICACHE, SBS, power and NVIC/SysTick candidates remain separate owners and incomplete; hash links preserve provenance only.",
+      "Independent review pending; numerical/ABI/compiler, build and hardware qualification not performed."
+    ]
+  }
+}

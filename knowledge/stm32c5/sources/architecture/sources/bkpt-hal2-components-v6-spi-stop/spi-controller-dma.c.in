@@ -1,0 +1,227 @@
+// SPDX-License-Identifier: LicenseRef-BKPT-Proprietary
+/*
+ * BKPT resource-bound initialization, adapted from ST HAL2 2.1.0 API contracts
+ * and STM32CubeC5 initialization examples. Manufacturer-derived portions:
+ * BSD 3-clause "New" or "Revised" License
+ * 
+ * Copyright (c) 2026, STMicroelectronics
+ * 
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ * 
+ *   * Redistributions of source code must retain the above copyright notice, this
+ *     list of conditions and the following disclaimer.
+ * 
+ *   * Redistributions in binary form must reproduce the above copyright notice,
+ *     this list of conditions and the following disclaimer in the documentation
+ *     and/or other materials provided with the distribution.
+ * 
+ *   * Neither the name of the STMicroelectronics nor the names of its contributors may
+ *     be used to endorse or promote products derived from this software without
+ *     specific prior written permission.
+ * 
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
+ * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+ * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+#include "{{unit}}.h"
+static unsigned int attempted;
+static hal_status_t status = HAL_ERROR;
+static hal_spi_handle_t peripheral;
+static hal_dma_handle_t dma_tx;
+static hal_dma_handle_t dma_rx;
+hal_status_t {{unit}}_init(void)
+{
+  if (attempted != 0U) { return status; }
+  attempted = 1U;
+  hal_spi_config_t config = {0};
+  hal_gpio_config_t gpio = {0};
+  hal_dma_direct_xfer_config_t dma_config = {0};
+  status = HAL_SPI_Init(&peripheral, {{peripheral_instance}});
+  if (status != HAL_OK) { return status; }
+  {{peripheral_clock}}();
+  status = {{kernel_clock_api}}({{kernel_clock_source}});
+  if (status != HAL_OK) { return status; }
+  config.mode = HAL_SPI_MODE_MASTER;
+  config.direction = HAL_SPI_DIRECTION_FULL_DUPLEX;
+  config.data_width = HAL_SPI_DATA_WIDTH_8_BIT;
+  config.clock_polarity = HAL_SPI_CLOCK_POLARITY_LOW;
+  config.clock_phase = HAL_SPI_CLOCK_PHASE_1_EDGE;
+  config.baud_rate_prescaler = {{baud_prescaler}};
+  config.first_bit = HAL_SPI_MSB_FIRST;
+  config.nss_pin_management = HAL_SPI_NSS_PIN_MGMT_INTERNAL;
+  status = HAL_SPI_SetConfig(&peripheral, &config);
+  if (status != HAL_OK) { return status; }
+  gpio.mode = HAL_GPIO_MODE_ALTERNATE;
+  gpio.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
+  gpio.pull = HAL_GPIO_PULL_NO;
+  gpio.speed = HAL_GPIO_SPEED_FREQ_MEDIUM;
+  {{sck_clock}}();
+  gpio.alternate = {{sck_alternate}};
+  status = HAL_GPIO_Init({{sck_port}}, {{sck_pin}}, &gpio);
+  if (status != HAL_OK) { return status; }
+  {{miso_clock}}();
+  gpio.alternate = {{miso_alternate}};
+  status = HAL_GPIO_Init({{miso_port}}, {{miso_pin}}, &gpio);
+  if (status != HAL_OK) { return status; }
+  {{mosi_clock}}();
+  gpio.alternate = {{mosi_alternate}};
+  status = HAL_GPIO_Init({{mosi_port}}, {{mosi_pin}}, &gpio);
+  if (status != HAL_OK) { return status; }
+  {{tx_dma_clock}}();
+  status = HAL_DMA_Init(&dma_tx, {{tx_dma_instance}});
+  if (status != HAL_OK) { return status; }
+  if (LL_DMA_IsEnabledChannel(HAL_DMA_GetLLInstance(&dma_tx)) != 0U)
+  { status = HAL_BUSY; return status; }
+  HAL_DMA_DeInit(&dma_tx);
+  status = HAL_DMA_Init(&dma_tx, {{tx_dma_instance}});
+  if (status != HAL_OK) { return status; }
+  dma_config.request = (hal_dma_request_source_t){{tx_request_selector}}U;
+  dma_config.direction = HAL_DMA_DIRECTION_MEMORY_TO_PERIPH;
+  dma_config.src_inc = HAL_DMA_SRC_ADDR_INCREMENTED;
+  dma_config.dest_inc = HAL_DMA_DEST_ADDR_FIXED;
+  dma_config.src_data_width = HAL_DMA_SRC_DATA_WIDTH_BYTE;
+  dma_config.dest_data_width = HAL_DMA_DEST_DATA_WIDTH_BYTE;
+  dma_config.priority = HAL_DMA_PRIORITY_LOW_WEIGHT_LOW;
+  status = HAL_DMA_SetConfigPeriphDirectXfer(&dma_tx, &dma_config);
+  if (status != HAL_OK) { return status; }
+  status = HAL_SPI_SetTxDMA(&peripheral, &dma_tx);
+  if (status != HAL_OK) { return status; }
+  {{rx_dma_clock}}();
+  status = HAL_DMA_Init(&dma_rx, {{rx_dma_instance}});
+  if (status != HAL_OK) { return status; }
+  if (LL_DMA_IsEnabledChannel(HAL_DMA_GetLLInstance(&dma_rx)) != 0U)
+  { status = HAL_BUSY; return status; }
+  HAL_DMA_DeInit(&dma_rx);
+  status = HAL_DMA_Init(&dma_rx, {{rx_dma_instance}});
+  if (status != HAL_OK) { return status; }
+  dma_config.request = (hal_dma_request_source_t){{rx_request_selector}}U;
+  dma_config.direction = HAL_DMA_DIRECTION_PERIPH_TO_MEMORY;
+  dma_config.src_inc = HAL_DMA_SRC_ADDR_FIXED;
+  dma_config.dest_inc = HAL_DMA_DEST_ADDR_INCREMENTED;
+  dma_config.src_data_width = HAL_DMA_SRC_DATA_WIDTH_BYTE;
+  dma_config.dest_data_width = HAL_DMA_DEST_DATA_WIDTH_BYTE;
+  dma_config.priority = HAL_DMA_PRIORITY_LOW_WEIGHT_LOW;
+  status = HAL_DMA_SetConfigPeriphDirectXfer(&dma_rx, &dma_config);
+  if (status != HAL_OK) { return status; }
+  status = HAL_SPI_SetRxDMA(&peripheral, &dma_rx);
+  if (status != HAL_OK) { return status; }
+  HAL_CORTEX_NVIC_ClearPendingIRQ({{tx_dma_irq}});
+  HAL_CORTEX_NVIC_SetPriority({{tx_dma_irq}}, HAL_CORTEX_NVIC_PREEMP_PRIORITY_5, HAL_CORTEX_NVIC_SUB_PRIORITY_0);
+  HAL_CORTEX_NVIC_EnableIRQ({{tx_dma_irq}});
+  HAL_CORTEX_NVIC_ClearPendingIRQ({{rx_dma_irq}});
+  HAL_CORTEX_NVIC_SetPriority({{rx_dma_irq}}, HAL_CORTEX_NVIC_PREEMP_PRIORITY_5, HAL_CORTEX_NVIC_SUB_PRIORITY_0);
+  HAL_CORTEX_NVIC_EnableIRQ({{rx_dma_irq}});
+  HAL_CORTEX_NVIC_ClearPendingIRQ({{peripheral_irq}});
+  HAL_CORTEX_NVIC_SetPriority({{peripheral_irq}}, HAL_CORTEX_NVIC_PREEMP_PRIORITY_5, HAL_CORTEX_NVIC_SUB_PRIORITY_0);
+  HAL_CORTEX_NVIC_EnableIRQ({{peripheral_irq}});
+  status = HAL_OK;
+  return status;
+}
+hal_spi_handle_t *{{unit}}_handle(void)
+{
+  return (attempted != 0U && status == HAL_OK) ? &peripheral : NULL;
+}
+void {{tx_dma_handler}}(void) { HAL_DMA_IRQHandler(&dma_tx); }
+void {{rx_dma_handler}}(void) { HAL_DMA_IRQHandler(&dma_rx); }
+void {{peripheral_handler}}(void) { HAL_SPI_IRQHandler(&peripheral); }
+
+/* Only this component's two private channels are considered. */
+static int dma_disabled(const hal_dma_handle_t *dma)
+{
+  return HAL_DMA_GetState(dma) == HAL_DMA_STATE_IDLE &&
+         LL_DMA_IsActiveFlag_IDLE(HAL_DMA_GetLLInstance(dma)) != 0U &&
+         LL_DMA_IsEnabledChannel(HAL_DMA_GetLLInstance(dma)) == 0U;
+}
+static int dma_abort_eligible(const hal_dma_handle_t *dma)
+{
+  const hal_dma_state_t state = HAL_DMA_GetState(dma);
+  return state == HAL_DMA_STATE_IDLE || state == HAL_DMA_STATE_ACTIVE;
+}
+static int stop_dma(hal_dma_handle_t *dma)
+{
+  if (dma_disabled(dma)) { return 1; }
+  /* A previous failed HAL abort may leave ABORT; never call outside its domain. */
+  if (!dma_abort_eligible(dma)) { return 0; }
+  (void)HAL_DMA_Abort(dma);
+  /* HAL_ERROR includes already-idle and timeout-then-idle. Inspect actual state. */
+  return dma_disabled(dma);
+}
+hal_status_t {{unit}}_abort_confirmed(void)
+{
+  if ({{unit}}_handle() == NULL) { return HAL_ERROR; }
+  /* No hardware/status side effects on this precondition rejection. */
+  if (__get_IPSR() != 0U || __get_PRIMASK() != 0U ||
+      __get_BASEPRI() != 0U || __get_FAULTMASK() != 0U) { return HAL_BUSY; }
+  const uint32_t spi_enabled = NVIC_GetEnableIRQ({{peripheral_irq}});
+  const uint32_t tx_enabled = NVIC_GetEnableIRQ({{tx_dma_irq}});
+  const uint32_t rx_enabled = NVIC_GetEnableIRQ({{rx_dma_irq}});
+  HAL_CORTEX_NVIC_DisableIRQ({{peripheral_irq}});
+  HAL_CORTEX_NVIC_DisableIRQ({{tx_dma_irq}});
+  HAL_CORTEX_NVIC_DisableIRQ({{rx_dma_irq}});
+  /* All eligibility checks follow masking: completion/error IRQs can change state. */
+  const hal_spi_state_t state = HAL_SPI_GetState(&peripheral);
+  const hal_dma_state_t tx_state = HAL_DMA_GetState(&dma_tx);
+  const hal_dma_state_t rx_state = HAL_DMA_GetState(&dma_rx);
+  if ((state != HAL_SPI_STATE_IDLE && state != HAL_SPI_STATE_TX_ACTIVE &&
+       state != HAL_SPI_STATE_RX_ACTIVE && state != HAL_SPI_STATE_TX_RX_ACTIVE && state != HAL_SPI_STATE_ABORT) ||
+      (tx_state != HAL_DMA_STATE_IDLE && tx_state != HAL_DMA_STATE_ACTIVE && tx_state != HAL_DMA_STATE_ABORT) ||
+      (rx_state != HAL_DMA_STATE_IDLE && rx_state != HAL_DMA_STATE_ACTIVE && rx_state != HAL_DMA_STATE_ABORT))
+  { status = HAL_ERROR; return status; }
+  if (state == HAL_SPI_STATE_ABORT || tx_state == HAL_DMA_STATE_ABORT || rx_state == HAL_DMA_STATE_ABORT)
+  {
+    /* Vendor asynchronous abort needs its original IRQ path to finish. Do not
+     * acknowledge flags, change status, force-enable a masked vector or wait.
+     * Pending callbacks may execute as the original enables are restored. */
+    if (spi_enabled != 0U) { HAL_CORTEX_NVIC_EnableIRQ({{peripheral_irq}}); }
+    if (tx_enabled != 0U) { HAL_CORTEX_NVIC_EnableIRQ({{tx_dma_irq}}); }
+    if (rx_enabled != 0U) { HAL_CORTEX_NVIC_EnableIRQ({{rx_dma_irq}}); }
+    return HAL_BUSY;
+  }
+  if (state != HAL_SPI_STATE_IDLE)
+  {
+    /* This synchronous HAL call chain does not invoke transfer/abort callbacks. */
+    (void)HAL_SPI_Abort(&peripheral);
+  }
+  /* HAL SPI may skip channels after CloseTransfer disabled its request gates.
+   * Always attempt both; a failed TX stop must not suppress RX stop. */
+  const int tx_stopped = stop_dma(&dma_tx);
+  const int rx_stopped = stop_dma(&dma_rx);
+  SPI_TypeDef *spi = (SPI_TypeDef *)(uintptr_t)peripheral.instance;
+  __DSB();
+  if (!tx_stopped || !rx_stopped || !dma_disabled(&dma_tx) || !dma_disabled(&dma_rx) ||
+      HAL_SPI_GetState(&peripheral) != HAL_SPI_STATE_IDLE ||
+      LL_SPI_IsEnabled(spi) != 0U || LL_SPI_IsActiveMasterTransfer(spi) != 0U ||
+      LL_SPI_IsEnabledDMAReq_TX(spi) != 0U || LL_SPI_IsEnabledDMAReq_RX(spi) != 0U ||
+      LL_SPI_GetMode(spi) != LL_SPI_MODE_MASTER)
+  {
+    /* No reuse proof: retain buffers, keep owned IRQs masked, poison accessor. */
+    status = HAL_ERROR;
+    return status;
+  }
+  /* Same finite-profile sources cleared by the HAL's synchronous SPI abort.
+   * Physical stops precede clearing flags/pending IRQs, avoiding late callbacks. */
+  LL_SPI_DisableIT(spi, LL_SPI_IT_EOT | LL_SPI_IT_DXP | LL_SPI_IT_TXP | LL_SPI_IT_RXP |
+                        LL_SPI_IT_OVR | LL_SPI_IT_UDR | LL_SPI_IT_TIFRE | LL_SPI_IT_MODF);
+  LL_SPI_ClearFlag(spi, LL_SPI_FLAG_EOT | LL_SPI_FLAG_TXTF | LL_SPI_FLAG_OVR |
+                       LL_SPI_FLAG_UDR | LL_SPI_FLAG_TIFRE | LL_SPI_FLAG_MODF | LL_SPI_FLAG_SUSP);
+  LL_DMA_ClearFlag(HAL_DMA_GetLLInstance(&dma_tx), LL_DMA_FLAG_ALL);
+  LL_DMA_ClearFlag(HAL_DMA_GetLLInstance(&dma_rx), LL_DMA_FLAG_ALL);
+  __DSB();
+  HAL_CORTEX_NVIC_ClearPendingIRQ({{peripheral_irq}});
+  HAL_CORTEX_NVIC_ClearPendingIRQ({{tx_dma_irq}});
+  HAL_CORTEX_NVIC_ClearPendingIRQ({{rx_dma_irq}});
+  __DSB();
+  if (spi_enabled != 0U) { HAL_CORTEX_NVIC_EnableIRQ({{peripheral_irq}}); }
+  if (tx_enabled != 0U) { HAL_CORTEX_NVIC_EnableIRQ({{tx_dma_irq}}); }
+  if (rx_enabled != 0U) { HAL_CORTEX_NVIC_EnableIRQ({{rx_dma_irq}}); }
+  return HAL_OK;
+}

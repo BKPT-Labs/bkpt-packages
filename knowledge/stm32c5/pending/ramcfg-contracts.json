@@ -1,0 +1,409 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/ramcfg-contracts.json",
+    "sha256": "38595f569392cac228afbd7f0ddc7013d5e1d263f766d51142d00ab103342fb2"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 30
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "schema": "bkpt.external.ramcfg.contracts.v1",
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "review": "Claude B2/reset ownership and corrections incorporated; follow-up review pending",
+    "sources": {
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "HAL_RAMCFG": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_ramcfg.c",
+        "sha256": "e5a1202e2299ad41370ee11591e6438da4e9e767ce19269aa1a32464571f02da"
+      },
+      "LL_RAMCFG": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_ramcfg.h",
+        "sha256": "dafdd08634abf8c5d0ad71ac6693e7186a32c457d2a7ab3382e97043409f2b9e"
+      },
+      "HAL_RCC_header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_rcc.h",
+        "sha256": "29fb6354087a8ebed46e7d8bce100659d733df9c1b03c7dee35a1215dc2cefd5"
+      }
+    },
+    "evidence": {
+      "RM0522:p114": {
+        "source": "RM0522",
+        "page": 114,
+        "sha256": "c7b4d08f5f0cddb8a107f52e32aec6446e22a06270b98e5ff6bfb96868e983bb"
+      },
+      "RM0522:p115": {
+        "source": "RM0522",
+        "page": 115,
+        "sha256": "44af7df1fa07bc1bf671f9342a591e37f9d1a725baf004fe2536d984acf34005"
+      },
+      "RM0522:p116": {
+        "source": "RM0522",
+        "page": 116,
+        "sha256": "667f7cd5deed81fdfddc9c0ebf5b4497f404408da20ce8ef15c6686311d1606a"
+      },
+      "RM0522:p117": {
+        "source": "RM0522",
+        "page": 117,
+        "sha256": "d0dd66a06ca7338d994668b9aff8d9e0e00ae41be56490c1b4c9f709dafdf9a7"
+      },
+      "RM0522:p118": {
+        "source": "RM0522",
+        "page": 118,
+        "sha256": "36d1fed0f041230040aa4ccf1092ed0ae23835ea4ce7332cdbc78606db47cbdd"
+      },
+      "RM0522:p119": {
+        "source": "RM0522",
+        "page": 119,
+        "sha256": "3f39f40b7cdb0c740cf3738e67b9d0153364aa6aa2880790330b46ef6a379730"
+      },
+      "RM0522:p120": {
+        "source": "RM0522",
+        "page": 120,
+        "sha256": "52b1e1e5895e0fdb92d753b30c4aea8602b8ae767eee49c8148fda200f53e3ce"
+      },
+      "RM0522:p121": {
+        "source": "RM0522",
+        "page": 121,
+        "sha256": "555e0f15b8d9662c072de2b5a445e85e8aab74e109a1fcaa527ccfd30655b3ce"
+      },
+      "RM0522:p122": {
+        "source": "RM0522",
+        "page": 122,
+        "sha256": "55dc96e9a53cc034726e7793ef241d4139b9188d7a80e36803555a29a521a6b5"
+      },
+      "RM0522:p123": {
+        "source": "RM0522",
+        "page": 123,
+        "sha256": "19fcea5e13f1e4afa0e6773e555b07326be514d87e264adce96669012fe2523f"
+      },
+      "RM0522:p124": {
+        "source": "RM0522",
+        "page": 124,
+        "sha256": "c9147221ec1d754d87f3188fa5972cda69e8800078cf0313c37d8b2020544a95"
+      },
+      "RM0522:p125": {
+        "source": "RM0522",
+        "page": 125,
+        "sha256": "8b950605c6d8d6fcb3a39f2b1a95ea22a0798c5e7496322485015a3c0a38b2e1"
+      },
+      "header.memory": {
+        "source": "header",
+        "start_line": 1148,
+        "end_line": 1154,
+        "sha256": "e2de8a4b71ac664acc4cb0dc2908b832ebbffbbccdf0156ab75c420f029639fe"
+      },
+      "header.instances": {
+        "source": "header",
+        "start_line": 14114,
+        "end_line": 14123,
+        "sha256": "818389e6f9bb5d56fbc7b3a53eb1a67c5598d390ed6e7f6714f2724e6ced139f"
+      },
+      "header.layout": {
+        "source": "header",
+        "start_line": 747,
+        "end_line": 761,
+        "sha256": "fc9a1ab282160e13908df653227cd53d449c0dc0baef73ea8bf5188deb4a6037"
+      },
+      "header.IRQ": {
+        "source": "header",
+        "start_line": 69,
+        "end_line": 69,
+        "sha256": "59bd22251ae3bcbb05f0e7d3aea00a51b26a4c5ac563b50f0977fb7dbdd952bd"
+      },
+      "HAL.bounds": {
+        "source": "HAL_RAMCFG",
+        "start_line": 152,
+        "end_line": 182,
+        "sha256": "1a63cff211133429dd8123a02f5c3bd416e5bc9f030b325ffa0b5c92f8dd2bac"
+      },
+      "HAL.ECC": {
+        "source": "HAL_RAMCFG",
+        "start_line": 210,
+        "end_line": 288,
+        "sha256": "b717976e6a7b8b40c64c2897822d0217161adee0c26177404fef79fc29c236d1"
+      },
+      "HAL.protect_pages": {
+        "source": "HAL_RAMCFG",
+        "start_line": 314,
+        "end_line": 380,
+        "sha256": "5049d7073327e013e431966d4957698786bdf5a06e62cc9eaf488b531afb4d81"
+      },
+      "HAL.protect_address": {
+        "source": "HAL_RAMCFG",
+        "start_line": 393,
+        "end_line": 471,
+        "sha256": "2c96a24c6e174e06c6365b3bbb1fa5a152d8435894bb581260862c111e317ed3"
+      },
+      "HAL.query_address": {
+        "source": "HAL_RAMCFG",
+        "start_line": 514,
+        "end_line": 565,
+        "sha256": "df1a742edf329dd575aaa0ecc84d474aec7fa9fae9b2ffe9b938cbfceca12f01"
+      },
+      "HAL.erase": {
+        "source": "HAL_RAMCFG",
+        "start_line": 575,
+        "end_line": 602,
+        "sha256": "a0e0076e0b3b95fb2c521346c1bac17e6ce52d0dc5b5b99c14c736c70ca33e20"
+      },
+      "HAL.handlers": {
+        "source": "HAL_RAMCFG",
+        "start_line": 622,
+        "end_line": 689,
+        "sha256": "021643c990919f72611ab6431e09cc9f3f8a128ebbf524658e3f9725e226fd4e"
+      },
+      "LL.ECC": {
+        "source": "LL_RAMCFG",
+        "start_line": 270,
+        "end_line": 292,
+        "sha256": "fe14918bebd7707870243871e04eeaffa356fe52a8802cc5e1d1be4479488dfa"
+      },
+      "LL.protection": {
+        "source": "LL_RAMCFG",
+        "start_line": 427,
+        "end_line": 430,
+        "sha256": "58d5cd02815d281408e88fe266692e26d566eb78932be9a4a3877d9e4609299a"
+      },
+      "LL.disable_IT": {
+        "source": "LL_RAMCFG",
+        "start_line": 1231,
+        "end_line": 1246,
+        "sha256": "08bcf62a1ab84c3a9538ce2cefdd4f44469f703979d9ab3032ccd105cb8b8504"
+      },
+      "LL.page_guard": {
+        "source": "LL_RAMCFG",
+        "start_line": 95,
+        "end_line": 107,
+        "sha256": "2510381bf16269edd1aea4c91abeedc7f6f26a65f850e92695f6873129d160c0"
+      },
+      "HAL.RAMCFG_reset": {
+        "source": "HAL_RCC_header",
+        "start_line": 3138,
+        "end_line": 3145,
+        "sha256": "6f914246d4c55c3d4314fb61a96a4ed3cd8cd89fc969ddb1d78b7a52e5b344c1"
+      },
+      "header.RAMCFG_reset": {
+        "source": "header",
+        "start_line": 8929,
+        "end_line": 8931,
+        "sha256": "1db42d5a837d191cea5a63024e19a5c7bb6c85c83bb1392188e3df7682f78ea2"
+      },
+      "RM0522:p288": {
+        "source": "RM0522",
+        "page": 288,
+        "sha256": "e91ca929946492c636fa1b6697fc45d17201a9362ceddea4cd8a33045ebfad0e"
+      }
+    },
+    "memory_candidates": [
+      {
+        "instance": "SRAM1",
+        "bytes": 32768,
+        "system_start": "0x20000000",
+        "system_end_inclusive": "0x20007fff",
+        "code_start": "0x0a000000",
+        "code_end_inclusive": "0x0a007fff",
+        "ECC": false,
+        "write_protection": false,
+        "software_erase": true
+      },
+      {
+        "instance": "SRAM2",
+        "bytes": 32768,
+        "system_start": "0x20008000",
+        "system_end_inclusive": "0x2000ffff",
+        "code_start": "0x0a008000",
+        "code_end_inclusive": "0x0a00ffff",
+        "ECC": true,
+        "write_protection": true,
+        "software_erase": true
+      }
+    ],
+    "memory_candidates_evidence": [
+      "RM0522:p114",
+      "RM0522:p115",
+      "RM0522:p116",
+      "header.memory",
+      "header.instances"
+    ],
+    "contracts": [
+      {
+        "id": "ECC_granularity",
+        "detail": "SRAM2 only:7ECC bits per32-bit word, single-error correction and double-error detection on reads. Byte/halfword writes involve read-modify-write and may detect double errors. RM warns buffered narrow write commits two AHB cycles after SRAM bus released; no DMA/coherency or timing qualification inferred.",
+        "evidence": [
+          "RM0522:p115",
+          "header.instances"
+        ]
+      },
+      {
+        "id": "ECC_flags",
+        "detail": "SEDC/DED suppress further respective error detection while set. ALE controls address capture. ICR bits read current ISR flags and writing1 clears them. Capture evidence before clear; no lossless event count implied.",
+        "evidence": [
+          "RM0522:p115",
+          "RM0522:p118",
+          "RM0522:p119",
+          "RM0522:p121"
+        ]
+      },
+      {
+        "id": "reset_only_controls",
+        "detail": "SRAM2 protection covers32 1KiB pages; protection bits andECCNMI cannot clear by ordinary zero writes and RM says globalRAMCFGreset clears them. Software can assertRAMCFGRST viaRCC; whether this is the specified globalreset and its full cross-bank effects remain unqualified. All reset users must share ownership because reset may dropprotection/NMI and resetECC/ALE/IER state. NMI selection suppresses maskable double-errorIRQ regardlessDEIE. No claim software cannot reverse reset-onlycontrols.",
+        "evidence": [
+          "RM0522:p120",
+          "RM0522:p122",
+          "header.memory",
+          "RM0522:p288",
+          "HAL.RAMCFG_reset",
+          "header.RAMCFG_reset"
+        ]
+      },
+      {
+        "id": "ECC_state",
+        "detail": "Option bytes determine reset ECCE; software disable requires documented key sequence. LL enable sets ECCE+ALE, disable clears both. Existing data/checkbit initialization and option state must be established; no ECC fault injection or destructive action admitted.",
+        "evidence": [
+          "RM0522:p116",
+          "RM0522:p118",
+          "RM0522:p123",
+          "HAL.ECC",
+          "LL.ECC"
+        ]
+      },
+      {
+        "id": "erase_lifetime",
+        "detail": "Both SRAMs support keyed whole-bank erase. SRAMBUSY persists while ongoing; accesses stall until complete. RM givesN AHB cycles forN32-bit words, not measured latency. Execution code, stack, handlers and DMA must be kept safe from erased bank. API timeout does not cancel erase.",
+        "evidence": [
+          "RM0522:p116",
+          "RM0522:p117",
+          "HAL.erase"
+        ]
+      },
+      {
+        "id": "low_power",
+        "detail": "RAMCFG register state retained inStop; powered down inStandby and requires reinitialization. SRAM blocks have optionalStop retention, noStandby retention inTable15. Systemreset/tamper/RDP erase depends exact options and event; full cross-peripheral policy unqualified.",
+        "evidence": [
+          "RM0522:p114",
+          "RM0522:p115",
+          "RM0522:p117"
+        ]
+      }
+    ],
+    "source_derived_SDK_gaps": [
+      {
+        "id": "SRAM1_write_protection_predicate",
+        "detail": "Exact IS_RAMCFG_WP_INSTANCE acceptsSRAM1 andSRAM2 despite RM115/116 limiting write protection toSRAM2. HAL protection APIs rely on that assertion and can addressSRAM1 WPR1. Do not infer SRAM1 protection from API success.",
+        "evidence": [
+          "header.instances",
+          "HAL.protect_pages",
+          "HAL.protect_address",
+          "LL.protection",
+          "RM0522:p115",
+          "RM0522:p116"
+        ]
+      },
+      {
+        "id": "protection_release_alignment",
+        "detail": "By-address protection checks alignment only with debug assertions; optional runtime check only validates range. With debug assertions off, SRAM2_BASE+1,size1024 passes optional range check then floors tostart_page0/page_nbr1, protecting one page although requested interval spans two. Independently require page alignment and checked non-overflowing bounds; no hardware observation.",
+        "evidence": [
+          "HAL.bounds",
+          "HAL.protect_address"
+        ]
+      },
+      {
+        "id": "protection_query_end_address",
+        "detail": "By-address query accepts offset==SRAM_size under <= range with size0; exact SRAM2_END+1 gives page32. Exact32-page build has no WPR2 and reaches1UL<<32, outside32-bit unsigned-long shift range. Independently reject one-past-end address and validate page0..31. Debug docs also say arbitrary in-page addresses are accepted while alignment assertion rejects them. Source-level issue, not compiled/hardware result.",
+        "evidence": [
+          "HAL.bounds",
+          "HAL.query_address",
+          "LL.page_guard",
+          "header.layout",
+          "header.memory"
+        ]
+      },
+      {
+        "id": "disable_does_not_release_NMI",
+        "detail": "ECC_Disable clears ECC/ALE and attempts DisableIT(ALL), but ECCNMI is reset-only; HAL_OK is not proof NMI routing was released. Preserve ownership/lifecycle requirement. SoftwareRAMCFGRST exists; complete reset effects and bank-wide ownership require qualification before any release strategy.",
+        "evidence": [
+          "HAL.ECC",
+          "LL.disable_IT",
+          "RM0522:p120",
+          "RM0522:p288",
+          "HAL.RAMCFG_reset"
+        ]
+      },
+      {
+        "id": "ECC_event_capture",
+        "detail": "Enable_IT clears existingECCflags before enabling; prior event evidence can be lost unless captured. IRQ handler calls callback before clear but ignores callback status, unlike NMI handler which clearsDED only on callbackHAL_OK. Default weak callback returnsHAL_ERROR. GetInfo prioritizesDED overSEDC and NONE leavesstatus/address untouched; caller must use type and own snapshots.",
+        "evidence": [
+          "HAL.ECC",
+          "HAL.handlers"
+        ]
+      },
+      {
+        "id": "erase_timeout",
+        "detail": "MassErase starts before waiting; timeout uses HAL_GetTick and requires tick progression. No cancel or independent content verification on timeout/success; no memory-residency or DMA ownership preflight in helper. NoSRAMBUSYpreflight or independent key-acceptance check. HAL_TIMEOUT also does not establish erase is stillincomplete: actual residency/liveness of tick,stack,code and interrupts caninvalidate timing,including destruction of a timebase in the erasedbank. Actual allocation and resulting behavior unobserved.",
+        "evidence": [
+          "HAL.erase"
+        ]
+      },
+      {
+        "id": "protection_wrapped_bounds",
+        "detail": "Unsigned32-bit range sums can wrap through bothdebug andoptionalruntime checks. EnablePageWRP(start_page=0xffffffff,page_nbr=1) wraps sumto0 and scaledassertsumto0 before a shift by0xffffffff. EnableWRPByAddr(SRAM2_BASE+0x400,size=0xfffffc00) wraps range sumto0; subsequent page iteration reaches shifts>=32. These are conditional source undefined-shift paths, not observed execution. Validate by subtraction/checked arithmetic and nonempty bounded page counts independently.",
+        "evidence": [
+          "HAL.bounds",
+          "HAL.protect_pages",
+          "HAL.protect_address",
+          "header.memory",
+          "LL.page_guard"
+        ]
+      }
+    ],
+    "conflicts": [
+      {
+        "id": "SRAM1_ECC_prose",
+        "detail": "RM116 introductory wording says ECC for bothSRAMs, but Table15 and CRnotes explicitly reserve SRAM1ECC. Exact header ECC predicate permitsSRAM2only. No SRAM1ECC candidate.",
+        "evidence": [
+          "RM0522:p115",
+          "RM0522:p116",
+          "RM0522:p118",
+          "header.instances"
+        ]
+      },
+      {
+        "id": "family_WPR_registers",
+        "detail": "FamilyRM describesWPR2..4; footnote limits onlyWPR3/4 toC59x/5A3. Exact32KiB SRAM2 and exactheaderlayout supportWPR1only, notWPR2. Keep familyregister descriptions separate from exact32-page domain.",
+        "evidence": [
+          "RM0522:p122",
+          "RM0522:p123",
+          "header.layout",
+          "header.memory"
+        ]
+      }
+    ],
+    "open_gates": [
+      "No executable erase, fault injection, ECC state change or reset-only protection admitted",
+      "Cross-peripheral resets/tamper/options, code/stack/DMA placement and bus ordering",
+      "Overflow-safe parameter checking and complete register/SVD applicability",
+      "ECC initialization, error callback ownership and IRQ/NMI integration",
+      "Independent semantic review and hardware qualification"
+    ]
+  }
+}

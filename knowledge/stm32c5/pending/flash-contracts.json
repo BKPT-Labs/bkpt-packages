@@ -1,0 +1,1819 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/flash-contracts.json",
+    "sha256": "0038b89cfd54ed13d576216b77c3bb8dc617102400fe7432757b07d0359336cb"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 142
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "schema": "bkpt.external.flash.contracts.v1",
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "review": "New bounded candidate; independent source reviews pending.",
+    "scope": "Full RM0522 FLASH chapter126-206 read, including excluded family maps. Exact C542 header and selected HAL FLASH/ITF and LL paths audited. Not full SDK, security, bootloader, electrical or operational closure.",
+    "sources": {
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "DS15135": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pdf",
+        "sha256": "1a3555f799297774a95978ab343ebc1f45ab9ef58d0dcf3600dec4fabed9355c",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pages.json",
+        "extraction_sha256": "b14b965adb6c1545edbca0e56b3c504e7ecc3a94bda197350ce2757b5a3d55dc"
+      },
+      "ES0676": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pdf",
+        "sha256": "a5463827337bcdbd3e5f2e0912a56307d78b568e5631b21cc9a25899c7d4a5e6",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pages.json",
+        "extraction_sha256": "2ab1b19e42b53e22ff5f3b98f6ed9a5f98f3b7b61a617abc3bb3b7fc050d1cb3"
+      },
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "family": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c5xx.h",
+        "sha256": "61a0b8c2674d9e817d70aa8d2693339273f4283694f8ab5f8dca077bb69913f7"
+      },
+      "HAL": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_flash.c",
+        "sha256": "8203b918bc1cb5facaf5f4c6743ea7362d283820f4fe2eb0e45bf47eb0dda24d"
+      },
+      "ITF": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_flash_itf.c",
+        "sha256": "9214207ac4cfd66dd13d87a84520dc679406dfc9de8f4a26f7976889dcf1df74"
+      },
+      "LL": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_flash.h",
+        "sha256": "991c6edb983ae449d3a0237b86b1cc9dc9974cf86c55ce2f26dbf7141bc1747b"
+      }
+    },
+    "evidence": {
+      "RM0522:p126": {
+        "source": "RM0522",
+        "page": 126,
+        "sha256": "8babb3fd4cbf16444c309ddf8b6c5d7e0c1600fd1c6cfcd419310258cb16c654"
+      },
+      "RM0522:p127": {
+        "source": "RM0522",
+        "page": 127,
+        "sha256": "a65bdc277ee635f4f081b135ad53ea4e82a7ca0257537ff6fa51f824c3168c3f"
+      },
+      "RM0522:p128": {
+        "source": "RM0522",
+        "page": 128,
+        "sha256": "839c2824d696f7d8f4b62a371e0f403929cae3cb5b6b15205b7db5af661d1a41"
+      },
+      "RM0522:p129": {
+        "source": "RM0522",
+        "page": 129,
+        "sha256": "e633ca10b5325e0993c19db30f4be7849e25eb6f0a169041b8c3583c7781606b"
+      },
+      "RM0522:p130": {
+        "source": "RM0522",
+        "page": 130,
+        "sha256": "82e301ec5e551630c63cd55c82dc705303b98b5a1b67c527e6981ff973298c1f"
+      },
+      "RM0522:p131": {
+        "source": "RM0522",
+        "page": 131,
+        "sha256": "ba454e7d104a526bc428625b39fe9433090f31e5df031201845fb177a0c21d68"
+      },
+      "RM0522:p132": {
+        "source": "RM0522",
+        "page": 132,
+        "sha256": "cbc6eb98ea22857b1e2498c03f43ba2c572df6389c1d79dd2a94f53bb02e0e14"
+      },
+      "RM0522:p133": {
+        "source": "RM0522",
+        "page": 133,
+        "sha256": "8d5cacdfde4af681f6246222674c3fdcd7b4be933b4c926bbd5f5a06cad1b131"
+      },
+      "RM0522:p134": {
+        "source": "RM0522",
+        "page": 134,
+        "sha256": "10b2c095aec4ec03d262416ff31fa907482720f34280af3af825cfc7634a11ad"
+      },
+      "RM0522:p135": {
+        "source": "RM0522",
+        "page": 135,
+        "sha256": "79742c35434b3e15b9e65e8530b3faead9657073d89c4cff03ae0a70ad41e1d8"
+      },
+      "RM0522:p136": {
+        "source": "RM0522",
+        "page": 136,
+        "sha256": "343d6940a82fde78f9ccc08b817b26ffbbed600abc4d8efb791f2f546db31b06"
+      },
+      "RM0522:p137": {
+        "source": "RM0522",
+        "page": 137,
+        "sha256": "88a3fd516d4ccbf2aef546c29ca92849f750fec88a3758b3d63e0ac6dadcdcd6"
+      },
+      "RM0522:p138": {
+        "source": "RM0522",
+        "page": 138,
+        "sha256": "21b46b65875035a7ac69aca8afdbd2e67f6b041c7a986c198cbf18698e744c5b"
+      },
+      "RM0522:p139": {
+        "source": "RM0522",
+        "page": 139,
+        "sha256": "f8791af6e06800df1d5680fbf5fe1d20297c2bb450471688cbc322382dcca89c"
+      },
+      "RM0522:p140": {
+        "source": "RM0522",
+        "page": 140,
+        "sha256": "268c8b1e721747b7f337e7f726697b6e2e96de812a17c55773c4cdfe487c2810"
+      },
+      "RM0522:p141": {
+        "source": "RM0522",
+        "page": 141,
+        "sha256": "5dbcf4541b2958705ac6f63e5d7fa2d2ea7430c22cc0157b6da49193c910212f"
+      },
+      "RM0522:p142": {
+        "source": "RM0522",
+        "page": 142,
+        "sha256": "544364337cba0ff12f79ded67344dda0379fb4bdebe088ecf96eb6660aa7f1e8"
+      },
+      "RM0522:p143": {
+        "source": "RM0522",
+        "page": 143,
+        "sha256": "c4246f21d04e17566f2c998f877fc48966bf49158060558d90ca1a3445aeb126"
+      },
+      "RM0522:p144": {
+        "source": "RM0522",
+        "page": 144,
+        "sha256": "c2d6161851c6c6c84ed9948d5d7c5e0fb509c14c7ead09c4b476732a9fa00457"
+      },
+      "RM0522:p145": {
+        "source": "RM0522",
+        "page": 145,
+        "sha256": "1983ee6233f07117e3becfbee16cde75ef48c609ebd7742d75a1f7c4f9e12e63"
+      },
+      "RM0522:p146": {
+        "source": "RM0522",
+        "page": 146,
+        "sha256": "0c3ef19cfcd098492af85c6a2a21c894d2596f86a9cef08f014745f24c263cb5"
+      },
+      "RM0522:p147": {
+        "source": "RM0522",
+        "page": 147,
+        "sha256": "c1603034a1c0a5e50a99d271e6df7e7b8e8bf1cf5befe1c53f1a6498cd22a380"
+      },
+      "RM0522:p148": {
+        "source": "RM0522",
+        "page": 148,
+        "sha256": "8f7c3ccda3c6391a93f7d2f47edadad4fce71cea3fa4d9699af01d612462d5f8"
+      },
+      "RM0522:p149": {
+        "source": "RM0522",
+        "page": 149,
+        "sha256": "d784a20a61cc3fe4eb73004685682b0461c8a94cfbdad11758d9709d3ca51faa"
+      },
+      "RM0522:p150": {
+        "source": "RM0522",
+        "page": 150,
+        "sha256": "ca7cdbb73c5b174595ecd5e1f829f12e366b924523553e7cfcb50ea472248f05"
+      },
+      "RM0522:p151": {
+        "source": "RM0522",
+        "page": 151,
+        "sha256": "19129fd7bb94cab5e94feb833d666619a8b41be9d60663952418c7274f94d356"
+      },
+      "RM0522:p152": {
+        "source": "RM0522",
+        "page": 152,
+        "sha256": "a867915d49f1e2baae052a332b18b12060fd450ae6a4490f3daff8e72b369c5a"
+      },
+      "RM0522:p153": {
+        "source": "RM0522",
+        "page": 153,
+        "sha256": "d71b863c60bb6910e452f2c379030025134b3567b0b2aebbaf41e89226ddd858"
+      },
+      "RM0522:p154": {
+        "source": "RM0522",
+        "page": 154,
+        "sha256": "b7fda3d2f5736531fb87215d80e4ff5598796ab325dca3744aa96fd846e3ebd7"
+      },
+      "RM0522:p155": {
+        "source": "RM0522",
+        "page": 155,
+        "sha256": "63f8b77058ac88fa43511761551c767d253f2fb1dac3589163454b04277e2740"
+      },
+      "RM0522:p156": {
+        "source": "RM0522",
+        "page": 156,
+        "sha256": "e58d314e8c3fd67deec7990cbb1cc9ee90caf771036dec4fe163d42a91c0b4c1"
+      },
+      "RM0522:p157": {
+        "source": "RM0522",
+        "page": 157,
+        "sha256": "42372ffef77a307932c70e32722c2b2935a2352f1756f3e9bbe4a41c11c4cec0"
+      },
+      "RM0522:p158": {
+        "source": "RM0522",
+        "page": 158,
+        "sha256": "fb4ae7e047b7139ca3b0ad3c4d76df4412c856e6b581cbf9bac7472fbd16f7ec"
+      },
+      "RM0522:p159": {
+        "source": "RM0522",
+        "page": 159,
+        "sha256": "e2fb560875b66b5f58249cdc2b8616cc7c67fd0a3109dfd125e28d12b685a29f"
+      },
+      "RM0522:p160": {
+        "source": "RM0522",
+        "page": 160,
+        "sha256": "fe79e2514a712938ab499566bc47e8f81c24e3d2728baab6e8fa7e8fc86830ac"
+      },
+      "RM0522:p161": {
+        "source": "RM0522",
+        "page": 161,
+        "sha256": "d2224dd39654ac0fbf30f1b86f5d69e6ff475fb8c3c80286cd26e434ed13612d"
+      },
+      "RM0522:p162": {
+        "source": "RM0522",
+        "page": 162,
+        "sha256": "de5bbac7268ca0b9f84597944cca9dd742dcb1a7583cfb1d7f1612f48875d711"
+      },
+      "RM0522:p163": {
+        "source": "RM0522",
+        "page": 163,
+        "sha256": "f99a7bf127e78c76f52798b1c0c261324826245557444b6689d18e7cf5182be3"
+      },
+      "RM0522:p164": {
+        "source": "RM0522",
+        "page": 164,
+        "sha256": "e6d5ad560b7698a60504d25b11ed8b29c0e5f5728ced8243fca47c8dfadea5e7"
+      },
+      "RM0522:p165": {
+        "source": "RM0522",
+        "page": 165,
+        "sha256": "13921ab6d97608ba72e5375257aa972361643a96c3f29a96e4d234af024580ab"
+      },
+      "RM0522:p166": {
+        "source": "RM0522",
+        "page": 166,
+        "sha256": "4992be0d5f032a2b2549fe05121a56265335d231fe24345c5ef972b283169d7b"
+      },
+      "RM0522:p167": {
+        "source": "RM0522",
+        "page": 167,
+        "sha256": "b700e956f798aba1f5ea539a793c6fbfce9fcd491739fea514dfb9b39e46a1be"
+      },
+      "RM0522:p168": {
+        "source": "RM0522",
+        "page": 168,
+        "sha256": "263b5c14462914a22d7119e712a55d6acd9b6fd32e4ba9bd6ea79906fa1b0073"
+      },
+      "RM0522:p169": {
+        "source": "RM0522",
+        "page": 169,
+        "sha256": "1b31d39dd0623e6961c9159b69307053adf4c36a3250b925ea031e2e659085b3"
+      },
+      "RM0522:p170": {
+        "source": "RM0522",
+        "page": 170,
+        "sha256": "9112b08ed752fe43e05221164df8c326df048521834ed3cdd3c11328e72e2b58"
+      },
+      "RM0522:p171": {
+        "source": "RM0522",
+        "page": 171,
+        "sha256": "f1f0c341e183aebeed795fd9fdad024ad7984c0676dcb3b8f5a78e5de99bab4f"
+      },
+      "RM0522:p172": {
+        "source": "RM0522",
+        "page": 172,
+        "sha256": "a18bf284e4a30161f947ba7b937bdedd964cea5bcb1712284e4ba45d446c02c5"
+      },
+      "RM0522:p173": {
+        "source": "RM0522",
+        "page": 173,
+        "sha256": "68db62cb5264f90fe63031714268e553ea86ceadc5668e563b71f47b78dc15d2"
+      },
+      "RM0522:p174": {
+        "source": "RM0522",
+        "page": 174,
+        "sha256": "37440e8b872d1a8490b7e836be1c4ca77177a68b2687001e968eb06fc891b247"
+      },
+      "RM0522:p175": {
+        "source": "RM0522",
+        "page": 175,
+        "sha256": "5f30eb2bc8d4a872afca4f473db871161b250712b9fbb6e1a31cfefbab29b6f1"
+      },
+      "RM0522:p176": {
+        "source": "RM0522",
+        "page": 176,
+        "sha256": "5ca6f47933da0e73d26852fbcc3d45b4deb98c22dc4e55c0843d0078b9d7e497"
+      },
+      "RM0522:p177": {
+        "source": "RM0522",
+        "page": 177,
+        "sha256": "eb98ce7bd1b8e6015c75ec594d664288de5d4a8375d2f010ad6fbd83c5ff3ce1"
+      },
+      "RM0522:p178": {
+        "source": "RM0522",
+        "page": 178,
+        "sha256": "7b99ad767cf4e122209eb922695ce934d9660f9578679db5f5ae89da8a5f91d3"
+      },
+      "RM0522:p179": {
+        "source": "RM0522",
+        "page": 179,
+        "sha256": "256ab84486041561a58918bf2b47dceb85b51770470b0ce6f34f281dd235c95a"
+      },
+      "RM0522:p180": {
+        "source": "RM0522",
+        "page": 180,
+        "sha256": "5a430be30c9cd90aa5f4174a96b452733ae298dc87514e6a1290f31da944839e"
+      },
+      "RM0522:p181": {
+        "source": "RM0522",
+        "page": 181,
+        "sha256": "d8ba42808626cf4072abe2e7b6a23b1c21f38f520edc50d69b0345e52da507b7"
+      },
+      "RM0522:p182": {
+        "source": "RM0522",
+        "page": 182,
+        "sha256": "844eac013d2be8bb8e9b3de48d6c8f6a1dce60b7e27b864250be04eb87ab8952"
+      },
+      "RM0522:p183": {
+        "source": "RM0522",
+        "page": 183,
+        "sha256": "09d78d8f0bcfa499cd0c569802cce712ee8b6ce8f210aadf6879511ba5b40376"
+      },
+      "RM0522:p184": {
+        "source": "RM0522",
+        "page": 184,
+        "sha256": "35eeb9dd9a7161049f502e5d9ab3257a983cd71b23af6f12ff29fc7caba34d5a"
+      },
+      "RM0522:p185": {
+        "source": "RM0522",
+        "page": 185,
+        "sha256": "206a05139c61d4f95a2de26999dfee0f4d93dbd8b95c4692998ba3263c865f7e"
+      },
+      "RM0522:p186": {
+        "source": "RM0522",
+        "page": 186,
+        "sha256": "3d5c9305eafa82b3cb9aac91873d8b439c57275a53d414e916bd13f4943608c0"
+      },
+      "RM0522:p187": {
+        "source": "RM0522",
+        "page": 187,
+        "sha256": "adea73474edc3bda158ef43397b9a4e99435f60b371708833d554f02f904c057"
+      },
+      "RM0522:p188": {
+        "source": "RM0522",
+        "page": 188,
+        "sha256": "6928f3dee6033d58dafd54db071392f7320efed890e8395bce07865dc1803013"
+      },
+      "RM0522:p189": {
+        "source": "RM0522",
+        "page": 189,
+        "sha256": "45c6af45a5a51df1fc6c99d8f30133c6525cb1cd0368e4de83fe633048e31a32"
+      },
+      "RM0522:p190": {
+        "source": "RM0522",
+        "page": 190,
+        "sha256": "f8c66d88b3c5cae496d3567536b7c7c716e8b7da26aeec3aebddf9c6584040c2"
+      },
+      "RM0522:p191": {
+        "source": "RM0522",
+        "page": 191,
+        "sha256": "e19dfc2bb6ae9ec561edc891f3d7d90e3e093fb4e7f0ef2291aed766736c6c0f"
+      },
+      "RM0522:p192": {
+        "source": "RM0522",
+        "page": 192,
+        "sha256": "10a43873c0481b3b15db3f23ac1cab35fec556e973cee90f633751daa8c7bfaa"
+      },
+      "RM0522:p193": {
+        "source": "RM0522",
+        "page": 193,
+        "sha256": "076b89cd7c97b7d52085d72fb1f35b023a5b8d96fe726c4f22079d5305674c42"
+      },
+      "RM0522:p194": {
+        "source": "RM0522",
+        "page": 194,
+        "sha256": "81d4f9fe3dee05c56677654c4cc9ccc8e411fc5abbe7c2126fc037f613c5ee1d"
+      },
+      "RM0522:p195": {
+        "source": "RM0522",
+        "page": 195,
+        "sha256": "b8c8728107219f17b5e42a69852b41d984420c25850e2f0a4e655923dedf9893"
+      },
+      "RM0522:p196": {
+        "source": "RM0522",
+        "page": 196,
+        "sha256": "9c59a86824f958c460c342bfea6d67ef6cbea37e77950cc45eeced0b344bc141"
+      },
+      "RM0522:p197": {
+        "source": "RM0522",
+        "page": 197,
+        "sha256": "eb8069be58ecfec6f9c98d1f91ea6858f63b300ed2193eae53b541aaa91abdda"
+      },
+      "RM0522:p198": {
+        "source": "RM0522",
+        "page": 198,
+        "sha256": "cf01b2a11632e2f41b2b61da60529c4b01ee23e63d5782588325960d9cb9c2ef"
+      },
+      "RM0522:p199": {
+        "source": "RM0522",
+        "page": 199,
+        "sha256": "e5c6b1a96722162532867c36a2cc19f02432f99309e82d0ccff88c6c8f8d498e"
+      },
+      "RM0522:p200": {
+        "source": "RM0522",
+        "page": 200,
+        "sha256": "d3cc3d4954d33f6806c8a72743d95b0447c157c243e841aa078ea847cede08d9"
+      },
+      "RM0522:p201": {
+        "source": "RM0522",
+        "page": 201,
+        "sha256": "63f189ac6e653f3022e5e1e72d7495d21ea276103a47e52421f5d2c20a2910e1"
+      },
+      "RM0522:p202": {
+        "source": "RM0522",
+        "page": 202,
+        "sha256": "09a82eee4e02fdb7d5b93f770981ea587d049c487cbaf1b64465afefb687b537"
+      },
+      "RM0522:p203": {
+        "source": "RM0522",
+        "page": 203,
+        "sha256": "8fd1de4f1195328a6432f3991c7feb0900697ca5ce01defc1bd270c14403a378"
+      },
+      "RM0522:p204": {
+        "source": "RM0522",
+        "page": 204,
+        "sha256": "0dff2b11ec4e2be789723d4f6aa155aa6b5af21dd11c2be25b460123b7219f1c"
+      },
+      "RM0522:p205": {
+        "source": "RM0522",
+        "page": 205,
+        "sha256": "9c891a58b70eb68b96232c6d18b3c2f59d282045286fe85257224a0f5eae4310"
+      },
+      "RM0522:p206": {
+        "source": "RM0522",
+        "page": 206,
+        "sha256": "29cd0ccf351bafbcd0d58bb25a7b35895dccaeed5ce36049eeeae2d9863e8a30"
+      },
+      "RM0522:p102": {
+        "source": "RM0522",
+        "page": 102,
+        "sha256": "6be29b6287e9ca2aee1af61846b6f90097ec041fbd66e798224fe4ace4be2fb9"
+      },
+      "RM0522:p271": {
+        "source": "RM0522",
+        "page": 271,
+        "sha256": "d19f60266d8f67a35d953bb0bfda7ec6247a4b6b51d4a36b6361dd6a9ca887c9"
+      },
+      "DS15135:p1": {
+        "source": "DS15135",
+        "page": 1,
+        "sha256": "7260339fe599ceb292f39b4de5dee69e73f9624fca2dca03c5294b11c3fa6d0f"
+      },
+      "DS15135:p8": {
+        "source": "DS15135",
+        "page": 8,
+        "sha256": "137ddb29977042aa60c349d45126694acfd1d62d9656ace585be4919c81089e9"
+      },
+      "DS15135:p9": {
+        "source": "DS15135",
+        "page": 9,
+        "sha256": "bdf1244c83727d2a38580125ecce4dec522e0113327dc0f9affeed70913f09d7"
+      },
+      "DS15135:p51": {
+        "source": "DS15135",
+        "page": 51,
+        "sha256": "b08fcdf9deae8851aaf8b6c762737b2bf97e0c1aaa9573ae9c19a9715207dda8"
+      },
+      "DS15135:p67": {
+        "source": "DS15135",
+        "page": 67,
+        "sha256": "28a65b82e36c47677d5cc878f5aaa426317b27c4053018fc49b04e022702f792"
+      },
+      "ES0676:p1": {
+        "source": "ES0676",
+        "page": 1,
+        "sha256": "c36bb50f3ba55f82de59b1a5aa62c5ca6b1d3ea938ac9451545a442e65dd25c8"
+      },
+      "ES0676:p2": {
+        "source": "ES0676",
+        "page": 2,
+        "sha256": "3fed5303e4a0fc65ed4dbe6aae1c297605837e2da15bb0e24928d26b0d25eb95"
+      },
+      "ES0676:p3": {
+        "source": "ES0676",
+        "page": 3,
+        "sha256": "6682207b964f905ea8f0e452bc5cff546dfb08622fca9ce2f979b0e43cd6d157"
+      },
+      "ES0676:p4": {
+        "source": "ES0676",
+        "page": 4,
+        "sha256": "3b0e6d179a6d3b6701ddfa31ce87f44ef4d62c59d79a1f01184c77a212d7774c"
+      },
+      "header.layout": {
+        "source": "header",
+        "start_line": 507,
+        "end_line": 565,
+        "sha256": "6bf5aca1093a629ca4454c72839ff3e723a1c5ed3fdf807378cbe2521ba3f066"
+      },
+      "header.IRQ": {
+        "source": "header",
+        "start_line": 65,
+        "end_line": 72,
+        "sha256": "13a145bd0341470d8b87ee283d57170c891399abd4f83097597a351dc47505ed"
+      },
+      "header.bases": {
+        "source": "header",
+        "start_line": 1155,
+        "end_line": 1178,
+        "sha256": "15749b25e57a4c6327401a913c6748ea5c49c8969a8f65ace3cd1ec01be26293"
+      },
+      "header.base": {
+        "source": "header",
+        "start_line": 1228,
+        "end_line": 1235,
+        "sha256": "63722a1082d283a0b37e69330bd56023b3468f0881480458beff87cd24109a18"
+      },
+      "header.sizes": {
+        "source": "header",
+        "start_line": 5530,
+        "end_line": 5580,
+        "sha256": "cdfe291c4609cd1b90074825a4939148a352e081747770dc70259428e170a0a8"
+      },
+      "header.clock": {
+        "source": "header",
+        "start_line": 9054,
+        "end_line": 9063,
+        "sha256": "9cb51185c5dd7ebf38e567b0c752883cee282f5bdef528be40de04639f5c4517"
+      },
+      "header.sleep": {
+        "source": "header",
+        "start_line": 9208,
+        "end_line": 9217,
+        "sha256": "58aa3cc3488a9893c5c8210242b6d9d06aa397d172b6c9da8ce39634eeb8f01c"
+      },
+      "header.bootlib": {
+        "source": "header",
+        "start_line": 1261,
+        "end_line": 1290,
+        "sha256": "0442d1bc825824ef2c69e1f0560621fc1ff52678e018ab09a39c62f7263371d6"
+      },
+      "header.fields": {
+        "source": "header",
+        "start_line": 5582,
+        "end_line": 6192,
+        "sha256": "370c3daec5d3517a9e06308e7bf95b6da9f5efb3ad5e4a36f87ecb740dc6edc6"
+      },
+      "HAL.guards": {
+        "source": "HAL",
+        "start_line": 234,
+        "end_line": 345,
+        "sha256": "98ae307820052268ddd5b127b0751d3c455663cd3d27d8c82e1ea98220a78a58"
+      },
+      "HAL.init_deinit": {
+        "source": "HAL",
+        "start_line": 453,
+        "end_line": 526,
+        "sha256": "44ceee177ae1c0a333ed71bedfac59e6148f1d2de3f44b5ff088373818f22c05"
+      },
+      "HAL.program_public": {
+        "source": "HAL",
+        "start_line": 677,
+        "end_line": 750,
+        "sha256": "89a64894432fe5d123615c3f6f99b50f5a26e98beb305119af1e4ad033727f31"
+      },
+      "HAL.OTP_public": {
+        "source": "HAL",
+        "start_line": 853,
+        "end_line": 928,
+        "sha256": "5fa4e510ff7b8f1ee6fdd46dc64378c1a11c167f6d0cd12b41d894715b280e10"
+      },
+      "HAL.EDATA_public": {
+        "source": "HAL",
+        "start_line": 1028,
+        "end_line": 1103,
+        "sha256": "87400cfa5699d03e6e070e035cc700be386a48d2f49dd5d599e011e62ad32de5"
+      },
+      "HAL.erase_public": {
+        "source": "HAL",
+        "start_line": 1215,
+        "end_line": 1300,
+        "sha256": "f19fb715c3cd5882544a206b14fb60643cb941b2d0eed094ab861d4ac92e50e4"
+      },
+      "HAL.erase_pages_public": {
+        "source": "HAL",
+        "start_line": 1400,
+        "end_line": 1518,
+        "sha256": "30aaa080929d3fb1dd58d03f18557d764d0d27a0b9695855a99309b73882e3ef"
+      },
+      "HAL.bank_mass": {
+        "source": "HAL",
+        "start_line": 1523,
+        "end_line": 1676,
+        "sha256": "3a04f061d14c07f42b41c02cd35f12cfeca389b34016d94a18cdb5ce5c576ed4"
+      },
+      "HAL.IRQ": {
+        "source": "HAL",
+        "start_line": 1685,
+        "end_line": 1720,
+        "sha256": "fccf3957ea384b4ec4d3d4f5a4cf190b37b352d731478cf667c7fb2b9044acb7"
+      },
+      "HAL.program_IRQ": {
+        "source": "HAL",
+        "start_line": 1737,
+        "end_line": 1798,
+        "sha256": "a845e2afcf246e0d7bd3c5ec924e805389e46b3b51030cdd04169a7c7b7cdbbc"
+      },
+      "HAL.erase_IRQ": {
+        "source": "HAL",
+        "start_line": 1806,
+        "end_line": 2024,
+        "sha256": "71e9830a029e3deab788129b019c3313ec95cc22ccc78d3dcbd445601acf18fc"
+      },
+      "HAL.ECC_IRQ": {
+        "source": "HAL",
+        "start_line": 2034,
+        "end_line": 2080,
+        "sha256": "4d70660082b0fe5a96e1b0e11ad3ee7a33dcbf8281b7207718ef08c3485745d9"
+      },
+      "HAL.ECC_weak": {
+        "source": "HAL",
+        "start_line": 2240,
+        "end_line": 2262,
+        "sha256": "ee180555bec255f72644e10bf34e953f86c52a5cab7cda8ffac0c81de2c4dfe9"
+      },
+      "HAL.reset_info": {
+        "source": "HAL",
+        "start_line": 2653,
+        "end_line": 2701,
+        "sha256": "e778b81155e20f1978301b4823228ddea86a9fca2350219e1d3b60c6f724d553"
+      },
+      "HAL.size_info": {
+        "source": "HAL",
+        "start_line": 2708,
+        "end_line": 2869,
+        "sha256": "5135d5305db9d56c527c1e9665e2e1eb7b8d07672d0d35fcaaac5e0ba0a97b35"
+      },
+      "HAL.ECC_info": {
+        "source": "HAL",
+        "start_line": 3082,
+        "end_line": 3160,
+        "sha256": "3dd227d13efa5f6b5b17e8be98e8c25b5f71719a97eae6e197bc5e7a111fcec4"
+      },
+      "HAL.ready_wait": {
+        "source": "HAL",
+        "start_line": 3265,
+        "end_line": 3333,
+        "sha256": "119f5e3d8547ca28c1cece374844ef36a97b40f7972cdde2703591e7434dd474"
+      },
+      "HAL.adaptive": {
+        "source": "HAL",
+        "start_line": 3342,
+        "end_line": 3410,
+        "sha256": "b08523297e8c60c7ab163a9f06dd17ed7a4629b8abce799ecc4f1270f98e1b9c"
+      },
+      "HAL.program": {
+        "source": "HAL",
+        "start_line": 3424,
+        "end_line": 3545,
+        "sha256": "b08b6f4ceafc2daa45bffa46f39bab6d2aad57463632015c6d29e18642b01ca3"
+      },
+      "HAL.writes": {
+        "source": "HAL",
+        "start_line": 3552,
+        "end_line": 3645,
+        "sha256": "f3bb422cccb38df868a07eb6e43dd7bab7caf394f215f7f4477c4ee848c8b368"
+      },
+      "HAL.page_helpers": {
+        "source": "HAL",
+        "start_line": 3654,
+        "end_line": 3700,
+        "sha256": "a73b6d1d62d6e2194a5ac0768a86d100a032a270a49618e04dab06aec1a5569a"
+      },
+      "HAL.erase_addr": {
+        "source": "HAL",
+        "start_line": 3717,
+        "end_line": 3840,
+        "sha256": "32c11c3d085c5bd5e3b212af53ae8e080a8f3a0374c97e382946435fbd5fb796"
+      },
+      "HAL.erase_page": {
+        "source": "HAL",
+        "start_line": 3845,
+        "end_line": 3949,
+        "sha256": "0b72bd4f63653ee55f900eb42b4fdf7b1debeb6b022d58bcd86f2c9f1b66654b"
+      },
+      "HAL.mapping": {
+        "source": "HAL",
+        "start_line": 4002,
+        "end_line": 4064,
+        "sha256": "5f167629d033bda5f47a55d966e5724038fcef250cc6bc8b2afa2e4d8f8f2a68"
+      },
+      "HAL.error": {
+        "source": "HAL",
+        "start_line": 4078,
+        "end_line": 4095,
+        "sha256": "f778d3f88ccf3c7c44ab0c540d675a1f1aa60665b041d995731459a26e04f364"
+      },
+      "ITF.locks_latency": {
+        "source": "ITF",
+        "start_line": 440,
+        "end_line": 585,
+        "sha256": "9dff7360b54654cb7fdea58fc77b362cc557c1e807febf746c46525272348093"
+      },
+      "ITF.OTP_locks": {
+        "source": "ITF",
+        "start_line": 874,
+        "end_line": 970,
+        "sha256": "e966b4aa09f9a3a4ba3aa1f1008112d1e6fc0608f8bd9c7ddedcc62fcc03541c"
+      },
+      "ITF.WRP": {
+        "source": "ITF",
+        "start_line": 981,
+        "end_line": 1066,
+        "sha256": "b314ef92b3ea07def5b58ea184f3829e5df7b34a47e37cedbc269baba179250c"
+      },
+      "ITF.HDP": {
+        "source": "ITF",
+        "start_line": 1158,
+        "end_line": 1176,
+        "sha256": "dc135f3a3df60c0caa93a43e25bf9a3a1e6a8fffc8ea84f23a24a8ca984dc5d0"
+      },
+      "ITF.boot": {
+        "source": "ITF",
+        "start_line": 1838,
+        "end_line": 1855,
+        "sha256": "5bc0da05e089a7d676318ee353815e4b8269dded9eec83293adfcc2d04908598"
+      },
+      "ITF.IRQ_OB": {
+        "source": "ITF",
+        "start_line": 1982,
+        "end_line": 2103,
+        "sha256": "a21009d016041ec44dde1582e34c6c00729393ebbecd7fc1124d84897cb2503d"
+      },
+      "LL.flags": {
+        "source": "LL",
+        "start_line": 60,
+        "end_line": 112,
+        "sha256": "6538ba4314d8f489ce2159d01f95835942a1f75135b21633f54e3be503b3a896"
+      },
+      "LL.latency": {
+        "source": "LL",
+        "start_line": 505,
+        "end_line": 632,
+        "sha256": "619467ff295f4e33d201285b7ea413d44ebc04781c71ebf4ff8be3169b8c131d"
+      },
+      "LL.clear": {
+        "source": "LL",
+        "start_line": 881,
+        "end_line": 896,
+        "sha256": "d911fd82f45a7c9fdb30ac312fe99ae26ea24f7a25199fdbad718c383cf163b2"
+      },
+      "LL.erase": {
+        "source": "LL",
+        "start_line": 1320,
+        "end_line": 1400,
+        "sha256": "772d82436514549e61aca979589c47bf2c818f20d049ef676498c77022b10d94"
+      },
+      "LL.boot": {
+        "source": "LL",
+        "start_line": 2220,
+        "end_line": 2249,
+        "sha256": "a8af0e7e4fddc38afd876f006336735ce263080be76b9d94bec150f7cba57730"
+      },
+      "LL.HDP": {
+        "source": "LL",
+        "start_line": 2490,
+        "end_line": 2508,
+        "sha256": "ca6b2f24881ba9b9270f851528582f5023190aae60217f5edc34fae086cb87d4"
+      },
+      "LL.ECC_IE": {
+        "source": "LL",
+        "start_line": 2598,
+        "end_line": 2620,
+        "sha256": "5bfab6d77f53d3f802a3213de673b35d1cf33ecc0b12ac7311193f167e7e1211"
+      },
+      "LL.ECC_clear": {
+        "source": "LL",
+        "start_line": 2645,
+        "end_line": 2654,
+        "sha256": "592a7e3cffe9069c4c2b1e487debf01189ae78f108bbd20ee755fe2b7bfe97e6"
+      },
+      "LL.swap": {
+        "source": "LL",
+        "start_line": 808,
+        "end_line": 819,
+        "sha256": "5f2bb63b08390a0c68123a0ace31b165bfc481e2ec1f63e480303e4a23c6eabe"
+      },
+      "family.macros": {
+        "source": "family",
+        "start_line": 127,
+        "end_line": 150,
+        "sha256": "448e723a53690f170be1b802e4ea989e0f020d42bb85ac750256761187c22d47"
+      }
+    },
+    "errata_sha256": "821c22f796a9ff723afee534fe5943c2b0506325ec871d890706d94414316416",
+    "contracts": [
+      {
+        "id": "exact_memory",
+        "detail": "Exact C542 main memory is 256 KiB, two 128 KiB banks with sixteen 8 KiB pages each. Do not import larger family maps or apply SINGLE_BANK, which RM limits to 128 KiB C53x/C542 variants. EDATA_EN selects the 64 KiB extended-code map or 48 KiB narrow-data map, not two simultaneously usable memories. Actual option state is not observed.",
+        "evidence": [
+          "RM0522:p143",
+          "RM0522:p144",
+          "RM0522:p145",
+          "RM0522:p152",
+          "RM0522:p185",
+          "header.sizes",
+          "DS15135:p1",
+          "DS15135:p9"
+        ]
+      },
+      {
+        "id": "access_and_cache",
+        "detail": "Main/system memory support multiple access widths; program granularity is a 128-bit word with nine ECC bits. OTP/RO and narrow EDATA use 16-bit data with six ECC bits, 16/32-bit accesses, and must not be cached or instruction-fetched. RM says MPU must disable cacheability; byte accesses are not an admitted domain. Read-only/virgin-memory reads can have error/NMI side effects, so no automatic probing.",
+        "evidence": [
+          "RM0522:p127",
+          "RM0522:p128",
+          "RM0522:p131",
+          "RM0522:p133",
+          "RM0522:p163"
+        ]
+      },
+      {
+        "id": "single_shared_operation",
+        "detail": "Both banks share control, status and a write buffer. Only read-while-write across different banks is supported; no write-while-write or read-while-read. Same-bank reads stall during writes. Exclusive ownership includes code/literals/vector/stack and all bus masters, not merely one handle. Bank/mass erase includes the bank EDATA pages.",
+        "evidence": [
+          "RM0522:p133",
+          "RM0522:p137",
+          "RM0522:p138",
+          "RM0522:p166"
+        ]
+      },
+      {
+        "id": "program_and_force",
+        "detail": "Require correct protections, clear prior errors and BSY=WBNE=DBNE=0 before programming. Fill an aligned 128-bit word once; force-write fills missing bits with ones and precludes later completing that word safely. Reprogramming nonvirgin words can invalidate data/ECC. Repeated byte strobes or changing destination before filling the buffer cause errors. OTP halfwords are one-time and never erasable.",
+        "evidence": [
+          "RM0522:p133",
+          "RM0522:p134",
+          "RM0522:p135",
+          "RM0522:p139",
+          "RM0522:p140",
+          "RM0522:p168",
+          "RM0522:p182"
+        ]
+      },
+      {
+        "id": "clock_latency",
+        "detail": "FLASH uses HCLK. Increase latency/program delay and read back before raising clock; lower clock and verify before reducing latency. WRHIGHFREQ changes during program/erase can corrupt contents. Prefetch needs at least one wait state and explicit readback after changing PRFTEN. ACR resets conservatively to LATENCY7/WRHIGHFREQ2, distinct from recommendations. Clock disable requires whole-system residency analysis.",
+        "evidence": [
+          "RM0522:p131",
+          "RM0522:p132",
+          "RM0522:p135",
+          "RM0522:p148",
+          "RM0522:p174",
+          "RM0522:p271",
+          "header.clock",
+          "header.sleep"
+        ]
+      },
+      {
+        "id": "locks_privilege",
+        "detail": "CR and OPTCR have different 32-bit unlock keys. Wrong or repeated unlock sequences can lock until reset and cause bus errors. PRIV=1 makes unprivileged register accesses RAZ/WI except readable PRIVCFGR; setters returning success alone do not establish an effective protected write. Clearing flags does not require unlocking.",
+        "evidence": [
+          "RM0522:p127",
+          "RM0522:p157",
+          "RM0522:p173",
+          "RM0522:p175",
+          "RM0522:p177",
+          "RM0522:p182",
+          "RM0522:p183"
+        ]
+      },
+      {
+        "id": "options_transaction",
+        "detail": "PRG fields stage changes; CUR reflects loaded options. Commit requires no BSY/WBNE/DBNE, cleared errors, proper unlock and all policy constraints. Failed programming retains requested PRG values for diagnosis. RDP, swap and boot-address changes require reset to take effect. Enabling SRAM erase options can erase SRAM during the option change itself. Commit success is not boot verification or atomic firmware upgrade. Option loading also occurs on wake from Standby.",
+        "evidence": [
+          "RM0522:p149",
+          "RM0522:p150",
+          "RM0522:p151",
+          "RM0522:p189"
+        ]
+      },
+      {
+        "id": "physical_banks",
+        "detail": "Swap changes user and EDATA address mapping, while protection and BKSEL/ECC bank flags refer to physical banks. OPTSR_CUR swap after commit differs from effective OPTCR swap until reset. Address-based and physical-bank APIs must not be conflated.",
+        "evidence": [
+          "RM0522:p142",
+          "RM0522:p143",
+          "RM0522:p145",
+          "RM0522:p146",
+          "RM0522:p158",
+          "RM0522:p180",
+          "LL.swap"
+        ]
+      },
+      {
+        "id": "protection",
+        "detail": "WRP is active low, one page per bit on C542. HDP areas activate at HDPL>=2 and extensions at3; extension is monotonic until reset and cannot be reduced. Main protection follows physical bank. EDATA pages cannot be HDP/WRP protected in either mode. OTP block locks are irreversible independent of product state. No protection writes are authorized here.",
+        "evidence": [
+          "RM0522:p153",
+          "RM0522:p155",
+          "RM0522:p156",
+          "RM0522:p157",
+          "RM0522:p159",
+          "RM0522:p184",
+          "RM0522:p191"
+        ]
+      },
+      {
+        "id": "RDP_and_keys",
+        "detail": "Exact RDP has L0/L2_wBS/L2, not a generic STM32 level1. Opening a closed device requires a previously provisioned OEM key and erases protected user contents. Invalid loaded RDP is treated as L2. OEM/BS keys read as zero; default/validation/retry/power-reset and boundary-scan rules are separate. No key or life-cycle operation is admitted. With OEMLOCK=0, progression to L2_wBS or L2 is irrevocable per RM179. OEM-key validation in L0 needs the stated power sequence before entry to L2; a BSKEY mismatch blocks flash access until POR. Regression resets security options and erases device secrets including backup registers, SRAM2 and instruction cache, as well as flash contents. These are destructive source conditions, not authorized actions. RM Table 31 limits option changes in L2_wBS/L2 to SWAP_BANK, LOCKBL and RDP_LEVEL, still subject to all other admission rules.",
+        "evidence": [
+          "RM0522:p159",
+          "RM0522:p160",
+          "RM0522:p161",
+          "RM0522:p162",
+          "RM0522:p163",
+          "RM0522:p179",
+          "RM0522:p102",
+          "RM0522:p154"
+        ]
+      },
+      {
+        "id": "ECC_and_IRQ",
+        "detail": "ECCC corrected data and ECCD double detection have separate first-error address latches. ECCD generates NMI; selected 6-bit data accesses can be masked via SBS. RM requires ICACHE invalidation for ECCD. Capture address/data before W1C clearing; bank1 has precedence for simultaneous same-class errors. Virgin OTP/narrow EDATA can produce ECCD with all-one data, which must not be silently treated as proof of harmlessness. IRQ5 also carries shared completion/error flags.",
+        "evidence": [
+          "RM0522:p131",
+          "RM0522:p139",
+          "RM0522:p169",
+          "RM0522:p170",
+          "RM0522:p171",
+          "RM0522:p172",
+          "RM0522:p173",
+          "RM0522:p197",
+          "RM0522:p198",
+          "RM0522:p199",
+          "header.IRQ"
+        ]
+      },
+      {
+        "id": "reset_and_low_power",
+        "detail": "BSY/WBNE/DBNE prevent Stop/Standby entry. Reset during a modifying operation can leave content uncertain; OPSR identifies an interrupted operation, not verified content or permission to retry destructively. Reset/option failure defaults differ from factory settings. ACR.EMPTY is not reset by system reset. Double-ECC option-loading defaults are safety-significant: OPTSR_CUR=0x20B072D8 selects RDP 0x72 (L2), EDATA_EN=1, BOOT0=1 and BOOT_SEL=0; BOOTR=0xFFFFFFB4 locks an invalid boot address; OTPBLR and BL_COM_CFG default to 0xFFFFFFFF; WRP1/2 default to zero; exact C542 HDP1/2 default to 0x000F0000. These are error defaults, not factory settings or observed state, and can invalidate the build-time EDATA assumption.",
+        "evidence": [
+          "RM0522:p147",
+          "RM0522:p148",
+          "RM0522:p165",
+          "RM0522:p166",
+          "RM0522:p174",
+          "RM0522:p176",
+          "RM0522:p185",
+          "RM0522:p190",
+          "RM0522:p191",
+          "RM0522:p192",
+          "RM0522:p195",
+          "RM0522:p196",
+          "RM0522:p200",
+          "RM0522:p201"
+        ]
+      },
+      {
+        "id": "boot_services",
+        "detail": "BOOTADD must point within main user flash, not SRAM or EDATA. BOOT_LOCK also freezes BOOT0/BOOT_SEL/swap. ROM JumpHDPLvl2/3 calls enable a caller-prepared MPU region and branch via supplied vector entries but do not update VTOR; they do not return on success. Bind exact header table address without assuming ROM version or executing service. Full bootloader interface bit mapping is open.",
+        "evidence": [
+          "RM0522:p154",
+          "RM0522:p163",
+          "RM0522:p164",
+          "RM0522:p165",
+          "RM0522:p190",
+          "RM0522:p193",
+          "header.bootlib"
+        ]
+      },
+      {
+        "id": "electrical_and_errata",
+        "detail": "DS67 gives characterization-based maxima: program160us, page erase2.1ms, bank erase68ms, mass erase135ms; endurance minimum10K cycles and retention depend on stated temperature/cycle conditions. These are not measured board results or an unconditional lifetime guarantee. ES overview has no dedicated FLASH limitation, but core/system/composition errata still apply. The 160 us programming maximum is specifically tabulated for 128-bit user-area and 16-bit OTP/EDATA writes, not every SDK access width.",
+        "evidence": [
+          "DS15135:p51",
+          "DS15135:p67",
+          "ES0676:p1",
+          "ES0676:p2",
+          "ES0676:p3",
+          "ES0676:p4"
+        ]
+      }
+    ],
+    "source_derived_SDK_gates": [
+      {
+        "id": "EDATA_address_predicate",
+        "detail": "FLASH_IsFlashEDATAAddr groups (in_range && !check_alignment) OR even_address. Therefore check_alignment=1 accepts every even address regardless of range, and check_alignment=0 also accepts out-of-range even addresses. Public EDATA calls reuse this predicate. An out-of-range even start and odd size can pass endpoint checks with debug checks disabled. This is a conditional validation defect, not an observed device write. Its alignment expression checks only even-byte alignment, not four-byte alignment for WORD mode.",
+        "evidence": [
+          "HAL.mapping",
+          "HAL.EDATA_public"
+        ]
+      },
+      {
+        "id": "program_size_and_overflow",
+        "detail": "Public fixed-mode ProgramByAddr runtime checks cover selected endpoints and nonzero size but omit programming-unit divisibility and cross-bank validation retained only as assertions. With QUADWORD and size17, a valid interior start can reach two16-byte writes; the helper never clips prog_size to remaining count. Address+size arithmetic can wrap and endpoint membership does not establish the intervening interval is valid. Require subtraction-based bounds and complete unit checks before any future operation. OTP/EDATA mode and size checks are likewise assertion-dependent.",
+        "evidence": [
+          "HAL.program_public",
+          "HAL.OTP_public",
+          "HAL.EDATA_public",
+          "HAL.guards",
+          "HAL.program",
+          "HAL.writes"
+        ]
+      },
+      {
+        "id": "compile_time_EDATA",
+        "detail": "USE_HAL_FLASH_OB_EDATA must match actual EDATA_EN per SDK configuration table. Validators, sizes, addressing and page conversion select branches at compile time rather than reading the current option on each operation. A source candidate cannot infer the running option state from the macro.",
+        "evidence": [
+          "HAL.guards",
+          "HAL.mapping",
+          "HAL.size_info",
+          "HAL.page_helpers"
+        ]
+      },
+      {
+        "id": "timeout_and_release",
+        "detail": "Polling waits on BSY/WBNE/DBNE using HAL_GetTick; stalled ticks can prevent timeout. Program uses fixed per-unit1ms then a caller deadline only between unfinished units; erase uses fixed per-page10ms and resets its caller tickstart for each page. A one-unit operation may finish despite caller timeout0. Cleanup writes CR even after timeout; RM says CR writes stall while BSY, so timeout is not a bounded-return or abort guarantee. DeInit ignores its wait result then sets RESET, without disabling IRQs or proving ownership release.",
+        "evidence": [
+          "HAL.ready_wait",
+          "HAL.program",
+          "HAL.erase_addr",
+          "HAL.erase_page",
+          "HAL.bank_mass",
+          "HAL.init_deinit",
+          "HAL.guards",
+          "RM0522:p180"
+        ]
+      },
+      {
+        "id": "source_and_residency",
+        "detail": "Program helpers cast source/destination to nonvolatile uint32/uint16/uint8 pointers and mask PRIMASK during stores, restoring its old value afterward. They do not establish compiler-emitted transaction width/order, readable source extent/alignment, NMI safety or residency of code/data/handlers. Destination/source lifetime is retained for IT operation. No generated-code or performance qualification has run.",
+        "evidence": [
+          "HAL.writes",
+          "HAL.program",
+          "HAL.program_IRQ"
+        ]
+      },
+      {
+        "id": "ECC_diagnostics",
+        "detail": "ECC_GetInfo ignores its bank parameter and prioritizes ECCD over ECCC. Both ECC info and interrupted-operation info form main/EDATA addresses from physical bank bits without applying active swap, unlike FLASH_GetBank. Do not use returned addresses as qualified current CPU addresses when swapped. ECC_NONE leaves other output fields untouched; no-operation OPSR likewise leaves addr untouched. OTP/RO decoding and partial-word error provenance require separate qualification. System-flash bank 2 also has a separate size mismatch: SDK FLASH_SYSTEM_SIZE is 0x10000, so its half-size offset produces 0x0BF88000, while exact RM Table 24 starts system bank 2 at 0x0BF86000. This discrepancy is independent of user-bank swapping.",
+        "evidence": [
+          "HAL.ECC_info",
+          "HAL.reset_info",
+          "HAL.mapping",
+          "RM0522:p158",
+          "RM0522:p198",
+          "header.bases",
+          "RM0522:p143"
+        ]
+      },
+      {
+        "id": "ECC_clear_side_effect",
+        "detail": "LL enabling/disabling ECCCIE uses read-modify-write on ECCCORR, whose ECCC bit is W1C. If ECCC was set in the read value, changing its interrupt enable also clears the error flag and associated address. Capture diagnostics before changing this control; no atomic event-counting guarantee. LL ClearFlag also RMW-reads the write-only CCR, whose read behavior is not qualified here.",
+        "evidence": [
+          "LL.ECC_IE",
+          "LL.ECC_clear",
+          "LL.clear",
+          "family.macros",
+          "RM0522:p183",
+          "RM0522:p197",
+          "RM0522:p198"
+        ]
+      },
+      {
+        "id": "ECC_handler_obligation",
+        "detail": "HAL NMI clears ECCD only when user callback returns HAL_OK; the handler itself does not invalidate ICACHE. Default callback returns HAL_ERROR. ECCC IRQ invokes callback then clears its flag regardless of callback result. Shared NMI dispatch and diagnostic capture must be explicit; HAL_ERROR with no FLASH event does not mean other NMI owners failed.",
+        "evidence": [
+          "HAL.ECC_IRQ",
+          "HAL.ECC_weak",
+          "RM0522:p169"
+        ]
+      },
+      {
+        "id": "clock_setter_receipt",
+        "detail": "ITF latency, programming-delay and prefetch setters return HAL_OK after LL writes without verifying readback, busy state or frequency compatibility. They do not implement the RM clock-transition protocol. Unmasked set operands remain assertion-dependent.",
+        "evidence": [
+          "ITF.locks_latency",
+          "LL.latency",
+          "family.macros",
+          "RM0522:p132",
+          "RM0522:p135",
+          "RM0522:p174"
+        ]
+      },
+      {
+        "id": "boot_address_boundary",
+        "detail": "ITF SetBootAddr rejects addresses greater than FLASH_BASE+FLASH_SIZE, so equality at the end-exclusive boundary is accepted. It does not check low-byte alignment; LL writes the unmasked address into a register whose low8 bits are BOOT_LOCK, potentially changing that field through the OR operand. It does not establish loaded/effective boot behavior; no option commit was performed. The low byte is ORed with the existing BOOT_LOCK value, not assigned independently: 0xC3 OR x cannot become 0xB4. Require 256-byte address alignment and a valid main-memory address; RM warns invalid BOOTADD can stall boot and make flash unreadable. Nonzero low bits can corrupt the lock encoding or leave it unchanged while truncating the requested address. The setter does not establish OPTLOCK, RDP or BOOT_LOCK admission; a protected staging write may be ineffective despite HAL_OK. RM Table 30 specifically restricts BOOTADD changes to L0; other modifying rules and combined old/new option states still apply.",
+        "evidence": [
+          "ITF.boot",
+          "LL.boot",
+          "family.macros",
+          "RM0522:p190",
+          "header.sizes",
+          "RM0522:p150",
+          "RM0522:p154"
+        ]
+      },
+      {
+        "id": "option_commit_and_dispatch",
+        "detail": "ITF OB Program/Program_IT start modification without preflight readiness/OPTLOCK checks. A locked ignored start can lack busy/error evidence and must not be treated as a verified commit merely because HAL_OK is returned. ITF IRQ reads shared EOP/OPTCHANGEERR without checking enable or operation ownership; it can consume another FLASH operation event. It only handles those two flags, while PGSERR can also reject option sequencing. Program_IT success means a request path returned, not durable completion. The ITF handler disables shared EOPIE/OPTCHANGEERRIE and invokes its option callback on any observed EOP, potentially interfering with a different owner awaiting completion. HAL polling/error paths clear the aggregate error mask including OPTCHANGEERR. Require exclusive ownership of these flags, interrupt enables and callbacks across normal and option operations.",
+        "evidence": [
+          "ITF.IRQ_OB",
+          "RM0522:p150",
+          "RM0522:p168",
+          "RM0522:p177",
+          "HAL.IRQ",
+          "HAL.program_IRQ",
+          "HAL.error",
+          "HAL.ready_wait",
+          "LL.flags"
+        ]
+      },
+      {
+        "id": "option_range_arithmetic",
+        "detail": "OTP-lock and WRP APIs runtime-check sum>limit but individual limits/nonzero are assertions. Unsigned sum wrap can evade the check and drive invalid shifts or long loops. HDP setter computes start+count-1 without a count/range check, passing an unmasked end-page shift to LL; zero/count-overflow and hardware write restrictions are not qualified. No irreversible option operation is admitted. For start=0/count=0, unsigned end arithmetic gives 0xFFFFFFFF; shifting by 16 supplies 0xFFFF0000 to the unmasked LL operand. This includes the exact END field value 15 and reserved bits. If accepted and made effective, the start/end fields describe the whole exact bank, not an empty area. Reserved-bit and option-admission behavior remains unqualified; do not claim a proven hide operation.",
+        "evidence": [
+          "ITF.OTP_locks",
+          "ITF.WRP",
+          "ITF.HDP",
+          "LL.HDP",
+          "family.macros",
+          "header.fields",
+          "RM0522:p196",
+          "RM0522:p201"
+        ]
+      },
+      {
+        "id": "erase_granularity",
+        "detail": "EraseByAddr can erase whole surrounding pages rather than exactly the caller byte interval, as SDK warns. Physical bank is chosen once; full no-cross-bank and overflow-proof range checks are required. Generic ErasePage APIs combine main and extended page numbering; do not treat raw hardware PNB width as the exact16-page main domain. Require nonzero count and ranges contained in one memory area. With USE_HAL_FLASH_OB_EDATA=0, page 15/count 2 passes the combined page bound; polling FLASH_ErasePage retains USER erase_area while translating page 16 to index 0, so the shown source requests main page 15 then main page 0, not extended page 0. ErasePage_IT starts an erase unconditionally even for count zero; polling skips its loop. Address-based erase likewise retains its initially selected bank; crossing a bank boundary can target the original bank with wrapped page indices. These are conditional source paths, not observed erasures. On an EOP-only page-erase IRQ after zero-count start, count-- underflows to 0xFFFFFFFF and the next-page branch issues another erase; normal zero-count completion is bypassed. Each later EOP can chain another request until error or other intervention. Unlike polling, the IT handler recomputes the area on each page: page15/count2 moves to extended page0. The index macro subtracts 16 only once, so combined page32 yields index16 outside the exact main/extended page domain. These are conditional source branches, not observed erase success or a claim that every requested page succeeds.",
+        "evidence": [
+          "HAL.erase_public",
+          "HAL.erase_addr",
+          "HAL.erase_pages_public",
+          "HAL.erase_page",
+          "HAL.guards",
+          "RM0522:p181",
+          "LL.erase",
+          "HAL.erase_IRQ"
+        ]
+      },
+      {
+        "id": "fixed_sub_quadword_user_programming",
+        "detail": "For fixed BYTE/HALFWORD user programming, the first aligned unit enables force-write; subsequent units within that same 128-bit word fail the aligned-user predicate and omit force-write. Fixed WORD/DOUBLEWORD uses force-write on every unit, potentially requesting repeated programming of the same physical word. RM warns that force-write pads missing bits with ones and later reprogramming can compromise ECC. If a partial write leaves WBNE pending without an intervening hardware error or completion, polling can time out and readiness can remain busy; an interrupt completion is not assured. Do not assert a deterministic timeout or permanent state from this source alone. Adaptive code groups a user-memory chunk differently; this finding does not prove adaptive correctness or qualify any programming mode.",
+        "evidence": [
+          "HAL.program_public",
+          "HAL.program",
+          "HAL.writes",
+          "HAL.mapping",
+          "HAL.adaptive",
+          "HAL.ready_wait",
+          "LL.flags",
+          "RM0522:p133",
+          "RM0522:p166",
+          "RM0522:p179",
+          "RM0522:p182"
+        ]
+      },
+      {
+        "id": "implicit_factory_size_reads",
+        "detail": "FLASH_SIZE is a nonvolatile uint16_t dereference of FLASHSIZE_BASE with fallback to FLASH_SIZE_MAX for zero or 0xFFFF. Size-dependent SDK bounds, bank selection and getters can therefore read the RO area implicitly. When instruction caching is enabled, RM requires the RO region to be noncacheable through MPU configuration; these API calls are not purely register-local checks. No physical factory-size read was performed here.",
+        "evidence": [
+          "header.sizes",
+          "header.bases",
+          "HAL.mapping",
+          "HAL.guards",
+          "HAL.size_info",
+          "ITF.boot",
+          "RM0522:p128",
+          "DS15135:p8"
+        ]
+      }
+    ],
+    "conflicts": [
+      {
+        "id": "EDATA_marketing_size",
+        "detail": "DS describes64KiB user data in2KiB sectors without the RM distinction: EDATA_EN=1 reduces usable map to48KiB in1.5KiB pages. Keep literal source language and mode-qualified sizes.",
+        "evidence": [
+          "DS15135:p1",
+          "DS15135:p9",
+          "RM0522:p141",
+          "RM0522:p143",
+          "header.sizes"
+        ]
+      },
+      {
+        "id": "OTP_RO_byte_access",
+        "detail": "RM133 says byte writes ignored in OTP/RO/data area; RM141/163/172 say byte accesses generate bus errors. RM139 also says OTP can only be read immediately after explaining its programming. Byte writes remain excluded; preserve contradictions.",
+        "evidence": [
+          "RM0522:p133",
+          "RM0522:p139",
+          "RM0522:p140",
+          "RM0522:p141",
+          "RM0522:p163",
+          "RM0522:p172"
+        ]
+      },
+      {
+        "id": "recovery_and_option_interruption",
+        "detail": "RM148 generic interrupted-write guidance includes erase/rewrite near OTP despite OTP being nonerasable. It says content not guaranteed for interrupted option changes; RM151 specifically says original option value kept. Neither licenses generic erase or automatic retry.",
+        "evidence": [
+          "RM0522:p139",
+          "RM0522:p148",
+          "RM0522:p151"
+        ]
+      },
+      {
+        "id": "timing_boundaries",
+        "detail": "RM132 timing intervals are all printed closed, overlapping at34/68/102/136MHz; avoid silently choosing a boundary rule. Reset latency7 is deliberately conservative, not one of the timing rows.",
+        "evidence": [
+          "RM0522:p132",
+          "RM0522:p174"
+        ]
+      },
+      {
+        "id": "register_names_and_IRQ",
+        "detail": "RM161/162 refer to OPTSTRT in FLASH_CR and OPTWERR, while actual control/error are OPTCR.OPTSTRT and SR.OPTCHANGEERR. RM178 mentions FLASH_NSCR. Table42 shows no option-error enable, but CR23 implements one; RM173 says option-error status excepted from SR despite SR23 definition. Keep actual register/header evidence distinct. RM179 describes EOP for program/erase, while RM173 also describes EOPIE at the end of option change; ITF option completion relies on the latter behavior.",
+        "evidence": [
+          "RM0522:p161",
+          "RM0522:p162",
+          "RM0522:p173",
+          "RM0522:p177",
+          "RM0522:p178",
+          "RM0522:p180",
+          "header.fields",
+          "RM0522:p179",
+          "ITF.IRQ_OB"
+        ]
+      },
+      {
+        "id": "HDP_and_watchdog_prose",
+        "detail": "RM197 says HDP1 PRG accessible onlyHDPL1, while RM155 and HDP2 description on201 includeHDPL0. RM186/187 introductory freeze wording says set freezes IWDG, but bit enumerations and152 specify1 keeps running. These prose contradictions do not alter existing watchdog source contracts. The exact C542 header HDP/HDPEXT start/end masks are four bits, while the shared RM diagrams show six-bit fields. Use exact page-domain bounds and preserve the family diagram distinction; no reserved-bit write is admitted.",
+        "evidence": [
+          "RM0522:p152",
+          "RM0522:p155",
+          "RM0522:p186",
+          "RM0522:p187",
+          "RM0522:p197",
+          "RM0522:p201",
+          "header.fields",
+          "RM0522:p196"
+        ]
+      },
+      {
+        "id": "SDK_size_comments",
+        "detail": "Exact header FLASH_BANK_SIZE arithmetic yields128KiB for expected256KiB flash despite comment256KiB per bank; OTP0x1200 is4.5KiB despite2KiB comment. Raw flash-size fallback and signature-read qualification are retained in electronic-signature survey. FLASH_SYSTEM_SIZE is numerically 0x10000 (with a misleading OTP comment), conflicting with the exact RM system-memory total 0xC000; this affects the SDK bank-2 system ECC address calculation. FLASH_LATENCY_DEFAULT is 3WS, distinct from RM reset LATENCY7. Header extended/data page-count comments are interchanged.",
+        "evidence": [
+          "header.sizes",
+          "DS15135:p1",
+          "RM0522:p139",
+          "RM0522:p143",
+          "header.bases",
+          "HAL.ECC_info",
+          "RM0522:p174"
+        ]
+      },
+      {
+        "id": "shared_family_wording",
+        "detail": "Main map Figure12 shows larger family capacity; exact Table24 governs C542. RM158 names BK_ECC in nonexistent OEMKEYR2_CUR; actual ECCCORR/ECCDETR contain it. RM134 mentions OBL_LAUNCH absent from exact OPTCR/header. Do not invent these fields. Boot-service names differ: RM uses EXITHDP_PFUNC / EXITHDPLIB_Sec_ names while the header uses EXITHDPLIB_PFUNC; the table address 0x0BF883E0 agrees.",
+        "evidence": [
+          "RM0522:p134",
+          "RM0522:p142",
+          "RM0522:p143",
+          "RM0522:p158",
+          "RM0522:p177",
+          "header.layout",
+          "header.fields",
+          "RM0522:p163",
+          "RM0522:p164",
+          "header.bootlib"
+        ]
+      }
+    ],
+    "open_gates": [
+      "No automatic reads, writes, option changes, erase, reset, lock, key provisioning or execution authority.",
+      "All operation sequencing, recovery, power-loss, compiler, timing, endurance and hardware qualification remain open.",
+      "Complete bootloader services/interface mapping and CPU/MPU configuration remain open.",
+      "No changes to accepted EXTI, catalog, runtime or fixed composition."
+    ],
+    "finite_source_maps": {
+      "register_base": "0x40022000",
+      "IRQ": 5,
+      "AHB1_clock_and_sleep_bit": 8,
+      "main": {
+        "base": "0x08000000",
+        "size_bytes": 262144,
+        "banks": 2,
+        "bytes_per_bank": 131072,
+        "pages_per_bank": 16,
+        "page_bytes": 8192,
+        "program_word_bytes": 16
+      },
+      "EDATA_modes": {
+        "EDATA_EN_0": {
+          "base": "0x08400000",
+          "size_bytes": 65536,
+          "banks": 2,
+          "pages_per_bank": 16,
+          "page_bytes": 2048,
+          "program_word_bytes": 16
+        },
+        "EDATA_EN_1": {
+          "base": "0x09000000",
+          "size_bytes": 49152,
+          "banks": 2,
+          "pages_per_bank": 16,
+          "page_bytes": 1536,
+          "program_access_bytes": [
+            2,
+            4
+          ]
+        }
+      },
+      "OTP": {
+        "base": "0x08FFE000",
+        "size_bytes": 4608,
+        "blocks": 24,
+        "bytes_per_lock_block": 192,
+        "program_access_bytes": [
+          2,
+          4
+        ],
+        "erase": false
+      },
+      "RO": {
+        "base": "0x08FFF800",
+        "size_bytes": 1536
+      },
+      "system": {
+        "base": "0x0BF80000",
+        "size_bytes": 49152,
+        "bytes_per_bank": 24576
+      },
+      "RDP_codes": {
+        "0xED": "L0 open",
+        "0xD1": "L2 with boundary scan",
+        "0x72": "L2 closed"
+      },
+      "BOOT_LOCK": {
+        "0xC3": "unlocked",
+        "0xB4": "locked"
+      },
+      "raw_LATENCY": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "recommended_timing_rows": [
+        {
+          "MHz_literal": "[0;34]",
+          "LATENCY": 0,
+          "WRHIGHFREQ": 0
+        },
+        {
+          "MHz_literal": "[34;68]",
+          "LATENCY": 1,
+          "WRHIGHFREQ": 0
+        },
+        {
+          "MHz_literal": "[68;102]",
+          "LATENCY": 2,
+          "WRHIGHFREQ": 1
+        },
+        {
+          "MHz_literal": "[102;136]",
+          "LATENCY": 3,
+          "WRHIGHFREQ": 1
+        },
+        {
+          "MHz_literal": "[136;144]",
+          "LATENCY": 4,
+          "WRHIGHFREQ": 2
+        }
+      ],
+      "timing_qualification": "Literal RM132 intervals overlap at boundaries; no executable choice inferred.",
+      "evidence": [
+        "RM0522:p143",
+        "RM0522:p129",
+        "RM0522:p139",
+        "RM0522:p141",
+        "RM0522:p132",
+        "RM0522:p160",
+        "RM0522:p190",
+        "header.sizes",
+        "header.bases",
+        "header.base",
+        "header.IRQ",
+        "header.clock",
+        "header.sleep",
+        "header.fields",
+        "header.layout"
+      ],
+      "header_field_positions": {
+        "FLASH_ACR_LATENCY": 0,
+        "FLASH_ACR_WRHIGHFREQ": 4,
+        "FLASH_ACR_PRFTEN": 8,
+        "FLASH_ACR_EMPTY": 16,
+        "FLASH_KEYR_KEY": 0,
+        "FLASH_OPTKEYR_OPTKEY": 0,
+        "FLASH_OPSR_ADDR_OP": 0,
+        "FLASH_OPSR_DATA_OP": 21,
+        "FLASH_OPSR_BK_OP": 22,
+        "FLASH_OPSR_OTP_OP": 24,
+        "FLASH_OPSR_CODE_OP": 29,
+        "FLASH_OPTCR_OPTLOCK": 0,
+        "FLASH_OPTCR_OPTSTRT": 1,
+        "FLASH_OPTCR_SWAP_BANK": 31,
+        "FLASH_SR_BSY": 0,
+        "FLASH_SR_WBNE": 1,
+        "FLASH_SR_DBNE": 3,
+        "FLASH_SR_OEMLOCK": 8,
+        "FLASH_SR_BSLOCK": 9,
+        "FLASH_SR_EOP": 16,
+        "FLASH_SR_WRPERR": 17,
+        "FLASH_SR_PGSERR": 18,
+        "FLASH_SR_STRBERR": 19,
+        "FLASH_SR_INCERR": 20,
+        "FLASH_SR_OPTCHANGEERR": 23,
+        "FLASH_CR_LOCK": 0,
+        "FLASH_CR_PG": 1,
+        "FLASH_CR_PER": 2,
+        "FLASH_CR_BER": 3,
+        "FLASH_CR_FW": 4,
+        "FLASH_CR_STRT": 5,
+        "FLASH_CR_PNB": 6,
+        "FLASH_CR_MER": 15,
+        "FLASH_CR_EOPIE": 16,
+        "FLASH_CR_WRPERRIE": 17,
+        "FLASH_CR_PGSERRIE": 18,
+        "FLASH_CR_STRBERRIE": 19,
+        "FLASH_CR_INCERRIE": 20,
+        "FLASH_CR_OPTCHANGEERRIE": 23,
+        "FLASH_CR_EDATASEL": 29,
+        "FLASH_CR_BKSEL": 31,
+        "FLASH_CCR_CLR_EOP": 16,
+        "FLASH_CCR_CLR_WRPERR": 17,
+        "FLASH_CCR_CLR_PGSERR": 18,
+        "FLASH_CCR_CLR_STRBERR": 19,
+        "FLASH_CCR_CLR_INCERR": 20,
+        "FLASH_CCR_CLR_OPTCHANGEERR": 23,
+        "FLASH_PRIVCFGR_PRIV": 1,
+        "FLASH_HDPEXTR_HDP1_EXT": 0,
+        "FLASH_HDPEXTR_HDP2_EXT": 16,
+        "FLASH_OPTSR_CUR_IWDG_SW": 3,
+        "FLASH_OPTSR_CUR_WWDG_SW": 4,
+        "FLASH_OPTSR_CUR_NRST_STOP": 6,
+        "FLASH_OPTSR_CUR_NRST_STDBY": 7,
+        "FLASH_OPTSR_CUR_RDP_LEVEL": 8,
+        "FLASH_OPTSR_CUR_IWDG_STOP": 20,
+        "FLASH_OPTSR_CUR_IWDG_STDBY": 21,
+        "FLASH_OPTSR_CUR_BOOT_SEL": 22,
+        "FLASH_OPTSR_CUR_BOOT0": 23,
+        "FLASH_OPTSR_CUR_EDATA_EN": 29,
+        "FLASH_OPTSR_CUR_SINGLE_BANK": 30,
+        "FLASH_OPTSR_CUR_SWAP_BANK": 31,
+        "FLASH_OPTSR_PRG_IWDG_SW": 3,
+        "FLASH_OPTSR_PRG_WWDG_SW": 4,
+        "FLASH_OPTSR_PRG_NRST_STOP": 6,
+        "FLASH_OPTSR_PRG_NRST_STDBY": 7,
+        "FLASH_OPTSR_PRG_RDP_LEVEL": 8,
+        "FLASH_OPTSR_PRG_IWDG_STOP": 20,
+        "FLASH_OPTSR_PRG_IWDG_STDBY": 21,
+        "FLASH_OPTSR_PRG_BOOT_SEL": 22,
+        "FLASH_OPTSR_PRG_BOOT0": 23,
+        "FLASH_OPTSR_PRG_EDATA_EN": 29,
+        "FLASH_OPTSR_PRG_SINGLE_BANK": 30,
+        "FLASH_OPTSR_PRG_SWAP_BANK": 31,
+        "FLASH_OPTSR2_CUR_SRAM1_RST": 0,
+        "FLASH_OPTSR2_CUR_SRAM2_RST": 1,
+        "FLASH_OPTSR2_CUR_SRAM2_ECC": 4,
+        "FLASH_OPTSR2_PRG_SRAM1_RST": 0,
+        "FLASH_OPTSR2_PRG_SRAM2_RST": 1,
+        "FLASH_OPTSR2_PRG_SRAM2_ECC": 4,
+        "FLASH_BOOTR_CUR_BOOT_LOCK": 0,
+        "FLASH_BOOTR_CUR_BOOTADD": 8,
+        "FLASH_BOOTR_PRG_BOOT_LOCK": 0,
+        "FLASH_BOOTR_PRG_BOOTADD": 8,
+        "FLASH_OTPBLR_CUR_LOCKBL": 0,
+        "FLASH_OTPBLR_PRG_LOCKBL": 0,
+        "FLASH_BL_COM_CFG_CUR_BL_COM_CFG": 0,
+        "FLASH_BL_COM_CFG_PRG_BL_COM_CFG": 0,
+        "FLASH_OEMKEYR1_PRG_OEMKEY": 0,
+        "FLASH_OEMKEYR2_PRG_OEMKEY": 0,
+        "FLASH_OEMKEYR3_PRG_OEMKEY": 0,
+        "FLASH_OEMKEYR4_PRG_OEMKEY": 0,
+        "FLASH_BSKEYR_PRG_BSKEY": 0,
+        "FLASH_WRP1R_CUR_WRPSG1": 0,
+        "FLASH_WRP1R_PRG_WRPSG1": 0,
+        "FLASH_HDP1R_CUR_HDP1_STRT": 0,
+        "FLASH_HDP1R_CUR_HDP1_END": 16,
+        "FLASH_HDP1R_PRG_HDP1_STRT": 0,
+        "FLASH_HDP1R_PRG_HDP1_END": 16,
+        "FLASH_ECCCORR_ADDR_ECC": 0,
+        "FLASH_ECCCORR_EDATA_ECC": 21,
+        "FLASH_ECCCORR_BK_ECC": 22,
+        "FLASH_ECCCORR_SYSF_ECC": 23,
+        "FLASH_ECCCORR_OTP_ECC": 24,
+        "FLASH_ECCCORR_ECCCIE": 25,
+        "FLASH_ECCCORR_ECCC": 30,
+        "FLASH_ECCDETR_ADDR_ECC": 0,
+        "FLASH_ECCDETR_EDATA_ECC": 21,
+        "FLASH_ECCDETR_BK_ECC": 22,
+        "FLASH_ECCDETR_SYSF_ECC": 23,
+        "FLASH_ECCDETR_OTP_ECC": 24,
+        "FLASH_ECCDETR_ECCD": 31,
+        "FLASH_ECCDR_DATA_ECC": 0,
+        "FLASH_ECCDR_DATA_ADDR_ECC": 16,
+        "FLASH_WRP2R_CUR_WRPSG2": 0,
+        "FLASH_WRP2R_PRG_WRPSG2": 0,
+        "FLASH_HDP2R_CUR_HDP2_STRT": 0,
+        "FLASH_HDP2R_CUR_HDP2_END": 16,
+        "FLASH_HDP2R_PRG_HDP2_STRT": 0,
+        "FLASH_HDP2R_PRG_HDP2_END": 16
+      },
+      "registers": [
+        {
+          "name": "ACR",
+          "offset": "0x000"
+        },
+        {
+          "name": "KEYR",
+          "offset": "0x004"
+        },
+        {
+          "name": "OPTKEYR",
+          "offset": "0x00C"
+        },
+        {
+          "name": "OPSR",
+          "offset": "0x018"
+        },
+        {
+          "name": "OPTCR",
+          "offset": "0x01C"
+        },
+        {
+          "name": "SR",
+          "offset": "0x020"
+        },
+        {
+          "name": "CR",
+          "offset": "0x028"
+        },
+        {
+          "name": "CCR",
+          "offset": "0x030"
+        },
+        {
+          "name": "PRIVCFGR",
+          "offset": "0x03C"
+        },
+        {
+          "name": "HDPEXTR",
+          "offset": "0x048"
+        },
+        {
+          "name": "OPTSR_CUR",
+          "offset": "0x050"
+        },
+        {
+          "name": "OPTSR_PRG",
+          "offset": "0x054"
+        },
+        {
+          "name": "OPTSR2_CUR",
+          "offset": "0x070"
+        },
+        {
+          "name": "OPTSR2_PRG",
+          "offset": "0x074"
+        },
+        {
+          "name": "BOOTR_CUR",
+          "offset": "0x080"
+        },
+        {
+          "name": "BOOTR_PRG",
+          "offset": "0x084"
+        },
+        {
+          "name": "OTPBLR_CUR",
+          "offset": "0x090"
+        },
+        {
+          "name": "OTPBLR_PRG",
+          "offset": "0x094"
+        },
+        {
+          "name": "BL_COM_CFG_CUR",
+          "offset": "0x098"
+        },
+        {
+          "name": "BL_COM_CFG_PRG",
+          "offset": "0x09C"
+        },
+        {
+          "name": "OEMKEYR1_PRG",
+          "offset": "0x0A4"
+        },
+        {
+          "name": "OEMKEYR2_PRG",
+          "offset": "0x0AC"
+        },
+        {
+          "name": "OEMKEYR3_PRG",
+          "offset": "0x0B4"
+        },
+        {
+          "name": "OEMKEYR4_PRG",
+          "offset": "0x0BC"
+        },
+        {
+          "name": "BSKEYR_PRG",
+          "offset": "0x0C4"
+        },
+        {
+          "name": "WRP1R_CUR",
+          "offset": "0x0E8"
+        },
+        {
+          "name": "WRP1R_PRG",
+          "offset": "0x0EC"
+        },
+        {
+          "name": "HDP1R_CUR",
+          "offset": "0x0F8"
+        },
+        {
+          "name": "HDP1R_PRG",
+          "offset": "0x0FC"
+        },
+        {
+          "name": "ECCCORR",
+          "offset": "0x100"
+        },
+        {
+          "name": "ECCDETR",
+          "offset": "0x104"
+        },
+        {
+          "name": "ECCDR",
+          "offset": "0x108"
+        },
+        {
+          "name": "WRP2R_CUR",
+          "offset": "0x1E8"
+        },
+        {
+          "name": "WRP2R_PRG",
+          "offset": "0x1EC"
+        },
+        {
+          "name": "HDP2R_CUR",
+          "offset": "0x1F8"
+        },
+        {
+          "name": "HDP2R_PRG",
+          "offset": "0x1FC"
+        }
+      ],
+      "field_qualification": "Exact header positions are literal data; all field widths/access/reset reconciliation remains open.",
+      "option_loading_double_ECC_defaults": {
+        "OPTSR_CUR": "0x20B072D8",
+        "BOOTR_CUR": "0xFFFFFFB4",
+        "OTPBLR_CUR": "0xFFFFFFFF",
+        "BL_COM_CFG_CUR": "0xFFFFFFFF",
+        "WRP1R_CUR": "0x00000000",
+        "WRP2R_CUR": "0x00000000",
+        "HDP1R_CUR": "0x000F0000",
+        "HDP2R_CUR": "0x000F0000",
+        "qualification": "RM error defaults only; not observed or factory values",
+        "evidence": [
+          "RM0522:p185",
+          "RM0522:p190",
+          "RM0522:p191",
+          "RM0522:p192",
+          "RM0522:p195",
+          "RM0522:p196",
+          "RM0522:p200",
+          "RM0522:p201",
+          "RM0522:p188"
+        ],
+        "OPTSR2_CUR": "0x00000010"
+      }
+    },
+    "chapter_audit": {
+      "pages": "RM0522 126-206",
+      "evidence": [
+        "RM0522:p126",
+        "RM0522:p127",
+        "RM0522:p128",
+        "RM0522:p129",
+        "RM0522:p130",
+        "RM0522:p131",
+        "RM0522:p132",
+        "RM0522:p133",
+        "RM0522:p134",
+        "RM0522:p135",
+        "RM0522:p136",
+        "RM0522:p137",
+        "RM0522:p138",
+        "RM0522:p139",
+        "RM0522:p140",
+        "RM0522:p141",
+        "RM0522:p142",
+        "RM0522:p143",
+        "RM0522:p144",
+        "RM0522:p145",
+        "RM0522:p146",
+        "RM0522:p147",
+        "RM0522:p148",
+        "RM0522:p149",
+        "RM0522:p150",
+        "RM0522:p151",
+        "RM0522:p152",
+        "RM0522:p153",
+        "RM0522:p154",
+        "RM0522:p155",
+        "RM0522:p156",
+        "RM0522:p157",
+        "RM0522:p158",
+        "RM0522:p159",
+        "RM0522:p160",
+        "RM0522:p161",
+        "RM0522:p162",
+        "RM0522:p163",
+        "RM0522:p164",
+        "RM0522:p165",
+        "RM0522:p166",
+        "RM0522:p167",
+        "RM0522:p168",
+        "RM0522:p169",
+        "RM0522:p170",
+        "RM0522:p171",
+        "RM0522:p172",
+        "RM0522:p173",
+        "RM0522:p174",
+        "RM0522:p175",
+        "RM0522:p176",
+        "RM0522:p177",
+        "RM0522:p178",
+        "RM0522:p179",
+        "RM0522:p180",
+        "RM0522:p181",
+        "RM0522:p182",
+        "RM0522:p183",
+        "RM0522:p184",
+        "RM0522:p185",
+        "RM0522:p186",
+        "RM0522:p187",
+        "RM0522:p188",
+        "RM0522:p189",
+        "RM0522:p190",
+        "RM0522:p191",
+        "RM0522:p192",
+        "RM0522:p193",
+        "RM0522:p194",
+        "RM0522:p195",
+        "RM0522:p196",
+        "RM0522:p197",
+        "RM0522:p198",
+        "RM0522:p199",
+        "RM0522:p200",
+        "RM0522:p201",
+        "RM0522:p202",
+        "RM0522:p203",
+        "RM0522:p204",
+        "RM0522:p205",
+        "RM0522:p206"
+      ],
+      "closure": "Full chapter reading is not full semantic or operational closure."
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "schema": "bkpt.knowledge-pack-index/1",
+  "packages": [
+    {
+      "id": "stm32c5",
+      "manifest": "stm32c5/knowledge-pack.json"
+    }
+  ]
+}

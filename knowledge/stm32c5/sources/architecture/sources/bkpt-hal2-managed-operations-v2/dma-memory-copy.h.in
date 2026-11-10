@@ -1,0 +1,54 @@
+// SPDX-License-Identifier: LicenseRef-BKPT-Proprietary
+/*
+ * BKPT resource-bound initialization, adapted from ST HAL2 2.1.0 API contracts
+ * and STM32CubeC5 initialization examples. Manufacturer-derived portions:
+ * BSD 3-clause "New" or "Revised" License
+ * 
+ * Copyright (c) 2026, STMicroelectronics
+ * 
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ * 
+ *   * Redistributions of source code must retain the above copyright notice, this
+ *     list of conditions and the following disclaimer.
+ * 
+ *   * Redistributions in binary form must reproduce the above copyright notice,
+ *     this list of conditions and the following disclaimer in the documentation
+ *     and/or other materials provided with the distribution.
+ * 
+ *   * Neither the name of the STMicroelectronics nor the names of its contributors may
+ *     be used to endorse or promote products derived from this software without
+ *     specific prior written permission.
+ * 
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
+ * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+ * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+#ifndef {{unit}}_H
+#define {{unit}}_H
+#include "stm32_hal.h"
+#include "{{unit}}_operation.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
+/* Use the generated header. bkpt_op_result has state, reason, buffers_released. States: READY, ACTIVE, STOPPING, DONE, FAILED, UNSAFE (prefix BKPT_OP_). Reasons: NO_ERROR, IO_ERROR, TIMEOUT, CANCELLED, START_ERROR (prefix BKPT_OP_). DONE permits the next start; FAILED/UNSAFE are terminal, no retry/rearm. buffers_released is true only READY/DONE/FAILED; never reuse on STOPPING/UNSAFE. */
+/* Pass monotonically wrapping uint32 millisecond now and timeout/recovery in 1..INT32_MAX ms; call poll regularly from the sole foreground owner with interrupts unmasked. Deadlines are observed, not hard real time. Error wins over timeout; completion first observed at deadline is timeout. Proven quiescence at recovery deadline releases as FAILED, otherwise UNSAFE permanently retains buffers. No waiting inside poll/cancel. */
+/* start returns 0 when ownership was accepted, including an underlying HAL-start failure reported by poll; nonzero refuses without new ownership. Check every start and poll. Owns all callbacks/handles/IRQs; no raw accessors or callback registration. ISR/masked-context calls are rejected or return the current snapshot without progress. Buffers stay live until buffers_released; application must check size, DMA accessibility and cache/MPU requirements. */
+/* Already initialized after mx_system_init; preserve generated IRQ dispatch/build entries. {{unit}}_init returns the latched HAL status; failure is terminal. ISR/masked context instead returns HAL_BUSY without initialization. Header bkpt_components/{{unit}}.h. */
+/* start copies exactly {{length_bytes}} bytes with width{{width_bytes}} using DMA; rejects null, alignment, overlap and 32-bit address overflow. Caller guarantees sufficient DMA-accessible SRAM. DONE proves transfer notification and physical channel quiescence; verification of payload remains application-owned. */
+hal_status_t {{unit}}_init(void);
+bkpt_op_result {{unit}}_poll(uint32_t now);
+bkpt_op_result {{unit}}_cancel(uint32_t now);
+int {{unit}}_start(const void *src, void *dst, uint32_t now, uint32_t timeout, uint32_t recovery);
+#ifdef __cplusplus
+}
+#endif
+#endif

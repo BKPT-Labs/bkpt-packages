@@ -1,0 +1,1174 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/pwr-contracts.json",
+    "sha256": "348a339cd6bdbcd1b2a8038c792921377844846a7876ef4a6de82e1e8effa045"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 72
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "schema": "bkpt.external.pwr.contracts.v1",
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "review": "Claude and independent Codex accepted source corrections; RM279 heading binding added. No operational qualification.",
+    "sources": {
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "family": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c5xx.h",
+        "sha256": "61a0b8c2674d9e817d70aa8d2693339273f4283694f8ab5f8dca077bb69913f7"
+      },
+      "HAL_PWR": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_pwr.c",
+        "sha256": "6efacfecaf652d8194c7002c295bb099ed96d9e6a093962106ebfde5294d6d2c"
+      },
+      "HAL_PWR_H": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_pwr.h",
+        "sha256": "dc204206ca6ddfb7d67740eedbe320216404ca4d324e9e561ba8aef3ca612ba8"
+      },
+      "LL_PWR": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_pwr.h",
+        "sha256": "a1ca311be5a1b319e2a2f3a29d68c3cc8c34fb1bb1469e31e03dfcbdf4c96474"
+      },
+      "CMSIS_GCC": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/arch/cmsis/CMSIS/Core/Include/cmsis_gcc.h",
+        "sha256": "7c34c8eb47e78acc8da3122fd27fc912b653b14817a2e1fb55ed41fb55c54281"
+      },
+      "package_routes": {
+        "path": "research://c5-reference/package-routes.json",
+        "sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288"
+      },
+      "errata": {
+        "path": "research://c5-reference/errata.json",
+        "sha256": "821c22f796a9ff723afee534fe5943c2b0506325ec871d890706d94414316416"
+      },
+      "sdk_lifecycle": {
+        "path": "research://c5-reference/sdk-lifecycle.json",
+        "sha256": "09c4f0f44f862065fa5164ae937b15923e9b702455aae1dc1e215a9ef7783c4c"
+      },
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "DS15135": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pdf",
+        "sha256": "1a3555f799297774a95978ab343ebc1f45ab9ef58d0dcf3600dec4fabed9355c",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pages.json",
+        "extraction_sha256": "b14b965adb6c1545edbca0e56b3c504e7ecc3a94bda197350ce2757b5a3d55dc"
+      },
+      "ES0676": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pdf",
+        "sha256": "a5463827337bcdbd3e5f2e0912a56307d78b568e5631b21cc9a25899c7d4a5e6",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pages.json",
+        "extraction_sha256": "2ab1b19e42b53e22ff5f3b98f6ed9a5f98f3b7b61a617abc3bb3b7fc050d1cb3"
+      }
+    },
+    "evidence": {
+      "RM0522:p224": {
+        "source": "RM0522",
+        "page": 224,
+        "sha256": "aa128d2d6cac730491e97b8e0eb8642ad2757a33862f262152c4a528ded1aa24"
+      },
+      "RM0522:p225": {
+        "source": "RM0522",
+        "page": 225,
+        "sha256": "76a3e7849af69d32d72d9bea8b52190dd8c1079c3ce49a74e3f9f8a2d0bce917"
+      },
+      "RM0522:p226": {
+        "source": "RM0522",
+        "page": 226,
+        "sha256": "155fdbabd0a592b445f53d66f3ed3775fc190ff5917b69a22695e3cf17cf72d1"
+      },
+      "RM0522:p227": {
+        "source": "RM0522",
+        "page": 227,
+        "sha256": "e6b1270b838e54d723ed41cba49fe9eb3ac9cf7f00c41de6d119fea791841ca7"
+      },
+      "RM0522:p228": {
+        "source": "RM0522",
+        "page": 228,
+        "sha256": "19e481c33b2fbbe3b0d4b02e0a6efb326b1e834f84fdd82020a406bc1a21ed3f"
+      },
+      "RM0522:p229": {
+        "source": "RM0522",
+        "page": 229,
+        "sha256": "428bba8a764b613a6cffb795c7f8dfe3b663828aef98da2451f4fef961fdcb3c"
+      },
+      "RM0522:p230": {
+        "source": "RM0522",
+        "page": 230,
+        "sha256": "61ae32e13586dbac3e3f20f10c442ea010316e9d4ad93a4d215f24cbfc70a33a"
+      },
+      "RM0522:p231": {
+        "source": "RM0522",
+        "page": 231,
+        "sha256": "3cc61cdc878df5b0ac254d80248478dff45d8191a7056252b7c75e97f17d1141"
+      },
+      "RM0522:p232": {
+        "source": "RM0522",
+        "page": 232,
+        "sha256": "ce64baa14a816f6d81810d6ca00e73c0af219800f67835f8c37c406880957c3f"
+      },
+      "RM0522:p233": {
+        "source": "RM0522",
+        "page": 233,
+        "sha256": "a46707066f8f7ea4fd583b611c658fc3c6ae108865d956796353a723ccc83faa"
+      },
+      "RM0522:p234": {
+        "source": "RM0522",
+        "page": 234,
+        "sha256": "82593aff38eaf9d9b0d6d391fe6c8925c9a7c64fa8ca64b6d5027dd2f8ef5da2"
+      },
+      "RM0522:p235": {
+        "source": "RM0522",
+        "page": 235,
+        "sha256": "44fbb45e34df0502b70826fa5bec25f757fe980e2bacdf35ac7e2645b6d3cd30"
+      },
+      "RM0522:p236": {
+        "source": "RM0522",
+        "page": 236,
+        "sha256": "f9d60e3eca019ac18b732ffc15b80c458284523af70d492184da4dfc763acaa1"
+      },
+      "RM0522:p237": {
+        "source": "RM0522",
+        "page": 237,
+        "sha256": "29e0374ee6ab452ac3c1761eff859bb1a3e86585d80e095988c562f42de4ad23"
+      },
+      "RM0522:p238": {
+        "source": "RM0522",
+        "page": 238,
+        "sha256": "63933228afcbcc64088add3c37fbb4c2797f53664c37f0459c8c711725a7c89c"
+      },
+      "RM0522:p239": {
+        "source": "RM0522",
+        "page": 239,
+        "sha256": "8a83b7b800fe48dc89d32a669fc07eab1f3d8911936c0630ea21a7d6d30d3114"
+      },
+      "RM0522:p240": {
+        "source": "RM0522",
+        "page": 240,
+        "sha256": "d6cececa9402c3bff32b0336a2144d9db8fae1f566da71eb827ad78075e6bc3b"
+      },
+      "RM0522:p241": {
+        "source": "RM0522",
+        "page": 241,
+        "sha256": "b4ef3602511b1be5a522e3358fbeaef25436eb8a700250a85ad1c4962a9c7544"
+      },
+      "RM0522:p242": {
+        "source": "RM0522",
+        "page": 242,
+        "sha256": "6e3851ea30418044021af008118994a49ad25640457da370717227d292677ced"
+      },
+      "RM0522:p243": {
+        "source": "RM0522",
+        "page": 243,
+        "sha256": "8e709bceeff3e77936bb91d53fae5f58cc2909a277c6f28b0b804965ff85634f"
+      },
+      "RM0522:p244": {
+        "source": "RM0522",
+        "page": 244,
+        "sha256": "aae8a022aadd2de940090eb891d762f4031ba5ddbc26ee289c8987806dfbe768"
+      },
+      "RM0522:p245": {
+        "source": "RM0522",
+        "page": 245,
+        "sha256": "742fa8fc4d4e57aa81527e3d26d182ec9084622b37a97449504a18f3ef1b77ec"
+      },
+      "RM0522:p246": {
+        "source": "RM0522",
+        "page": 246,
+        "sha256": "8c8a19a807d763fa63f4c89a160d8e4fa0842ed20c8de7e9268d41917294ce4a"
+      },
+      "RM0522:p247": {
+        "source": "RM0522",
+        "page": 247,
+        "sha256": "338925f44bbf9a17526dfb0fefbebf985b01befa2a73ebaedad799b7442a7016"
+      },
+      "RM0522:p248": {
+        "source": "RM0522",
+        "page": 248,
+        "sha256": "efa23c16704eb41bac7d0441c2b8a2b7383f12e881172c4d5d75cb8f1f87bc53"
+      },
+      "RM0522:p249": {
+        "source": "RM0522",
+        "page": 249,
+        "sha256": "cd0202d2287f807eef411e1908b28d3ebe2d02661d3a2c01326842aec9bef490"
+      },
+      "RM0522:p250": {
+        "source": "RM0522",
+        "page": 250,
+        "sha256": "a1a4d58c24062264539e6d3d8d9bb64ea55ac63add0a26dcdff0fd6bb8542850"
+      },
+      "DS15135:p6": {
+        "source": "DS15135",
+        "page": 6,
+        "sha256": "cd5f4c2a48587f853f5522ea515bffd49dace27e505266ed57a2eddadafac701"
+      },
+      "DS15135:p10": {
+        "source": "DS15135",
+        "page": 10,
+        "sha256": "9bc8239f82ee55170b43294296eb3eee749a74636903abede58a5390175003ac"
+      },
+      "DS15135:p11": {
+        "source": "DS15135",
+        "page": 11,
+        "sha256": "9e0ca05e749cdb7fb3178acef3fb61b99676189b04890f159524a856c346e9d9"
+      },
+      "DS15135:p39": {
+        "source": "DS15135",
+        "page": 39,
+        "sha256": "4c5cb8d6f495fde328bcbb4d761fd2c225182c21ce7c7b7585daf08e5e2daab1"
+      },
+      "DS15135:p40": {
+        "source": "DS15135",
+        "page": 40,
+        "sha256": "6152987bbff008c4911276d154b68418eea2f7f3ee9409893568b3b33bf80b38"
+      },
+      "DS15135:p44": {
+        "source": "DS15135",
+        "page": 44,
+        "sha256": "a23dde909cb0e61ccd0ec9c11efd22cc7083b230897bbab524c7f6332cf21da2"
+      },
+      "DS15135:p47": {
+        "source": "DS15135",
+        "page": 47,
+        "sha256": "a55c52b1f30142be5ad3fea2a1cc16b519930dd08b32d16d646101500967a3b1"
+      },
+      "DS15135:p51": {
+        "source": "DS15135",
+        "page": 51,
+        "sha256": "b08fcdf9deae8851aaf8b6c762737b2bf97e0c1aaa9573ae9c19a9715207dda8"
+      },
+      "DS15135:p52": {
+        "source": "DS15135",
+        "page": 52,
+        "sha256": "6f493accc2459842b5fe122697537e0aaeda58fd19cb80fe721b0e6d915ca983"
+      },
+      "ES0676:p2": {
+        "source": "ES0676",
+        "page": 2,
+        "sha256": "3fed5303e4a0fc65ed4dbe6aae1c297605837e2da15bb0e24928d26b0d25eb95"
+      },
+      "ES0676:p3": {
+        "source": "ES0676",
+        "page": 3,
+        "sha256": "6682207b964f905ea8f0e452bc5cff546dfb08622fca9ce2f979b0e43cd6d157"
+      },
+      "ES0676:p4": {
+        "source": "ES0676",
+        "page": 4,
+        "sha256": "3b0e6d179a6d3b6701ddfa31ce87f44ef4d62c59d79a1f01184c77a212d7774c"
+      },
+      "ES0676:p5": {
+        "source": "ES0676",
+        "page": 5,
+        "sha256": "b1c29e54e422b77b7a01a6dea47789196c0a8d23aed2f9a68f6a91698ae66d9d"
+      },
+      "ES0676:p8": {
+        "source": "ES0676",
+        "page": 8,
+        "sha256": "bbdb92e175f8101da1467e00b7fa2894fb9e3e1f2b0bd5937f5a865428c2ce5b"
+      },
+      "header.IRQ": {
+        "source": "header",
+        "start_line": 64,
+        "end_line": 68,
+        "sha256": "a458896fea57486bc6b3e8e43ff68c139234067a504340d883e692b195cc482e"
+      },
+      "header.layout": {
+        "source": "header",
+        "start_line": 725,
+        "end_line": 744,
+        "sha256": "6f01623324635fd522e867c2fa29b3d80a25dedf647e7e556a26461f4e4f3704"
+      },
+      "header.bus": {
+        "source": "header",
+        "start_line": 1168,
+        "end_line": 1180,
+        "sha256": "178aa747707511c508b286bd3c22dde5eedbb9b850adcfc8dc141e552d2d536d"
+      },
+      "header.base": {
+        "source": "header",
+        "start_line": 1253,
+        "end_line": 1258,
+        "sha256": "d16d43ff0a2c5121f8411d6624c75832b02f3b4373d6d9a5bf634556afa999fd"
+      },
+      "header.fields": {
+        "source": "header",
+        "start_line": 8291,
+        "end_line": 8437,
+        "sha256": "0f5a6df592697b0ccf0b7fd7d66d0717f19e5e1d5408f7de78dd0d32f931039f"
+      },
+      "HAL.enums": {
+        "source": "HAL_PWR_H",
+        "start_line": 43,
+        "end_line": 242,
+        "sha256": "2b647d3adf15a859356266b74d1841a6349eab2346fed64fbf92a231e2a1dadc"
+      },
+      "HAL.maps_guards": {
+        "source": "HAL_PWR",
+        "start_line": 173,
+        "end_line": 300,
+        "sha256": "361ed1b5532c486b16dfe26a5da448bcfce4f0fc4dad7f5b1cf0410eb6f55dda"
+      },
+      "HAL.wake_config": {
+        "source": "HAL_PWR",
+        "start_line": 334,
+        "end_line": 379,
+        "sha256": "e7230291368bf199e6dea8249a43725e646ced67b8f5298a60496f56d490267e"
+      },
+      "HAL.wake_access": {
+        "source": "HAL_PWR",
+        "start_line": 395,
+        "end_line": 519,
+        "sha256": "7a3e372d03bedaa0cf79de7630616cd090593f2649385d918f1c4f67de7bde0e"
+      },
+      "HAL.RTC": {
+        "source": "HAL_PWR",
+        "start_line": 537,
+        "end_line": 559,
+        "sha256": "260e0008188daca6d93a640c8e79e476fd98724feb5e107b5b0239ffa81c7b92"
+      },
+      "HAL.entry": {
+        "source": "HAL_PWR",
+        "start_line": 590,
+        "end_line": 670,
+        "sha256": "d158ef06d16ec2349aa0a266895b1b00dae63b7f61c67e562f98a880d492ce94"
+      },
+      "HAL.core_previous": {
+        "source": "HAL_PWR",
+        "start_line": 676,
+        "end_line": 797,
+        "sha256": "6a5c666a5a3827e418e773d97afcf1770ce00ce13ab41e175c5bc4457c5e7e62"
+      },
+      "HAL.PVD": {
+        "source": "HAL_PWR",
+        "start_line": 815,
+        "end_line": 846,
+        "sha256": "31dcba2fe438afb46b27b32c31aac3b1be63e64bd8ed463eff9d30ebfc3957f4"
+      },
+      "HAL.retention": {
+        "source": "HAL_PWR",
+        "start_line": 871,
+        "end_line": 970,
+        "sha256": "47beadcee630a9170073d7e98b6d823de0200ec6bfcb188b6b6fb55131921f44"
+      },
+      "HAL.pages_enable": {
+        "source": "HAL_PWR",
+        "start_line": 983,
+        "end_line": 1058,
+        "sha256": "19df98dbe1257398ec34937a19f921d02dcb3f8956066186b0cc23f975a9cc99"
+      },
+      "HAL.pages_disable_query": {
+        "source": "HAL_PWR",
+        "start_line": 1070,
+        "end_line": 1219,
+        "sha256": "43aff7d93a29fdde722d2c561a6689212067add5f0539c6ff029e75ad697242d"
+      },
+      "HAL.IO_privilege": {
+        "source": "HAL_PWR",
+        "start_line": 1278,
+        "end_line": 1359,
+        "sha256": "3329ba62e334491f327ee9c511658b2bba4bc92ad91c90604c256e2bbfebda7f"
+      },
+      "LL.constants": {
+        "source": "LL_PWR",
+        "start_line": 48,
+        "end_line": 180,
+        "sha256": "8085371aa48cfbdb3de1cf823ff8132ae63d4fe78d3fd998e1c9d0bc653dcac1"
+      },
+      "LL.mode": {
+        "source": "LL_PWR",
+        "start_line": 243,
+        "end_line": 274,
+        "sha256": "646a44bd62e1586e145b2bce2732bd4cd5dde229eb6cb9c77a87ce1f65f5ad21"
+      },
+      "LL.retention": {
+        "source": "LL_PWR",
+        "start_line": 310,
+        "end_line": 421,
+        "sha256": "65ee26ec4e98ce8ac12f2777818c51413cd43b988a3ac7389ba5dc5fe2ce6d9e"
+      },
+      "LL.RTC": {
+        "source": "LL_PWR",
+        "start_line": 534,
+        "end_line": 563,
+        "sha256": "14127ed0f8853bd28303328fbb85f30123a32233739bd3a866ea43173ffab01f"
+      },
+      "LL.wake_enable": {
+        "source": "LL_PWR",
+        "start_line": 675,
+        "end_line": 696,
+        "sha256": "3ac9cca4d21f037ec2483a3204e46077369d5762bb4306c88428b7acaa5b35cb"
+      },
+      "LL.pull": {
+        "source": "LL_PWR",
+        "start_line": 1787,
+        "end_line": 1793,
+        "sha256": "9c0d4fad483d24c5a6c367a5d11df729e6c8e8aaba5137bb3d8d3ff97f977259"
+      },
+      "LL.clear_status": {
+        "source": "LL_PWR",
+        "start_line": 2176,
+        "end_line": 2189,
+        "sha256": "0442aa3eee6092602a94053707f3a5cd47c876dd734f2d70b43644df67a5a4a1"
+      },
+      "LL.clear_privilege": {
+        "source": "LL_PWR",
+        "start_line": 2301,
+        "end_line": 2339,
+        "sha256": "6091fca9c460a3092f59d2479d3ab2a8b6e98581246915d3b05be3c652049e41"
+      },
+      "family.position": {
+        "source": "family",
+        "start_line": 123,
+        "end_line": 123,
+        "sha256": "69ade3fd9f7fdb8eea00c1b4b437712ed2537bb8791bf1b78a06e1c515cc4142"
+      },
+      "CMSIS.position": {
+        "source": "CMSIS_GCC",
+        "start_line": 268,
+        "end_line": 318,
+        "sha256": "eb49737cc6d21fe633afa981c889a0b479e1195b5e90809337e6ceb2d6dc75ee"
+      },
+      "RM0522:p280": {
+        "source": "RM0522",
+        "page": 280,
+        "sha256": "45449281f278a3d290959b2a2fbb4d5f26e509ae97ed24ee947a0b2aa31e7add"
+      },
+      "RM0522:p441": {
+        "source": "RM0522",
+        "page": 441,
+        "sha256": "749a4fc7018257efe8913d76d23ed8c2dbef3992719ea4d4a993f9f1dae002ca"
+      },
+      "ES0676:p6": {
+        "source": "ES0676",
+        "page": 6,
+        "sha256": "67192cb102783988744a71ca6f88c36b938faf48d360a4834496df7e76a4b915"
+      },
+      "RM0522:p279": {
+        "source": "RM0522",
+        "page": 279,
+        "sha256": "7eb8f29e57006ebfddac9659cd81d094568b75a01e19091a7ae6b995e3403001"
+      }
+    },
+    "package_routes_sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288",
+    "errata_sha256": "821c22f796a9ff723afee534fe5943c2b0506325ec871d890706d94414316416",
+    "sdk_lifecycle_sha256": "09c4f0f44f862065fa5164ae937b15923e9b702455aae1dc1e215a9ef7783c4c",
+    "scope": {
+      "read": "Full RM0522 PWR chapter pages 224 through 250; exact header and bounded HAL/LL source paths. Family peripheral availability tables are not exact-device inventories.",
+      "not_established": [
+        "Executable transition protocol",
+        "Board power topology or supply measurements",
+        "Wake latency, current consumption or electrical suitability",
+        "Complete cross-peripheral quiescence and interrupt coordination",
+        "Compiler behavior of identified C undefined behavior",
+        "All possible SDK caller paths"
+      ],
+      "full_device_coverage": false
+    },
+    "package_routes": [
+      {
+        "id": "descriptor.signal.223",
+        "pin": "PC2",
+        "pad": 10,
+        "signal": "PWR_CSLEEP",
+        "instance": "PWR",
+        "function": {
+          "type": "alternate",
+          "id": "AF0"
+        },
+        "source_pointer": "/signals/223",
+        "source_record": {
+          "name": "PWR_CSLEEP",
+          "instance": "PWR",
+          "die_pad": "PC2",
+          "function": {
+            "type": "alternate",
+            "id": "AF0"
+          }
+        },
+        "state": "literal_descriptor_candidate",
+        "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+        "electrical_qualification": "not_established",
+        "execution_permission": "none",
+        "unresolved_refs": [],
+        "DS_AF_evidence": {
+          "pin": "PC2",
+          "af": "AF0",
+          "DS_signal": "PWR_CSLEEP",
+          "descriptor_name": "PWR_CSLEEP",
+          "page": 47,
+          "table": 13,
+          "extracted_row": 12,
+          "raw_cell": "PWR_CSLEE\nP"
+        }
+      },
+      {
+        "id": "descriptor.signal.224",
+        "pin": "PC3",
+        "pad": 11,
+        "signal": "PWR_CSTOP",
+        "instance": "PWR",
+        "function": {
+          "type": "alternate",
+          "id": "AF0"
+        },
+        "source_pointer": "/signals/224",
+        "source_record": {
+          "name": "PWR_CSTOP",
+          "instance": "PWR",
+          "die_pad": "PC3",
+          "function": {
+            "type": "alternate",
+            "id": "AF0"
+          }
+        },
+        "state": "literal_descriptor_candidate",
+        "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+        "electrical_qualification": "not_established",
+        "execution_permission": "none",
+        "unresolved_refs": [],
+        "DS_AF_evidence": {
+          "pin": "PC3",
+          "af": "AF0",
+          "DS_signal": "PWR_CSTOP",
+          "descriptor_name": "PWR_CSTOP",
+          "page": 47,
+          "table": 13,
+          "extracted_row": 13,
+          "raw_cell": "PWR_CSTOP"
+        }
+      },
+      {
+        "id": "descriptor.signal.226",
+        "pin": "PA0",
+        "pad": 14,
+        "signal": "PWR_WKUP1",
+        "instance": "PWR",
+        "function": {
+          "type": "additional"
+        },
+        "source_pointer": "/signals/226",
+        "source_record": {
+          "name": "PWR_WKUP1",
+          "instance": "PWR",
+          "die_pad": "PA0",
+          "function": {
+            "type": "additional"
+          }
+        },
+        "state": "literal_descriptor_candidate",
+        "DS_AF_cell_crosscheck": "not_complete",
+        "electrical_qualification": "not_established",
+        "execution_permission": "none",
+        "unresolved_refs": []
+      },
+      {
+        "id": "descriptor.signal.227",
+        "pin": "PA2",
+        "pad": 16,
+        "signal": "PWR_WKUP2",
+        "instance": "PWR",
+        "function": {
+          "type": "additional"
+        },
+        "source_pointer": "/signals/227",
+        "source_record": {
+          "name": "PWR_WKUP2",
+          "instance": "PWR",
+          "die_pad": "PA2",
+          "function": {
+            "type": "additional"
+          }
+        },
+        "state": "literal_descriptor_candidate",
+        "DS_AF_cell_crosscheck": "not_complete",
+        "electrical_qualification": "not_established",
+        "execution_permission": "none",
+        "unresolved_refs": []
+      },
+      {
+        "id": "descriptor.signal.228",
+        "pin": "PC13",
+        "pad": 2,
+        "signal": "PWR_WKUP4",
+        "instance": "PWR",
+        "function": {
+          "type": "additional"
+        },
+        "source_pointer": "/signals/228",
+        "source_record": {
+          "name": "PWR_WKUP4",
+          "instance": "PWR",
+          "die_pad": "PC13",
+          "function": {
+            "type": "additional"
+          }
+        },
+        "state": "literal_descriptor_candidate",
+        "DS_AF_cell_crosscheck": "not_complete",
+        "electrical_qualification": "not_established",
+        "execution_permission": "none",
+        "unresolved_refs": [
+          "IO_structure_comparison:PC13"
+        ]
+      },
+      {
+        "id": "descriptor.signal.229",
+        "pin": "PB7",
+        "pad": 59,
+        "signal": "PWR_WKUP5",
+        "instance": "PWR",
+        "function": {
+          "type": "additional"
+        },
+        "source_pointer": "/signals/229",
+        "source_record": {
+          "name": "PWR_WKUP5",
+          "instance": "PWR",
+          "die_pad": "PB7",
+          "function": {
+            "type": "additional"
+          }
+        },
+        "state": "literal_descriptor_candidate",
+        "DS_AF_cell_crosscheck": "not_complete",
+        "electrical_qualification": "not_established",
+        "execution_permission": "none",
+        "unresolved_refs": []
+      }
+    ],
+    "finite_domains": {
+      "base": "0x44020800",
+      "IRQ": {
+        "name": "PWR_PVD_IRQn",
+        "number": 1,
+        "EXTI_line": 16
+      },
+      "LPMS": {
+        "0": "Stop 0",
+        "1": "Stop 1",
+        "2": "Standby",
+        "3": "reserved"
+      },
+      "wake_sources": [
+        {
+          "number": 1,
+          "pin": "PA0",
+          "pad": 14
+        },
+        {
+          "number": 2,
+          "pin": "PA2",
+          "pad": 16
+        },
+        {
+          "number": 4,
+          "pin": "PC13",
+          "pad": 2
+        },
+        {
+          "number": 5,
+          "pin": "PB7",
+          "pad": 59
+        }
+      ],
+      "wake_enable_mask": "0x1B",
+      "wake_polarity": {
+        "0": "high / rising",
+        "1": "low / falling"
+      },
+      "wake_pull": {
+        "0": "none",
+        "1": "up",
+        "2": "down",
+        "3": "reserved"
+      },
+      "wake_fields": "For source n: enable bit n-1; polarity bit 8+n-1; pull bits 16+2*(n-1) through 17+2*(n-1). Only exact sources 1,2,4,5 are admitted as data.",
+      "excluded_family_wake_sources": [
+        {
+          "number": 3,
+          "pin": "PC1",
+          "reason": "Bonded but no exact wake capability in DS/header/descriptor"
+        },
+        {
+          "number": 6,
+          "pin": "PD2",
+          "reason": "Bonded but no exact wake capability in DS/header/descriptor"
+        },
+        {
+          "number": 7,
+          "pin": "PE6",
+          "reason": "No exact wake field and unbonded in LQFP64"
+        }
+      ],
+      "stop_retention": [
+        {
+          "bank": "SRAM1",
+          "offset_bytes": 0,
+          "length_bytes": 32768,
+          "power_down_bit": 26
+        },
+        {
+          "bank": "SRAM2",
+          "offset_bytes": 0,
+          "length_bytes": 16384,
+          "power_down_bit": 24
+        },
+        {
+          "bank": "SRAM2",
+          "offset_bytes": 16384,
+          "length_bytes": 16384,
+          "power_down_bit": 25
+        }
+      ],
+      "retention_polarity": "PMCR power-down bit 0 retains, 1 powers down corresponding memory in Stop. SRAM2 page 3 is excluded.",
+      "IORETR_bits": {
+        "0": "general GPIO retention",
+        "16": "JTAG IO retention"
+      },
+      "PRIVCFGR_bit": 1,
+      "RTCCR_DRTCP_bit": 0,
+      "VMCR_PVDE_bit": 0,
+      "VMSR_PVDO_bit": 22,
+      "PMSR_bits": {
+        "5": "STOPF",
+        "6": "SBF"
+      },
+      "PMCR_CSSF_bit": 7,
+      "PMCR_FLPS_bit": 9,
+      "register_access_width_bits": [
+        8,
+        16,
+        32
+      ],
+      "evidence": [
+        "header.layout",
+        "header.bus",
+        "header.base",
+        "header.fields",
+        "header.IRQ",
+        "LL.constants",
+        "RM0522:p235",
+        "RM0522:p243",
+        "RM0522:p244",
+        "RM0522:p245",
+        "RM0522:p246",
+        "RM0522:p247",
+        "RM0522:p248",
+        "RM0522:p249",
+        "DS15135:p6",
+        "DS15135:p39",
+        "DS15135:p40",
+        "DS15135:p44"
+      ]
+    },
+    "source_contracts": [
+      {
+        "id": "supplies",
+        "detail": "DS specifies VDD 2.7 to 3.6 V and VDDA=VDD, with a typical external 2.2 uF VCAP capacitor. C542RCT6 suffix 6 temperature limits and electrical conditions remain those of DS Table 17. These values do not qualify the board power arrangement.",
+        "evidence": [
+          "DS15135:p10",
+          "DS15135:p51",
+          "RM0522:p225",
+          "RM0522:p226"
+        ]
+      },
+      {
+        "id": "PVD",
+        "detail": "Threshold is fixed by hardware despite the programmable detector name. PVDO is valid only with PVDE enabled. PVD uses EXTI16 and IRQ1; peripheral enable alone does not establish an EXTI/NVIC route. DS Table 19 values are characterization values, not production tested unless stated. SBS PVDL can lock detector configuration. EXTI16 to IRQ1 is derived from RM Table62 and Table100, not a new independently owned EXTI resource. DS falling threshold2.89-2.96 V lies inside the operating supply range; PVDO=1 alone does not establish an out-of-spec supply fault.",
+        "evidence": [
+          "RM0522:p228",
+          "RM0522:p243",
+          "RM0522:p245",
+          "RM0522:p246",
+          "DS15135:p11",
+          "DS15135:p52",
+          "header.IRQ",
+          "HAL.PVD",
+          "RM0522:p441"
+        ]
+      },
+      {
+        "id": "entry_and_wake",
+        "detail": "WFI, WFE and sleep-on-exit have distinct pending-interrupt/event behavior. Pending requests can prevent entry. Stop must coordinate peripheral flags, EXTI pending state and enabled wake paths; masking only NVIC while a peripheral interrupt remains enabled can retain clocks in Stop 0. No universal clear-all sequence is authorized. ES2.6.1 (A for Z and Y) describes an LPTIM interrupt condition preventing Stop entry and prescribes RCC reset rather than clearing LPTIM ENABLE. Apply the established SDK lifecycle restrictions; a generic sleep setter does not implement that workaround.",
+        "evidence": [
+          "RM0522:p233",
+          "RM0522:p234",
+          "RM0522:p236",
+          "RM0522:p237",
+          "RM0522:p238",
+          "ES0676:p6",
+          "ES0676:p2",
+          "DS15135:p6"
+        ]
+      },
+      {
+        "id": "stop_retention",
+        "detail": "Stop retention is selectable for the exact SRAM partitions. Live stacks, DMA buffers, code/data and other owners must be outside any powered-down partition. Standby loses SRAM and resumes via a reset/boot path; Stop resumes execution but does not automatically restore the prior system clock tree.",
+        "evidence": [
+          "RM0522:p229",
+          "RM0522:p230",
+          "RM0522:p234",
+          "RM0522:p235",
+          "RM0522:p236",
+          "RM0522:p240"
+        ]
+      },
+      {
+        "id": "peripheral_clocks",
+        "detail": "RM requires suitable peripheral enable, low-power enable and independent clock choices for autonomous Stop operation. Flash or APB activity can delay entry; enabled ADC/DAC may consume power. Family Table 55 is not permission to use absent C542 peripherals, and per-peripheral Stop capability remains to be checked.",
+        "evidence": [
+          "RM0522:p231",
+          "RM0522:p232",
+          "RM0522:p236",
+          "RM0522:p237"
+        ]
+      },
+      {
+        "id": "wake_pin_arming",
+        "detail": "Wake pulls must agree with GPIO pull configuration or use no pull. Enabling a wake pin at its active level generates an additional wake event. Flags clear through CWUF, NRST or wake-enable clearing as documented. Configuration, enabling and flag consumption require shared GPIO/PWR ownership and an application event-loss policy. PA0 also carries TAMP_IN2/ADC1_IN0/COMP1_INP and PA2 TAMP_IN3/ADC1_IN2/COMP2_INM/OPAMP1_VINM0; PC13 carries TAMP_IN1/RTC_TS/RTC_OUT1. Shared pad ownership and analog/alternate configuration must be reconciled before wake use.",
+        "evidence": [
+          "RM0522:p246",
+          "RM0522:p247",
+          "RM0522:p248",
+          "DS15135:p39",
+          "DS15135:p40",
+          "LL.wake_enable"
+        ]
+      },
+      {
+        "id": "IO_retention",
+        "detail": "IORETEN captures output state into pull configuration for Standby, with separate JTAG retention and exceptions for standby functions. The cited JTAG group is PA13, PA14, PA15 and PB4. Retained pulls persist after wake until released, and can oppose newly configured GPIO pulls. DBG_STANDBY prevents IO retention. PC13 RTC and PC14/15 LSE functions require separate ownership. Wake/tamper/analog use on PA0 and PA2 and wake/tamper/RTC use on PC13 must be coordinated with retained GPIO pulls.",
+        "evidence": [
+          "RM0522:p239",
+          "RM0522:p240",
+          "RM0522:p241",
+          "RM0522:p248",
+          "DS15135:p39",
+          "DS15135:p40"
+        ]
+      },
+      {
+        "id": "status_outputs",
+        "detail": "PC2 AF0 CSLEEP and PC3 AF0 CSTOP encode run 00, sleep 10 and Stop 11 in the RM signal order. They are not driven in Standby. Package route correspondence establishes no board load or measurement qualification.",
+        "evidence": [
+          "RM0522:p242",
+          "DS15135:p47"
+        ]
+      },
+      {
+        "id": "privilege",
+        "detail": "PRIV=1 restricts PWR registers to privileged access with unprivileged read-as-zero/write-ignored behavior. PRIVCFGR itself always requires privileged writes while remaining readable. Successful SDK return without readback is not proof that a protected write took effect.",
+        "evidence": [
+          "RM0522:p242",
+          "RM0522:p249",
+          "HAL.IO_privilege",
+          "LL.clear_privilege"
+        ]
+      },
+      {
+        "id": "RTC_protection",
+        "detail": "RTCCR.DRTCP bit 0 is 0 for protection and 1 for access. ES2.7.3 prints a blank field name, preserved as such; binding it to DRTCP is a derived cross-source identification, not a corrected literal quotation. RTC_SCR, TAMP_SCR and TAMP_CR2.BKERASE writes while protected can hang the system. PWR access, RTC WPR, privilege and required RTC/TAMP sequencing are separate gates; toggling DRTCP alone is not a complete protocol. RM241 explicitly preserves PWR_RTCCR and IORETR across Standby wake; do not assume DRTCP protected merely because execution restarted at boot. Readback and boot-cause policy remain needed. ES2.7.3 status is N for both Z and Y.",
+        "evidence": [
+          "RM0522:p226",
+          "RM0522:p245",
+          "ES0676:p8",
+          "header.fields",
+          "LL.RTC",
+          "HAL.RTC",
+          "RM0522:p241",
+          "ES0676:p2"
+        ]
+      },
+      {
+        "id": "PC13_LSE",
+        "detail": "Exact LQFP64 WKUP4 uses PC13. ES2.2.2 says input or output toggling of PC13 can disturb LSE crystal operation on LQFP; external bypass is not affected. ES2.2.1 forbids analog bypass and ES2.2.3 forbids low drive. These cross-peripheral restrictions survive low-power configuration and cannot be enforced by independent GPIO/PWR/RCC setters alone.",
+        "evidence": [
+          "ES0676:p4",
+          "ES0676:p5",
+          "DS15135:p39"
+        ]
+      }
+    ],
+    "SDK_gates": [
+      {
+        "id": "wake_config_shift",
+        "detail": "HAL SetConfigWakeupPin recomputes position and 1UL << position after removing the final selected bit. STM32_POSITION_VAL(0) reaches CLZ(0)=32 in the cited CMSIS GCC implementation. With 32-bit unsigned long, the final shift by 32 is C undefined behavior even for a valid nonempty mask. No compiler output or hardware failure has been observed; this source path is not operationally admitted.",
+        "evidence": [
+          "HAL.wake_config",
+          "family.position",
+          "CMSIS.position"
+        ]
+      },
+      {
+        "id": "wake_config_validation_and_race",
+        "detail": "Only the NULL check is optional runtime validation; mask, polarity and pull are debug assertions. WUCR is read before these checks, modified as a whole snapshot and written once. Invalid values can enter unmasked shifts; concurrent changes can be overwritten. The function preserves wake enables and does not coordinate active level, GPIO pulls, pending flags or privilege readback.",
+        "evidence": [
+          "HAL.maps_guards",
+          "HAL.wake_config",
+          "HAL.wake_access",
+          "LL.pull"
+        ]
+      },
+      {
+        "id": "entry_global_state",
+        "detail": "Sleep changes SLEEPDEEP; Stop sets it then clears it after return, rather than restoring the prior bit. Stop writes LPMS and does not restore clocks or LPMS. Standby sets SLEEPDEEP/LPMS and executes WFI without post-return cleanup if entry was prevented. These void calls provide no successful-entry receipt and no complete wake-source setup. Table60 requires chosen WUF and RTC/TAMP flags cleared for entry, but HAL Standby does not qualify them. If entry is prevented, later WFI/WFE or sleep-on-exit may use the retained deep-sleep/Standby selection when other conditions permit, without another explicit Standby setter.",
+        "evidence": [
+          "HAL.entry",
+          "LL.mode",
+          "RM0522:p233",
+          "RM0522:p241"
+        ]
+      },
+      {
+        "id": "core_event_consumption",
+        "detail": "ClearCorePendingEvent performs SEV then WFE. It consumes the core event register; it is not a peripheral, EXTI or NVIC pending clear. SLEEPONEXIT and SEVONPEND setters affect shared core state.",
+        "evidence": [
+          "HAL.entry",
+          "HAL.core_previous"
+        ]
+      },
+      {
+        "id": "previous_mode_observation",
+        "detail": "Previous-mode query gives SBF precedence, otherwise interprets STOPF using current LPMS. Retained/stale flags or a later LPMS change can make this unsuitable as a chronological transition receipt. Both LL clear-status helpers set CSSF, which clears SBF and STOPF together.",
+        "evidence": [
+          "HAL.core_previous",
+          "LL.clear_status",
+          "RM0522:p244"
+        ]
+      },
+      {
+        "id": "retention_argument_guards",
+        "detail": "Memory map indexing relies partly on debug assertions and optional runtime guards. The whole-memory Enable function uses USE_HAL_CHECK_PARAM==1 while the whole-memory Disable function uses only defined(USE_HAL_CHECK_PARAM), so a value of 0 produces asymmetric checks. Page arithmetic lacks explicit nonzero count and complete overflow exclusion. For SRAM2, page_idx=2/page_nbr=0 passes the shown guards, executes no loop and returns HAL_OK without changing retention. Bound bank, page start and positive count before entry, with checked arithmetic. With debug assertions disabled, SRAM2 page_idx=2,page_nbr=0xFFFFFFFF wraps (page_idx-1)+page_nbr to0, passes runtime range checks and enters an extremely long loop; status becomes HAL_ERROR on out-of-range iterations, but there is no early break. This is source arithmetic, not executed behavior.",
+        "evidence": [
+          "HAL.maps_guards",
+          "HAL.retention",
+          "HAL.pages_enable",
+          "HAL.pages_disable_query"
+        ]
+      },
+      {
+        "id": "retention_queries",
+        "detail": "HAL whole-memory getter reports disabled for paginated SRAM2; it is not a whole-bank retention proof. LL combined-mask query tests whether all masked shutdown bits are set, so a partially retained combined selection can report enabled. Use per-page evidence and exclude zero or invalid masks.",
+        "evidence": [
+          "HAL.retention",
+          "HAL.pages_disable_query",
+          "LL.retention"
+        ]
+      },
+      {
+        "id": "privilege_attribute",
+        "detail": "HAL SetPrivAttr checks privileged execution at runtime and item validity only with a debug assertion, but does not assert or runtime-check priv_attr enumeration. LL uses item*priv_attr without masking the result; out-of-domain values can spill outside the intended PRIV bit. Valid input and exclusive register ownership remain caller gates.",
+        "evidence": [
+          "HAL.IO_privilege",
+          "LL.clear_privilege",
+          "HAL.enums"
+        ]
+      },
+      {
+        "id": "PVD_and_RTC_access",
+        "detail": "PVD getter reads raw status without qualifying PVDE; enable/disable does not verify SBS lock or privilege acceptance. RTC protection helpers only change DRTCP and do not themselves execute the complete erratum-safe RTC/TAMP sequence.",
+        "evidence": [
+          "HAL.PVD",
+          "HAL.RTC",
+          "LL.RTC",
+          "RM0522:p246",
+          "ES0676:p8"
+        ]
+      },
+      {
+        "id": "wake_getter_and_IO_validation",
+        "detail": "GetConfigWakeupPin has only debug guards for pointer and single-pin domain; a zero mask yields position32 and invalid C shifts in polarity extraction. Invalid masks can also select unsupported fields. EnableIORetention ORs the unmasked caller value into an IORETR read-modify-write, so valid enumeration and concurrent ownership are caller requirements. No generated behavior is assumed for invalid C shifts.",
+        "evidence": [
+          "HAL.wake_access",
+          "HAL.IO_privilege",
+          "family.position",
+          "CMSIS.position"
+        ]
+      }
+    ],
+    "conflicts": [
+      {
+        "id": "VDDA_connection",
+        "detail": "RM226 describes VDDA as physically connected to VDD, then discusses an independent analog supply pin. Exact DS10 specifies VDDA=VDD. Preserve the inconsistency; do not admit independent analog voltage from family prose.",
+        "evidence": [
+          "RM0522:p226",
+          "DS15135:p10"
+        ]
+      },
+      {
+        "id": "Stop1_voltage",
+        "detail": "RM227 states Stop 1 0.95 V while RM229 states 0.9 V. DS11 states nominal 0.95 V and Table17 gives 0.9/0.95/1.0 min/typ/max. Do not silently equate the RM nominal statements. RM226 repeats0.95 V; RM237 and Table59 on239 repeat0.9 V.",
+        "evidence": [
+          "RM0522:p227",
+          "RM0522:p229",
+          "DS15135:p11",
+          "DS15135:p51",
+          "RM0522:p226",
+          "RM0522:p237",
+          "RM0522:p239"
+        ]
+      },
+      {
+        "id": "wake_clock",
+        "detail": "DS11 states HSI144 after both Stop and Standby. RM229 describes STOPWUCK selecting HSI144 or HSI48 for Stop, and RM230 specifies HSI48 after Standby. No unconditional wake frequency is admitted. Bound RCC_CFGR1.STOPWUCK bit6: reset0 selects HSIDIV3, value1 selects HSIS, per RM280.",
+        "evidence": [
+          "DS15135:p11",
+          "RM0522:p229",
+          "RM0522:p230",
+          "RM0522:p280",
+          "RM0522:p279"
+        ]
+      },
+      {
+        "id": "Stop1_sources",
+        "detail": "RM230 Table54 lists broader Stop1 wake sources whereas RM239 Table59 says GPIOs. Preserve this source discrepancy and require per-source reconciliation rather than admitting all family wake sources.",
+        "evidence": [
+          "RM0522:p230",
+          "RM0522:p239"
+        ]
+      },
+      {
+        "id": "family_wake_inventory",
+        "detail": "RM232 lists seven family wake pins, but exact DS6 and exact header expose only sources 1,2,4,5, consistent with package descriptor. PC1 and PD2 bonding does not imply wake support; PE6 is also unbonded.",
+        "evidence": [
+          "RM0522:p232",
+          "DS15135:p6",
+          "header.fields",
+          "HAL.enums"
+        ]
+      },
+      {
+        "id": "register_naming",
+        "detail": "Low-power entry prose uses PWR_CR1 in places while the register chapter and exact header use PMCR. Preserve prose as evidence and use exact register fields, without introducing a second register.",
+        "evidence": [
+          "RM0522:p237",
+          "RM0522:p243",
+          "header.layout"
+        ]
+      },
+      {
+        "id": "wake_edge_prose",
+        "detail": "RM234 says rising edge; RM230 and247-248 and DS11 describe configurable rising/falling wake polarity. Keep explicit field encoding and preserve prose discrepancy.",
+        "evidence": [
+          "RM0522:p234",
+          "RM0522:p230",
+          "RM0522:p247",
+          "RM0522:p248",
+          "DS15135:p11"
+        ]
+      },
+      {
+        "id": "family_names",
+        "detail": "Header names SRAM retention shutdown fields SRAMxSO while RM names SRAMxPDS. ES2.2.1 refers to RCC_BDCR while the C5 RTC-domain register is RCC_RTCCR. DS6 PVM wording does not establish an additional exact PWR voltage-monitor register or capability.",
+        "evidence": [
+          "header.fields",
+          "RM0522:p243",
+          "RM0522:p245",
+          "ES0676:p4",
+          "DS15135:p6"
+        ]
+      }
+    ],
+    "integration_gates": [
+      "No executable profile is added. All low-power transitions remain unqualified.",
+      "Coordinate core sleep/event state, EXTI and NVIC ownership, GPIO/RTC/LSE functions, clocks, DMA and memory residency before any future transition protocol.",
+      "No raw automatic register polling or power/reset/privilege writes are authorized by this inventory.",
+      "Preserve existing accepted EXTI resources; wake-pin data does not create duplicate physical GPIO or EXTI ownership.",
+      "Cross-check actual revision against linked errata inventory; no blanket erratum immunity is inferred."
+    ],
+    "chapter_audit": {
+      "evidence": [
+        "RM0522:p224",
+        "RM0522:p225",
+        "RM0522:p226",
+        "RM0522:p227",
+        "RM0522:p228",
+        "RM0522:p229",
+        "RM0522:p230",
+        "RM0522:p231",
+        "RM0522:p232",
+        "RM0522:p233",
+        "RM0522:p234",
+        "RM0522:p235",
+        "RM0522:p236",
+        "RM0522:p237",
+        "RM0522:p238",
+        "RM0522:p239",
+        "RM0522:p240",
+        "RM0522:p241",
+        "RM0522:p242",
+        "RM0522:p243",
+        "RM0522:p244",
+        "RM0522:p245",
+        "RM0522:p246",
+        "RM0522:p247",
+        "RM0522:p248",
+        "RM0522:p249",
+        "RM0522:p250",
+        "DS15135:p6",
+        "DS15135:p10",
+        "DS15135:p11",
+        "DS15135:p39",
+        "DS15135:p40",
+        "DS15135:p44",
+        "DS15135:p47",
+        "DS15135:p51",
+        "DS15135:p52",
+        "ES0676:p2",
+        "ES0676:p3",
+        "ES0676:p4",
+        "ES0676:p5",
+        "ES0676:p8",
+        "header.IRQ",
+        "header.layout",
+        "header.bus",
+        "header.base",
+        "header.fields",
+        "HAL.enums",
+        "HAL.maps_guards",
+        "HAL.wake_config",
+        "HAL.wake_access",
+        "HAL.RTC",
+        "HAL.entry",
+        "HAL.core_previous",
+        "HAL.PVD",
+        "HAL.retention",
+        "HAL.pages_enable",
+        "HAL.pages_disable_query",
+        "HAL.IO_privilege",
+        "LL.constants",
+        "LL.mode",
+        "LL.retention",
+        "LL.RTC",
+        "LL.wake_enable",
+        "LL.pull",
+        "LL.clear_status",
+        "LL.clear_privilege",
+        "family.position",
+        "CMSIS.position",
+        "RM0522:p280",
+        "RM0522:p441",
+        "ES0676:p6",
+        "RM0522:p279"
+      ],
+      "detail": "Full PWR chapter and bound context read; not operational closure."
+    }
+  }
+}

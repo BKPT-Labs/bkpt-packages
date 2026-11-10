@@ -1,0 +1,288 @@
+{
+  "schema": 1,
+  "authority": "BKPT engineering derivation, not manufacturer specification",
+  "clock_profile": "c5-hal2-base-1: HSE24/PSIS144, AHB/APB div1",
+  "nominal_kernel_clock_hz": 144000000,
+  "frequency_domain_hz": [
+    1,
+    1000
+  ],
+  "prescaler_register_domain": [
+    0,
+    65534
+  ],
+  "period_register_domain": [
+    1,
+    65535
+  ],
+  "equation": "frequency_hz * (PSC+1) * (ARR+1) = 144000000; repetition=0; no dithering",
+  "conservative_prescaler_limit": "Preserves earlier reviewed policy rather than resolving DS/RM maximum wording by assumption.",
+  "derivation": "All integer frequencies1..1000 tested by exact division and exhaustive prescale factors1..65535; independently reproduced from prime divisors of2^10*3^2*5^6.",
+  "scope": "Nominal programmed rate only; crystal tolerance, callback latency and dynamic clock changes are not certified.",
+  "factors": {
+    "1": {
+      "prescaler": 2249,
+      "period": 63999
+    },
+    "2": {
+      "prescaler": 1124,
+      "period": 63999
+    },
+    "3": {
+      "prescaler": 749,
+      "period": 63999
+    },
+    "4": {
+      "prescaler": 575,
+      "period": 62499
+    },
+    "5": {
+      "prescaler": 449,
+      "period": 63999
+    },
+    "6": {
+      "prescaler": 374,
+      "period": 63999
+    },
+    "8": {
+      "prescaler": 287,
+      "period": 62499
+    },
+    "9": {
+      "prescaler": 249,
+      "period": 63999
+    },
+    "10": {
+      "prescaler": 224,
+      "period": 63999
+    },
+    "12": {
+      "prescaler": 191,
+      "period": 62499
+    },
+    "15": {
+      "prescaler": 149,
+      "period": 63999
+    },
+    "16": {
+      "prescaler": 143,
+      "period": 62499
+    },
+    "18": {
+      "prescaler": 124,
+      "period": 63999
+    },
+    "20": {
+      "prescaler": 119,
+      "period": 59999
+    },
+    "24": {
+      "prescaler": 95,
+      "period": 62499
+    },
+    "25": {
+      "prescaler": 89,
+      "period": 63999
+    },
+    "30": {
+      "prescaler": 74,
+      "period": 63999
+    },
+    "32": {
+      "prescaler": 71,
+      "period": 62499
+    },
+    "36": {
+      "prescaler": 63,
+      "period": 62499
+    },
+    "40": {
+      "prescaler": 59,
+      "period": 59999
+    },
+    "45": {
+      "prescaler": 49,
+      "period": 63999
+    },
+    "48": {
+      "prescaler": 47,
+      "period": 62499
+    },
+    "50": {
+      "prescaler": 44,
+      "period": 63999
+    },
+    "60": {
+      "prescaler": 39,
+      "period": 59999
+    },
+    "64": {
+      "prescaler": 35,
+      "period": 62499
+    },
+    "72": {
+      "prescaler": 31,
+      "period": 62499
+    },
+    "75": {
+      "prescaler": 29,
+      "period": 63999
+    },
+    "80": {
+      "prescaler": 29,
+      "period": 59999
+    },
+    "90": {
+      "prescaler": 24,
+      "period": 63999
+    },
+    "96": {
+      "prescaler": 23,
+      "period": 62499
+    },
+    "100": {
+      "prescaler": 23,
+      "period": 59999
+    },
+    "120": {
+      "prescaler": 19,
+      "period": 59999
+    },
+    "125": {
+      "prescaler": 17,
+      "period": 63999
+    },
+    "128": {
+      "prescaler": 17,
+      "period": 62499
+    },
+    "144": {
+      "prescaler": 15,
+      "period": 62499
+    },
+    "150": {
+      "prescaler": 14,
+      "period": 63999
+    },
+    "160": {
+      "prescaler": 14,
+      "period": 59999
+    },
+    "180": {
+      "prescaler": 15,
+      "period": 49999
+    },
+    "192": {
+      "prescaler": 11,
+      "period": 62499
+    },
+    "200": {
+      "prescaler": 11,
+      "period": 59999
+    },
+    "225": {
+      "prescaler": 9,
+      "period": 63999
+    },
+    "240": {
+      "prescaler": 9,
+      "period": 59999
+    },
+    "250": {
+      "prescaler": 8,
+      "period": 63999
+    },
+    "256": {
+      "prescaler": 8,
+      "period": 62499
+    },
+    "288": {
+      "prescaler": 7,
+      "period": 62499
+    },
+    "300": {
+      "prescaler": 7,
+      "period": 59999
+    },
+    "320": {
+      "prescaler": 7,
+      "period": 56249
+    },
+    "360": {
+      "prescaler": 7,
+      "period": 49999
+    },
+    "375": {
+      "prescaler": 5,
+      "period": 63999
+    },
+    "384": {
+      "prescaler": 5,
+      "period": 62499
+    },
+    "400": {
+      "prescaler": 5,
+      "period": 59999
+    },
+    "450": {
+      "prescaler": 4,
+      "period": 63999
+    },
+    "480": {
+      "prescaler": 4,
+      "period": 59999
+    },
+    "500": {
+      "prescaler": 4,
+      "period": 57599
+    },
+    "512": {
+      "prescaler": 4,
+      "period": 56249
+    },
+    "576": {
+      "prescaler": 3,
+      "period": 62499
+    },
+    "600": {
+      "prescaler": 3,
+      "period": 59999
+    },
+    "625": {
+      "prescaler": 3,
+      "period": 57599
+    },
+    "640": {
+      "prescaler": 3,
+      "period": 56249
+    },
+    "720": {
+      "prescaler": 3,
+      "period": 49999
+    },
+    "750": {
+      "prescaler": 2,
+      "period": 63999
+    },
+    "768": {
+      "prescaler": 2,
+      "period": 62499
+    },
+    "800": {
+      "prescaler": 2,
+      "period": 59999
+    },
+    "900": {
+      "prescaler": 3,
+      "period": 39999
+    },
+    "960": {
+      "prescaler": 2,
+      "period": 49999
+    },
+    "1000": {
+      "prescaler": 2,
+      "period": 47999
+    }
+  }
+}

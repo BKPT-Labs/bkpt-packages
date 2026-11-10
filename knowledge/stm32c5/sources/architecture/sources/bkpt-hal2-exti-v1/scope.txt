@@ -1,0 +1,6 @@
+BKPT authored integration policy, not a manufacturer silicon statement.
+Exclusive lifetime ownership of one physical GPIO pad, one EXTI line and its dedicated CPU IRQ.
+Only exact PA4/line4 and PA5/line5 in the captured LQFP64 foundation are admitted.
+Priority 5 is this adapter policy within the captured NVIC grouping.
+No event, DMA trigger, shared-line, wakeup, security, dynamic-clock or electrical qualification is offered.
+PA5 can adopt the existing baseline output; external LED/load and DAC/electrical metadata disagreements are not resolved by this component.

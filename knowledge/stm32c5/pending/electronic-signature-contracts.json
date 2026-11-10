@@ -1,0 +1,307 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/electronic-signature-contracts.json",
+    "sha256": "a6d89a8b410d2800b88f4b574b19b5be9d72fb58d4ac42ea1b61c64d3d4c7772"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 12
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "schema": "bkpt.external.electronic_signature.contracts.v1",
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "review": "Claude and root accepted bounded source facts; footer/provenance and adjacent size-comment observations added; no operational qualification.",
+    "sources": {
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "family": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c5xx.h",
+        "sha256": "61a0b8c2674d9e817d70aa8d2693339273f4283694f8ab5f8dca077bb69913f7"
+      },
+      "LL_SYSTEM": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_system.h",
+        "sha256": "1e4293d3e4e7b428418c68a9cba445e1cf42a02fe72b6fa982bd5d5b59d8d720"
+      },
+      "HAL": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal.c",
+        "sha256": "35d1ff092e0b8db45bf679f4cf56be4bf8fdce32a26682101cb75ac2dca28114"
+      },
+      "HAL_H": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal.h",
+        "sha256": "0117b83f4d8ca465b4b5ddcf3a5e990c5bfaaf02b475ce3a6c73736f85c59921"
+      },
+      "package_routes": {
+        "path": "research://c5-reference/package-routes.json",
+        "sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288"
+      },
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "DS15135": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pdf",
+        "sha256": "1a3555f799297774a95978ab343ebc1f45ab9ef58d0dcf3600dec4fabed9355c",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pages.json",
+        "extraction_sha256": "b14b965adb6c1545edbca0e56b3c504e7ecc3a94bda197350ce2757b5a3d55dc"
+      }
+    },
+    "evidence": {
+      "RM0522:p2558": {
+        "source": "RM0522",
+        "page": 2558,
+        "sha256": "19b52772e483284bec966d05e0aca4dd58761af7cafc3ec6bd57a36a716c7f0b"
+      },
+      "RM0522:p2559": {
+        "source": "RM0522",
+        "page": 2559,
+        "sha256": "9405a0ae2ce4a6ad99d84d0f3c42e78adc4c7f9dd3397b779596dca0d13658f3"
+      },
+      "RM0522:p2560": {
+        "source": "RM0522",
+        "page": 2560,
+        "sha256": "1c5902c007194c46a6bf5867e1a868eddc0b940f9a40a3ba822abba52816511c"
+      },
+      "DS15135:p2": {
+        "source": "DS15135",
+        "page": 2,
+        "sha256": "a1592022c0fd417ffe10ac1e81e8a01556e2855e551bd639ee5947e32e981ef4"
+      },
+      "DS15135:p4": {
+        "source": "DS15135",
+        "page": 4,
+        "sha256": "9bd359262ece49d8a277ec8e49f1c3be8d04e2ef80052d63d8bcb5d263a2f4f7"
+      },
+      "DS15135:p5": {
+        "source": "DS15135",
+        "page": 5,
+        "sha256": "9a425c00d9dc290777004f11929ed9487b5a4a51202306e3281865f9a860ec87"
+      },
+      "header.addresses": {
+        "source": "header",
+        "start_line": 1155,
+        "end_line": 1164,
+        "sha256": "89ee2ae8d1cd3f4f59dfb4e802329c4d0b3a1eed4c710fea27ba2afff4c3f191"
+      },
+      "header.flash_size": {
+        "source": "header",
+        "start_line": 5540,
+        "end_line": 5559,
+        "sha256": "ece7ff7e0d6f6e654de4f35bb99a688a0f7012ef77d4a5aeeee1f00fb4b1c640"
+      },
+      "LL.signature": {
+        "source": "LL_SYSTEM",
+        "start_line": 44,
+        "end_line": 141,
+        "sha256": "7257f1225d39dddafd9ac33717d65de9650ca0f4f9d1e836da3f0564e8ec1a50"
+      },
+      "HAL.UID": {
+        "source": "HAL",
+        "start_line": 474,
+        "end_line": 496,
+        "sha256": "fb371a6b1e9f9b51fac2fc2e5b2c741737344e1b287b5a1a3ee53f0a154ed67f"
+      },
+      "HAL.UID_type": {
+        "source": "HAL_H",
+        "start_line": 81,
+        "end_line": 90,
+        "sha256": "be57c65125d88b601c9a958b2fbf46b345906ce2d04243fb0c57672753709b1e"
+      },
+      "family.read": {
+        "source": "family",
+        "start_line": 137,
+        "end_line": 137,
+        "sha256": "fceae5826fb3fa91c9ea3eeb50f6ccf14c2d2fff18c6a018613cbb455efe3472"
+      }
+    },
+    "package_routes_sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288",
+    "scope": "Complete RM electronic signature chapter pages 2558 through 2560, exact C542 header and bounded UID/package helpers. Data-only identification map; no automatic physical UID, flash-size or package reads. No provisioning, credentials, security-key construction or runtime adapter.",
+    "finite_source_maps": {
+      "UID": {
+        "base": "0x08FFF800",
+        "width_bits": 96,
+        "word_offsets_bytes": [
+          0,
+          4,
+          8
+        ],
+        "access": "read only, factory programmed",
+        "fields": [
+          {
+            "bits": "31:0",
+            "meaning": "X and Y coordinates on wafer; no subfield split admitted"
+          },
+          {
+            "bits": "39:32",
+            "meaning": "8-bit unsigned wafer number"
+          },
+          {
+            "bits": "63:40",
+            "meaning": "LOT_NUM[23:0], ASCII encoded"
+          },
+          {
+            "bits": "95:64",
+            "meaning": "LOT_NUM[55:24], ASCII encoded"
+          }
+        ]
+      },
+      "flash_size": {
+        "address": "0x08FFF80C",
+        "width_bits": 16,
+        "unit": "Kbytes in RM; SDK converts by shifting left 10",
+        "expected_exact_part_value": 256,
+        "expected_exact_part_bytes": 262144,
+        "qualification": "Expected from DS device table, not a physical register observation. User program flash only; separate data flash and OTP capacities are not added."
+      },
+      "package": {
+        "address": "0x08FFF80E",
+        "read_width_bits": 16,
+        "field_bits": "4:0",
+        "mask": "0x1F",
+        "reserved_bits": "15:5",
+        "expected_exact_part_code": 0,
+        "expected_exact_part_package": "LQFP64",
+        "qualification": "Expected identity for selected part, not proof of actual mounted package or part authenticity."
+      },
+      "RM_family_package_codes": {
+        "0": "LQFP64",
+        "2": "LQFP100",
+        "4": "LQFP144",
+        "5": "LQFP48",
+        "9": "UFQFPN32",
+        "16": "UFQFPN48",
+        "18": "LQFP80",
+        "22": "LQFP32",
+        "24": "TSSOP20",
+        "25": "QFN20",
+        "26": "QFN24"
+      },
+      "family_code_qualification": "Literal RM vocabulary only; other codes reserved. A listed family code does not establish exact C542 package availability.",
+      "evidence": [
+        "RM0522:p2558",
+        "RM0522:p2559",
+        "RM0522:p2560",
+        "DS15135:p4",
+        "DS15135:p5",
+        "header.addresses",
+        "header.flash_size",
+        "LL.signature"
+      ]
+    },
+    "contracts": [
+      {
+        "id": "vendor_UID_wording",
+        "detail": "RM calls the 96-bit reference unique for any device in any context and says users cannot alter it. This is vendor wording, not independently established collision resistance, entropy, secrecy, authenticity, or cryptographic key suitability. The read-only factory identity is distinct from a secret; no security guarantee is added.",
+        "evidence": [
+          "RM0522:p2558",
+          "DS15135:p2"
+        ]
+      },
+      {
+        "id": "raw_vs_helper_flash_size",
+        "detail": "FLASH_SIZE reads uint16_t at FLASHSIZE_BASE and returns FLASH_SIZE_MAX (0x40000 bytes) when the raw value is 0 or 0xFFFF. Other values are shifted left 10 without validating exact capacity. Therefore a helper result of 256 KiB is not proof of a valid factory raw value. Its macro contains repeated source read expressions; nonvolatile accesses and compiler optimization prevent assuming a fixed physical read count.",
+        "evidence": [
+          "header.flash_size"
+        ]
+      },
+      {
+        "id": "UID_helper_access",
+        "detail": "LL UID helpers cast addresses to nonvolatile uint32_t pointers; STM32_READ_REG is an identity expression and adds no volatile semantics. HAL calls the three word helpers in order into caller storage. No generated-code access count, fault recovery or physical read was tested. A valid writable destination and permitted memory access remain caller responsibilities.",
+        "evidence": [
+          "LL.signature",
+          "family.read",
+          "HAL.UID",
+          "HAL.UID_type"
+        ]
+      },
+      {
+        "id": "UID_pointer_guard",
+        "detail": "HAL NULL validation is a debug assertion plus an optional runtime check only when USE_HAL_CHECK_PARAM equals 1. With both disabled, an invalid pointer can be dereferenced; HAL_OK is not an identity or authenticity check. The return documentation mentions clock configuration, but the body only copies UID words.",
+        "evidence": [
+          "HAL.UID"
+        ]
+      },
+      {
+        "id": "package_helper",
+        "detail": "LL_GetPackageType uses a volatile uint16_t read masked to five bits. It returns the raw code without rejecting reserved or unsupported values. LQFP64 code zero agrees between RM and LL but cannot distinguish all part-number, capacity, revision or temperature attributes. No fallback to a different package is admitted.",
+        "evidence": [
+          "LL.signature",
+          "RM0522:p2560",
+          "DS15135:p5"
+        ]
+      }
+    ],
+    "conflicts": [
+      {
+        "id": "family_package_constants",
+        "detail": "LL defines TSSOP20/QFN20/QFN24 as hexadecimal 0x24/0x25/0x26, which exceed the five-bit field; RM codes are binary 11000/11001/11010, decimal 24/25/26 (hexadecimal 0x18/0x19/0x1A). The masked LL getter cannot return those three LL constants. This family mismatch does not affect exact LQFP64 code zero and is not repaired silently.",
+        "evidence": [
+          "LL.signature",
+          "RM0522:p2560"
+        ]
+      },
+      {
+        "id": "alternative_pinout",
+        "detail": "LL defines LQFP64 alternative pinout as code 7, but RM lists other unlisted codes as reserved and does not list 7. Do not infer an alternate pinout for C542RCT6.",
+        "evidence": [
+          "LL.signature",
+          "RM0522:p2560",
+          "DS15135:p5"
+        ]
+      },
+      {
+        "id": "coordinate_format",
+        "detail": "LL describes word 0 coordinates as BCD while RM2558 only says X and Y coordinates. Preserve the extra SDK assertion without deriving a coordinate split or executable decoder.",
+        "evidence": [
+          "LL.signature",
+          "RM0522:p2558"
+        ]
+      },
+      {
+        "id": "bank_comment",
+        "detail": "Exact header sets FLASH_SIZE_MAX to 256 KiB and FLASH_BANK_SIZE to FLASH_SIZE shifted right one, but its adjacent comment says 256 Kbytes per bank. Preserve the arithmetic and inconsistent comment; this signature candidate does not qualify flash bank organization.",
+        "evidence": [
+          "header.flash_size",
+          "DS15135:p4"
+        ]
+      },
+      {
+        "id": "chapter_footer",
+        "detail": "The three signature pages carry printed footer denominator3151 in their extraction while the pinned PDF has2572 pages. Preserve their actual PDF page indices2558-2560 and document hash; no different revision is inferred.",
+        "evidence": [
+          "RM0522:p2558",
+          "RM0522:p2559",
+          "RM0522:p2560"
+        ]
+      },
+      {
+        "id": "other_memory_size_comments",
+        "detail": "Header FLASH_OTP_SIZE=0x1200 is4.5 KiB but its comment says2 Kbytes; DS4 says4.5. Header EDATA0xC000=48 KiB differs from DS4 data flash64 Kbytes, while EXT_USER_SIZE0x10000=64 KiB is separately conditional in the header. These are retained for FLASH organization review; the signature user-flash value does not add either area. No total-size HAL helper contract is claimed.",
+        "evidence": [
+          "header.flash_size",
+          "DS15135:p4"
+        ]
+      }
+    ],
+    "open_gates": [
+      "Actual factory bytes, physical package and board population have not been read.",
+      "Access permissions, memory attributes, debugger policy and failure behavior require separate operational review.",
+      "No UID serialization format, ASCII termination, coordinate parsing or database identity policy is admitted.",
+      "No security uniqueness or authenticity qualification beyond attributed vendor wording."
+    ],
+    "source_provenance_note": "package_routes source is immutable provenance for selected exact package, not an additional semantic excerpt."
+  }
+}

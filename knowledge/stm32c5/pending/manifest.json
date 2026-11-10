@@ -1,0 +1,28 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/manifest.json",
+    "sha256": "2d2edadcf55481e3087a1978d0614307b56809e35556b1a33ca19935692b720f"
+  },
+  "transform": {
+    "removed_vendor_fields": {},
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "candidate_sha256": "218a49767ba2ecf9e6e631a4109e4d76d7998e0b075395a32ec29ee1087c9336",
+    "author_sha256": "743a0bf4bad2a00445fa98492d86a86ddfbfb7f5c99d9b8d1e909007dd1957de",
+    "contracts_sha256": "f234611f192dd5f517253efdecdf58a2f1a89872a965e89590aba43ed521f9c8",
+    "transcription_sha256": "c570697b4194ed0728656579c54a9067bcd47203ee4381aaa69c3e6907d769ce",
+    "counts": {
+      "svd_nodes": 51,
+      "additional_source_known_blocks": 1,
+      "claims": 226,
+      "package_pads": 64,
+      "irq_declarations": 83,
+      "complete_domains": 0
+    },
+    "publication": "unpublished"
+  }
+}

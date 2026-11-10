@@ -1,0 +1,80 @@
+{
+  "scope": {
+    "target": "NUCLEO-C542RC",
+    "clock_profile": "hse24-psis144-ahb-apb-div1",
+    "pclk1_hz": "144000000",
+    "pclk2_hz": "144000000",
+    "clock_evidence": "preset-clock"
+  },
+  "uart": [
+    {
+      "baud": "9600",
+      "oversampling": "16",
+      "prescaler": "1",
+      "brr": "15000",
+      "nominal_error_ppm": "0"
+    },
+    {
+      "baud": "19200",
+      "oversampling": "16",
+      "prescaler": "1",
+      "brr": "7500",
+      "nominal_error_ppm": "0"
+    },
+    {
+      "baud": "38400",
+      "oversampling": "16",
+      "prescaler": "1",
+      "brr": "3750",
+      "nominal_error_ppm": "0"
+    },
+    {
+      "baud": "57600",
+      "oversampling": "16",
+      "prescaler": "1",
+      "brr": "2500",
+      "nominal_error_ppm": "0"
+    },
+    {
+      "baud": "115200",
+      "oversampling": "16",
+      "prescaler": "1",
+      "brr": "1250",
+      "nominal_error_ppm": "0"
+    },
+    {
+      "baud": "230400",
+      "oversampling": "16",
+      "prescaler": "1",
+      "brr": "625",
+      "nominal_error_ppm": "0"
+    }
+  ],
+  "spi": [
+    {
+      "serial_clock_hz": "9000000",
+      "prescaler": "16"
+    },
+    {
+      "serial_clock_hz": "4500000",
+      "prescaler": "32"
+    },
+    {
+      "serial_clock_hz": "2250000",
+      "prescaler": "64"
+    },
+    {
+      "serial_clock_hz": "1125000",
+      "prescaler": "128"
+    },
+    {
+      "serial_clock_hz": "562500",
+      "prescaler": "256"
+    }
+  ],
+  "limits": [
+    "Arithmetic assumes USART2 kernel source remains PCLK1 and SPI1 uses the configured PCLK2 source under the captured nominal clock; USART2 kernel mux is not independently verified. Oscillator/physical bus rates are unmeasured.",
+    "UART frame is 8N1; SPI is master full duplex 8-bit MSB-first no CRC; all domains are incomplete.",
+    "External timing/load/device compatibility remains unknown. No faster SPI than the existing 9MHz profile."
+  ]
+}

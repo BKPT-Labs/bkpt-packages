@@ -1,0 +1,752 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/dac-contracts.json",
+    "sha256": "fb4b3ed91ef8d8082442a6ce01083a2d24b94e10531e82de522917280464d566"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 65
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "schema": "bkpt.external.dac.contracts.v1",
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "review": "Claude blockers D1/D2 and corrections incorporated; final source correction review pending",
+    "package_routes_sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288",
+    "sources": {
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "DS15135": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pdf",
+        "sha256": "1a3555f799297774a95978ab343ebc1f45ab9ef58d0dcf3600dec4fabed9355c",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pages.json",
+        "extraction_sha256": "b14b965adb6c1545edbca0e56b3c504e7ecc3a94bda197350ce2757b5a3d55dc"
+      },
+      "HAL_DAC": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_dac.c",
+        "sha256": "23e343833f6cee377bcc86ec36234a303521d2f5b1d7d65ca9b120d88322c8a7"
+      },
+      "HAL_DAC_header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_dac.h",
+        "sha256": "0be2bec584ede6c380d457b69c83a22a4071db3ddaac57d3869f3918bf402b45"
+      },
+      "LL_DAC": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_dac.h",
+        "sha256": "45cac5cf242eca7a086a0f40e45e9598b17d2fc74e0878ba680ff92d906958bd"
+      },
+      "LL_COMP": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_comp.h",
+        "sha256": "28b9385aa7a127ad0fec034eb0821de4c7adfbc1ef7c8cc5415427417accdaac"
+      },
+      "LL_OPAMP": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_opamp.h",
+        "sha256": "6b4c86489a484b78792701080e29246e2b57f13f439cc9e12c15e6d980e44aaa"
+      }
+    },
+    "evidence": {
+      "RM0522:p672": {
+        "source": "RM0522",
+        "page": 672,
+        "sha256": "6969f8b2680ff7b01fa3da1248f4884556f2ffb99d8bce3beabced53b14ff149"
+      },
+      "RM0522:p673": {
+        "source": "RM0522",
+        "page": 673,
+        "sha256": "7060f2f253423c457f58e0576e329b37bebd2e8193ec425dbcdbeca60d085294"
+      },
+      "RM0522:p674": {
+        "source": "RM0522",
+        "page": 674,
+        "sha256": "22037f8af0655d2fb59f585f4a947c0af061d34e3b2db03adc8be54b467a7fff"
+      },
+      "RM0522:p675": {
+        "source": "RM0522",
+        "page": 675,
+        "sha256": "81d62987a69722ccd9f9960792b4063ecb73e2955ff351a81ede8933a795d0b8"
+      },
+      "RM0522:p676": {
+        "source": "RM0522",
+        "page": 676,
+        "sha256": "d833de7b4a499ad8b282cdbd04386f431b49c98d591cd89ca2c0e33e633bc299"
+      },
+      "RM0522:p677": {
+        "source": "RM0522",
+        "page": 677,
+        "sha256": "d9b9455e11418748e6116dd46271d94e227208e6e47f77639c65455e810769e6"
+      },
+      "RM0522:p678": {
+        "source": "RM0522",
+        "page": 678,
+        "sha256": "9fe08ae290948357abdeb0efd0af4621ccbc47a0fb4cb49da4ede12fb250f2bb"
+      },
+      "RM0522:p679": {
+        "source": "RM0522",
+        "page": 679,
+        "sha256": "2a888f5593c3bd7c234dfa14293075d8ffc848e3e3f31882b44525eb38ca93ab"
+      },
+      "RM0522:p680": {
+        "source": "RM0522",
+        "page": 680,
+        "sha256": "607465112dfb851535de11a7552a17f95fc386a46728df470354465d54f77e36"
+      },
+      "RM0522:p681": {
+        "source": "RM0522",
+        "page": 681,
+        "sha256": "1df76daeca8f9b8b10160808bdacec2c331c1d3e1f110e18c989bc5e11f51687"
+      },
+      "RM0522:p682": {
+        "source": "RM0522",
+        "page": 682,
+        "sha256": "aee0dcc1943b89272fe818eb097228cf6d57b74aafcd8adacb38bfe633f1cef3"
+      },
+      "RM0522:p683": {
+        "source": "RM0522",
+        "page": 683,
+        "sha256": "ae0b9c0e45d00ac0e7a2f9272cb3c00bbfb580d531a3893ceadc1514ee6ede98"
+      },
+      "RM0522:p684": {
+        "source": "RM0522",
+        "page": 684,
+        "sha256": "5a2699c3e2ae76026a9b5ebc02b24e632bebb52666ffff4e4aa581c55557179d"
+      },
+      "RM0522:p685": {
+        "source": "RM0522",
+        "page": 685,
+        "sha256": "d7f5f3b71ae60e696f44a03c1dd36c00c82ac567e3a85d77b421f046ad03b637"
+      },
+      "RM0522:p686": {
+        "source": "RM0522",
+        "page": 686,
+        "sha256": "e4506405636d812df9b50dc8393ce209fb5bc6059e808ab8688634279c366b90"
+      },
+      "RM0522:p687": {
+        "source": "RM0522",
+        "page": 687,
+        "sha256": "10ff0850ea065065d8ddbaa59a57d12c18e758196dcce7405adb669cc14daf4d"
+      },
+      "RM0522:p688": {
+        "source": "RM0522",
+        "page": 688,
+        "sha256": "ff61773ab4fd57d81ca8d1f7ed76176f4f3b754a58a3495046d66d1e00cb059e"
+      },
+      "RM0522:p689": {
+        "source": "RM0522",
+        "page": 689,
+        "sha256": "1909526dd05940b0a9684d316b9012256a2626077c21d130710a5a3b8ee32804"
+      },
+      "RM0522:p690": {
+        "source": "RM0522",
+        "page": 690,
+        "sha256": "2c578d5abe29bc1fdd0d223c96a922dbfef54b681d0ecc4b754c4f3eae63fe55"
+      },
+      "RM0522:p691": {
+        "source": "RM0522",
+        "page": 691,
+        "sha256": "ba85a09953dea3878c9ca43b1875d920e4aab156e8ae178ecda62a1844e1d935"
+      },
+      "RM0522:p692": {
+        "source": "RM0522",
+        "page": 692,
+        "sha256": "62f73cdba3ef208ac0e69a104c904a40b55d3438483da9e8baca50e0f1375b33"
+      },
+      "RM0522:p693": {
+        "source": "RM0522",
+        "page": 693,
+        "sha256": "9677c4fe0d43b8f76e40c4d4961bcdd34be05713fbc0ca3cf42dd0364d15b3c8"
+      },
+      "RM0522:p694": {
+        "source": "RM0522",
+        "page": 694,
+        "sha256": "6f97a3d5a4ae9242d26b61ef48613cf54df7c15cde9cf9d158b0baab8dfdcc0c"
+      },
+      "RM0522:p695": {
+        "source": "RM0522",
+        "page": 695,
+        "sha256": "bb43ea947925a6be177da22368c9d3be4131fe96096fa3c7a964b856f2688bf5"
+      },
+      "RM0522:p696": {
+        "source": "RM0522",
+        "page": 696,
+        "sha256": "c3e55561a48be4a8570f2db7c7ee4e4272ee2de3e7610685899bd190001e484c"
+      },
+      "RM0522:p697": {
+        "source": "RM0522",
+        "page": 697,
+        "sha256": "a3381641897f28b5fb6618535dddcce8e5ede9dd7f1c834f850a2d464e2a5771"
+      },
+      "RM0522:p698": {
+        "source": "RM0522",
+        "page": 698,
+        "sha256": "53e1cbe5075c6d91e0b46cbcfc550388729b4f1e2cca23657ac25301811c0d25"
+      },
+      "RM0522:p699": {
+        "source": "RM0522",
+        "page": 699,
+        "sha256": "d00614e84ffc9f668d86c13258b5b82ad9832462a0b5f60eda2834d8ed7f8d9a"
+      },
+      "RM0522:p700": {
+        "source": "RM0522",
+        "page": 700,
+        "sha256": "f287d051fd8a2a4c2224c91d093d33f699991e9149baa382858e18cd6e77d81e"
+      },
+      "RM0522:p701": {
+        "source": "RM0522",
+        "page": 701,
+        "sha256": "a01ffa96ce523c07bef81728e5c1652e8f5b1cd8dce88d87aae80e0f250c81db"
+      },
+      "RM0522:p702": {
+        "source": "RM0522",
+        "page": 702,
+        "sha256": "85a38b65e77e1201c4adb575c683644f9a8587d23ca560c9275890b58fdca940"
+      },
+      "RM0522:p703": {
+        "source": "RM0522",
+        "page": 703,
+        "sha256": "7725590b1e9086cf3f4ad5d159ef12edb213dc6f4f74365688634a15304570a4"
+      },
+      "RM0522:p704": {
+        "source": "RM0522",
+        "page": 704,
+        "sha256": "8a9d452e3579a2cb991f9bed59c797b53f6ef982f48f934e4cdd6bc0dfe17901"
+      },
+      "RM0522:p705": {
+        "source": "RM0522",
+        "page": 705,
+        "sha256": "7af757811ac3088fa5ad0ec5353dcda7e8bfbff90cfa32f7a8dc7e43a1af67e7"
+      },
+      "RM0522:p706": {
+        "source": "RM0522",
+        "page": 706,
+        "sha256": "0456eb176360e1020dbb2787c18b0ed8dade967348b5cb3c01b1e5dfcc1a4a35"
+      },
+      "RM0522:p707": {
+        "source": "RM0522",
+        "page": 707,
+        "sha256": "78a018f6b7e3795092fe61b0fee0c7b8ee7965128738f57dc52dea7b4d9dba81"
+      },
+      "RM0522:p708": {
+        "source": "RM0522",
+        "page": 708,
+        "sha256": "a69960228a98da90615d85408b33c36b9c8642046282c36eca83ec46571415e3"
+      },
+      "RM0522:p714": {
+        "source": "RM0522",
+        "page": 714,
+        "sha256": "6560f92baabf29de962f903b80220fb37507cfaac0d8e18ffb2238d0ee29f83a"
+      },
+      "RM0522:p727": {
+        "source": "RM0522",
+        "page": 727,
+        "sha256": "040d47cb22622d77e980de21831678192b8d7c5d1637cbf02679aab4febb8198"
+      },
+      "RM0522:p565": {
+        "source": "RM0522",
+        "page": 565,
+        "sha256": "db4cb1d1faf26d4e07aa37d7d49328d606991b496e00909b015e97b848b238b9"
+      },
+      "DS15135:p4": {
+        "source": "DS15135",
+        "page": 4,
+        "sha256": "9bd359262ece49d8a277ec8e49f1c3be8d04e2ef80052d63d8bcb5d263a2f4f7"
+      },
+      "DS15135:p5": {
+        "source": "DS15135",
+        "page": 5,
+        "sha256": "9a425c00d9dc290777004f11929ed9487b5a4a51202306e3281865f9a860ec87"
+      },
+      "DS15135:p16": {
+        "source": "DS15135",
+        "page": 16,
+        "sha256": "d0bb0528a544de4529c70f3c9d0ea5a3880f673749fc042b19d091debfafcd9d"
+      },
+      "DS15135:p17": {
+        "source": "DS15135",
+        "page": 17,
+        "sha256": "4395b78a3e7974b7310bf8a90e56230fa5428a9b94befc691d8f04bec2973941"
+      },
+      "DS15135:p40": {
+        "source": "DS15135",
+        "page": 40,
+        "sha256": "6152987bbff008c4911276d154b68418eea2f7f3ee9409893568b3b33bf80b38"
+      },
+      "header.channels": {
+        "source": "header",
+        "start_line": 3023,
+        "end_line": 3023,
+        "sha256": "dbe8bdd58e2f530340bdacb96496f38041def89d500a17f3b8ad1df6ba5888be"
+      },
+      "header.instance": {
+        "source": "header",
+        "start_line": 14038,
+        "end_line": 14038,
+        "sha256": "c15c2c8c53849619ef2b078f82301811353d23911896aedcdfebd4086d31e8ec"
+      },
+      "HAL.guards": {
+        "source": "HAL_DAC",
+        "start_line": 428,
+        "end_line": 444,
+        "sha256": "089614599f69a96de572399b084c80b061daa0559b13d7daf1eb53b9e3e59416"
+      },
+      "LL.HFSEL": {
+        "source": "LL_DAC",
+        "start_line": 220,
+        "end_line": 229,
+        "sha256": "957cf201ee73e2c6f01a0214b9b2896f49440e800f264e28f1bcbc56ad4536e8"
+      },
+      "HAL.frequency": {
+        "source": "HAL_DAC",
+        "start_line": 743,
+        "end_line": 772,
+        "sha256": "24d5ee6abfcb8726a6a9c9eeb57b7a7f19124f54b4ad14f7bbadd6ba9aea61bc"
+      },
+      "HAL.sample_hold": {
+        "source": "HAL_DAC",
+        "start_line": 2234,
+        "end_line": 2283,
+        "sha256": "8e19343a6e036e7ae2a7fd0f410a0f71ae75f7450d3181b4586cd95a98df1fb4"
+      },
+      "HAL.mode": {
+        "source": "HAL_DAC",
+        "start_line": 2316,
+        "end_line": 2352,
+        "sha256": "e9de90cd58003e1f6152176dac5511228b2a84b43cdcecbe81c59d9cafb246a4"
+      },
+      "HAL.init_deinit": {
+        "source": "HAL_DAC",
+        "start_line": 656,
+        "end_line": 734,
+        "sha256": "bc7c4b244fd7da2ceb68a7d5f44c6397cf5a1ec564adbc4d382057f70d76f084"
+      },
+      "HAL.channel_config": {
+        "source": "HAL_DAC",
+        "start_line": 1088,
+        "end_line": 1159,
+        "sha256": "19b6cbc89ea4e6b92d9f44aa99954cc15e1b9be0df27f8c1f52e76d94ce59566"
+      },
+      "HAL.start": {
+        "source": "HAL_DAC",
+        "start_line": 1493,
+        "end_line": 1515,
+        "sha256": "9942bae342f30b2427d2f7cde22a4b7bc9ddaf757c8594e0d3f8b2ee80e87db8"
+      },
+      "HAL.stop_DMA": {
+        "source": "HAL_DAC",
+        "start_line": 1737,
+        "end_line": 1776,
+        "sha256": "ea6a6eaa756d7b56327c69e2884f97643727dba23ea57952fb0a30f5bd9dc2c6"
+      },
+      "HAL.stop_callback": {
+        "source": "HAL_DAC",
+        "start_line": 3115,
+        "end_line": 3134,
+        "sha256": "219fa02edea1672499bc8db57842444847eb2324ed5d140b761ceee45d8c671f"
+      },
+      "HAL.calibration": {
+        "source": "HAL_DAC",
+        "start_line": 931,
+        "end_line": 1022,
+        "sha256": "9e0444302e5b596298075400d44792696f3d7b6683377165698342ca43280966"
+      },
+      "LL.COMP_DAC": {
+        "source": "LL_COMP",
+        "start_line": 275,
+        "end_line": 280,
+        "sha256": "20eb7090f50a3abd216dc7cf0a4c51e4317bc940aedffeb7fcd25605566ab912"
+      },
+      "LL.OPAMP_DAC": {
+        "source": "LL_OPAMP",
+        "start_line": 208,
+        "end_line": 209,
+        "sha256": "f48331f114969b9324eccad4c0da71cd9cd1ee827834841123244565f8465d0c"
+      },
+      "HAL.startup_delay": {
+        "source": "HAL_DAC",
+        "start_line": 390,
+        "end_line": 393,
+        "sha256": "27bdeec933163b72fbc9c2de1f75e1ab9c6a9e5c119b72715ce79908b8974963"
+      },
+      "HAL.delay_helper": {
+        "source": "HAL_DAC",
+        "start_line": 2970,
+        "end_line": 2993,
+        "sha256": "fc5d724edc1466e2e7d643e30923fb3d3b141ab1ece8e321e4f56fe702c4c00f"
+      },
+      "HAL.frequency_thresholds": {
+        "source": "HAL_DAC",
+        "start_line": 373,
+        "end_line": 374,
+        "sha256": "4905572cdf8548b1f1166859038499a5f5b4b8393567095f52a0ffec8b7c0009"
+      },
+      "header.data_layout": {
+        "source": "header",
+        "start_line": 332,
+        "end_line": 354,
+        "sha256": "1895203a261dbc1ea447d114fcd6c7aed28186d01a3bb27000667cacadd7bbb1"
+      },
+      "header.TSEL_mask": {
+        "source": "header",
+        "start_line": 3029,
+        "end_line": 3038,
+        "sha256": "f02ea3bb1345ed95a3b6b62c507be7b7cef48882506e1cb5783f53852bd15ec3"
+      }
+    },
+    "inventory": {
+      "id": "DAC1",
+      "detail": "DS and exact header declare one DAC1 interface with two output channels, PA4 channel1 and PA5 channel2 candidate identities. RM dual-channel label and conditional channel2 fields conflict; no executable channel2/dual-register admission. Preserve package PA5 DAC2_OUT1 disagreement; no DAC2 instance.",
+      "evidence": [
+        "header.channels",
+        "header.instance",
+        "RM0522:p673",
+        "DS15135:p4",
+        "DS15135:p16",
+        "DS15135:p40",
+        "DS15135:p5",
+        "DS15135:p17",
+        "header.data_layout"
+      ]
+    },
+    "trigger_candidates": {
+      "software_selector": 0,
+      "hardware": [
+        {
+          "selector": 1,
+          "source": "TIM1_TRGO"
+        },
+        {
+          "selector": 2,
+          "source": "TIM2_TRGO"
+        },
+        {
+          "selector": 6,
+          "source": "TIM6_TRGO"
+        },
+        {
+          "selector": 7,
+          "source": "TIM7_TRGO"
+        },
+        {
+          "selector": 8,
+          "source": "TIM8_TRGO"
+        },
+        {
+          "selector": 9,
+          "source": "TIM12_TRGO"
+        },
+        {
+          "selector": 10,
+          "source": "TIM15_TRGO"
+        },
+        {
+          "selector": 11,
+          "source": "LPTIM1_CH1"
+        },
+        {
+          "selector": 12,
+          "source": "EXTI9"
+        }
+      ],
+      "qualification": "TEN=0 direct-write transfer is distinct from software triggering; TIM5 selector5 unavailable on C542. No delivered trigger or EXTI ownership qualification. HAL/LL name LPTIM1_CH1 as LPTIM1_OC1.",
+      "evidence": [
+        "RM0522:p676",
+        "RM0522:p694",
+        "RM0522:p695",
+        "RM0522:p696"
+      ]
+    },
+    "output_modes": [
+      {
+        "code": 0,
+        "sample_hold": false,
+        "buffered": true,
+        "destinations": [
+          "pad"
+        ]
+      },
+      {
+        "code": 1,
+        "sample_hold": false,
+        "buffered": true,
+        "destinations": [
+          "pad",
+          "internal"
+        ]
+      },
+      {
+        "code": 2,
+        "sample_hold": false,
+        "buffered": false,
+        "destinations": [
+          "pad"
+        ]
+      },
+      {
+        "code": 3,
+        "sample_hold": false,
+        "buffered": false,
+        "destinations": [
+          "internal"
+        ]
+      },
+      {
+        "code": 4,
+        "sample_hold": true,
+        "buffered": true,
+        "destinations": [
+          "pad"
+        ]
+      },
+      {
+        "code": 5,
+        "sample_hold": true,
+        "buffered": true,
+        "destinations": [
+          "pad",
+          "internal"
+        ]
+      },
+      {
+        "code": 6,
+        "sample_hold": true,
+        "buffered": false,
+        "destinations": [
+          "pad",
+          "internal"
+        ]
+      },
+      {
+        "code": 7,
+        "sample_hold": true,
+        "buffered": false,
+        "destinations": [
+          "internal"
+        ]
+      }
+    ],
+    "output_modes_evidence": [
+      "RM0522:p686",
+      "RM0522:p705",
+      "RM0522:p706"
+    ],
+    "contracts": [
+      {
+        "id": "sample_hold_counts",
+        "detail": "TSAMPLE0..1023 means value+1 clock periods; THOLD0..1023 and TREFRESH0..255 are literal period counts. Hold clock must continue. Active sample update requires BWST=0; hold/refresh writes require EN=CEN=0. Field width alone does not qualify zero settings or analog performance.",
+        "evidence": [
+          "RM0522:p684",
+          "RM0522:p707",
+          "RM0522:p708"
+        ]
+      },
+      {
+        "id": "waveforms",
+        "detail": "WAVE0 disabled,1 noise,2 triangle,3 reserved per register description. MAMP0..10 amplitude2^(code+1)-1, codes>=11 encode4095. TEN required; amplitude configured before enabling. Noise LFSR initial0xAAA. Numerical overflow/addition remains unqualified.",
+        "evidence": [
+          "RM0522:p681",
+          "RM0522:p682",
+          "RM0522:p683",
+          "RM0522:p694",
+          "RM0522:p695"
+        ]
+      },
+      {
+        "id": "formats",
+        "detail": "Header declares8-bit right,12-bit right,12-bit left channel registers and packed dual registers. RM makes channel2/dual formats conditional on dual-channel availability, consistent with the Table155 dual-channel dash but conflicting with its OUT2 row and DS/header declarations; treat as header-backed candidates only. Signed conversion inverts MSB during holding-to-output transfer. DOR is not writable.",
+        "evidence": [
+          "RM0522:p677",
+          "RM0522:p678",
+          "header.data_layout",
+          "RM0522:p673",
+          "RM0522:p688"
+        ]
+      },
+      {
+        "id": "DMA_pipeline",
+        "detail": "Hardware trigger transfers holding data then requests refill; software trigger does not request DMA. Prime first sample. Requests are not queued; underrun needs explicit recovery. Double-data mode requests every two hardware triggers and changes require EN=DMAEN=0. Timing and throughput remain unqualified.",
+        "evidence": [
+          "RM0522:p680",
+          "RM0522:p681"
+        ]
+      }
+    ],
+    "source_derived_SDK_gaps": [
+      {
+        "id": "reserved_encodings",
+        "detail": "HAL accepts unavailable TIM5 trigger and ABOVE160 HFSEL2; RM706 permits HFSEL0/1 only. Exact clock limits are separate admission constraints.",
+        "evidence": [
+          "HAL.guards",
+          "LL.HFSEL",
+          "RM0522:p676",
+          "RM0522:p706"
+        ]
+      },
+      {
+        "id": "frequency_boundary",
+        "detail": "HAL compares HCLK >80MHz. RM679 prose also says faster than80MHz, while Table160 and RM706 include exactly80MHz in enabled range. This is a source boundary conflict, not a demonstrated SDK defect. Bind actual dac_ker_ck versus HCLK independently; exactly80MHz unresolved.",
+        "evidence": [
+          "HAL.frequency",
+          "RM0522:p679",
+          "RM0522:p706",
+          "HAL.frequency_thresholds"
+        ]
+      },
+      {
+        "id": "active_sample_hold_writes",
+        "detail": "Sample/hold setter accepts all global states and waits BWST but lacks EN/CEN preflight before THOLD/TREFRESH writes. HAL_OK does not prove writes took effect when RM says ignored during enable/calibration.",
+        "evidence": [
+          "HAL.sample_hold",
+          "RM0522:p708"
+        ]
+      },
+      {
+        "id": "active_mode_writes",
+        "detail": "Disable sample/hold accepts all states and writes MODE, ignored under EN/CEN per RM. Enable has debug-only IDLE guard.",
+        "evidence": [
+          "HAL.mode",
+          "RM0522:p706"
+        ]
+      },
+      {
+        "id": "lifecycle_ownership",
+        "detail": "Init initializes handle and optionally clock, not complete register reset. DeInit disables channels without DMA abort/full configuration reset. Require exclusive physical ownership.",
+        "evidence": [
+          "HAL.init_deinit"
+        ]
+      },
+      {
+        "id": "configuration_state",
+        "detail": "SetConfigChannel relies on debug IDLE, clears CEN but not EN and preserves S&H mode bit. Successful call alone proves neither disabled hardware nor normal mode. WAVE/MAMP/DMAEN/DMAUDRIE remain unchanged. TSEL is rewritten without actual EN check despite RM680 requirement.",
+        "evidence": [
+          "HAL.channel_config",
+          "RM0522:p680"
+        ]
+      },
+      {
+        "id": "start_readiness",
+        "detail": "Start enables then calls a nominal15us delay helper without RDY polling. Delay adequacy under actual clocks/load remains unqualified; RM requires readiness before data/trigger. The15us argument undergoes integer15/10 truncation in the loop formula (15/10)*(SystemCoreClock/200000+1), and uses a software clock variable. No actual15us duration is established.",
+        "evidence": [
+          "HAL.start",
+          "RM0522:p676",
+          "HAL.startup_delay",
+          "HAL.delay_helper"
+        ]
+      },
+      {
+        "id": "DMA_stop_quiescence",
+        "detail": "Silent stop discards synchronous abort status. Non-silent stop returns HAL_OK even if HAL_DMA_Abort_IT fails immediately, then directly invokes stop completion which marks channel IDLE and calls callback. Neither success nor IDLE proves DMA quiescence.",
+        "evidence": [
+          "HAL.stop_DMA",
+          "HAL.stop_callback"
+        ]
+      },
+      {
+        "id": "calibration_result",
+        "detail": "Calibration disables channel and adjusts buffer/trim; final adjustment has no independent final failure determination before HAL_OK. Previous active operation is not restored. No independently verified analog calibration claim. Disabling hardware does not update channel_state.",
+        "evidence": [
+          "HAL.calibration"
+        ]
+      }
+    ],
+    "conflicts": [
+      {
+        "id": "dual_channel_label",
+        "detail": "RM673 Table155 Dual channel dash conflicts with two output rows, DS5/17 and exact header. RM694/695/705/707/708 condition channel2 fields on dual-channel availability; RM677/688 similarly condition dual registers. Preserve conflict; channel2 and packed dual operation not admitted.",
+        "evidence": [
+          "RM0522:p673",
+          "header.channels",
+          "DS15135:p16",
+          "DS15135:p5",
+          "DS15135:p17",
+          "header.data_layout",
+          "RM0522:p677",
+          "RM0522:p688",
+          "RM0522:p694",
+          "RM0522:p695",
+          "RM0522:p705",
+          "RM0522:p707",
+          "RM0522:p708"
+        ]
+      },
+      {
+        "id": "triangle_encoding",
+        "detail": "RM688..691 prose uses WAVE1x for triangle; register descriptions reserve11. Candidate bounded to10.",
+        "evidence": [
+          "RM0522:p688",
+          "RM0522:p689",
+          "RM0522:p690",
+          "RM0522:p691",
+          "RM0522:p694",
+          "RM0522:p695"
+        ]
+      },
+      {
+        "id": "COMP_route",
+        "detail": "RM714 duplicates INMSEL0100 for DAC and VSENSE/OPAMP rows; LL labels DAC1 channels1/2. No resolved executable internal route.",
+        "evidence": [
+          "RM0522:p714",
+          "LL.COMP_DAC"
+        ]
+      },
+      {
+        "id": "OPAMP_route",
+        "detail": "RM727 calls OPAMP1 internal source dac2_int; LL calls DAC1_CH2. Preserve raw naming disagreement, no DAC2 inferred.",
+        "evidence": [
+          "RM0522:p727",
+          "LL.OPAMP_DAC"
+        ]
+      },
+      {
+        "id": "ADC_loopback",
+        "detail": "RM565 channel13 VREFINT or dac_int1 and generic RM675 connectivity do not establish exact control path. No executable loopback.",
+        "evidence": [
+          "RM0522:p565",
+          "RM0522:p675"
+        ]
+      },
+      {
+        "id": "HFSEL_80MHz_boundary",
+        "detail": "RM679 faster-than80MHz prose agrees with HAL >80 check but conflicts with Table160 and RM706 >=80 range. HCLK comparison versus dac_ker_ck also requires clock identity binding.",
+        "evidence": [
+          "RM0522:p679",
+          "RM0522:p706",
+          "HAL.frequency",
+          "HAL.frequency_thresholds"
+        ]
+      },
+      {
+        "id": "TSEL_mask_reserved_bit",
+        "detail": "Exact header TSEL1 mask0x200F shifted2 evaluates0x803C, including RM-reserved bit15; its own0x0008003C comment also disagrees. HAL channel config uses this mask, shifted for channel2 reaching bit31. No reserved-bit write safety inferred from SDK; actual compile/register effects unqualified.",
+        "evidence": [
+          "header.TSEL_mask",
+          "HAL.channel_config",
+          "RM0522:p694",
+          "RM0522:p695"
+        ]
+      }
+    ],
+    "open_gates": [
+      "No executable DAC profile or operation admission",
+      "Electrical accuracy, settling, external load, actual board bridges and package conflicts",
+      "DMA ownership, stop recovery and underrun sequencing",
+      "Calibration success/readiness and precise clock identity",
+      "Internal-loopback resolution and cross-peripheral ownership",
+      "Independent transcription and Claude review"
+    ]
+  }
+}

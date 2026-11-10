@@ -1,0 +1,1437 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/aes-contracts.json",
+    "sha256": "1108c411bb6f4782ed00f6673fb64e62c344cbd1be5cc8b3669b6c4c39dbabf2"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 104
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "schema": "bkpt.external.aes.contracts.v1",
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "review": "Claude and independent Codex accepted targeted corrections; subsequent source-bound omissions added. No operational qualification.",
+    "sources": {
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "HAL": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_aes.c",
+        "sha256": "c6af761a0b6baa40fba63cb446c61d4d7ee23becf1d88825151c1318284818e2"
+      },
+      "HAL_H": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_aes.h",
+        "sha256": "0f7d9e18369c7c6b7ab8115cabdedcf91872f5789e7a32bd918d17fc6c1d4230"
+      },
+      "HAL_DEF": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_def.h",
+        "sha256": "44149fa34fae22a75c3cfdf6607c5047d9f01141ba683b9b905c953ca31fb338"
+      },
+      "family": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c5xx.h",
+        "sha256": "61a0b8c2674d9e817d70aa8d2693339273f4283694f8ab5f8dca077bb69913f7"
+      },
+      "RCC_H": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_rcc.h",
+        "sha256": "29fb6354087a8ebed46e7d8bce100659d733df9c1b03c7dee35a1215dc2cefd5"
+      },
+      "LL_BUS": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_bus.h",
+        "sha256": "bac710c45c3998cede26333b7fdaa3a2c6057b9d4735ade6d28c9f446f2a8def"
+      },
+      "errata": {
+        "path": "research://c5-reference/errata.json",
+        "sha256": "821c22f796a9ff723afee534fe5943c2b0506325ec871d890706d94414316416"
+      },
+      "dma_routing": {
+        "path": "research://c5-reference/dma-routing.json",
+        "sha256": "6f5d4d59950941a32d983ccc0907dda996415c9fd201cce9b2e8777bd86ae41d"
+      },
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "DS15135": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pdf",
+        "sha256": "1a3555f799297774a95978ab343ebc1f45ab9ef58d0dcf3600dec4fabed9355c",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pages.json",
+        "extraction_sha256": "b14b965adb6c1545edbca0e56b3c504e7ecc3a94bda197350ce2757b5a3d55dc"
+      },
+      "ES0676": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pdf",
+        "sha256": "a5463827337bcdbd3e5f2e0912a56307d78b568e5631b21cc9a25899c7d4a5e6",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pages.json",
+        "extraction_sha256": "2ab1b19e42b53e22ff5f3b98f6ed9a5f98f3b7b61a617abc3bb3b7fc050d1cb3"
+      }
+    },
+    "evidence": {
+      "RM0522:p95": {
+        "source": "RM0522",
+        "page": 95,
+        "sha256": "885877101fb6b278c2574acd6890871e3f1878d94281577d2186d17a556083e2"
+      },
+      "RM0522:p102": {
+        "source": "RM0522",
+        "page": 102,
+        "sha256": "6be29b6287e9ca2aee1af61846b6f90097ec041fbd66e798224fe4ace4be2fb9"
+      },
+      "RM0522:p268": {
+        "source": "RM0522",
+        "page": 268,
+        "sha256": "f93cfd7aa59b2af15189ef88dacf7b99a8bd8ba08a349ec8568339dd58dd6e15"
+      },
+      "RM0522:p271": {
+        "source": "RM0522",
+        "page": 271,
+        "sha256": "d19f60266d8f67a35d953bb0bfda7ec6247a4b6b51d4a36b6361dd6a9ca887c9"
+      },
+      "RM0522:p793": {
+        "source": "RM0522",
+        "page": 793,
+        "sha256": "0df64bf2b43d989f5fb7cb0bf4c4e5da7ae4901ff8620c3b23d91f4884e6256f"
+      },
+      "RM0522:p794": {
+        "source": "RM0522",
+        "page": 794,
+        "sha256": "e36cbbd89335303239a30ed744bd29ad8ecbf0deda8e59da4cc8622f23b08993"
+      },
+      "RM0522:p795": {
+        "source": "RM0522",
+        "page": 795,
+        "sha256": "4d5315ae7bb2b1cd52f2a4d233d18ad911185af82d1d5a0a9fa118240e134b24"
+      },
+      "RM0522:p796": {
+        "source": "RM0522",
+        "page": 796,
+        "sha256": "44671c2c9bc7e6731fd7801d9305d0410d3505293d0ea3ba680cbf0e4604e0fd"
+      },
+      "RM0522:p797": {
+        "source": "RM0522",
+        "page": 797,
+        "sha256": "dfc47e68a62956d2d79aff5030367b9b49d84e4916913a60d634849b26c33751"
+      },
+      "RM0522:p798": {
+        "source": "RM0522",
+        "page": 798,
+        "sha256": "a7941b91f9784dc75f5bc018744877bc4442e3b3f6541e04a88962eb869e9a74"
+      },
+      "RM0522:p799": {
+        "source": "RM0522",
+        "page": 799,
+        "sha256": "c9476201e73001b1c8d574ff4a07bee9b766f64ab3ece10fd332d4101858f88b"
+      },
+      "RM0522:p800": {
+        "source": "RM0522",
+        "page": 800,
+        "sha256": "46fed9e108872d294a8e92ccf7c5294cb0600628cb5a917f0e534510e4900bc3"
+      },
+      "RM0522:p801": {
+        "source": "RM0522",
+        "page": 801,
+        "sha256": "7e5550307455306ad8fe3f2c0562501a8e422b48d6bc21246c8d32425f4a6f68"
+      },
+      "RM0522:p802": {
+        "source": "RM0522",
+        "page": 802,
+        "sha256": "f402cc920bf13b8676eb98a05f6b14f8a25dd92dc8a47e11d9ff1dc7a336660f"
+      },
+      "RM0522:p803": {
+        "source": "RM0522",
+        "page": 803,
+        "sha256": "1b1af278e39ee9df6067eb67b21329f3274caa906c11d46447a008a6b43be738"
+      },
+      "RM0522:p804": {
+        "source": "RM0522",
+        "page": 804,
+        "sha256": "2a9e873170730b6d9d3c5cabd4168b18013b935edb034d05b29bb4f4799c3de8"
+      },
+      "RM0522:p805": {
+        "source": "RM0522",
+        "page": 805,
+        "sha256": "493b3576f7a8ef95b163b5de7d88182db16ef0011f6a8c2b4e02fac086b05ed3"
+      },
+      "RM0522:p806": {
+        "source": "RM0522",
+        "page": 806,
+        "sha256": "8365c24dcc34be909dc81e965183f12c8c83e0e316fd5a78523a35857d774b35"
+      },
+      "RM0522:p807": {
+        "source": "RM0522",
+        "page": 807,
+        "sha256": "1907762f728c69226d2dde76421cd7c83d37cecbc1231b1f95fca27010f65031"
+      },
+      "RM0522:p808": {
+        "source": "RM0522",
+        "page": 808,
+        "sha256": "152175cef787b1e9a9de46dda51861c42681d7de20b7f24aefac2e6f7933e7f7"
+      },
+      "RM0522:p809": {
+        "source": "RM0522",
+        "page": 809,
+        "sha256": "ab8853dd149b7c65146edc685fd99897787698f225a08b52a5ffb3e274b239ba"
+      },
+      "RM0522:p810": {
+        "source": "RM0522",
+        "page": 810,
+        "sha256": "6a2c69031f4a9b526c4feda4f45e108a4de2aea8ed80f84d710ae131bf67209f"
+      },
+      "RM0522:p811": {
+        "source": "RM0522",
+        "page": 811,
+        "sha256": "35d64ce9d7bc1cb583d3a9bd29ce681f973dc669582fd45ca1bd67e83dcf11db"
+      },
+      "RM0522:p812": {
+        "source": "RM0522",
+        "page": 812,
+        "sha256": "8b17e15a456bef48236d74d5248b9b312dff040fcc228f67a562df1c681c4a44"
+      },
+      "RM0522:p813": {
+        "source": "RM0522",
+        "page": 813,
+        "sha256": "d883b8e94928c744921152f7315f8e644e036a93f2c190078c1182a2da13db62"
+      },
+      "RM0522:p814": {
+        "source": "RM0522",
+        "page": 814,
+        "sha256": "196aea3f85612cb079e802bd5a527f8f7acf3a5890e04baa511de7d8d653b859"
+      },
+      "RM0522:p815": {
+        "source": "RM0522",
+        "page": 815,
+        "sha256": "5548e34ce2d250a1ee51808151d86ac4d69073b698cec5ba9c7589762d5317dc"
+      },
+      "RM0522:p816": {
+        "source": "RM0522",
+        "page": 816,
+        "sha256": "eb5c8e86d894b1009cdab473e66523a765cdcbd88f8f27571f62aeaa64c7167b"
+      },
+      "RM0522:p817": {
+        "source": "RM0522",
+        "page": 817,
+        "sha256": "2a748ed48846ee4e9bb403ac3b5a000c7cd3bcf9ba7a9b41352adbbe23eb6070"
+      },
+      "RM0522:p818": {
+        "source": "RM0522",
+        "page": 818,
+        "sha256": "384e8dbca83201f2be9a5d361e1ef7cdcb807d3381441038308e3a6c3cb3ed8e"
+      },
+      "RM0522:p819": {
+        "source": "RM0522",
+        "page": 819,
+        "sha256": "d1b58990232a2407ead88e16e5ac092a0e6b0bed9a58174a2aba0c05e9a4df5e"
+      },
+      "RM0522:p820": {
+        "source": "RM0522",
+        "page": 820,
+        "sha256": "02e4513004f5af00b5413cc7963cdd61c2e091eaac7272918dedb15447646101"
+      },
+      "RM0522:p821": {
+        "source": "RM0522",
+        "page": 821,
+        "sha256": "6e041b90857ec5c2194277257b198bc39a188072c62a65bb1418a161aad0d606"
+      },
+      "RM0522:p822": {
+        "source": "RM0522",
+        "page": 822,
+        "sha256": "5584db25731262cdd9d65e977fde1ae9bcf1d401d0d45a836ad2da9c97e26367"
+      },
+      "RM0522:p823": {
+        "source": "RM0522",
+        "page": 823,
+        "sha256": "50c36a64e3bdd1fc93306bae34477fc91c8061bfafeb0f20d1846bd7e55c49d8"
+      },
+      "RM0522:p824": {
+        "source": "RM0522",
+        "page": 824,
+        "sha256": "f98b2ecafcce295a6bfddde5c3831bc566174fb85c59c1f8abe256326cba31d1"
+      },
+      "RM0522:p825": {
+        "source": "RM0522",
+        "page": 825,
+        "sha256": "d7e05a13558f3594a84ce49580ec873f04f38e9caaaabe3336f3cac2e186cc27"
+      },
+      "RM0522:p826": {
+        "source": "RM0522",
+        "page": 826,
+        "sha256": "c5c445393e1d9e44e17ad45dba341d9748d9693b97d5d8fe8bd48f296fffe155"
+      },
+      "RM0522:p827": {
+        "source": "RM0522",
+        "page": 827,
+        "sha256": "f6dee5abf37d34bd97dff43aa1cbbbf49b2b3029e7eeac744cf1f975f9667367"
+      },
+      "RM0522:p828": {
+        "source": "RM0522",
+        "page": 828,
+        "sha256": "5ac3779ad53f2a57aa0743cad817e92c5c1e49e44d6c660cde4a33833d5e5d13"
+      },
+      "RM0522:p829": {
+        "source": "RM0522",
+        "page": 829,
+        "sha256": "73f738db77287209e924c4b3cedb4305b0e503594c9760cdf56254b3551a7f6c"
+      },
+      "RM0522:p830": {
+        "source": "RM0522",
+        "page": 830,
+        "sha256": "cbb29623a4c83989167bd079f956147e661f3901026204141678b9543e262785"
+      },
+      "RM0522:p831": {
+        "source": "RM0522",
+        "page": 831,
+        "sha256": "e1e89991bed4d0098812f717b36f8285b012c485a7e49db09d6e1e11eeb9ce1d"
+      },
+      "RM0522:p832": {
+        "source": "RM0522",
+        "page": 832,
+        "sha256": "4b59f60a93350d847b4e1fb3cbdbfbf7e533779cfe6430d5486d0531dc8de61b"
+      },
+      "RM0522:p833": {
+        "source": "RM0522",
+        "page": 833,
+        "sha256": "f85b1ef7ae1a702a63a2988d0b77d3a685430b4615ef90a6d3b58589b148b5e9"
+      },
+      "RM0522:p834": {
+        "source": "RM0522",
+        "page": 834,
+        "sha256": "340b3325c43520437fcc07fd21229f24bdc9137d6fb3154acd7d200858f4b3ec"
+      },
+      "RM0522:p835": {
+        "source": "RM0522",
+        "page": 835,
+        "sha256": "d32b179be27db35c7869351c56076e31146926c03a75720f8eca5bc94459930b"
+      },
+      "RM0522:p836": {
+        "source": "RM0522",
+        "page": 836,
+        "sha256": "0396caed7bf3cdc3959bdc86897b69e50cc8ed17a06c6a2285ef7558260a082f"
+      },
+      "RM0522:p837": {
+        "source": "RM0522",
+        "page": 837,
+        "sha256": "420564b5ece627039ee78880b50ee55b8fd5b013efa0b51d6954a9bd79d22480"
+      },
+      "RM0522:p838": {
+        "source": "RM0522",
+        "page": 838,
+        "sha256": "2dc7829eccd533cace4bd69779d17fe31fa60d0fe45e526fea25a8c553efd20e"
+      },
+      "DS15135:p18": {
+        "source": "DS15135",
+        "page": 18,
+        "sha256": "aa009ce6be09df61ab4acbb1f142e20379463bfd5056a26c6a778677a68a2e7b"
+      },
+      "DS15135:p19": {
+        "source": "DS15135",
+        "page": 19,
+        "sha256": "c35ea6a2b67afdeb9bbcc647997775fa86174739b61699525502f99a5a5c821f"
+      },
+      "ES0676:p1": {
+        "source": "ES0676",
+        "page": 1,
+        "sha256": "c36bb50f3ba55f82de59b1a5aa62c5ca6b1d3ea938ac9451545a442e65dd25c8"
+      },
+      "ES0676:p2": {
+        "source": "ES0676",
+        "page": 2,
+        "sha256": "3fed5303e4a0fc65ed4dbe6aae1c297605837e2da15bb0e24928d26b0d25eb95"
+      },
+      "ES0676:p3": {
+        "source": "ES0676",
+        "page": 3,
+        "sha256": "6682207b964f905ea8f0e452bc5cff546dfb08622fca9ce2f979b0e43cd6d157"
+      },
+      "header.layout": {
+        "source": "header",
+        "start_line": 240,
+        "end_line": 273,
+        "sha256": "d9f57839aebe074ef0794649d7443af319fea491928f05e4d2097f0950bb1b87"
+      },
+      "header.IRQ": {
+        "source": "header",
+        "start_line": 120,
+        "end_line": 125,
+        "sha256": "3a07970bd43f6b8c3947a4a6379b97d069bb9054a83eb591f0fa692b8a4e0ae2"
+      },
+      "header.bus": {
+        "source": "header",
+        "start_line": 1155,
+        "end_line": 1180,
+        "sha256": "16cad2d0a46505a548f28bc6cce8eb1ee8e1411eb1887393c37914ef69d862db"
+      },
+      "header.base": {
+        "source": "header",
+        "start_line": 1248,
+        "end_line": 1253,
+        "sha256": "1314e3bd668c222b43d0cb2fd33470ace2332e7ac4c86ee8eedfa512158218cc"
+      },
+      "header.instance": {
+        "source": "header",
+        "start_line": 1368,
+        "end_line": 1372,
+        "sha256": "2559bc2179fedbda3d9ae263706346c8a7775fa7688d711af739ea27b485fc38"
+      },
+      "header.predicate": {
+        "source": "header",
+        "start_line": 14010,
+        "end_line": 14014,
+        "sha256": "959a2d1d438578d680624e73f55c151db9f85f3a8c192f351102920814b281d5"
+      },
+      "header.fields": {
+        "source": "header",
+        "start_line": 2420,
+        "end_line": 2636,
+        "sha256": "9daa6e425017e97a4be39efb1645b891a4f47a45c70eaef0ddea2cc16ad5fb5b"
+      },
+      "header.reset": {
+        "source": "header",
+        "start_line": 8959,
+        "end_line": 8961,
+        "sha256": "e8ea75621383d03b9cc4534746399834be9d4d508b5f8ebacb54bd05819bb20b"
+      },
+      "header.clock": {
+        "source": "header",
+        "start_line": 9104,
+        "end_line": 9106,
+        "sha256": "8dc96eedc33ba22895e145a9cb5e4d4c0a91d1b2b6768ecc3444563ab6704d0a"
+      },
+      "header.sleep": {
+        "source": "header",
+        "start_line": 9274,
+        "end_line": 9278,
+        "sha256": "a9251c37549e8894b8995eaad5363dc91e621260afe34643153b34ae5ff06412"
+      },
+      "HAL.domains": {
+        "source": "HAL",
+        "start_line": 313,
+        "end_line": 423,
+        "sha256": "671634228e966e534d514d91d753057dbf3150d2d0f575b058656c422ce051d0"
+      },
+      "HAL.init_deinit": {
+        "source": "HAL",
+        "start_line": 535,
+        "end_line": 636,
+        "sha256": "aa37b598ed57748eb22f8dac6f69e16cc27a840567b395f1ae3be89147c14c2e"
+      },
+      "HAL.basic_config": {
+        "source": "HAL",
+        "start_line": 673,
+        "end_line": 918,
+        "sha256": "7777d53e4787753ecf0be9894d70eeefa37c190aa3e237e5419b2d886b7ced3d"
+      },
+      "HAL.auth_config": {
+        "source": "HAL",
+        "start_line": 929,
+        "end_line": 1107,
+        "sha256": "c5336d51824e5509916ff83d51b9f5a99da0d961ea3e6e22b1f60ef2cc9e224f"
+      },
+      "HAL.key": {
+        "source": "HAL",
+        "start_line": 1119,
+        "end_line": 1170,
+        "sha256": "cd8eb43ccf51ad3bfca8831dde0de3b71510efda2b7188aa06d9fb9f7d648819"
+      },
+      "HAL.shared_guard": {
+        "source": "HAL",
+        "start_line": 1170,
+        "end_line": 1185,
+        "sha256": "e886d6d310efba61cac172a98f18d4dc1f53fc0f737495e2829155b64f31db81"
+      },
+      "HAL.swap": {
+        "source": "HAL",
+        "start_line": 1280,
+        "end_line": 1305,
+        "sha256": "2e87d8312f768c2625a9115e77228a620a75da0487cea0d81d605608ea611a44"
+      },
+      "HAL.encrypt": {
+        "source": "HAL",
+        "start_line": 1360,
+        "end_line": 1464,
+        "sha256": "2b4ce1642e15b26678fc3390e9ac34749abddb1404dbb8e085608404fc347858"
+      },
+      "HAL.decrypt": {
+        "source": "HAL",
+        "start_line": 1503,
+        "end_line": 1627,
+        "sha256": "c132b171475e080271c83370d205a2b737508019766a7eea8c562a435e10c017"
+      },
+      "HAL.encrypt_IT": {
+        "source": "HAL",
+        "start_line": 1661,
+        "end_line": 1768,
+        "sha256": "4494c6f47839aac7f670d0d83bbc96722e75398261f33cbb17bf6d4fdf8c602f"
+      },
+      "HAL.encrypt_DMA": {
+        "source": "HAL",
+        "start_line": 1955,
+        "end_line": 2054,
+        "sha256": "3e755ea52c272515472ff419e3370d38521103327709ea32c3b0640af33c0688"
+      },
+      "HAL.suspend_resume": {
+        "source": "HAL",
+        "start_line": 2220,
+        "end_line": 2297,
+        "sha256": "53b965bc04a424ed2cf3d095269e077a354da2756ef9935dc1febf89bec4f342"
+      },
+      "HAL.save": {
+        "source": "HAL",
+        "start_line": 2307,
+        "end_line": 2382,
+        "sha256": "9053131e9347db9d729f0c304cf62cd2059221f9550ff5f29f1e4ddae8a1f7fa"
+      },
+      "HAL.restore": {
+        "source": "HAL",
+        "start_line": 2393,
+        "end_line": 2487,
+        "sha256": "508c8fb17c9c2556b37b0cc92b7ad5fe37a1fce9faaaba32c8bd0927cb9c73ef"
+      },
+      "HAL.IRQ": {
+        "source": "HAL",
+        "start_line": 2516,
+        "end_line": 2641,
+        "sha256": "aa72b5e15d687f10d7b68698916abca698eb5aa225618e5d281f99936e75c361"
+      },
+      "HAL.link_DMA": {
+        "source": "HAL",
+        "start_line": 2809,
+        "end_line": 2859,
+        "sha256": "536c0568a002b4692976e10f9f21a6b7d7722ec0cb5e4e1bc80b5cb281f9269e"
+      },
+      "HAL.IV_get": {
+        "source": "HAL",
+        "start_line": 2940,
+        "end_line": 3045,
+        "sha256": "8fbd0a7bd2ddb478d79d6441ec28f7cd30965b417044c5bf26836ee4d69e9762"
+      },
+      "HAL.tags": {
+        "source": "HAL",
+        "start_line": 3069,
+        "end_line": 3224,
+        "sha256": "fbbcdb63eb27446f9c612d301f23cdb95516e8cf6399e1c1bd4c4b161ec00037"
+      },
+      "HAL.key_IV": {
+        "source": "HAL",
+        "start_line": 3687,
+        "end_line": 3755,
+        "sha256": "b7fcf0f76b46867e75389d949ec5987796dbe33001ba021a5c0c575c0dd519a9"
+      },
+      "HAL.block_wait": {
+        "source": "HAL",
+        "start_line": 3768,
+        "end_line": 3835,
+        "sha256": "9a3fb5b3ee668b8ecd2fd779be86b72f99f5a7a56be2a0fa4d61a914b4763960"
+      },
+      "HAL.wait_nonblocking": {
+        "source": "HAL",
+        "start_line": 3839,
+        "end_line": 3923,
+        "sha256": "76962f0df811781f631ee4b1ebcafd56b01738efb8ccab7cd718cb212bf5b01f"
+      },
+      "HAL.derive": {
+        "source": "HAL",
+        "start_line": 3969,
+        "end_line": 3998,
+        "sha256": "3784aafdc4fd4cb48512c7ac77e7340aa09e4f5039f5b4f6c70616d4d99e43f1"
+      },
+      "HAL.basic_process": {
+        "source": "HAL",
+        "start_line": 4011,
+        "end_line": 4054,
+        "sha256": "97fd34f0f58be719300ad1ac2d690253600c9496d64e12abeefdb8edd955f4ba"
+      },
+      "HAL.basic_IT": {
+        "source": "HAL",
+        "start_line": 4063,
+        "end_line": 4217,
+        "sha256": "6e0870740f1c1bd6ecd9fea9d73b35d9793ed851677d3655d18de46dd5add3d1"
+      },
+      "HAL.basic_DMA": {
+        "source": "HAL",
+        "start_line": 4232,
+        "end_line": 4329,
+        "sha256": "c0ada0733181a2b9bdde1850d9029e416b2da79b94e406803b7efc760238fd0b"
+      },
+      "HAL.auth_poll": {
+        "source": "HAL",
+        "start_line": 4352,
+        "end_line": 4514,
+        "sha256": "90a9d2f2f7d43079267ffc29d133d61c5c442c0d9ec9694dc59a90b119ef5b54"
+      },
+      "HAL.padding": {
+        "source": "HAL",
+        "start_line": 4525,
+        "end_line": 4602,
+        "sha256": "9d2933fcad54015c865beefa07c23f060019a843ac61e91e77e8ffda90df34ac"
+      },
+      "HAL.auth_IT": {
+        "source": "HAL",
+        "start_line": 4613,
+        "end_line": 4933,
+        "sha256": "6a00896eee890c7d5ba6d3aee8f56341d64ad7bfc44ad1bbc6ee081006944772"
+      },
+      "HAL.padding_IT": {
+        "source": "HAL",
+        "start_line": 4941,
+        "end_line": 4991,
+        "sha256": "c43dcbb0b46cfd9881dd8f7d92b1853f101fa374cf2ee957ae9922223f9d8d4f"
+      },
+      "HAL.auth_DMA": {
+        "source": "HAL",
+        "start_line": 5009,
+        "end_line": 5174,
+        "sha256": "98ffbc4069ff002200ac924c14ff5fe6ab7145029bb2647e1d23b01214c862ba"
+      },
+      "HAL.header_DMA": {
+        "source": "HAL",
+        "start_line": 5198,
+        "end_line": 5268,
+        "sha256": "ed3142201e8174dd2d2637c171fa2ecd4a1eb8f437bacfc0ad3da8b47b4293de"
+      },
+      "HAL.padding_DMA": {
+        "source": "HAL",
+        "start_line": 5279,
+        "end_line": 5357,
+        "sha256": "d931a6cafaf7534ec32b266e8bb982b2f981c89847ea65799ba37ea06c86bb48"
+      },
+      "HAL.auth_DMA_callbacks": {
+        "source": "HAL",
+        "start_line": 5363,
+        "end_line": 5483,
+        "sha256": "ac5af91d350e2f2a726cc74d6ae5af85cc2247723ccb8ccaa50284150939055a"
+      },
+      "HAL.types": {
+        "source": "HAL_H",
+        "start_line": 48,
+        "end_line": 314,
+        "sha256": "7f8491d375c0a5ee48ea3ec29778fb880e62f1de22838d68a31e8e1916fdd658"
+      },
+      "HAL.flags": {
+        "source": "HAL_H",
+        "start_line": 520,
+        "end_line": 570,
+        "sha256": "40c9b0ea8ef5e2c1186a2325ecbd6099d430fcc439253b513ffbeb0bc87137c3"
+      },
+      "HAL.state_macro": {
+        "source": "HAL_DEF",
+        "start_line": 103,
+        "end_line": 134,
+        "sha256": "3087bce272a6b5bd7a6d82986140ed30dd42889a8309c3ae55540f99fdd38eeb"
+      },
+      "family.macros": {
+        "source": "family",
+        "start_line": 125,
+        "end_line": 141,
+        "sha256": "d35a7ca7bfb7a64ad61a3cc00d02f8906d005b5e8e1bc3ff9f01ab95fdeb7d80"
+      },
+      "RCC.enable": {
+        "source": "RCC_H",
+        "start_line": 1435,
+        "end_line": 1443,
+        "sha256": "24cf2fa4b26df8facce85ad887b2995fd584b35a236cd29037b7d8d04cc990f1"
+      },
+      "LL.clock": {
+        "source": "LL_BUS",
+        "start_line": 878,
+        "end_line": 885,
+        "sha256": "6392a6fcc9ffe067031611a1c76a50e0746b0a022499584891a0384e412d8d2f"
+      }
+    },
+    "errata_sha256": "821c22f796a9ff723afee534fe5943c2b0506325ec871d890706d94414316416",
+    "exact_scope_checks": {
+      "AES_instance_predicate": "Only AES",
+      "SAES_define_present": false,
+      "PKA_define_present": false,
+      "header_sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea",
+      "dedicated_LL_AES_module": "No dedicated AES/CRYP LL module found in pinned SDK file inventory; HAL uses exact register definitions directly. LL_BUS clock helper is bound.",
+      "AES_abort_API": "No HAL_AES_Abort declaration or definition found in pinned HAL AES .h/.c; DeInit is separately audited and is not a proven race-safe release protocol."
+    },
+    "scope": "Full RM0522 AES chapter 793 through 838, exact header, DS AES section and bounded HAL paths for configuration, polling, interrupts, DMA, context, tag and cleanup. No SAES/PKA, key sharing, hardware-key selection, runtime adapter, cryptographic certification or executable profile. SDK compilation options are source conditions, not a measured build configuration.",
+    "finite_source_maps": {
+      "instance": {
+        "name": "AES",
+        "base": "0x420C0000",
+        "IRQ": 68,
+        "clock": "AHB2 bus clock",
+        "RCC_enable_reset_sleep_bit": 16
+      },
+      "block_bytes": 16,
+      "key_bits": [
+        128,
+        256
+      ],
+      "CHMOD_logical_codes": {
+        "0": "ECB",
+        "1": "CBC",
+        "2": "CTR",
+        "3": "GCM or GMAC",
+        "4": "CCM"
+      },
+      "CHMOD_CR_encodings": {
+        "ECB": "0x00000000",
+        "CBC": "0x00000020",
+        "CTR": "0x00000040",
+        "GCM_GMAC": "0x00000060",
+        "CCM": "0x00010000"
+      },
+      "CHMOD_qualification": "Field is split across CR bit 16 and bits 6:5; logical code 4 is not 4 shifted left 5. Codes 5 through 7 are reserved.",
+      "MODE": {
+        "0": "encrypt",
+        "1": "key preparation, ECB/CBC decryption only",
+        "2": "decrypt",
+        "3": "reserved"
+      },
+      "CPHASE": {
+        "0": "initialization",
+        "1": "header",
+        "2": "payload",
+        "3": "final"
+      },
+      "DATATYPE": {
+        "0": "none",
+        "1": "half-word swap",
+        "2": "byte swap",
+        "3": "bit swap"
+      },
+      "KEYSIZE_bit18": {
+        "0": 128,
+        "1": 256
+      },
+      "KMOD_exact_candidate": [
+        0
+      ],
+      "KMOD_family_only": {
+        "2": "SAES shared key; excluded because exact C542 has no SAES"
+      },
+      "NPBLB": {
+        "min": 0,
+        "max": 15,
+        "meaning": "Number of least-significant padding bytes in last GCM encryption or CCM decryption payload block; zero means all bytes valid"
+      },
+      "access_width_bits": [
+        32
+      ],
+      "registers": [
+        {
+          "name": "CR",
+          "offset_hex": "0x0",
+          "access": "rw",
+          "reset_hex": "0x00000000"
+        },
+        {
+          "name": "SR",
+          "offset_hex": "0x4",
+          "access": "ro",
+          "reset_hex": "0x00000000"
+        },
+        {
+          "name": "DINR",
+          "offset_hex": "0x8",
+          "access": "wo",
+          "reset_hex": "0x00000000"
+        },
+        {
+          "name": "DOUTR",
+          "offset_hex": "0xc",
+          "access": "ro",
+          "reset_hex": "0x00000000"
+        },
+        {
+          "name": "KEYR0",
+          "offset_hex": "0x10",
+          "access": "wo",
+          "reset_hex": "0x00000000"
+        },
+        {
+          "name": "KEYR1",
+          "offset_hex": "0x14",
+          "access": "wo",
+          "reset_hex": "0x00000000"
+        },
+        {
+          "name": "KEYR2",
+          "offset_hex": "0x18",
+          "access": "wo",
+          "reset_hex": "0x00000000"
+        },
+        {
+          "name": "KEYR3",
+          "offset_hex": "0x1c",
+          "access": "wo",
+          "reset_hex": "0x00000000"
+        },
+        {
+          "name": "KEYR4",
+          "offset_hex": "0x30",
+          "access": "wo",
+          "reset_hex": "0x00000000"
+        },
+        {
+          "name": "KEYR5",
+          "offset_hex": "0x34",
+          "access": "wo",
+          "reset_hex": "0x00000000"
+        },
+        {
+          "name": "KEYR6",
+          "offset_hex": "0x38",
+          "access": "wo",
+          "reset_hex": "0x00000000"
+        },
+        {
+          "name": "KEYR7",
+          "offset_hex": "0x3c",
+          "access": "wo",
+          "reset_hex": "0x00000000"
+        },
+        {
+          "name": "IVR0",
+          "offset_hex": "0x20",
+          "access": "rw",
+          "reset_hex": "0x00000000"
+        },
+        {
+          "name": "IVR1",
+          "offset_hex": "0x24",
+          "access": "rw",
+          "reset_hex": "0x00000000"
+        },
+        {
+          "name": "IVR2",
+          "offset_hex": "0x28",
+          "access": "rw",
+          "reset_hex": "0x00000000"
+        },
+        {
+          "name": "IVR3",
+          "offset_hex": "0x2c",
+          "access": "rw",
+          "reset_hex": "0x00000000"
+        },
+        {
+          "name": "SUSPR0",
+          "offset_hex": "0x40",
+          "access": "rw",
+          "reset_hex": "0x00000000"
+        },
+        {
+          "name": "SUSPR1",
+          "offset_hex": "0x44",
+          "access": "rw",
+          "reset_hex": "0x00000000"
+        },
+        {
+          "name": "SUSPR2",
+          "offset_hex": "0x48",
+          "access": "rw",
+          "reset_hex": "0x00000000"
+        },
+        {
+          "name": "SUSPR3",
+          "offset_hex": "0x4c",
+          "access": "rw",
+          "reset_hex": "0x00000000"
+        },
+        {
+          "name": "SUSPR4",
+          "offset_hex": "0x50",
+          "access": "rw",
+          "reset_hex": "0x00000000"
+        },
+        {
+          "name": "SUSPR5",
+          "offset_hex": "0x54",
+          "access": "rw",
+          "reset_hex": "0x00000000"
+        },
+        {
+          "name": "SUSPR6",
+          "offset_hex": "0x58",
+          "access": "rw",
+          "reset_hex": "0x00000000"
+        },
+        {
+          "name": "SUSPR7",
+          "offset_hex": "0x5c",
+          "access": "rw",
+          "reset_hex": "0x00000000"
+        },
+        {
+          "name": "IER",
+          "offset_hex": "0x300",
+          "access": "rw",
+          "reset_hex": "0x00000000"
+        },
+        {
+          "name": "ISR",
+          "offset_hex": "0x304",
+          "access": "ro",
+          "reset_hex": "0x00000000"
+        },
+        {
+          "name": "ICR",
+          "offset_hex": "0x308",
+          "access": "wo",
+          "reset_hex": "0x00000000"
+        }
+      ],
+      "status_bits": {
+        "SR": {
+          "1": "RDERRF",
+          "2": "WRERRF",
+          "3": "BUSY",
+          "7": "KEYVALID"
+        },
+        "IER_ISR_ICR": {
+          "0": "CCF",
+          "1": "RWEIF",
+          "2": "KEIF"
+        }
+      },
+      "evidence": [
+        "RM0522:p95",
+        "RM0522:p793",
+        "RM0522:p795",
+        "RM0522:p825",
+        "RM0522:p826",
+        "RM0522:p827",
+        "RM0522:p828",
+        "RM0522:p834",
+        "RM0522:p835",
+        "RM0522:p836",
+        "RM0522:p837",
+        "RM0522:p838",
+        "header.layout",
+        "header.fields",
+        "header.IRQ",
+        "header.bus",
+        "header.base",
+        "header.instance",
+        "header.predicate",
+        "header.reset",
+        "header.clock",
+        "header.sleep",
+        "HAL.domains",
+        "HAL.types"
+      ]
+    },
+    "contracts": [
+      {
+        "id": "exact_modes",
+        "detail": "Exact AES supports 128/256-bit keys and ECB, CBC, CTR, GCM, GMAC and CCM. GMAC uses GCM hardware with header only, not a separate CHMOD code. No 192-bit key, SAES sharing, wrapped key, DHUK/BHK selection or side-channel resistance is admitted. HAL algorithm and DMA/context APIs depend on their USE_HAL_AES switches.",
+        "evidence": [
+          "RM0522:p793",
+          "RM0522:p794",
+          "RM0522:p812",
+          "DS15135:p18",
+          "DS15135:p19",
+          "HAL.types",
+          "HAL.domains",
+          "HAL.shared_guard"
+        ]
+      },
+      {
+        "id": "register_side_effects",
+        "detail": "DINR accepts four sequential words per input block, most significant word first; reads return zero. DOUTR consumes four output words, most significant first, only in the output phase. Unexpected reads return zero and set RDERRF/RWEIF; unexpected writes are ignored and set WRERRF/RWEIF. Processing continues after these access errors. No automatic data-register inspection is admitted.",
+        "evidence": [
+          "RM0522:p818",
+          "RM0522:p821",
+          "RM0522:p828",
+          "RM0522:p829"
+        ]
+      },
+      {
+        "id": "packing",
+        "detail": "DATATYPE affects DINR and DOUTR word contents, not bus width, word sequence, key or IV registers. Hardware key and IV register zero hold low-significance bits. HAL key helper takes most-significant words first and writes descending KEYR indices; IV helper takes IVR3 first. Treat memory word ordering separately from byte endian representation and swap selection.",
+        "evidence": [
+          "RM0522:p818",
+          "RM0522:p819",
+          "RM0522:p820",
+          "RM0522:p821",
+          "HAL.key_IV"
+        ]
+      },
+      {
+        "id": "key_loading",
+        "detail": "Set KEYSIZE before writing the complete key while EN=0. Write KEYR0 through KEYR3/7 ascending or descending; bad order sets KEIF, clears keys/KEYVALID, and KEIF must be cleared before reloading. KEYVALID gates EN. Key registers are write-only; they cannot be saved by reading them. Source states user knows the original key for restoration.",
+        "evidence": [
+          "RM0522:p820",
+          "RM0522:p821",
+          "RM0522:p825",
+          "RM0522:p827",
+          "RM0522:p829",
+          "RM0522:p835"
+        ]
+      },
+      {
+        "id": "configuration",
+        "detail": "BUSY and prior EN gate changes to DATATYPE, MODE, CHMOD, KEYSIZE and KMOD. Clearing then setting EN reinitializes processing; this is distinct from IPRST, which resets all registers except its own bit and loses key-relative state. IPRST must be low for configuration. Successful software state alone is not register acceptance.",
+        "evidence": [
+          "RM0522:p825",
+          "RM0522:p826",
+          "RM0522:p827"
+        ]
+      },
+      {
+        "id": "ECB_CBC",
+        "detail": "ECB/CBC decrypt requires round-key preparation, wait for CCF, clear CCF, then select decrypt without altering other settings. Key preparation automatically clears EN. CBC requires an IV and mutates IV registers across blocks. Neither hardware nor the basic HAL paths implement arbitrary-length ciphertext stealing; a complete externally specified block/padding policy is required.",
+        "evidence": [
+          "RM0522:p799",
+          "RM0522:p800",
+          "RM0522:p802",
+          "RM0522:p803",
+          "HAL.derive",
+          "HAL.basic_process"
+        ]
+      },
+      {
+        "id": "CTR",
+        "detail": "RM describes 96-bit IV unique per encryption with a given key and 32-bit big-endian counter initially 1. CTR decrypt uses the encryption core and needs no ECB/CBC round-key preparation. Counter exhaustion, nonce allocation and partial-block continuation are caller policy; no executable counter-wrap domain is inferred.",
+        "evidence": [
+          "RM0522:p804",
+          "RM0522:p805",
+          "RM0522:p806"
+        ]
+      },
+      {
+        "id": "GCM_GMAC",
+        "detail": "RM GCM initialization uses IVR0 counter 2 for first payload block. It requires initialization, optional zero-padded AAD, optional payload and final concatenated 64-bit AAD/payload bit lengths. Final DIN writes bypass swapping while tag output uses swapping. Do not disable EN between header/payload and final; authenticated decrypt must compare generated and received tags before trusting plaintext. GMAC omits payload.",
+        "evidence": [
+          "RM0522:p807",
+          "RM0522:p808",
+          "RM0522:p809",
+          "RM0522:p810",
+          "RM0522:p812"
+        ]
+      },
+      {
+        "id": "CCM",
+        "detail": "Caller prepares B0 and encoded associated-data header. Initialization computes mask state; header can be skipped when empty, payload can be absent. NPBLB is required for partial CCM decryption payload. Final phase produces a full tag block whose valid tag portion must be selected and compared by the caller. Literal B0/length inconsistencies remain unresolved below; no general CCM formatter is admitted.",
+        "evidence": [
+          "RM0522:p813",
+          "RM0522:p814",
+          "RM0522:p815",
+          "RM0522:p816",
+          "HAL.auth_config",
+          "HAL.tags"
+        ]
+      },
+      {
+        "id": "partial_blocks",
+        "detail": "Hardware does not automatically pad input. In authenticated modes, NPBLB is only relevant for GCM payload encryption and CCM payload decryption, not header phase. Padded final payload in those modes must be handled by CPU after DMA full blocks. Output beyond logical length must be discarded under a qualified buffer policy.",
+        "evidence": [
+          "RM0522:p797",
+          "RM0522:p798",
+          "RM0522:p799",
+          "RM0522:p825"
+        ]
+      },
+      {
+        "id": "IRQ_and_DMA",
+        "detail": "One AES vector combines CCF, read/write errors and key error. ICR uses write-one clearing; RWEIF clears both read and write errors. Two distinct DMA channel owners serve DINR and DOUTR, single 32-bit requests only. Key derivation ignores DMA enables. CCF is not meaningful with DMAOUTEN set; clear when returning to CPU transfers. EN or corresponding DMA-enable clearing deasserts requests, but does not alone prove DMA channel/ISR completion.",
+        "evidence": [
+          "RM0522:p822",
+          "RM0522:p823",
+          "RM0522:p835",
+          "RM0522:p836",
+          "header.IRQ"
+        ]
+      },
+      {
+        "id": "context",
+        "detail": "RM supports suspend/resume only in CPU mode. Finish and consume the current block, clear CCF, and save mode-dependent IV/SUSPR state before disabling. GCM encryption payload additionally requires BUSY=0 after CCF. SUSPRs clear when EN is cleared. Restore original key and configuration, with ECB/CBC decrypt preparation, and preserve all software/buffer ownership; no generic DMA context switch is admitted.",
+        "evidence": [
+          "RM0522:p800",
+          "RM0522:p803",
+          "RM0522:p804",
+          "RM0522:p806",
+          "RM0522:p810",
+          "RM0522:p811",
+          "RM0522:p816",
+          "RM0522:p817",
+          "RM0522:p834"
+        ]
+      },
+      {
+        "id": "clock_and_tamper",
+        "detail": "AHB clock and RCC bit16 control AES. LL clock enable performs RCC readback delay. RM268 cryptographic subsystem topology is C59x/5A3-only. RM102 system-security text names AES among peripherals automatically reset while protected tamper flags remain raised, although its erasable symmetric-key list explicitly names backup registers and HASH, not AES. RM795 describes AES fault output clearing key registers and requiring reset, while RM102 footnote says only RNG fault is an internal tamper source on C53x/C54x/C55x/C56x. Preserve that applicability conflict; no exact AES-to-TAMP fault route inferred.",
+        "evidence": [
+          "RM0522:p102",
+          "RM0522:p268",
+          "RM0522:p271",
+          "RM0522:p795",
+          "header.clock",
+          "header.reset",
+          "header.sleep",
+          "RCC.enable",
+          "LL.clock"
+        ]
+      },
+      {
+        "id": "errata_scope",
+        "detail": "Pinned ES0676 Rev2 applies to C542 revisions Z/Y and its summary has no AES-specific section. This is an inventory observation, not immunity from core/system errata or a security guarantee. Linked errata inventory remains required for integration.",
+        "evidence": [
+          "ES0676:p1",
+          "ES0676:p2",
+          "ES0676:p3"
+        ]
+      }
+    ],
+    "source_derived_SDK_gates": [
+      {
+        "id": "key_success_is_not_validity",
+        "detail": "SetNormalKey clears KEIF, modifies KEYSIZE and writes the key without explicitly disabling AES. WaitForSetKey waits only BUSY=0, not KEYVALID or KEIF, as its own note states. With writes ignored due to EN or invalid sequence, HAL_OK alone does not establish a usable new key. Encrypt/Decrypt separately check KEYVALID. Caller must control EN, key memory, field domains and stale validity.",
+        "evidence": [
+          "HAL.key",
+          "HAL.key_IV",
+          "HAL.encrypt",
+          "HAL.decrypt",
+          "RM0522:p820",
+          "RM0522:p827"
+        ]
+      },
+      {
+        "id": "validation",
+        "detail": "Instance, enum and many state checks are debug-only; process state check depends on USE_HAL_CHECK_PROCESS_STATE. Normal and secure parameter switches cover different pointer subsets. Authenticated Encrypt/Decrypt check nonnull input for nonzero size but do not check nonnull output in that branch, despite later output writes. Validate aligned readable input and writable rounded output storage independently. SetDataSwapping and key-size register set operands are not masked to legal supplied values.",
+        "evidence": [
+          "HAL.init_deinit",
+          "HAL.encrypt",
+          "HAL.decrypt",
+          "HAL.encrypt_DMA",
+          "HAL.swap",
+          "HAL.key",
+          "HAL.state_macro",
+          "family.macros"
+        ]
+      },
+      {
+        "id": "basic_partial_block",
+        "detail": "Basic polling computes ceil(size/16) blocks and reads four uint32 words from input for every block, without requiring size multiple 16. Output limit uses (size+2)/4, which is not ceil(size/4): a one-byte size yields zero output words, two bytes yields a four-byte store. IT uses the same output limit and full-block reads. These paths explicitly disclaim padding. Constrain any future basic HAL profile to complete blocks and validate C alignment/object access; no observed overrun is claimed. Basic DMA passes byte size unchanged to both channels without a full-block check. Partial sizes do not establish a complete AES block or output completion; DMA validation and outcome depend on channel configuration.",
+        "evidence": [
+          "HAL.encrypt",
+          "HAL.block_wait",
+          "HAL.basic_process",
+          "HAL.basic_IT",
+          "HAL.basic_DMA",
+          "RM0522:p798"
+        ]
+      },
+      {
+        "id": "authenticated_tail_storage",
+        "detail": "Polling, IT and DMA padding helpers read complete uint32 words even for partial bytes. Header tail is masked according to swap mode, while payload tail reads ceil(bytes/4) unmasked words and only pads missing whole words. Output stores ceil(bytes/4) words. Caller must provide readable final words, correct zero contents and writable rounded storage; byte length alone is insufficient. No claim that every nonzero tail produces an incorrect tag is made.",
+        "evidence": [
+          "HAL.padding",
+          "HAL.padding_IT",
+          "HAL.padding_DMA",
+          "RM0522:p799"
+        ]
+      },
+      {
+        "id": "GCM_length_arithmetic",
+        "detail": "GCM tag helper multiplies 32-bit header_size_byte and data_size_sum_byte by eight, then writes zero high length words. At 0x20000000 bytes the low bit length wraps; cumulative data_size_sum_byte itself uses unchecked uint32 addition. This does not implement the full RM 64-bit length range. Validate cumulative byte/bit arithmetic and distinguish per-call uint16 size from cumulative length.",
+        "evidence": [
+          "HAL.tags",
+          "HAL.types",
+          "HAL.auth_poll",
+          "HAL.auth_DMA_callbacks",
+          "RM0522:p808"
+        ]
+      },
+      {
+        "id": "tag_is_not_verification",
+        "detail": "GenerateAuthTAG writes four output words, disables AES and returns status; it neither compares an expected tag nor prevents callers consuming plaintext before authentication. Tag capacity, truncation policy, constant-time comparison and authenticated-output release remain outside these APIs.",
+        "evidence": [
+          "HAL.tags",
+          "RM0522:p810",
+          "RM0522:p816"
+        ]
+      },
+      {
+        "id": "timeout",
+        "detail": "Polling wait restarts HAL_GetTick for each block rather than imposing a whole-message deadline; it disables EN on timeout. Nonblocking helper counts CPU loop iterations using constants described as clock cycles, not measured AHB elapsed cycles. Interrupted ticks can prevent a millisecond timeout advancing. Timeout can leave partial output and does not prove DMA/IRQ release or erase caller keys.",
+        "evidence": [
+          "HAL.block_wait",
+          "HAL.wait_nonblocking",
+          "HAL.domains",
+          "HAL.auth_poll"
+        ]
+      },
+      {
+        "id": "DMA_start_failure",
+        "detail": "Basic and authenticated payload DMA start input channel before output channel. If output start fails, the functions disable AES, mark IDLE and invoke error callback, but do not abort the input channel already started. Both handles must remain owned until explicit channel quiescence; error callback is not buffer release. DMA callbacks are replaced during setup. No specific downstream DMA behavior is inferred. These paths set AES DMA request enables only after both starts succeed; with initially cleared request bits the first channel is armed without new AES requests, not proven to be transferring. Failure also returns HAL_ERROR after invoking the callback; caller recovery must handle both notifications once.",
+        "evidence": [
+          "HAL.basic_DMA",
+          "HAL.auth_DMA"
+        ]
+      },
+      {
+        "id": "DMA_error_and_DeInit",
+        "detail": "DMA error callback clears AES DMA request enables and CCF, then marks IDLE and invokes error callback, without aborting both DMA channels or clearing EN. DeInit clears requests, calls Abort on both handles when either request was enabled, ignores both results, then disables AES and pulses IPRST. Init initializes both handles NULL; a request enabled without linked handles can cause NULL Abort arguments. No race-safe release or caller-buffer erasure is established.",
+        "evidence": [
+          "HAL.wait_nonblocking",
+          "HAL.init_deinit"
+        ]
+      },
+      {
+        "id": "IRQ_error_policy",
+        "detail": "IRQ reads IER/SR/ISR snapshots. Read/write errors are recorded only with the optional last-errors field and cleared, without a dedicated error callback in that branch; processing may continue. Key error marks IDLE and calls error callback without stopping DMA or disabling all interrupt sources. CCF dispatch has no explicit ACTIVE preflight. Serialize handler, register access and lifetime owners.",
+        "evidence": [
+          "HAL.IRQ",
+          "HAL.flags"
+        ]
+      },
+      {
+        "id": "ICR_read_modify_write",
+        "detail": "HAL clear helpers use STM32_SET_BIT on the write-only ICR, which expands to read-modify-write. RM specifies writes clear flags but does not establish useful ICR readback in this excerpt. Preserve this access mismatch without asserting observed flag loss or a read value. A future adapter must qualify or avoid the read.",
+        "evidence": [
+          "HAL.flags",
+          "family.macros",
+          "RM0522:p836",
+          "header.layout"
+        ]
+      },
+      {
+        "id": "suspend_BUSY_precondition",
+        "detail": "Authenticated IT payload suspend marks SUSPENDED and calls its callback after output reading/CCF clearing, without checking BUSY=0. SaveContext then reads SUSPR and IV before disabling, also without checking BUSY. RM specifically requires GCM encryption payload BUSY=0 before saving. SUSPENDED alone is insufficient; no measured race asserted.",
+        "evidence": [
+          "HAL.auth_IT",
+          "HAL.save",
+          "RM0522:p810"
+        ]
+      },
+      {
+        "id": "suspend_final_boundary",
+        "detail": "Authenticated IT payload suspend accepts equality at a complete final block. Resume enables AES then calls StartPayloadPhase_IT with zero remaining bytes, reaching padding and attempting an extra block of four zero words in all authenticated modes. No output words are stored for that extra block. For GCM encryption or CCM decryption, the unmasked (16-0)<<20 set operand clears NPBLB and includes KMOD bit24; RM825 says KMOD writes are ignored with EN set, so this does not establish an effective KMOD change. The extra input block is the primary conditional source hazard. No observed cryptographic result; final-block suspend is not admitted. The input-complete callback can run synchronously inside Resume before interrupts are re-enabled. On the extra block completion, block_count is no longer less than data_block_numbers, so DOUTR is not read before completion dispatch.",
+        "evidence": [
+          "HAL.auth_IT",
+          "HAL.suspend_resume",
+          "family.macros",
+          "header.fields",
+          "RM0522:p825",
+          "HAL.padding_IT"
+        ]
+      },
+      {
+        "id": "context_pointer_lifetime",
+        "detail": "SaveContext stores original key/header/input/output pointers and callbacks, not independent immutable copies of their buffers. Restore checks context pointer only by assertion, writes saved CR wholesale and reloads key through the original pointer; it lacks an explicit WaitForSetKey/KEYVALID check on non-ECB/CBC-decrypt restore. Restrict contexts to trusted same-instance records and validate state, memory lifetime and hardware readiness before resume.",
+        "evidence": [
+          "HAL.save",
+          "HAL.restore",
+          "HAL.key_IV"
+        ]
+      },
+      {
+        "id": "callback_reentrancy",
+        "detail": "Basic IT output callback runs after IDLE is set, but the helper subsequently increments and writes block_count. A callback that starts a new operation can have that new handle state altered afterward. Authenticated IT and DMA callbacks have phase-dependent semantics; input completion is not authentication completion. Keep callbacks non-reentrant with respect to handle mutation until qualified.",
+        "evidence": [
+          "HAL.basic_IT",
+          "HAL.auth_IT",
+          "HAL.auth_DMA_callbacks"
+        ]
+      },
+      {
+        "id": "IV_getter_storage",
+        "detail": "CBC/CTR IV getters take a const uint8_t pointer but cast it and write four uint32 words. Optional checks enforce length 16 only when enabled. Require genuinely writable, correctly aligned 16-byte storage; the const signature is not a promise of no mutation.",
+        "evidence": [
+          "HAL.IV_get"
+        ]
+      },
+      {
+        "id": "DMA_suspend_not_admitted",
+        "detail": "RequestSuspend records a request in the handle and does not prove the transfer is CPU-driven; Resume dispatches IT helpers. No DMA suspend context capability is admitted from API presence, consistent with explicit RM prohibition.",
+        "evidence": [
+          "HAL.suspend_resume",
+          "RM0522:p798",
+          "RM0522:p800",
+          "RM0522:p823"
+        ]
+      },
+      {
+        "id": "suspend_partial_final_completion",
+        "detail": "With USE_HAL_AES_SUSPEND_RESUME=1 and a suspend request pending at authenticated IT partial-final completion, incremented block_count exceeds valid_block_numbers. The outer suspend branch is entered but its inner <= condition is false, so it skips both suspension and the normal completion else branch. The IRQ dispatcher has already cleared CCF before calling this helper. The helper then skips disabling interrupts, setting IDLE and invoking the completion callback; the active state and pending suspend request remain. Conditional source-level lifecycle gap; no repeated interrupt or hardware failure has been observed. Pending suspend at this boundary is not operationally admitted. It also skips adding this call's bytes to data_size_sum_byte; subsequent tag length accounting is not established.",
+        "evidence": [
+          "HAL.auth_IT",
+          "HAL.suspend_resume",
+          "HAL.IRQ",
+          "HAL.tags"
+        ]
+      },
+      {
+        "id": "authenticated_chunk_boundary",
+        "detail": "Successive authenticated payload calls accumulate data_size_sum_byte, but each call pads its own partial tail. Non-final chunks must be multiples of 16 bytes; only the final message block can be partial under RM procedures. A partial intermediate call inserts padding mid-message and can leave NPBLB configured for later calls; these payload helpers do not restore it for a subsequent full chunk. No arbitrary byte-stream chunking is admitted. Header-only calls do not advance data_size_sum_byte, so the next payload call can repeat initialization and header processing. Separate header/payload calls are not a qualified streaming protocol.",
+        "evidence": [
+          "HAL.auth_poll",
+          "HAL.auth_IT",
+          "HAL.auth_DMA",
+          "HAL.auth_config",
+          "RM0522:p809",
+          "RM0522:p810",
+          "RM0522:p816"
+        ]
+      },
+      {
+        "id": "DMA_synchronous_completion",
+        "detail": "Authenticated DMA paths can finish synchronously: a payload shorter than one block is processed by the CPU and returns HAL_OK with state IDLE, without input/output completion callbacks on that path. Header-only paths can likewise finish without those callbacks. Empty header and payload return IDLE with EN set. Do not assume every successful DMA-named call schedules a callback or that IDLE implies EN cleared; distinguish synchronous completion from channel-driven completion. A DMA-sized header with no payload reaches IDLE later inside the input DMA callback, still without a user completion callback. A short payload after that header is CPU-processed inside the DMA callback, whose call discards the helper return value. Thus channel-driven completion can also omit a user callback.",
+        "evidence": [
+          "HAL.auth_DMA",
+          "HAL.header_DMA",
+          "HAL.auth_DMA_callbacks"
+        ]
+      },
+      {
+        "id": "authenticated_empty_continuation",
+        "detail": "When an authenticated continuation reaches the helper with data_size_sum_byte nonzero and zero payload (or no input), the IT helper does no work and returns HAL_OK; the DMA helper returns its initial HAL_ERROR. Neither branch restores the caller-set ACTIVE state or schedules a completion callback. Public validation/build conditions still apply. For an initially empty header and payload, IT sets IDLE with EN retained and no completion callback. No empty-call no-op protocol is admitted.",
+        "evidence": [
+          "HAL.auth_IT",
+          "HAL.auth_DMA",
+          "HAL.encrypt_IT",
+          "HAL.encrypt_DMA"
+        ]
+      }
+    ],
+    "conflicts": [
+      {
+        "id": "SAES_shared_key",
+        "detail": "DS19 Table5 marks shared key between SAES and AES supported, while RM793 explicitly excludes SAES from C542 and exact header lacks the SAES instance. KMOD fields and family descriptions do not establish an exact key-sharing route. HAL shared-key APIs are under defined(SAES).",
+        "evidence": [
+          "DS15135:p19",
+          "RM0522:p793",
+          "HAL.shared_guard",
+          "header.predicate"
+        ]
+      },
+      {
+        "id": "padding_end",
+        "detail": "RM799 says append zero bits at the trailing end; RM825 NPBLB describes least-significant padding bytes. RM820 says example zeros form a contiguous zone at the MSB end. Preserve conflicting direction wording; no silent generic bit-padding decoder.",
+        "evidence": [
+          "RM0522:p799",
+          "RM0522:p820",
+          "RM0522:p825"
+        ]
+      },
+      {
+        "id": "GCM_length_positions",
+        "detail": "RM807 prose calls out AAD bits32:63 and payload bits96:127, while Table208 and its figure use two full 64-bit bit lengths in AAD-high/AAD-low/payload-high/payload-low word order. Use the literal table as source mapping and retain disagreement; no full length-domain runtime admitted.",
+        "evidence": [
+          "RM0522:p807",
+          "RM0522:p808"
+        ]
+      },
+      {
+        "id": "CCM_nonce_and_boundaries",
+        "detail": "RM813 says Len(N)+Len(P)=15 bytes although B0 allocates a length-encoding field Q rather than the payload itself; the worked example nonce7/payload4 does not satisfy that printed sum. The same page uses strict inequalities that leave equality boundaries out of its AAD length encoding cases. No correction from an external standard is silently imported.",
+        "evidence": [
+          "RM0522:p813",
+          "RM0522:p814"
+        ]
+      },
+      {
+        "id": "CCM_B0_table",
+        "detail": "RM815 instruction says write B0 to IV registers, but Table209 footnotes clear the five most-significant flag bits and Q length bits except bit0, describing counter-like modifications. HAL CCM_SetConfig writes supplied p_b0 unchanged through AES_SetIV. Preserve the competing instructions pending independent CCM formatting qualification.",
+        "evidence": [
+          "RM0522:p815",
+          "HAL.auth_config",
+          "HAL.key_IV"
+        ]
+      },
+      {
+        "id": "register_map_end",
+        "detail": "RM838 lists reserved region beginning 0x309 despite 32-bit ICR at 0x308, whose byte extent reaches 0x30B. Exact header places the 32-bit ICR at 0x308. Do not create overlapping byte registers from the table typo.",
+        "evidence": [
+          "RM0522:p836",
+          "RM0522:p838",
+          "header.layout"
+        ]
+      },
+      {
+        "id": "IV_width_typo",
+        "detail": "RM831/832 refer to IVI[128:0] while four 32-bit IV registers and their field labels establish IVI[127:0]. No extra 129th bit is admitted.",
+        "evidence": [
+          "RM0522:p831",
+          "RM0522:p832",
+          "header.layout"
+        ]
+      },
+      {
+        "id": "tamper_source_scope",
+        "detail": "AES internal-signal table describes aes_itamp_out to TAMP, but RM102 footnote restricts cryptographic fault tamper source to RNG on the exact C54x family. AES system-tamper reset behavior and AES-origin fault routing are different questions; latter remains unresolved.",
+        "evidence": [
+          "RM0522:p795",
+          "RM0522:p102"
+        ]
+      }
+    ],
+    "chapter_audit": {
+      "detail": "All 46 chapter pages retained, including diagrams as extracted text and register maps. Diagram geometry and mathematical superscript typography are not independently visually qualified. Chapter coverage is not complete SDK or cryptographic verification.",
+      "evidence": [
+        "RM0522:p793",
+        "RM0522:p794",
+        "RM0522:p795",
+        "RM0522:p796",
+        "RM0522:p797",
+        "RM0522:p798",
+        "RM0522:p799",
+        "RM0522:p800",
+        "RM0522:p801",
+        "RM0522:p802",
+        "RM0522:p803",
+        "RM0522:p804",
+        "RM0522:p805",
+        "RM0522:p806",
+        "RM0522:p807",
+        "RM0522:p808",
+        "RM0522:p809",
+        "RM0522:p810",
+        "RM0522:p811",
+        "RM0522:p812",
+        "RM0522:p813",
+        "RM0522:p814",
+        "RM0522:p815",
+        "RM0522:p816",
+        "RM0522:p817",
+        "RM0522:p818",
+        "RM0522:p819",
+        "RM0522:p820",
+        "RM0522:p821",
+        "RM0522:p822",
+        "RM0522:p823",
+        "RM0522:p824",
+        "RM0522:p825",
+        "RM0522:p826",
+        "RM0522:p827",
+        "RM0522:p828",
+        "RM0522:p829",
+        "RM0522:p830",
+        "RM0522:p831",
+        "RM0522:p832",
+        "RM0522:p833",
+        "RM0522:p834",
+        "RM0522:p835",
+        "RM0522:p836",
+        "RM0522:p837",
+        "RM0522:p838"
+      ]
+    },
+    "open_gates": [
+      "No algorithm known-answer tests, certification, side-channel qualification or hardware observation.",
+      "No executable mode admitted; accepted EXTI/composition/catalog resources remain unchanged.",
+      "Actual SDK build flags and all alternate configurations/caller paths remain unqualified.",
+      "Nonce uniqueness, counter wrap, replay policy, padding/CCM formatting, tag comparison and secure output release require independent policy and implementation.",
+      "Full TAMP access/reset/secret retention interaction, protection and silicon revision remain to be reconciled.",
+      "DMA widths, requests, controller/channel selection and paired completion ownership require a separately qualified composition.",
+      "Context restore and final-block suspension findings block automatic context switching.",
+      "No automatic reads of key, DINR, DOUTR or sensitive context storage; no key provisioning or resets authorized."
+    ]
+  }
+}

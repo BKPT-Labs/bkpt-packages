@@ -1,0 +1,4519 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/usart-contracts.json",
+    "sha256": "544322016b5455b5c3722ceedb411a5de8e63881399e3a00466b9220090922cb"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 193
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "schema": "bkpt.external.usart.contracts.v1",
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "review": "independent_source_review_pending",
+    "full_domain_closure": false,
+    "scope": "USART1/2 and UART4/5 exact-family source candidate. Full RM USART chapter read; bounded UART/USART/LL lifecycle paths only. LPUART and operational admission excluded.",
+    "sources": {
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "DS15135": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pdf",
+        "sha256": "1a3555f799297774a95978ab343ebc1f45ab9ef58d0dcf3600dec4fabed9355c",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pages.json",
+        "extraction_sha256": "b14b965adb6c1545edbca0e56b3c504e7ecc3a94bda197350ce2757b5a3d55dc"
+      },
+      "ES0676": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pdf",
+        "sha256": "a5463827337bcdbd3e5f2e0912a56307d78b568e5631b21cc9a25899c7d4a5e6",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pages.json",
+        "extraction_sha256": "2ab1b19e42b53e22ff5f3b98f6ed9a5f98f3b7b61a617abc3bb3b7fc050d1cb3"
+      },
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "HAL_def": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_def.h",
+        "sha256": "44149fa34fae22a75c3cfdf6607c5047d9f01141ba683b9b905c953ca31fb338"
+      },
+      "assert_template": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/templates/common/stm32_assert.h",
+        "sha256": "811b45570fdc34fc5ad7b308625795b0a8c2aff53c1a261694772df6b7fb205c"
+      },
+      "package": {
+        "path": "research://c5-reference/package-routes.json",
+        "sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288"
+      },
+      "errata": {
+        "path": "research://c5-reference/errata.json",
+        "sha256": "821c22f796a9ff723afee534fe5943c2b0506325ec871d890706d94414316416"
+      },
+      "dma_routing": {
+        "path": "research://c5-reference/dma-routing.json",
+        "sha256": "6f5d4d59950941a32d983ccc0907dda996415c9fd201cce9b2e8777bd86ae41d"
+      },
+      "family_header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c5xx.h",
+        "sha256": "61a0b8c2674d9e817d70aa8d2693339273f4283694f8ab5f8dca077bb69913f7"
+      },
+      "HAL_UART": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_uart.c",
+        "sha256": "bacbdb4c890d08e184eb3ba2dd23c0b5fc8a1a0f8ae4979a56f7887f97f47633"
+      },
+      "HAL_USART": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_usart.c",
+        "sha256": "2ecd932ab9a9a94ee2b435819b10d2c0a0a8313628e7a7a88540ff356d92aaee"
+      },
+      "HAL_DMA": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_dma.c",
+        "sha256": "d16d944625a8477b8b52fff2745e9ed58ded3d7438717185a1281abf4500f64e"
+      },
+      "LL_USART": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_usart.h",
+        "sha256": "044c41883df6073361b59f51593577061155eb96e2962164d8c36df069b8baa8"
+      },
+      "LL_DMA": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_dma.h",
+        "sha256": "0983050fda989d6c7577c49e52df21ed71055b48490017c20080b7b6e072dacd"
+      },
+      "HAL_SMARTCARD": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_smartcard.c",
+        "sha256": "60c81e4068c35126b75eb4a478e48957623a33f585a05e915caf28e8f651dc2a"
+      }
+    },
+    "evidence": {
+      "RM0522:p315": {
+        "source": "RM0522",
+        "page": 315,
+        "sha256": "eb3180267c2b339512a68ae86307dab683498ed21be0db08e0c412fe073b451c"
+      },
+      "RM0522:p1797": {
+        "source": "RM0522",
+        "page": 1797,
+        "sha256": "20f2bb384821ccc64485de963f532088641cdae20a0a1a87e8842dbc40003640"
+      },
+      "RM0522:p1798": {
+        "source": "RM0522",
+        "page": 1798,
+        "sha256": "eebc7c18a600af0f54726a716da6658f9db8f1000fead0cf93bfff62a00f136c"
+      },
+      "RM0522:p1799": {
+        "source": "RM0522",
+        "page": 1799,
+        "sha256": "18561ce4c958a06e392a0de51d605c85837ec883e77ba19583bbafdad9861e2d"
+      },
+      "RM0522:p1800": {
+        "source": "RM0522",
+        "page": 1800,
+        "sha256": "3fc9eaa8a5738b04e9d892c55c723c1384fb1fd777ea1a8672c7b625c6ad4668"
+      },
+      "RM0522:p1801": {
+        "source": "RM0522",
+        "page": 1801,
+        "sha256": "7f93cd37a44eaacb419672bea0215e0a07e35f71b41de39059ffd4a0c1fda146"
+      },
+      "RM0522:p1802": {
+        "source": "RM0522",
+        "page": 1802,
+        "sha256": "71f492a97a5f0415192a12a18124269e4251fd36ab718c706953204a4cb73849"
+      },
+      "RM0522:p1803": {
+        "source": "RM0522",
+        "page": 1803,
+        "sha256": "34fc15d76c66e4969ba318f3fbbdb1ea7cf48d7c65b27ae8b3024e6d01a8d316"
+      },
+      "RM0522:p1804": {
+        "source": "RM0522",
+        "page": 1804,
+        "sha256": "fc7588ce6bbe6a517619a52f1a671fe1b43f61ff995b0557d17b6b1430d8e09b"
+      },
+      "RM0522:p1805": {
+        "source": "RM0522",
+        "page": 1805,
+        "sha256": "e00286dbf789d78a03868957601804ef4118bb56f658d0de92824f9803e75910"
+      },
+      "RM0522:p1806": {
+        "source": "RM0522",
+        "page": 1806,
+        "sha256": "cbb31b8424a7db2a30edbab318c942e424ea2878c666eb91f08e87ddc829a033"
+      },
+      "RM0522:p1807": {
+        "source": "RM0522",
+        "page": 1807,
+        "sha256": "ee2e95d84be811a0a8dfd58a4ee9efa96c88be53e0bb256fc62fbbecd68a5f30"
+      },
+      "RM0522:p1808": {
+        "source": "RM0522",
+        "page": 1808,
+        "sha256": "7de2495e75ba051f9752c9e2b1535d55e14579b2c0796b168b120b201d979a31"
+      },
+      "RM0522:p1809": {
+        "source": "RM0522",
+        "page": 1809,
+        "sha256": "66fe523cff9a7af543c3001845ecd39ba85dd8de174bce6e19d38d805251db0c"
+      },
+      "RM0522:p1810": {
+        "source": "RM0522",
+        "page": 1810,
+        "sha256": "36d075fc0fd909c75ef7214017cd2d771b4db54504a2da71f42e14f7f576a202"
+      },
+      "RM0522:p1811": {
+        "source": "RM0522",
+        "page": 1811,
+        "sha256": "c844fd8458cc1fed7c6d4a02975bd427a3064a8bf39e84bf7c3ec66f2b520a72"
+      },
+      "RM0522:p1812": {
+        "source": "RM0522",
+        "page": 1812,
+        "sha256": "e0038d1cd6b08c2fc01f7f4090de65f41f055e0da2a338306740837837d5060d"
+      },
+      "RM0522:p1813": {
+        "source": "RM0522",
+        "page": 1813,
+        "sha256": "56cdad91b6e7c662d1d3f73331d1de993507c9a76afcf4daca20a322c13345ff"
+      },
+      "RM0522:p1814": {
+        "source": "RM0522",
+        "page": 1814,
+        "sha256": "13c22c5fe285cbb6d7fbb9f5861e04cad64baefe953be4559c652fd7d07efd52"
+      },
+      "RM0522:p1815": {
+        "source": "RM0522",
+        "page": 1815,
+        "sha256": "a87364b52abd4cb3e7a15f2cd00a5b7709dee885b66b07b2e38e516607b20b75"
+      },
+      "RM0522:p1816": {
+        "source": "RM0522",
+        "page": 1816,
+        "sha256": "acf732296bb5f1ba297cca1732e5dfe7491fb2446fe92dd43c390f9e58e63b5d"
+      },
+      "RM0522:p1817": {
+        "source": "RM0522",
+        "page": 1817,
+        "sha256": "db2bf740ffc23da2d90a73316ae6a66928b61a0a5467b27e41de592a8a45708c"
+      },
+      "RM0522:p1818": {
+        "source": "RM0522",
+        "page": 1818,
+        "sha256": "0a5c601691f54686d82476ddfe9cc98ab36ff689498e48c34fba83d8e1452d48"
+      },
+      "RM0522:p1819": {
+        "source": "RM0522",
+        "page": 1819,
+        "sha256": "c37367e6a1f2e78affa96064bd063d872e4e5160df5d30c2f8ce8be293722b9a"
+      },
+      "RM0522:p1820": {
+        "source": "RM0522",
+        "page": 1820,
+        "sha256": "91e940e113f2be39e9359fbb1a5b1c0d7f319f30eef3525af26db8d665fa5a0b"
+      },
+      "RM0522:p1821": {
+        "source": "RM0522",
+        "page": 1821,
+        "sha256": "371746f261979a165b3f3978bffc0300d65753a89a42d1d8c0ecd02ee240d0b9"
+      },
+      "RM0522:p1822": {
+        "source": "RM0522",
+        "page": 1822,
+        "sha256": "eb1006f0914b3bcde76730a9749b515d888db33c27bb640e2b42c28466f2dbd0"
+      },
+      "RM0522:p1823": {
+        "source": "RM0522",
+        "page": 1823,
+        "sha256": "93844fc7a9b80b6dfaccf903cfe589b7dc4d91ec727983ff6654ddab02da7eb9"
+      },
+      "RM0522:p1824": {
+        "source": "RM0522",
+        "page": 1824,
+        "sha256": "9c80d34d4d3612eddbc24ccc9359f22e191a409cc13eea68805688e391dd1d73"
+      },
+      "RM0522:p1825": {
+        "source": "RM0522",
+        "page": 1825,
+        "sha256": "619df8917a116b0bd06a6aa9cb92051227e219b0466b048a2ffd728dc07e85b4"
+      },
+      "RM0522:p1826": {
+        "source": "RM0522",
+        "page": 1826,
+        "sha256": "634951a26dbde22449a9629702d337622394319e30bfd7a3bd9366080ab95cd9"
+      },
+      "RM0522:p1827": {
+        "source": "RM0522",
+        "page": 1827,
+        "sha256": "d60ebbbe414351350305e6b720268bbd76fd30f7699f471024fe0213db61ba0c"
+      },
+      "RM0522:p1828": {
+        "source": "RM0522",
+        "page": 1828,
+        "sha256": "ff1402510d4ff5455307c8130f13fd8f7ff6325cd618264d718b1a3b9ab0e43d"
+      },
+      "RM0522:p1829": {
+        "source": "RM0522",
+        "page": 1829,
+        "sha256": "5c029d14285673a71d0474fb17e19218518b58b4778fd91ad7c8d49a9e8dc43a"
+      },
+      "RM0522:p1830": {
+        "source": "RM0522",
+        "page": 1830,
+        "sha256": "39b6ea8ef3119722fd7c280e63337748d07a79c0e30f22abf7d30faccfbbabce"
+      },
+      "RM0522:p1831": {
+        "source": "RM0522",
+        "page": 1831,
+        "sha256": "7331b86d131d52f1f06c2107f06a5db595d88dc5d93f70fa4d7f206227ce7fc4"
+      },
+      "RM0522:p1832": {
+        "source": "RM0522",
+        "page": 1832,
+        "sha256": "e045961d4bbc7ba9be8c22c094cf0642f849fb512b0f2e25902251bf1105995e"
+      },
+      "RM0522:p1833": {
+        "source": "RM0522",
+        "page": 1833,
+        "sha256": "a94a413ef7be9e4902f41038ab82b346406d6fcdcd16a05aa006309691f57599"
+      },
+      "RM0522:p1834": {
+        "source": "RM0522",
+        "page": 1834,
+        "sha256": "b3426abd04fe3fed07cff8c56d52bc66e87ceeaec4db0f3aa3267b4b32c989da"
+      },
+      "RM0522:p1835": {
+        "source": "RM0522",
+        "page": 1835,
+        "sha256": "e81c751519a03425f26cb7cbef687589ab36e425a0392a8109b65d634bb029ef"
+      },
+      "RM0522:p1836": {
+        "source": "RM0522",
+        "page": 1836,
+        "sha256": "1ac72d12927404d59d5cbda47a62026f1eab39f86a558b90ee678eea06513563"
+      },
+      "RM0522:p1837": {
+        "source": "RM0522",
+        "page": 1837,
+        "sha256": "3c4cf495ccc4f6eb6dfd060ed9a9a52ad17def9c202c52a1df3d1aff38fa57e7"
+      },
+      "RM0522:p1838": {
+        "source": "RM0522",
+        "page": 1838,
+        "sha256": "8ab4235f16907294dcb5f82749b0e7b23369fbd36bad3b7ab853e0523f5e657d"
+      },
+      "RM0522:p1839": {
+        "source": "RM0522",
+        "page": 1839,
+        "sha256": "deb71361f092fec28dfbb59e40cd213a1b975d64ff83580d0b3b3a19863fb235"
+      },
+      "RM0522:p1840": {
+        "source": "RM0522",
+        "page": 1840,
+        "sha256": "b36f88b1e82acc9379bf3de17c7b45de3e73d53a53c33fe46ddb3b281236f513"
+      },
+      "RM0522:p1841": {
+        "source": "RM0522",
+        "page": 1841,
+        "sha256": "412eb0861864e70f3aa7d1cf131a442ad7ad11ea51214ecbc28e389d1f84ac17"
+      },
+      "RM0522:p1842": {
+        "source": "RM0522",
+        "page": 1842,
+        "sha256": "91c574ed7771d0feee192e6eca021ff1c22f61def3770889ff95f095896be6d7"
+      },
+      "RM0522:p1843": {
+        "source": "RM0522",
+        "page": 1843,
+        "sha256": "f3c3780c2a2ed40154495a80dd6f89e21cb4a60558f695d71177cab94a199cd6"
+      },
+      "RM0522:p1844": {
+        "source": "RM0522",
+        "page": 1844,
+        "sha256": "40147054e22ac0908ecb37ba6c61e13a41ec375e54120f4032e5a6d1cfa59f01"
+      },
+      "RM0522:p1845": {
+        "source": "RM0522",
+        "page": 1845,
+        "sha256": "734a692efe121fa536bb159c621f10a715d85b1ba3c2e88c3efae7648f018926"
+      },
+      "RM0522:p1846": {
+        "source": "RM0522",
+        "page": 1846,
+        "sha256": "85aa0bdeef27d859b7bcfe75ec6a05c8ae0282ed266129568fe46e085cbadcfb"
+      },
+      "RM0522:p1847": {
+        "source": "RM0522",
+        "page": 1847,
+        "sha256": "b8f93d4d9181b7abdb9dcc4da7f9d4ca6379645b6c467876b5992bd785df923d"
+      },
+      "RM0522:p1848": {
+        "source": "RM0522",
+        "page": 1848,
+        "sha256": "d2d7862ea9826b6d3fba51082356254af24beb6fe303aa9120db43db74a1a91e"
+      },
+      "RM0522:p1849": {
+        "source": "RM0522",
+        "page": 1849,
+        "sha256": "2caeb36fe7f57851dace1f556dcccc00647c92a6609352318c049e8d329507df"
+      },
+      "RM0522:p1850": {
+        "source": "RM0522",
+        "page": 1850,
+        "sha256": "87326666a03831b32f1f48671ca55965b7a62cf9c6b327ccd2f4c5c6b8eaf773"
+      },
+      "RM0522:p1851": {
+        "source": "RM0522",
+        "page": 1851,
+        "sha256": "20011fdb78bc6d00bbe716735b5cf1e7691830d776f9c108c772d3fe1278ced0"
+      },
+      "RM0522:p1852": {
+        "source": "RM0522",
+        "page": 1852,
+        "sha256": "524cfbfb8eeaf7d0a6d9820ebce2da13c3ea6a4c53314c1c1c01b77ee0a8cb95"
+      },
+      "RM0522:p1853": {
+        "source": "RM0522",
+        "page": 1853,
+        "sha256": "335c194058af5b2b1d5a07bc3a0eb61ec976ad5002d4048ce2f48c6aa2115be7"
+      },
+      "RM0522:p1854": {
+        "source": "RM0522",
+        "page": 1854,
+        "sha256": "2f49429b54b38e24b00562a7628216efeaf6fcb25853f19f967406d51963ab9e"
+      },
+      "RM0522:p1855": {
+        "source": "RM0522",
+        "page": 1855,
+        "sha256": "3adac233d0fad38b38cd7d59bf4add754a4b7a152c392642d0b3b7c3623e1069"
+      },
+      "RM0522:p1856": {
+        "source": "RM0522",
+        "page": 1856,
+        "sha256": "50f62a5732d704fafdd33ce56dfe971c9921bf57cbe1b88673f89c59ea2ec36a"
+      },
+      "RM0522:p1857": {
+        "source": "RM0522",
+        "page": 1857,
+        "sha256": "1c4135151dd48e23b03bfff56d753db44f5bcb605a1abd807925803c146a07df"
+      },
+      "RM0522:p1858": {
+        "source": "RM0522",
+        "page": 1858,
+        "sha256": "13a48a762435a82365dfcdd0df0a605ae90aa6f035a444cef8a84b4b3d5cec99"
+      },
+      "RM0522:p1859": {
+        "source": "RM0522",
+        "page": 1859,
+        "sha256": "706b451110b9d511419283266dc7f5431f0541dcaefe3f9b4077bf4ea8e1f513"
+      },
+      "RM0522:p1860": {
+        "source": "RM0522",
+        "page": 1860,
+        "sha256": "02ed3f00e4ed902365d2b09a26d742731140e3e5104da47c5c1325b2be75f234"
+      },
+      "RM0522:p1861": {
+        "source": "RM0522",
+        "page": 1861,
+        "sha256": "8c7f31be57b772dd66d42fe043d67c805c1542f744c6210804421e80d89135e7"
+      },
+      "RM0522:p1862": {
+        "source": "RM0522",
+        "page": 1862,
+        "sha256": "854603160a4e38be12de265fcdaff76f0dbd592509ab7de361815a7251c7a9d3"
+      },
+      "RM0522:p1863": {
+        "source": "RM0522",
+        "page": 1863,
+        "sha256": "6c4531e8aac6c78541a70dd990e12da10ee26be1f07335f268233332d313d849"
+      },
+      "RM0522:p1864": {
+        "source": "RM0522",
+        "page": 1864,
+        "sha256": "606f39a352dd02de3f5cd8abacd578913cf6eb9b6bf607e5b383e784980d29b4"
+      },
+      "RM0522:p1865": {
+        "source": "RM0522",
+        "page": 1865,
+        "sha256": "21838b68e8227230d0f17b5dac51d2b14f6ca282d016c79c595cdcc7d8440e45"
+      },
+      "RM0522:p1866": {
+        "source": "RM0522",
+        "page": 1866,
+        "sha256": "821edbf6781776cf14ab891b2562f0e1fbc1c9e8407d8587263885fe6f85b373"
+      },
+      "RM0522:p1867": {
+        "source": "RM0522",
+        "page": 1867,
+        "sha256": "ea465e0fb9381abdb46256aac0318019b18be540a226666dba99694a166321dd"
+      },
+      "RM0522:p1868": {
+        "source": "RM0522",
+        "page": 1868,
+        "sha256": "ee9bb26da5fa03be3c118f5635bf3eba20d2a6a4995adafd3a09d8d500117887"
+      },
+      "RM0522:p1869": {
+        "source": "RM0522",
+        "page": 1869,
+        "sha256": "be71a24699efc491564f6ab8c4d33c7ebd7e11a2b9cbe5c031f47f4cf25fcd75"
+      },
+      "RM0522:p1870": {
+        "source": "RM0522",
+        "page": 1870,
+        "sha256": "e0939aaa615138efc4424a2c94b5e0604bdce6602dee9e0a6ae53c89a371d59c"
+      },
+      "RM0522:p1871": {
+        "source": "RM0522",
+        "page": 1871,
+        "sha256": "e384447f8335bb2b6b49cc187e7287e8ccbc66038f0e7148fcda053755f69ae2"
+      },
+      "RM0522:p1872": {
+        "source": "RM0522",
+        "page": 1872,
+        "sha256": "479d7efa347b86fcf11c4788152107582b0139e7b8bdd268b15830250263750c"
+      },
+      "RM0522:p1873": {
+        "source": "RM0522",
+        "page": 1873,
+        "sha256": "d3b449bce56de88762da57435b6e6b4697f7431f69265af46ca43cb92c24a127"
+      },
+      "RM0522:p1874": {
+        "source": "RM0522",
+        "page": 1874,
+        "sha256": "dd2cf844dddf94d9637036ca77ada7e3cd405e629d3eb389c706dea9c29985a9"
+      },
+      "RM0522:p1875": {
+        "source": "RM0522",
+        "page": 1875,
+        "sha256": "afcf23f19702f183f90d4c060b7570055a8a9957cfde27f950a908dee3be59c0"
+      },
+      "RM0522:p1876": {
+        "source": "RM0522",
+        "page": 1876,
+        "sha256": "c1c4bcdbb5411803df8a2d639b9178cad6bf3b69cedbbe7e4f96bfaae5fb33fb"
+      },
+      "RM0522:p1877": {
+        "source": "RM0522",
+        "page": 1877,
+        "sha256": "363df67af83c446127ad487ce410b6652f3b04148401b4ed48fede234e01d824"
+      },
+      "RM0522:p1878": {
+        "source": "RM0522",
+        "page": 1878,
+        "sha256": "4cf1476b1f2efe5e113122fdfee5aa0eae89bafd006347103885ca257b690bd1"
+      },
+      "RM0522:p1879": {
+        "source": "RM0522",
+        "page": 1879,
+        "sha256": "41ec3b098cdd337fb66c8dbb5321e5270dd8bba43a29eedadff8ddb3cd7c46d2"
+      },
+      "RM0522:p1880": {
+        "source": "RM0522",
+        "page": 1880,
+        "sha256": "389b32dcd6c03522fe5727c65d6f093e765869c3cbcb9720888022a557ac31db"
+      },
+      "RM0522:p1881": {
+        "source": "RM0522",
+        "page": 1881,
+        "sha256": "b73ad524d7f4ab446220d72720d378b84b937add1050de6bb46a2d1d1d35a1d9"
+      },
+      "RM0522:p1882": {
+        "source": "RM0522",
+        "page": 1882,
+        "sha256": "48e9975b46f9c3d5219b369d166d4a07be393b29dd57714f4f95dffd8cca6dda"
+      },
+      "RM0522:p1883": {
+        "source": "RM0522",
+        "page": 1883,
+        "sha256": "1031662280342d8b89b5b5d823ca7ce4aadbfc72081f23899cfc93fb6eadc498"
+      },
+      "RM0522:p1884": {
+        "source": "RM0522",
+        "page": 1884,
+        "sha256": "da3c233bb9d5b3212ac03b8bcb9aa8a9158443bda0100a1072cca33dfe50be4d"
+      },
+      "RM0522:p1885": {
+        "source": "RM0522",
+        "page": 1885,
+        "sha256": "386cbbcba344436f61e22f23fe40579d3981cea668a95c46a0385b3535ddc20c"
+      },
+      "RM0522:p1886": {
+        "source": "RM0522",
+        "page": 1886,
+        "sha256": "d7a208dd2cebb20fff71166993fc57c32fcd86b74c3f4b58653f76f27abfc1d8"
+      },
+      "RM0522:p1887": {
+        "source": "RM0522",
+        "page": 1887,
+        "sha256": "1270a4a94a1cafc752701a4144f315c9268e0f21ce4ddf76ce0f1a80f741161c"
+      },
+      "RM0522:p1888": {
+        "source": "RM0522",
+        "page": 1888,
+        "sha256": "ee7d6afae414dc256c6d4bc11a9b8e701e2d28e03a8ce498e9d560f0b35c40b5"
+      },
+      "DS15135:p28": {
+        "source": "DS15135",
+        "page": 28,
+        "sha256": "b79ba5375241e8f3577170d954b6c15c96515827329a7b9370eb81db95fe4f02"
+      },
+      "DS15135:p29": {
+        "source": "DS15135",
+        "page": 29,
+        "sha256": "51a2e2de463c89fbf670fc223d17f7bc24206c0994f62e36a45f1ca76d6a37e3"
+      },
+      "DS15135:p46": {
+        "source": "DS15135",
+        "page": 46,
+        "sha256": "6d3ea235bffc5fd4cc64517ff32cd2b29a37014ab6305628204e1fd9f3146269"
+      },
+      "DS15135:p47": {
+        "source": "DS15135",
+        "page": 47,
+        "sha256": "a55c52b1f30142be5ad3fea2a1cc16b519930dd08b32d16d646101500967a3b1"
+      },
+      "ES0676:p2": {
+        "source": "ES0676",
+        "page": 2,
+        "sha256": "3fed5303e4a0fc65ed4dbe6aae1c297605837e2da15bb0e24928d26b0d25eb95"
+      },
+      "ES0676:p9": {
+        "source": "ES0676",
+        "page": 9,
+        "sha256": "16f3f6e7cf8092fc36fa0c23e0e1346aa2510f7a06639a41f90caf8bab393c84"
+      },
+      "HAL.state_guard": {
+        "source": "HAL_def",
+        "start_line": 90,
+        "end_line": 131,
+        "sha256": "ec05f156b5890534af384b3b4fe7a7a65d06200afd567c1ce0fb40006cc55110"
+      },
+      "SDK.assertions": {
+        "source": "assert_template",
+        "start_line": 32,
+        "end_line": 66,
+        "sha256": "861f103410d3abf19ca2c0d7ebce70a0487134fd24a261f44885e14c19324da4"
+      },
+      "family.macros": {
+        "source": "family_header",
+        "start_line": 130,
+        "end_line": 142,
+        "sha256": "53238037d4d5827a42b9177f5166478587104441da533848b840727019c41699"
+      },
+      "header.IRQ": {
+        "source": "header",
+        "start_line": 109,
+        "end_line": 112,
+        "sha256": "d3d79626644f2302fcc68afcdc36581a0d1c4285c41222d51b1360c0661d8039"
+      },
+      "header.struct": {
+        "source": "header",
+        "start_line": 1015,
+        "end_line": 1029,
+        "sha256": "efc5df49a3db2e06966b5840ef4e830ab38389d5e489c0c657a2cd4c2ae2e1ae"
+      },
+      "header.bases": {
+        "source": "header",
+        "start_line": 1170,
+        "end_line": 1210,
+        "sha256": "72983273af944c8c6b97ae7ea34b3471f8fe688122d0e5bdcdef850a9f777f92"
+      },
+      "header.instances": {
+        "source": "header",
+        "start_line": 14319,
+        "end_line": 14394,
+        "sha256": "58bf9f5b1a3b1f2ee810db304c97619b753f2fbe0dccfe8f96348a334ce3cdeb"
+      },
+      "header.reset1": {
+        "source": "header",
+        "start_line": 8989,
+        "end_line": 8997,
+        "sha256": "8e0b69e440b778486b43ba019b27e50bbf6bbd894e42b282dc66c0716638843c"
+      },
+      "header.reset2": {
+        "source": "header",
+        "start_line": 9028,
+        "end_line": 9030,
+        "sha256": "2779cbf22f6fcbc6c0e6a10269fd34bd36c185090c03bbc436eeb626c753e8a4"
+      },
+      "header.enable1": {
+        "source": "header",
+        "start_line": 9137,
+        "end_line": 9147,
+        "sha256": "2a5e5298dc725f59127acca244a0b215a8fad845b3f6dba1c4bfa62982473e62"
+      },
+      "header.enable2": {
+        "source": "header",
+        "start_line": 9176,
+        "end_line": 9178,
+        "sha256": "b82380c6de9c7053d7f4c8da7fc197dfdc6257515c26402f53661d5e70c11b9a"
+      },
+      "header.sleep1": {
+        "source": "header",
+        "start_line": 9317,
+        "end_line": 9330,
+        "sha256": "489cfc48bfe082a5844a395d303ccf2c4decd47678842576d20b8f125a34eb53"
+      },
+      "header.sleep2": {
+        "source": "header",
+        "start_line": 9367,
+        "end_line": 9369,
+        "sha256": "b84c0b4978337891cfca0e721bff86e9816ef1347753392d580e2610cb97cb4e"
+      },
+      "header.mux": {
+        "source": "header",
+        "start_line": 9401,
+        "end_line": 9426,
+        "sha256": "ce7bb76a13d31354ae24062c5a2aed8169d6aa4c61ad61d4bcedc8f6fbb4ee55"
+      },
+      "HAL_UART.init_deinit": {
+        "source": "HAL_UART",
+        "start_line": 807,
+        "end_line": 916,
+        "sha256": "d25a171ef1574f3b147f5c7f0daac87142b28600fcea87d18d24e1963d807cba"
+      },
+      "HAL_UART.UE_macros": {
+        "source": "HAL_UART",
+        "start_line": 574,
+        "end_line": 596,
+        "sha256": "363612a13922bf8ceff7143405505c9ebaf12342ecc5972083750e2b312b9473"
+      },
+      "HAL_UART.config": {
+        "source": "HAL_UART",
+        "start_line": 999,
+        "end_line": 1100,
+        "sha256": "4cc484cb84e5a070688eeb9a9f7a55b75d38a374fe67285644955a2b99ade398"
+      },
+      "HAL_UART.disable_ABR": {
+        "source": "HAL_UART",
+        "start_line": 3214,
+        "end_line": 3229,
+        "sha256": "9e75179a91571d8856a77a34c3a42fc362f0010c3438a48ea8746b90b24ed04c"
+      },
+      "HAL_UART.tx_poll": {
+        "source": "HAL_UART",
+        "start_line": 4307,
+        "end_line": 4395,
+        "sha256": "012262094c5f55124db02f5fda7ea75b918489c28f31963657ae1f3b319ba23f"
+      },
+      "HAL_UART.tx_dma_wrapper": {
+        "source": "HAL_UART",
+        "start_line": 4594,
+        "end_line": 4615,
+        "sha256": "c292acd0501bab406e893a2ec44d16edc074d90864053668f0a0c40c71cf0049"
+      },
+      "HAL_UART.rx_dma_wrapper": {
+        "source": "HAL_UART",
+        "start_line": 4674,
+        "end_line": 4696,
+        "sha256": "7e24bba10e368c37ac5b19919b4bb68bd6749acc753155a4ccabeeaebaa082f6"
+      },
+      "HAL_UART.abort": {
+        "source": "HAL_UART",
+        "start_line": 4955,
+        "end_line": 5009,
+        "sha256": "edffd1b9193e34240f2dc779d987a0c971725d15d0b43acd0a02f0696f4109aa"
+      },
+      "HAL_UART.abort_it": {
+        "source": "HAL_UART",
+        "start_line": 5133,
+        "end_line": 5220,
+        "sha256": "e122cea2aea0a1a562935de4c328895523f9994cbd42d9790a357a7ab1c1a6ec"
+      },
+      "HAL_UART.IRQ_error": {
+        "source": "HAL_UART",
+        "start_line": 5451,
+        "end_line": 5621,
+        "sha256": "3679c0386973e92406045a945c8f32d9670b56e5e917f91473dc572b281294e2"
+      },
+      "HAL_UART.IRQ_boundary": {
+        "source": "HAL_UART",
+        "start_line": 5623,
+        "end_line": 5740,
+        "sha256": "dde15e1ba1a2d8ebe21a3d9da200f9fa518066c3d210901fc057e651b8e208c0"
+      },
+      "HAL_UART.IRQ_tail": {
+        "source": "HAL_UART",
+        "start_line": 5742,
+        "end_line": 5820,
+        "sha256": "7f9c69021453f843dcf2793c2d62f3377da069f28aee4d135017aaccc2bca833"
+      },
+      "HAL_UART.enable": {
+        "source": "HAL_UART",
+        "start_line": 7206,
+        "end_line": 7254,
+        "sha256": "a908fce1b3e64a34925b6eb835285ab4713065cc2ae412a3236c280a180b8f46"
+      },
+      "HAL_UART.wait": {
+        "source": "HAL_UART",
+        "start_line": 7267,
+        "end_line": 7313,
+        "sha256": "206c77f3c649097c36ad4ce0db62a717ad05cad7022be40a0565c338c4192a34"
+      },
+      "HAL_UART.rx_poll": {
+        "source": "HAL_UART",
+        "start_line": 7541,
+        "end_line": 7675,
+        "sha256": "0f587782f2027956ca48accce3d01e659d738c19b9e67cf94314e6bcb335db8c"
+      },
+      "HAL_UART.DMA_start": {
+        "source": "HAL_UART",
+        "start_line": 7692,
+        "end_line": 7864,
+        "sha256": "679de792ec734a246c5ab94261695e4304072541654ab6f8cf3c169dd364a196"
+      },
+      "HAL_UART.end_helpers": {
+        "source": "HAL_UART",
+        "start_line": 7871,
+        "end_line": 7929,
+        "sha256": "3a9666d425631cb91dea938cb9f0f8f0a2a301599911a8227f508ca4077fd5e5"
+      },
+      "HAL_UART.DMA_complete": {
+        "source": "HAL_UART",
+        "start_line": 7935,
+        "end_line": 8021,
+        "sha256": "3a2dca8f53c0b22687f358e5d851f3400080bf0c25f2202bcddff4d94f93d9db"
+      },
+      "HAL_UART.DMA_error": {
+        "source": "HAL_UART",
+        "start_line": 8042,
+        "end_line": 8073,
+        "sha256": "b2c2485f33858cfc95eff578fe307b2daaffbad1a8a5dc03b247d09deff4e98f"
+      },
+      "HAL_UART.DMA_abort_success": {
+        "source": "HAL_UART",
+        "start_line": 8255,
+        "end_line": 8303,
+        "sha256": "69f85d844f2cb2796da5953f10fa794235e9c4c6322a9eccd35ecaa3b3aabaf1"
+      },
+      "HAL_UART.FIFO_batch": {
+        "source": "HAL_UART",
+        "start_line": 8943,
+        "end_line": 8969,
+        "sha256": "8c0d4bd2dc525edb82dd93d2083e51a6368f101f39e0533e01c722a6fed4014f"
+      },
+      "HAL_UART.baud_guard": {
+        "source": "HAL_UART",
+        "start_line": 9003,
+        "end_line": 9024,
+        "sha256": "0d499acdbad33cb1ee559fbc305a797b137459412b337e4a60f1c49b0a423098"
+      },
+      "HAL_USART.init_deinit": {
+        "source": "HAL_USART",
+        "start_line": 643,
+        "end_line": 725,
+        "sha256": "baf0b79e5863ba0393a4d6ead0512fd68fc9ff12fa91dce223cc4d5a6a8a9704"
+      },
+      "HAL_USART.config": {
+        "source": "HAL_USART",
+        "start_line": 813,
+        "end_line": 890,
+        "sha256": "5be92529a59b071eb3fef03dd8da7c19507d0c17ecb561fe4739e9c8a85649fb"
+      },
+      "HAL_USART.tx_poll": {
+        "source": "HAL_USART",
+        "start_line": 2095,
+        "end_line": 2185,
+        "sha256": "33a5cc1f4e8424de69a633efb204af49c4d15e7f1ae51e268e8d1356ebfcee69"
+      },
+      "HAL_USART.abort_it": {
+        "source": "HAL_USART",
+        "start_line": 3123,
+        "end_line": 3236,
+        "sha256": "5f49aca9e5a43086901537516f330c4d38280f8a1d21346a46134c2381e0d503"
+      },
+      "HAL_USART.IRQ_error": {
+        "source": "HAL_USART",
+        "start_line": 3351,
+        "end_line": 3540,
+        "sha256": "0c6de0f62dbe75e1547bfdb0ab8a1c1780bec708570a9b9776c48d533148f789"
+      },
+      "HAL_USART.abort": {
+        "source": "HAL_USART",
+        "start_line": 3909,
+        "end_line": 3957,
+        "sha256": "3dd7bef438c1e67c7727d5eccf8ab378ab9f00a4b2209e2d40eddb1339e2b559"
+      },
+      "HAL_USART.end_transfer": {
+        "source": "HAL_USART",
+        "start_line": 3986,
+        "end_line": 3998,
+        "sha256": "adb6e72ba5bed72855040ca4fdbbd02d750faad55071cf56b7e6ab384b166a41"
+      },
+      "HAL_USART.DMA_complete": {
+        "source": "HAL_USART",
+        "start_line": 4004,
+        "end_line": 4134,
+        "sha256": "8224c99f844167e7177fa65e304e9c9927cbf9ab5ac7ea77df10807123f82650"
+      },
+      "HAL_USART.DMA_error": {
+        "source": "HAL_USART",
+        "start_line": 4157,
+        "end_line": 4183,
+        "sha256": "27a54d4b16f995a0fca628894bcb5a6d6bfbdbb4209f1712a607d7c66838b926"
+      },
+      "HAL_USART.enable_wait": {
+        "source": "HAL_USART",
+        "start_line": 4309,
+        "end_line": 4406,
+        "sha256": "31c313eb8115065cee8ebbe78b044a7c277dd9050b1515eb584ee9d26ff88f0f"
+      },
+      "HAL_USART.DMA_tx": {
+        "source": "HAL_USART",
+        "start_line": 5453,
+        "end_line": 5497,
+        "sha256": "687de1a11472d64fb307fd723de4648bdaa2ae6acf646fbfb236b7f40eb43e68"
+      },
+      "HAL_USART.DMA_rx": {
+        "source": "HAL_USART",
+        "start_line": 5511,
+        "end_line": 5593,
+        "sha256": "db0cdb8264fb39720689f21dfd15aa0538b407777d3c6dd8aff3eda6787071a5"
+      },
+      "HAL_USART.DMA_duplex": {
+        "source": "HAL_USART",
+        "start_line": 5609,
+        "end_line": 5701,
+        "sha256": "e7b7a102c985c6bbc5361798f5d3065f4cae5b2d56472ed7248970d1b948e074"
+      },
+      "LL_USART.baud_macro": {
+        "source": "LL_USART",
+        "start_line": 550,
+        "end_line": 588,
+        "sha256": "1cc551ef96d872f027aef6230f312d85ab539e02b6e36b6112160d5f4e94448c"
+      },
+      "LL_USART.config": {
+        "source": "LL_USART",
+        "start_line": 859,
+        "end_line": 866,
+        "sha256": "3b02071d1fb647b227ad803d2198c0d649d66e4d75bebb9d8738251e287c2bd8"
+      },
+      "LL_USART.baud": {
+        "source": "LL_USART",
+        "start_line": 2046,
+        "end_line": 2072,
+        "sha256": "d2e654a79c83becb65dbc9773ff6ded767d8fc4adec231e43648973c0352d049"
+      },
+      "LL_USART.async_mode": {
+        "source": "LL_USART",
+        "start_line": 2876,
+        "end_line": 2884,
+        "sha256": "1ccedec5fc5ba48d9ce8c419a4c9339c2251780290b62645ccfdfd53570c8604"
+      },
+      "LL_USART.sync_master": {
+        "source": "LL_USART",
+        "start_line": 2914,
+        "end_line": 2924,
+        "sha256": "d62ead70637bab7d496294a329f65e7612dd4eb1f4686104570b8a6cb37351ea"
+      },
+      "LL_USART.sync_slave": {
+        "source": "LL_USART",
+        "start_line": 2953,
+        "end_line": 2963,
+        "sha256": "d56e9de5b8c02dfe6579fb8eb450787b384509f2e126336a9fdc0244a7237979"
+      },
+      "LL_USART.data_access": {
+        "source": "LL_USART",
+        "start_line": 4703,
+        "end_line": 4742,
+        "sha256": "6496eec17b7b8f58c39d04aaa9616e8ac4ef616123f03fe3f48b62de90e425a1"
+      },
+      "LL_USART.request": {
+        "source": "LL_USART",
+        "start_line": 4768,
+        "end_line": 4771,
+        "sha256": "cd9a1e3f8321bf0adc4aa1a4a7f4ca1c469caaccbff24e44f871457beb7358c8"
+      },
+      "HAL_DMA.start_bytes": {
+        "source": "HAL_DMA",
+        "start_line": 2334,
+        "end_line": 2378,
+        "sha256": "1ebaddd38c66ca67e4e3609aebd6a3b99a6cea594ba15608c9aa9a315ce85d0d"
+      },
+      "DMA.selectors": {
+        "source": "LL_DMA",
+        "start_line": 370,
+        "end_line": 760,
+        "sha256": "ad6b2f716fd26a152d4a31e81547806941fa083348a399ca7f15f25e77569fdf"
+      },
+      "family.SET_BIT": {
+        "source": "family_header",
+        "start_line": 125,
+        "end_line": 142,
+        "sha256": "230b38bcaaf782a7ee5db0e7d60f5ebfced5282133cbc498c7cf2b4afe66a67b"
+      },
+      "HAL_USART.duplex_wrapper": {
+        "source": "HAL_USART",
+        "start_line": 2928,
+        "end_line": 2975,
+        "sha256": "7f1d42067cca968a6a7aed96078e589636a3d39250b67fe8e17162dca1b43073"
+      },
+      "HAL_USART.late_abort_callbacks": {
+        "source": "HAL_USART",
+        "start_line": 4207,
+        "end_line": 4295,
+        "sha256": "c96487a48fcd162ddc92693265357ccf13aa73db1fea1c8d8d0a10d3e5c46cab"
+      },
+      "HAL_UART.IT_9bit": {
+        "source": "HAL_UART",
+        "start_line": 8588,
+        "end_line": 8655,
+        "sha256": "c65196f3028107a261bb9dcb24fabf38fefe5b23d4cdcc7dace5f3bc88b67597"
+      },
+      "HAL_UART.FIFO_IT_9bit": {
+        "source": "HAL_UART",
+        "start_line": 8810,
+        "end_line": 8847,
+        "sha256": "fe6734f5e8c437e3deb80c1fdda8670c3f8cd3d017e31eb56b9dc6fcb7270b4f"
+      },
+      "RM0522:p314": {
+        "source": "RM0522",
+        "page": 314,
+        "sha256": "9e1eeb856182a7a43bed9cb25adbe63a2c536234980d6fa10c4b9df82007ab21"
+      },
+      "RM0522:p384": {
+        "source": "RM0522",
+        "page": 384,
+        "sha256": "91ccfa0d764cd1d83f48cdf4b14f4f7833ed2c81829ddd2fc75b1b619c8c1cb8"
+      },
+      "RM0522:p385": {
+        "source": "RM0522",
+        "page": 385,
+        "sha256": "b84c538214629ba19de4298c326e16cac4d2c0cb7070043603658d5a3ce1e688"
+      },
+      "HAL_USART.rx_poll_full": {
+        "source": "HAL_USART",
+        "start_line": 2203,
+        "end_line": 2314,
+        "sha256": "9f6bddc927f7679f5dbbce91950f67b2d8e1c0ed13ae5b1442e52643d3c77212"
+      },
+      "HAL_USART.duplex_poll_full": {
+        "source": "HAL_USART",
+        "start_line": 2331,
+        "end_line": 2478,
+        "sha256": "8ffdb1e2693f91b0761ff2f873cd458324d85f765e5cf03a46b836a04fa2b9f5"
+      },
+      "HAL_USART.rx_IT_wrappers": {
+        "source": "HAL_USART",
+        "start_line": 2576,
+        "end_line": 2646,
+        "sha256": "80c150f151a929106f4062fe25c9858db6604324c50cce0e4bf5074599995c53"
+      },
+      "HAL_USART.duplex_IT_wrappers": {
+        "source": "HAL_USART",
+        "start_line": 2661,
+        "end_line": 2735,
+        "sha256": "580825d1d6a3a634966688b645ea637c32c647ba52dd9279985cffd2cb490476"
+      },
+      "HAL_USART.IRQ_full": {
+        "source": "HAL_USART",
+        "start_line": 3351,
+        "end_line": 3588,
+        "sha256": "fecf38873c7096e15339378ac4827e1a4ebe247fa504e7769da72ffb5926f2d8"
+      },
+      "HAL_USART.tx_ISR_full": {
+        "source": "HAL_USART",
+        "start_line": 4417,
+        "end_line": 4582,
+        "sha256": "e92057ab631608f2c20fee6bdcb2b4fb7688af80dd5e5a462bd7883605261e87"
+      },
+      "HAL_USART.rx_ISR_full": {
+        "source": "HAL_USART",
+        "start_line": 4592,
+        "end_line": 4762,
+        "sha256": "cbcafbe5fcfc5e8e537aca948009c1786be42cc3a6bf823bc37075436d9c5020"
+      },
+      "HAL_USART.rx_FIFO8_full": {
+        "source": "HAL_USART",
+        "start_line": 4773,
+        "end_line": 4912,
+        "sha256": "6edbef9ac0b9dab6d7a2e8a01348960331da8a11cae2908c677b0301dad1f0cd"
+      },
+      "HAL_USART.rx_FIFO16_full": {
+        "source": "HAL_USART",
+        "start_line": 4922,
+        "end_line": 5063,
+        "sha256": "fc855a6922354129e759b28526feba12dc0e6b85d4e538313913ed45eaa1b425"
+      },
+      "HAL_USART.FIFO_counts": {
+        "source": "HAL_USART",
+        "start_line": 5070,
+        "end_line": 5096,
+        "sha256": "b8c363ef163b7c3f4e81fd11d4689568d4e40470fe100ce9299e3cffa2fdca94"
+      },
+      "HAL_USART.end_transmit_IT": {
+        "source": "HAL_USART",
+        "start_line": 5104,
+        "end_line": 5151,
+        "sha256": "052a4ce877de8ece4431a9cc65532dd0bdc2dc659e721dbe6aa7e3ae938f98ac"
+      },
+      "HAL_USART.tx_IT_start": {
+        "source": "HAL_USART",
+        "start_line": 5164,
+        "end_line": 5226,
+        "sha256": "6d9b4470ca289246238f9e832dbd58e6f57abe45a297c1e43379bae91a06deaa"
+      },
+      "HAL_USART.rx_IT_start": {
+        "source": "HAL_USART",
+        "start_line": 5239,
+        "end_line": 5338,
+        "sha256": "514b311d27604c6f16a90d544a614c4bee7892a8698ffd1785d8dd5cca231b9b"
+      },
+      "HAL_USART.duplex_IT_start": {
+        "source": "HAL_USART",
+        "start_line": 5352,
+        "end_line": 5437,
+        "sha256": "f54c84a40987b0165fc4993db90a1101a3ef4b1dc24ef14177830348e5f95e64"
+      },
+      "HAL_USART.ACK_wait_full": {
+        "source": "HAL_USART",
+        "start_line": 4309,
+        "end_line": 4406,
+        "sha256": "31c313eb8115065cee8ebbe78b044a7c277dd9050b1515eb584ee9d26ff88f0f"
+      },
+      "HAL_USART.mask": {
+        "source": "HAL_USART",
+        "start_line": 519,
+        "end_line": 563,
+        "sha256": "3603fe9f1b0699f70e091916cccb0324c94badce22aa4813555b444ed80e7811"
+      },
+      "HAL_USART.dummy": {
+        "source": "HAL_USART",
+        "start_line": 175,
+        "end_line": 175,
+        "sha256": "8821c4968905f5275a09e84e841eff46db21857be1b37a2227f204b6e5410d56"
+      },
+      "HAL_UART.rx_FIFO8_full": {
+        "source": "HAL_UART",
+        "start_line": 8652,
+        "end_line": 8804,
+        "sha256": "909e1102b0cd0e9a50d565639d9964f140796f61db9f400a1b0b3d4125c1657f"
+      },
+      "HAL_UART.rx_FIFO16_full": {
+        "source": "HAL_UART",
+        "start_line": 8812,
+        "end_line": 8937,
+        "sha256": "65a7df7a91609720ae2a0c6de5eecaaa62a5c1ea157cda6d73267fb64399cab7"
+      },
+      "HAL_UART.IRDA_full": {
+        "source": "HAL_UART",
+        "start_line": 1562,
+        "end_line": 1762,
+        "sha256": "5879de0f08dfd983f2ebce099210c93416f0557d9c8e4bcceee472dbf8807306"
+      },
+      "HAL_UART.IRDA_PSC_guard": {
+        "source": "HAL_UART",
+        "start_line": 434,
+        "end_line": 434,
+        "sha256": "e6621b16650988c6c91fb526c93fe0b556c04fa4c48f56fde348c1d69c37507d"
+      },
+      "HAL_SMARTCARD.init": {
+        "source": "HAL_SMARTCARD",
+        "start_line": 516,
+        "end_line": 575,
+        "sha256": "540f014213b5464e3421f485d1be584e4a2811b8c525176d315cb78b7ae8015d"
+      },
+      "HAL_SMARTCARD.config": {
+        "source": "HAL_SMARTCARD",
+        "start_line": 658,
+        "end_line": 713,
+        "sha256": "81e372ec0c5e9fe5ea8fa547aaa89ee9e989f017b2226136bbd4249050151179"
+      },
+      "HAL_SMARTCARD.UE_macros": {
+        "source": "HAL_SMARTCARD",
+        "start_line": 401,
+        "end_line": 423,
+        "sha256": "37fd703ba672d544a895bebacac7d1cd7c4aa4b89efad93f0df984cd6d0e2bc8"
+      },
+      "LL_USART.smartcard_config": {
+        "source": "LL_USART",
+        "start_line": 895,
+        "end_line": 929,
+        "sha256": "e511c27cb8c44f41fa519f97b81c9f2f979ca751d23f377b270c6252e3dce3fc"
+      },
+      "LL_USART.IRDA_config": {
+        "source": "LL_USART",
+        "start_line": 3118,
+        "end_line": 3128,
+        "sha256": "01397d4205dd6af97642bd3427e59104b8617971bfdd22f770a5a945980a9ec0"
+      },
+      "header.mode_applicability": {
+        "source": "header",
+        "start_line": 14320,
+        "end_line": 14394,
+        "sha256": "a2b634a29d7267d918eb1b7b1a1cd206311d635bde849e2bf1b4b7805f539b28"
+      }
+    },
+    "contracts": [
+      {
+        "id": "exact_identity",
+        "detail": "USART1/2 implement synchronous and smartcard capability. UART4/5 are present but exclude those modes; UART naming does not create independent hardware owners. LPUART1 is a separate chapter/candidate. IRQ and register maps are literal exact-header candidates, not route or vector installation proof.",
+        "evidence": [
+          "header.instances",
+          "header.IRQ",
+          "header.struct",
+          "header.bases",
+          "DS15135:p28",
+          "DS15135:p29"
+        ]
+      },
+      {
+        "id": "one_physical_owner",
+        "detail": "Require one coordinated owner across UART, USART, smartcard, IrDA APIs, IRQ, DMA channels, clock/reset, and shared pads. Handle-local state cannot arbitrate aliases of the same register instance.",
+        "evidence": [
+          "RM0522:p1798",
+          "RM0522:p1802",
+          "RM0522:p1803"
+        ]
+      },
+      {
+        "id": "clock_and_configuration",
+        "detail": "APB clock is required for register access; independent kernel clock has no APB-ratio constraint. CCIPR1 raw 0 selects PCLK2 for USART1 and PCLK1 for USART2/UART4/5; 1 PSIK, 2 HSIK, 3 LSE. Require validated actual clock/prescaler/baud and protected configuration changes with UE=0; no clock-write success inferred from HAL state.",
+        "evidence": [
+          "RM0522:p315",
+          "RM0522:p1803",
+          "RM0522:p1851",
+          "RM0522:p1868",
+          "RM0522:p1885",
+          "RM0522:p1886",
+          "RM0522:p314"
+        ]
+      },
+      {
+        "id": "disable_and_completion",
+        "detail": "TC means serial shift/FIFO completion, unlike TXE/TXFNF or DMA completion. Disable DMA channels before UE clearing; clearing UE immediately stops operations and resets status while retaining configuration. Require explicit cancellation versus drain policy and TC before ordinary terminal disable. TEACK/REACK and any DE/CTS timing remain separate gates; smartcard clock can continue when UE=0 with SCEN/CLKEN.",
+        "evidence": [
+          "RM0522:p1806",
+          "RM0522:p1807",
+          "RM0522:p1839",
+          "RM0522:p1840",
+          "RM0522:p1853",
+          "RM0522:p1857"
+        ]
+      },
+      {
+        "id": "format_and_buffer_units",
+        "detail": "M encodes 8/9/7 bits as 0/1/2; 3 reserved. Parity consumes the MSB, leaving 7/8/6 payload bits. Distinguish RDR parity masking, bit order, TX/RX inversion and pin swap. Ordinary asynchronous STOP admits one or two bits; half/one-and-half belong to smartcard constraints. Seven-bit mode excludes smartcard, LIN master, and autobaud patterns 2/3.",
+        "evidence": [
+          "RM0522:p1804",
+          "RM0522:p1805",
+          "RM0522:p1811",
+          "RM0522:p1812",
+          "RM0522:p1851",
+          "RM0522:p1854",
+          "RM0522:p1855",
+          "RM0522:p1803",
+          "RM0522:p1807",
+          "RM0522:p1816",
+          "RM0522:p1824",
+          "RM0522:p1858",
+          "RM0522:p1859",
+          "RM0522:p1885"
+        ]
+      },
+      {
+        "id": "baud_quantization",
+        "detail": "PRESC encodes divisors 1,2,4,6,8,10,12,16,32,64,128,256; 12..15 are reserved even where described as mapping to /256. USARTDIV minimum is 16. OVER8 requires BRR bit3=0 and lower divisor bits shifted; account for quantization, oscillator error, oversampling and receiver tolerance rather than treating requested baud as achieved.",
+        "evidence": [
+          "RM0522:p1816",
+          "RM0522:p1817",
+          "RM0522:p1818",
+          "RM0522:p1819",
+          "RM0522:p1868",
+          "RM0522:p1885",
+          "RM0522:p1886"
+        ]
+      },
+      {
+        "id": "FIFO_and_error_ownership",
+        "detail": "FIFO depth is described as eight, with 9-bit TX and 12-bit RX entries; preserve payload/error metadata and the separate RDR slot rather than deriving capacity from the word byte. RDR consumes head data; head error flags must be associated before consuming it. RXFRQ flushes receive FIFO; TXFRQ flushes transmit FIFO, while non-FIFO TXFRQ is restricted to smartcard FE recovery. Threshold status is a level requiring service, not a completion count.",
+        "evidence": [
+          "RM0522:p1800",
+          "RM0522:p1806",
+          "RM0522:p1809",
+          "RM0522:p1810",
+          "RM0522:p1872",
+          "RM0522:p1873",
+          "RM0522:p1877"
+        ]
+      },
+      {
+        "id": "receive_error_policy",
+        "detail": "ORE drops incoming data while preserving unread RDR/head; OVRDIS trades detection for overwrite/bypass behavior. PE/FE/NE and ORE need explicit ICR W1C handling and data policy; clearing a flag is not a data read or flush. ONEBIT does not eliminate all noise flags under ES0676.",
+        "evidence": [
+          "RM0522:p1809",
+          "RM0522:p1810",
+          "RM0522:p1813",
+          "RM0522:p1861",
+          "RM0522:p1878",
+          "RM0522:p1880"
+        ]
+      },
+      {
+        "id": "errata",
+        "detail": "ES0676 2.9.1 applies to both listed revisions: do not clear ABREN after detection while reception may be ongoing; software IDLE is not physical inactivity proof. 2.9.2 documents possible NE on start-bit noise with ONEBIT=1 and no workaround, overriding blanket noise-suppression prose. Bind observed silicon revision before any admission. ES2.9 heading is USART without an explicit instance list; applying these restrictions conservatively to UART4/5 is an inference from the common IP/features, not a literal per-instance errata statement.",
+        "evidence": [
+          "ES0676:p2",
+          "ES0676:p9"
+        ]
+      },
+      {
+        "id": "autobaud",
+        "detail": "Require nonzero BRR and empty receive path before autobaud. Modes use start-bit / 10 / 0x7F / 0x55 patterns. ABRF alone is not success: inspect ABRE. ABRRQ retriggers detection and clears its flags; UE changes during detection may corrupt the result. Preserve the erratum prohibition on clearing ABREN.",
+        "evidence": [
+          "RM0522:p1820",
+          "RM0522:p1821",
+          "RM0522:p1872",
+          "RM0522:p1875"
+        ]
+      },
+      {
+        "id": "mute_address",
+        "detail": "MME/RWU mute requires entry/readback and FIFO-space discipline. Idle-based entry cannot be presumed after a previously completed idle; avoid immediate MME retoggling across the documented two-kernel-cycle interval. Address width and character length constrain matching. Mute suppresses normal receive status/interrupt behavior; it is not a packet parser.",
+        "evidence": [
+          "RM0522:p1821",
+          "RM0522:p1822",
+          "RM0522:p1823",
+          "RM0522:p1874"
+        ]
+      },
+      {
+        "id": "receive_timeout_and_protocol",
+        "detail": "RTOR is 24-bit in baud-bit units with sampling offset; timeout can count with RE=0 and surface immediately when RE becomes 1. IDLE requires intervening received data before retriggering. On-the-fly RTO/BLEN changes have character/block restrictions. Modbus framing/CRC, smartcard block framing, and callback boundary interpretation require independent protocol qualification.",
+        "evidence": [
+          "RM0522:p1824",
+          "RM0522:p1825",
+          "RM0522:p1835",
+          "RM0522:p1871",
+          "RM0522:p1875"
+        ]
+      },
+      {
+        "id": "synchronous",
+        "detail": "Only USART1/2 provide synchronous operation. Master uses CLKEN, slave SLVEN with CLKEN=0; LIN/SCEN/HDSEL/IREN are incompatible. Master reception requires transmitted clocking data, which is externally visible. Slave enable must occur between frames with stable clock and preloading margin; NSS behavior and software-select ownership must be explicit. Use the stricter greater-than-three prescaled-clock bound pending reconciliation.",
+        "evidence": [
+          "RM0522:p1827",
+          "RM0522:p1828",
+          "RM0522:p1829",
+          "RM0522:p1830"
+        ]
+      },
+      {
+        "id": "half_duplex_flow_DE",
+        "detail": "Half-duplex uses TX with open-drain/external pull-up and software arbitration; TX is not automatically blocked by reception. CTS active-low may stall transmission and has sampling/pulse constraints; RTS/DE share ownership. DEAT/DEDT are 0..31 sample units and TC alone does not qualify physical DE release or bus turnaround.",
+        "evidence": [
+          "RM0522:p1826",
+          "RM0522:p1831",
+          "RM0522:p1832",
+          "RM0522:p1858",
+          "RM0522:p1864"
+        ]
+      },
+      {
+        "id": "LIN",
+        "detail": "LIN uses eight-bit OVER16, FIFO disabled, and documented stop/mode restrictions; generated break is 13 low bits plus stop spacing, detector admits 10/11-bit choices. This is peripheral capability only, not complete LIN transport or scheduler coverage.",
+        "evidence": [
+          "RM0522:p1836",
+          "RM0522:p1837",
+          "RM0522:p1838"
+        ]
+      },
+      {
+        "id": "smartcard",
+        "detail": "USART1/2 only: smartcard uses nine-bit plus parity, mode-specific 1.5/0.5-stop timing, open-drain pull-up, retry limits and prescaled clock. Distinguish TC guard-time completion from TCBGT before guard; BWT/CWT adjustments, first-byte interrupt before DMA, BLEN and software checksum remain required. HAL smartcard lifecycle has not been reviewed.",
+        "evidence": [
+          "RM0522:p1833",
+          "RM0522:p1834",
+          "RM0522:p1835",
+          "RM0522:p1867",
+          "RM0522:p1869",
+          "RM0522:p1875",
+          "RM0522:p1879"
+        ]
+      },
+      {
+        "id": "IrDA",
+        "detail": "IrDA requires FIFO off, OVER16, one stop bit and mode exclusions, external electrical/timing validation, prescaler 1..255 and half-duplex turnaround. Stated rate and filter limits do not prove a board implementation. HAL IrDA lifecycle has not been reviewed.",
+        "evidence": [
+          "RM0522:p1841",
+          "RM0522:p1842",
+          "RM0522:p1843",
+          "RM0522:p1869"
+        ]
+      },
+      {
+        "id": "low_power",
+        "detail": "Require REACK initialization, kernel-clock availability and wake timing; BUSY is not race-free sleep permission. DMA suspension/resumption and pending data remain owned. WUS encodes address=0/start=2/RX=3, with address/FIFO mute constraints. Stop retention does not imply Standby retention or observed wake behavior.",
+        "evidence": [
+          "RM0522:p1844",
+          "RM0522:p1845",
+          "RM0522:p1846",
+          "RM0522:p1847",
+          "RM0522:p1863"
+        ]
+      },
+      {
+        "id": "IRQ_and_register_access",
+        "detail": "Use exact ISR/ICR/RQR semantics: W1C flags, write-only requests, read-only status/data and word-access requirements. Level FIFO events require service; NVIC pending and peripheral masks are separate. No generic read-modify-write is admitted for command/clear registers.",
+        "evidence": [
+          "RM0522:p1848",
+          "RM0522:p1849",
+          "RM0522:p1872",
+          "RM0522:p1873",
+          "RM0522:p1874",
+          "RM0522:p1875",
+          "RM0522:p1876",
+          "RM0522:p1877",
+          "RM0522:p1878",
+          "RM0522:p1879",
+          "RM0522:p1880",
+          "RM0522:p1881"
+        ]
+      },
+      {
+        "id": "DMA_request_literal_domain",
+        "detail": "Exact LPDMA1/2 request aliases agree with RM Table90: USART1 RX/TX12/13, USART2 14/15, UART4 18/19, UART5 20/21. Selector identity is not channel, direction, width, buffer, linked-list or composition admission.",
+        "evidence": [
+          "DMA.selectors",
+          "RM0522:p384",
+          "RM0522:p385"
+        ]
+      }
+    ],
+    "source_derived_SDK_gates": [
+      {
+        "id": "assertion_and_shared_handle",
+        "detail": "Assertions and optional state guards are build-configuration dependent; they are not release validation. Separate handles/API personalities do not share ownership automatically. Init initializes handle bookkeeping, not a complete peripheral reset. DeInit/abort can ignore DMA errors and cannot serve as DMA quiescence proof.",
+        "evidence": [
+          "HAL.state_guard",
+          "SDK.assertions",
+          "HAL_UART.init_deinit",
+          "HAL_USART.init_deinit",
+          "HAL_USART.abort"
+        ]
+      },
+      {
+        "id": "configuration_partial_failure",
+        "detail": "UART configuration saves/restores UE but disables without TC/DMA handshake; zero kernel clock can return ERROR after register writes and leave UE disabled. USART configuration publishes IDLE before enable/ACK completion and can return an enable failure with changed registers. LL asynchronous configuration does not clear SLVEN, so a prior synchronous-slave personality requires explicit reset/mode cleanup.",
+        "evidence": [
+          "HAL_UART.UE_macros",
+          "HAL_UART.config",
+          "HAL_USART.config",
+          "LL_USART.async_mode",
+          "LL_USART.sync_master",
+          "LL_USART.sync_slave",
+          "LL_USART.config"
+        ]
+      },
+      {
+        "id": "baud_release_domain",
+        "detail": "LL setter silently ignores baud=0 or invalid prescaler; USART HAL uses the divisor macro directly, whose table access/division require validated prescaler and nonzero baud. Assertions-off input can therefore escape guards; quantized range/BRR truncation and actual frequency need independent validation.",
+        "evidence": [
+          "HAL_UART.baud_guard",
+          "HAL_USART.config",
+          "LL_USART.baud",
+          "LL_USART.baud_macro",
+          "SDK.assertions"
+        ]
+      },
+      {
+        "id": "polling_units",
+        "detail": "Nine-bit/no-parity polling accesses uint16_t while decrementing the size counter once per element. A size_byte value N can require 2N buffer bytes; receive reported counts use elements on those paths. DMA size is instead passed unchanged as byte count to HAL_DMA, so the polling and DMA contracts cannot be normalized by argument name. Require width, alignment, bounds, and unit conversion before calling. Selected nine-bit IT receive paths likewise advance the buffer by2 bytes while decrementing one element; their completion/boundary counts are elements, whereas DMA callbacks derive byte counts. Callback size units therefore depend on transfer mode.",
+        "evidence": [
+          "HAL_UART.tx_poll",
+          "HAL_UART.rx_poll",
+          "HAL_USART.tx_poll",
+          "HAL_UART.DMA_start",
+          "HAL_USART.DMA_tx",
+          "HAL_DMA.start_bytes",
+          "HAL_UART.IT_9bit",
+          "HAL_UART.FIFO_IT_9bit",
+          "HAL_UART.DMA_complete",
+          "HAL_UART.IRQ_boundary"
+        ]
+      },
+      {
+        "id": "UART_poll_timeout_cross_direction",
+        "detail": "UART wait timeout/RTO handling disables receive, transmit and error interrupt sources, potentially disrupting a concurrent opposite-direction IT transfer. Caller state may become IDLE although UE/data remain active; max-delay is not bounded completion. UART polling reception does not by itself establish complete PE/FE/NE/ORE reporting. USART wait differs and does not perform that IRQ shutdown.",
+        "evidence": [
+          "HAL_UART.wait",
+          "HAL_UART.rx_poll",
+          "HAL_UART.tx_poll",
+          "HAL_USART.enable_wait"
+        ]
+      },
+      {
+        "id": "enable_ack_gate",
+        "detail": "UART CheckEnabled checks ACK only when it initially enablesUE; an already-enabled instance returns without that ACK proof. USART CheckEnabled enablesUE only if initially off and delegates to CheckCommunicationReady. The synchronousRX/duplex polling andIT wrappers call CheckCommunicationReady directly: that function checks ACK only for currently enabled TE/RE and does not setUE or required directions. It can returnOK with both directions disabled; requested operation readiness is not validated. Busy-loop timeout depends onSystemCoreClock and zero initialcount underflows before testing. Timeout does not restore prior hardware state. Neither helper proves measuredbaud/clock.",
+        "evidence": [
+          "HAL_UART.enable",
+          "HAL_USART.enable_wait",
+          "HAL_USART.ACK_wait_full",
+          "HAL_USART.rx_poll_full",
+          "HAL_USART.duplex_poll_full",
+          "HAL_USART.rx_IT_wrappers",
+          "HAL_USART.duplex_IT_wrappers"
+        ]
+      },
+      {
+        "id": "UART_DMA_null_and_completion",
+        "detail": "Validate non-null DMA links and exact configuration even with assertions disabled: helpers can skip absent links yet enable requests. Direct TX DMA completion only hands off to TC IRQ; linked/circular behavior differs. Direct RX completion disables requests and marks IDLE before its callback, while other modes can callback with an active transfer. No callback is universal proof of physical completion.",
+        "evidence": [
+          "HAL_UART.tx_dma_wrapper",
+          "HAL_UART.rx_dma_wrapper",
+          "HAL_UART.DMA_start",
+          "HAL_UART.DMA_complete"
+        ]
+      },
+      {
+        "id": "UART_DMA_errors_and_abort",
+        "detail": "UART end helpers disable IRQ paths but do not clear DMAT/DMAR or abort all channels. DMA error callbacks can mark IDLE while requests or the opposite channel remain owned. Blocking abort ignores DMA abort return values; Abort_IT fallback can report completion when submissions fail. Require independently established channel stop, request shutdown and callback retirement before reusing memory/handle.",
+        "evidence": [
+          "HAL_UART.end_helpers",
+          "HAL_UART.DMA_error",
+          "HAL_UART.abort",
+          "HAL_UART.abort_it"
+        ]
+      },
+      {
+        "id": "UART_IRQ_snapshot_and_boundaries",
+        "detail": "IRQ snapshots ISR/control registers and may run receive callbacks before subsequent error cleanup; callback reconfiguration can be acted on using stale snapshots. DMA IDLE/RTO/CM boundary path ignores asynchronous abort submission failure, risking no completion callback. IT boundary count narrows to uint16_t: with data still remaining, received counts that are exact multiples of65536 become zero and suppress the boundary callback (requiring rx_size greater than65536 for the first such case); other large counts report wrapped lengths; callback before final IDLE write also needs reentrancy protection. FIFO/CTS branches do not prove flag service by user callback.",
+        "evidence": [
+          "HAL_UART.IRQ_error",
+          "HAL_UART.IRQ_boundary",
+          "HAL_UART.IRQ_tail"
+        ]
+      },
+      {
+        "id": "UART_autobaud_erratum",
+        "detail": "HAL_UART_DisableAutoBaudRate has debug-only configured/IDLE state assertions, then unconditionally clears ABREN. Assertions-off builds impose no software-state gate here. Even passing the assertions does not establish physical reception inactivity or satisfy the ES0676 do-not-clear workaround.",
+        "evidence": [
+          "HAL_UART.disable_ABR",
+          "ES0676:p9"
+        ]
+      },
+      {
+        "id": "USART_abort_publication",
+        "detail": "USART Abort_IT publishes global IDLE unconditionally after asynchronous abort submissions; completion callbacks may still follow. In the immediate-callback path a final IDLE write can overwrite callback reconfiguration. Blocking abort also ignores DMA abort failure. Keep buffers, DMA channels and handle generation owned until independently quiescent. Later DMA abort callbacks can clear counters/error evidence and publish IDLE again, clobbering a transfer started after premature IDLE. Abort_IT assigns ABORT before testing !=IDLE, so its alternate IDLE branch is unreachable in the shown sequential flow.",
+        "evidence": [
+          "HAL_USART.abort_it",
+          "HAL_USART.abort",
+          "HAL_USART.late_abort_callbacks"
+        ]
+      },
+      {
+        "id": "USART_RX_DMA_wire_and_rollback",
+        "detail": "Master receive DMA points TX at the caller receive buffer: those initial buffer bytes can be emitted as clocking data, not an assumed constant dummy pattern. Slave receive still enables DMAT even without starting master dummy TX. Duplex starts RX before TX; on TX-start failure it never aborts the already-started RX channel. Its only failure-path abort targets TX, compiled only with USE_HAL_DMA_LINKEDLIST=1 and direct TX mode; without that build option no abort is performed on this path. It returns ERROR with IDLE while RX remains armed. If either DMA handle is NULL, both starts are skipped but DMAT/DMAR are enabled and OK returned; wrapper null-link checks are debug assertions only. Validate links/outgoing data and retain ownership of armed channels across partial failure.",
+        "evidence": [
+          "HAL_USART.DMA_rx",
+          "HAL_USART.DMA_duplex",
+          "HAL_USART.duplex_wrapper"
+        ]
+      },
+      {
+        "id": "USART_DMA_callback_order",
+        "detail": "Direct receive/duplex DMA completion clears requests but calls user completion before writing global IDLE; restart from callback can be overwritten. It does not establish TX-channel or wire-TC completion. DMA error EndTransfer shuts off IRQ/state without clearing DMA requests or aborting both channels. Linked/circular completion semantics remain distinct.",
+        "evidence": [
+          "HAL_USART.DMA_complete",
+          "HAL_USART.DMA_error",
+          "HAL_USART.end_transfer"
+        ]
+      },
+      {
+        "id": "USART_IRQ_error_order",
+        "detail": "Bounded error branch can clear earlier errors then return for UDR in RX_ACTIVE before publishing their accumulated error_code. Outer enable guard omits RTOIE as a sole source; ORE blocking cleanup is conditioned by USE_HAL_USART_DMA. RX ISR can callback before later error cleanup, and DMA abort fallbacks do not prove physical quiescence.",
+        "evidence": [
+          "HAL_USART.IRQ_error"
+        ]
+      },
+      {
+        "id": "LL_command_RMW",
+        "detail": "LL data helpers use register-word accesses with value masks. LL request helper performs SET_BIT on write-only RQR; treat its read-modify-write semantics as an unresolved command-register gate, not evidence that stale requests replay on hardware.",
+        "evidence": [
+          "LL_USART.data_access",
+          "LL_USART.request",
+          "family.macros",
+          "family.SET_BIT"
+        ]
+      },
+      {
+        "id": "UART_poll_reception_type_lifetime",
+        "detail": "Polling RX normal completion resets reception_type, but timeout and early IDLE/RTO/character-match returns bypass that reset. A retained RX_TO_RTO value can suppress the RTO branch in a later UART_WaitOnFlagUntilTimeout, in sequences where no intervening operation resets reception_type. Do not treat rx_state IDLE alone as complete receive-policy cleanup.",
+        "evidence": [
+          "HAL_UART.rx_poll",
+          "HAL_UART.wait"
+        ]
+      },
+      {
+        "id": "USART_RX_duplex_polling_boundaries",
+        "detail": "Receive-only synchronous master sends0x0F dummy data throughTDR to produceCK before eachRX wait; slave emits no dummy here. BothRX andduplex use one tick origin for the complete polling operation and9-bit/no-parity elements require2*size_byte bufferbytes. These loops do not classifyPE/FE/NE/ORE/UDR as transfer errors and do not wait finalTC after receiving requestedcount. RX-only slave clearsUDR and flushesTX only on successful tail; timeout returnsIDLE without that cleanup or proving clocks/transmit queues quiescent. Duplex primes oneTX forsize1 orslave then writes remainingTX/readRX; completion condition followsRX count, not a finalTC proof. Require peer/frame alignment and explicit wire completion before role/buffer reuse.",
+        "evidence": [
+          "HAL_USART.rx_poll_full",
+          "HAL_USART.duplex_poll_full",
+          "HAL_USART.mask",
+          "HAL_USART.dummy",
+          "HAL_USART.ACK_wait_full",
+          "RM0522:p1827",
+          "RM0522:p1828",
+          "RM0522:p1829",
+          "RM0522:p1830"
+        ]
+      },
+      {
+        "id": "USART_RX_IT_dummy_publication",
+        "detail": "RXIT andduplex wrappers publishACTIVE and perform directACK checks before initializing helper pointers/counts. RXIT enablesEIE andRXNEIE/RXFTIE before optionalRXFF and master dummy writes. Master starts with one dummy orRXthreshold-count dummies, without checkingTXE/TXFNF before each write; subsequentRXISR sends more dummy data. This assumes correctTX direction/CK configuration and available transmit capacity, not a receive-only silentwire operation. PendingRX/errorIRQ can preempt startup before its final dummy/options writes and callbacks can change ownership. Invalidword-width mask returnsIDLE after cached pointers/counts changed; no transactionalrollback.",
+        "evidence": [
+          "HAL_USART.rx_IT_wrappers",
+          "HAL_USART.duplex_IT_wrappers",
+          "HAL_USART.rx_IT_start",
+          "HAL_USART.duplex_IT_start",
+          "HAL_USART.rx_ISR_full",
+          "HAL_USART.rx_FIFO8_full",
+          "HAL_USART.rx_FIFO16_full",
+          "RM0522:p1828"
+        ]
+      },
+      {
+        "id": "USART_duplex_nonFIFO_completion_order",
+        "detail": "Non-FIFO RXISR completion checksTCIE==0, TXFTIE==0 andtx_xfer_count==0 but does not checkTXEIE or actualTC. If finalRXIRQ is serviced after the last TDR write but before the nextTXE handler observeszero and enablesTCIE, RXISR can publishIDLE and duplexcallback without finalTC handling. With no callback restart, laterTXE handler can enableTCIE and EndTransmit seesrx_count0 and may invoke duplexcompletion again. Conditional interrupt ordering, not observed duplicate callback. EndTransmit also disablesEIE before checking whetherRX is still pending, reducing error interrupt coverage for a duplex tail. Require one transfer-generation owner and distinct peripheralwireTC proof.",
+        "evidence": [
+          "HAL_USART.rx_ISR_full",
+          "HAL_USART.tx_ISR_full",
+          "HAL_USART.end_transmit_IT",
+          "HAL_USART.IRQ_full"
+        ]
+      },
+      {
+        "id": "USART_FIFO_bounds_and_callback_tail",
+        "detail": "Synchronous USART FIFO RX loops do decrement their boundedquota, unlike sharedUART RXFIFO loops. Ordinary validthreshold startup/tail routing keeps remainingcount at leastquota while usingFIFOISR; do not transfer the UART nondecrement finding to these functions. However, RXFIFO completion callback is followed by live-count tail routing without a generation check. Callback restart with a short count can have its ISRpointer/interrupt selection overwritten by the old handler and can trigger an extra master dummy when live tx_count0. RXFIFO_FULL callback occurs beforeIDLE publication and the synchronous completion path does not disableRXFFIE. FIFO quotas derive from cachedmode and rawthreshold; reserved6/7 producezero and can make TX/RX make no progress. Corrupt cache/mode or concurrent mutation is not admitted.",
+        "evidence": [
+          "HAL_USART.rx_FIFO8_full",
+          "HAL_USART.rx_FIFO16_full",
+          "HAL_USART.FIFO_counts",
+          "HAL_USART.rx_IT_start",
+          "HAL_USART.duplex_IT_start",
+          "HAL_USART.IRQ_full"
+        ]
+      },
+      {
+        "id": "USART_FIFO_duplex_tail_dummy",
+        "detail": "After either synchronous FIFO RX handler switches a short remainder to non-FIFO service, it sends a dummy when tx_xfer_count==0 and modeMASTER, without requiring RX_ACTIVE rather thanTX_RX_ACTIVE and without proving queuedTX empty. In duplex with all payload already queued but someRX pending, this can add an unrequested clock/data frame. Actual trigger depends on FIFO thresholds, IRQ order and queue state; no runtime occurrence is asserted. RX-only master tail uses this dummy intentionally.",
+        "evidence": [
+          "HAL_USART.rx_FIFO8_full",
+          "HAL_USART.rx_FIFO16_full",
+          "HAL_USART.duplex_IT_start",
+          "RM0522:p1828"
+        ]
+      },
+      {
+        "id": "USART_IRQ_priorities_and_options",
+        "detail": "No-errorRX dispatch returns beforeTX andTC. Error handling may callRXISR/callback before subsequent teardown based on earlier error snapshot. TX ISR observescount0 then enablesTCIE; FIFOempty callback runs beforeTXFE disable/clear, so callback changes can be overwritten. OptionalRXFF/TXFE IRQ branches only invokecallbacks and return; the source or mask must be serviced elsewhere. Start helpers enable primaryTX/RX interrupts before optionalFIFO bits, permitting preemption/completion before late optionenable. USE_HAL_USART_FIFO controls helper availability, not proof that cachedfifo_mode matches peripheralFIFOEN or options are valid for thatmode.",
+        "evidence": [
+          "HAL_USART.IRQ_full",
+          "HAL_USART.tx_ISR_full",
+          "HAL_USART.end_transmit_IT",
+          "HAL_USART.tx_IT_start",
+          "HAL_USART.rx_IT_start",
+          "HAL_USART.duplex_IT_start"
+        ]
+      },
+      {
+        "id": "shared_UART_RX_FIFO_capacity_gate",
+        "detail": "Cross-reference lpuart-contracts.json gate RX_FIFO_loop_capacity_and_shared_UART for the same HAL_UART source, independently bound here: UART_RxISR_8BIT_FIFOEN8652–8804 and16BIT8812–8937 never decrement nb_rx_data and do not exit oncount0/completion. If saved post-readRXFNE remains set and callback leaves pointer/count unchanged, another loop iteration can write beyond originalbuffer and underflowcount; callback replacement instead exposes newtransfer to staleISR/control/mask. This applies asynchronousHAL_UART use onUSART1/2 UART4/5, not the distinct boundedHAL_USART FIFO loops. FIFO8CM-last-element consumes andreturns before normalcompletion, then mainIRQ can clearCMF but skip callback atcount0. These are conditional source defects, not hardwareobservations. LPUART-only reserved-field findings are not imported.",
+        "evidence": [
+          "HAL_UART.rx_FIFO8_full",
+          "HAL_UART.rx_FIFO16_full",
+          "HAL_UART.IRQ_boundary",
+          "header.mode_applicability"
+        ]
+      },
+      {
+        "id": "IRDA_exact_mode_and_timing_gate",
+        "detail": "Exactheader admitsIrDA onUSART1/2 UART4/5 and excludesLPUART1; it remains a half-duplex protocol usingTX andRX pins, not the single-wireHDSEL mode. UART IRDA configuration setsIREN, clearsLINEN/CLKEN/STOP/SCEN/HDSEL, forcesoversampling16 andone stopbit. Genericbaud assertion permits much more thanRM1836 maximum115.2kbaud; neither configuration nor ordinary sharedtransfer helpers establishRM1837 pulsefilter/lowpowerfrequency limits or minimum10ms TX-to-RX setup. PSCnonzero<=255 is onlydebugasserted. Clockgetter0 returnsHAL_ERROR afterUE disable and registerchanges without restoreenable; success andsoftwareIDLE are not protocol/electrical admission. Bounds andmutualexclusion require exactIrDA policy before genericUART APIs.",
+        "evidence": [
+          "header.mode_applicability",
+          "HAL_UART.IRDA_full",
+          "HAL_UART.IRDA_PSC_guard",
+          "LL_USART.IRDA_config",
+          "HAL_UART.UE_macros",
+          "RM0522:p1836",
+          "RM0522:p1837"
+        ]
+      },
+      {
+        "id": "smartcard_exact_mode_and_transition_gate",
+        "detail": "Exactheader admits smartcard onlyUSART1/2; UART4/5 andLPUART1 have no smartcard admission despite sharedregister layout. Init instance check isdebugonly. SetConfig usesLL to force9-bitframe+parity+oversampling16 andSCEN, clocks/guard/retry, but does not clear priorLINEN/HDSEL/IREN asRM1832requires. A mode handoff fromUARTIrDA/halfduplex therefore needs explicit reset/cleanup and exclusiveinstance ownership; success does not prove compatible priorstate. Zero kernelclock is assertion-only here (unlikeIRDA expliciterror), and setter modifiesconfiguration before that check; no runtime rollback/readiness proof. This bounded read coversInit/SetConfig andLL configuration only: complete smartcardIRQ/transfer/DMA/retry/TCBGT lifecycle remains unreviewed, withRM1833 distinguishingTCguardtime andTCBGT.",
+        "evidence": [
+          "header.mode_applicability",
+          "HAL_SMARTCARD.init",
+          "HAL_SMARTCARD.config",
+          "HAL_SMARTCARD.UE_macros",
+          "LL_USART.smartcard_config",
+          "LL_USART.baud",
+          "RM0522:p1832",
+          "RM0522:p1833"
+        ]
+      }
+    ],
+    "conflicts": [
+      {
+        "id": "FIFO_capacity_and_threshold",
+        "detail": "Eight-byte FIFO wording coexists with 9/12-bit entries and RXFF/RXFT treatment of RDR. TX threshold prose mixes occupancy fractions and empty-location comparisons. Preserve distinctions; SDK batch fractions do not resolve hardware threshold semantics.",
+        "evidence": [
+          "RM0522:p1800",
+          "RM0522:p1806",
+          "RM0522:p1809",
+          "RM0522:p1861",
+          "RM0522:p1873",
+          "RM0522:p1877"
+        ]
+      },
+      {
+        "id": "request_flag_wording",
+        "detail": "Autobaud prose says writing zero clears ABRF, while RQR/ISR describe ABRRQ. MMRQ description says resets RWU whereas mute operation describes setting mute/RWU. Use explicit register command definitions with readback gates; do not silently merge incompatible prose.",
+        "evidence": [
+          "RM0522:p1820",
+          "RM0522:p1821",
+          "RM0522:p1822",
+          "RM0522:p1872",
+          "RM0522:p1874",
+          "RM0522:p1875"
+        ]
+      },
+      {
+        "id": "slave_clock_and_underrun",
+        "detail": "Clock limit is at least three kernel clocks in one section versus greater than three prescaled clocks in another. Underrun text discusses initial zeros and repetition of last data; no universal fill pattern is established. DS SPI-controller-underrun naming does not expand exact slave capability.",
+        "evidence": [
+          "RM0522:p1803",
+          "RM0522:p1829",
+          "RM0522:p1830"
+        ]
+      },
+      {
+        "id": "TE_shutdown",
+        "detail": "TE prose prohibits clearing during transmission while other instructions describe clearing before waiting TC. Candidate requires drained TC before normal TE/UE shutdown; cancellation is separate and unqualified.",
+        "evidence": [
+          "RM0522:p1807",
+          "RM0522:p1853",
+          "RM0522:p1857"
+        ]
+      },
+      {
+        "id": "smartcard_BLEN_TCBGT",
+        "detail": "BLEN example gives 256 total for 255 versus BLEN+4 framing elsewhere; TCBGT includes inconsistent successful/not-completed wording. Preserve these conflicts; do not derive exact protocol termination solely from these passages.",
+        "evidence": [
+          "RM0522:p1835",
+          "RM0522:p1871",
+          "RM0522:p1873",
+          "RM0522:p1875",
+          "RM0522:p1879"
+        ]
+      },
+      {
+        "id": "field_references_and_write_windows",
+        "detail": "Scattered SBKRQ/RTOIE/TXFTIE/clear-flag field references conflict with register definitions. Parity-after-current-byte prose does not override UE=0 protected-field requirements. RTOR availability does not grant smartcard EOB capability to UART4/5. DMA normal-end restrictions do not establish cancellation safety.",
+        "evidence": [
+          "RM0522:p1812",
+          "RM0522:p1839",
+          "RM0522:p1840",
+          "RM0522:p1851",
+          "RM0522:p1852",
+          "RM0522:p1871",
+          "RM0522:p1872",
+          "RM0522:p1875",
+          "RM0522:p1880"
+        ]
+      },
+      {
+        "id": "UART_nonFIFO_TXFRQ",
+        "detail": "UART blocking Abort and Abort_IT immediate cleanup request TXFRQ without checking FIFO mode. RM1872 permits non-FIFO TXFRQ only for smartcard NACK/FE recovery and reserves it on instances without smartcard; FIFO TXFRQ is permitted in UART mode. These UART paths therefore conflict with the non-FIFO source restriction. Actual hardware result remains unresolved; do not invent ignored-write or deterministic corruption behavior. USART abort paths shown separately guard FIFO flushing.",
+        "evidence": [
+          "HAL_UART.abort",
+          "HAL_UART.abort_it",
+          "HAL_USART.abort",
+          "HAL_USART.abort_it",
+          "RM0522:p1872"
+        ]
+      }
+    ],
+    "open_gates": [
+      "Claude review and independent Codex regression/source review pending; this candidate is not accepted or published.",
+      "No production implementation, build, execution, hardware observation, electrical qualification, interrupt installation or protocol interoperability established.",
+      "Resolve listed source conflicts and verify exact silicon revision/errata, board routing, oscillator tolerances and transceiver timing before operational admission.",
+      "Define shared-instance and pad/clock/DMA ownership, generation-safe callbacks, rollback and quiescence proof; HAL IDLE/OK and callback occurrence are insufficient.",
+      "Finite maps below are selected literal domains, not an exhaustive enumeration of every register bit, mode combination, IRQ or SDK API.",
+      "New full-function bounded reads cover synchronous RX/duplex polling andIT wrappers/helpers, IRQ, all USART TX/RX ISR variants, and completion/quota helpers. IrDA configuration/getters/setters and smartcardInit/SetConfig only are covered. Complete smartcard transfer/IRQ/retry/abort lifecycle, all sharedUART wrappers, callback registration, linked-list/circular DMA, RCC/power transitions and widths/burst/cache/access compositions remain open; no exhaustive whole-SDK claim."
+    ],
+    "finite_source_maps": {
+      "instances": [
+        {
+          "name": "USART1",
+          "base": "0x40013800",
+          "IRQ": 51,
+          "synchronous_and_smartcard": true
+        },
+        {
+          "name": "USART2",
+          "base": "0x40004400",
+          "IRQ": 52,
+          "synchronous_and_smartcard": true
+        },
+        {
+          "name": "UART4",
+          "base": "0x40004C00",
+          "IRQ": 54,
+          "synchronous_and_smartcard": false
+        },
+        {
+          "name": "UART5",
+          "base": "0x40005000",
+          "IRQ": 55,
+          "synchronous_and_smartcard": false
+        }
+      ],
+      "registers": [
+        {
+          "name": "CR1",
+          "offset": "0x0",
+          "access": "read_write"
+        },
+        {
+          "name": "CR2",
+          "offset": "0x4",
+          "access": "read_write"
+        },
+        {
+          "name": "CR3",
+          "offset": "0x8",
+          "access": "read_write"
+        },
+        {
+          "name": "BRR",
+          "offset": "0xc",
+          "access": "read_write"
+        },
+        {
+          "name": "GTPR",
+          "offset": "0x10",
+          "access": "read_write"
+        },
+        {
+          "name": "RTOR",
+          "offset": "0x14",
+          "access": "read_write"
+        },
+        {
+          "name": "RQR",
+          "offset": "0x18",
+          "access": "write_only"
+        },
+        {
+          "name": "ISR",
+          "offset": "0x1c",
+          "access": "read_only"
+        },
+        {
+          "name": "ICR",
+          "offset": "0x20",
+          "access": "write_only"
+        },
+        {
+          "name": "RDR",
+          "offset": "0x24",
+          "access": "read_only"
+        },
+        {
+          "name": "TDR",
+          "offset": "0x28",
+          "access": "read_write"
+        },
+        {
+          "name": "PRESC",
+          "offset": "0x2c",
+          "access": "read_write"
+        }
+      ],
+      "prescaler_divisors": [
+        1,
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        16,
+        32,
+        64,
+        128,
+        256
+      ],
+      "word_length_raw": {
+        "0": 8,
+        "1": 9,
+        "2": 7,
+        "3": "reserved"
+      },
+      "wake_selection_raw": {
+        "0": "address",
+        "1": "reserved",
+        "2": "start_bit",
+        "3": "RXNE_RXFNE"
+      },
+      "FIFO_threshold_raw": [
+        "1/8",
+        "1/4",
+        "1/2",
+        "3/4",
+        "7/8",
+        "full_RX_or_empty_TX"
+      ],
+      "DMA_selectors": [
+        {
+          "name": "LL_LPDMA1_REQUEST_USART1_RX",
+          "controller": "LPDMA1",
+          "kind": "request",
+          "selector": 12,
+          "line": 390,
+          "presence_guards": [],
+          "exact_header_presence_candidate": true,
+          "evidence": [
+            "DMA.selectors"
+          ]
+        },
+        {
+          "name": "LL_LPDMA1_REQUEST_USART1_TX",
+          "controller": "LPDMA1",
+          "kind": "request",
+          "selector": 13,
+          "line": 391,
+          "presence_guards": [],
+          "exact_header_presence_candidate": true,
+          "evidence": [
+            "DMA.selectors"
+          ]
+        },
+        {
+          "name": "LL_LPDMA1_REQUEST_USART2_RX",
+          "controller": "LPDMA1",
+          "kind": "request",
+          "selector": 14,
+          "line": 392,
+          "presence_guards": [],
+          "exact_header_presence_candidate": true,
+          "evidence": [
+            "DMA.selectors"
+          ]
+        },
+        {
+          "name": "LL_LPDMA1_REQUEST_USART2_TX",
+          "controller": "LPDMA1",
+          "kind": "request",
+          "selector": 15,
+          "line": 393,
+          "presence_guards": [],
+          "exact_header_presence_candidate": true,
+          "evidence": [
+            "DMA.selectors"
+          ]
+        },
+        {
+          "name": "LL_LPDMA1_REQUEST_UART4_RX",
+          "controller": "LPDMA1",
+          "kind": "request",
+          "selector": 18,
+          "line": 398,
+          "presence_guards": [],
+          "exact_header_presence_candidate": true,
+          "evidence": [
+            "DMA.selectors"
+          ]
+        },
+        {
+          "name": "LL_LPDMA1_REQUEST_UART4_TX",
+          "controller": "LPDMA1",
+          "kind": "request",
+          "selector": 19,
+          "line": 399,
+          "presence_guards": [],
+          "exact_header_presence_candidate": true,
+          "evidence": [
+            "DMA.selectors"
+          ]
+        },
+        {
+          "name": "LL_LPDMA1_REQUEST_UART5_RX",
+          "controller": "LPDMA1",
+          "kind": "request",
+          "selector": 20,
+          "line": 400,
+          "presence_guards": [],
+          "exact_header_presence_candidate": true,
+          "evidence": [
+            "DMA.selectors"
+          ]
+        },
+        {
+          "name": "LL_LPDMA1_REQUEST_UART5_TX",
+          "controller": "LPDMA1",
+          "kind": "request",
+          "selector": 21,
+          "line": 401,
+          "presence_guards": [],
+          "exact_header_presence_candidate": true,
+          "evidence": [
+            "DMA.selectors"
+          ]
+        },
+        {
+          "name": "LL_LPDMA2_REQUEST_USART1_RX",
+          "controller": "LPDMA2",
+          "kind": "request",
+          "selector": 12,
+          "line": 521,
+          "presence_guards": [
+            {
+              "condition": "defined(LPDMA2)",
+              "present": true
+            }
+          ],
+          "exact_header_presence_candidate": true,
+          "evidence": [
+            "DMA.selectors"
+          ]
+        },
+        {
+          "name": "LL_LPDMA2_REQUEST_USART1_TX",
+          "controller": "LPDMA2",
+          "kind": "request",
+          "selector": 13,
+          "line": 522,
+          "presence_guards": [
+            {
+              "condition": "defined(LPDMA2)",
+              "present": true
+            }
+          ],
+          "exact_header_presence_candidate": true,
+          "evidence": [
+            "DMA.selectors"
+          ]
+        },
+        {
+          "name": "LL_LPDMA2_REQUEST_USART2_RX",
+          "controller": "LPDMA2",
+          "kind": "request",
+          "selector": 14,
+          "line": 523,
+          "presence_guards": [
+            {
+              "condition": "defined(LPDMA2)",
+              "present": true
+            }
+          ],
+          "exact_header_presence_candidate": true,
+          "evidence": [
+            "DMA.selectors"
+          ]
+        },
+        {
+          "name": "LL_LPDMA2_REQUEST_USART2_TX",
+          "controller": "LPDMA2",
+          "kind": "request",
+          "selector": 15,
+          "line": 524,
+          "presence_guards": [
+            {
+              "condition": "defined(LPDMA2)",
+              "present": true
+            }
+          ],
+          "exact_header_presence_candidate": true,
+          "evidence": [
+            "DMA.selectors"
+          ]
+        },
+        {
+          "name": "LL_LPDMA2_REQUEST_UART4_RX",
+          "controller": "LPDMA2",
+          "kind": "request",
+          "selector": 18,
+          "line": 529,
+          "presence_guards": [
+            {
+              "condition": "defined(LPDMA2)",
+              "present": true
+            }
+          ],
+          "exact_header_presence_candidate": true,
+          "evidence": [
+            "DMA.selectors"
+          ]
+        },
+        {
+          "name": "LL_LPDMA2_REQUEST_UART4_TX",
+          "controller": "LPDMA2",
+          "kind": "request",
+          "selector": 19,
+          "line": 530,
+          "presence_guards": [
+            {
+              "condition": "defined(LPDMA2)",
+              "present": true
+            }
+          ],
+          "exact_header_presence_candidate": true,
+          "evidence": [
+            "DMA.selectors"
+          ]
+        },
+        {
+          "name": "LL_LPDMA2_REQUEST_UART5_RX",
+          "controller": "LPDMA2",
+          "kind": "request",
+          "selector": 20,
+          "line": 531,
+          "presence_guards": [
+            {
+              "condition": "defined(LPDMA2)",
+              "present": true
+            }
+          ],
+          "exact_header_presence_candidate": true,
+          "evidence": [
+            "DMA.selectors"
+          ]
+        },
+        {
+          "name": "LL_LPDMA2_REQUEST_UART5_TX",
+          "controller": "LPDMA2",
+          "kind": "request",
+          "selector": 21,
+          "line": 532,
+          "presence_guards": [
+            {
+              "condition": "defined(LPDMA2)",
+              "present": true
+            }
+          ],
+          "exact_header_presence_candidate": true,
+          "evidence": [
+            "DMA.selectors"
+          ]
+        }
+      ],
+      "package_routes": [
+        {
+          "id": "descriptor.signal.372",
+          "pin": "PB0",
+          "pad": 26,
+          "signal": "UART4_CTS",
+          "instance": "UART4",
+          "function": {
+            "type": "alternate",
+            "id": "AF8"
+          },
+          "source_pointer": "/signals/372",
+          "source_record": {
+            "name": "UART4_CTS",
+            "instance": "UART4",
+            "die_pad": "PB0",
+            "function": {
+              "type": "alternate",
+              "id": "AF8"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PB0"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PB0",
+            "af": "AF8",
+            "DS_signal": "UART4_CTS",
+            "descriptor_name": "UART4_CTS",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 18,
+            "raw_cell": "UART4_CTS"
+          }
+        },
+        {
+          "id": "descriptor.signal.373",
+          "pin": "PB15",
+          "pad": 36,
+          "signal": "UART4_CTS",
+          "instance": "UART4",
+          "function": {
+            "type": "alternate",
+            "id": "AF8"
+          },
+          "source_pointer": "/signals/373",
+          "source_record": {
+            "name": "UART4_CTS",
+            "instance": "UART4",
+            "die_pad": "PB15",
+            "function": {
+              "type": "alternate",
+              "id": "AF8"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PB15"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PB15",
+            "af": "AF8",
+            "DS_signal": "UART4_CTS",
+            "descriptor_name": "UART4_CTS",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 9,
+            "raw_cell": "UART4_CTS"
+          }
+        },
+        {
+          "id": "descriptor.signal.374",
+          "pin": "PA15",
+          "pad": 50,
+          "signal": "UART4_RTS",
+          "instance": "UART4",
+          "function": {
+            "type": "alternate",
+            "id": "AF8"
+          },
+          "source_pointer": "/signals/374",
+          "source_record": {
+            "name": "UART4_RTS",
+            "instance": "UART4",
+            "die_pad": "PA15(JTDI)",
+            "function": {
+              "type": "alternate",
+              "id": "AF8"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA15",
+            "af": "AF8",
+            "DS_signal": "UART4_RTS",
+            "descriptor_name": "UART4_RTS",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 17,
+            "raw_cell": "UART4_RTS"
+          }
+        },
+        {
+          "id": "descriptor.signal.375",
+          "pin": "PB14",
+          "pad": 35,
+          "signal": "UART4_RTS",
+          "instance": "UART4",
+          "function": {
+            "type": "alternate",
+            "id": "AF8"
+          },
+          "source_pointer": "/signals/375",
+          "source_record": {
+            "name": "UART4_RTS",
+            "instance": "UART4",
+            "die_pad": "PB14",
+            "function": {
+              "type": "alternate",
+              "id": "AF8"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB14",
+            "af": "AF8",
+            "DS_signal": "UART4_RTS",
+            "descriptor_name": "UART4_RTS",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 8,
+            "raw_cell": "UART4_RTS"
+          }
+        },
+        {
+          "id": "descriptor.signal.376",
+          "pin": "PA1",
+          "pad": 15,
+          "signal": "UART4_RX",
+          "instance": "UART4",
+          "function": {
+            "type": "alternate",
+            "id": "AF8"
+          },
+          "source_pointer": "/signals/376",
+          "source_record": {
+            "name": "UART4_RX",
+            "instance": "UART4",
+            "die_pad": "PA1",
+            "function": {
+              "type": "alternate",
+              "id": "AF8"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PA1"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PA1",
+            "af": "AF8",
+            "DS_signal": "UART4_RX",
+            "descriptor_name": "UART4_RX",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 3,
+            "raw_cell": "UART4_RX"
+          }
+        },
+        {
+          "id": "descriptor.signal.377",
+          "pin": "PA11",
+          "pad": 44,
+          "signal": "UART4_RX",
+          "instance": "UART4",
+          "function": {
+            "type": "alternate",
+            "id": "AF6"
+          },
+          "source_pointer": "/signals/377",
+          "source_record": {
+            "name": "UART4_RX",
+            "instance": "UART4",
+            "die_pad": "PA11",
+            "function": {
+              "type": "alternate",
+              "id": "AF6"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PA11"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PA11",
+            "af": "AF6",
+            "DS_signal": "UART4_RX",
+            "descriptor_name": "UART4_RX",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 13,
+            "raw_cell": "UART4_RX"
+          }
+        },
+        {
+          "id": "descriptor.signal.378",
+          "pin": "PB8",
+          "pad": 61,
+          "signal": "UART4_RX",
+          "instance": "UART4",
+          "function": {
+            "type": "alternate",
+            "id": "AF8"
+          },
+          "source_pointer": "/signals/378",
+          "source_record": {
+            "name": "UART4_RX",
+            "instance": "UART4",
+            "die_pad": "PB8",
+            "function": {
+              "type": "alternate",
+              "id": "AF8"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB8",
+            "af": "AF8",
+            "DS_signal": "UART4_RX",
+            "descriptor_name": "UART4_RX",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 3,
+            "raw_cell": "UART4_RX"
+          }
+        },
+        {
+          "id": "descriptor.signal.379",
+          "pin": "PC11",
+          "pad": 52,
+          "signal": "UART4_RX",
+          "instance": "UART4",
+          "function": {
+            "type": "alternate",
+            "id": "AF8"
+          },
+          "source_pointer": "/signals/379",
+          "source_record": {
+            "name": "UART4_RX",
+            "instance": "UART4",
+            "die_pad": "PC11",
+            "function": {
+              "type": "alternate",
+              "id": "AF8"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PC11"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PC11",
+            "af": "AF8",
+            "DS_signal": "UART4_RX",
+            "descriptor_name": "UART4_RX",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 21,
+            "raw_cell": "UART4_RX"
+          }
+        },
+        {
+          "id": "descriptor.signal.380",
+          "pin": "PA0",
+          "pad": 14,
+          "signal": "UART4_TX",
+          "instance": "UART4",
+          "function": {
+            "type": "alternate",
+            "id": "AF8"
+          },
+          "source_pointer": "/signals/380",
+          "source_record": {
+            "name": "UART4_TX",
+            "instance": "UART4",
+            "die_pad": "PA0",
+            "function": {
+              "type": "alternate",
+              "id": "AF8"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA0",
+            "af": "AF8",
+            "DS_signal": "UART4_TX",
+            "descriptor_name": "UART4_TX",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 2,
+            "raw_cell": "UART4_TX"
+          }
+        },
+        {
+          "id": "descriptor.signal.381",
+          "pin": "PA12",
+          "pad": 45,
+          "signal": "UART4_TX",
+          "instance": "UART4",
+          "function": {
+            "type": "alternate",
+            "id": "AF6"
+          },
+          "source_pointer": "/signals/381",
+          "source_record": {
+            "name": "UART4_TX",
+            "instance": "UART4",
+            "die_pad": "PA12",
+            "function": {
+              "type": "alternate",
+              "id": "AF6"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PA12"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PA12",
+            "af": "AF6",
+            "DS_signal": "UART4_TX",
+            "descriptor_name": "UART4_TX",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 14,
+            "raw_cell": "UART4_TX"
+          }
+        },
+        {
+          "id": "descriptor.signal.382",
+          "pin": "PB9",
+          "pad": 62,
+          "signal": "UART4_TX",
+          "instance": "UART4",
+          "function": {
+            "type": "alternate",
+            "id": "AF8"
+          },
+          "source_pointer": "/signals/382",
+          "source_record": {
+            "name": "UART4_TX",
+            "instance": "UART4",
+            "die_pad": "PB9",
+            "function": {
+              "type": "alternate",
+              "id": "AF8"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB9",
+            "af": "AF8",
+            "DS_signal": "UART4_TX",
+            "descriptor_name": "UART4_TX",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 4,
+            "raw_cell": "UART4_TX"
+          }
+        },
+        {
+          "id": "descriptor.signal.383",
+          "pin": "PC10",
+          "pad": 51,
+          "signal": "UART4_TX",
+          "instance": "UART4",
+          "function": {
+            "type": "alternate",
+            "id": "AF8"
+          },
+          "source_pointer": "/signals/383",
+          "source_record": {
+            "name": "UART4_TX",
+            "instance": "UART4",
+            "die_pad": "PC10",
+            "function": {
+              "type": "alternate",
+              "id": "AF8"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PC10"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PC10",
+            "af": "AF8",
+            "DS_signal": "UART4_TX",
+            "descriptor_name": "UART4_TX",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 20,
+            "raw_cell": "UART4_TX"
+          }
+        },
+        {
+          "id": "descriptor.signal.384",
+          "pin": "PB4",
+          "pad": 56,
+          "signal": "UART5_CTS",
+          "instance": "UART5",
+          "function": {
+            "type": "alternate",
+            "id": "AF14"
+          },
+          "source_pointer": "/signals/384",
+          "source_record": {
+            "name": "UART5_CTS",
+            "instance": "UART5",
+            "die_pad": "PB4(NJTRST)",
+            "function": {
+              "type": "alternate",
+              "id": "AF14"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB4",
+            "af": "AF14",
+            "DS_signal": "UART5_CTS",
+            "descriptor_name": "UART5_CTS",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 22,
+            "raw_cell": "UART5_CTS"
+          }
+        },
+        {
+          "id": "descriptor.signal.385",
+          "pin": "PC9",
+          "pad": 40,
+          "signal": "UART5_CTS",
+          "instance": "UART5",
+          "function": {
+            "type": "alternate",
+            "id": "AF8"
+          },
+          "source_pointer": "/signals/385",
+          "source_record": {
+            "name": "UART5_CTS",
+            "instance": "UART5",
+            "die_pad": "PC9",
+            "function": {
+              "type": "alternate",
+              "id": "AF8"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PC9",
+            "af": "AF8",
+            "DS_signal": "UART5_CTS",
+            "descriptor_name": "UART5_CTS",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 19,
+            "raw_cell": "UART5_CTS"
+          }
+        },
+        {
+          "id": "descriptor.signal.386",
+          "pin": "PB3",
+          "pad": 55,
+          "signal": "UART5_RTS",
+          "instance": "UART5",
+          "function": {
+            "type": "alternate",
+            "id": "AF14"
+          },
+          "source_pointer": "/signals/386",
+          "source_record": {
+            "name": "UART5_RTS",
+            "instance": "UART5",
+            "die_pad": "PB3(JTDO/TRACESWO)",
+            "function": {
+              "type": "alternate",
+              "id": "AF14"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB3",
+            "af": "AF14",
+            "DS_signal": "UART5_RTS",
+            "descriptor_name": "UART5_RTS",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 21,
+            "raw_cell": "UART5_RTS"
+          }
+        },
+        {
+          "id": "descriptor.signal.387",
+          "pin": "PC8",
+          "pad": 39,
+          "signal": "UART5_RTS",
+          "instance": "UART5",
+          "function": {
+            "type": "alternate",
+            "id": "AF8"
+          },
+          "source_pointer": "/signals/387",
+          "source_record": {
+            "name": "UART5_RTS",
+            "instance": "UART5",
+            "die_pad": "PC8",
+            "function": {
+              "type": "alternate",
+              "id": "AF8"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PC8",
+            "af": "AF8",
+            "DS_signal": "UART5_RTS",
+            "descriptor_name": "UART5_RTS",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 18,
+            "raw_cell": "UART5_RTS"
+          }
+        },
+        {
+          "id": "descriptor.signal.388",
+          "pin": "PB12",
+          "pad": 33,
+          "signal": "UART5_RX",
+          "instance": "UART5",
+          "function": {
+            "type": "alternate",
+            "id": "AF14"
+          },
+          "source_pointer": "/signals/388",
+          "source_record": {
+            "name": "UART5_RX",
+            "instance": "UART5",
+            "die_pad": "PB12",
+            "function": {
+              "type": "alternate",
+              "id": "AF14"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB12",
+            "af": "AF14",
+            "DS_signal": "UART5_RX",
+            "descriptor_name": "UART5_RX",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 6,
+            "raw_cell": "UART5_RX"
+          }
+        },
+        {
+          "id": "descriptor.signal.389",
+          "pin": "PB15",
+          "pad": 36,
+          "signal": "UART5_RX",
+          "instance": "UART5",
+          "function": {
+            "type": "alternate",
+            "id": "AF14"
+          },
+          "source_pointer": "/signals/389",
+          "source_record": {
+            "name": "UART5_RX",
+            "instance": "UART5",
+            "die_pad": "PB15",
+            "function": {
+              "type": "alternate",
+              "id": "AF14"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PB15"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PB15",
+            "af": "AF14",
+            "DS_signal": "UART5_RX",
+            "descriptor_name": "UART5_RX",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 9,
+            "raw_cell": "UART5_RX"
+          }
+        },
+        {
+          "id": "descriptor.signal.390",
+          "pin": "PB5",
+          "pad": 57,
+          "signal": "UART5_RX",
+          "instance": "UART5",
+          "function": {
+            "type": "alternate",
+            "id": "AF14"
+          },
+          "source_pointer": "/signals/390",
+          "source_record": {
+            "name": "UART5_RX",
+            "instance": "UART5",
+            "die_pad": "PB5",
+            "function": {
+              "type": "alternate",
+              "id": "AF14"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PB5"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PB5",
+            "af": "AF14",
+            "DS_signal": "UART5_RX",
+            "descriptor_name": "UART5_RX",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 23,
+            "raw_cell": "UART5_RX"
+          }
+        },
+        {
+          "id": "descriptor.signal.391",
+          "pin": "PD2",
+          "pad": 54,
+          "signal": "UART5_RX",
+          "instance": "UART5",
+          "function": {
+            "type": "alternate",
+            "id": "AF8"
+          },
+          "source_pointer": "/signals/391",
+          "source_record": {
+            "name": "UART5_RX",
+            "instance": "UART5",
+            "die_pad": "PD2",
+            "function": {
+              "type": "alternate",
+              "id": "AF8"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PD2",
+            "af": "AF8",
+            "DS_signal": "UART5_RX",
+            "descriptor_name": "UART5_RX",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 26,
+            "raw_cell": "UART5_RX"
+          }
+        },
+        {
+          "id": "descriptor.signal.392",
+          "pin": "PB13",
+          "pad": 34,
+          "signal": "UART5_TX",
+          "instance": "UART5",
+          "function": {
+            "type": "alternate",
+            "id": "AF14"
+          },
+          "source_pointer": "/signals/392",
+          "source_record": {
+            "name": "UART5_TX",
+            "instance": "UART5",
+            "die_pad": "PB13",
+            "function": {
+              "type": "alternate",
+              "id": "AF14"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB13",
+            "af": "AF14",
+            "DS_signal": "UART5_TX",
+            "descriptor_name": "UART5_TX",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 7,
+            "raw_cell": "UART5_TX"
+          }
+        },
+        {
+          "id": "descriptor.signal.393",
+          "pin": "PB6",
+          "pad": 58,
+          "signal": "UART5_TX",
+          "instance": "UART5",
+          "function": {
+            "type": "alternate",
+            "id": "AF14"
+          },
+          "source_pointer": "/signals/393",
+          "source_record": {
+            "name": "UART5_TX",
+            "instance": "UART5",
+            "die_pad": "PB6",
+            "function": {
+              "type": "alternate",
+              "id": "AF14"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB6",
+            "af": "AF14",
+            "DS_signal": "UART5_TX",
+            "descriptor_name": "UART5_TX",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 24,
+            "raw_cell": "UART5_TX"
+          }
+        },
+        {
+          "id": "descriptor.signal.394",
+          "pin": "PC12",
+          "pad": 53,
+          "signal": "UART5_TX",
+          "instance": "UART5",
+          "function": {
+            "type": "alternate",
+            "id": "AF8"
+          },
+          "source_pointer": "/signals/394",
+          "source_record": {
+            "name": "UART5_TX",
+            "instance": "UART5",
+            "die_pad": "PC12",
+            "function": {
+              "type": "alternate",
+              "id": "AF8"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PC12",
+            "af": "AF8",
+            "DS_signal": "UART5_TX",
+            "descriptor_name": "UART5_TX",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 22,
+            "raw_cell": "UART5_TX"
+          }
+        },
+        {
+          "id": "descriptor.signal.395",
+          "pin": "PA8",
+          "pad": 41,
+          "signal": "USART1_CK",
+          "instance": "USART1",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/395",
+          "source_record": {
+            "name": "USART1_CK",
+            "instance": "USART1",
+            "die_pad": "PA8",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA8",
+            "af": "AF7",
+            "DS_signal": "USART1_CK",
+            "descriptor_name": "USART1_CK",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 10,
+            "raw_cell": "USART1_CK"
+          }
+        },
+        {
+          "id": "descriptor.signal.396",
+          "pin": "PB3",
+          "pad": 55,
+          "signal": "USART1_CK",
+          "instance": "USART1",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/396",
+          "source_record": {
+            "name": "USART1_CK",
+            "instance": "USART1",
+            "die_pad": "PB3(JTDO/TRACESWO)",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB3",
+            "af": "AF7",
+            "DS_signal": "USART1_CK",
+            "descriptor_name": "USART1_CK",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 21,
+            "raw_cell": "USART1_CK"
+          }
+        },
+        {
+          "id": "descriptor.signal.397",
+          "pin": "PB5",
+          "pad": 57,
+          "signal": "USART1_CK",
+          "instance": "USART1",
+          "function": {
+            "type": "alternate",
+            "id": "AF11"
+          },
+          "source_pointer": "/signals/397",
+          "source_record": {
+            "name": "USART1_CK",
+            "instance": "USART1",
+            "die_pad": "PB5",
+            "function": {
+              "type": "alternate",
+              "id": "AF11"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PB5"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PB5",
+            "af": "AF11",
+            "DS_signal": "USART1_CK",
+            "descriptor_name": "USART1_CK",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 23,
+            "raw_cell": "USART1_CK"
+          }
+        },
+        {
+          "id": "descriptor.signal.398",
+          "pin": "PA11",
+          "pad": 44,
+          "signal": "USART1_CTS",
+          "instance": "USART1",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/398",
+          "source_record": {
+            "name": "USART1_CTS",
+            "instance": "USART1",
+            "die_pad": "PA11",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PA11"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PA11",
+            "af": "AF7",
+            "DS_signal": "USART1_CTS",
+            "descriptor_name": "USART1_CTS",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 13,
+            "raw_cell": "USART1_CTS\n/\nUSART1_NSS"
+          }
+        },
+        {
+          "id": "descriptor.signal.399",
+          "pin": "PA5",
+          "pad": 21,
+          "signal": "USART1_CTS",
+          "instance": "USART1",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/399",
+          "source_record": {
+            "name": "USART1_CTS",
+            "instance": "USART1",
+            "die_pad": "PA5",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA5",
+            "af": "AF7",
+            "DS_signal": "USART1_CTS",
+            "descriptor_name": "USART1_CTS",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 7,
+            "raw_cell": "USART1_CTS\n/\nUSART1_NSS"
+          }
+        },
+        {
+          "id": "descriptor.signal.400",
+          "pin": "PB6",
+          "pad": 58,
+          "signal": "USART1_CTS",
+          "instance": "USART1",
+          "function": {
+            "type": "alternate",
+            "id": "AF11"
+          },
+          "source_pointer": "/signals/400",
+          "source_record": {
+            "name": "USART1_CTS",
+            "instance": "USART1",
+            "die_pad": "PB6",
+            "function": {
+              "type": "alternate",
+              "id": "AF11"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB6",
+            "af": "AF11",
+            "DS_signal": "USART1_CTS",
+            "descriptor_name": "USART1_CTS",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 24,
+            "raw_cell": "USART1_CTS\n/\nUSART1_NSS"
+          }
+        },
+        {
+          "id": "descriptor.signal.401",
+          "pin": "PA11",
+          "pad": 44,
+          "signal": "USART1_NSS",
+          "instance": "USART1",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/401",
+          "source_record": {
+            "name": "USART1_NSS",
+            "instance": "USART1",
+            "die_pad": "PA11",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PA11"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PA11",
+            "af": "AF7",
+            "DS_signal": "USART1_NSS",
+            "descriptor_name": "USART1_NSS",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 13,
+            "raw_cell": "USART1_CTS\n/\nUSART1_NSS"
+          }
+        },
+        {
+          "id": "descriptor.signal.402",
+          "pin": "PA5",
+          "pad": 21,
+          "signal": "USART1_NSS",
+          "instance": "USART1",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/402",
+          "source_record": {
+            "name": "USART1_NSS",
+            "instance": "USART1",
+            "die_pad": "PA5",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA5",
+            "af": "AF7",
+            "DS_signal": "USART1_NSS",
+            "descriptor_name": "USART1_NSS",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 7,
+            "raw_cell": "USART1_CTS\n/\nUSART1_NSS"
+          }
+        },
+        {
+          "id": "descriptor.signal.403",
+          "pin": "PB6",
+          "pad": 58,
+          "signal": "USART1_NSS",
+          "instance": "USART1",
+          "function": {
+            "type": "alternate",
+            "id": "AF11"
+          },
+          "source_pointer": "/signals/403",
+          "source_record": {
+            "name": "USART1_NSS",
+            "instance": "USART1",
+            "die_pad": "PB6",
+            "function": {
+              "type": "alternate",
+              "id": "AF11"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB6",
+            "af": "AF11",
+            "DS_signal": "USART1_NSS",
+            "descriptor_name": "USART1_NSS",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 24,
+            "raw_cell": "USART1_CTS\n/\nUSART1_NSS"
+          }
+        },
+        {
+          "id": "descriptor.signal.404",
+          "pin": "PA12",
+          "pad": 45,
+          "signal": "USART1_RTS",
+          "instance": "USART1",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/404",
+          "source_record": {
+            "name": "USART1_RTS",
+            "instance": "USART1",
+            "die_pad": "PA12",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PA12"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PA12",
+            "af": "AF7",
+            "DS_signal": "USART1_RTS",
+            "descriptor_name": "USART1_RTS",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 14,
+            "raw_cell": "USART1_RTS"
+          }
+        },
+        {
+          "id": "descriptor.signal.405",
+          "pin": "PB7",
+          "pad": 59,
+          "signal": "USART1_RTS",
+          "instance": "USART1",
+          "function": {
+            "type": "alternate",
+            "id": "AF11"
+          },
+          "source_pointer": "/signals/405",
+          "source_record": {
+            "name": "USART1_RTS",
+            "instance": "USART1",
+            "die_pad": "PB7",
+            "function": {
+              "type": "alternate",
+              "id": "AF11"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB7",
+            "af": "AF11",
+            "DS_signal": "USART1_RTS",
+            "descriptor_name": "USART1_RTS",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 2,
+            "raw_cell": "USART1_RTS"
+          }
+        },
+        {
+          "id": "descriptor.signal.406",
+          "pin": "PA10",
+          "pad": 43,
+          "signal": "USART1_RX",
+          "instance": "USART1",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/406",
+          "source_record": {
+            "name": "USART1_RX",
+            "instance": "USART1",
+            "die_pad": "PA10",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA10",
+            "af": "AF7",
+            "DS_signal": "USART1_RX",
+            "descriptor_name": "USART1_RX",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 12,
+            "raw_cell": "USART1_RX"
+          }
+        },
+        {
+          "id": "descriptor.signal.407",
+          "pin": "PA7",
+          "pad": 23,
+          "signal": "USART1_RX",
+          "instance": "USART1",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/407",
+          "source_record": {
+            "name": "USART1_RX",
+            "instance": "USART1",
+            "die_pad": "PA7",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA7",
+            "af": "AF7",
+            "DS_signal": "USART1_RX",
+            "descriptor_name": "USART1_RX",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 9,
+            "raw_cell": "USART1_RX"
+          }
+        },
+        {
+          "id": "descriptor.signal.408",
+          "pin": "PB15",
+          "pad": 36,
+          "signal": "USART1_RX",
+          "instance": "USART1",
+          "function": {
+            "type": "alternate",
+            "id": "AF4"
+          },
+          "source_pointer": "/signals/408",
+          "source_record": {
+            "name": "USART1_RX",
+            "instance": "USART1",
+            "die_pad": "PB15",
+            "function": {
+              "type": "alternate",
+              "id": "AF4"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PB15"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PB15",
+            "af": "AF4",
+            "DS_signal": "USART1_RX",
+            "descriptor_name": "USART1_RX",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 9,
+            "raw_cell": "USART1_RX"
+          }
+        },
+        {
+          "id": "descriptor.signal.409",
+          "pin": "PB4",
+          "pad": 56,
+          "signal": "USART1_RX",
+          "instance": "USART1",
+          "function": {
+            "type": "alternate",
+            "id": "AF11"
+          },
+          "source_pointer": "/signals/409",
+          "source_record": {
+            "name": "USART1_RX",
+            "instance": "USART1",
+            "die_pad": "PB4(NJTRST)",
+            "function": {
+              "type": "alternate",
+              "id": "AF11"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB4",
+            "af": "AF11",
+            "DS_signal": "USART1_RX",
+            "descriptor_name": "USART1_RX",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 22,
+            "raw_cell": "USART1_RX"
+          }
+        },
+        {
+          "id": "descriptor.signal.410",
+          "pin": "PB7",
+          "pad": 59,
+          "signal": "USART1_RX",
+          "instance": "USART1",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/410",
+          "source_record": {
+            "name": "USART1_RX",
+            "instance": "USART1",
+            "die_pad": "PB7",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB7",
+            "af": "AF7",
+            "DS_signal": "USART1_RX",
+            "descriptor_name": "USART1_RX",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 2,
+            "raw_cell": "USART1_RX"
+          }
+        },
+        {
+          "id": "descriptor.signal.411",
+          "pin": "PA15",
+          "pad": 50,
+          "signal": "USART1_TX",
+          "instance": "USART1",
+          "function": {
+            "type": "alternate",
+            "id": "AF11"
+          },
+          "source_pointer": "/signals/411",
+          "source_record": {
+            "name": "USART1_TX",
+            "instance": "USART1",
+            "die_pad": "PA15(JTDI)",
+            "function": {
+              "type": "alternate",
+              "id": "AF11"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA15",
+            "af": "AF11",
+            "DS_signal": "USART1_TX",
+            "descriptor_name": "USART1_TX",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 17,
+            "raw_cell": "USART1_TX"
+          }
+        },
+        {
+          "id": "descriptor.signal.412",
+          "pin": "PA6",
+          "pad": 22,
+          "signal": "USART1_TX",
+          "instance": "USART1",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/412",
+          "source_record": {
+            "name": "USART1_TX",
+            "instance": "USART1",
+            "die_pad": "PA6",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA6",
+            "af": "AF7",
+            "DS_signal": "USART1_TX",
+            "descriptor_name": "USART1_TX",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 8,
+            "raw_cell": "USART1_TX"
+          }
+        },
+        {
+          "id": "descriptor.signal.413",
+          "pin": "PA9",
+          "pad": 42,
+          "signal": "USART1_TX",
+          "instance": "USART1",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/413",
+          "source_record": {
+            "name": "USART1_TX",
+            "instance": "USART1",
+            "die_pad": "PA9",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PA9"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PA9",
+            "af": "AF7",
+            "DS_signal": "USART1_TX",
+            "descriptor_name": "USART1_TX",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 11,
+            "raw_cell": "USART1_TX"
+          }
+        },
+        {
+          "id": "descriptor.signal.414",
+          "pin": "PB14",
+          "pad": 35,
+          "signal": "USART1_TX",
+          "instance": "USART1",
+          "function": {
+            "type": "alternate",
+            "id": "AF4"
+          },
+          "source_pointer": "/signals/414",
+          "source_record": {
+            "name": "USART1_TX",
+            "instance": "USART1",
+            "die_pad": "PB14",
+            "function": {
+              "type": "alternate",
+              "id": "AF4"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB14",
+            "af": "AF4",
+            "DS_signal": "USART1_TX",
+            "descriptor_name": "USART1_TX",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 8,
+            "raw_cell": "USART1_TX"
+          }
+        },
+        {
+          "id": "descriptor.signal.415",
+          "pin": "PB3",
+          "pad": 55,
+          "signal": "USART1_TX",
+          "instance": "USART1",
+          "function": {
+            "type": "alternate",
+            "id": "AF11"
+          },
+          "source_pointer": "/signals/415",
+          "source_record": {
+            "name": "USART1_TX",
+            "instance": "USART1",
+            "die_pad": "PB3(JTDO/TRACESWO)",
+            "function": {
+              "type": "alternate",
+              "id": "AF11"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB3",
+            "af": "AF11",
+            "DS_signal": "USART1_TX",
+            "descriptor_name": "USART1_TX",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 21,
+            "raw_cell": "USART1_TX"
+          }
+        },
+        {
+          "id": "descriptor.signal.416",
+          "pin": "PB6",
+          "pad": 58,
+          "signal": "USART1_TX",
+          "instance": "USART1",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/416",
+          "source_record": {
+            "name": "USART1_TX",
+            "instance": "USART1",
+            "die_pad": "PB6",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB6",
+            "af": "AF7",
+            "DS_signal": "USART1_TX",
+            "descriptor_name": "USART1_TX",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 24,
+            "raw_cell": "USART1_TX"
+          }
+        },
+        {
+          "id": "descriptor.signal.417",
+          "pin": "PA15",
+          "pad": 50,
+          "signal": "USART2_CK",
+          "instance": "USART2",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/417",
+          "source_record": {
+            "name": "USART2_CK",
+            "instance": "USART2",
+            "die_pad": "PA15(JTDI)",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA15",
+            "af": "AF7",
+            "DS_signal": "USART2_CK",
+            "descriptor_name": "USART2_CK",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 17,
+            "raw_cell": "USART2_CK"
+          }
+        },
+        {
+          "id": "descriptor.signal.418",
+          "pin": "PA4",
+          "pad": 20,
+          "signal": "USART2_CK",
+          "instance": "USART2",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/418",
+          "source_record": {
+            "name": "USART2_CK",
+            "instance": "USART2",
+            "die_pad": "PA4",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA4",
+            "af": "AF7",
+            "DS_signal": "USART2_CK",
+            "descriptor_name": "USART2_CK",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 6,
+            "raw_cell": "USART2_CK"
+          }
+        },
+        {
+          "id": "descriptor.signal.419",
+          "pin": "PB12",
+          "pad": 33,
+          "signal": "USART2_CK",
+          "instance": "USART2",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/419",
+          "source_record": {
+            "name": "USART2_CK",
+            "instance": "USART2",
+            "die_pad": "PB12",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB12",
+            "af": "AF7",
+            "DS_signal": "USART2_CK",
+            "descriptor_name": "USART2_CK",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 6,
+            "raw_cell": "USART2_CK"
+          }
+        },
+        {
+          "id": "descriptor.signal.420",
+          "pin": "PC12",
+          "pad": 53,
+          "signal": "USART2_CK",
+          "instance": "USART2",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/420",
+          "source_record": {
+            "name": "USART2_CK",
+            "instance": "USART2",
+            "die_pad": "PC12",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PC12",
+            "af": "AF7",
+            "DS_signal": "USART2_CK",
+            "descriptor_name": "USART2_CK",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 22,
+            "raw_cell": "USART2_CK"
+          }
+        },
+        {
+          "id": "descriptor.signal.421",
+          "pin": "PA0",
+          "pad": 14,
+          "signal": "USART2_CTS",
+          "instance": "USART2",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/421",
+          "source_record": {
+            "name": "USART2_CTS",
+            "instance": "USART2",
+            "die_pad": "PA0",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA0",
+            "af": "AF7",
+            "DS_signal": "USART2_CTS",
+            "descriptor_name": "USART2_CTS",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 2,
+            "raw_cell": "USART2_CTS\n/\nUSART2_NSS"
+          }
+        },
+        {
+          "id": "descriptor.signal.422",
+          "pin": "PB13",
+          "pad": 34,
+          "signal": "USART2_CTS",
+          "instance": "USART2",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/422",
+          "source_record": {
+            "name": "USART2_CTS",
+            "instance": "USART2",
+            "die_pad": "PB13",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB13",
+            "af": "AF7",
+            "DS_signal": "USART2_CTS",
+            "descriptor_name": "USART2_CTS",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 7,
+            "raw_cell": "USART2_CTS\n/\nUSART2_NSS"
+          }
+        },
+        {
+          "id": "descriptor.signal.423",
+          "pin": "PA0",
+          "pad": 14,
+          "signal": "USART2_NSS",
+          "instance": "USART2",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/423",
+          "source_record": {
+            "name": "USART2_NSS",
+            "instance": "USART2",
+            "die_pad": "PA0",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA0",
+            "af": "AF7",
+            "DS_signal": "USART2_NSS",
+            "descriptor_name": "USART2_NSS",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 2,
+            "raw_cell": "USART2_CTS\n/\nUSART2_NSS"
+          }
+        },
+        {
+          "id": "descriptor.signal.424",
+          "pin": "PB13",
+          "pad": 34,
+          "signal": "USART2_NSS",
+          "instance": "USART2",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/424",
+          "source_record": {
+            "name": "USART2_NSS",
+            "instance": "USART2",
+            "die_pad": "PB13",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB13",
+            "af": "AF7",
+            "DS_signal": "USART2_NSS",
+            "descriptor_name": "USART2_NSS",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 7,
+            "raw_cell": "USART2_CTS\n/\nUSART2_NSS"
+          }
+        },
+        {
+          "id": "descriptor.signal.425",
+          "pin": "PA1",
+          "pad": 15,
+          "signal": "USART2_RTS",
+          "instance": "USART2",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/425",
+          "source_record": {
+            "name": "USART2_RTS",
+            "instance": "USART2",
+            "die_pad": "PA1",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PA1"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PA1",
+            "af": "AF7",
+            "DS_signal": "USART2_RTS",
+            "descriptor_name": "USART2_RTS",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 3,
+            "raw_cell": "USART2_RTS"
+          }
+        },
+        {
+          "id": "descriptor.signal.426",
+          "pin": "PB14",
+          "pad": 35,
+          "signal": "USART2_RTS",
+          "instance": "USART2",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/426",
+          "source_record": {
+            "name": "USART2_RTS",
+            "instance": "USART2",
+            "die_pad": "PB14",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB14",
+            "af": "AF7",
+            "DS_signal": "USART2_RTS",
+            "descriptor_name": "USART2_RTS",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 8,
+            "raw_cell": "USART2_RTS"
+          }
+        },
+        {
+          "id": "descriptor.signal.427",
+          "pin": "PA12",
+          "pad": 45,
+          "signal": "USART2_RX",
+          "instance": "USART2",
+          "function": {
+            "type": "alternate",
+            "id": "AF4"
+          },
+          "source_pointer": "/signals/427",
+          "source_record": {
+            "name": "USART2_RX",
+            "instance": "USART2",
+            "die_pad": "PA12",
+            "function": {
+              "type": "alternate",
+              "id": "AF4"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PA12"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PA12",
+            "af": "AF4",
+            "DS_signal": "USART2_RX",
+            "descriptor_name": "USART2_RX",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 14,
+            "raw_cell": "USART2_RX"
+          }
+        },
+        {
+          "id": "descriptor.signal.428",
+          "pin": "PA3",
+          "pad": 17,
+          "signal": "USART2_RX",
+          "instance": "USART2",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/428",
+          "source_record": {
+            "name": "USART2_RX",
+            "instance": "USART2",
+            "die_pad": "PA3",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA3",
+            "af": "AF7",
+            "DS_signal": "USART2_RX",
+            "descriptor_name": "USART2_RX",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 5,
+            "raw_cell": "USART2_RX"
+          }
+        },
+        {
+          "id": "descriptor.signal.429",
+          "pin": "PB1",
+          "pad": 27,
+          "signal": "USART2_RX",
+          "instance": "USART2",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/429",
+          "source_record": {
+            "name": "USART2_RX",
+            "instance": "USART2",
+            "die_pad": "PB1",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PB1"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PB1",
+            "af": "AF7",
+            "DS_signal": "USART2_RX",
+            "descriptor_name": "USART2_RX",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 19,
+            "raw_cell": "USART2_RX"
+          }
+        },
+        {
+          "id": "descriptor.signal.430",
+          "pin": "PC11",
+          "pad": 52,
+          "signal": "USART2_RX",
+          "instance": "USART2",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/430",
+          "source_record": {
+            "name": "USART2_RX",
+            "instance": "USART2",
+            "die_pad": "PC11",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PC11"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PC11",
+            "af": "AF7",
+            "DS_signal": "USART2_RX",
+            "descriptor_name": "USART2_RX",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 21,
+            "raw_cell": "USART2_RX"
+          }
+        },
+        {
+          "id": "descriptor.signal.431",
+          "pin": "PC4",
+          "pad": 24,
+          "signal": "USART2_RX",
+          "instance": "USART2",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/431",
+          "source_record": {
+            "name": "USART2_RX",
+            "instance": "USART2",
+            "die_pad": "PC4",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PC4",
+            "af": "AF7",
+            "DS_signal": "USART2_RX",
+            "descriptor_name": "USART2_RX",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 14,
+            "raw_cell": "USART2_RX"
+          }
+        },
+        {
+          "id": "descriptor.signal.432",
+          "pin": "PA11",
+          "pad": 44,
+          "signal": "USART2_TX",
+          "instance": "USART2",
+          "function": {
+            "type": "alternate",
+            "id": "AF4"
+          },
+          "source_pointer": "/signals/432",
+          "source_record": {
+            "name": "USART2_TX",
+            "instance": "USART2",
+            "die_pad": "PA11",
+            "function": {
+              "type": "alternate",
+              "id": "AF4"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PA11"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PA11",
+            "af": "AF4",
+            "DS_signal": "USART2_TX",
+            "descriptor_name": "USART2_TX",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 13,
+            "raw_cell": "USART2_TX"
+          }
+        },
+        {
+          "id": "descriptor.signal.433",
+          "pin": "PA2",
+          "pad": 16,
+          "signal": "USART2_TX",
+          "instance": "USART2",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/433",
+          "source_record": {
+            "name": "USART2_TX",
+            "instance": "USART2",
+            "die_pad": "PA2",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA2",
+            "af": "AF7",
+            "DS_signal": "USART2_TX",
+            "descriptor_name": "USART2_TX",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 4,
+            "raw_cell": "USART2_TX"
+          }
+        },
+        {
+          "id": "descriptor.signal.434",
+          "pin": "PB0",
+          "pad": 26,
+          "signal": "USART2_TX",
+          "instance": "USART2",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/434",
+          "source_record": {
+            "name": "USART2_TX",
+            "instance": "USART2",
+            "die_pad": "PB0",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PB0"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PB0",
+            "af": "AF7",
+            "DS_signal": "USART2_TX",
+            "descriptor_name": "USART2_TX",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 18,
+            "raw_cell": "USART2_TX"
+          }
+        },
+        {
+          "id": "descriptor.signal.435",
+          "pin": "PB10",
+          "pad": 29,
+          "signal": "USART2_TX",
+          "instance": "USART2",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/435",
+          "source_record": {
+            "name": "USART2_TX",
+            "instance": "USART2",
+            "die_pad": "PB10",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PB10",
+            "af": "AF7",
+            "DS_signal": "USART2_TX",
+            "descriptor_name": "USART2_TX",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 5,
+            "raw_cell": "USART2_TX"
+          }
+        },
+        {
+          "id": "descriptor.signal.436",
+          "pin": "PC10",
+          "pad": 51,
+          "signal": "USART2_TX",
+          "instance": "USART2",
+          "function": {
+            "type": "alternate",
+            "id": "AF7"
+          },
+          "source_pointer": "/signals/436",
+          "source_record": {
+            "name": "USART2_TX",
+            "instance": "USART2",
+            "die_pad": "PC10",
+            "function": {
+              "type": "alternate",
+              "id": "AF7"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PC10"
+          ],
+          "DS_AF_evidence": {
+            "pin": "PC10",
+            "af": "AF7",
+            "DS_signal": "USART2_TX",
+            "descriptor_name": "USART2_TX",
+            "page": 47,
+            "table": 13,
+            "extracted_row": 20,
+            "raw_cell": "USART2_TX"
+          }
+        }
+      ],
+      "route_constraints": "Literal descriptor rows retained with inherited unresolved references; DS46/47 crosschecked. DE shares RTS and NSS shares CTS where exact feature exists. Shared debug/trace pads and all other alternate functions require explicit ownership; descriptor rows do not establish board wiring/electrical suitability."
+    },
+    "chapter_audit": {
+      "document": "RM0522",
+      "pages": [
+        1798,
+        1887
+      ],
+      "boundary_evidence": [
+        "RM0522:p1797",
+        "RM0522:p1798",
+        "RM0522:p1887",
+        "RM0522:p1888"
+      ],
+      "status": "full_chapter_read_and_bound_not_semantic_closure"
+    },
+    "package_routes_sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288",
+    "errata_sha256": "821c22f796a9ff723afee534fe5943c2b0506325ec871d890706d94414316416",
+    "dma_routing_sha256": "6f5d4d59950941a32d983ccc0907dda996415c9fd201cce9b2e8777bd86ae41d"
+  }
+}

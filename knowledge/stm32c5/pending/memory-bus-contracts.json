@@ -1,0 +1,1074 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/memory-bus-contracts.json",
+    "sha256": "ebab9da990520116f488584b30d95ef50c1fc94dc34d5ab649bf07a6c73b97aa"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 36
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "schema": "bkpt.external.memory-bus.contracts.v1",
+    "review": "independent_source_review_pending",
+    "scope": "Exact C542 memory and bus chapter plus six supplied linker templates; no runtime or complete architecture qualification",
+    "chapter_audit": {
+      "document": "RM0522",
+      "pages": [
+        87,
+        98
+      ],
+      "status": "full_chapter_read_and_bound_not_semantic_closure"
+    },
+    "sources": {
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "DS15135": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pdf",
+        "sha256": "1a3555f799297774a95978ab343ebc1f45ab9ef58d0dcf3600dec4fabed9355c",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pages.json",
+        "extraction_sha256": "b14b965adb6c1545edbca0e56b3c504e7ecc3a94bda197350ce2757b5a3d55dc"
+      },
+      "ES0676": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pdf",
+        "sha256": "a5463827337bcdbd3e5f2e0912a56307d78b568e5631b21cc9a25899c7d4a5e6",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pages.json",
+        "extraction_sha256": "2ab1b19e42b53e22ff5f3b98f6ed9a5f98f3b7b61a617abc3bb3b7fc050d1cb3"
+      },
+      "system": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Source/Templates/system_stm32c5xx.c",
+        "sha256": "3756864b21d695eeeebdbf5b569570b783b4627f42bc7494b96fe5f217a1e12b"
+      },
+      "startup": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Source/startup_stm32c542xx.c",
+        "sha256": "cc3f71f21df0e7711798c5a18814dc8a021b41e91af00bfd1b2159fe22256907"
+      },
+      "gcc_flash": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Source/Templates/gcc/linker/stm32c542xc_flash.ld",
+        "sha256": "a705a813a146c1303bb3d07633931b44c7fcff8cdac334881861ae051a44d6de"
+      },
+      "gcc_sram": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Source/Templates/gcc/linker/stm32c542xc_sram.ld",
+        "sha256": "9dccdae3d2de08fa6894f39a5f5596876868da5bc259810e269bf1d700ed9590"
+      },
+      "iar_flash": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Source/Templates/iar/linker/stm32c542xc_flash.icf",
+        "sha256": "ceb771e9baa5e7eba340c97f57cd18040d341bd676a48a9b6d3e783ce21833cb"
+      },
+      "iar_sram": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Source/Templates/iar/linker/stm32c542xc_sram.icf",
+        "sha256": "a5bfe270abc2eea7a2387683fa3ef8d7a807501b9976aa60ad1aac5ac47f103c"
+      },
+      "arm_flash": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Source/Templates/arm/linker/stm32c542xc_flash.sct",
+        "sha256": "dc19c7fc36911ee4b627bb2fd4f0bda4130b6e0b5e1f062f873ce47c059facfe"
+      },
+      "arm_sram": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Source/Templates/arm/linker/stm32c542xc_sram.sct",
+        "sha256": "1cfcb7c60d25d076141c7173d14965a426353c807b1955319c581748f1421b75"
+      },
+      "flash-contracts": {
+        "path": "research://c5-reference/flash-contracts.json",
+        "sha256": "0038b89cfd54ed13d576216b77c3bb8dc617102400fe7432757b07d0359336cb"
+      },
+      "ramcfg-contracts": {
+        "path": "research://c5-reference/ramcfg-contracts.json",
+        "sha256": "38595f569392cac228afbd7f0ddc7013d5e1d263f766d51142d00ab103342fb2"
+      },
+      "icache-contracts": {
+        "path": "research://c5-reference/icache-contracts.json",
+        "sha256": "178124755154130d17cf3ee052be8988a678d15622a785f1f861bbe1850e3311"
+      },
+      "dma-controller-contracts": {
+        "path": "research://c5-reference/dma-controller-contracts.json",
+        "sha256": "6d538556dcde72c81aadb02183f23c36b7d7109edca3279c3efc5b776d730a6f"
+      },
+      "device-inventory": {
+        "path": "research://c5-reference/device-inventory.json",
+        "sha256": "510a01b74b20e1e400e60a461e55c9cd5977faa489e146dea0ca851c3e176aa3"
+      }
+    },
+    "evidence": {
+      "RM0522:p85": {
+        "source": "RM0522",
+        "page": 85,
+        "sha256": "d99ded41493622c67b5c0d6a65bcc86db9c091804b13a5bea5886aef2bdfee97"
+      },
+      "RM0522:p86": {
+        "source": "RM0522",
+        "page": 86,
+        "sha256": "b3efb343a160d7a90b81539c83a49fc8342f4ce34640e40b4d4418f7e563c0d7"
+      },
+      "RM0522:p87": {
+        "source": "RM0522",
+        "page": 87,
+        "sha256": "979857ff27a50b4d658525ce23d2d4f605b54d3886d5be51ae4b82564fcf9efd"
+      },
+      "RM0522:p88": {
+        "source": "RM0522",
+        "page": 88,
+        "sha256": "8a95f64a701e3c79702162c2b70cdddd00a9589898d071ec8514e97ad94011db"
+      },
+      "RM0522:p89": {
+        "source": "RM0522",
+        "page": 89,
+        "sha256": "ccf45dfa4c6e8eccf52f850270dd058f5fe15d36009c3d7bbdf9425b3b5d169b"
+      },
+      "RM0522:p90": {
+        "source": "RM0522",
+        "page": 90,
+        "sha256": "3343572221a8c1995fcb9ae072c0d1c53fbb88ea1566482a64604a489e7f50c8"
+      },
+      "RM0522:p91": {
+        "source": "RM0522",
+        "page": 91,
+        "sha256": "0a179ac4ab1d1ef7028280daf3152dbfbcde6eb45d7ae3c2f01c88d7a97eed0c"
+      },
+      "RM0522:p92": {
+        "source": "RM0522",
+        "page": 92,
+        "sha256": "4caf582e6d630505b5ca66ba1aa1238695c67b69bea9e4dd31dd09afc7f3eeb0"
+      },
+      "RM0522:p93": {
+        "source": "RM0522",
+        "page": 93,
+        "sha256": "88b5cdd4c54d5fd775f7f37e2997d643781b80a5c5c292727c245491c2401cb6"
+      },
+      "RM0522:p94": {
+        "source": "RM0522",
+        "page": 94,
+        "sha256": "4b27f00085150391a1e8afa46adc18e0236a7bcc7435da9015cea2f40512b105"
+      },
+      "RM0522:p95": {
+        "source": "RM0522",
+        "page": 95,
+        "sha256": "885877101fb6b278c2574acd6890871e3f1878d94281577d2186d17a556083e2"
+      },
+      "RM0522:p96": {
+        "source": "RM0522",
+        "page": 96,
+        "sha256": "f4d8880b1098cf7d89d335368d435e59fe3a307f76b591632e9517378161ca5d"
+      },
+      "RM0522:p97": {
+        "source": "RM0522",
+        "page": 97,
+        "sha256": "78bbaacc3bbf7f59e2ad75d8e15359ac1fca0a29862d5746b91e9c6c33ab03b2"
+      },
+      "RM0522:p98": {
+        "source": "RM0522",
+        "page": 98,
+        "sha256": "c8af969ef68f658fecdf04ad622e202745123bd784b5fbb233d8f978912170be"
+      },
+      "RM0522:p114": {
+        "source": "RM0522",
+        "page": 114,
+        "sha256": "c7b4d08f5f0cddb8a107f52e32aec6446e22a06270b98e5ff6bfb96868e983bb"
+      },
+      "RM0522:p115": {
+        "source": "RM0522",
+        "page": 115,
+        "sha256": "44af7df1fa07bc1bf671f9342a591e37f9d1a725baf004fe2536d984acf34005"
+      },
+      "RM0522:p128": {
+        "source": "RM0522",
+        "page": 128,
+        "sha256": "839c2824d696f7d8f4b62a371e0f403929cae3cb5b6b15205b7db5af661d1a41"
+      },
+      "RM0522:p129": {
+        "source": "RM0522",
+        "page": 129,
+        "sha256": "e633ca10b5325e0993c19db30f4be7849e25eb6f0a169041b8c3583c7781606b"
+      },
+      "RM0522:p131": {
+        "source": "RM0522",
+        "page": 131,
+        "sha256": "ba454e7d104a526bc428625b39fe9433090f31e5df031201845fb177a0c21d68"
+      },
+      "RM0522:p163": {
+        "source": "RM0522",
+        "page": 163,
+        "sha256": "f99a7bf127e78c76f52798b1c0c261324826245557444b6689d18e7cf5182be3"
+      },
+      "RM0522:p208": {
+        "source": "RM0522",
+        "page": 208,
+        "sha256": "bfe3e08cc6a7c3351cb9307bbc083e6a05d7a5d2457bf4f64cf9c5cc2a1bc41a"
+      },
+      "RM0522:p212": {
+        "source": "RM0522",
+        "page": 212,
+        "sha256": "ce24c373f6e6b57cb6b3911067d9cd9528b3a13fb159f4dd9cf969db033fe25f"
+      },
+      "RM0522:p216": {
+        "source": "RM0522",
+        "page": 216,
+        "sha256": "1e535327da8dfd84af37ea7b2b3a34069f7936b7783dfebb5bc52970c46d0be9"
+      },
+      "DS15135:p9": {
+        "source": "DS15135",
+        "page": 9,
+        "sha256": "bdf1244c83727d2a38580125ecce4dec522e0113327dc0f9affeed70913f09d7"
+      },
+      "DS15135:p12": {
+        "source": "DS15135",
+        "page": 12,
+        "sha256": "1d8726d82b20009d19aa8a5a03bf5a24f2ef7bd42f83967ae8869906cf437ae3"
+      },
+      "ES0676:p2": {
+        "source": "ES0676",
+        "page": 2,
+        "sha256": "3fed5303e4a0fc65ed4dbe6aae1c297605837e2da15bb0e24928d26b0d25eb95"
+      },
+      "ES0676:p4": {
+        "source": "ES0676",
+        "page": 4,
+        "sha256": "3b0e6d179a6d3b6701ddfa31ce87f44ef4d62c59d79a1f01184c77a212d7774c"
+      },
+      "header.memory": {
+        "source": "header",
+        "start_line": 1140,
+        "end_line": 1250,
+        "sha256": "6d461619e74f9f49632ae9a1bc10ef04bcb91b81bc1ae6a0e701839d492009e8"
+      },
+      "system.init": {
+        "source": "system",
+        "start_line": 142,
+        "end_line": 157,
+        "sha256": "8988dafe135317dc05f803c58d6558be1db39fb0f1029eb728040407fc3c771a"
+      },
+      "startup.reset": {
+        "source": "startup",
+        "start_line": 250,
+        "end_line": 264,
+        "sha256": "9b91183f2b4cfcc9ec594531f3da1980e93905c64dbd39ba08a74ed281ed255d"
+      },
+      "gcc_flash.full": {
+        "source": "gcc_flash",
+        "start_line": 1,
+        "end_line": 185,
+        "sha256": "17092c7b3c574871c0147647f61fe1c498d74b4a137db69d7c5771e836a286c4"
+      },
+      "gcc_sram.full": {
+        "source": "gcc_sram",
+        "start_line": 1,
+        "end_line": 185,
+        "sha256": "ee5ffaf4c1a177b5ecb070678fbc8a081e5b20809812576dd656afa396cfe460"
+      },
+      "iar_flash.full": {
+        "source": "iar_flash",
+        "start_line": 1,
+        "end_line": 46,
+        "sha256": "483d8d343a0f4af1cffb746a05762093fe2823a0705c0657335a46890ed2886b"
+      },
+      "iar_sram.full": {
+        "source": "iar_sram",
+        "start_line": 1,
+        "end_line": 46,
+        "sha256": "e67efe2498b17f2e339ce5d209ea4aa571b13330d5d9cd8868467e90e0ada97b"
+      },
+      "arm_flash.full": {
+        "source": "arm_flash",
+        "start_line": 1,
+        "end_line": 44,
+        "sha256": "5cfb5b5402928db888d612014eaa71b7fa041c40a5fe83a65dce334c44c0f063"
+      },
+      "arm_sram.full": {
+        "source": "arm_sram",
+        "start_line": 1,
+        "end_line": 44,
+        "sha256": "a45e55fcbe8acfea263651f6e89d83b73d5d26e23de75ba34b2403da281ce77e"
+      }
+    },
+    "contracts": [
+      {
+        "id": "physical_SRAM_aliases",
+        "detail": "SRAM1 and SRAM2 are32KiB each, not128KiB total because each has two address windows. System-bus windows20000000..20007FFF and20008000..2000FFFF alias code-bus windows0A000000..0A007FFF and0A008000..0A00FFFF. Normalize bank+offset for ownership, allocations and DMA dependencies; do not create independent resources for aliases. SRAM supports8/16/32-bit access by CPU and DMA. SRAM2 subword writes with ECC have the additional buffering and error conditions in SRAM_retention_ECC.",
+        "evidence": [
+          "RM0522:p88",
+          "RM0522:p89",
+          "RM0522:p91",
+          "RM0522:p98",
+          "header.memory",
+          "DS15135:p9",
+          "RM0522:p115"
+        ]
+      },
+      {
+        "id": "exact_bus_topology",
+        "detail": "C542 has Fast C-bus through ICACHE, S-bus and one master per LPDMA1/2; exact table excludes Slow C-bus, Ethernet, XSPI1 and AHB4. Family-only diagram blocks/prose do not add them. Interconnect includes flash, SRAM1/2, AHB1/2/3 and APB1/2/3. The rendered RM87 table has a merged S-bus cell literally saying \"2 masters\" and LPDMA cells each saying \"1 master\". Preserve that wording; its relationship to CPU interfaces is not an inferred count of Cortex-M33 instances.",
+        "evidence": [
+          "RM0522:p87",
+          "RM0522:p88",
+          "RM0522:p89",
+          "DS15135:p12"
+        ]
+      },
+      {
+        "id": "arbitration_latency",
+        "detail": "Bus matrix round-robin arbitration and fast bus multiplexer permit concurrent access, but a master accessing other slaves has at least one cycle latency at each new access. No universal zero-latency or deterministic throughput claim follows. DMA channel arbitration is a separate layer from bus arbitration.",
+        "evidence": [
+          "RM0522:p89"
+        ]
+      },
+      {
+        "id": "APB_subword",
+        "detail": "AHB/APB bridge duplicates8/16-bit write data across32bits according to RM note; narrow C type is not permission for a peripheral subword access. Respect each block access width, W1C/W0C/toggle/read side effects and reserved bits. Generic read-modify-write is not safe merely because a register is memory mapped.",
+        "evidence": [
+          "RM0522:p85",
+          "RM0522:p86",
+          "RM0522:p89"
+        ]
+      },
+      {
+        "id": "memory_attributes",
+        "detail": "Linear little-endian addressing does not imply uniform permissions/cacheability. OTP/RO/data flash must be noncacheable via MPU or attempted cache access can HardFault; byte reads cause AHB error there. SRAM alias code accesses can traverse ICACHE. Lack of established DMA/ICACHE coherence is an inference from this topology and the cache read-only transaction description, not an explicit coherence guarantee. Enabled ICACHE flags cacheable write transactions as errors, so code and system aliases are not interchangeable write paths under those attributes; the resulting memory write outcome is not established here. Mutating cached memory requires controlled ICACHE disable/invalidation and correct MPU attributes before execution; no executable sequence supplied.",
+        "evidence": [
+          "RM0522:p90",
+          "RM0522:p128",
+          "RM0522:p131",
+          "RM0522:p212",
+          "RM0522:p216",
+          "RM0522:p208"
+        ]
+      },
+      {
+        "id": "SRAM_retention_ECC",
+        "detail": "SRAM2 optional ECC/write protection, reset/erase policy and Stop retention must be composed with RAMCFG/PWR/FLASH/TAMP contracts. Generic64KiB linker placement does not initialize all ECC-bearing storage or guarantee retention. Reset_Handler first sets PSP, MSPLIM and PSPLIM, then calls SystemInit (conditional FPU and VTOR setup) and enters the C runtime. No whole-SRAM ECC initialization is visible in those functions. With SRAM2 ECC enabled, byte/half-word writes use buffered whole-word read-modify-write with two AHB-cycle access latency and can detect double errors. Buffer writeback occurs two AHB cycles after SRAM AHB release, when SRAM is no longer accessed. SEDC/DED pending flags inhibit detection of further corresponding errors; do not infer immediate physical writeback or uninterrupted error capture.",
+        "evidence": [
+          "RM0522:p114",
+          "RM0522:p115",
+          "DS15135:p9",
+          "system.init",
+          "startup.reset"
+        ]
+      },
+      {
+        "id": "boundary_not_register",
+        "detail": "The peripheral aperture map is an allocation boundary, not a register-validity map. Subblocks such as FDCAN_CONFIG, COMP1/2, DMA channels and RAMCFG memories can share apertures; preserve exact physical ownership. USB and FDCAN RAM are not general SRAM allocations. Reserved areas and family-absent windows remain excluded.",
+        "evidence": [
+          "RM0522:p94",
+          "RM0522:p95",
+          "RM0522:p96",
+          "RM0522:p97",
+          "header.memory"
+        ]
+      },
+      {
+        "id": "clock_access",
+        "detail": "RM generic reset text says peripheral clocks disabled except SRAM/flash; exact RCC reset values and per-domain policies govern exceptions. Enable and verify necessary bus/kernel clocks before use. Memory map presence alone does not establish access in Stop or under privilege/security protections.",
+        "evidence": [
+          "RM0522:p89",
+          "RM0522:p114"
+        ]
+      },
+      {
+        "id": "core_fault_priority",
+        "detail": "ES0676 2.1.1: with MPU enabled, an unaligned load/store hitting one device-memory region whose access permission denies it prioritizes MemManage over UNALIGNED UsageFault. Rev Z/Y list no workaround. Exact CPU/MPU handling remains a separate gate.",
+        "evidence": [
+          "ES0676:p2",
+          "ES0676:p4"
+        ]
+      }
+    ],
+    "source_derived_SDK_gates": [
+      {
+        "id": "linker_flash",
+        "detail": "The three flash templates specify ROM08000000 size40000 and RAM20000000 size10000. They coalesce SRAM1/2 and do not impose separate ECC/retention/protection allocation classes. Require ownership and section placement constraints outside raw region size. All six templates agree on 64 KiB total SRAM; SRAM profiles partition it differently.",
+        "evidence": [
+          "gcc_flash.full",
+          "iar_flash.full",
+          "arm_flash.full",
+          "RM0522:p98",
+          "RM0522:p114"
+        ]
+      },
+      {
+        "id": "linker_sram",
+        "detail": "SRAM profiles put code/readonly at20000000 size8000 and data at20008000 size8000. They use system-region addresses, not code aliases. Vector table and load/run address must match actual deployment; linker script presence is not proof a loader initialized these images.",
+        "evidence": [
+          "gcc_sram.full",
+          "iar_sram.full",
+          "arm_sram.full",
+          "system.init",
+          "startup.reset"
+        ]
+      },
+      {
+        "id": "GCC_runtime_tables",
+        "detail": "GCC scripts emit copy and zero tables with32-bit counts SIZEOF/4 and8-byte section alignment. The data load image and copy table use the region named ROM: flash in the flash profile, volatile SRAM1 in the SRAM profile, whose contents depend on the loader. The run region is RAM. Heap512B and stack1024B are explicit reservations, not qualified workload capacity. C runtime/loader implementation and actual link map remain untested.",
+        "evidence": [
+          "gcc_flash.full",
+          "gcc_sram.full",
+          "startup.reset"
+        ]
+      },
+      {
+        "id": "ARM_heap_stack_capacity",
+        "detail": "ARM scatter files place RW/ZI in bounded RAM then separate EMPTY heap/stack regions using AlignExpr(+0,8). Source defines no explicit aggregate end-of-SRAM assertion in these files; do not infer that the RW/ZI size bound includes following heap/stack. Require generated image/map and linker semantics validation before admission.",
+        "evidence": [
+          "arm_flash.full",
+          "arm_sram.full"
+        ]
+      },
+      {
+        "id": "GCC_discard_runtime",
+        "detail": "Both GCC linker scripts discard all input sections from libc.a, libm.a and libgcc.a. Actual runtime resolution and link success require the selected toolchain and link map; this is an open gate, not a demonstrated link failure.",
+        "evidence": [
+          "gcc_flash.full",
+          "gcc_sram.full",
+          "startup.reset"
+        ]
+      }
+    ],
+    "conflicts": [
+      {
+        "id": "system_memory_extent",
+        "detail": "RM exact Figure2 and header FLASH_SYSTEM_SIZE show64KiB system aperture starting0BF80000; FLASH architecture says48KiB physical system block. Do not treat the full aperture as48/64KiB programmable/usable bytes or infer reserved tail behavior. FLASH contract preserves related ECC address calculation discrepancy.",
+        "evidence": [
+          "RM0522:p91",
+          "RM0522:p129",
+          "header.memory"
+        ]
+      },
+      {
+        "id": "header_flash_comment",
+        "detail": "Exact header FLASH_BASE comment says512KB while exact map and linkers specify256KiB. Numeric origin alone does not convey size; retain exact256KiB size and comment conflict. FLASH_SYSTEM_SIZE is also commented \"64 Kbytes OTP\" although it is the system aperture; this cross-references the FLASH survey SDK_size_comments conflict.",
+        "evidence": [
+          "header.memory",
+          "RM0522:p91",
+          "gcc_flash.full",
+          "iar_flash.full",
+          "arm_flash.full"
+        ]
+      },
+      {
+        "id": "AHB2_reserved_overlap",
+        "detail": "RM95 prints reserved42028800..420BD7FF, overlapping later listed familyADC3 windows4202D800/DB00. Preserve literal source typo and exact family filtering; do not repair a global memory-map partition by guess. C542 has neitherADC2 norADC3.",
+        "evidence": [
+          "RM0522:p95",
+          "header.memory"
+        ]
+      },
+      {
+        "id": "family_master_wording",
+        "detail": "RM87 exact masters table says one per LPDMA; RM89 says the two AHB master interfaces of LPDMA1/2, and includes absentAHB4 in generic target prose. Interpret only as exact supported topology evidence, not two ports per C542 DMA.",
+        "evidence": [
+          "RM0522:p87",
+          "RM0522:p89"
+        ]
+      },
+      {
+        "id": "extraction_diagram_order",
+        "detail": "RM91 text extraction interleaves OTP/RO labels and endpoints. Visual rendering confirms OTP08FFE000..08FFF1FF, RO08FFF800..08FFFDFF, consistent with RM163. This is extraction ordering, not a source conflict.",
+        "evidence": [
+          "RM0522:p91",
+          "RM0522:p163"
+        ]
+      }
+    ],
+    "finite_source_maps": {
+      "memory_aliases": [
+        {
+          "physical_bank": "SRAM1",
+          "size": 32768,
+          "system_base": "0x20000000",
+          "code_alias_base": "0x0A000000"
+        },
+        {
+          "physical_bank": "SRAM2",
+          "size": 32768,
+          "system_base": "0x20008000",
+          "code_alias_base": "0x0A008000"
+        }
+      ],
+      "main_flash": {
+        "base": "0x08000000",
+        "size": 262144
+      },
+      "register_apertures": [
+        {
+          "id": "DEBUG",
+          "bus": "AHB3",
+          "base": "0x44024000",
+          "size_bytes": 4096,
+          "end_inclusive": "0x44024FFF",
+          "evidence": [
+            "RM0522:p94"
+          ]
+        },
+        {
+          "id": "EXTI",
+          "bus": "AHB3",
+          "base": "0x44022000",
+          "size_bytes": 1024,
+          "end_inclusive": "0x440223FF",
+          "evidence": [
+            "RM0522:p94"
+          ]
+        },
+        {
+          "id": "RCC",
+          "bus": "AHB3",
+          "base": "0x44020C00",
+          "size_bytes": 1024,
+          "end_inclusive": "0x44020FFF",
+          "evidence": [
+            "RM0522:p94"
+          ]
+        },
+        {
+          "id": "PWR",
+          "bus": "AHB3",
+          "base": "0x44020800",
+          "size_bytes": 1024,
+          "end_inclusive": "0x44020BFF",
+          "evidence": [
+            "RM0522:p94"
+          ]
+        },
+        {
+          "id": "TAMP",
+          "bus": "APB3",
+          "base": "0x44007C00",
+          "size_bytes": 1024,
+          "end_inclusive": "0x44007FFF",
+          "evidence": [
+            "RM0522:p94"
+          ]
+        },
+        {
+          "id": "RTC",
+          "bus": "APB3",
+          "base": "0x44007800",
+          "size_bytes": 1024,
+          "end_inclusive": "0x44007BFF",
+          "evidence": [
+            "RM0522:p94"
+          ]
+        },
+        {
+          "id": "LPTIM1",
+          "bus": "APB3",
+          "base": "0x44004400",
+          "size_bytes": 1024,
+          "end_inclusive": "0x440047FF",
+          "evidence": [
+            "RM0522:p94"
+          ]
+        },
+        {
+          "id": "LPUART1",
+          "bus": "APB3",
+          "base": "0x44002400",
+          "size_bytes": 1024,
+          "end_inclusive": "0x440027FF",
+          "evidence": [
+            "RM0522:p94"
+          ]
+        },
+        {
+          "id": "SBS",
+          "bus": "APB3",
+          "base": "0x44000400",
+          "size_bytes": 1024,
+          "end_inclusive": "0x440007FF",
+          "evidence": [
+            "RM0522:p94"
+          ]
+        },
+        {
+          "id": "RNG",
+          "bus": "AHB2",
+          "base": "0x420C0800",
+          "size_bytes": 1024,
+          "end_inclusive": "0x420C0BFF",
+          "evidence": [
+            "RM0522:p95"
+          ]
+        },
+        {
+          "id": "HASH",
+          "bus": "AHB2",
+          "base": "0x420C0400",
+          "size_bytes": 1024,
+          "end_inclusive": "0x420C07FF",
+          "evidence": [
+            "RM0522:p95"
+          ]
+        },
+        {
+          "id": "AES",
+          "bus": "AHB2",
+          "base": "0x420C0000",
+          "size_bytes": 1024,
+          "end_inclusive": "0x420C03FF",
+          "evidence": [
+            "RM0522:p95"
+          ]
+        },
+        {
+          "id": "DAC1",
+          "bus": "AHB2",
+          "base": "0x42028400",
+          "size_bytes": 1024,
+          "end_inclusive": "0x420287FF",
+          "evidence": [
+            "RM0522:p95"
+          ]
+        },
+        {
+          "id": "ADCC12",
+          "bus": "AHB2",
+          "base": "0x42028300",
+          "size_bytes": 256,
+          "end_inclusive": "0x420283FF",
+          "evidence": [
+            "RM0522:p95"
+          ]
+        },
+        {
+          "id": "ADC1",
+          "bus": "AHB2",
+          "base": "0x42028000",
+          "size_bytes": 256,
+          "end_inclusive": "0x420280FF",
+          "evidence": [
+            "RM0522:p95"
+          ]
+        },
+        {
+          "id": "GPIOA",
+          "bus": "AHB2",
+          "base": "0x42020000",
+          "size_bytes": 1024,
+          "end_inclusive": "0x420203FF",
+          "evidence": [
+            "RM0522:p95"
+          ]
+        },
+        {
+          "id": "GPIOB",
+          "bus": "AHB2",
+          "base": "0x42020400",
+          "size_bytes": 1024,
+          "end_inclusive": "0x420207FF",
+          "evidence": [
+            "RM0522:p95"
+          ]
+        },
+        {
+          "id": "GPIOC",
+          "bus": "AHB2",
+          "base": "0x42020800",
+          "size_bytes": 1024,
+          "end_inclusive": "0x42020BFF",
+          "evidence": [
+            "RM0522:p95"
+          ]
+        },
+        {
+          "id": "GPIOD",
+          "bus": "AHB2",
+          "base": "0x42020C00",
+          "size_bytes": 1024,
+          "end_inclusive": "0x42020FFF",
+          "evidence": [
+            "RM0522:p95"
+          ]
+        },
+        {
+          "id": "GPIOE",
+          "bus": "AHB2",
+          "base": "0x42021000",
+          "size_bytes": 1024,
+          "end_inclusive": "0x420213FF",
+          "evidence": [
+            "RM0522:p95"
+          ]
+        },
+        {
+          "id": "GPIOH",
+          "bus": "AHB2",
+          "base": "0x42021C00",
+          "size_bytes": 1024,
+          "end_inclusive": "0x42021FFF",
+          "evidence": [
+            "RM0522:p95"
+          ]
+        },
+        {
+          "id": "ICACHE",
+          "bus": "AHB1",
+          "base": "0x40030400",
+          "size_bytes": 1024,
+          "end_inclusive": "0x400307FF",
+          "evidence": [
+            "RM0522:p96"
+          ]
+        },
+        {
+          "id": "RAMCFG",
+          "bus": "AHB1",
+          "base": "0x40026000",
+          "size_bytes": 4096,
+          "end_inclusive": "0x40026FFF",
+          "evidence": [
+            "RM0522:p96"
+          ]
+        },
+        {
+          "id": "CORDIC",
+          "bus": "AHB1",
+          "base": "0x40023800",
+          "size_bytes": 1024,
+          "end_inclusive": "0x40023BFF",
+          "evidence": [
+            "RM0522:p96"
+          ]
+        },
+        {
+          "id": "CRC",
+          "bus": "AHB1",
+          "base": "0x40023000",
+          "size_bytes": 1024,
+          "end_inclusive": "0x400233FF",
+          "evidence": [
+            "RM0522:p96"
+          ]
+        },
+        {
+          "id": "FLASH",
+          "bus": "AHB1",
+          "base": "0x40022000",
+          "size_bytes": 1024,
+          "end_inclusive": "0x400223FF",
+          "evidence": [
+            "RM0522:p96"
+          ]
+        },
+        {
+          "id": "LPDMA2",
+          "bus": "AHB1",
+          "base": "0x40021000",
+          "size_bytes": 4096,
+          "end_inclusive": "0x40021FFF",
+          "evidence": [
+            "RM0522:p96"
+          ]
+        },
+        {
+          "id": "LPDMA1",
+          "bus": "AHB1",
+          "base": "0x40020000",
+          "size_bytes": 4096,
+          "end_inclusive": "0x40020FFF",
+          "evidence": [
+            "RM0522:p96"
+          ]
+        },
+        {
+          "id": "USB_RAM",
+          "bus": "APB2",
+          "base": "0x40016400",
+          "size_bytes": 2048,
+          "end_inclusive": "0x40016BFF",
+          "evidence": [
+            "RM0522:p96"
+          ]
+        },
+        {
+          "id": "USB",
+          "bus": "APB2",
+          "base": "0x40016000",
+          "size_bytes": 1024,
+          "end_inclusive": "0x400163FF",
+          "evidence": [
+            "RM0522:p96"
+          ]
+        },
+        {
+          "id": "TIM15",
+          "bus": "APB2",
+          "base": "0x40014000",
+          "size_bytes": 1024,
+          "end_inclusive": "0x400143FF",
+          "evidence": [
+            "RM0522:p96"
+          ]
+        },
+        {
+          "id": "USART1",
+          "bus": "APB2",
+          "base": "0x40013800",
+          "size_bytes": 1024,
+          "end_inclusive": "0x40013BFF",
+          "evidence": [
+            "RM0522:p96"
+          ]
+        },
+        {
+          "id": "TIM8",
+          "bus": "APB2",
+          "base": "0x40013400",
+          "size_bytes": 1024,
+          "end_inclusive": "0x400137FF",
+          "evidence": [
+            "RM0522:p96"
+          ]
+        },
+        {
+          "id": "SPI1_I2S1",
+          "bus": "APB2",
+          "base": "0x40013000",
+          "size_bytes": 1024,
+          "end_inclusive": "0x400133FF",
+          "evidence": [
+            "RM0522:p96"
+          ]
+        },
+        {
+          "id": "TIM1",
+          "bus": "APB2",
+          "base": "0x40012C00",
+          "size_bytes": 1024,
+          "end_inclusive": "0x40012FFF",
+          "evidence": [
+            "RM0522:p96"
+          ]
+        },
+        {
+          "id": "FDCAN_RAM",
+          "bus": "APB1",
+          "base": "0x4000AC00",
+          "size_bytes": 2048,
+          "end_inclusive": "0x4000B3FF",
+          "evidence": [
+            "RM0522:p97"
+          ]
+        },
+        {
+          "id": "FDCAN2",
+          "bus": "APB1",
+          "base": "0x4000A800",
+          "size_bytes": 1024,
+          "end_inclusive": "0x4000ABFF",
+          "evidence": [
+            "RM0522:p97"
+          ]
+        },
+        {
+          "id": "FDCAN1",
+          "bus": "APB1",
+          "base": "0x4000A400",
+          "size_bytes": 1024,
+          "end_inclusive": "0x4000A7FF",
+          "evidence": [
+            "RM0522:p97"
+          ]
+        },
+        {
+          "id": "CRS",
+          "bus": "APB1",
+          "base": "0x40006000",
+          "size_bytes": 1024,
+          "end_inclusive": "0x400063FF",
+          "evidence": [
+            "RM0522:p97"
+          ]
+        },
+        {
+          "id": "I3C1",
+          "bus": "APB1",
+          "base": "0x40005C00",
+          "size_bytes": 1024,
+          "end_inclusive": "0x40005FFF",
+          "evidence": [
+            "RM0522:p97"
+          ]
+        },
+        {
+          "id": "I2C1",
+          "bus": "APB1",
+          "base": "0x40005400",
+          "size_bytes": 1024,
+          "end_inclusive": "0x400057FF",
+          "evidence": [
+            "RM0522:p97"
+          ]
+        },
+        {
+          "id": "UART5",
+          "bus": "APB1",
+          "base": "0x40005000",
+          "size_bytes": 1024,
+          "end_inclusive": "0x400053FF",
+          "evidence": [
+            "RM0522:p97"
+          ]
+        },
+        {
+          "id": "UART4",
+          "bus": "APB1",
+          "base": "0x40004C00",
+          "size_bytes": 1024,
+          "end_inclusive": "0x40004FFF",
+          "evidence": [
+            "RM0522:p97"
+          ]
+        },
+        {
+          "id": "USART2",
+          "bus": "APB1",
+          "base": "0x40004400",
+          "size_bytes": 1024,
+          "end_inclusive": "0x400047FF",
+          "evidence": [
+            "RM0522:p97"
+          ]
+        },
+        {
+          "id": "COMP12",
+          "bus": "APB1",
+          "base": "0x40004000",
+          "size_bytes": 1024,
+          "end_inclusive": "0x400043FF",
+          "evidence": [
+            "RM0522:p97"
+          ]
+        },
+        {
+          "id": "SPI2_I2S2",
+          "bus": "APB1",
+          "base": "0x40003800",
+          "size_bytes": 1024,
+          "end_inclusive": "0x40003BFF",
+          "evidence": [
+            "RM0522:p97"
+          ]
+        },
+        {
+          "id": "OPAMP1",
+          "bus": "APB1",
+          "base": "0x40003400",
+          "size_bytes": 1024,
+          "end_inclusive": "0x400037FF",
+          "evidence": [
+            "RM0522:p97"
+          ]
+        },
+        {
+          "id": "IWDG",
+          "bus": "APB1",
+          "base": "0x40003000",
+          "size_bytes": 1024,
+          "end_inclusive": "0x400033FF",
+          "evidence": [
+            "RM0522:p97"
+          ]
+        },
+        {
+          "id": "WWDG",
+          "bus": "APB1",
+          "base": "0x40002C00",
+          "size_bytes": 1024,
+          "end_inclusive": "0x40002FFF",
+          "evidence": [
+            "RM0522:p97"
+          ]
+        },
+        {
+          "id": "TIM12",
+          "bus": "APB1",
+          "base": "0x40001800",
+          "size_bytes": 1024,
+          "end_inclusive": "0x40001BFF",
+          "evidence": [
+            "RM0522:p97"
+          ]
+        },
+        {
+          "id": "TIM7",
+          "bus": "APB1",
+          "base": "0x40001400",
+          "size_bytes": 1024,
+          "end_inclusive": "0x400017FF",
+          "evidence": [
+            "RM0522:p97"
+          ]
+        },
+        {
+          "id": "TIM6",
+          "bus": "APB1",
+          "base": "0x40001000",
+          "size_bytes": 1024,
+          "end_inclusive": "0x400013FF",
+          "evidence": [
+            "RM0522:p97"
+          ]
+        },
+        {
+          "id": "TIM2",
+          "bus": "APB1",
+          "base": "0x40000000",
+          "size_bytes": 1024,
+          "end_inclusive": "0x400003FF",
+          "evidence": [
+            "RM0522:p97"
+          ]
+        }
+      ],
+      "evidence": [
+        "RM0522:p91",
+        "RM0522:p94",
+        "RM0522:p95",
+        "RM0522:p96",
+        "RM0522:p97",
+        "RM0522:p98"
+      ]
+    },
+    "visual_checks": [
+      {
+        "path": "research://c5-reference/memory-rm91.png",
+        "sha256": "386dd2c018ad1387c279bca75ff7249a8b007c70c134ed6a2735aea87fbf41ba",
+        "finding": "Verified exact C542 memory diagram and OTP/RO extraction order.",
+        "source": "RM0522",
+        "page": 91,
+        "source_sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "render_recipe": "pdftoppm -f 91 -l 91 -png -singlefile; visual page footer checked"
+      },
+      {
+        "path": "research://c5-reference/memory-rm87.png",
+        "sha256": "bdf379032fb210f21f8770efaf8ffe907e249144bad94508e816e3f9996a5fab",
+        "finding": "Merged master-count cells and exact C542 presence column visually inspected.",
+        "source": "RM0522",
+        "page": 87,
+        "source_sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "render_recipe": "pdftoppm -f 87 -l 87 -png -singlefile; visual page footer checked"
+      }
+    ],
+    "open_gates": [
+      "No full Arm architecture or memory ordering qualification; CPU/MPU survey separate.",
+      "No compiled/link-map/runtime/loader/hardware or performance qualification.",
+      "No exact electrical or whole-system ownership proof; reserved ranges are not automatically repaired.",
+      "No accepted production catalog, composition or runtime changes."
+    ]
+  }
+}

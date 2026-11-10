@@ -1,0 +1,462 @@
+{
+  "schema": 1,
+  "id": "stm32c5-dfp-2.1.0",
+  "pack": {
+    "id": "st-c5-dfp",
+    "kind": "cmsis_pack",
+    "path": "STMicroelectronics.stm32c5xx_dfp.pdsc",
+    "sha256": "b9b64dc6b9d65d0ab7260cfbfcc7302d6502fc0627ba0d9d836e12a4dee9df31",
+    "uri": "file:///C:/Users/Eddie/AppData/Local/stm32cube/packs/STMicroelectronics/stm32c5xx_dfp/2.1.0/STMicroelectronics.stm32c5xx_dfp.pdsc",
+    "revision": "DFP 2.1.0",
+    "authority": "manufacturer_machine_readable",
+    "scopes": [],
+    "options": {
+      "origin": "local installed STMicroelectronics DFP 2.1.0"
+    }
+  },
+  "targets": [
+    "STM32C542RCT6"
+  ],
+  "binding": {
+    "environment": "STM32Cube",
+    "namespace": "https://developer.st.com/schemas/stm32cube/1.0.0",
+    "element": "device",
+    "container": "descriptors",
+    "entry": "descriptor",
+    "kind_attribute": "schemaType",
+    "path_attribute": "path",
+    "schema_attribute": "schemaVersion",
+    "version_attribute": "version"
+  },
+  "sources": [
+    {
+      "id": "DMA",
+      "kind": "device_descriptor",
+      "path": "Descriptors/peripherals/D44F_DMA.json",
+      "sha256": "d0895b55ae5809bf066abcd71501703a8f559678800b124db87c487b1ce2e120",
+      "uri": "file:///C:/Users/Eddie/AppData/Local/stm32cube/packs/STMicroelectronics/stm32c5xx_dfp/2.1.0/Descriptors/peripherals/D44F_DMA.json",
+      "revision": "DFP 2.1.0",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [],
+      "options": {
+        "origin": "local installed STMicroelectronics DFP 2.1.0"
+      }
+    },
+    {
+      "id": "EXTI",
+      "kind": "device_descriptor",
+      "path": "Descriptors/peripherals/D44F_EXTI.json",
+      "sha256": "80d0c6ba39eac1f02dba1b7dbe8233bfd559757cdd12e64a338ba4508f83b32f",
+      "uri": "file:///C:/Users/Eddie/AppData/Local/stm32cube/packs/STMicroelectronics/stm32c5xx_dfp/2.1.0/Descriptors/peripherals/D44F_EXTI.json",
+      "revision": "DFP 2.1.0",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [],
+      "options": {
+        "origin": "local installed STMicroelectronics DFP 2.1.0"
+      }
+    },
+    {
+      "id": "NVIC",
+      "kind": "device_descriptor",
+      "path": "Descriptors/peripherals/D44F_NVIC.json",
+      "sha256": "fc9b4a21509bd81f455ba910d3eba1e3eef62adc9f9dff176a3ebb9f77f8a02f",
+      "uri": "file:///C:/Users/Eddie/AppData/Local/stm32cube/packs/STMicroelectronics/stm32c5xx_dfp/2.1.0/Descriptors/peripherals/D44F_NVIC.json",
+      "revision": "DFP 2.1.0",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [],
+      "options": {
+        "origin": "local installed STMicroelectronics DFP 2.1.0"
+      }
+    },
+    {
+      "id": "clock",
+      "kind": "device_descriptor",
+      "path": "Descriptors/clock/STM32C542(C-K-R)C(T-U)x_clock.json",
+      "sha256": "6e295905c6786e3e72bcb67d7f082376f1abff26715fe78716ed865a0b79119b",
+      "uri": "file:///C:/Users/Eddie/AppData/Local/stm32cube/packs/STMicroelectronics/stm32c5xx_dfp/2.1.0/Descriptors/clock/STM32C542%28C-K-R%29C%28T-U%29x_clock.json",
+      "revision": "DFP 2.1.0",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [],
+      "options": {
+        "origin": "local installed STMicroelectronics DFP 2.1.0"
+      }
+    },
+    {
+      "id": "limitations",
+      "kind": "device_descriptor",
+      "path": "Descriptors/limitations/D44F_limitations.json",
+      "sha256": "7f23af63ced0ee5006c7f75f193020a3d926fe2fe2f7fb67d83f8393a571e809",
+      "uri": "file:///C:/Users/Eddie/AppData/Local/stm32cube/packs/STMicroelectronics/stm32c5xx_dfp/2.1.0/Descriptors/limitations/D44F_limitations.json",
+      "revision": "DFP 2.1.0",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [],
+      "options": {
+        "origin": "local installed STMicroelectronics DFP 2.1.0"
+      }
+    },
+    {
+      "id": "middlewares",
+      "kind": "device_descriptor",
+      "path": "Descriptors/middlewares/D44F_middlewares.json",
+      "sha256": "f489bc95add8231d3f1deffe610096cd97fbb6bf0056b8fb4657b290672ba4c4",
+      "uri": "file:///C:/Users/Eddie/AppData/Local/stm32cube/packs/STMicroelectronics/stm32c5xx_dfp/2.1.0/Descriptors/middlewares/D44F_middlewares.json",
+      "revision": "DFP 2.1.0",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [],
+      "options": {
+        "origin": "local installed STMicroelectronics DFP 2.1.0"
+      }
+    },
+    {
+      "id": "peripheral-configuration-mapping",
+      "kind": "device_descriptor",
+      "path": "Descriptors/peripheral_configuration_mapping.json",
+      "sha256": "52cb415974bb9e776e4055270d58907c3379a496da63ab7316294ffd05dfe477",
+      "uri": "file:///C:/Users/Eddie/AppData/Local/stm32cube/packs/STMicroelectronics/stm32c5xx_dfp/2.1.0/Descriptors/peripheral_configuration_mapping.json",
+      "revision": "DFP 2.1.0",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [],
+      "options": {
+        "origin": "local installed STMicroelectronics DFP 2.1.0"
+      }
+    },
+    {
+      "id": "peripherals",
+      "kind": "device_descriptor",
+      "path": "Descriptors/peripherals/D44F_peripherals.json",
+      "sha256": "c50d786fefd9c1bd7244c610d8d93d3430b6d1c81e571d061539ab8134e9caf2",
+      "uri": "file:///C:/Users/Eddie/AppData/Local/stm32cube/packs/STMicroelectronics/stm32c5xx_dfp/2.1.0/Descriptors/peripherals/D44F_peripherals.json",
+      "revision": "DFP 2.1.0",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [],
+      "options": {
+        "origin": "local installed STMicroelectronics DFP 2.1.0"
+      }
+    },
+    {
+      "id": "pinout",
+      "kind": "device_descriptor",
+      "path": "Descriptors/pinout/STM32C5(3-4)2R(B-C)Tx_pinout.json",
+      "sha256": "60555188e7a3b5a27aa82840cf8653c9291511a5e88504a33ec07ba25901205b",
+      "uri": "file:///C:/Users/Eddie/AppData/Local/stm32cube/packs/STMicroelectronics/stm32c5xx_dfp/2.1.0/Descriptors/pinout/STM32C5%283-4%292R%28B-C%29Tx_pinout.json",
+      "revision": "DFP 2.1.0",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [],
+      "options": {
+        "origin": "local installed STMicroelectronics DFP 2.1.0"
+      }
+    },
+    {
+      "id": "utilities",
+      "kind": "device_descriptor",
+      "path": "Descriptors/utilities/D44F_utilities.json",
+      "sha256": "61be78aacbd6debe572b84e27ddb22b062f234e4ae4799eb0622582ead8d685a",
+      "uri": "file:///C:/Users/Eddie/AppData/Local/stm32cube/packs/STMicroelectronics/stm32c5xx_dfp/2.1.0/Descriptors/utilities/D44F_utilities.json",
+      "revision": "DFP 2.1.0",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [],
+      "options": {
+        "origin": "local installed STMicroelectronics DFP 2.1.0"
+      }
+    }
+  ],
+  "profiles": {
+    "peripheral-configuration-mapping": {
+      "schema_pointer": "/schema_version",
+      "version_pointer": "/version",
+      "supported_schemas": [
+        "1.0.0"
+      ],
+      "records": []
+    },
+    "peripherals": {
+      "schema_pointer": "/schema_version",
+      "version_pointer": "/version",
+      "supported_schemas": [
+        "1.6.0"
+      ],
+      "records": [
+        {
+          "kind": "peripheral.instance",
+          "pointer": "/peripherals/*",
+          "labels": [
+            "name",
+            "entityType",
+            "peripheralType",
+            "digitalName"
+          ]
+        },
+        {
+          "kind": "peripheral.feature",
+          "pointer": "/peripherals/*/features/*",
+          "labels": []
+        },
+        {
+          "kind": "peripheral.connection",
+          "pointer": "/peripherals/*/interconnect/*",
+          "labels": [
+            "id",
+            "ip_signal",
+            "source",
+            "type",
+            "instance",
+            "resource_id"
+          ]
+        },
+        {
+          "kind": "peripheral.resource",
+          "pointer": "/peripherals/*/resources/*",
+          "labels": [
+            "id",
+            "name",
+            "resourceType"
+          ]
+        },
+        {
+          "kind": "peripheral.protocol",
+          "pointer": "/peripherals/*/protocols/*",
+          "labels": [
+            "type",
+            "version"
+          ]
+        },
+        {
+          "kind": "peripheral.bus_mapping",
+          "pointer": "/peripherals/*/busMapping/*",
+          "labels": [
+            "mode"
+          ]
+        },
+        {
+          "kind": "peripheral.analog_group",
+          "pointer": "/analogInterconnections/*",
+          "labels": [
+            "instanceName",
+            "name",
+            "digitalName"
+          ]
+        }
+      ]
+    },
+    "DMA": {
+      "schema_pointer": "/schema_version",
+      "version_pointer": "/version",
+      "supported_schemas": [
+        "1.2.0"
+      ],
+      "records": [
+        {
+          "kind": "dma.instance",
+          "pointer": "/instances/*",
+          "labels": [
+            "name"
+          ]
+        },
+        {
+          "kind": "dma.channel",
+          "pointer": "/instances/*/channels/*",
+          "labels": [
+            "name"
+          ]
+        },
+        {
+          "kind": "dma.master_port",
+          "pointer": "/instances/*/master_ports/*",
+          "labels": [
+            "id",
+            "name",
+            "type"
+          ]
+        },
+        {
+          "kind": "dma.connection",
+          "pointer": "/interconnect/*",
+          "labels": [
+            "dmaInstance",
+            "event",
+            "instance",
+            "signal_id",
+            "type"
+          ]
+        }
+      ]
+    },
+    "NVIC": {
+      "schema_pointer": "/schema_version",
+      "version_pointer": "/version",
+      "supported_schemas": [
+        "1.1.0"
+      ],
+      "records": [
+        {
+          "kind": "interrupt.controller",
+          "pointer": "/instances/*",
+          "labels": [
+            "instance",
+            "cpu_instance",
+            "core_type"
+          ]
+        },
+        {
+          "kind": "interrupt.declaration",
+          "pointer": "/instances/*/interrupts/*",
+          "labels": [
+            "name"
+          ]
+        }
+      ]
+    },
+    "EXTI": {
+      "schema_pointer": "/schema_version",
+      "version_pointer": "/version",
+      "supported_schemas": [
+        "1.2.1"
+      ],
+      "records": [
+        {
+          "kind": "exti.line",
+          "pointer": "/lines/*",
+          "labels": [
+            "line_id"
+          ]
+        },
+        {
+          "kind": "exti.connection",
+          "pointer": "/lines/*/interconnect/*",
+          "labels": [
+            "instance",
+            "type",
+            "pin",
+            "source"
+          ]
+        }
+      ]
+    },
+    "middlewares": {
+      "schema_pointer": "/schema_version",
+      "version_pointer": "/version",
+      "supported_schemas": [
+        "1.1.0"
+      ],
+      "records": []
+    },
+    "limitations": {
+      "schema_pointer": "/schema_version",
+      "version_pointer": "/version",
+      "supported_schemas": [
+        "1.1.0"
+      ],
+      "records": [
+        {
+          "kind": "part.removals",
+          "pointer": "/limitations/*",
+          "labels": [],
+          "part_key": 1
+        }
+      ]
+    },
+    "utilities": {
+      "schema_pointer": "/schema_version",
+      "version_pointer": "/version",
+      "supported_schemas": [
+        "1.1.0"
+      ],
+      "records": []
+    },
+    "clock": {
+      "schema_pointer": "/tree/schema_version",
+      "version_pointer": "/version",
+      "supported_schemas": [
+        "1.0.0"
+      ],
+      "records": [
+        {
+          "kind": "clock.element",
+          "pointer": "/tree/elements/*",
+          "labels": [
+            "id",
+            "type"
+          ]
+        },
+        {
+          "kind": "clock.choice",
+          "pointer": "/tree/elements/*/oneOf/*",
+          "labels": [
+            "const"
+          ]
+        },
+        {
+          "kind": "clock.input",
+          "pointer": "/tree/elements/*/possible_Input/*",
+          "labels": [
+            "input_Id",
+            "label",
+            "from"
+          ]
+        },
+        {
+          "kind": "clock.output",
+          "pointer": "/tree/elements/*/outputTargets/*",
+          "labels": []
+        },
+        {
+          "kind": "clock.action",
+          "pointer": "/tree/elements/*/actions/*",
+          "labels": [
+            "type"
+          ]
+        },
+        {
+          "kind": "clock.ui_transition",
+          "pointer": "/tree/transitions/*",
+          "labels": [
+            "id",
+            "sourceTaskId",
+            "targetTaskId"
+          ]
+        }
+      ]
+    },
+    "pinout": {
+      "schema_pointer": "/schema_version",
+      "version_pointer": "/version",
+      "supported_schemas": [
+        "1.0.0"
+      ],
+      "records": [
+        {
+          "kind": "pin.characteristics",
+          "pointer": "/characteristics",
+          "labels": []
+        },
+        {
+          "kind": "pin.die_pad",
+          "pointer": "/die_pads/*",
+          "labels": []
+        },
+        {
+          "kind": "pin.package_position",
+          "pointer": "/package_pins/*",
+          "labels": []
+        },
+        {
+          "kind": "pin.bond",
+          "pointer": "/bonds/*",
+          "labels": [
+            "position",
+            "die_pad"
+          ]
+        },
+        {
+          "kind": "pin.signal",
+          "pointer": "/signals/*",
+          "labels": [
+            "name",
+            "instance",
+            "die_pad"
+          ]
+        }
+      ]
+    }
+  }
+}

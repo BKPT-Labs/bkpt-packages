@@ -1,0 +1,912 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/rng-contracts.json",
+    "sha256": "185fa82fa340585ddcc1c2d91898ae131500fb8f1fbef2e66648f9f45d661f1b"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 57
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "schema": "bkpt.external.rng.contracts.v1",
+    "review": "Source corrections from rng-timer-review independently checked; erroneous reviewer denial of RNG_SR clearing rejected using RM785. Independent final review pending.",
+    "sources": {
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "DS15135": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pdf",
+        "sha256": "1a3555f799297774a95978ab343ebc1f45ab9ef58d0dcf3600dec4fabed9355c",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pages.json",
+        "extraction_sha256": "b14b965adb6c1545edbca0e56b3c504e7ecc3a94bda197350ce2757b5a3d55dc"
+      },
+      "ES0676": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pdf",
+        "sha256": "a5463827337bcdbd3e5f2e0912a56307d78b568e5631b21cc9a25899c7d4a5e6",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pages.json",
+        "extraction_sha256": "2ab1b19e42b53e22ff5f3b98f6ed9a5f98f3b7b61a617abc3bb3b7fc050d1cb3"
+      },
+      "HAL_RNG": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_rng.c",
+        "sha256": "35f78cfd66a5a39f117f2f6bbe90979c0aeeb0d2af184a468a5ee217f7299992"
+      },
+      "HAL_RNG_H": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_rng.h",
+        "sha256": "8083bef38e5dcbbead3f903a96f040d7d56f7108ab67c56fc6ad8f7a4cf9dcef"
+      },
+      "LL_RNG": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_rng.h",
+        "sha256": "e67aeb038dc3b84054b328b64e5272ba0f3736af7907bde456a33b1ec3852c3f"
+      },
+      "HAL_RCC_H": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_rcc.h",
+        "sha256": "29fb6354087a8ebed46e7d8bce100659d733df9c1b03c7dee35a1215dc2cefd5"
+      },
+      "sdk_lifecycle": {
+        "path": "research://c5-reference/sdk-lifecycle.json",
+        "sha256": "09c4f0f44f862065fa5164ae937b15923e9b702455aae1dc1e215a9ef7783c4c"
+      },
+      "family": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c5xx.h",
+        "sha256": "61a0b8c2674d9e817d70aa8d2693339273f4283694f8ab5f8dca077bb69913f7"
+      }
+    },
+    "evidence": {
+      "RM0522:p260": {
+        "source": "RM0522",
+        "page": 260,
+        "sha256": "15e2215971b9b2697ace16a959a45c57bfbf8d5e9ff8ba72afcd69d209b98f18"
+      },
+      "RM0522:p268": {
+        "source": "RM0522",
+        "page": 268,
+        "sha256": "f93cfd7aa59b2af15189ef88dacf7b99a8bd8ba08a349ec8568339dd58dd6e15"
+      },
+      "RM0522:p269": {
+        "source": "RM0522",
+        "page": 269,
+        "sha256": "d10b8d4e9ae8ad213a8fd4557fc6a2e920f2d3233eef4076ff564fee4870a6d6"
+      },
+      "RM0522:p773": {
+        "source": "RM0522",
+        "page": 773,
+        "sha256": "65040149f5d8e77c939979d228e3cd576900cd7b0bf71bcba5ad8d1233c880eb"
+      },
+      "RM0522:p774": {
+        "source": "RM0522",
+        "page": 774,
+        "sha256": "07b59b7400eb74cb445873f34ad45e851b106332082b68b9759f213e1d331db6"
+      },
+      "RM0522:p775": {
+        "source": "RM0522",
+        "page": 775,
+        "sha256": "6227c58cd884dcb06d3e8ed42ef305a1f4038df4191913220a7e32d756f4b59f"
+      },
+      "RM0522:p776": {
+        "source": "RM0522",
+        "page": 776,
+        "sha256": "c3fbd5c91f50aaa9425ba7bbf4b66cf9f2368db5a65cd82876ca68d97b9d230b"
+      },
+      "RM0522:p777": {
+        "source": "RM0522",
+        "page": 777,
+        "sha256": "86fe0fcc5d826959d9f619d27a4ec14fdfe539e21d63d96ec7823d411aed24f7"
+      },
+      "RM0522:p778": {
+        "source": "RM0522",
+        "page": 778,
+        "sha256": "3cf8901b5fb4b4e0596cd543e8fcd2ab2becdeb69086512a97c17e34fc863843"
+      },
+      "RM0522:p779": {
+        "source": "RM0522",
+        "page": 779,
+        "sha256": "7d247f2af1f82eb0af50f7fd3358a76da6c67e91d4eef87e79a1f64ceeac0df1"
+      },
+      "RM0522:p780": {
+        "source": "RM0522",
+        "page": 780,
+        "sha256": "1d73d50124db9088e9974fe774f9ad4ba395c99193eb55c8c43fcdbc389cb7c7"
+      },
+      "RM0522:p781": {
+        "source": "RM0522",
+        "page": 781,
+        "sha256": "85ec7d72edeb90d650aceb9b2d9bb5b5f9ca18dcac1f822c4643cbd512fc1fb5"
+      },
+      "RM0522:p782": {
+        "source": "RM0522",
+        "page": 782,
+        "sha256": "bffb7ac109f462093312e8da4a5ee98990ea652173a1d94d8dce9ade6a57a69a"
+      },
+      "RM0522:p783": {
+        "source": "RM0522",
+        "page": 783,
+        "sha256": "5a8170344c87f6ab4cead36da92cb6a2cb8c319f477d23ff9961d25056fdeeb1"
+      },
+      "RM0522:p784": {
+        "source": "RM0522",
+        "page": 784,
+        "sha256": "25531d28e3098eea8e093182b89068ee76e647e0433b72c04dca413578e71692"
+      },
+      "RM0522:p785": {
+        "source": "RM0522",
+        "page": 785,
+        "sha256": "2fa4c34eca11641197841f3ade4ba577120edf41204428be3858dc8a8faf1d08"
+      },
+      "RM0522:p786": {
+        "source": "RM0522",
+        "page": 786,
+        "sha256": "01ebea5a2a81a87772e2c36c0cdc6eaa3d03a3d9f90bcc49fe893c3b1715feed"
+      },
+      "RM0522:p787": {
+        "source": "RM0522",
+        "page": 787,
+        "sha256": "81d20b1fb95cc3bee84666f6f673a72c06c5e34955dddd08dc14c92f89f222f3"
+      },
+      "RM0522:p788": {
+        "source": "RM0522",
+        "page": 788,
+        "sha256": "c5cb938d29a4d862fe878af4fb5c6c4435a59beaa6f3c9fe2c43e3709bdcbfbb"
+      },
+      "RM0522:p789": {
+        "source": "RM0522",
+        "page": 789,
+        "sha256": "5b56c56d1fea6cb80226069c07c6a8b84cbcc91b2a2a4711421641e8b925b0f6"
+      },
+      "RM0522:p790": {
+        "source": "RM0522",
+        "page": 790,
+        "sha256": "b7d6ceee646adcab10f33758c1ca8ef459b4ba65d2a9b2cb1f87f5719fd2a93e"
+      },
+      "RM0522:p791": {
+        "source": "RM0522",
+        "page": 791,
+        "sha256": "e5bed503404b736970544ca05286c5e55aef79916b890f577bb6efdd6961a2d5"
+      },
+      "RM0522:p792": {
+        "source": "RM0522",
+        "page": 792,
+        "sha256": "1002a20e8bbc213aecc3ea7ae97287a84181f8e0e620c0ac69f279964b1b6a82"
+      },
+      "DS15135:p18": {
+        "source": "DS15135",
+        "page": 18,
+        "sha256": "aa009ce6be09df61ab4acbb1f142e20379463bfd5056a26c6a778677a68a2e7b"
+      },
+      "ES0676:p1": {
+        "source": "ES0676",
+        "page": 1,
+        "sha256": "c36bb50f3ba55f82de59b1a5aa62c5ca6b1d3ea938ac9451545a442e65dd25c8"
+      },
+      "ES0676:p2": {
+        "source": "ES0676",
+        "page": 2,
+        "sha256": "3fed5303e4a0fc65ed4dbe6aae1c297605837e2da15bb0e24928d26b0d25eb95"
+      },
+      "ES0676:p6": {
+        "source": "ES0676",
+        "page": 6,
+        "sha256": "67192cb102783988744a71ca6f88c36b938faf48d360a4834496df7e76a4b915"
+      },
+      "header.IRQ": {
+        "source": "header",
+        "start_line": 119,
+        "end_line": 119,
+        "sha256": "13aa1524d7872618274768bfc02f9b7e6794cd9d0212b6459313ba0b1dc05505"
+      },
+      "header.layout": {
+        "source": "header",
+        "start_line": 809,
+        "end_line": 824,
+        "sha256": "614ab9032d2bf3e69aaff171bc0ecf70cdc089bb832a05458456197db873d9a9"
+      },
+      "header.base": {
+        "source": "header",
+        "start_line": 1252,
+        "end_line": 1252,
+        "sha256": "c17d03b2a584359de977319906ed9981e9e27100be11cb9789904f68b3491606"
+      },
+      "header.constants": {
+        "source": "header",
+        "start_line": 9593,
+        "end_line": 9640,
+        "sha256": "5ba5b91e88e15b9963a9eef31e5387f8b305253b64bbe115988e29314e96166d"
+      },
+      "HAL.guards": {
+        "source": "HAL_RNG",
+        "start_line": 171,
+        "end_line": 239,
+        "sha256": "06887525df23e6c6ee9baff8d408317eb731094ee1d3180df0e23d5e999b736c"
+      },
+      "HAL.init_deinit": {
+        "source": "HAL_RNG",
+        "start_line": 273,
+        "end_line": 325,
+        "sha256": "a0032dc738ccff4fcca5c3f3899da3047a9665b6fce3116be7a8792fd8db3640"
+      },
+      "HAL.config": {
+        "source": "HAL_RNG",
+        "start_line": 355,
+        "end_line": 411,
+        "sha256": "d81f826d4bd0f98b8e858917cf12a24759707677fcf6ff47a9f15fa9fbb88319"
+      },
+      "HAL.candidate_configs": {
+        "source": "HAL_RNG",
+        "start_line": 422,
+        "end_line": 494,
+        "sha256": "9089f6f7a5b72dfdb9e58b572095825ea264652ad4e946fa499f667145f98cae"
+      },
+      "HAL.health_config": {
+        "source": "HAL_RNG",
+        "start_line": 504,
+        "end_line": 552,
+        "sha256": "d2d05e8066d883b173933579d43aa33c6791cb11cd47ae8060c9dd12fbef02d1"
+      },
+      "HAL.control_setters": {
+        "source": "HAL_RNG",
+        "start_line": 596,
+        "end_line": 804,
+        "sha256": "d1acd3bb8ba4586f639a1615176407b3583c42a3e5c3a76719da7dc5a9d5ec02"
+      },
+      "HAL.polling": {
+        "source": "HAL_RNG",
+        "start_line": 829,
+        "end_line": 924,
+        "sha256": "2fa7240cead59377c171b432e6d49f74b9a537557f89e18953a989fbdac322eb"
+      },
+      "HAL.IT": {
+        "source": "HAL_RNG",
+        "start_line": 935,
+        "end_line": 1051,
+        "sha256": "fd86628b621e1f378315f4ea348a17242bb9adb5f72f30054409b8db9c99deb1"
+      },
+      "HAL.recovery": {
+        "source": "HAL_RNG",
+        "start_line": 1069,
+        "end_line": 1248,
+        "sha256": "280c02bd9a3e78707f22d32e1c23b66224fcb530f54dc13eb250e5c92831607d"
+      },
+      "HAL.lock": {
+        "source": "HAL_RNG",
+        "start_line": 1443,
+        "end_line": 1472,
+        "sha256": "4aa4bc6f566c71bf29bd1ae518492def2b083f745efc9dcd66f7c0fee10c6191"
+      },
+      "HAL.waits": {
+        "source": "HAL_RNG",
+        "start_line": 1505,
+        "end_line": 1542,
+        "sha256": "456f4c8055100044a0f4748e2de9484a1fc5efd1bc6fcc515fd0160217751d07"
+      },
+      "LL.constants": {
+        "source": "LL_RNG",
+        "start_line": 50,
+        "end_line": 155,
+        "sha256": "6cb098c8bd0fc6ca836881cb4892768e94e759db96fa129a6d80de6cac4e6399"
+      },
+      "LL.CED": {
+        "source": "LL_RNG",
+        "start_line": 198,
+        "end_line": 220,
+        "sha256": "6dfa461828bbade43cdd4de60d72db7d36ca3a6f5d92f95b9f35a3e2413eb098"
+      },
+      "LL.config": {
+        "source": "LL_RNG",
+        "start_line": 316,
+        "end_line": 454,
+        "sha256": "101c10b9fb2b07f6d27f89d48c5a3413ec0a7ce4aa08397183fec1d3769d23b4"
+      },
+      "LL.read": {
+        "source": "LL_RNG",
+        "start_line": 616,
+        "end_line": 619,
+        "sha256": "f57bc6d0d2f2ecf0a908275293789b656c302175843c1736ed6265957b04a21f"
+      },
+      "LL.autoreset": {
+        "source": "LL_RNG",
+        "start_line": 623,
+        "end_line": 656,
+        "sha256": "58f169e037e06a3b73dbcf8782c5623b5711888f2b28c19c5fcea75bc3bc2e43"
+      },
+      "LL.noise_health": {
+        "source": "LL_RNG",
+        "start_line": 680,
+        "end_line": 766,
+        "sha256": "e3ef95fe4c2f24b609a9a9ae49ead22a4cc65ceebfa6f049fc9a07e60a7bb5d5"
+      },
+      "RCC.enable": {
+        "source": "HAL_RCC_H",
+        "start_line": 1456,
+        "end_line": 1459,
+        "sha256": "a1c263cccb24092fe2b0d300df8e96647ddc4057ccb363bc39e3f52035966eb9"
+      },
+      "RCC.reset": {
+        "source": "HAL_RCC_H",
+        "start_line": 3282,
+        "end_line": 3286,
+        "sha256": "788d1fece41ef7ec9bcac3af9c830f8728dcedf32284deb988c7328902e8796c"
+      },
+      "lifecycle.RNG": {
+        "source": "sdk_lifecycle",
+        "start_line": 1141,
+        "end_line": 1174,
+        "sha256": "87c83107701bc1acafdf6e99e2ccf9ec796f637c9e0ead7311c48947142e0b56"
+      },
+      "RCC.CK48": {
+        "source": "HAL_RCC_H",
+        "start_line": 579,
+        "end_line": 589,
+        "sha256": "913b7977583d4568d253e5218379c904c900d97ddde9dbe554f43a8163bd3200"
+      },
+      "RCC.frequency_limits": {
+        "source": "HAL_RCC_H",
+        "start_line": 734,
+        "end_line": 765,
+        "sha256": "a77f5c1566810ef3cfd1eb9af1a2a44c003d8d8cb9ebe28c3ee78ea4ffea1a46"
+      },
+      "header.CK48": {
+        "source": "header",
+        "start_line": 9488,
+        "end_line": 9492,
+        "sha256": "c4e4113b959bcff7a2b67c9809eb1fe6e84674614b4ce7461fd92d602fb999b5"
+      },
+      "HAL.header_configs": {
+        "source": "HAL_RNG_H",
+        "start_line": 94,
+        "end_line": 150,
+        "sha256": "f4e93094527ed7d780c4b295ebd466c1248f94d08eb713d2b51f64b7f918953d"
+      },
+      "RM0522:p316": {
+        "source": "RM0522",
+        "page": 316,
+        "sha256": "ae02ee5a7b9b05b47ee9d4d80bd3ff768aaf22a5acf15f6c762ec6f62fb94c12"
+      },
+      "family.macros": {
+        "source": "family",
+        "start_line": 127,
+        "end_line": 142,
+        "sha256": "b7efbdb1e4ead81f4444cc420cadf5a7eb9b136180ce39c3e3bf403325f1f4ae"
+      }
+    },
+    "sdk_lifecycle_sha256": "09c4f0f44f862065fa5164ae937b15923e9b702455aae1dc1e215a9ef7783c4c",
+    "errata_sha256": "821c22f796a9ff723afee534fe5943c2b0506325ec871d890706d94414316416",
+    "scope": "One physical RNG, IRQ 64, internal entropy/conditioning block; no pad route, executable RNG profile, entropy certification, cryptographic suitability or observed recovery admitted.",
+    "finite_source_maps": {
+      "CR": {
+        "reset": "0x00800D00",
+        "RNGEN": 2,
+        "IE": 3,
+        "CED": 5,
+        "ARDIS": 7,
+        "CONFIG3_bits": [
+          8,
+          11
+        ],
+        "NISTC": 12,
+        "CONFIG2_bits": [
+          13,
+          15
+        ],
+        "CLKDIV_bits": [
+          16,
+          19
+        ],
+        "CONFIG1_bits": [
+          20,
+          27
+        ],
+        "CONDRST": 30,
+        "CONFIGLOCK": 31
+      },
+      "SR": {
+        "reset": 0,
+        "DRDY": 0,
+        "CECS": 1,
+        "SECS": 2,
+        "BUSY": 4,
+        "CEIS": 5,
+        "SEIS": 6
+      },
+      "DR": {
+        "offset": 8,
+        "width_bits": 32,
+        "reset": 0,
+        "read_action": "consumes_FIFO_word",
+        "automatic_reads": "prohibited"
+      },
+      "CLKDIV": {
+        "raw_codes": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "divisors": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32,
+          64,
+          128,
+          256,
+          512,
+          1024,
+          2048,
+          4096,
+          8192,
+          16384,
+          32768
+        ]
+      },
+      "registers": {
+        "NSCR": {
+          "offset": 12,
+          "reset": "0x1FF",
+          "oscillator_enable_bits": [
+            0,
+            8
+          ]
+        },
+        "HTCR0": {
+          "offset": 16,
+          "reset": "0x72AC"
+        },
+        "HTCR1": {
+          "offset": 20,
+          "reset": "0x3FFFF"
+        },
+        "HTCR2": {
+          "offset": 24,
+          "reset": "0x3FFFF"
+        },
+        "HTCR3": {
+          "offset": 28,
+          "reset": "0x3FFFF"
+        },
+        "HTSR0": {
+          "offset": 32,
+          "reset": 0,
+          "status_bits": [
+            0,
+            9
+          ]
+        },
+        "HTSR1": {
+          "offset": 36,
+          "reset": 0,
+          "status_bits": [
+            0,
+            9
+          ]
+        },
+        "NSMR": {
+          "offset": 48,
+          "reset": "0x1FF",
+          "unmasked_oscillator_bits": [
+            0,
+            8
+          ]
+        }
+      },
+      "qualification": "Widths and reset values are literal source data, not an allowed Cartesian configuration. HTCR3 map typo retained separately. Only recommended health configurations have described behavior.",
+      "evidence": [
+        "header.layout",
+        "header.constants",
+        "RM0522:p785",
+        "RM0522:p786",
+        "RM0522:p787",
+        "RM0522:p788",
+        "RM0522:p789",
+        "RM0522:p790",
+        "RM0522:p791",
+        "RM0522:p792",
+        "LL.constants"
+      ],
+      "kernel_clock": {
+        "selector": "RCC_CCIPR2.CK48SEL",
+        "shared_with": "USB",
+        "raw_codes": {
+          "0": "Reserved; disabled at reset",
+          "1": "PSIDIV3",
+          "2": "HSIDIV3",
+          "3": "HSE"
+        },
+        "qualification": "Source readiness, rate, shared ownership and CLKDIV sampling constraints are independent gates.",
+        "evidence": [
+          "RCC.CK48",
+          "RM0522:p260",
+          "RM0522:p316",
+          "RM0522:p784"
+        ]
+      }
+    },
+    "literal_configurations": {
+      "RM_B": {
+        "NISTC": 1,
+        "CONFIG1": "0x83",
+        "CLKDIV": 0,
+        "CONFIG2": 0,
+        "CONFIG3": 15,
+        "N": 3,
+        "HTCR0": "0xAAC7",
+        "NSCR": "default"
+      },
+      "RM_C": {
+        "NISTC": 1,
+        "CONFIG1": "0x84",
+        "CLKDIV": 5,
+        "CONFIG2": 0,
+        "CONFIG3": 15,
+        "N": 4,
+        "HTCR0": "0xAAC7",
+        "NSCR": "default"
+      },
+      "SDK_candidate_NIST": {
+        "CR": "0x08451F00",
+        "NSCR": "0x1FF",
+        "HTCR0": "0xAAC7"
+      },
+      "SDK_candidate_GermanBSI": {
+        "CR": "0x08301F00",
+        "NSCR": "0x1FF",
+        "HTCR0": "0xAAC7"
+      },
+      "qualification": "Literal field comparison: SDK candidate NIST equals RM C fields, GermanBSI equals RM B. No certified configuration A is supplied here; AN4230 and certification records were not inspected. RM783 vendor validation used rng_clk=48 MHz and CED=0. Configuration C CLKDIV=5 is the tabulated 48 MHz case; RM784 note3 requires adapting CLKDIV for another RNG clock and limits noise sampling to 48 MHz or less.",
+      "evidence": [
+        "RM0522:p783",
+        "RM0522:p784",
+        "header.constants",
+        "HAL.candidate_configs"
+      ]
+    },
+    "contracts": [
+      {
+        "id": "clock_and_access",
+        "detail": "AHB clocks registers and conditioning. Shared RNG/USB CK48SEL[25:24] selects 1=PSIDIV3, 2=HSIDIV3, 3=HSE; reset 0 disables the kernel clock. Check selected source readiness and rate, including HSIDIV3RDY/PSIDIV3RDY; both divided sources stop in Stop/Standby. HSE supported range can reach 50 MHz, so source selection alone does not enforce the 48 MHz noise-sampling ceiling after CLKDIV. Own the shared selector with USB and validate effective sampling rate. With CED=0, pre-divider RNG frequency must exceed HCLK/32; equality is not positively admitted. Only single 32-bit accesses are documented; other sizes cause bus error and ignored writes.",
+        "evidence": [
+          "RM0522:p260",
+          "RM0522:p773",
+          "RM0522:p780",
+          "RM0522:p787",
+          "RCC.enable",
+          "RCC.CK48",
+          "RCC.frequency_limits",
+          "header.CK48",
+          "RM0522:p316",
+          "RM0522:p784"
+        ]
+      },
+      {
+        "id": "data_consumption",
+        "detail": "FIFO holds four words with a further conditioning output potentially available. Check status and DRDY before reads. A zero DR value is a seed-error indicator requiring error handling, not a value to silently skip. DR reads consume shared state, including with RNGEN=0 and buffered data. No speculative DR polling, debugger auto-refresh or competing consumers.",
+        "evidence": [
+          "RM0522:p776",
+          "RM0522:p779",
+          "RM0522:p782",
+          "RM0522:p788",
+          "LL.read"
+        ]
+      },
+      {
+        "id": "health_and_errors",
+        "detail": "Startup repetition/adaptive tests and conditioning known-answer checks precede output; continuous tests monitor noise. Default described thresholds are repetition beyond 28 equal bits and adaptive first-bit count beyond 684 in 1024 bits. SECS/CECS are current status; SEIS/CEIS record errors and clear on zero writes. Clock-error data must not be used. HTSR error evidence clears with SEIS; capture before clearing. Health success alone does not establish entropy certification. The 28 and 684/1024 thresholds describe reset HTCR0=0x72AC, not recommended 0xAAC7; RM789 does not guarantee behavior, including reads, for other than its recommended value. CECS is valid only with CED=0; CED=1 disables clock-error detection.",
+        "evidence": [
+          "RM0522:p776",
+          "RM0522:p777",
+          "RM0522:p780",
+          "RM0522:p787",
+          "RM0522:p788",
+          "RM0522:p790",
+          "RM0522:p791",
+          "RM0522:p789"
+        ]
+      },
+      {
+        "id": "reset_and_lock",
+        "detail": "Before CONDRST, clear RNGEN and wait BUSY = 0. Set correct CR configuration with CONDRST in the same access; clear CONDRST and await completion. CONDRST explicitly clears all FIFOs and RNG_SR but preserves configuration registers. RCC reset loses recommended configuration. CONFIGLOCK blocks configuration until RNG reset and restricts recovery; it is not a releasable mutex. Separate HTSR freshness across CONDRST is not explicitly established by that sentence; RM790 specifies clearing SEIS clears HTSR.",
+        "evidence": [
+          "RM0522:p778",
+          "RM0522:p785",
+          "RM0522:p786",
+          "RCC.reset",
+          "RM0522:p790"
+        ]
+      },
+      {
+        "id": "clock_release",
+        "detail": "Before clock gating or a power mode deactivating RNG: clear RNGEN, await BUSY = 0, then gate. Disabled RNG can retain readable buffered output; disabling during initialization can pause and later resume it. RNGEN = 0 alone is not clean-buffer or quiescence evidence.",
+        "evidence": [
+          "RM0522:p782",
+          "RM0522:p787"
+        ]
+      },
+      {
+        "id": "seed_and_tamper",
+        "detail": "Seed recovery depends on ARDIS and CONFIGLOCK. RM describes oscillator error accumulation/masking, recommended at least six active oscillators for N >= 3, conditional B-to-C transition and final SECS checks. ES2.5.1 requires correct standard error management; API presence does not prove successful recovery. Unexpected tamper errors stop output and require peripheral reset plus initialization; seed errors are not tamper events.",
+        "evidence": [
+          "RM0522:p781",
+          "RM0522:p782",
+          "RM0522:p791",
+          "ES0676:p6",
+          "lifecycle.RNG"
+        ]
+      },
+      {
+        "id": "IRQ_ownership",
+        "detail": "IE globally enables DRDY, CEIS and SEIS sources. Data-ready status drains through data consumption; error clear and buffer ownership must be coordinated. Polling, IRQ and other consumers cannot independently own the same FIFO or status provenance.",
+        "evidence": [
+          "RM0522:p776",
+          "RM0522:p779",
+          "RM0522:p783",
+          "RM0522:p786"
+        ]
+      },
+      {
+        "id": "timing_limits",
+        "detail": "RM describes 206*N AHB cycles or 128*N effective RNG cycles per four-word set, depending on the limiting stage. This is conditional vendor timing, not measured throughput, initialization deadline or entropy validation; CLKDIV affects sampling frequency.",
+        "evidence": [
+          "RM0522:p777",
+          "RM0522:p783",
+          "RM0522:p784"
+        ]
+      },
+      {
+        "id": "dedicated_consumer_gate",
+        "detail": "RM787 also sets BUSY when a connected peripheral fetches random data through the dedicated RNG hardware bus. Whether an exact C542 consumer is present remains unverified; no such route is admitted and CPU ownership alone is not generalized into a hardware-bus proof.",
+        "evidence": [
+          "RM0522:p787"
+        ]
+      }
+    ],
+    "source_derived_SDK_gates": [
+      {
+        "id": "configuration_admission",
+        "detail": "SetConfig uses debug-only width/enumeration checks and unmasked shifts; health_test is written directly. Width acceptance does not establish a recommended configuration. Additional health index is debug-checked, with LL indexing HTCR directly. Optional runtime checks do not validate the complete domain; independently bound pointers, indices, values and combinations. For example config_1 bit11 shifts into CONFIGLOCK bit31, bits8/9 into reserved28/29, config_3 bit4 into NISTC and config_2 bit3 into CLKDIV. LL HTCR indexing outside 0..3 is out-of-bounds C access; nominal address arithmetic places index4/5 at HTSR,6/7 at reserved offsets and8 at NSMR, not a guaranteed compiled write. The noise-source predicate admits three selected oscillators, which does not establish the recommended six for N>=3.",
+        "evidence": [
+          "HAL.guards",
+          "HAL.config",
+          "HAL.health_config",
+          "LL.config",
+          "LL.noise_health",
+          "RM0522:p789",
+          "family.macros",
+          "header.layout",
+          "RM0522:p791"
+        ]
+      },
+      {
+        "id": "configuration_state",
+        "detail": "SetConfig waits BUSY but does not first disable RNGEN; granular CED/ARDIS/divider and health setters do not implement the full RNGEN/BUSY reset preflight or completion wait. Handle IDLE is not hardware quiescence. LL setters pulse CONDRST and can discard buffered entropy; preserve ownership and exact sequence. Candidate B/C functions likewise wait BUSY without first clearing RNGEN and overwrite CR with CONDRST, forcing IE, ARDIS and CED to zero.",
+        "evidence": [
+          "HAL.config",
+          "HAL.control_setters",
+          "HAL.health_config",
+          "LL.CED",
+          "LL.config",
+          "LL.autoreset",
+          "RM0522:p785",
+          "RM0522:p787",
+          "HAL.candidate_configs"
+        ]
+      },
+      {
+        "id": "poll_clock_and_zero",
+        "detail": "Polling clears CEIS and continues without rejecting persistent CECS, despite RM forbidding clock-error data use. Polling and IRQ inner read loops store DR words without the RM nonzero check and without rechecking all health status for each word. Conditional source gap; no observed defective output claimed. CECS only has documented validity with CED=0; disabling the detector is not proof of a healthy clock. Both paths clear SEIS without first capturing HTSR and can destroy diagnostic evidence.",
+        "evidence": [
+          "HAL.polling",
+          "HAL.IT",
+          "RM0522:p779",
+          "RM0522:p780",
+          "RM0522:p788",
+          "RM0522:p790"
+        ]
+      },
+      {
+        "id": "partial_buffer_and_timeout",
+        "detail": "Polling can partially write the output buffer before seed error or timeout and provides no returned count. Final elapsed-time test can return timeout even after the last requested word was stored. The inner DRDY/count loop does not check the deadline per word. Tick progression and buffer extent require caller ownership; discard or explicitly track uncertain partial results.",
+        "evidence": [
+          "HAL.polling"
+        ]
+      },
+      {
+        "id": "IRQ_lifetime",
+        "detail": "IT start stores pointer/count and enables interrupts without stale-flag clearing. Handler has no ACTIVE, IE or positive-count preflight. Conditional on reaching its DRDY loop after a completed transfer, retained pointer is one-past-buffer and count=0: the next source-level write is outside that buffer and decrement wraps to 0xFFFFFFFF. After Init p_data is NULL, so an equivalent manual/stale invocation can dereference NULL. C undefined behavior and actual generated execution are unqualified; no corruption observed. Clock-error callback precedes data loop, requiring reentrancy control. SEIS set with SECS clear calls error callback and returns without draining or recording SEED; it may leave ACTIVE and needs renewed-delivery analysis.",
+        "evidence": [
+          "HAL.IT",
+          "HAL.init_deinit"
+        ]
+      },
+      {
+        "id": "deinit_release",
+        "detail": "DeInit only disables RNGEN and marks RESET. It does not disable IE, await BUSY, reset pointer/count, clear flags or flush output. Polling also does not neutralize inherited IE. Stale NVIC/IRQ and competing consumers must be drained before buffer or clock release.",
+        "evidence": [
+          "HAL.init_deinit",
+          "HAL.polling",
+          "HAL.IT",
+          "RM0522:p782"
+        ]
+      },
+      {
+        "id": "recovery_not_proven_algorithm",
+        "detail": "RecoverSeedError is explicitly caller-invoked. It enables RNG, uses empirical tick deadlines, can return HAL_ERROR when final SECS remains set, and can leave RNG enabled on final return. Its aggregate overlap counter over ORed health bits is not independently demonstrated equivalent to RM per-oscillator accumulated counts. CondReset writes need RM preflight verification; successful return is not certified entropy recovery or a completed adapter. The fewer-than-six branch passes NOISE_SRC_1|2|3=0x7 to GetOscNoiseSrc, returning NSCR&7; with NSCR=0x1FF it writes NSMR=7, selecting only three oscillators. The other branch passes OSC_1|2|3=0x1FF. CLKDIV<5 is used as a proxy for configuration B; the C switch overwrites whole CR with 0x08451F00|CONDRST, forcing IE/ARDIS/CED=0 and CLKDIV=5 regardless of input clock. With SECS=1 and both HTSR=0, the reset body is skipped until timeout; locked configuration skips recovery and reaches final error if SECS persists. There is no explicit SEIS clear in that loop, but CONDRST does clear RNG_SR per RM785; HTSR freshness still needs qualification. Timeout is empirical 1+2^CLKDIV/4 ms (1,9,8193 at raw0,5,15).",
+        "evidence": [
+          "HAL.recovery",
+          "HAL.waits",
+          "RM0522:p781",
+          "RM0522:p785",
+          "lifecycle.RNG",
+          "LL.constants",
+          "LL.noise_health",
+          "header.constants",
+          "RM0522:p788",
+          "RM0522:p791"
+        ]
+      },
+      {
+        "id": "recovery_status_reporting",
+        "detail": "On final SECS failure, optional last_error_codes uses &= HAL_RNG_ERROR_SEED, not |=; this can retain zero if SEED was absent and drops other error bits. Return status and independent captured health evidence are required; no observed execution claimed.",
+        "evidence": [
+          "HAL.recovery"
+        ]
+      },
+      {
+        "id": "wait_and_lock_status",
+        "detail": "Configuration reset wait marks IDLE on timeout as well as success; IDLE does not prove BUSY = 0. Lock uses a tick timeout after write, so timeout alone does not prove configuration remains unlocked. Timeouts require a progressing timebase; no timeout is a rollback.",
+        "evidence": [
+          "HAL.waits",
+          "HAL.lock",
+          "RM0522:p785"
+        ]
+      }
+    ],
+    "conflicts": [
+      {
+        "id": "clock_detector_wording",
+        "detail": "RM777 calls the clock too slow but describes an RNG cycle smaller than AHB cycle / 32; RM780 and SR descriptions specify RNG frequency below HCLK / 32. Preserve incompatible period wording; use no boundary admission from the typo.",
+        "evidence": [
+          "RM0522:p777",
+          "RM0522:p780",
+          "RM0522:p787",
+          "RM0522:p788"
+        ]
+      },
+      {
+        "id": "CLKDIV_description",
+        "detail": "RM786 introductory divider range says 1 to 16, but explicit encodings are 2^raw through 32768; SDK constants follow powers of two. Preserve prose discrepancy.",
+        "evidence": [
+          "RM0522:p786",
+          "LL.constants"
+        ]
+      },
+      {
+        "id": "candidate_NIST_label",
+        "detail": "Exact header candidate NIST CR decodes to RM configuration C, while RM784 says only configuration A is suitable for NIST-compliant key generation and delegates A to AN4230. Candidate API naming and NISTC field naming do not establish certification. Separately HAL_RNG_NIST equals LL_RNG_NIST_COMPLIANT=0, meaning NISTC=0/default N=2 with CONFIG3 ignored, not B or C. This enum name also does not certify output.",
+        "evidence": [
+          "header.constants",
+          "HAL.candidate_configs",
+          "RM0522:p783",
+          "RM0522:p784",
+          "DS15135:p18",
+          "HAL.header_configs",
+          "LL.constants",
+          "RM0522:p786"
+        ]
+      },
+      {
+        "id": "HTCR3_map",
+        "detail": "RM792 prints HTCR3 offset 0x01F and RNG_MSMR; RM789 formula 0x010 + 4*x and exact header array put HTCR3 at 0x01C, and RM791/header name NSMR. Preserve table transcription discrepancies. Exact header also comments NSMR as a health test status register; its named mask behavior follows RM791, not that comment.",
+        "evidence": [
+          "RM0522:p789",
+          "RM0522:p791",
+          "RM0522:p792",
+          "header.layout"
+        ]
+      },
+      {
+        "id": "LL_CONFIG1_comment",
+        "detail": "LL Set/GetConfig1 comments describe six bits / 0x3F, while exact header and RM field are eight bits and HAL guard allows 0xFF. No six-bit hardware restriction inferred.",
+        "evidence": [
+          "LL.config",
+          "header.constants",
+          "HAL.guards",
+          "RM0522:p785"
+        ]
+      },
+      {
+        "id": "DRDY_read_semantics",
+        "detail": "RM788 says DRDY clears upon DR read and describes emptying the buffer; RM776/779 describe four plus potentially four output reads per ready period. HAL rechecks DRDY for each word. Preserve this tension without assuming a fixed number of reads per flag.",
+        "evidence": [
+          "RM0522:p776",
+          "RM0522:p779",
+          "RM0522:p788",
+          "HAL.polling",
+          "HAL.IT"
+        ]
+      },
+      {
+        "id": "DRDY_interrupt_semantics",
+        "detail": "RM776 describes DRDY rising-transition interrupt, RM786 pending while flag set, RM783 interrupts only when enabled, and RM788 permits DRDY set after RNGEN clears. Re-delivery after auto-recovered SEIS early return is unresolved; an edge-only interpretation could leave transfer pending. No observed stall claimed.",
+        "evidence": [
+          "RM0522:p776",
+          "RM0522:p783",
+          "RM0522:p786",
+          "RM0522:p788",
+          "HAL.IT"
+        ]
+      },
+      {
+        "id": "recovery_reset_preflight",
+        "detail": "RM781 recovery steps do not explicitly include the separate RNGEN=0 and BUSY=0 preflight required by RM785 before CONDRST. Preserve both and require the stricter preflight in any eventual adapter.",
+        "evidence": [
+          "RM0522:p781",
+          "RM0522:p785"
+        ]
+      }
+    ],
+    "errata_gate": {
+      "inventory_binding": {
+        "file": "errata.json",
+        "index": 7,
+        "section": "2.5.1",
+        "revision_status": {
+          "Z": "N",
+          "Y": "N"
+        }
+      },
+      "detail": "Continuous seed errors can arise under supply, temperature and process combinations. ES calls for correct standard error management; no independently qualified recovery or entropy output here.",
+      "evidence": [
+        "ES0676:p1",
+        "ES0676:p2",
+        "ES0676:p6"
+      ]
+    },
+    "family_exclusion": {
+      "id": "crypton_clock_scope",
+      "detail": "RM268 explicitly limits its cryptographic subsystem clock/reset subsection to C59x/5A3. Do not import the Figure28 multi-peripheral clock topology or its subsystem-wide reset sequence as an exact C542 rule. RNG chapter BUSY-before-clock-gate requirement still applies independently.",
+      "evidence": [
+        "RM0522:p268",
+        "RM0522:p269",
+        "RM0522:p782"
+      ]
+    },
+    "open_gates": [
+      "No operational entropy or cryptographic suitability admission",
+      "AN4230 configuration A and certificate identity not inspected; no certification claim",
+      "Clock readiness, source rates, voltage/temperature conditions and tamper integration unqualified",
+      "Full recovery algorithm equivalence, callback reentrancy, memory bounds and error freshness unqualified",
+      "No build, hardware or statistical testing; source observations only",
+      "No active catalog, metadata or production changes"
+    ]
+  }
+}

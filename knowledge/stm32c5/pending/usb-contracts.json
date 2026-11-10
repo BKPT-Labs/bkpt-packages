@@ -1,0 +1,1426 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/usb-contracts.json",
+    "sha256": "85714759768930b47cdf0037c5b0e9763d46f714624f00a9f93f529dae8eb4ab"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 116
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "review": "independent_source_review_pending",
+    "full_domain_closure": false,
+    "schema": "bkpt.external.usb.contracts.v1",
+    "scope": "Exact STM32C542 USB_DRD_FS host/device peripheral; full RM2087–2132 read with bounded PCD/HCD/DRD-core source paths. No USB stack, electrical, runtime or full-domain admission.",
+    "sources": {
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "DS15135": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pdf",
+        "sha256": "1a3555f799297774a95978ab343ebc1f45ab9ef58d0dcf3600dec4fabed9355c",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pages.json",
+        "extraction_sha256": "b14b965adb6c1545edbca0e56b3c504e7ecc3a94bda197350ce2757b5a3d55dc"
+      },
+      "ES0676": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pdf",
+        "sha256": "a5463827337bcdbd3e5f2e0912a56307d78b568e5631b21cc9a25899c7d4a5e6",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/ES0676.pages.json",
+        "extraction_sha256": "2ab1b19e42b53e22ff5f3b98f6ed9a5f98f3b7b61a617abc3bb3b7fc050d1cb3"
+      },
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      },
+      "HAL_def": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_def.h",
+        "sha256": "44149fa34fae22a75c3cfdf6607c5047d9f01141ba683b9b905c953ca31fb338"
+      },
+      "assert_template": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/templates/common/stm32_assert.h",
+        "sha256": "811b45570fdc34fc5ad7b308625795b0a8c2aff53c1a261694772df6b7fb205c"
+      },
+      "package": {
+        "path": "research://c5-reference/package-routes.json",
+        "sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288"
+      },
+      "errata": {
+        "path": "research://c5-reference/errata.json",
+        "sha256": "821c22f796a9ff723afee534fe5943c2b0506325ec871d890706d94414316416"
+      },
+      "dma_routing": {
+        "path": "research://c5-reference/dma-routing.json",
+        "sha256": "6f5d4d59950941a32d983ccc0907dda996415c9fd201cce9b2e8777bd86ae41d"
+      },
+      "family_header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c5xx.h",
+        "sha256": "61a0b8c2674d9e817d70aa8d2693339273f4283694f8ab5f8dca077bb69913f7"
+      },
+      "PCD": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_pcd.c",
+        "sha256": "b1a781cdbafdb90536f92a8c37712f7376c7d15802f94c7cfe7bb59bd8dd723c"
+      },
+      "HCD": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_hcd.c",
+        "sha256": "f34c24f9200a27d2b3bf0dedf90727763537bc8e043b03b225e0812122169355"
+      },
+      "core": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_usb_drd_core.c",
+        "sha256": "61f9c8c041014676b02e9ad34832df4303e0e81b6e1df6fbb2683ce137e70b76"
+      },
+      "core_H": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_usb_drd_core.h",
+        "sha256": "0f2e0e5960690ada91359402da3a957984ac674190fded987c7d0b4df04e515f"
+      },
+      "core_def": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_usb_core_def.h",
+        "sha256": "4d74a514da399c526dcd140a0b60d156f140212c931f95f73c5d59505a7464f5"
+      }
+    },
+    "evidence": {
+      "RM0522:p294": {
+        "source": "RM0522",
+        "page": 294,
+        "sha256": "68f8ecc8d6fec3e3ffa5f17a36ff9bd695426af9147379a846e22315f36a83d1"
+      },
+      "RM0522:p303": {
+        "source": "RM0522",
+        "page": 303,
+        "sha256": "b499e1ac57830315c510e8ea81930829eb366ce208416e096ec0cb8e42c4545f"
+      },
+      "RM0522:p312": {
+        "source": "RM0522",
+        "page": 312,
+        "sha256": "a097ea7390e35fee7cc6df28a819d57af2c13dc10008114accd9a0e8ba6f664f"
+      },
+      "RM0522:p316": {
+        "source": "RM0522",
+        "page": 316,
+        "sha256": "ae02ee5a7b9b05b47ee9d4d80bd3ff768aaf22a5acf15f6c762ec6f62fb94c12"
+      },
+      "RM0522:p2086": {
+        "source": "RM0522",
+        "page": 2086,
+        "sha256": "a3b09cd746860a6304921f9c904d47a6953eace265cbe75150a9bfa77f4ce26a"
+      },
+      "RM0522:p2087": {
+        "source": "RM0522",
+        "page": 2087,
+        "sha256": "804e5a750c55130b214669769aee141f8755694558d7b04c3a915660942fdc4a"
+      },
+      "RM0522:p2088": {
+        "source": "RM0522",
+        "page": 2088,
+        "sha256": "8872535896ca3e84c86ebaadf607983d6d2baffbeeb775123d022ec5fd7a76ee"
+      },
+      "RM0522:p2089": {
+        "source": "RM0522",
+        "page": 2089,
+        "sha256": "5c2d9898105661efd811baf8c6c7c3c94ebf8ae005cc5be7ebe52cce87bc56bb"
+      },
+      "RM0522:p2090": {
+        "source": "RM0522",
+        "page": 2090,
+        "sha256": "cec75c31b03fc2168079db4473c63f391a513c85bf053856cba8e0d519a314f9"
+      },
+      "RM0522:p2091": {
+        "source": "RM0522",
+        "page": 2091,
+        "sha256": "f813915f57918ad4d1396bb8ef4abab9bc73463223103c49c3f405e7b2ea1f62"
+      },
+      "RM0522:p2092": {
+        "source": "RM0522",
+        "page": 2092,
+        "sha256": "a206d4d57099eb9bcdca31c828b1201f052251cd8fe05d1bb6d6002d24a3656a"
+      },
+      "RM0522:p2093": {
+        "source": "RM0522",
+        "page": 2093,
+        "sha256": "a842476fd5e3e6ef2d7b87841c085b23319de67da846d2878e4072f329ce858b"
+      },
+      "RM0522:p2094": {
+        "source": "RM0522",
+        "page": 2094,
+        "sha256": "e3e0f4cb7a162d93d842c8933349f1742e240b546c9a04108d816b294f7e1d33"
+      },
+      "RM0522:p2095": {
+        "source": "RM0522",
+        "page": 2095,
+        "sha256": "37d3ef51c5ec03f58f3438a01126f158f8b72ec0052ba626a75f8dcd2becb70a"
+      },
+      "RM0522:p2096": {
+        "source": "RM0522",
+        "page": 2096,
+        "sha256": "0c4457fd43ab1bc5da979ad8565e69e69080556fb3a8de3491a1207cba8b96db"
+      },
+      "RM0522:p2097": {
+        "source": "RM0522",
+        "page": 2097,
+        "sha256": "5861e0878ad97ba96f78dc8a0f1568cc64ee77e33f4feacf0e83d45aa69e8f73"
+      },
+      "RM0522:p2098": {
+        "source": "RM0522",
+        "page": 2098,
+        "sha256": "1f540253f5f90bf0ec7c08794ef117aebc44bbe672e43ed971c5cb4b39780de8"
+      },
+      "RM0522:p2099": {
+        "source": "RM0522",
+        "page": 2099,
+        "sha256": "81f84aa8a7bd293112fe09b3601df5cc460a80997c16c691a6eecb5bf81c51d4"
+      },
+      "RM0522:p2100": {
+        "source": "RM0522",
+        "page": 2100,
+        "sha256": "e4a805b7b30f523605693d32f4c55e2fb760946f5d079f781616c321dcb415ab"
+      },
+      "RM0522:p2101": {
+        "source": "RM0522",
+        "page": 2101,
+        "sha256": "bec9ecd59b0994d0946bcf72a219bd578e6b6e2d64e26fa57791e31329e0ebfc"
+      },
+      "RM0522:p2102": {
+        "source": "RM0522",
+        "page": 2102,
+        "sha256": "d1994f468001d5fc10f653b144334112e21787ac53ecddcd1bd4dffaf5ceee98"
+      },
+      "RM0522:p2103": {
+        "source": "RM0522",
+        "page": 2103,
+        "sha256": "5c4341f2472e9366e2125d5a5143101c6f6ee4fb5737ab92c20ccf408a20713e"
+      },
+      "RM0522:p2104": {
+        "source": "RM0522",
+        "page": 2104,
+        "sha256": "38ffaf949ecd5cb14ca81293b4c4c8bf9a0e7c4da5f1752dd62d19284a7da6fb"
+      },
+      "RM0522:p2105": {
+        "source": "RM0522",
+        "page": 2105,
+        "sha256": "48afc2c04cf0453a47dfb21481b0939313cec265cf8741be518959a6047a181a"
+      },
+      "RM0522:p2106": {
+        "source": "RM0522",
+        "page": 2106,
+        "sha256": "be0ef3ff3b7ab10e5e837544d4e9a035d857c5d9995d26da96a76e44c75ef570"
+      },
+      "RM0522:p2107": {
+        "source": "RM0522",
+        "page": 2107,
+        "sha256": "e601209dafc2832281a3de856d2c0e81b432f21ca4662a487f6ce6400e093309"
+      },
+      "RM0522:p2108": {
+        "source": "RM0522",
+        "page": 2108,
+        "sha256": "f561392a205010f55ac0d70ef4d12e2b23ff503636dd04e97fb27bc89a4d4850"
+      },
+      "RM0522:p2109": {
+        "source": "RM0522",
+        "page": 2109,
+        "sha256": "2df4759fba5ba52935ae531dcc8cc4bf092fec5fb83d0aaeb58c1b044d358aa1"
+      },
+      "RM0522:p2110": {
+        "source": "RM0522",
+        "page": 2110,
+        "sha256": "08e1947c6f632cda5506cd2281a7ddbaceff84c09ca97db7953e495eddb778e3"
+      },
+      "RM0522:p2111": {
+        "source": "RM0522",
+        "page": 2111,
+        "sha256": "c9c511c75a1951270d5aa26b41345d3b91b57efed5bd422db74800db11331148"
+      },
+      "RM0522:p2112": {
+        "source": "RM0522",
+        "page": 2112,
+        "sha256": "61c94145e153f4c44c6bf34e62537e863f3ac4bc2b4199b32f5c7e2615ee762b"
+      },
+      "RM0522:p2113": {
+        "source": "RM0522",
+        "page": 2113,
+        "sha256": "a8061401184deb6fa6282d8148f400066fcdbe1c6fc67bc37065e8e23d44d09a"
+      },
+      "RM0522:p2114": {
+        "source": "RM0522",
+        "page": 2114,
+        "sha256": "473aff0401b298c32a6c819b29ae30e3cf5e16bf2fff1b2293b170b68e7597df"
+      },
+      "RM0522:p2115": {
+        "source": "RM0522",
+        "page": 2115,
+        "sha256": "d031aefacf4b63fd492e76f2e32de7d0ab46617e27f0e219f512f2f92ec63224"
+      },
+      "RM0522:p2116": {
+        "source": "RM0522",
+        "page": 2116,
+        "sha256": "4caafc14592e56f48cfee412087512fac166461e54e9dbb94574d289e1528a7e"
+      },
+      "RM0522:p2117": {
+        "source": "RM0522",
+        "page": 2117,
+        "sha256": "4f4c6e3d70bf91021c554146047b50251bad87576b192c9c9300f9fa2909e665"
+      },
+      "RM0522:p2118": {
+        "source": "RM0522",
+        "page": 2118,
+        "sha256": "6da055e1fdb73e3cc424654228987dd6e3bf701632dd6d0caaec5f856273ec2b"
+      },
+      "RM0522:p2119": {
+        "source": "RM0522",
+        "page": 2119,
+        "sha256": "06d7ea9ea0e5b057545011900c1c5db4e73ecc8bbfd568ed0a80f947df641440"
+      },
+      "RM0522:p2120": {
+        "source": "RM0522",
+        "page": 2120,
+        "sha256": "3b11ae9399649008f046dfbdec1d7214c3fe84a549f845a77cb8434ff534b98c"
+      },
+      "RM0522:p2121": {
+        "source": "RM0522",
+        "page": 2121,
+        "sha256": "050e0c89265160cba9050d99b0bac0d24c9ad3bfbc9d93534eb074ea05eecf0a"
+      },
+      "RM0522:p2122": {
+        "source": "RM0522",
+        "page": 2122,
+        "sha256": "2f4e79883d913d90d1776927a9729809db8a7041929a6ca7a8dd26080bd3b7f2"
+      },
+      "RM0522:p2123": {
+        "source": "RM0522",
+        "page": 2123,
+        "sha256": "7f3fc4d3ca9eaebbab8f2f4e34013d7a3eb01c27162c72ffc381bc6f14045598"
+      },
+      "RM0522:p2124": {
+        "source": "RM0522",
+        "page": 2124,
+        "sha256": "83baaa20bd4fd1d3299aa7be61cf7566a799ed76be3bac947ff8ef51ca69d922"
+      },
+      "RM0522:p2125": {
+        "source": "RM0522",
+        "page": 2125,
+        "sha256": "a2fee5d761dd8043f6005aa6fd0472a38ce248ead2bf277bf02b18f95475bd8c"
+      },
+      "RM0522:p2126": {
+        "source": "RM0522",
+        "page": 2126,
+        "sha256": "4e77cb73420f6a16447435be521130e7713a06a9d421409b343635a580084317"
+      },
+      "RM0522:p2127": {
+        "source": "RM0522",
+        "page": 2127,
+        "sha256": "4186a9a8946628361acde5b685e3f4fac21b68ec784b71367c03f573be7fba61"
+      },
+      "RM0522:p2128": {
+        "source": "RM0522",
+        "page": 2128,
+        "sha256": "cc40bebe1fa47ba3347c8a74d5d7c97e855698b35d668e3175fbe86deb413aac"
+      },
+      "RM0522:p2129": {
+        "source": "RM0522",
+        "page": 2129,
+        "sha256": "49dafbc851f01b93d8ab2e6945666a49dc15bff5df3a27b5b0f3ef99a3686cf6"
+      },
+      "RM0522:p2130": {
+        "source": "RM0522",
+        "page": 2130,
+        "sha256": "fec5035811a1eeb8ffa51710092781af9fcad087ee5b0cf816a6ea016802df54"
+      },
+      "RM0522:p2131": {
+        "source": "RM0522",
+        "page": 2131,
+        "sha256": "bec9f53ca9779fb6a74a908ef5170c244c492be979a0d95c2d738e1a9f94b83f"
+      },
+      "RM0522:p2132": {
+        "source": "RM0522",
+        "page": 2132,
+        "sha256": "2da01ca880786b6c4c520124636ec1ebb91686641ed310a8a3b2f2f22596cc2a"
+      },
+      "RM0522:p2133": {
+        "source": "RM0522",
+        "page": 2133,
+        "sha256": "891cbbfff6f9577dd57ff1575cf4c3e0ea219151fb4fcccd3146c0e6ab3e35b2"
+      },
+      "DS15135:p32": {
+        "source": "DS15135",
+        "page": 32,
+        "sha256": "0f09aec61635d2c1d7f21c9d95ab47501152a071f46c57f5296e8fcc13152978"
+      },
+      "DS15135:p33": {
+        "source": "DS15135",
+        "page": 33,
+        "sha256": "3c1d00044b626ad5d157630ff9ef1f1ad97b9aab1841c6cff242784ecc79b3f1"
+      },
+      "DS15135:p42": {
+        "source": "DS15135",
+        "page": 42,
+        "sha256": "77b01ef6f7ad55ef4dddef1bedbc96d02db27bdf3192b5e8e2d17041538fb59d"
+      },
+      "DS15135:p43": {
+        "source": "DS15135",
+        "page": 43,
+        "sha256": "4fcaaeb41fbf4b5dbb727c91ae77018f1291a9f2ee873e27735864506b0b7b18"
+      },
+      "DS15135:p46": {
+        "source": "DS15135",
+        "page": 46,
+        "sha256": "6d3ea235bffc5fd4cc64517ff32cd2b29a37014ab6305628204e1fd9f3146269"
+      },
+      "DS15135:p94": {
+        "source": "DS15135",
+        "page": 94,
+        "sha256": "d765e688a02f2e0ec1fd1558092bdd76e84ea9b208876614e246a6f457394af8"
+      },
+      "ES0676:p3": {
+        "source": "ES0676",
+        "page": 3,
+        "sha256": "6682207b964f905ea8f0e452bc5cff546dfb08622fca9ce2f979b0e43cd6d157"
+      },
+      "ES0676:p11": {
+        "source": "ES0676",
+        "page": 11,
+        "sha256": "f3433686e725b795145e0f5945a8735b0aa23657c7f34885d86cc028e6cc9b4e"
+      },
+      "HAL.state_guard": {
+        "source": "HAL_def",
+        "start_line": 90,
+        "end_line": 131,
+        "sha256": "ec05f156b5890534af384b3b4fe7a7a65d06200afd567c1ce0fb40006cc55110"
+      },
+      "SDK.assertions": {
+        "source": "assert_template",
+        "start_line": 32,
+        "end_line": 66,
+        "sha256": "861f103410d3abf19ca2c0d7ebce70a0487134fd24a261f44885e14c19324da4"
+      },
+      "family.macros": {
+        "source": "family_header",
+        "start_line": 130,
+        "end_line": 142,
+        "sha256": "53238037d4d5827a42b9177f5166478587104441da533848b840727019c41699"
+      },
+      "header.IRQ": {
+        "source": "header",
+        "start_line": 117,
+        "end_line": 117,
+        "sha256": "ee3b3b1e86167726f1cd960b115a8042abe0ec35ddff53eef7a9e176ebd2cbfe"
+      },
+      "header.struct": {
+        "source": "header",
+        "start_line": 1031,
+        "end_line": 1061,
+        "sha256": "f15fde4d1a6d6ebe4207b5b5953380ee7e6a4a64824c5444801f421f58f79a18"
+      },
+      "header.base": {
+        "source": "header",
+        "start_line": 1170,
+        "end_line": 1212,
+        "sha256": "b839f348a20710d4521f9972f90891a1e76e75b78e820c80cb978da56fac1054"
+      },
+      "header.instances": {
+        "source": "header",
+        "start_line": 14396,
+        "end_line": 14400,
+        "sha256": "bd4fdf1b50abe09a38f46d1bd2faebb822ab8a4987732177339ea3885d41679f"
+      },
+      "header.reset": {
+        "source": "header",
+        "start_line": 9034,
+        "end_line": 9036,
+        "sha256": "8c27146d4fdff33a159b998cd3d0587ff29639736112775390d6b875e2456507"
+      },
+      "header.clock": {
+        "source": "header",
+        "start_line": 9182,
+        "end_line": 9184,
+        "sha256": "b6d465243142eff2d09c5f81eeadbb2fd061b3b92171dfc48bb7027eec5ab44a"
+      },
+      "header.sleep": {
+        "source": "header",
+        "start_line": 9375,
+        "end_line": 9378,
+        "sha256": "d0f69d22b6753f46d68d050c581a6e7cb5e352bfdd705b29017bb23dc8e53c9e"
+      },
+      "header.kernel": {
+        "source": "header",
+        "start_line": 9488,
+        "end_line": 9492,
+        "sha256": "c4e4113b959bcff7a2b67c9809eb1fe6e84674614b4ce7461fd92d602fb999b5"
+      },
+      "header.fields": {
+        "source": "header",
+        "start_line": 13500,
+        "end_line": 13810,
+        "sha256": "9a69c4e44659d10a27304942ef65ee018182e8a4fd8f0e1de6dbc6e8cd27d5b5"
+      },
+      "core_H.limits": {
+        "source": "core_H",
+        "start_line": 110,
+        "end_line": 153,
+        "sha256": "480166aaacd39cf9e73aa5c9a7b33afe25db77b94cd89c3e1df90dc2db6c5a0e"
+      },
+      "core.global_state": {
+        "source": "core",
+        "start_line": 42,
+        "end_line": 50,
+        "sha256": "6d62e77a96c8fa78d32addd19ea01b61c10e6787a30c1087eea4233ef0a73dee"
+      },
+      "core.reset": {
+        "source": "core",
+        "start_line": 94,
+        "end_line": 105,
+        "sha256": "40e0c50eaaa6a1944491c4d8869d2dd017637f28a316e227627e672ece0f6347"
+      },
+      "core.allocator": {
+        "source": "core",
+        "start_line": 519,
+        "end_line": 603,
+        "sha256": "5e8dbf7f78f4df2f795e68fdaff6c4b4e490136d9ff49ed3f7d09c67648ccd76"
+      },
+      "core.init_mode_IRQ": {
+        "source": "core",
+        "start_line": 823,
+        "end_line": 981,
+        "sha256": "8a02670ffd9bdd4d3239bc5f41c331fd8ca367f23939a94e8a9015f3134404a1"
+      },
+      "core.PMA_copy": {
+        "source": "core",
+        "start_line": 990,
+        "end_line": 1114,
+        "sha256": "7730874dd8f06a9c5e4abf39f01eca3ff0719faa0ec58ac11ed5762c49efd694"
+      },
+      "core.PMA_reset": {
+        "source": "core",
+        "start_line": 1135,
+        "end_line": 1158,
+        "sha256": "d23c00631639e99ac192289ef47aff620d77ebe1860c65dfdae510d6f0e2f826"
+      },
+      "core.status_toggle": {
+        "source": "core",
+        "start_line": 1267,
+        "end_line": 1317,
+        "sha256": "dc23de46ce38155d59b28f3eaaef6330c11ecb1bde51ff6093a62b33ddd01cff"
+      },
+      "core.address_count": {
+        "source": "core",
+        "start_line": 1452,
+        "end_line": 1527,
+        "sha256": "3c45e467dadd40230fd5a1fabeda5b5942be0953b040856e4a309d3e6179078e"
+      },
+      "core.device_lifecycle": {
+        "source": "core",
+        "start_line": 2068,
+        "end_line": 2187,
+        "sha256": "495c33a7a0681bc5e0e38b03b9b2dfb5014d96f6921debd11d656ed22c0f9544"
+      },
+      "core.EP_activate": {
+        "source": "core",
+        "start_line": 2196,
+        "end_line": 2265,
+        "sha256": "cb9775f574ef29e6ae32c00c38e12c4d2b126ae742aa67381056fad741902726"
+      },
+      "core.EP_start": {
+        "source": "core",
+        "start_line": 2392,
+        "end_line": 2595,
+        "sha256": "653b87ab22f758a4316e8ef361d71f85fb9672b0045ee1878e954633fb3a7e41"
+      },
+      "core.EP_abort": {
+        "source": "core",
+        "start_line": 2662,
+        "end_line": 2707,
+        "sha256": "6c9a0babbd0989205bc70c0cbf9ae033a4f9413d868bbd64c6bf3a57ff3d9fa0"
+      },
+      "core.host_init": {
+        "source": "core",
+        "start_line": 2754,
+        "end_line": 2786,
+        "sha256": "90f01c3f36f5b249ecc252c1e41ac6e87e9f10b0afdfb85733619f20f48249f3"
+      },
+      "core.channel_alloc": {
+        "source": "core",
+        "start_line": 2795,
+        "end_line": 2865,
+        "sha256": "c2fa85a39c07ab1d1bf92be5c799c843421876fdda5ca8e7358b981c889ec105"
+      },
+      "core.channel_close_halt": {
+        "source": "core",
+        "start_line": 2958,
+        "end_line": 3002,
+        "sha256": "5bac18d16d2cebc2514e621a8718028819a56291f1971a055c4956d633440b4f"
+      },
+      "core.channel_start": {
+        "source": "core",
+        "start_line": 3010,
+        "end_line": 3123,
+        "sha256": "0baf50c21433f9b7be59e1f6d399d88496436ba67480fb38162a42ecbc2aa0fe"
+      },
+      "core.host_lifecycle": {
+        "source": "core",
+        "start_line": 3132,
+        "end_line": 3207,
+        "sha256": "7cc11e5f72da45a1a4aed281eb06cbc0a216f4e13a8ce7a8af53ddf633589bab"
+      },
+      "core.host_power": {
+        "source": "core",
+        "start_line": 3279,
+        "end_line": 3345,
+        "sha256": "67911bdd33d396e9b067bf68bd191a1f98ba068ba1557f3d1048062f12910d0a"
+      },
+      "core.DMA_disabled": {
+        "source": "core",
+        "start_line": 3387,
+        "end_line": 3392,
+        "sha256": "35a91ffbed99bfec3534c59d49e72de61c0f618cd41c5e8db485bcdfb644cf9a"
+      },
+      "PCD.init_deinit": {
+        "source": "PCD",
+        "start_line": 202,
+        "end_line": 297,
+        "sha256": "69dc053b06855741c3376544fe068060c09b3f2bbadc4b2ea563c53204b8a430"
+      },
+      "PCD.config": {
+        "source": "PCD",
+        "start_line": 321,
+        "end_line": 425,
+        "sha256": "2199bb1d13f55ced0b92239c26e155f4baec61863c8e23d0908ebbcfbd2d6d42"
+      },
+      "PCD.start_stop": {
+        "source": "PCD",
+        "start_line": 489,
+        "end_line": 535,
+        "sha256": "ec06d121b972d029217cbd3ce6fd954f61998fa8f3a4ab2c4425e661b07b1ca6"
+      },
+      "PCD.BCD": {
+        "source": "PCD",
+        "start_line": 647,
+        "end_line": 770,
+        "sha256": "34e8ba597aab87c273f79612193c84cf9089a63b78814e610ca815831cf8fcf2"
+      },
+      "PCD.EP_open_RX": {
+        "source": "PCD",
+        "start_line": 872,
+        "end_line": 998,
+        "sha256": "f731e152e4a1f59e73a1890cf05913a5a93e3397c445200df69dd86d987fcd20"
+      },
+      "PCD.EP_TX": {
+        "source": "PCD",
+        "start_line": 1034,
+        "end_line": 1071,
+        "sha256": "a2e2bd81a2fb89ab2f8dd66c0c7a420bc8b11a42af3ff0ad7e7a51b0fba26932"
+      },
+      "PCD.abort_flush": {
+        "source": "PCD",
+        "start_line": 1163,
+        "end_line": 1217,
+        "sha256": "b6e469c94915f01f45ebc878e8b23e26726a13dc20dec105824ab68a1d320d31"
+      },
+      "PCD.PMA_config": {
+        "source": "PCD",
+        "start_line": 1283,
+        "end_line": 1335,
+        "sha256": "c31652fbf94f2ce41627a55173376a85ac9e84516166e2ad898cad1e8d8f97ee"
+      },
+      "PCD.IRQ": {
+        "source": "PCD",
+        "start_line": 1383,
+        "end_line": 1564,
+        "sha256": "77997aba202d37d9b4246af45439d3882aed5adf3c3adeba91de342576b88973"
+      },
+      "PCD.EP_IRQ": {
+        "source": "PCD",
+        "start_line": 2185,
+        "end_line": 2468,
+        "sha256": "20b0e709217c627f005be62384623e5c99b12bf0199acd308eb0361dd6a59305"
+      },
+      "HCD.init": {
+        "source": "HCD",
+        "start_line": 201,
+        "end_line": 272,
+        "sha256": "ed8f3dea8e2018cfe751a4ce9bc74350920d24737e08a1cd461f7320e6d531f4"
+      },
+      "HCD.deinit_config": {
+        "source": "HCD",
+        "start_line": 275,
+        "end_line": 392,
+        "sha256": "8b94afbbd2e2739e03a18b71bec5d19da794997e9f0d7fc3bb996d976bea6074"
+      },
+      "HCD.start_stop_reset_power": {
+        "source": "HCD",
+        "start_line": 454,
+        "end_line": 613,
+        "sha256": "f01008c0fa0b4050b1a419aa0615e41d1c51fce37af222fea1fcdc2e72f03d2b"
+      },
+      "HCD.channel": {
+        "source": "HCD",
+        "start_line": 682,
+        "end_line": 900,
+        "sha256": "dc08d1d83b41d1ab3bf9544a641ea83bf98d949ae20d4632b65a3c54cbd4c37b"
+      },
+      "HCD.close": {
+        "source": "HCD",
+        "start_line": 969,
+        "end_line": 997,
+        "sha256": "862d88c07176dbb82e9ba9c6519b18a499ab061fdf294ada975cc710a77617b2"
+      },
+      "HCD.IRQ": {
+        "source": "HCD",
+        "start_line": 1091,
+        "end_line": 1195,
+        "sha256": "17b5c1595e7e392e9b534dbd7dd05eb2dfb7fee8ae83aa81a796b3ba893616b1"
+      },
+      "HCD.IN_IRQ": {
+        "source": "HCD",
+        "start_line": 2003,
+        "end_line": 2157,
+        "sha256": "ee6945799e4a29c6e0f3194d2fa3b848764468abf24462defff15dd34aa51975"
+      },
+      "core.CHEP_word_access": {
+        "source": "core",
+        "start_line": 1168,
+        "end_line": 1185,
+        "sha256": "bfb0e896034b76e0d12d3c9fe9e96ac09c55c79d4c7a1d172d4d07dede0cdcfc"
+      },
+      "core.SETUP_and_error_clear": {
+        "source": "core",
+        "start_line": 1219,
+        "end_line": 1259,
+        "sha256": "4f67f124e6ad27e347b0d115e4d7847a739571202ae1634c5b879c84c6c5eca4"
+      },
+      "core.PMA_alloc_rounding": {
+        "source": "core",
+        "start_line": 342,
+        "end_line": 371,
+        "sha256": "f3b79994cc1dfc3a0db44aba0698ad2531f2f733e26e0e481faab03d9813b251"
+      },
+      "core.PMA_free_extent": {
+        "source": "core",
+        "start_line": 444,
+        "end_line": 509,
+        "sha256": "483ed3ffb9ee4b05f7d998ec2a2a6a52de568172f2777758a05ef639516ff41c"
+      },
+      "core.PMA_deallocate": {
+        "source": "core",
+        "start_line": 610,
+        "end_line": 630,
+        "sha256": "f57ee6753dd51847a7a29919848d03b4485ffbd73d59200c5f82b9ec880be849"
+      },
+      "core.EP0_reuse": {
+        "source": "core",
+        "start_line": 2910,
+        "end_line": 2935,
+        "sha256": "14b5fc2fa255676a91156a084e49efb20d2baa0fe8e6122e13f0805ffc6928c2"
+      },
+      "HCD.suspend_IRQ": {
+        "source": "HCD",
+        "start_line": 1195,
+        "end_line": 1213,
+        "sha256": "4cad27346dcacaf75e7adacffc97019b7438e90a9080c2729332d1d6b8481404"
+      }
+    },
+    "contracts": [
+      {
+        "id": "exact_identity",
+        "detail": "One USB_DRD_FS instance at 0x40016000, IRQ62, packet memory at 0x40016400 of 2048 bytes. Eight physical channel/endpoint registers, not sixteen independent bidirectional owners. PCD and HCD share core, SRAM, pins, clock/reset and IRQ; role change requires complete coordinated teardown. No separate OTG controller or USB DMA capability is inferred from naming.",
+        "evidence": [
+          "header.IRQ",
+          "header.base",
+          "header.struct",
+          "header.instances",
+          "header.fields",
+          "DS15135:p33",
+          "core.DMA_disabled"
+        ]
+      },
+      {
+        "id": "clock_reset_power",
+        "detail": "APB2 clock/reset/sleep bit24 is shared by the whole USB. Kernel clock must be 48 MHz; APB2 must be at least12 MHz for PMA service. CK48SEL raw0 is reserved/disabled,1 PSI/3,2 HSI/3,3 HSE. Require measured/validated clock tolerance and CRS/reference ownership, not merely a nominal constant. PDWN=1 powers down analog; startup delay is required after exit before releasing USBRST. Reset does not blanket-clear configuration or SRAM; preserve pending transaction evidence.",
+        "evidence": [
+          "RM0522:p294",
+          "RM0522:p303",
+          "RM0522:p312",
+          "RM0522:p316",
+          "RM0522:p2089",
+          "RM0522:p2092",
+          "RM0522:p2093",
+          "RM0522:p2111"
+        ]
+      },
+      {
+        "id": "package_electrical",
+        "detail": "Literal LQFP64 routes: PA11 pad44 USB_DM additional function, PA12 pad45 USB_DP additional function, PA8 pad41 USB_SOF AF13. DP/DM are not invented AF selections. Shared alternate functions require pad ownership. DS94 specifies VDDUSB3.0–3.6 V for electrical characteristics (functionality down to2.7 V with degraded characteristics) and integrated impedance matching; no board wiring, supply sequencing, VBUS switch/sensing or host power qualification follows.",
+        "evidence": [
+          "DS15135:p42",
+          "DS15135:p43",
+          "DS15135:p46",
+          "DS15135:p94"
+        ]
+      },
+      {
+        "id": "PMA_allocation_and_access",
+        "detail": "PMA is 512 words of32 bits; all register/PMA accesses are word accesses. Eight descriptors occupy offsets0..0x3F (two words per physical endpoint); ordinary buffers start at0x40 when all descriptors reserved. Buffers require4-byte alignment and nonoverlapping ownership including rounded physical access extent and descriptor space. Address fields16 bits do not enlarge the2KB memory; descriptors reset undefined. Publish descriptors/data before VALID and do not modify hardware-owned metadata or payload until ownership returns.",
+        "evidence": [
+          "RM0522:p2091",
+          "RM0522:p2093",
+          "RM0522:p2094",
+          "RM0522:p2095",
+          "RM0522:p2107",
+          "RM0522:p2128",
+          "RM0522:p2129",
+          "RM0522:p2130",
+          "RM0522:p2131",
+          "RM0522:p2132"
+        ]
+      },
+      {
+        "id": "descriptor_size_units",
+        "detail": "TX/RX counts are10-bit byte fields. RX capacity is2*NUM_BLOCK for BLSIZE0 with NUM_BLOCK1..31; BLSIZE1 uses32*(NUM_BLOCK+1), subject to conflicting final1023/1024 table/prose. Reserve rounded capacity independently of requested receive length; zero small-block encoding is forbidden. Descriptor RX length is hardware-written, not caller buffer-capacity validation.",
+        "evidence": [
+          "RM0522:p2128",
+          "RM0522:p2129",
+          "RM0522:p2130",
+          "RM0522:p2131"
+        ]
+      },
+      {
+        "id": "mixed_register_semantics",
+        "detail": "CHEPnR mixes W0C transaction/error flags, write-one-toggle STAT/DTOG fields, ordinary config and read-only/role-dependent fields. Use invariant writes for untouched hardware-owned bits; generic RMW can lose newly arriving flags or toggle state. ISTR event flags are W0C, CTR read-only aggregated from endpoint flags; clear endpoint VTRX/VTTX to retire CTR. NVIC pending and peripheral masks are separate.",
+        "evidence": [
+          "RM0522:p2111",
+          "RM0522:p2112",
+          "RM0522:p2118",
+          "RM0522:p2119",
+          "RM0522:p2120",
+          "RM0522:p2121",
+          "RM0522:p2122",
+          "RM0522:p2123",
+          "RM0522:p2124"
+        ]
+      },
+      {
+        "id": "endpoint_admission",
+        "detail": "Endpoint0/channel0 must be single-buffer control, address0; duplicate enabled endpoint address assignment is undefined. A physical bidirectional register shares type/config across directions; double-buffer bulk/ISO needs unidirectional ownership and consumes both descriptors. UTYPE0/1/2/3 means bulk/control/ISO/interrupt; EPKIND means double-buffer bulk, control STATUS_OUT, or single-buffer ISO. Do not confuse endpoint address with physical register index.",
+        "evidence": [
+          "RM0522:p2091",
+          "RM0522:p2099",
+          "RM0522:p2101",
+          "RM0522:p2102",
+          "RM0522:p2103",
+          "RM0522:p2118",
+          "RM0522:p2123",
+          "RM0522:p2125"
+        ]
+      },
+      {
+        "id": "device_packet_lifecycle",
+        "detail": "Device IN acknowledges then sets VTTX, toggles DTOG and NAKs single-buffer endpoint; OUT acknowledges, stores count, sets VTRX and NAKs. Clear/service notification, process data and descriptors, then rearm VALID in documented order. Failed CRC may already modify packet memory without successful transfer notification; ordinary overrun clamps writes, returns STALL and gives no successful interrupt. CTR is not complete buffer visibility under the erratum.",
+        "evidence": [
+          "RM0522:p2095",
+          "RM0522:p2096",
+          "RM0522:p2097"
+        ]
+      },
+      {
+        "id": "CTR_visibility_erratum",
+        "detail": "ES0676 2.13.1 applies to both listed Z/Y revisions: during OUT transfer CTR precedes final USB SRAM accesses. Ensure at least800 ns in full-speed or6.4 us in low-speed before accessing SRAM contents. Bind actual silicon revision, transfer role/direction and elapsed-time proof; incidental instruction latency is not a demonstrated workaround. Scope beyond the wording OUT transfers is not asserted. The erratum title specifically includes buffer description table update; hardware-written COUNT_RX metadata is part of the visibility concern, not only payload bytes.",
+        "evidence": [
+          "ES0676:p3",
+          "ES0676:p11"
+        ]
+      },
+      {
+        "id": "control_transfer_lifecycle",
+        "detail": "SETUP is8 bytes and begins a new control transaction; inspect SETUP while VTRX freezes it. Maintain data/status direction and zero-length STATUS_OUT policy. Pending VTRX can force SETUP retry. Device address change belongs to completed status stage, not initial request reception. Device bus reset requires default address0/EP0 re-enabled within10ms; bus reset and software/configuration reset are distinct.",
+        "evidence": [
+          "RM0522:p2093",
+          "RM0522:p2098",
+          "RM0522:p2099",
+          "RM0522:p2123"
+        ]
+      },
+      {
+        "id": "double_buffer_ownership",
+        "detail": "Bulk DTOG selects hardware buffer and opposite-direction DTOG acts as SW_BUF. Equal flags gate NAK; software toggles SW_BUF only after finishing its buffer. First transaction has special flow-control transition. Host and device descriptor mappings differ by direction; preserve literal tables, and do not derive ownership from callback names alone.",
+        "evidence": [
+          "RM0522:p2099",
+          "RM0522:p2100",
+          "RM0522:p2101",
+          "RM0522:p2102"
+        ]
+      },
+      {
+        "id": "ISO_and_threshold",
+        "detail": "ISO has no handshake/retry and only DISABLED/VALID status. CRC or buffer overrun can still trigger VTRX; ERR must qualify data validity. Host ISO disables completed direction whereas device ISO remains VALID. THR512 has no endpoint ID and supports only one large ISO stream; long512..1023-byte packet service and PMA bandwidth require separate admission. Single-buffer ISO is controlled by EPKIND despite double-buffer-centric prose.",
+        "evidence": [
+          "RM0522:p2089",
+          "RM0522:p2090",
+          "RM0522:p2102",
+          "RM0522:p2103",
+          "RM0522:p2104",
+          "RM0522:p2112",
+          "RM0522:p2113",
+          "RM0522:p2125"
+        ]
+      },
+      {
+        "id": "host_schedule_and_cancel",
+        "detail": "HFS serves periodic channels present at SOF once, then nonperiodic round-robin before black window; OUT precedes IN on bidirectional channels. NAK may retry automatically next frame. For host IN STATRX, RM2122 explicitly says DISABLE removes a pending transaction but an already executing transaction finishes on bus with no VTRX completion interrupt. Analogous OUT behavior is an inference, not an explicit guarantee from that clause. Halt/abort therefore does not prove unsent, quiescent SRAM or immediate reuse safety.",
+        "evidence": [
+          "RM0522:p2091",
+          "RM0522:p2092",
+          "RM0522:p2120",
+          "RM0522:p2122"
+        ]
+      },
+      {
+        "id": "host_error_and_role",
+        "detail": "Host VTRX/VTTX can report NAK, STALL or error rather than successful payload; inspect status/error fields. LS via hub uses LS_EP; direct LS connection status is separate. STALL recovery prose requests reset/re-enumeration. Host has no supported LPM or charging CDP/DCP presentation according to feature text; generic registers do not grant missing modes. External VBUS source/overcurrent policy remains outside this peripheral candidate.",
+        "evidence": [
+          "RM0522:p2090",
+          "RM0522:p2096",
+          "RM0522:p2097",
+          "RM0522:p2119",
+          "RM0522:p2120",
+          "RM0522:p2122"
+        ]
+      },
+      {
+        "id": "suspend_resume",
+        "detail": "Wait hardware SUSPRDY before removing clocks or entering Stop; SUSPEN request alone and callback are insufficient. Wake asynchronously restores state flags but clocks/recovery budget remain software-owned. Device L2RES duration1..15ms and L1RES50us have distinct permissions/timing; host resume differs. Line-state noise filtering is not proof of a legitimate remote wake. Bus reset recovery must meet10ms.",
+        "evidence": [
+          "RM0522:p2104",
+          "RM0522:p2105",
+          "RM0522:p2106",
+          "RM0522:p2107",
+          "RM0522:p2109",
+          "RM0522:p2110",
+          "RM0522:p2113"
+        ]
+      },
+      {
+        "id": "BCD_PHY_ownership",
+        "detail": "BCDEN hands PHY to charger detection and blocks normal USB communication. Only one of DCD/PD/SD/OFF is selected at a time; disable BCD before normal traffic. DPPU_DPD means DP pull-up in device mode but DP/DM pull-down in host mode. Charger detection result does not authorize current draw or validate an external supply path.",
+        "evidence": [
+          "RM0522:p2090",
+          "RM0522:p2117",
+          "RM0522:p2118"
+        ]
+      }
+    ],
+    "source_derived_SDK_gates": [
+      {
+        "id": "configuration_and_state",
+        "detail": "HAL state/assertions are build-dependent and handle-local. Init installs function tables/bookkeeping; SetConfig changes shared core mode and resets status with partial side effects on failure. Start publishes ACTIVE and ignores core start return. PCD stop reports IDLE after disconnect/reset/powerdown; HCD DeInit disables masks and resets allocator/software without calling host_stop, so RESET is not hardware stop proof. Specifically InitHost enables PMAOVRM, whereas the DisableGlobalInterrupt mask used by DeInit omits it; RESET software state can retain that peripheral interrupt enable.",
+        "evidence": [
+          "HAL.state_guard",
+          "SDK.assertions",
+          "PCD.init_deinit",
+          "PCD.config",
+          "PCD.start_stop",
+          "HCD.init",
+          "HCD.deinit_config",
+          "HCD.start_stop_reset_power",
+          "core.init_mode_IRQ",
+          "core.host_init"
+        ]
+      },
+      {
+        "id": "startup_and_mask_write",
+        "detail": "Device initialization clears PDWN by whole CNTR write then immediately releases USBRST without an explicit startup wait. Host start uses fixed0x100 iteration delay, not elapsed-time proof. Global interrupt-enable helper writes CNTR wholesale (clearing HOST/power/suspend controls) and clears all pending ISTR events; it is not a generic mode-preserving enable. Disable masks omit THR512/DDISC/PMAOVR from that helper set.",
+        "evidence": [
+          "core.device_lifecycle",
+          "core.host_lifecycle",
+          "core.init_mode_IRQ",
+          "core_H.limits",
+          "RM0522:p2092",
+          "RM0522:p2111"
+        ]
+      },
+      {
+        "id": "ISTR_clear_race_and_width",
+        "detail": "USB_DRD_ClearInterrupts performs ISTR &= (uint16_t)~interrupt. RMW on W0C may erase flags arriving between read and write; the16-bit cast writes zero to upper THR512/DDISC regardless of requested flag. This is a source-proven unsafe clear pattern, not an observed loss. IRQ handlers use raw ISTR rather than masking every branch with CNTR.",
+        "evidence": [
+          "core.init_mode_IRQ",
+          "PCD.IRQ",
+          "HCD.IRQ",
+          "RM0522:p2112"
+        ]
+      },
+      {
+        "id": "PMA_copy_extent",
+        "detail": "ReadPMA/WritePMA reject null/zero or nominal address+size beyond2048 by silently returning void. They do not validate alignment, overlap, descriptor ownership or caller capacity. Tail accesses touch one full PMA word; write tail zero-fills unused bytes but reads only actual caller bytes, and read tail copies only requested bytes to caller. Require aligned addresses and word-rounded reserved PMA extent. A silent failed write can be followed by VALID and stale data publication.",
+        "evidence": [
+          "core.PMA_copy",
+          "core.EP_start",
+          "core.channel_start"
+        ]
+      },
+      {
+        "id": "PMA_configuration_and_capacity",
+        "detail": "PCD PMAConfig narrows/splits addresses into16-bit cached fields with no range/alignment/overlap validation. Descriptor-address setters round down low2 bits while copy helper uses raw cached address, producing disagreement for unaligned input. RX count setter rounds to hardware capacity; requested0 selects BLSIZE1/NUM_BLOCK0, a32-byte capacity. No general out-of-range count validation is present. Counts above1024 overflow the five-bit NUM_BLOCK encoding into BLSIZE/truncation: requested1056 produces NUM_BLOCK0/BLSIZE1, i.e.32-byte capacity (1088 produces64), not the requested extent. These are source arithmetic examples, not admitted packet sizes.",
+        "evidence": [
+          "PCD.PMA_config",
+          "core.address_count",
+          "RM0522:p2129"
+        ]
+      },
+      {
+        "id": "receive_capacity_not_size",
+        "detail": "PCD OpenEndpoint masks MPS to11 bits, does not validate protocol/PMA capacity and ignores activation return. Receive accepts pointer/length without non-null buffer validation or per-endpoint busy guard and ignores start return. Single-buffer OUT capacity is set from max_packet at activation; StartReceive decrements requested remaining count without reducing hardware capacity. IRQ copies received count without checking remaining caller capacity. Allocate for accepted packet capacity and prevent replacement of active buffer ownership. HCD single IN similarly copies received count before checking remaining count. Unlike PCD activation capacity, HCD single-buffer IN initially programs min(xfer_length,max_packet), rounded by the RX count encoding. Its continuation atHCD2071 rearms STATRX without rewriting capacity as remaining length shrinks; the next copy at2042 precedes the remaining-length comparison. Distinguish initial rounding exposure from retained-capacity continuation; no exhaustive double-buffer lifecycle review is claimed.",
+        "evidence": [
+          "PCD.EP_open_RX",
+          "core.EP_activate",
+          "core.EP_start",
+          "PCD.EP_IRQ",
+          "HCD.IN_IRQ",
+          "core.channel_start",
+          "core.address_count"
+        ]
+      },
+      {
+        "id": "flush_and_abort_not_completion",
+        "detail": "HAL_PCD_FlushEndpoint is a no-op returning OK. StopEndpointXfer changes status only when double_buffer_en is disabled; double-buffer path returns OK without stopping, yet HAL abort immediately invokes completion callback. Single-buffer abort sets NAK or ISO DISABLED without draining pending callbacks. Callback is not proof of cancellation/quiescence. Core boundary guard uses >8, permitting index8 if upper validation is bypassed.",
+        "evidence": [
+          "PCD.abort_flush",
+          "core.EP_abort",
+          "core_H.limits"
+        ]
+      },
+      {
+        "id": "PMA_global_owner",
+        "detail": "Core allocator tables, physical maps, EP0 and double-buffer settings are static global state, independent of handle. InitHost/PMAReset/DeInit reset allocations without clearing SRAM payload or proving traffic stopped. Distinct handles are not isolated owners. Double allocation failure frees first PMA block, but broader physical-channel/EP0 rollback remains unqualified. On the new single-buffer EP0 allocation path, PMAlloc allocates using the caller MPS first (524), then overwrites max_packet to64 (541). An MPS whose rounded allocation is less than64 can therefore reserve less than the subsequent64-byte IN capacity or OUT copy. Deallocation uses the overwritten64 and can free adjacent reserved blocks or stop partially on an unreserved block. Existing Chep0 allocation reuse follows a separate branch and is not covered by this new-allocation conclusion. Caller validity and runtime occurrence were not established.",
+        "evidence": [
+          "core.global_state",
+          "core.PMA_reset",
+          "core.init_mode_IRQ",
+          "core.host_init",
+          "core.allocator",
+          "core.channel_alloc",
+          "core.PMA_alloc_rounding",
+          "core.PMA_free_extent",
+          "core.PMA_deallocate",
+          "core.EP0_reuse",
+          "HCD.channel",
+          "core.channel_start"
+        ]
+      },
+      {
+        "id": "HCD_close_reuse",
+        "detail": "Core CloseChannel requests HALT, clears physical-channel bookkeeping and frees PMA immediately without waiting for in-flight transaction termination. HAL reports HALTED and calls abort callback afterward. RM allows an executing aborted transaction to finish without completion IRQ; require a separate reuse/quiescence protocol, not callback-based reuse.",
+        "evidence": [
+          "core.channel_close_halt",
+          "core.host_lifecycle",
+          "HCD.close",
+          "RM0522:p2122"
+        ]
+      },
+      {
+        "id": "HCD_request_publication",
+        "detail": "HCD channel configuration mutates cached fields and publishes IDLE before core allocation success; errors retain partial effects. Transfer request updates pointers/counts/state XFR then ignores core start return. Halt ignores return and does not itself update software channel state. Validate role/direction/type/MPS/count domains and establish cleanup before retry. Logical channel0..15 capability does not create more than8 physical registers.",
+        "evidence": [
+          "HCD.channel",
+          "core.channel_alloc",
+          "core.channel_start",
+          "core_H.limits"
+        ]
+      },
+      {
+        "id": "IRQ_order_callback_reentrancy",
+        "detail": "PCD processes CTR before RESET/errors and returns; endpoint loop processes up to32 CTR iterations. Noncontrol RX callback may change endpoint/core state before saved ep_value TX branch executes. Reset callback runs before usb_address=0/write; EP0 IN callback runs before deferred address application. HCD IN callback runs before VTRX clear; callback restart may race newly arriving completion. Require generation-safe callback policy and separately drain pending IRQs.",
+        "evidence": [
+          "PCD.IRQ",
+          "PCD.EP_IRQ",
+          "HCD.IN_IRQ",
+          "core_H.limits"
+        ]
+      },
+      {
+        "id": "erratum_latency_not_implemented_proof",
+        "detail": "Bounded PCD OUT/SETUP paths read counts/PMA after CTR without an explicit800ns delay. The shown HCD IN read likewise has no explicit delay, but ES wording specifically says OUT and its applicability must not be silently broadened. Actual instruction latency, system clock and arbitration are not established; treat erratum compliance as open rather than asserting observed corruption. The delayed-visibility gate includes COUNT_RX/descriptor reads before payload access, consistent with the erratum title.",
+        "evidence": [
+          "PCD.EP_IRQ",
+          "HCD.IN_IRQ",
+          "ES0676:p11"
+        ]
+      },
+      {
+        "id": "power_LPM_decode",
+        "detail": "PCD suspend code writes read-only SUSPRDY and publishes suspend/callback without polling hardware readiness; LPM branch extracts BESL by shifting2 though the field occupies7:4, returning four times the raw nibble. The explicit HCD PortSuspend API polls readiness with iteration timeout but leaves SUSPEN requested on timeout. The HCD SUSP IRQ branch instead sets SUSPEN and invokes its callback without polling SUSPRDY. Host reset/resume and BCD waits require a progressing HAL tick; stopped tick can make waits unbounded.",
+        "evidence": [
+          "PCD.IRQ",
+          "HCD.start_stop_reset_power",
+          "PCD.BCD",
+          "core.host_power",
+          "RM0522:p2110",
+          "RM0522:p2116",
+          "header.fields",
+          "RM0522:p2108",
+          "HCD.suspend_IRQ"
+        ]
+      },
+      {
+        "id": "no_dma_admission",
+        "detail": "Pinned core GetDmaStatus returns disabled; inspected transfer paths copy between caller RAM and dedicated PMA using CPU. No USB LPDMA selector appears in the linked selector inventory. This does not authorize arbitrary DMA memory access or establish cache/bus coherency for an invented DMA path.",
+        "evidence": [
+          "core.DMA_disabled",
+          "core.PMA_copy"
+        ]
+      },
+      {
+        "id": "CHEP_toggle_and_error_preservation",
+        "detail": "Core status helpers correctly compute toggle writes and force VTRX/VTTX invariant ones, but their retained mask omits THREE_ERR_RX/TX (W0C), so status writes clear those fields. ERR_RX/TX/NAK are copied from a snapshot rather than forced to invariant ones; newly arriving zero-to-one flags can be cleared. Protect hardware/software ownership and preserve error evidence before status changes; do not generalize this helper into atomic field update. This toggle computation is specific to status setters. TX_SETUP at1219–1226 writes the raw CHEP snapshot OR SETUP, so read-one STAT/DTOG bits are written as ones and toggle; W0C fields retain snapshot races. CLEAR_CHEP_RX_ERR/TX_ERR also clear their direction VTRX/VTTX and drop both THREE_ERR fields through the retained mask. These helpers are not isolated error-bit clears.",
+        "evidence": [
+          "core.status_toggle",
+          "core.CHEP_word_access",
+          "header.fields",
+          "RM0522:p2118",
+          "RM0522:p2119",
+          "core.SETUP_and_error_clear"
+        ]
+      }
+    ],
+    "conflicts": [
+      {
+        "id": "powerup_PDWN_and_suspend_prose",
+        "detail": "RM2092 says wait after setting PDWN, while2111 defines PDWN=1 as powerdown; startup must concern exit. RM2105 instructs software to set SUSPRDY, whilethe register access row on2108 marks SUSPRDY read-only and2110 describes hardware acknowledgement. Favor field access definitions and retain conflicts; DS94 does not give the referenced tSTARTUP bound.",
+        "evidence": [
+          "RM0522:p2092",
+          "RM0522:p2105",
+          "RM0522:p2110",
+          "RM0522:p2111",
+          "RM0522:p2108"
+        ]
+      },
+      {
+        "id": "SETUP_NAK",
+        "detail": "RM2098 says SETUP accepted despite NAK/STALL unless previous VTRX pending;2123 says NAK control endpoint does not answer SETUP. Preserve unresolved conditional behavior and do not treat NAK as guaranteed SETUP cancellation.",
+        "evidence": [
+          "RM0522:p2098",
+          "RM0522:p2123"
+        ]
+      },
+      {
+        "id": "host_LPM_and_receive_descriptor",
+        "detail": "RM2090 excludes host LPM, but2116 describes host DADDR use for LPM. RM2097 names ADDR_TX/COUNT_TX for host IN reception whereas descriptor and double-buffer tables identify RX fields. Follow exact role-specific descriptors with this prose conflict retained.",
+        "evidence": [
+          "RM0522:p2090",
+          "RM0522:p2097",
+          "RM0522:p2102",
+          "RM0522:p2116",
+          "RM0522:p2128",
+          "RM0522:p2130"
+        ]
+      },
+      {
+        "id": "buffer_width_and_last_capacity",
+        "detail": "Older half-word/internal16-bit wording in2095/2096/2129 coexists with mandatory32-bit PMA access and4-byte buffer alignment. Table500 ends BLSIZE1/NUM_BLOCK31 at1023, while formula/prose says32-byte blocks through1024; count field itself is10 bits. Reserve1024 physical bytes when using that encoding without asserting a1024-byte valid packet/count.",
+        "evidence": [
+          "RM0522:p2095",
+          "RM0522:p2096",
+          "RM0522:p2128",
+          "RM0522:p2129",
+          "RM0522:p2130",
+          "RM0522:p2131"
+        ]
+      },
+      {
+        "id": "host_control_handshake_and_error_count",
+        "detail": "RM2099 says devices expected to NAK every control, contrary to SETUP ACK discussion2098 and2123. THREE_ERR headings say3 errors while values say more than3. Do not normalize either into protocol guarantees; exact retry policy requires further qualification.",
+        "evidence": [
+          "RM0522:p2098",
+          "RM0522:p2099",
+          "RM0522:p2119",
+          "RM0522:p2123"
+        ]
+      },
+      {
+        "id": "DDISC_and_ISO",
+        "detail": "DDISCM says disconnection mask while ISTR DDISC field says connection; RST_DCON also covers connection/disconnection. ISO prose describes mandatory double buffering while EPKIND table exposes single-buffer ISO. Retain ambiguities and use exact event/status definitions conservatively.",
+        "evidence": [
+          "RM0522:p2108",
+          "RM0522:p2112",
+          "RM0522:p2113",
+          "RM0522:p2102",
+          "RM0522:p2103",
+          "RM0522:p2125"
+        ]
+      }
+    ],
+    "open_gates": [
+      "Claude and independent Codex source/regression reviews pending; unpublished candidate with no full-domain or operational closure.",
+      "No USB stack enumeration/class/hub/host power integration, external connector/supply wiring, clock/CRS accuracy or electrical compliance established.",
+      "Bounded SDK lifecycle review excludes complete double-buffer algorithms, allocator search/free internals, all OUT IRQ and hub paths, callbacks registration, all compile configurations, and concurrency timing.",
+      "Resolve retained RM contradictions and quantify startup/CTR erratum delay for actual silicon/clock before execution.",
+      "Define shared role/IRQ/PMA/caller-memory ownership, packet-capacity admission, cancellation quiescence and callback generation policy before implementation."
+    ],
+    "finite_source_maps": {
+      "instance": "USB_DRD_FS",
+      "base": "0x40016000",
+      "IRQ": 62,
+      "PMA_base": "0x40016400",
+      "PMA_size_bytes": 2048,
+      "physical_endpoint_channel_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "registers": [
+        {
+          "name": "CHEP0R",
+          "offset": "0x0",
+          "access": "mixed_W0C_toggle_RW_RO"
+        },
+        {
+          "name": "CHEP1R",
+          "offset": "0x4",
+          "access": "mixed_W0C_toggle_RW_RO"
+        },
+        {
+          "name": "CHEP2R",
+          "offset": "0x8",
+          "access": "mixed_W0C_toggle_RW_RO"
+        },
+        {
+          "name": "CHEP3R",
+          "offset": "0xc",
+          "access": "mixed_W0C_toggle_RW_RO"
+        },
+        {
+          "name": "CHEP4R",
+          "offset": "0x10",
+          "access": "mixed_W0C_toggle_RW_RO"
+        },
+        {
+          "name": "CHEP5R",
+          "offset": "0x14",
+          "access": "mixed_W0C_toggle_RW_RO"
+        },
+        {
+          "name": "CHEP6R",
+          "offset": "0x18",
+          "access": "mixed_W0C_toggle_RW_RO"
+        },
+        {
+          "name": "CHEP7R",
+          "offset": "0x1c",
+          "access": "mixed_W0C_toggle_RW_RO"
+        },
+        {
+          "name": "CNTR",
+          "offset": "0x40",
+          "access": "mixed_RW_RO"
+        },
+        {
+          "name": "ISTR",
+          "offset": "0x44",
+          "access": "mixed_W0C_RO"
+        },
+        {
+          "name": "FNR",
+          "offset": "0x48",
+          "access": "read_only"
+        },
+        {
+          "name": "DADDR",
+          "offset": "0x4c",
+          "access": "read_write"
+        },
+        {
+          "name": "LPMCSR",
+          "offset": "0x54",
+          "access": "mixed_RW_RO"
+        },
+        {
+          "name": "BCDR",
+          "offset": "0x58",
+          "access": "mixed_RW_RO"
+        }
+      ],
+      "descriptor_offsets": [
+        {
+          "index": 0,
+          "TXRXBD": "0x0",
+          "RXTXBD": "0x4"
+        },
+        {
+          "index": 1,
+          "TXRXBD": "0x8",
+          "RXTXBD": "0xc"
+        },
+        {
+          "index": 2,
+          "TXRXBD": "0x10",
+          "RXTXBD": "0x14"
+        },
+        {
+          "index": 3,
+          "TXRXBD": "0x18",
+          "RXTXBD": "0x1c"
+        },
+        {
+          "index": 4,
+          "TXRXBD": "0x20",
+          "RXTXBD": "0x24"
+        },
+        {
+          "index": 5,
+          "TXRXBD": "0x28",
+          "RXTXBD": "0x2c"
+        },
+        {
+          "index": 6,
+          "TXRXBD": "0x30",
+          "RXTXBD": "0x34"
+        },
+        {
+          "index": 7,
+          "TXRXBD": "0x38",
+          "RXTXBD": "0x3c"
+        }
+      ],
+      "UTYPE_raw": {
+        "0": "bulk",
+        "1": "control",
+        "2": "isochronous",
+        "3": "interrupt"
+      },
+      "STAT_raw": {
+        "0": "disabled",
+        "1": "stall",
+        "2": "nak",
+        "3": "valid"
+      },
+      "CK48SEL_raw": {
+        "0": "reserved_disabled",
+        "1": "psi_div_3_ck",
+        "2": "hsi_div_3_ck",
+        "3": "hse_ck"
+      },
+      "RCC_APB2_bit": 24,
+      "package_routes": [
+        {
+          "id": "descriptor.signal.437",
+          "pin": "PA11",
+          "pad": 44,
+          "signal": "USB_DM",
+          "instance": "USB",
+          "function": {
+            "type": "additional"
+          },
+          "source_pointer": "/signals/437",
+          "source_record": {
+            "name": "USB_DM",
+            "instance": "USB",
+            "die_pad": "PA11",
+            "function": {
+              "type": "additional"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "not_complete",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PA11"
+          ]
+        },
+        {
+          "id": "descriptor.signal.438",
+          "pin": "PA12",
+          "pad": 45,
+          "signal": "USB_DP",
+          "instance": "USB",
+          "function": {
+            "type": "additional"
+          },
+          "source_pointer": "/signals/438",
+          "source_record": {
+            "name": "USB_DP",
+            "instance": "USB",
+            "die_pad": "PA12",
+            "function": {
+              "type": "additional"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "not_complete",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [
+            "IO_structure_comparison:PA12"
+          ]
+        },
+        {
+          "id": "descriptor.signal.439",
+          "pin": "PA8",
+          "pad": 41,
+          "signal": "USB_SOF",
+          "instance": "USB",
+          "function": {
+            "type": "alternate",
+            "id": "AF13"
+          },
+          "source_pointer": "/signals/439",
+          "source_record": {
+            "name": "USB_SOF",
+            "instance": "USB",
+            "die_pad": "PA8",
+            "function": {
+              "type": "alternate",
+              "id": "AF13"
+            }
+          },
+          "state": "literal_descriptor_candidate",
+          "DS_AF_cell_crosscheck": "literal_pin_AF_name_correspondence_only",
+          "electrical_qualification": "not_established",
+          "execution_permission": "none",
+          "unresolved_refs": [],
+          "DS_AF_evidence": {
+            "pin": "PA8",
+            "af": "AF13",
+            "DS_signal": "USB_SOF",
+            "descriptor_name": "USB_SOF",
+            "page": 46,
+            "table": 13,
+            "extracted_row": 10,
+            "raw_cell": "USB_SOF"
+          }
+        }
+      ],
+      "scope": "Selected literal domains only, not exhaustive mode/bit/API combinations."
+    },
+    "chapter_audit": {
+      "document": "RM0522",
+      "pages": [
+        2087,
+        2132
+      ],
+      "boundary_evidence": [
+        "RM0522:p2086",
+        "RM0522:p2087",
+        "RM0522:p2132",
+        "RM0522:p2133"
+      ],
+      "status": "full_chapter_read_and_bound_not_semantic_closure"
+    },
+    "package_routes_sha256": "2404348f2aa3f5c4dbba2093b4cd6a0fecd17c83e88b9c4b21b30d4791ef6288",
+    "errata_sha256": "821c22f796a9ff723afee534fe5943c2b0506325ec871d890706d94414316416",
+    "dma_routing_sha256": "6f5d4d59950941a32d983ccc0907dda996415c9fd201cce9b2e8777bd86ae41d"
+  }
+}

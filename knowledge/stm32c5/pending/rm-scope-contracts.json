@@ -1,0 +1,304 @@
+{
+  "schema": "bkpt.research-claims/1",
+  "qualification": "pending_not_runtime_admitted",
+  "original": {
+    "uri": "research://c5-reference/rm-scope-contracts.json",
+    "sha256": "d27569fcf4eaf2d8284a1d841f161118fc30970f8815f70a3bf4810855d1254a"
+  },
+  "transform": {
+    "removed_vendor_fields": {
+      "text": 25
+    },
+    "paths": "logical source URIs; no source identity or review promotion",
+    "historical_status": "Review and publication strings inside claims describe the original source record only. They do not attest transformed bytes, establish runtime admission, or represent this projection publication status."
+  },
+  "claims": {
+    "publication": "unpublished",
+    "target": "STM32C542RCT6 / LQFP64 / NUCLEO-C542RC",
+    "execution_permission": "none",
+    "implementation": "not_authored",
+    "build": "not_tested",
+    "hardware": "not_observed",
+    "schema": "bkpt.c5.reference-manual-scope.v1",
+    "review": "pending_independent_review",
+    "scope": "Exact-device RM chapter applicability; page binding is not semantic or operational closure.",
+    "sources": {
+      "RM0522": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pdf",
+        "sha256": "1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/RM0522.pages.json",
+        "extraction_sha256": "1973f20fecede39d21a42dbf6a9972fd4d3a77ed21744a32521feded4f0f9c80"
+      },
+      "DS15135": {
+        "path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pdf",
+        "sha256": "1a3555f799297774a95978ab343ebc1f45ab9ef58d0dcf3600dec4fabed9355c",
+        "extraction_path": "bkpt-data://firmware/sources/st/c5/documents/DS15135.pages.json",
+        "extraction_sha256": "b14b965adb6c1545edbca0e56b3c504e7ecc3a94bda197350ce2757b5a3d55dc"
+      },
+      "header": {
+        "path": "bkpt-data://sdk/stm32c5-hal2-2.1.0/stm32c5xx_dfp/Include/stm32c542xx.h",
+        "sha256": "4f9de3f986b5fb84aa7d66cbe7dc6e754b3cd89cf3ec6ebce625f63ccaeaddea"
+      }
+    },
+    "evidence": {
+      "RM0522:p87": {
+        "source": "RM0522",
+        "page": 87,
+        "sha256": "979857ff27a50b4d658525ce23d2d4f605b54d3886d5be51ae4b82564fcf9efd"
+      },
+      "RM0522:p88": {
+        "source": "RM0522",
+        "page": 88,
+        "sha256": "8a95f64a701e3c79702162c2b70cdddd00a9589898d071ec8514e97ad94011db"
+      },
+      "RM0522:p94": {
+        "source": "RM0522",
+        "page": 94,
+        "sha256": "4b27f00085150391a1e8afa46adc18e0236a7bcc7435da9015cea2f40512b105"
+      },
+      "RM0522:p95": {
+        "source": "RM0522",
+        "page": 95,
+        "sha256": "885877101fb6b278c2574acd6890871e3f1878d94281577d2186d17a556083e2"
+      },
+      "RM0522:p96": {
+        "source": "RM0522",
+        "page": 96,
+        "sha256": "f4d8880b1098cf7d89d335368d435e59fe3a307f76b591632e9517378161ca5d"
+      },
+      "RM0522:p97": {
+        "source": "RM0522",
+        "page": 97,
+        "sha256": "78bbaacc3bbf7f59e2ad75d8e15359ac1fca0a29862d5746b91e9c6c33ab03b2"
+      },
+      "RM0522:p497": {
+        "source": "RM0522",
+        "page": 497,
+        "sha256": "4af753d369375d974ca205870bfa52b05c2d7f0a7c68eb218812bd9c299fed56"
+      },
+      "RM0522:p554": {
+        "source": "RM0522",
+        "page": 554,
+        "sha256": "910d1ae34cd434a4aef029db87f405390aa452b04c2a1d657ef867a0ff2ec005"
+      },
+      "RM0522:p555": {
+        "source": "RM0522",
+        "page": 555,
+        "sha256": "e7f5be8a2e25c4ff9d0ef40b83ef55c13b782249750551f880c233816a700124"
+      },
+      "RM0522:p560": {
+        "source": "RM0522",
+        "page": 560,
+        "sha256": "346afe497ba89a1f2cfc98a5a623aac41b9128826e5f486c93b1d8623dcb281e"
+      },
+      "RM0522:p747": {
+        "source": "RM0522",
+        "page": 747,
+        "sha256": "9f05f01e6f1ee1df163427117482465b44a63fdd13b6f43599fd0d11423a5e19"
+      },
+      "RM0522:p772": {
+        "source": "RM0522",
+        "page": 772,
+        "sha256": "a969ab690525f66c023ed4d70b17a1322b3b7fdce0a75463e104f6ed3131f2d1"
+      },
+      "RM0522:p839": {
+        "source": "RM0522",
+        "page": 839,
+        "sha256": "ff48166e7c216c12ebac33ba38dc726f967598edf351259d4d497063e76355e6"
+      },
+      "RM0522:p892": {
+        "source": "RM0522",
+        "page": 892,
+        "sha256": "7a7a47a80a10991992fe909a7564ded5828cf7ace5aee3546ad0b335d3ff2852"
+      },
+      "RM0522:p916": {
+        "source": "RM0522",
+        "page": 916,
+        "sha256": "9fb3661caf53807cd00f68361ae711854ed4295eb297a0a68f6e3be803886316"
+      },
+      "RM0522:p954": {
+        "source": "RM0522",
+        "page": 954,
+        "sha256": "dd98ea82fea07415df4c7ccdf9cdb63de6c4a9bd5b60dca74b45e275d186b160"
+      },
+      "RM0522:p1452": {
+        "source": "RM0522",
+        "page": 1452,
+        "sha256": "5d1fd279af2567a903d407f779e993a70bfca0140797233264553a11c24148d0"
+      },
+      "RM0522:p1482": {
+        "source": "RM0522",
+        "page": 1482,
+        "sha256": "c8566588f0845c242169c3bbe32c4538156b0dd310e60562a86591218070ccba"
+      },
+      "RM0522:p2133": {
+        "source": "RM0522",
+        "page": 2133,
+        "sha256": "891cbbfff6f9577dd57ff1575cf4c3e0ea219151fb4fcccd3146c0e6ab3e35b2"
+      },
+      "RM0522:p2412": {
+        "source": "RM0522",
+        "page": 2412,
+        "sha256": "2aa2ffc11c2b69335a91bc0c37cb2aca41ab4ee4e839fe8d78a870e8f9595a73"
+      },
+      "DS15135:p4": {
+        "source": "DS15135",
+        "page": 4,
+        "sha256": "9bd359262ece49d8a277ec8e49f1c3be8d04e2ef80052d63d8bcb5d263a2f4f7"
+      },
+      "DS15135:p5": {
+        "source": "DS15135",
+        "page": 5,
+        "sha256": "9a425c00d9dc290777004f11929ed9487b5a4a51202306e3281865f9a860ec87"
+      },
+      "DS15135:p20": {
+        "source": "DS15135",
+        "page": 20,
+        "sha256": "5fce2a7fa8c3453b62555c778af0d5106fe8c755a4cdb66b2cca792e7e63f0da"
+      },
+      "DS15135:p21": {
+        "source": "DS15135",
+        "page": 21,
+        "sha256": "415dcce808abcec03ac5103b525a2967fd1bac5bcddf7b1222d9a2679ba3ea2b"
+      },
+      "header.instances": {
+        "source": "header",
+        "start_line": 1335,
+        "end_line": 1446,
+        "sha256": "49fb27f6388e4fac01a81a95c9e7c0f16a7762b8b8e5c3156ffc705019132372"
+      }
+    },
+    "contracts": [
+      {
+        "id": "explicit_family_scope",
+        "detail": "XSPI,DLYB,CCB,SAES and PKA chapters explicitly restrict applicability to C59x/C5A3 variants. These are exclusions, not missing C542 runtime features. Generic HAL macros, residue or family registers must not instantiate them.",
+        "evidence": [
+          "RM0522:p497",
+          "RM0522:p555",
+          "RM0522:p747",
+          "RM0522:p839",
+          "RM0522:p916"
+        ]
+      },
+      {
+        "id": "exact_ethernet_scope",
+        "detail": "Ethernet is absent in the exact C53x/542 bus topology and memory aperture columns. Retain absence despite the common manual Ethernet chapter; do not infer a MAC/PHY, DMA owner or pin routes from chapter presence.",
+        "evidence": [
+          "RM0522:p87",
+          "RM0522:p88",
+          "RM0522:p94",
+          "RM0522:p95",
+          "DS15135:p4",
+          "DS15135:p5",
+          "header.instances"
+        ]
+      },
+      {
+        "id": "timer_family_filter",
+        "detail": "Exact instantiated timers are TIM1/2/6/7/8/12/15 and LPTIM1. TIM3/4/5/16/17 signal names in family connection tables do not instantiate them. Exclude dedicated TIM16/17 register pages1452-1482, but retain shared TIM15 functional pages and exact filtering within them.",
+        "evidence": [
+          "DS15135:p20",
+          "DS15135:p21",
+          "header.instances",
+          "RM0522:p1452",
+          "RM0522:p1482"
+        ]
+      },
+      {
+        "id": "page_binding_not_closure",
+        "detail": "Binding every applicable RM page establishes provenance coverage only. It does not prove every field interpretation, SDK API/mode, erratum, source conflict, electrical condition or ownership constraint is complete. Full core/boot referenced manuals, exact revision, board state and engineering-lane build/hardware evidence remain separate. Shared family pages are retained and filtered per instance; whole-page inclusion does not admit family-only rows.",
+        "evidence": [
+          "RM0522:p87",
+          "RM0522:p94",
+          "DS15135:p20",
+          "DS15135:p21"
+        ]
+      }
+    ],
+    "conflicts": [],
+    "excluded_chapter_ranges": [
+      {
+        "id": "XSPI",
+        "first_page": 497,
+        "last_page": 554,
+        "state": "excluded_exact_C542_peripheral",
+        "reason": "Chapter explicitly limited to C59x/C5A3.",
+        "evidence": [
+          "RM0522:p497"
+        ]
+      },
+      {
+        "id": "DLYB",
+        "first_page": 555,
+        "last_page": 560,
+        "state": "excluded_exact_C542_peripheral",
+        "reason": "Chapter explicitly limited to C59x/C5A3.",
+        "evidence": [
+          "RM0522:p555"
+        ]
+      },
+      {
+        "id": "CCB",
+        "first_page": 747,
+        "last_page": 772,
+        "state": "excluded_exact_C542_peripheral",
+        "reason": "Chapter explicitly limited to C59x/C5A3.",
+        "evidence": [
+          "RM0522:p747"
+        ]
+      },
+      {
+        "id": "SAES",
+        "first_page": 839,
+        "last_page": 892,
+        "state": "excluded_exact_C542_peripheral",
+        "reason": "Chapter explicitly limited to C59x/C5A3.",
+        "evidence": [
+          "RM0522:p839"
+        ]
+      },
+      {
+        "id": "PKA",
+        "first_page": 916,
+        "last_page": 954,
+        "state": "excluded_exact_C542_peripheral",
+        "reason": "Chapter explicitly limited to C59x/C5A3.",
+        "evidence": [
+          "RM0522:p916"
+        ]
+      },
+      {
+        "id": "TIM16_TIM17_registers",
+        "first_page": 1452,
+        "last_page": 1482,
+        "state": "excluded_exact_C542_peripheral",
+        "reason": "Exact datasheet/header timer inventory excludes TIM16/17; shared functional chapter is retained.",
+        "evidence": [
+          "DS15135:p20",
+          "DS15135:p21",
+          "header.instances",
+          "RM0522:p1452"
+        ]
+      },
+      {
+        "id": "ETH",
+        "first_page": 2133,
+        "last_page": 2412,
+        "state": "excluded_exact_C542_peripheral",
+        "reason": "Exact RM C53x/542 bus master/slave columns exclude Ethernet; header has no ETH instance. Chapter alone does not establish presence.",
+        "evidence": [
+          "RM0522:p87",
+          "RM0522:p88",
+          "RM0522:p94",
+          "RM0522:p95",
+          "header.instances"
+        ]
+      }
+    ],
+    "open_gates": [
+      "Independent source review pending.",
+      "No operational implementation, catalog promotion, build, hardware, timing or electrical qualification.",
+      "Page-level audit excludes introductory/front matter1-84 and post-body revision/reference pages after2557; document identity remains bound by full PDF hash."
+    ]
+  }
+}
