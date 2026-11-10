@@ -20,13 +20,27 @@
       "recorder/freertos/ViewAlyzerFreeRTOSHook.h",
       "recorder/freertos/ViewAlyzerFreeRTOSHook_Common.h",
       "recorder/freertos/ViewAlyzerFreeRTOSHook_V10_4_Plus.h",
+      "recorder/rtx5/README.md",
+      "recorder/rtx5/VA_Adapter_RTX5.c",
+      "recorder/rtx5/VA_RTX5Config.h",
+      "recorder/rtx5/ViewAlyzerRTX5Hook.h",
+      "recorder/rtx5/ports/irq_armv7m.S",
+      "recorder/threadx/README.md",
+      "recorder/threadx/VA_Adapter_ThreadX.c",
+      "recorder/threadx/VA_Adapter_ThreadX.h",
+      "recorder/threadx/VA_ThreadXConfig.h",
+      "recorder/threadx/ViewAlyzerThreadXHook.h",
+      "recorder/threadx/tx_api_extension.h",
       "recorder/zephyr/CMakeLists.txt",
       "recorder/zephyr/Kconfig",
       "recorder/zephyr/README.md",
       "recorder/zephyr/VA_Adapter_Zephyr.c",
       "recorder/zephyr/VA_Adapter_Zephyr.h",
       "recorder/zephyr/module.yml",
-      "recorder/zephyr/tracing_user.h"
+      "recorder/zephyr/tracing_user.h",
+      "README.md",
+      "LICENSE",
+      "NOTICE"
     ]
   },
   "provenance": {
@@ -34,7 +48,7 @@
     "source_rev": "0f3a8e1f76f18d8a52e4c78cd8b2dcbb8824b461",
     "recorder_version": "1.4.0",
     "wire_version": 2,
-    "content_hash": "sha256:c5e44a3c11629da8f1c46c65f1988135d8c756f1ac907cd33cb415124dca60b0"
+    "content_hash": "sha256:08c850ecb908221e12364ffb4ff40316efa039fc7e9b2420dc910801cd94d77a"
   },
-  "rev": "17"
+  "rev": "18"
 }

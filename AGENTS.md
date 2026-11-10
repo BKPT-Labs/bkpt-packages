@@ -22,3 +22,14 @@ This repository is public. Publish migration/research changes only within the
 user-authorized scope, on a feature branch and draft PR. Do not merge them
 into main as part of a Toolkit code PR. Root legacy index.json is unchanged by
 the firmware knowledge migration.
+
+## Recorder publication
+
+Generate `viewalyzer-recorder/recorder` with `tools/sync_recorder.py` from the
+committed ViewAlyzer release source; do not hand-edit vendored firmware. Keep
+all advertised RTOS adapters, including nested assembly ports. New recorder
+source directories must be classified explicitly so releases cannot omit them.
+Run `python -B -m unittest tools.test_sync_recorder` and
+`python -B tools/sync_recorder.py --source <ViewAlyzer> --check` before publishing.
+The Suite release controller already runs this generator and its strict package
+preflight before pushing; preserve compatibility with Suite's isolated rehearsal.

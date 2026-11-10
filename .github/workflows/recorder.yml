@@ -1,0 +1,34 @@
+name: Recorder package
+on:
+  push:
+    paths:
+      - 'tools/**'
+      - 'viewalyzer-recorder/**'
+      - 'index.json'
+      - '.gitattributes'
+      - '.github/workflows/recorder.yml'
+  pull_request:
+    paths:
+      - 'tools/**'
+      - 'viewalyzer-recorder/**'
+      - 'index.json'
+      - '.gitattributes'
+      - '.github/workflows/recorder.yml'
+permissions:
+  contents: read
+jobs:
+  verify:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Check public payload and recorder synchronization regressions
+        run: python -B -m unittest tools.test_sync_recorder
