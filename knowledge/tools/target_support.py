@@ -180,34 +180,43 @@ def description_of(board, source_root: pathlib.Path):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    parser.add_argument("--recipe", type=pathlib.Path, required=True)
+    parser.add_argument("--recipe", type=pathlib.Path, required=True, action="append",
+                        help="repeat to give several targets one foundation index and one corpus")
     parser.add_argument("--source-root", type=pathlib.Path, required=True)
     parser.add_argument("--corpus-source-root", type=pathlib.Path, required=True)
     parser.add_argument("--out", type=pathlib.Path, required=True)
     arguments = parser.parse_args()
     if arguments.out.exists():
         raise SystemExit("refusing to write into an existing directory")
-    recipe, folder = load(arguments.recipe), arguments.recipe.parent
-    # Nothing is written for a recipe that does not compose: composition is
-    # what ties the part to its package and the board description to both.
+    # Nothing is written unless every recipe composes: composition is what
+    # ties a part to its package and a board description to both.
     import compose_target
-    compose_target.compose(arguments.recipe, arguments.source_root)
-    inventory_config = load(folder / recipe["inventory"])
-    record = load(folder / recipe["foundation"])
-    base = arguments.source_root / inventory_config["foundation_manifest"]
-    index = install_foundations(base, [record], arguments.out / "foundations")
-    manifest = json.loads(derive_foundation(record, base.read_bytes()))
-    description, description_path = description_of(load(folder / recipe["board"]), arguments.source_root)
-    if description is None:
-        raise SystemExit("only a board declared by its owner gets a corpus entry from its recipe")
-    spec = recipe["corpus"]
-    hashes = {
-        "pinout": same_bytes(arguments.source_root / recipe["package"]["pinout"]["path"],
-                             arguments.corpus_source_root / spec["pinout"]["path"]),
-        "board": same_bytes(description_path, arguments.corpus_source_root / spec["board"]["path"]),
-    }
-    catalog_path = folder / spec["catalog"]
-    catalog = corpus_overlay(load(catalog_path), recipe, manifest, hashes)
+    targets, records, base, catalog_path = [], [], None, None
+    for path in arguments.recipe:
+        recipe, folder = load(path), path.parent
+        compose_target.compose(path, arguments.source_root)
+        this_base = arguments.source_root / load(folder / recipe["inventory"])["foundation_manifest"]
+        this_catalog = (folder / recipe["corpus"]["catalog"]).resolve()
+        if targets and (this_base, this_catalog) != (base, catalog_path):
+            raise SystemExit("targets installed together share one base foundation and one corpus catalog")
+        base, catalog_path = this_base, this_catalog
+        record = load(folder / recipe["foundation"])
+        if record not in records:
+            records.append(record)
+        description, description_path = description_of(load(folder / recipe["board"]), arguments.source_root)
+        if description is None:
+            raise SystemExit("only a board declared by its owner gets a corpus entry from its recipe")
+        targets.append((recipe, record, description_path))
+    index = install_foundations(base, records, arguments.out / "foundations")
+    catalog = load(catalog_path)
+    for recipe, record, description_path in targets:
+        spec = recipe["corpus"]
+        hashes = {
+            "pinout": same_bytes(arguments.source_root / recipe["package"]["pinout"]["path"],
+                                 arguments.corpus_source_root / spec["pinout"]["path"]),
+            "board": same_bytes(description_path, arguments.corpus_source_root / spec["board"]["path"]),
+        }
+        catalog = corpus_overlay(catalog, recipe, json.loads(derive_foundation(record, base.read_bytes())), hashes)
     # A corpus manifest is built beside the templates and components it names.
     shutil.copytree(catalog_path.parent, arguments.out / "corpus")
     (arguments.out / "corpus" / catalog_path.name).write_bytes(serialized(catalog))

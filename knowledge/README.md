@@ -138,7 +138,12 @@ record also lists what the board's owner must declare for that start-up to
 work, such as the clock source and its frequency; a description that does not
 say so is refused. A board description names its board, exact part and package.
 The foundation files themselves contain manufacturer code and stay outside the
-package: `target_support.py` installs them from your copy of the base.
+package: `target_support.py` installs them from your copy of the base. Give it
+`--recipe` once per target to put several targets into one foundation index
+and one corpus. `stm32c5/targets/` holds three: the NUCLEO-C542RC, and the
+STM32C542CCT6 in LQFP48 and the STM32C542KCT6 in LQFP32 on owner-declared
+boards. The 32-pin package bonds two pads to one pin, which the firmware
+tool's corpus accepts from the build that keys a pin by position and pad.
 
 The chip-specific inputs are `stm32c5/imports/device-inventory.json` and
 `device-domains.json`, together with the policy text the domains configuration

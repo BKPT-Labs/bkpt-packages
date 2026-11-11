@@ -1,0 +1,93 @@
+{
+  "schema": 1,
+  "id": "stm32c542kc-lqfp32-declared-v1",
+  "inventory": "../imports/device-inventory.json",
+  "domains": "../imports/device-domains.json",
+  "board": "../boards/declared-stm32c542kc-lqfp32.json",
+  "target": {
+    "id": "STM32C542KC-LQFP32",
+    "board": "declared-stm32c542kc-lqfp32",
+    "part": "STM32C542KCT6",
+    "package": "LQFP32",
+    "resource_prefix": "STM32C542KCT6"
+  },
+  "package": {
+    "pinout": {
+      "path": "architecture/sources/stm32c5-dfp-2.1.0/pinout/STM32C5(3-4)2K(B-C)Tx_pinout.json",
+      "revision": "ST DFP 2.1.0, LQFP32"
+    }
+  },
+  "scoped_evidence": {
+    "board-identity": "drop",
+    "pinout-metadata": "restate",
+    "pin-bonds": {
+      "replace": [
+        "inv-bond-PA2",
+        "inv-bond-PA3",
+        "inv-bond-PA5"
+      ]
+    },
+    "dma-pa4-bond": {
+      "replace": [
+        "inv-bond-PA4"
+      ]
+    },
+    "uart-pins": {
+      "replace": [
+        "inv-signal-USART2_TX-PA2",
+        "inv-signal-USART2_RX-PA3"
+      ]
+    },
+    "transfer-pin-PB8": {
+      "replace": [
+        "inv-signal-I2C1_SCL-PB8"
+      ]
+    },
+    "transfer-pin-PB9": "drop"
+  },
+  "restate": {
+    "assumptions": [
+      [
+        "Nominal NUC542RC$KR1/MB2213 B02 metadata does not establish the connected board revision, solder bridges or silicon cut.",
+        "The board is described by its owner. Its revision, its population and the silicon cut are not established."
+      ],
+      [
+        "Managed SPI/UART expand finite source-reviewed configuration domains; failure is terminal. Physical buffer release does not certify device or wire recovery. Only NUCLEO-C542RC/LQFP64 and captured nominal144MHz PCLK1/PCLK2 are covered. No hardware qualification.",
+        "Managed SPI/UART expand finite source-reviewed configuration domains; failure is terminal. Physical buffer release does not certify device or wire recovery. Only STM32C542KCT6/LQFP32 on the declared board and captured nominal144MHz PCLK1/PCLK2 are covered. No hardware qualification."
+      ]
+    ],
+    "evidence": {
+      "identity": {
+        "device": "STM32C542KC",
+        "statement": "Device entry STM32C542KC declares the STM32C542xx compile define, its memory map and its variants, among them STM32C542KCT6 in LQFP32."
+      },
+      "pinout-metadata": {
+        "lines": [
+          1,
+          9
+        ],
+        "statement": "Descriptor declares pinout schema 1.0.0, package LQFP32 and die name 44F; aggregate I/O counts are not reconciled."
+      }
+    }
+  },
+  "foundation": "../foundations/c5-hal2-minimal-c542kc.json",
+  "corpus": {
+    "catalog": "../catalog/stm32c5.json",
+    "like_board": "NUCLEO-C542RC",
+    "pack_description": "dfp",
+    "backend_version": "foundation-1",
+    "pinout": {
+      "id": "pinout-lqfp32",
+      "like": "pinout",
+      "path": "st/c5/pack-2.1.0/pinout-lqfp32.json"
+    },
+    "board": {
+      "id": "declared-board-c542kc",
+      "path": "boards/stm32c542kc-lqfp32-declared-v2.json",
+      "uri": "bkpt-board://declared/stm32c542kc-lqfp32/2",
+      "revision": "version 2, worked example",
+      "authority": "community",
+      "name": "STM32C542KCT6 in LQFP32 on an owner-declared board"
+    }
+  }
+}

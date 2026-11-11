@@ -504,7 +504,7 @@ class Boards(unittest.TestCase):
 
     def test_the_checked_in_recipes_name_board_files_their_family_configuration_accepts(self):
         recipes = sorted(pathlib.Path(__file__).resolve().parents[1].glob("*/targets/*.json"))
-        self.assertGreaterEqual(len(recipes), 2)
+        self.assertGreaterEqual(len(recipes), 3)
         kinds = set()
         # What the manufacturer's board says, so losing any of it fails here.
         nucleo = compose.load(pathlib.Path(__file__).resolve().parents[1] / "stm32c5/boards/nucleo-c542rc.json")
@@ -537,6 +537,7 @@ class Boards(unittest.TestCase):
     COMPOSED = {
         "stm32c5/targets/nucleo-c542rc.json": "99468ea1a1c2ea9923430cd7a7443f953a255ae41c6f53b101f877abd6e44af4",
         "stm32c5/targets/stm32c542cc-lqfp48-declared.json": "c053371afed83ebff3c92128c7cd4c672340e963b1d7adff03c9369ce7efa806",
+        "stm32c5/targets/stm32c542kc-lqfp32-declared.json": "662b4bd879fd70017c0da058f30ef8715c1ee634179b274e85ebab4222494a4f",
     }
 
     @unittest.skipUnless(os.environ.get("BKPT_KNOWLEDGE_SOURCE_ROOT"), "needs the pinned sources: set BKPT_KNOWLEDGE_SOURCE_ROOT")

@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "sources": [
+    {
+      "id": "board-description",
+      "path": "architecture/sources/boards/stm32c542kc-lqfp32-declared-v2.json",
+      "revision": "version 2, worked example",
+      "authority": "bkpt_declared_board_example"
+    },
+    {
+      "id": "board-policy",
+      "path": "architecture/sources/bkpt-board-policy-declared-v1.txt",
+      "revision": "version 1 candidate",
+      "authority": "bkpt_engineering_policy_candidate"
+    }
+  ],
+  "policy": {
+    "source": "board-policy",
+    "label": "BKPT declared board policy, version 1",
+    "evidence_prefix": "board-policy",
+    "lines": {
+      "debug": 3,
+      "clock": 4,
+      "general": 5,
+      "boot": 6
+    }
+  },
+  "board": {
+    "kind": "declared",
+    "source": "board-description"
+  },
+  "assumption": "General allocation follows a board description written by the board's owner; nothing in it is checked against a schematic or a populated board."
+}
