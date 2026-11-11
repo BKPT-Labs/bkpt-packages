@@ -95,7 +95,7 @@ the lines it came from.
 | Tool | What it does |
 | --- | --- |
 | `author_device_inventory.py` | Transcribes pins, signal routes and interrupts from the manufacturer's pinout descriptor, device header and vector table. An inventory records what is declared, not what is usable |
-| `author_device_domains.py` | Decides what a capability may use: allocation rules from the board netlist, instances checked against the device description, DMA request lines checked against the reference manual and the SDK, and the capabilities that are widened or added |
+| `author_device_domains.py` | Decides what a capability may use: allocation rules from the board file, instances checked against the device description, DMA request lines checked against the reference manual and the SDK, and the capabilities that are widened or added. It has no command line: `compose_target.py` runs it for the board a recipe names |
 | `compose_target.py` | Builds one target from layers that vary independently: the reviewed graph, the part and its package descriptor, and the board as its own file (from a netlist, or declared by its owner). Facts tied to the old part, package or board are relocated, replaced or dropped by a decision the recipe states |
 | `target_support.py` | Gives a composed target what it needs besides its graph: a project foundation derived from the reviewed base under the identity of its own part and board, and an entry for the board in the knowledge corpus. Both come from the recipe; the foundation's files are the base's, checked by hash while they are copied |
 | `descriptor.py` | Reads a manufacturer JSON descriptor while keeping the lines of every value, so a derived record can cite them |
@@ -109,6 +109,25 @@ the role of each signal, and the limitations descriptor says what a given part
 lacks. A second part or package of the same die is therefore a recipe under
 `stm32c5/targets/` and, when the board differs, a board file under
 `stm32c5/boards/`, with no new chip configuration.
+
+The family configuration states nothing about a board. Every target is a
+recipe that names a board file, the manufacturer's own board included:
+`stm32c5/targets/nucleo-c542rc.json` names `stm32c5/boards/nucleo-c542rc.json`.
+A board file holds the board's netlist or its owner's description, the nets or
+pads it reserves and excludes, the pads it names for one use (a button, a
+console), and the lines of the policy text that are rules about this board.
+A family configuration that carries any of these is refused, as is one that
+labels pads with a `board_` attribute or rests a chip field on a board's rule
+or source, so what a graph says about a pad can always be traced to either a
+chip source or a board file.
+
+    python tools/compose_target.py --recipe stm32c5/targets/nucleo-c542rc.json \
+        --source-root ROOT --out NEW.json
+
+With `BKPT_KNOWLEDGE_SOURCE_ROOT` set to the folder that holds the pinned
+sources, `test_compose_target.py` also composes every checked-in recipe and
+compares the result with the hash recorded in the test. A change that alters
+a published graph therefore has to change that hash in the same commit.
 
 A target that shares the base's start-up files gets its foundation from a
 derivation record under `stm32c5/foundations/`. The record states the new

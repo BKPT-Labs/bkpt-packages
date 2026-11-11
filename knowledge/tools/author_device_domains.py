@@ -5,7 +5,8 @@ The inventory stage records which pads, routes and interrupts are declared.
 This stage decides which of them a capability may use, from inputs that are
 all cited line by line:
 
-* the board netlist, which says what else is connected to each device pad;
+* the board, from its own file: a netlist, which says what else is connected
+  to each device pad, or a description declared by the board's owner;
 * the device description, which says which instances share a register layout
   and which interrupt each one raises;
 * the DMA request table and the SDK definitions that must agree with it;
@@ -15,11 +16,10 @@ It then widens existing capabilities to that domain. A capability that needed a
 fixed pad or instance now accepts any covered one, keeps the reviewed one as
 its first choice, and reads the alternate function from the selected route.
 
-Usage:
-    python author_device_domains.py --inventory INVENTORY.json --domains DOMAINS.json \
-        --source-root ROOT --out NEW.json
+The family configuration states no board. `compose_target.py` applies the
+board file a recipe names and then runs this stage, so there is no command
+line here.
 """
-import argparse
 import pathlib
 import re
 import sys
@@ -139,6 +139,8 @@ class Domains:
         board = self.config.get("board_policy")
         if board and name in board["lines"]:
             return board, self.source(board["source"])
+        if name not in self.config["policy"]["lines"]:
+            raise SystemExit(f"no policy text states the rule {name}")
         return self.config["policy"], self.policy_source
 
     def policy_text(self, name):
@@ -162,7 +164,7 @@ class Domains:
         """Decide which pads the board leaves free, from its netlist or from a
         description its owner declares, then restate what that changes."""
         spec = self.config["board"]
-        if spec.get("kind", "netlist") == "declared":
+        if spec["kind"] == "declared":
             self.declared_board(spec)
         else:
             self.netlist_board(spec)
@@ -979,22 +981,6 @@ class Domains:
         return sorted({f"{self.name(edge['from'])}:{self.name(edge['to'])}" for edge in found})
 
 
-def main():
-    parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    parser.add_argument("--inventory", type=pathlib.Path, required=True)
-    parser.add_argument("--domains", type=pathlib.Path, required=True)
-    parser.add_argument("--source-root", type=pathlib.Path, required=True)
-    parser.add_argument("--out", type=pathlib.Path, required=True)
-    arguments = parser.parse_args()
-    if arguments.out.exists():
-        raise SystemExit("refusing to overwrite an existing graph")
-    graph, sources, summary = inventory.build(arguments.inventory, arguments.source_root)
-    inventory_config = json.loads(arguments.inventory.read_text(encoding="utf-8"))
-    config = json.loads(arguments.domains.read_text(encoding="utf-8"))
-    run(graph, sources, summary, inventory_config, config, arguments.source_root)
-    inventory.write(graph, arguments.out, summary)
-
-
 def run(graph, sources, summary, inventory_config, config, source_root):
     """The domains stage over a graph the inventory stage has filled."""
     domains = Domains(graph, sources, inventory_config, config, source_root)
@@ -1019,7 +1005,3 @@ def run(graph, sources, summary, inventory_config, config, source_root):
     if domains.narrowed:
         summary["narrowed"] = domains.narrowed
     return summary
-
-
-if __name__ == "__main__":
-    sys.exit(main())

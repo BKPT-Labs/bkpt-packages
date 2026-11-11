@@ -7,7 +7,9 @@ A recipe names what a target is made of:
 * the chip family's inventory and domains configuration;
 * the part and package of this target, with that package's pinout descriptor;
 * the board, as its own file: derived from a netlist for an official board, or
-  declared by its owner for any other.
+  declared by its owner for any other. The family configuration says nothing
+  about a board, so the target the reviewed graph was written for is a recipe
+  with a board file like every other.
 
 The reviewed graph is first re-targeted. Facts that belong to the old part,
 package or board are relocated in the new sources, replaced, or dropped, and
@@ -310,24 +312,82 @@ def board_statements(record, board, source_root):
                              f"its description says {json.dumps(description.get(key))}")
 
 
+def strings(value):
+    """Every string a configuration holds as a value, at any depth."""
+    if isinstance(value, str):
+        yield value
+    elif isinstance(value, (dict, list)):
+        for member in (value.values() if isinstance(value, dict) else value):
+            yield from strings(member)
+
+
+def board_facts(config):
+    """What a family configuration says about a board, in any of its fields.
+    It must say nothing: every board, the manufacturer's own included, is a
+    board file. A board fact is a board section, a pad a board names for one
+    use, an attribute in the board_ namespace, or anything put under a rule
+    only a board may bring. Wording is not policed here: a sentence is reviewed
+    with the configuration that holds it."""
+    rules = set(config["board_rules"])
+    found = [key for key in ("board", "assumption") if key in config]
+    found += [f"policy rule {name}" for name in sorted(rules & set(config["policy"]["lines"]))]
+
+    def walk(value, path):
+        if isinstance(value, list):
+            for index, member in enumerate(value):
+                walk(member, f"{path}[{index}]")
+        if not isinstance(value, dict):
+            return
+        for key, member in value.items():
+            where = f"{path}.{key}" if path else key
+            if where in ("board", "assumption", "board_rules"):
+                continue
+            if key.startswith("board_") or key in ("feature_pads", "extra_pads"):
+                found.append(where)
+            elif key == "policy" and isinstance(member, str) and member in rules:
+                found.append(f"{where} under board rule {member}")
+            else:
+                walk(member, where)
+
+    walk(config, "")
+    return sorted(found)
+
+
 def apply_board(config, board, reserved_sources=()):
-    """A board file replaces the board-specific parts of the domains
-    configuration. It can reserve, exclude and say what is connected. It
-    cannot replace a chip source, bring a chip rule, or write a chip fact."""
+    """A board file supplies every board-specific part of the domains
+    configuration; the family configuration has none of its own. A board can
+    reserve, exclude and say what is connected. It cannot replace a chip
+    source, bring a chip rule, or write a chip fact."""
     allowed = {"schema", "sources", "policy", "board", "feature_pads", "profile_pads", "assumption", "assumption_replacements"}
     if set(board) - allowed:
         raise SystemExit(f"a board file cannot set {sorted(set(board) - allowed)}")
+    stated = board_facts(config)
+    if stated:
+        raise SystemExit(f"the family configuration states board facts ({', '.join(stated)}); they belong in a board file")
+    if board["board"].get("kind") not in ("netlist", "declared"):
+        raise SystemExit("a board is read from a netlist or declared by its owner")
     rules = set(config["board_rules"])
-    superseded = config["board"].get("source")
-    kept = [source for source in config["sources"] if source["id"] != superseded]
-    taken = {source["id"] for source in kept} | set(reserved_sources)
-    clash = sorted(taken & {source["id"] for source in board.get("sources", [])})
+    brought = board.get("sources", [])
+    taken = {source["id"] for source in config["sources"]} | set(reserved_sources)
+    clash = sorted(taken & {source["id"] for source in brought})
     if clash:
         raise SystemExit(f"a board file cannot replace sources {clash}")
-    config["sources"] = kept + board.get("sources", [])
+    cited = sorted({source["id"] for source in brought} & set(strings(config)))
+    if cited:
+        # A chip rule supported by a board's netlist or description is a board fact.
+        raise SystemExit(f"the family configuration names the board's sources {cited}")
+    # Pinned after the family's policy text and before the chip sources this
+    # stage adds: the order the reviewed target was written in.
+    family_policy = config["policy"]["source"]
+    after = [source["id"] for source in config["sources"]].index(family_policy) + 1
+    config["sources"][after:after] = brought
     policy = board.get("policy")
     if policy and set(policy["lines"]) - rules:
         raise SystemExit(f"a board cannot bring the rules {sorted(set(policy['lines']) - rules)}")
+    if policy and policy["source"] not in {family_policy, *(source["id"] for source in brought)}:
+        # A rule is authored policy. A line of a chip source cited as one
+        # would pass a manufacturer statement off as a rule.
+        raise SystemExit("a board states its rules in a policy text of its own or in the family's")
     config["board"], config["board_policy"] = board["board"], policy
     features = board.get("feature_pads", {})
     for pad, feature in features.items():
@@ -344,12 +404,16 @@ def apply_board(config, board, reserved_sources=()):
         if pads:
             profile["extra_pads"] = pads
     config["assumption"] = board["assumption"]
-    config["assumption_replacements"] = board.get("assumption_replacements", config.get("assumption_replacements", []))
+    # The family restates reviewed wording its wider domain outdated, for
+    # every board. A board may restate more; it cannot take those away.
+    config["assumption_replacements"] = [*config.get("assumption_replacements", []), *board.get("assumption_replacements", [])]
 
 
 def compose(recipe_path: pathlib.Path, source_root: pathlib.Path):
     recipe = load(recipe_path)
     folder = recipe_path.parent
+    if "board" not in recipe:
+        raise SystemExit("a recipe names the board file of its target")
     inventory_config = load(folder / recipe["inventory"])
     config = load(folder / recipe["domains"])
     base_path = (folder / recipe["inventory"]).parent / inventory_config["base"]["path"]
@@ -371,9 +435,8 @@ def compose(recipe_path: pathlib.Path, source_root: pathlib.Path):
         config["composed"] = True
         config["peripherals"]["pinout_file"] = pathlib.PurePosixPath(recipe["package"]["pinout"]["path"]).name
     inventory_config["id"] = recipe["id"]
-    board = load(folder / recipe["board"]) if "board" in recipe else None
-    if board:
-        apply_board(config, board, {source["id"] for source in base["sources"]})
+    board = load(folder / recipe["board"])
+    apply_board(config, board, {source["id"] for source in base["sources"]})
     target = next(record for record in base["targets"] if record["id"] == inventory_config["target"])
     record = load(folder / recipe["foundation"]) if "foundation" in recipe else None
     buildable = foundation(target, inventory_config, recipe, config, source_root, record)

@@ -3,8 +3,11 @@
 
 Run: python -B -m unittest knowledge/tools/test_compose_target.py
 """
+import contextlib
 import copy
+import io
 import json
+import os
 import pathlib
 import sys
 import tempfile
@@ -413,20 +416,137 @@ class Corpus(unittest.TestCase):
 
 
 class Boards(unittest.TestCase):
-    CONFIG = {"sources": [{"id": "policy"}, {"id": "netlist"}, {"id": "peripherals"}], "board": {"source": "netlist"},
+    CONFIG = {"sources": [{"id": "policy"}, {"id": "peripherals"}],
+              "policy": {"source": "policy", "lines": {"functions": 3}},
               "board_rules": ["debug", "general", "console", "button"],
-              "gpio_interrupt": {"feature_pads": {"PC13": {}}},
-              "profiles": [{"capabilities": ["uart"], "extra_pads": {"PA2": "console"}}],
-              "assumption": "Follows the netlist.", "assumption_replacements": [["a", "b"]]}
+              "gpio_interrupt": {}, "profiles": [{"capabilities": ["uart"]}, {"capabilities": ["spi"]}],
+              "assumption_replacements": [["a", "b"]]}
+    BOARD = {"schema": 1, "sources": [{"id": "description"}],
+             "board": {"kind": "declared", "source": "description"}, "assumption": "Declared."}
+    FEATURE = {"policy": "button", "attributes": {"board_feature": "button"}, "circuit": [{"net": "3V3", "member": ["B1", "3"]}]}
 
-    def test_a_board_file_replaces_only_what_belongs_to_a_board(self):
+    def test_a_board_file_supplies_every_board_specific_part(self):
         config = copy.deepcopy(self.CONFIG)
-        compose.apply_board(config, {"schema": 1, "sources": [{"id": "description"}], "policy": {"lines": {}},
-                                     "board": {"kind": "declared", "source": "description"}, "assumption": "Declared."})
-        self.assertEqual([entry["id"] for entry in config["sources"]], ["policy", "peripherals", "description"])
-        self.assertEqual(config["gpio_interrupt"]["feature_pads"], {})
-        self.assertNotIn("extra_pads", config["profiles"][0])
+        policy = {"source": "description", "lines": {"general": 1}}
+        compose.apply_board(config, {**self.BOARD, "policy": policy, "feature_pads": {"PC13": self.FEATURE},
+                                     "profile_pads": {"uart": {"PA2": "console"}}})
+        # After the family's policy text, before the chip sources.
+        self.assertEqual([entry["id"] for entry in config["sources"]], ["policy", "description", "peripherals"])
+        self.assertEqual((config["board"], config["board_policy"]), (self.BOARD["board"], policy))
+        self.assertEqual(config["gpio_interrupt"]["feature_pads"], {"PC13": self.FEATURE})
+        self.assertEqual(config["profiles"], [{"capabilities": ["uart"], "extra_pads": {"PA2": "console"}}, {"capabilities": ["spi"]}])
         self.assertEqual((config["assumption"], config["assumption_replacements"]), ("Declared.", [["a", "b"]]))
+        # A board that brings none of them leaves none, and adds to what the family restates.
+        bare = copy.deepcopy(self.CONFIG)
+        compose.apply_board(bare, {**self.BOARD, "assumption_replacements": [["c", "d"]]})
+        self.assertEqual(bare["assumption_replacements"], [["a", "b"], ["c", "d"]])
+        self.assertEqual((bare["gpio_interrupt"]["feature_pads"], bare["board_policy"]), ({}, None))
+        self.assertEqual(bare["profiles"], self.CONFIG["profiles"])
+
+    def test_a_family_configuration_states_nothing_about_a_board(self):
+        self.assertEqual(compose.board_facts(self.CONFIG), [])
+        for change, named in (({"board": {"kind": "netlist", "source": "netlist"}}, "board"),
+                              ({"assumption": "Follows the netlist."}, "assumption"),
+                              ({"gpio_interrupt": {"feature_pads": {}}}, "feature_pads"),
+                              ({"profiles": [{"capabilities": ["uart"], "extra_pads": {}}]}, "extra_pads"),
+                              ({"policy": {"source": "policy", "lines": {"functions": 3, "console": 9}}}, "policy rule console"),
+                              # A chip field that labels pads for a board, or rests on a rule only a board brings.
+                              ({"board_policy": {"source": "policy", "lines": {}}}, "board_policy"),
+                              ({"general_attribute": {"allocation": "general", "board_feature": "button"}}, "general_attribute.board_feature"),
+                              ({"profiles": [{"capabilities": ["uart"], "pad_attribute": {"board_console": "true"}}]},
+                               "profiles[0].pad_attribute.board_console"),
+                              ({"withheld_pads": {"policy": "console", "pads": ["PA8"]}}, "withheld_pads.policy under board rule console"),
+                              ({"foundation_signals": {"policy": "debug", "signals": []}}, "foundation_signals.policy under board rule debug"),
+                              ({"allocations": [{"instance": {"policy": "button"}}]}, "allocations[0].instance.policy under board rule button")):
+            with self.assertRaises(SystemExit, msg=change) as refused:
+                compose.apply_board({**copy.deepcopy(self.CONFIG), **change}, self.BOARD)
+            self.assertIn("belong in a board file", str(refused.exception))
+            self.assertIn(named, str(refused.exception))
+        # A chip rule may rest on a chip rule, and never on a source the board brings.
+        chip = {"withheld_pads": {"policy": "functions", "pads": ["PC13"], "cite": {"source": "peripherals"}}}
+        compose.apply_board({**copy.deepcopy(self.CONFIG), **chip}, self.BOARD)
+        chip["withheld_pads"]["cite"]["source"] = "description"
+        with self.assertRaises(SystemExit) as refused:
+            compose.apply_board({**copy.deepcopy(self.CONFIG), **chip}, self.BOARD)
+        self.assertIn("names the board's sources ['description']", str(refused.exception))
+
+    def test_a_board_states_its_rules_in_a_policy_text_of_its_own_or_in_the_familys(self):
+        for text in ("description", "policy"):
+            config = copy.deepcopy(self.CONFIG)
+            compose.apply_board(config, {**self.BOARD, "policy": {"source": text, "lines": {"debug": 1}}})
+            self.assertEqual(config["board_policy"]["source"], text)
+        # A line of a chip source is a manufacturer statement, never a rule.
+        for text in ("peripherals", "pinout", "unknown"):
+            with self.assertRaises(SystemExit, msg=text) as refused:
+                compose.apply_board(copy.deepcopy(self.CONFIG), {**self.BOARD, "policy": {"source": text, "lines": {"debug": 1}}}, {"pinout"})
+            self.assertIn("policy text of its own", str(refused.exception))
+
+    def test_a_board_is_read_from_a_netlist_or_declared(self):
+        compose.apply_board(copy.deepcopy(self.CONFIG), {**self.BOARD, "board": {"kind": "netlist", "source": "description"}})
+        for board in ({"source": "description"}, {"kind": "schematic", "source": "description"}):
+            with self.assertRaises(SystemExit, msg=board):
+                compose.apply_board(copy.deepcopy(self.CONFIG), {**self.BOARD, "board": board})
+
+    def test_a_recipe_without_a_board_is_refused_before_anything_is_read(self):
+        with tempfile.TemporaryDirectory() as folder:
+            recipe = pathlib.Path(folder) / "recipe.json"
+            recipe.write_text(json.dumps({"schema": 1, "inventory": "missing.json", "domains": "missing.json"}), encoding="utf-8")
+            with self.assertRaises(SystemExit) as refused:
+                compose.compose(recipe, pathlib.Path(folder))
+            self.assertIn("names the board file", str(refused.exception))
+
+    def test_a_rule_no_policy_text_states_is_refused_by_name(self):
+        subject = object.__new__(domains.Domains)
+        subject.config = {"policy": {"lines": {"functions": 3}}, "board_policy": {"source": "description", "lines": {"debug": 1}}}
+        with self.assertRaises(SystemExit) as refused:
+            subject.policy_entry("console")
+        self.assertIn("console", str(refused.exception))
+
+    def test_the_checked_in_recipes_name_board_files_their_family_configuration_accepts(self):
+        recipes = sorted(pathlib.Path(__file__).resolve().parents[1].glob("*/targets/*.json"))
+        self.assertGreaterEqual(len(recipes), 2)
+        kinds = set()
+        # What the manufacturer's board says, so losing any of it fails here.
+        nucleo = compose.load(pathlib.Path(__file__).resolve().parents[1] / "stm32c5/boards/nucleo-c542rc.json")
+        self.assertEqual((nucleo["board"]["reserved_nets"], nucleo["board"]["excluded_nets"]),
+                         ({"DBG.SWDIO": "debug", "DBG.SWCLK": "debug", "OSC_IN": "clock", "OSC_OUT": "clock"},
+                          {"PH2_BOOT0": "boot", "PA2": "console", "PA3": "console"}))
+        self.assertEqual(nucleo["profile_pads"], {"uart_transfer_operation": {"PA2": "console", "PA3": "console"}})
+        self.assertEqual(nucleo["feature_pads"], {"PC13": {
+            "policy": "user_button", "attributes": {"board_feature": "user_button"},
+            "circuit": [{"net": "3V3", "member": ["B1", "3"]}, {"net": "GND", "member": ["R13", "1"]}]}})
+        self.assertEqual(nucleo["policy"]["lines"], {"debug": 5, "clock": 6, "general": 7, "boot": 8, "console": 9, "user_button": 18})
+        self.assertEqual((nucleo["policy"]["source"], nucleo["board"]["kind"], nucleo["board"]["source"]),
+                         ("policy-v4", "netlist", "board-netlist"))
+        for path in recipes:
+            recipe = compose.load(path)
+            config = compose.load(path.parent / recipe["domains"])
+            self.assertEqual(compose.board_facts(config), [], path.name)
+            board = compose.load(path.parent / recipe["board"])
+            compose.apply_board(config, board)
+            # Every rule the board cites is one it states itself.
+            cited = {*board["board"].get("reserved_nets", {}).values(), *board["board"].get("excluded_nets", {}).values(),
+                     *(feature["policy"] for feature in board.get("feature_pads", {}).values()),
+                     *(rule for pads in board.get("profile_pads", {}).values() for rule in pads.values()), "general"}
+            self.assertLessEqual(cited, set(board["policy"]["lines"]), path.name)
+            kinds.add(config["board"]["kind"])
+        self.assertEqual(kinds, {"netlist", "declared"})
+
+    # Every checked-in recipe and the graph it composes to. A change of these
+    # bytes is a change of what is published and is made here on purpose.
+    COMPOSED = {
+        "stm32c5/targets/nucleo-c542rc.json": "99468ea1a1c2ea9923430cd7a7443f953a255ae41c6f53b101f877abd6e44af4",
+        "stm32c5/targets/stm32c542cc-lqfp48-declared.json": "c053371afed83ebff3c92128c7cd4c672340e963b1d7adff03c9369ce7efa806",
+    }
+
+    @unittest.skipUnless(os.environ.get("BKPT_KNOWLEDGE_SOURCE_ROOT"), "needs the pinned sources: set BKPT_KNOWLEDGE_SOURCE_ROOT")
+    def test_the_checked_in_recipes_compose_to_the_same_bytes(self):
+        knowledge = pathlib.Path(__file__).resolve().parents[1]
+        self.assertEqual(sorted(self.COMPOSED), sorted(path.relative_to(knowledge).as_posix() for path in knowledge.glob("*/targets/*.json")))
+        for name, expected in self.COMPOSED.items():
+            with contextlib.redirect_stdout(io.StringIO()):
+                graph, _ = compose.compose(knowledge / name, pathlib.Path(os.environ["BKPT_KNOWLEDGE_SOURCE_ROOT"]))
+            self.assertEqual(inventory.sha256(inventory.encoded(graph)), expected, name)
 
     def test_a_board_file_cannot_reach_into_the_chip(self):
         for key in ("instances", "profiles", "route_marks", "allocations"):
@@ -434,12 +554,11 @@ class Boards(unittest.TestCase):
                 compose.apply_board(copy.deepcopy(self.CONFIG), {"board": {}, "assumption": "x", key: []})
 
     def test_a_board_cannot_replace_a_chip_source_bring_a_chip_rule_or_write_a_chip_fact(self):
-        board = {"board": {"kind": "declared", "source": "description"}, "assumption": "Declared."}
-        feature = {"policy": "button", "attributes": {"board_feature": "button"}, "circuit": [{"net": "3V3", "member": ["B1", "3"]}]}
+        board, feature = self.BOARD, self.FEATURE
         compose.apply_board(copy.deepcopy(self.CONFIG), {**board, "feature_pads": {"PC13": feature}})
         for change in ({"sources": [{"id": "peripherals"}]},
                        {"sources": [{"id": "pinout"}]},
-                       {"policy": {"lines": {"functions": 3}}},
+                       {"policy": {"source": "description", "lines": {"functions": 3}}},
                        {"profile_pads": {"uart": {"PA2": "functions"}}},
                        {"feature_pads": {"PC13": {**feature, "attributes": {"port_symbol": "HAL_GPIOA"}}}},
                        {"feature_pads": {"PC13": {**feature, "policy": "functions"}}},

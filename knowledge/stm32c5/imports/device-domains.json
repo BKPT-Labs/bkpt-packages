@@ -8,12 +8,6 @@
       "authority": "bkpt_engineering_policy_candidate"
     },
     {
-      "id": "board-netlist",
-      "path": "firmware/sources/st/c5/pack-2.1.0/netlist.json",
-      "revision": "ST board pack 2.1.0; MB2213 B02",
-      "authority": "manufacturer_machine_readable"
-    },
-    {
       "id": "device-description",
       "path": "firmware/sources/st/c5/pack-2.1.0/device.svd",
       "revision": "ST board pack 2.1.0",
@@ -74,11 +68,6 @@
     "evidence_prefix": "policy4",
     "lines": {
       "inventory": 4,
-      "debug": 5,
-      "clock": 6,
-      "general": 7,
-      "boot": 8,
-      "console": 9,
       "gpio_output": 10,
       "gpio_interrupt": 11,
       "spi_pins": 12,
@@ -87,7 +76,6 @@
       "uart_instances": 15,
       "uart_pins": 16,
       "dma_requests": 17,
-      "user_button": 18,
       "timer_channels": 19,
       "analog_inputs": 20,
       "backup_domain": 21,
@@ -103,22 +91,6 @@
     "console",
     "user_button"
   ],
-  "board": {
-    "source": "board-netlist",
-    "device_reference": "U1",
-    "passive_members": "(CN|SB)[0-9]+",
-    "reserved_nets": {
-      "DBG.SWDIO": "debug",
-      "DBG.SWCLK": "debug",
-      "OSC_IN": "clock",
-      "OSC_OUT": "clock"
-    },
-    "excluded_nets": {
-      "PH2_BOOT0": "boot",
-      "PA2": "console",
-      "PA3": "console"
-    }
-  },
   "general_attribute": {
     "allocation": "general"
   },
@@ -168,30 +140,6 @@
       "exti-mux"
     ],
     "interrupt": "EXTI{index}",
-    "feature_pads": {
-      "PC13": {
-        "policy": "user_button",
-        "attributes": {
-          "board_feature": "user_button"
-        },
-        "circuit": [
-          {
-            "net": "3V3",
-            "member": [
-              "B1",
-              "3"
-            ]
-          },
-          {
-            "net": "GND",
-            "member": [
-              "R13",
-              "1"
-            ]
-          }
-        ]
-      }
-    },
     "interrupt_attributes": {
       "function": "gpio_interrupt",
       "priority": "5"
@@ -601,10 +549,6 @@
       "pad_attribute": {
         "uart_pad": "true"
       },
-      "extra_pads": {
-        "PA2": "console",
-        "PA3": "console"
-      },
       "roles": {
         "tx_pin": {
           "from": "serial",
@@ -860,7 +804,6 @@
       ]
     }
   ],
-  "assumption": "General allocation follows the board netlist: solder-bridge state, connector use and external circuits are not verified.",
   "assumption_replacements": [
     [
       "GPIO interrupt composition covers PA4/PA5 CPU delivery only, with exclusive physical EXTI4/5 ownership across any consumers. Pending edge flags can coalesce. No complete EXTI/errata/electrical, shared-line or DMA-trigger coverage.",

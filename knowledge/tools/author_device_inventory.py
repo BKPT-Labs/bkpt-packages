@@ -426,11 +426,16 @@ def build_from(config, base, source_root: pathlib.Path):
                             "empty_vector_slots": holes, "excluded_signals": skipped}
 
 
+def encoded(graph: Graph) -> bytes:
+    """The bytes a graph is published as, and the bytes its hash names."""
+    return (json.dumps(graph.value, indent=2, ensure_ascii=False) + "\n").encode("utf-8")
+
+
 def write(graph: Graph, out: pathlib.Path, summary):
     if out.exists():
         raise SystemExit("refusing to overwrite an existing graph")
     value = graph.value
-    out.write_bytes((json.dumps(value, indent=2, ensure_ascii=False) + "\n").encode("utf-8"))
+    out.write_bytes(encoded(graph))
     counts = {key: len(value[key]) for key in ("sources", "evidence", "resources", "edges", "capabilities", "implementations")}
     print(json.dumps({"id": value["id"], "added": graph.added, "totals": counts, **summary,
                       "sha256": sha256(out.read_bytes())}, indent=1))

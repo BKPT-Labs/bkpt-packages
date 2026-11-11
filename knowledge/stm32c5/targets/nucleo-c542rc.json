@@ -1,0 +1,7 @@
+{
+  "schema": 1,
+  "id": "stm32c5-device-v1",
+  "inventory": "../imports/device-inventory.json",
+  "domains": "../imports/device-domains.json",
+  "board": "../boards/nucleo-c542rc.json"
+}

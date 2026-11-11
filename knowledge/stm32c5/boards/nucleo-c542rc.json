@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "sources": [
+    {
+      "id": "board-netlist",
+      "path": "firmware/sources/st/c5/pack-2.1.0/netlist.json",
+      "revision": "ST board pack 2.1.0; MB2213 B02",
+      "authority": "manufacturer_machine_readable"
+    }
+  ],
+  "policy": {
+    "source": "policy-v4",
+    "label": "BKPT policy, version 4",
+    "evidence_prefix": "policy4",
+    "lines": {
+      "debug": 5,
+      "clock": 6,
+      "general": 7,
+      "boot": 8,
+      "console": 9,
+      "user_button": 18
+    }
+  },
+  "board": {
+    "kind": "netlist",
+    "source": "board-netlist",
+    "device_reference": "U1",
+    "passive_members": "(CN|SB)[0-9]+",
+    "reserved_nets": {
+      "DBG.SWDIO": "debug",
+      "DBG.SWCLK": "debug",
+      "OSC_IN": "clock",
+      "OSC_OUT": "clock"
+    },
+    "excluded_nets": {
+      "PH2_BOOT0": "boot",
+      "PA2": "console",
+      "PA3": "console"
+    }
+  },
+  "feature_pads": {
+    "PC13": {
+      "policy": "user_button",
+      "attributes": {
+        "board_feature": "user_button"
+      },
+      "circuit": [
+        {
+          "net": "3V3",
+          "member": [
+            "B1",
+            "3"
+          ]
+        },
+        {
+          "net": "GND",
+          "member": [
+            "R13",
+            "1"
+          ]
+        }
+      ]
+    }
+  },
+  "profile_pads": {
+    "uart_transfer_operation": {
+      "PA2": "console",
+      "PA3": "console"
+    }
+  },
+  "assumption": "General allocation follows the board netlist: solder-bridge state, connector use and external circuits are not verified."
+}
