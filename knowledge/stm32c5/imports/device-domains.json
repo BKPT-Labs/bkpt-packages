@@ -2,9 +2,9 @@
   "schema": 1,
   "sources": [
     {
-      "id": "policy-v4",
-      "path": "architecture/sources/bkpt-capability-policy-v4.txt",
-      "revision": "version 4 candidate",
+      "id": "policy-v5",
+      "path": "architecture/sources/bkpt-capability-policy-v5.txt",
+      "revision": "version 5 candidate",
       "authority": "bkpt_engineering_policy_candidate"
     },
     {
@@ -60,12 +60,30 @@
       "path": "architecture/sources/documents/DS15135-rev2-page45-pin-notes-extracted.txt",
       "revision": "DS15135 Rev 2, page 45",
       "authority": "manufacturer_document_text_extraction"
+    },
+    {
+      "id": "pwm-output-h-source",
+      "path": "architecture/sources/bkpt-hal2-pwm-v1/pwm-output.h.in",
+      "revision": "version 1 candidate",
+      "authority": "BKPT authored integration artifact"
+    },
+    {
+      "id": "pwm-output-c-source",
+      "path": "architecture/sources/bkpt-hal2-pwm-v1/pwm-output.c.in",
+      "revision": "version 1 candidate",
+      "authority": "BKPT authored integration artifact"
+    },
+    {
+      "id": "pwm-rates-source",
+      "path": "architecture/sources/bkpt-hal2-pwm-v1/pwm-rates.json",
+      "revision": "version 1 candidate",
+      "authority": "bkpt_engineering_policy_candidate"
     }
   ],
   "policy": {
-    "source": "policy-v4",
-    "label": "BKPT policy, version 4",
-    "evidence_prefix": "policy4",
+    "source": "policy-v5",
+    "label": "BKPT policy, version 5",
+    "evidence_prefix": "policy5",
     "lines": {
       "inventory": 4,
       "gpio_output": 10,
@@ -80,7 +98,8 @@
       "analog_inputs": 20,
       "backup_domain": 21,
       "supersedes": 22,
-      "foundation_pads": 23
+      "foundation_pads": 23,
+      "pwm_output": 24
     }
   },
   "board_rules": [
@@ -167,6 +186,44 @@
       "start": 48,
       "end": 53,
       "statement": "Exact source-bound UART API declarations."
+    },
+    {
+      "id": "pwm-output-h",
+      "source": "pwm-output-h-source",
+      "statement": "Authored PWM output header: one edge-aligned output on the allocated timer channel and pad. Not manufacturer evidence."
+    },
+    {
+      "id": "pwm-output-c",
+      "source": "pwm-output-c-source",
+      "statement": "Authored PWM output unit with a private handle: timer base, compare unit with preload, channel and pad from the SDK timer and GPIO interfaces, with run-time checks of the clock and register factors. Not manufacturer evidence."
+    },
+    {
+      "id": "pwm-api-init",
+      "source": "pwm-output-h-source",
+      "start": 48,
+      "end": 48,
+      "statement": "Exact source-bound PWM API declaration."
+    },
+    {
+      "id": "pwm-api-start",
+      "source": "pwm-output-h-source",
+      "start": 55,
+      "end": 55,
+      "statement": "Exact source-bound PWM API declaration."
+    },
+    {
+      "id": "pwm-api-set-duty",
+      "source": "pwm-output-h-source",
+      "start": 62,
+      "end": 62,
+      "statement": "Exact source-bound PWM API declaration."
+    },
+    {
+      "id": "pwm-api-stop",
+      "source": "pwm-output-h-source",
+      "start": 66,
+      "end": 66,
+      "statement": "Exact source-bound PWM API declaration."
     }
   ],
   "device_description": {
@@ -257,6 +314,16 @@
           "rcc-h",
           "HAL_RCC_{instance}_EnableClock",
           "PERIPH_{instance}"
+        ],
+        "peripheral_symbol": [
+          "device-header",
+          "{instance}",
+          "{instance}_BASE"
+        ],
+        "reset_api": [
+          "rcc-h",
+          "HAL_RCC_{instance}_Reset",
+          "PERIPH_{instance}"
         ]
       },
       "attributes": {
@@ -268,12 +335,17 @@
           "policy": "timer_channels",
           "attributes": {
             "function": "timer_channel",
-            "channel_symbol": "HAL_TIM_CHANNEL_{0}"
+            "channel_symbol": "HAL_TIM_CHANNEL_{0}",
+            "compare_unit_symbol": "HAL_TIM_OC_COMPARE_UNIT_{0}"
           },
           "symbols": {
             "channel_symbol": [
               "tim-h",
               "channel {0}"
+            ],
+            "compare_unit_symbol": [
+              "tim-h",
+              "compare unit {0}"
             ]
           }
         }
@@ -783,6 +855,297 @@
         ]
       ],
       "share_instance": true
+    },
+    {
+      "capability": "pwm_output",
+      "card": "hal2.pwm-output",
+      "policy": "pwm_output",
+      "function": "timer_channel",
+      "instance_kind": "channel_timer",
+      "instance_role": "timer",
+      "pad_attribute": {
+        "timer_channel_pad": "true"
+      },
+      "route_attributes": [
+        "alternate",
+        "alternate_symbol",
+        "channel_symbol",
+        "compare_unit_symbol"
+      ],
+      "description": "One edge-aligned PWM output on a covered channel timer and a pad one of its channels is routed to. The frequency is one of the exact divisions of the pinned 144MHz timer clock; duty is set at run time in thousandths of the period. Generated component with init, start, set duty and stop. The whole timer belongs to the output.",
+      "guidance": "Generated component owns the timer handle, the time base, one compare unit in PWM mode 1 with preload, the channel and the pad. Use the returned interface; do not initialize the timer, the channel or the pad again. Supports only the listed frequencies at the captured 144MHz kernel clock: each has an exact prescaler and period, the period is at least 1000 counts and full duty fits a 16-bit compare register. Duty is thousandths of the period rounded down to a whole count; the duty in force from a period boundary on is the last one written before it. The first period after a start can be shorter at the pad, never longer. start and stop belong to one thread; set duty may also run in an interrupt. Active high, counting up, internal clock; no dithering, complementary output, dead time, break input, one-pulse or any other channel of the timer. On a timer with a break function the SDK sets the main output enable when the channel starts. The level of the pad while stopped is not established. Init verifies the clock and register factors; dynamic clock changes are outside the contract. Build is not a measurement of frequency, duty or edge quality.",
+      "parameters": {
+        "frequency_hz": {
+          "type": "choice",
+          "values": [
+            "50",
+            "100",
+            "200",
+            "250",
+            "400",
+            "500",
+            "1000",
+            "2000",
+            "4000",
+            "5000",
+            "8000",
+            "10000",
+            "16000",
+            "20000",
+            "25000",
+            "40000",
+            "50000",
+            "100000"
+          ]
+        }
+      },
+      "symbols": [
+        [
+          "tim-c",
+          "HAL_TIM_Init"
+        ],
+        [
+          "tim-c",
+          "HAL_TIM_OC_SetConfigCompareUnit"
+        ],
+        [
+          "tim-c",
+          "HAL_TIM_OC_EnableComparePreload"
+        ],
+        [
+          "tim-c",
+          "HAL_TIM_OC_SetConfigChannel"
+        ],
+        [
+          "tim-c",
+          "HAL_TIM_OC_SetCompareUnitPulse"
+        ],
+        [
+          "tim-c",
+          "HAL_TIM_OC_StartChannel"
+        ],
+        [
+          "tim-c",
+          "HAL_TIM_OC_StopChannel"
+        ],
+        [
+          "tim-c",
+          "HAL_TIM_Start"
+        ],
+        [
+          "tim-c",
+          "HAL_TIM_Stop"
+        ],
+        [
+          "tim-h",
+          "HAL_TIM_OC_PWM1"
+        ],
+        [
+          "gpio-h",
+          "HAL_GPIO_MODE_ALTERNATE"
+        ],
+        [
+          "preset-conf",
+          "USE_HAL_TIM_MODULE"
+        ]
+      ],
+      "cites": [
+        {
+          "id": "pwm-rates",
+          "source": "pwm-rates-source",
+          "start": 1,
+          "end": 92,
+          "statement": "BKPT exact PWM frequency domain derived from the pinned 144MHz profile: prescaler and period for each choice, period between 999 and 65534. Arithmetic on the nominal clock, not measured timing."
+        }
+      ],
+      "evidence": [
+        "timer-clock",
+        "v2-timer-formula",
+        "v2-timer-setconfig",
+        "v2-timer-ug",
+        "v2-timer-rm-ug",
+        "preset-config",
+        "cmake-extension",
+        "sdk-timer-source-gate",
+        "sdk-common-includes"
+      ],
+      "edits_from": {
+        "card": "hal2.timer-update",
+        "static": [
+          "USE_HAL_TIM_MODULE ",
+          "stm32c5xx_hal_tim.c"
+        ]
+      },
+      "component": {
+        "bindings": {
+          "unit": {
+            "source": {
+              "type": "instance"
+            }
+          },
+          "frequency_hz": {
+            "source": {
+              "type": "parameter",
+              "name": "frequency_hz"
+            }
+          },
+          "prescaler": {
+            "source": {
+              "type": "parameter",
+              "name": "frequency_hz"
+            },
+            "map": {
+              "50": "44",
+              "100": "23",
+              "200": "11",
+              "250": "8",
+              "400": "5",
+              "500": "4",
+              "1000": "2",
+              "2000": "1",
+              "4000": "0",
+              "5000": "0",
+              "8000": "0",
+              "10000": "0",
+              "16000": "0",
+              "20000": "0",
+              "25000": "0",
+              "40000": "0",
+              "50000": "0",
+              "100000": "0"
+            }
+          },
+          "period": {
+            "source": {
+              "type": "parameter",
+              "name": "frequency_hz"
+            },
+            "map": {
+              "50": "63999",
+              "100": "59999",
+              "200": "59999",
+              "250": "63999",
+              "400": "59999",
+              "500": "57599",
+              "1000": "47999",
+              "2000": "35999",
+              "4000": "35999",
+              "5000": "28799",
+              "8000": "17999",
+              "10000": "14399",
+              "16000": "8999",
+              "20000": "7199",
+              "25000": "5759",
+              "40000": "3599",
+              "50000": "2879",
+              "100000": "1439"
+            }
+          },
+          "timer_instance": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "timer",
+              "attribute": "hal_instance"
+            }
+          },
+          "timer_clock": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "timer",
+              "attribute": "clock_enable_api"
+            }
+          },
+          "timer_reset": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "timer",
+              "attribute": "reset_api"
+            }
+          },
+          "peripheral_symbol": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "timer",
+              "attribute": "peripheral_symbol"
+            }
+          },
+          "pad_port": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "pad",
+              "attribute": "port_symbol"
+            }
+          },
+          "pad_pin": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "pad",
+              "attribute": "pin_symbol"
+            }
+          },
+          "pad_clock": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "pad",
+              "attribute": "clock_enable_api"
+            }
+          },
+          "pad_alternate": {
+            "source": {
+              "type": "route_attribute",
+              "from": "timer",
+              "to": "pad",
+              "relation": "signal",
+              "attribute": "alternate_symbol"
+            }
+          },
+          "channel": {
+            "source": {
+              "type": "route_attribute",
+              "from": "timer",
+              "to": "pad",
+              "relation": "signal",
+              "attribute": "channel_symbol"
+            }
+          },
+          "compare_unit": {
+            "source": {
+              "type": "route_attribute",
+              "from": "timer",
+              "to": "pad",
+              "relation": "signal",
+              "attribute": "compare_unit_symbol"
+            }
+          }
+        },
+        "files": [
+          {
+            "path": "bkpt_components/{{unit}}.h",
+            "template": "pwm-output-h"
+          },
+          {
+            "path": "bkpt_components/{{unit}}.c",
+            "template": "pwm-output-c"
+          }
+        ],
+        "claims": [],
+        "interface": {
+          "setup": "Already initialized after mx_system_init. Header bkpt_components/{{unit}}.h; private timer handle, time base, compare unit, channel and pad. No manual timer, channel or GPIO setup.",
+          "start": "{{unit}}_start(duty_permille), 0..1000: checked HAL_OK restarts the counter and then enables the nominal {{frequency_hz}}Hz output, so the first period at the pad can be shorter than a full one and every later period is whole. One thread only, never from an interrupt; fails while running.",
+          "set_duty": "{{unit}}_set_duty(duty_permille), 0..1000, rounded down to a whole count of the {{period}}+1 count period: checked HAL_OK; the duty in force from a period boundary on is the last one written before it. Fails unless running. Owning thread or an interrupt; an interrupt that preempts start or stop gets a failure until start has finished and from the moment stop begins.",
+          "stop": "{{unit}}_stop(): checked HAL_OK stops the output, then the counter; idempotent when stopped. One thread only, never from an interrupt.",
+          "scope": "Exact factors and run-time clock/register checks for the pinned 144MHz profile. Active high, edge aligned. No clock changes, complementary outputs, dead time, break inputs, other channels, DMA or measured timing. The pad level while stopped is not established.",
+          "declarations": "hal_status_t {{unit}}_init(void);\nhal_status_t {{unit}}_start(uint32_t duty_permille);\nhal_status_t {{unit}}_set_duty(uint32_t duty_permille);\nhal_status_t {{unit}}_stop(void);"
+        },
+        "interface_sources": {
+          "declarations": [
+            "pwm-api-init",
+            "pwm-api-start",
+            "pwm-api-set-duty",
+            "pwm-api-stop"
+          ]
+        }
+      }
     }
   ],
   "supersedes": {

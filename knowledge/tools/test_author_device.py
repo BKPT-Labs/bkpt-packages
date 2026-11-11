@@ -3,6 +3,7 @@
 
 Run: python -B -m unittest knowledge/tools/test_author_device.py
 """
+import copy
 import pathlib
 import sys
 import unittest
@@ -328,6 +329,109 @@ class Allocations(unittest.TestCase):
             self.allocated(["PA1"], prepare=conflicting,
                            alternate_symbol={"source": "low", "symbol": "LL_DMA1_REQUEST_BUS2_RX", "split": "AF"})
         self.assertIn("another alternate_symbol", str(refused.exception))
+
+    UNIT = "void {{unit}}_init(void);\nint {{unit}}_start(void);\n"
+    COMPONENT = {
+        "parameters": {"rate": {"type": "choice", "values": ["1", "2"]}},
+        "edits_from": {"card": "card.reviewed", "static": ["MODULE 1"]},
+        "component": {"bindings": {"unit": {"source": {"type": "instance"}},
+                                   "divider": {"source": {"type": "parameter", "name": "rate"}, "map": {"1": "9", "2": "4"}},
+                                   "block": {"source": {"type": "resource_attribute", "role": "bus", "attribute": "symbol"}},
+                                   "port": {"source": {"type": "resource_attribute", "role": "pad", "attribute": "port"}},
+                                   "line": {"source": {"type": "route_attribute", "from": "bus", "to": "pad", "relation": "signal",
+                                                       "attribute": "signal"}}},
+                      "files": [{"path": "units/{{unit}}.h", "template": "unit-h"}, {"path": "units/{{unit}}.c", "template": "unit-c"}],
+                      "claims": [], "interface": {"start": "{{unit}}_start()"}, "interface_sources": {"start": ["unit-api"]}}}
+
+    def reviewed(self, subject):
+        subject.value["implementations"].append({"id": "card.reviewed", "edits": [
+            {"path": "conf.h", "expected_sha256": "c", "old": "MODULE 0", "new": "MODULE 1"},
+            {"path": "conf.h", "expected_sha256": "c", "old": "CALLBACKS 0", "new": "CALLBACKS 1"}],
+            "component": {"edits": [
+                {"path": "CMakeLists.txt", "expected_sha256": "m", "old": "# here", "new": "  units/{{unit}}.c\n", "mode": "insert_before"},
+                {"path": "main.c", "expected_sha256": "a", "old": "#include", "new": "#include \"units/{{unit}}.h\"\n", "mode": "insert_before"},
+                {"path": "main.c", "expected_sha256": "a", "old": "for", "new": "    {{unit}}_init();\n", "mode": "insert_before"}]}})
+        subject.sources["unit"] = source(self.UNIT, "unit")
+        for identifier, (first, last) in {"unit-h": (1, 2), "unit-c": (1, 2), "unit-api": (2, 2)}.items():
+            subject.graph.cite(identifier, subject.sources["unit"], first, last, "Authored.")
+            domains.find(subject.value["evidence"], identifier)["role"] = "template"
+        for record in subject.value["resources"]:
+            record["attributes"].update({"symbol": "BUS"} if record["kind"] == "bus" else {"port": "PORT"})
+
+    def test_a_component_shares_the_edits_of_a_reviewed_card_and_names_its_templates(self):
+        subject, _ = self.allocated(["PA1"], prepare=self.reviewed, **copy.deepcopy(self.COMPONENT))
+        capability, card = subject.value["capabilities"][0], subject.value["implementations"][-1]
+        self.assertEqual(capability["parameters"], self.COMPONENT["parameters"])
+        reviewed = subject.value["implementations"][0]
+        # Only the edit that was asked for, and the very bytes of the reviewed one.
+        self.assertEqual(card["edits"], [reviewed["edits"][0]])
+        self.assertEqual(card["component"]["edits"], reviewed["component"]["edits"])
+        self.assertIsNot(card["component"]["edits"], reviewed["component"]["edits"])
+        self.assertEqual(card["component"]["files"], self.COMPONENT["component"]["files"])
+        # A template is what is generated, never evidence for a claim of the card.
+        self.assertFalse({"unit-h", "unit-c", "unit-api"} & set(card["evidence"]))
+        self.assertNotIn("edits", self.COMPONENT["component"])
+
+    def refused(self, message, prepare=None, **change):
+        spec = copy.deepcopy(self.COMPONENT)
+        for key, value in change.items():
+            if key in ("bindings", "files"):
+                spec["component"][key] = value
+            else:
+                spec[key] = value
+        with self.assertRaises(SystemExit, msg=change) as refused:
+            self.allocated(["PA1"], prepare=prepare or self.reviewed, **spec)
+        self.assertIn(message, str(refused.exception))
+
+    def test_a_component_must_fit_the_reviewed_edits_it_shares(self):
+        def without(evidence):
+            def prepare(subject):
+                self.reviewed(subject)
+                subject.value["evidence"] = [record for record in subject.value["evidence"] if record["id"] != evidence]
+            return prepare
+        self.refused("expected one edit", edits_from={"card": "card.reviewed", "static": ["MODULE 2"]})
+        self.refused("expected one edit", edits_from={"card": "card.reviewed", "static": [" 1"]})
+        self.refused("no template evidence ['unit-api']", prepare=without("unit-api"))
+        self.refused("no template evidence ['unit-c']", prepare=without("unit-c"))
+        files = self.COMPONENT["component"]["files"]
+        # The shared edits compile, include and initialize the unit under one layout.
+        self.refused("names units/{{unit}}.c", files=[files[0], {"path": "other/{{unit}}.c", "template": "unit-c"}])
+        self.refused("names units/{{unit}}.h", files=[files[1]])
+        bindings = self.COMPONENT["component"]["bindings"]
+        self.refused("uses ['unit']", bindings={"name": bindings["unit"], **{k: v for k, v in bindings.items() if k != "unit"}})
+
+        def another_api(subject):
+            self.reviewed(subject)
+            subject.value["implementations"][0]["component"]["edits"][2]["new"] = "    {{unit}}_begin();\n"
+        self.refused("calls {{unit}}_begin", prepare=another_api)
+        own = copy.deepcopy(self.COMPONENT)
+        own["component"]["edits"] = []
+        with self.assertRaises(SystemExit) as refused:
+            self.allocated(["PA1"], prepare=self.reviewed, **own)
+        self.assertIn("from a reviewed card", str(refused.exception))
+
+    def test_a_binding_the_allocation_cannot_always_supply_is_refused(self):
+        bindings = self.COMPONENT["component"]["bindings"]
+
+        def changed(name, **change):
+            return {**bindings, name: {**bindings[name], **change}}
+        self.refused("does not map exactly", parameters={"rate": {"type": "choice", "values": ["1", "2", "3"]}})
+        self.refused("does not have", parameters={})
+        self.refused("does not have", bindings=changed("divider", source={"type": "parameter", "name": "speed"}, map={}))
+        self.refused("cannot be mapped", bindings=changed("unit", map={"a": "b"}))
+        self.refused("does not accept", bindings=changed("divider", map={"1": "{{other}}", "2": "4"}))
+        self.refused("does not accept", bindings=changed("divider", map={"1": "", "2": "4"}))
+        self.refused("a role the allocation does not have",
+                     bindings=changed("block", source={"type": "resource_attribute", "role": "clock", "attribute": "symbol"}))
+        self.refused("needs reset, which ['BUS1'] do not have",
+                     bindings=changed("block", source={"type": "resource_attribute", "role": "bus", "attribute": "reset"}))
+        self.refused("needs pull, which ['PA1'] do not have",
+                     bindings=changed("port", source={"type": "resource_attribute", "role": "pad", "attribute": "pull"}))
+        self.refused("a route the allocation does not have", bindings=changed("line", source={
+            "type": "route_attribute", "from": "pad", "to": "bus", "relation": "signal", "attribute": "signal"}))
+        self.refused("does not require of every route", bindings=changed("line", source={
+            "type": "route_attribute", "from": "bus", "to": "pad", "relation": "signal", "attribute": "alternate"}))
+        self.refused("unknown source", bindings=changed("unit", source={"type": "constant"}))
 
     def test_an_allocation_with_nothing_to_offer_or_a_missing_value_is_refused(self):
         with self.assertRaises(SystemExit):

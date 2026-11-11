@@ -145,6 +145,17 @@ STM32C542CCT6 in LQFP48 and the STM32C542KCT6 in LQFP32 on owner-declared
 boards. The 32-pin package bonds two pads to one pin, which the firmware
 tool's corpus accepts from the build that keys a pin by position and pad.
 
+An allocation in `device-domains.json` can carry a generated component: its
+parameters, the bindings that fill a template from the allocated instance, pad
+and route, and the name of a reviewed card whose integration edits it shares
+instead of writing them again. `pwm_output` is the first one: a PWM output on
+any covered channel timer and routed pad, with exact frequency choices from a
+rate table and duty set at run time. On the NUCLEO-C542RC it was checked on
+the board for TIM2 and TIM1 at 1 kHz and TIM2 at 100 kHz by firmware that
+measures its own output pad: the frequency agreed within a quarter of a
+percent and the duty within twelve thousandths, with every lifecycle call
+returning what the interface states.
+
 The chip-specific inputs are `stm32c5/imports/device-inventory.json` and
 `device-domains.json`, together with the policy text the domains configuration
 cites line by line. A rule that is BKPT's own decision, such as which pads may be

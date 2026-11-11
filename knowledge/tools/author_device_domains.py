@@ -20,6 +20,7 @@ The family configuration states no board. `compose_target.py` applies the
 board file a recipe names and then runs this stage, so there is no command
 line here.
 """
+import copy
 import pathlib
 import re
 import sys
@@ -964,8 +965,13 @@ class Domains:
         for records, identifier in ((self.value["capabilities"], spec["capability"]), (self.value["implementations"], spec["card"])):
             if any(record["id"] == identifier for record in records):
                 raise SystemExit(f"{identifier} already exists")
+        card = {"id": spec["card"], "target": self.graph.target, "guidance": spec["guidance"],
+                "evidence": [*evidence, *cites], "edits": []}
+        if "component" in spec:
+            card.update(self.component(spec, found))
         self.value["capabilities"].append({
-            "id": spec["capability"], "target": self.graph.target, "description": spec["description"], "parameters": {},
+            "id": spec["capability"], "target": self.graph.target, "description": spec["description"],
+            "parameters": copy.deepcopy(spec.get("parameters", {})),
             "roles": [
                 {"id": spec["instance_role"], "kind": kind, "attributes": {}, "parameter_attributes": {}, "count": 1},
                 {"id": "pad", "kind": "pin", "attributes": dict(marker), "parameter_attributes": {}, "count": 1},
@@ -974,11 +980,88 @@ class Domains:
             "implementations": [spec["card"]], "parameter_constraints": [], "domain_complete": False,
             "closure_evidence": [], "evidence": list(evidence),
         })
-        self.value["implementations"].append({
-            "id": spec["card"], "target": self.graph.target, "guidance": spec["guidance"],
-            "evidence": [*evidence, *cites], "edits": [],
-        })
+        self.value["implementations"].append(card)
         return sorted({f"{self.name(edge['from'])}:{self.name(edge['to'])}" for edge in found})
+
+    def component(self, spec, routes):
+        """A generated unit for an allocation. Its integration edits are not
+        written a second time: they are the edits of a reviewed card, taken
+        unchanged, so two cards that need the same module agree byte for byte
+        and stay pinned to the same foundation files. Templates are named by
+        the unit's files and interface, never as evidence of the card: a
+        template is what is generated, not a source for a claim. Everything
+        the engine would refuse later, and everything the shared edits take
+        for granted about the unit, is refused here with the reason."""
+        card, shared = spec["card"], spec["edits_from"]
+        like = find(self.value["implementations"], shared["card"])
+        static = []
+        for text in shared["static"]:
+            edits = [edit for edit in like["edits"] if text in edit["new"]]
+            if len(edits) != 1:
+                raise SystemExit(f"{card}: expected one edit of {shared['card']} that writes {text!r}, found {len(edits)}")
+            static.append(copy.deepcopy(edits[0]))
+        component = copy.deepcopy(spec["component"])
+        if "edits" in component:
+            raise SystemExit(f"{card}: a component takes its integration edits from a reviewed card")
+        component["edits"] = copy.deepcopy(like["component"]["edits"])
+        templates = {record["id"]: record for record in self.value["evidence"] if record.get("role") == "template"}
+        cited = [file["template"] for file in component["files"]]
+        cited += [identifier for group in component.get("interface_sources", {}).values() for identifier in group]
+        missing = sorted(set(cited) - set(templates))
+        if missing:
+            raise SystemExit(f"{card}: no template evidence {missing}")
+        self.bindings(spec, component["bindings"], routes)
+        # The shared edits compile a file, include a header and call a
+        # function of the unit: this unit must generate and define them.
+        paths = {file["path"] for file in component["files"]}
+        generated = "\n".join(
+            self.source(templates[file["template"]]["source"]).excerpt(
+                templates[file["template"]]["start_line"], templates[file["template"]]["end_line"])
+            for file in component["files"])
+        for edit in component["edits"]:
+            unbound = sorted(set(re.findall(r"\{\{([A-Za-z0-9_]+)\}\}", edit["new"])) - set(component["bindings"]))
+            if unbound:
+                raise SystemExit(f"{card}: a shared edit uses {unbound}, which this component does not bind")
+            for path in re.findall(r"[A-Za-z0-9_/.-]*\{\{[A-Za-z0-9_]+\}\}[A-Za-z0-9_.-]*\.[ch](?![A-Za-z0-9_])", edit["new"]):
+                if path not in paths:
+                    raise SystemExit(f"{card}: a shared edit names {path}, which this component does not generate")
+            for call in re.findall(r"\{\{[A-Za-z0-9_]+\}\}_[A-Za-z0-9_]+(?=\()", edit["new"]):
+                if call + "(" not in generated:
+                    raise SystemExit(f"{card}: a shared edit calls {call}, which this component does not define")
+        return {"component": component, "edits": static}
+
+    def bindings(self, spec, bindings, routes):
+        """Each value a template takes is one the allocation can always supply."""
+        card, parameters = spec["card"], spec.get("parameters", {})
+        ends = {spec["instance_role"]: "from", "pad": "to"}
+        for name, binding in bindings.items():
+            source, table = binding["source"], binding.get("map")
+            kind = source["type"]
+            if kind == "instance":
+                if table is not None:
+                    raise SystemExit(f"{card}: binding {name} names the unit and cannot be mapped")
+            elif kind == "parameter":
+                if source["name"] not in parameters:
+                    raise SystemExit(f"{card}: binding {name} reads a parameter the capability does not have")
+                if table is not None and set(table) != set(parameters[source["name"]]["values"]):
+                    raise SystemExit(f"{card}: binding {name} does not map exactly the choices of {source['name']}")
+            elif kind == "resource_attribute":
+                if source["role"] not in ends:
+                    raise SystemExit(f"{card}: binding {name} reads a role the allocation does not have")
+                lacking = sorted({self.name(edge[ends[source["role"]]]) for edge in routes
+                                  if source["attribute"] not in find(self.value["resources"], edge[ends[source["role"]]])["attributes"]})
+                if lacking:
+                    raise SystemExit(f"{card}: binding {name} needs {source['attribute']}, which {lacking} do not have")
+            elif kind == "route_attribute":
+                if (source["from"], source["to"], source["relation"]) != (spec["instance_role"], "pad", "signal"):
+                    raise SystemExit(f"{card}: binding {name} reads a route the allocation does not have")
+                if source["attribute"] not in spec["route_attributes"]:
+                    raise SystemExit(f"{card}: binding {name} reads {source['attribute']}, which the allocation does not require of every route")
+            else:
+                raise SystemExit(f"{card}: binding {name} has an unknown source {kind}")
+            for value in (table or {}).values():
+                if not 0 < len(value) <= 256 or any(not 32 <= ord(letter) <= 126 for letter in value) or "{{" in value or "}}" in value:
+                    raise SystemExit(f"{card}: binding {name} maps to a value the engine does not accept")
 
 
 def run(graph, sources, summary, inventory_config, config, source_root):

@@ -517,7 +517,7 @@ class Boards(unittest.TestCase):
             "circuit": [{"net": "3V3", "member": ["B1", "3"]}, {"net": "GND", "member": ["R13", "1"]}]}})
         self.assertEqual(nucleo["policy"]["lines"], {"debug": 5, "clock": 6, "general": 7, "boot": 8, "console": 9, "user_button": 18})
         self.assertEqual((nucleo["policy"]["source"], nucleo["board"]["kind"], nucleo["board"]["source"]),
-                         ("policy-v4", "netlist", "board-netlist"))
+                         ("policy-v5", "netlist", "board-netlist"))
         for path in recipes:
             recipe = compose.load(path)
             config = compose.load(path.parent / recipe["domains"])
@@ -535,9 +535,9 @@ class Boards(unittest.TestCase):
     # Every checked-in recipe and the graph it composes to. A change of these
     # bytes is a change of what is published and is made here on purpose.
     COMPOSED = {
-        "stm32c5/targets/nucleo-c542rc.json": "99468ea1a1c2ea9923430cd7a7443f953a255ae41c6f53b101f877abd6e44af4",
-        "stm32c5/targets/stm32c542cc-lqfp48-declared.json": "c053371afed83ebff3c92128c7cd4c672340e963b1d7adff03c9369ce7efa806",
-        "stm32c5/targets/stm32c542kc-lqfp32-declared.json": "662b4bd879fd70017c0da058f30ef8715c1ee634179b274e85ebab4222494a4f",
+        "stm32c5/targets/nucleo-c542rc.json": "b4e5800df5bad53368a5744e07949f632fd030745820b6f29b1bff0f9bbd54f5",
+        "stm32c5/targets/stm32c542cc-lqfp48-declared.json": "7c10d018d231a0f24917495686fef8756ac32dfd86eed0b93d0f9744c16563d2",
+        "stm32c5/targets/stm32c542kc-lqfp32-declared.json": "01529519eb5a09a2e84fcdcd8a83d82a34b7491ec34872f3b1eeecc3c84df462",
     }
 
     @unittest.skipUnless(os.environ.get("BKPT_KNOWLEDGE_SOURCE_ROOT"), "needs the pinned sources: set BKPT_KNOWLEDGE_SOURCE_ROOT")
