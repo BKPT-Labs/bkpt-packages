@@ -63,7 +63,6 @@
   },
   "candidates": [
     "candidates/workflow-efficiency/candidate.json",
-    "candidates/device-coverage/candidate.json",
     "candidates/device-coverage-r2/candidate.json"
   ]
 }

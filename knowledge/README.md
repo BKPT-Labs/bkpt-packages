@@ -162,9 +162,12 @@ cites line by line. A rule that is BKPT's own decision, such as which pads may b
 allocated, lives in that policy text and is cited as policy, never as a
 manufacturer statement.
 
-`stm32c5/candidates/device-coverage/` is the output for the STM32C542 on the
-NUCLEO-C542RC: 16 capability profiles on top of the reviewed workflow-efficiency
-graph. It is a candidate. It has no review record and is not accepted.
+`stm32c5/candidates/device-coverage-r2/` is the output for the STM32C542 on the
+NUCLEO-C542RC: 17 capability profiles on top of the reviewed workflow-efficiency
+graph. It is accepted: `accepted.json` holds the reviewed bytes and
+`accepted.review.json` binds them to an independent data review and an
+independent regression review. It is not the pack's active architecture input
+yet, so installing the pack does not use it.
 
 ## Licensing and third-party content
 
