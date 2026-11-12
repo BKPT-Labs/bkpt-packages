@@ -1,0 +1,92 @@
+{
+  "schema": 1,
+  "authority": "BKPT engineering derivation, not manufacturer specification",
+  "clock_profile": "c5-hal2-base-1: HSE24/PSIS144, AHB/APB div1",
+  "nominal_kernel_clock_hz": 144000000,
+  "equation": "frequency_hz * (PSC+1) * (ARR+1) = 144000000; repetition=0; edge-aligned, counting up; no dithering",
+  "prescaler_register_domain": [
+    0,
+    65534
+  ],
+  "period_register_domain": [
+    999,
+    65534
+  ],
+  "period_bound": "ARR+1 is at most 65535 so that full duty, a compare value of ARR+1, fits a 16-bit compare register, and at least 1000 so that one thousandth of the period is at least one count.",
+  "choice": "For each frequency the smallest prescaler whose period satisfies the bound, which gives the finest duty step.",
+  "duty": "compare = floor((ARR+1) * duty_permille / 1000) in PWM mode 1: 0 is always inactive, 1000 is always active.",
+  "rates": {
+    "50": {
+      "prescaler": 44,
+      "period": 63999
+    },
+    "100": {
+      "prescaler": 23,
+      "period": 59999
+    },
+    "200": {
+      "prescaler": 11,
+      "period": 59999
+    },
+    "250": {
+      "prescaler": 8,
+      "period": 63999
+    },
+    "400": {
+      "prescaler": 5,
+      "period": 59999
+    },
+    "500": {
+      "prescaler": 4,
+      "period": 57599
+    },
+    "1000": {
+      "prescaler": 2,
+      "period": 47999
+    },
+    "2000": {
+      "prescaler": 1,
+      "period": 35999
+    },
+    "4000": {
+      "prescaler": 0,
+      "period": 35999
+    },
+    "5000": {
+      "prescaler": 0,
+      "period": 28799
+    },
+    "8000": {
+      "prescaler": 0,
+      "period": 17999
+    },
+    "10000": {
+      "prescaler": 0,
+      "period": 14399
+    },
+    "16000": {
+      "prescaler": 0,
+      "period": 8999
+    },
+    "20000": {
+      "prescaler": 0,
+      "period": 7199
+    },
+    "25000": {
+      "prescaler": 0,
+      "period": 5759
+    },
+    "40000": {
+      "prescaler": 0,
+      "period": 3599
+    },
+    "50000": {
+      "prescaler": 0,
+      "period": 2879
+    },
+    "100000": {
+      "prescaler": 0,
+      "period": 1439
+    }
+  }
+}

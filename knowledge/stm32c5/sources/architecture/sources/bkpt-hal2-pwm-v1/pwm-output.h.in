@@ -1,0 +1,70 @@
+// SPDX-License-Identifier: LicenseRef-BKPT-Proprietary
+/*
+ * BKPT resource-bound initialization, adapted from ST HAL2 2.1.0 API contracts
+ * and STM32CubeC5 initialization examples. Manufacturer-derived portions:
+ * BSD 3-clause "New" or "Revised" License
+ * 
+ * Copyright (c) 2026, STMicroelectronics
+ * 
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ * 
+ *   * Redistributions of source code must retain the above copyright notice, this
+ *     list of conditions and the following disclaimer.
+ * 
+ *   * Redistributions in binary form must reproduce the above copyright notice,
+ *     this list of conditions and the following disclaimer in the documentation
+ *     and/or other materials provided with the distribution.
+ * 
+ *   * Neither the name of the STMicroelectronics nor the names of its contributors may
+ *     be used to endorse or promote products derived from this software without
+ *     specific prior written permission.
+ * 
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
+ * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+ * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+#ifndef {{unit}}_H
+#define {{unit}}_H
+#include "stm32_hal.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
+/* One edge-aligned PWM output, mode 1, active high, on the allocated timer
+ * channel and pad. Fixed nominal {{frequency_hz}} Hz under the pinned 144 MHz
+ * timer clock, period {{period}}+1 counts. The whole timer belongs to this unit.
+ * Generated init runs once after mx_system_init; failure is fail-stop. The pad
+ * is switched to the timer by init; its level while the output is stopped is
+ * not established, so a load that needs a defined idle level needs its own pull.
+ */
+hal_status_t {{unit}}_init(void);
+/* Duty is in thousandths of the period, 0..1000, rounded down to a whole
+ * count: 0 is always inactive and 1000 always active. start restarts the
+ * counter and then enables the output, so the first period at the pad can be
+ * shorter than a full one, never longer; every later period is whole. Fails
+ * while already running. One thread only, never from an interrupt.
+ */
+hal_status_t {{unit}}_start(uint32_t duty_permille);
+/* The duty in force from a period boundary on is the last one written before
+ * it; an earlier value written in the same period never appears. Fails
+ * unless running. Callable from the owning thread or from an interrupt, which
+ * may preempt start and stop: it then fails until start has finished and
+ * from the moment stop begins. When both write, the last write applies.
+ */
+hal_status_t {{unit}}_set_duty(uint32_t duty_permille);
+/* Stops the output, then the counter; idempotent when stopped. One thread
+ * only, never from an interrupt.
+ */
+hal_status_t {{unit}}_stop(void);
+#ifdef __cplusplus
+}
+#endif
+#endif
