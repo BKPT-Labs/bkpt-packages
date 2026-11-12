@@ -683,6 +683,25 @@ class Domains:
             card["guidance"] = restate(card["id"], card["guidance"], spec["guidance"])
             extend(card, [self.policy(spec["policy"])])
 
+    def service_restatements(self):
+        """Target service wording a widening made untrue, restated by exact
+        replacement. The service then cites the rule that widened the domain
+        and the lines that show what is true now."""
+        for spec in self.config.get("service_restatements", []):
+            service = find(self.target["services"], spec["service"])
+            for name, replacements in spec["properties"].items():
+                if name not in service["properties"]:
+                    raise SystemExit(f"{service['id']} has no property {name!r} to restate")
+                text = restate(f"{service['id']}.{name}", service["properties"][name], replacements)
+                if len(text.encode("utf-8")) > 256:
+                    raise SystemExit(f"{service['id']}.{name}: restated to more than the 256 bytes a property may hold")
+                service["properties"][name] = text
+            shown = [self.graph.cite(cite["id"], self.source(cite["source"]), cite["start"], cite["end"], cite["statement"])
+                     for cite in spec["cite"]]
+            if not shown:
+                raise SystemExit(f"{service['id']}: a restated service must cite what shows the new wording")
+            extend(service, [self.policy(spec["policy"]), *shown])
+
     def classes(self):
         """Promote every instance of a covered peripheral class.
 
@@ -1082,6 +1101,7 @@ def run(graph, sources, summary, inventory_config, config, source_root):
     summary["allocations"] = {spec["capability"]: domains.allocation(spec) for spec in config.get("allocations", [])}
     summary["reservations"] = [domains.name(record["resource"]) for record in domains.target["reservations"]]
     domains.restatements()
+    domains.service_restatements()
     domains.supersede()
     if domains.unbonded:
         summary["unbonded_signals"] = sorted(domains.unbonded)

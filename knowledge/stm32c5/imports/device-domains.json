@@ -1167,6 +1167,35 @@
       ]
     }
   ],
+  "service_restatements": [
+    {
+      "service": "startup-ownership",
+      "policy": "uart_instances",
+      "properties": {
+        "optional": [
+          [
+            "USART2 and PA2/PA3 initialize only with the shared UART integration card.",
+            "Fixed UART profiles initialize the captured USART2 handle and PA2/PA3 via the shared UART card; the managed UART profile initializes its own private handle."
+          ]
+        ],
+        "stdio": [
+          [
+            "basic_stdio/printf UART output requires a selected serial/UART capability and its initialized USART2 handle; SDK presence alone does not make stdio usable.",
+            "basic_stdio/printf output uses the captured USART2 handle, which only a fixed serial/UART profile initializes. The private handle of the managed UART profile is not the stdio handle. SDK presence alone does not make stdio usable."
+          ]
+        ]
+      },
+      "cite": [
+        {
+          "id": "instances-uart-private-init",
+          "source": "instances-uart-c-source",
+          "start": 40,
+          "end": 51,
+          "statement": "Authored managed UART unit declares its own static handle and initializes that handle for the allocated instance. BKPT-authored template, not manufacturer evidence."
+        }
+      ]
+    }
+  ],
   "assumption_replacements": [
     [
       "GPIO interrupt composition covers PA4/PA5 CPU delivery only, with exclusive physical EXTI4/5 ownership across any consumers. Pending edge flags can coalesce. No complete EXTI/errata/electrical, shared-line or DMA-trigger coverage.",

@@ -230,6 +230,32 @@ class Restated(unittest.TestCase):
             with self.assertRaises(SystemExit):
                 domains.restate("card", text, [["fixed BUS1", "any bus"]])
 
+    def service(self, **spec):
+        subject = domains_under_test()
+        subject.target = {"id": "board", "evidence": [], "services": [
+            {"id": "startup", "properties": {"optional": "BUS1 starts only with the shared card."}, "evidence": ["kept"]}]}
+        subject.config["service_restatements"] = [{
+            "service": "startup", "policy": "general",
+            "properties": {"optional": [["only with the shared card", "with the shared card or inside its own unit"]]},
+            "cite": [{"id": "own-unit", "source": "table", "start": 1, "end": 1, "statement": "The unit starts itself."}],
+            **spec}]
+        return subject
+
+    def test_a_service_is_restated_with_the_rule_and_the_lines_that_show_it(self):
+        subject = self.service()
+        subject.service_restatements()
+        service = subject.target["services"][0]
+        self.assertEqual(service["properties"]["optional"], "BUS1 starts with the shared card or inside its own unit.")
+        self.assertEqual(service["evidence"], ["kept", "policy3-general", "own-unit"])
+        # A service may cite only what a reader can check as a statement, never a template.
+        self.assertNotEqual(domains.find(subject.value["evidence"], "own-unit").get("role"), "template")
+
+    def test_a_service_restatement_needs_its_property_and_something_that_shows_it(self):
+        too_long = {"properties": {"optional": [["only with the shared card", "x" * 250]]}}
+        for spec in ({"properties": {"absent": [["a", "b"]]}}, {"cite": []}, {"service": "unknown"}, too_long):
+            with self.assertRaises(SystemExit):
+                self.service(**spec).service_restatements()
+
 
 class Functions(unittest.TestCase):
     def test_only_the_signals_the_policy_names_are_marked(self):

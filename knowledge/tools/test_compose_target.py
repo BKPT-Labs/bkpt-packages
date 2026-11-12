@@ -535,9 +535,9 @@ class Boards(unittest.TestCase):
     # Every checked-in recipe and the graph it composes to. A change of these
     # bytes is a change of what is published and is made here on purpose.
     COMPOSED = {
-        "stm32c5/targets/nucleo-c542rc.json": "b4e5800df5bad53368a5744e07949f632fd030745820b6f29b1bff0f9bbd54f5",
-        "stm32c5/targets/stm32c542cc-lqfp48-declared.json": "7c10d018d231a0f24917495686fef8756ac32dfd86eed0b93d0f9744c16563d2",
-        "stm32c5/targets/stm32c542kc-lqfp32-declared.json": "01529519eb5a09a2e84fcdcd8a83d82a34b7491ec34872f3b1eeecc3c84df462",
+        "stm32c5/targets/nucleo-c542rc.json": "4a8426d041bafc47f32570c33e5de0b94e0f0560729202e15641536495ad97d6",
+        "stm32c5/targets/stm32c542cc-lqfp48-declared.json": "49f2e0bb9b42468e3a74141be699df79743beba055da8494cff929fe726cf4ef",
+        "stm32c5/targets/stm32c542kc-lqfp32-declared.json": "b120efd11c6256ed8a30c0ac2f1e87129f452853d7eec6f53f70e3d5927f717a",
     }
 
     @unittest.skipUnless(os.environ.get("BKPT_KNOWLEDGE_SOURCE_ROOT"), "needs the pinned sources: set BKPT_KNOWLEDGE_SOURCE_ROOT")
