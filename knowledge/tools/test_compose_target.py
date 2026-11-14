@@ -520,7 +520,7 @@ class Boards(unittest.TestCase):
         self.assertEqual(nucleo["policy"]["lines"], {"debug": 5, "clock": 6, "general": 7, "boot": 8, "console": 9, "user_button": 18,
                                                      "two_wire_header": 28})
         self.assertEqual((nucleo["policy"]["source"], nucleo["board"]["kind"], nucleo["board"]["source"]),
-                         ("policy-v7", "netlist", "board-netlist"))
+                         ("policy-v8", "netlist", "board-netlist"))
         for path in recipes:
             recipe = compose.load(path)
             config = compose.load(path.parent / recipe["domains"])
@@ -538,9 +538,9 @@ class Boards(unittest.TestCase):
     # Every checked-in recipe and the graph it composes to. A change of these
     # bytes is a change of what is published and is made here on purpose.
     COMPOSED = {
-        "stm32c5/targets/nucleo-c542rc.json": "eee22d6339611d99632c8092d9a21fbf5f3d2ea4fdd723f7ec79e5b69ab127eb",
-        "stm32c5/targets/stm32c542cc-lqfp48-declared.json": "36742f9a9749fde9c2e393969820ea557961c5677426098ebd00ecf93c14c4d2",
-        "stm32c5/targets/stm32c542kc-lqfp32-declared.json": "892bd50ae349cf9eb248039207678bc4d520a559821e2a5d7150c3dbbb1ec6f1",
+        "stm32c5/targets/nucleo-c542rc.json": "477c68df1a041c57dfb0d808ce4b24a94911e6b757ff374430b27154cdc0b987",
+        "stm32c5/targets/stm32c542cc-lqfp48-declared.json": "4789e698ee6199eb6d33b2c842f42d456cb9d0a3c79391c80e3642a6715085f9",
+        "stm32c5/targets/stm32c542kc-lqfp32-declared.json": "ea38c8d4e6e1f5290a27f368fd92099830998c395dea85b4f8df836984343332",
     }
 
     @unittest.skipUnless(os.environ.get("BKPT_KNOWLEDGE_SOURCE_ROOT"), "needs the pinned sources: set BKPT_KNOWLEDGE_SOURCE_ROOT")
@@ -570,6 +570,74 @@ class Boards(unittest.TestCase):
         self.assertTrue(all(source.get("scope") in ("device", "board", "sdk", "policy", "implementation")
                             for source in graph.value["sources"]))
         self.assertEqual({source["id"] for source in graph.value["sources"] if source["scope"] == "board"}, {"board", "board-netlist"})
+
+    @unittest.skipUnless(os.environ.get("BKPT_KNOWLEDGE_SOURCE_ROOT"), "needs the pinned sources: set BKPT_KNOWLEDGE_SOURCE_ROOT")
+    def test_a_widened_profile_keeps_the_accepted_route_identifiers(self):
+        knowledge = pathlib.Path(__file__).resolve().parents[1]
+        graph, _ = compose.compose(knowledge / "stm32c5/targets/nucleo-c542rc.json",
+                                   pathlib.Path(os.environ["BKPT_KNOWLEDGE_SOURCE_ROOT"]))
+        accepted = json.loads((knowledge / "stm32c5/candidates/device-coverage-r2/accepted.json").read_bytes())
+        edges = {edge["id"]: edge for edge in graph.value["edges"]}
+        resources = {record["id"]: record for record in graph.value["resources"]}
+        for name in ("i2c_controller_dma", "i2c_controller_operation"):
+            before = next(capability for capability in accepted["capabilities"] if capability["id"] == name)
+            after = next(capability for capability in graph.value["capabilities"] if capability["id"] == name)
+            # The links are the accepted ones, relation for relation.
+            self.assertEqual(after["links"], before["links"], name)
+        for relation, role, function in (("scl_on", "scl", "i2c_scl"), ("sda_on", "sda", "i2c_sda")):
+            was = {edge["id"]: edge for edge in accepted["edges"] if edge["relation"] == relation}
+            now = {edge["id"]: edge for edge in graph.value["edges"] if edge["relation"] == relation}
+            self.assertEqual(len(was), 2)
+            for identifier, edge in was.items():
+                # An accepted route keeps its identifier, ends, relation and conditions, and what it cited.
+                kept = now[identifier]
+                self.assertEqual([kept[key] for key in ("from", "to", "relation", "conditions")],
+                                 [edge[key] for key in ("from", "to", "relation", "conditions")])
+                self.assertEqual(kept["evidence"][:len(edge["evidence"])], edge["evidence"])
+            # One route of the relation for every pad the role can take, each with the
+            # alternate function of the descriptor route between the same ends.
+            capability = next(entry for entry in graph.value["capabilities"] if entry["id"] == "i2c_controller_operation")
+            marker = next(entry for entry in capability["roles"] if entry["id"] == role)["attributes"]
+            described = {(edge["from"], edge["to"]): edge for edge in graph.value["edges"]
+                         if edge["relation"] == "signal" and edge.get("attributes", {}).get("function") == function
+                         and all(resources[edge["to"]]["attributes"].get(key) == value for key, value in marker.items())}
+            self.assertEqual({(edge["from"], edge["to"]) for edge in now.values()}, set(described))
+            self.assertGreater(len(now), len(was))
+            for edge in now.values():
+                route = described[(edge["from"], edge["to"])]
+                self.assertEqual(edge["id"], f"{edge['from'].split('.', 1)[1]}.{relation}.{edge['to'].split('.', 1)[1]}")
+                self.assertEqual(edge["attributes"], {"alternate": route["attributes"]["alternate"]})
+                self.assertTrue(set(route["evidence"]) <= set(edge["evidence"]))
+                self.assertIn("policy8-reviewed_routes", edge["evidence"])
+                # The descriptor route keeps its own identifier beside it.
+                self.assertIn(route["id"], edges)
+            for card in ("hal2.i2c-dma", "hal2.i2c-dma-operation"):
+                component = next(entry for entry in graph.value["implementations"] if entry["id"] == card)["component"]
+                source = component["bindings"][f"{role}_alternate"]["source"]
+                self.assertEqual((source["type"], source["relation"], source["attribute"]), ("route_attribute", relation, "alternate"))
+
+    @unittest.skipUnless(os.environ.get("BKPT_KNOWLEDGE_SOURCE_ROOT"), "needs the pinned sources: set BKPT_KNOWLEDGE_SOURCE_ROOT")
+    def test_the_two_ways_of_holding_the_converter_name_different_modes(self):
+        knowledge = pathlib.Path(__file__).resolve().parents[1]
+        graph, _ = compose.compose(knowledge / "stm32c5/targets/nucleo-c542rc.json",
+                                   pathlib.Path(os.environ["BKPT_KNOWLEDGE_SOURCE_ROOT"]))
+        moded = {(capability["id"], role["id"]): (role["kind"], role["mode"]) for capability in graph.value["capabilities"]
+                 for role in capability["roles"] if "mode" in role}
+        self.assertEqual(moded, {("analog_input_pin", "converter"): ("analog_converter", "application_driver"),
+                                 ("analog_reading", "converter"): ("analog_converter", "generated_units")})
+        # Nothing else takes a converter, so no holder without a mode can sit between the two.
+        holders = {capability["id"] for capability in graph.value["capabilities"]
+                   for role in capability["roles"] if role["kind"] == "analog_converter"}
+        self.assertEqual(holders, {"analog_input_pin", "analog_reading"})
+        accepted = json.loads((knowledge / "stm32c5/candidates/device-coverage-r2/accepted.json").read_bytes())
+        before = next(capability for capability in accepted["capabilities"] if capability["id"] == "analog_input_pin")
+        after = next(capability for capability in graph.value["capabilities"] if capability["id"] == "analog_input_pin")
+        # The mode is all the accepted allocation gained: same roles otherwise, same links, same converter capacity.
+        self.assertEqual([{key: value for key, value in role.items() if key != "mode"} for role in after["roles"]], before["roles"])
+        self.assertEqual(after["links"], before["links"])
+        capacity = [{record["id"]: record.get("capacity") for record in value["resources"] if record["kind"] == "analog_converter"}
+                    for value in (accepted, graph.value)]
+        self.assertEqual(capacity[0], capacity[1])
 
     @unittest.skipUnless(os.environ.get("BKPT_KNOWLEDGE_SOURCE_ROOT"), "needs the pinned sources: set BKPT_KNOWLEDGE_SOURCE_ROOT")
     def test_the_checked_in_recipes_compose_to_the_same_bytes(self):

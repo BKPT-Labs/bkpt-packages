@@ -133,6 +133,8 @@ class Domains:
         self.unbonded = set()
         self.composed = bool(config.get("composed"))
         self.narrowed = []
+        # Instance kind -> capability -> the ownership mode it holds it in.
+        self.shared_holders = {}
 
     def pad_name(self, pad):
         return self.pad_template.format(port=pad["port"], index=pad["index"])
@@ -1027,6 +1029,7 @@ class Domains:
             text = symbol_spec["symbol"].format(alternate=alternate.replace(symbol_spec["split"], symbol_spec["split"] + "_", 1))
             mapping[alternate] = text
             cites.append(self.graph.cite_symbol("inv-alternate", symbol_source, text))
+        accepted_relations = {}
         for capability in capabilities:
             for role in [instance["role"], *spec["roles"]]:
                 record = find(capability["roles"], role)
@@ -1081,8 +1084,16 @@ class Domains:
                 links = [link for link in capability["links"] if link["from"] == binding["from"] and link["to"] == role]
                 if len(links) != 1:
                     raise SystemExit(f"{capability['id']}: expected one link from {binding['from']} to {role}")
-                links[0]["relation"] = "signal"
-                links[0]["attributes"] = {"function": binding["function"]}
+                if spec.get("reviewed_routes"):
+                    # The link keeps the relation it was accepted with, and so
+                    # the identifiers of the routes the accepted graph selected.
+                    if links[0]["relation"] == "signal" or links[0].get("attributes"):
+                        raise SystemExit(f"{capability['id']}.{role}: no reviewed relation of its own to keep")
+                    if accepted_relations.setdefault(role, links[0]["relation"]) != links[0]["relation"]:
+                        raise SystemExit(f"{role}: the profile's capabilities were accepted with different relations")
+                else:
+                    links[0]["relation"] = "signal"
+                    links[0]["attributes"] = {"function": binding["function"]}
             patch = spec.get("capability", {})
             capability["description"] = restate(capability["id"], capability["description"], patch.get("description", []))
             for card in patch.get("implementations_remove", []):
@@ -1093,6 +1104,32 @@ class Domains:
                 # the capability cites what the board says of it and the rule.
                 if any(self.name(edge["to"]) == pin for found in routes.values() for edge in found):
                     extend(capability, [self.net_cite[pin], self.policy(extra[pin])])
+        for role, relation in accepted_relations.items():
+            kept = self.policy("reviewed_routes")
+            accepted = {(edge["from"], edge["to"]): edge for edge in self.value["edges"] if edge["relation"] == relation}
+            for edge in accepted.values():
+                # New routes of the relation are named as the accepted ones are.
+                if edge["id"] != f"{self.name(edge['from'])}.{relation}.{self.name(edge['to'])}":
+                    raise SystemExit(f"{edge['id']}: the accepted routes of {relation} are not named instance.relation.pad")
+            taken = {edge["id"] for edge in self.value["edges"]}
+            for route in routes[role]:
+                edge = accepted.get((route["from"], route["to"]))
+                if edge is None:
+                    edge = {"id": f"{self.name(route['from'])}.{relation}.{self.name(route['to'])}", "target": route["target"],
+                            "from": route["from"], "to": route["to"], "relation": relation,
+                            "conditions": dict(route["conditions"]), "evidence": []}
+                    if edge["id"] in taken:
+                        raise SystemExit(f"{edge['id']} already names another route")
+                    self.value["edges"].append(edge)
+                elif edge["conditions"] != route["conditions"]:
+                    raise SystemExit(f"{edge['id']} and {route['id']} hold under different conditions")
+                # The selector belongs to the descriptor route between the same ends.
+                alternate = route["attributes"]["alternate"]
+                if edge.setdefault("attributes", {}).setdefault("alternate", alternate) != alternate:
+                    raise SystemExit(f"{edge['id']} already states another alternate function")
+                extend(edge, [*route["evidence"], rule, kept])
+            for capability in capabilities:
+                extend(capability, [kept])
         for patch in spec["cards"]:
             card = find(self.value["implementations"], patch["card"])
             component = card["component"]
@@ -1105,7 +1142,7 @@ class Domains:
             for role, binding in spec["roles"].items():
                 component["bindings"][binding["binding"]] = {
                     "source": {"type": "route_attribute", "from": binding["from"], "to": role,
-                               "relation": "signal", "attribute": "alternate"},
+                               "relation": accepted_relations.get(role, "signal"), "attribute": "alternate"},
                     "map": dict(mapping),
                 }
             replaced = set()
@@ -1210,6 +1247,27 @@ class Domains:
         for records, identifier in ((self.value["capabilities"], spec["capability"]), (self.value["implementations"], spec["card"])):
             if any(record["id"] == identifier for record in records):
                 raise SystemExit(f"{identifier} already exists")
+        instance_role = {"id": spec["instance_role"], "kind": kind, "attributes": {}, "parameter_attributes": {}, "count": 1}
+        mode = spec.get("instance_mode")
+        if mode is not None:
+            # Capacity counts holders; it cannot keep two ways of holding one
+            # instance apart. Holders that name modes share only when equal.
+            if self.value["schema"] < 5:
+                raise SystemExit("ownership modes need graph schema 5")
+            if not spec.get("share_instance"):
+                raise SystemExit(f"{spec['capability']}: an ownership mode is for an instance the capability shares")
+            if not re.search(rf"(?<![A-Za-z0-9_]){re.escape(mode)}(?![A-Za-z0-9_])", self.policy_text("ownership_modes")):
+                raise SystemExit(f"{spec['capability']}: the policy does not name the ownership mode {mode}")
+            instance_role["mode"] = mode
+            evidence.append(self.policy("ownership_modes"))
+        if spec.get("share_instance"):
+            # A role that names no mode shares with every holder, so one
+            # unnamed holder beside a named one would undo the exclusion.
+            holders = self.shared_holders.setdefault(kind, {})
+            holders[spec["capability"]] = mode
+            if len(holders) > 1 and None in holders.values() and any(holders.values()):
+                unnamed = sorted(name for name, held in holders.items() if held is None)
+                raise SystemExit(f"{kind} is shared with ownership modes, but {unnamed} name none")
         card = {"id": spec["card"], "target": self.graph.target, "guidance": spec["guidance"],
                 "evidence": [*evidence, *cites], "edits": []}
         if "component" in spec:
@@ -1220,7 +1278,7 @@ class Domains:
             "id": spec["capability"], "target": self.graph.target, "description": spec["description"],
             "parameters": copy.deepcopy(spec.get("parameters", {})),
             "roles": [
-                {"id": spec["instance_role"], "kind": kind, "attributes": {}, "parameter_attributes": {}, "count": 1},
+                instance_role,
                 {"id": "pad", "kind": "pin", "attributes": dict(marker), "parameter_attributes": {}, "count": 1},
             ],
             "links": [{"from": spec["instance_role"], "to": "pad", "relation": "signal", "attributes": {"function": function}}],

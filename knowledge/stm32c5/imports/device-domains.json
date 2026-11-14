@@ -2,9 +2,9 @@
   "schema": 1,
   "sources": [
     {
-      "id": "policy-v7",
-      "path": "architecture/sources/bkpt-capability-policy-v7.txt",
-      "revision": "version 7 candidate",
+      "id": "policy-v8",
+      "path": "architecture/sources/bkpt-capability-policy-v8.txt",
+      "revision": "version 8 candidate",
       "authority": "bkpt_engineering_policy_candidate",
       "scope": "policy"
     },
@@ -213,9 +213,9 @@
     }
   ],
   "policy": {
-    "source": "policy-v7",
-    "label": "BKPT policy, version 7",
-    "evidence_prefix": "policy7",
+    "source": "policy-v8",
+    "label": "BKPT policy, version 8",
+    "evidence_prefix": "policy8",
     "lines": {
       "inventory": 4,
       "gpio_output": 10,
@@ -244,7 +244,9 @@
       "watchdog": 35,
       "earlier_texts": 36,
       "sdk_definitions": 37,
-      "source_scope": 38
+      "source_scope": 38,
+      "ownership_modes": 39,
+      "reviewed_routes": 40
     }
   },
   "board_rules": [
@@ -1233,7 +1235,8 @@
           }
         }
       ],
-      "earlier_through": 2
+      "earlier_through": 2,
+      "reviewed_routes": true
     }
   ],
   "allocations": [
@@ -1293,7 +1296,7 @@
         "channel_symbol"
       ],
       "description": "Allocate a pad routed to an external input of ADC1 for analog conversion written by the application. Allocation only: no code is generated; the converter is shared, one allocation per offered input. Not to be combined with analog_reading on the same converter. Pads that need the SBS pin remap are not offered.",
-      "guidance": "Allocation only; no component is generated. resource_bindings gives the converter's hal_instance and clock_enable_api, the pad's port_symbol, pin_symbol and clock_enable_api, and under routes the selected signal with its channel_symbol. The application enables the ADC module (USE_HAL_ADC_MODULE in generated/hal/stm32c5xx_hal_conf.h and stm32c5xx_drivers/hal/stm32c5xx_hal_adc.c in CMakeLists.txt), enables both clocks, initializes the pad with mode HAL_GPIO_MODE_ANALOG, and configures and reads the converter through the SDK ADC API in stm32c5xx_hal_adc.h starting from HAL_ADC_Init with the allocated hal_instance. The converter is one shared unit: sequencing of several inputs, sampling time, calibration, reference voltage and accuracy are application decisions. Internal channels, injected and differential conversion are not covered. Only the pad each input uses without the SBS pin remap is offered: PC4, PC5, PB0 and PB1 need the SBS pin remap and are excluded, so no remap is required. Not together with analog_reading on the same converter: its generated units own the converter's configuration, and the solver does not refuse the combination. No electrical or errata qualification.",
+      "guidance": "Allocation only; no component is generated. resource_bindings gives the converter's hal_instance and clock_enable_api, the pad's port_symbol, pin_symbol and clock_enable_api, and under routes the selected signal with its channel_symbol. The application enables the ADC module (USE_HAL_ADC_MODULE in generated/hal/stm32c5xx_hal_conf.h and stm32c5xx_drivers/hal/stm32c5xx_hal_adc.c in CMakeLists.txt), enables both clocks, initializes the pad with mode HAL_GPIO_MODE_ANALOG, and configures and reads the converter through the SDK ADC API in stm32c5xx_hal_adc.h starting from HAL_ADC_Init with the allocated hal_instance. The converter is one shared unit: sequencing of several inputs, sampling time, calibration, reference voltage and accuracy are application decisions. Internal channels, injected and differential conversion are not covered. Only the pad each input uses without the SBS pin remap is offered: PC4, PC5, PB0 and PB1 need the SBS pin remap and are excluded, so no remap is required. Not together with analog_reading on the same converter: its generated units own the converter's configuration. The two hold the converter in different ownership modes, so a request with both on one converter is refused, and the refusal names the converter under ownership_conflicts. No electrical or errata qualification.",
       "symbols": [
         [
           "adc-h",
@@ -1324,7 +1327,8 @@
           "HAL_SBS_REMAP_ADC_IN7_TO_PB1"
         ]
       ],
-      "share_instance": true
+      "share_instance": true,
+      "instance_mode": "application_driver"
     },
     {
       "capability": "pwm_output",
@@ -1660,7 +1664,7 @@
         "channel_symbol"
       ],
       "description": "Read one analog input of a covered converter on request: a generated unit per input with init and a blocking read that returns the 12-bit count, the pad voltage as a fraction of VREF+. The units share the converter and own its configuration, so every offered input may have one unit, and no analog input allocation may be used on the same converter beside them. Pads that need the SBS pin remap are not offered.",
-      "guidance": "Generated component. The first unit on a converter sets the ADC and DAC kernel clock to HCLK divided by 8 (18MHz in the captured 144MHz profile) before it enables the converter's bus clock, reads the clock configuration back, sets 12-bit resolution, software trigger and one conversion per request, activates the converter and runs its offset calibration; every unit on that converter shares the one handle, and each unit switches its own pad to analog mode. Use the returned interface; do not initialize the converter, its clock or the pad again. The units own the converter: do not combine them with an analog_input_pin allocation on the same converter. The solver does not refuse that combination, so the request must not make it. read converts once with the SDK's longest sampling time and returns counts 0..4095, right aligned: a fraction of VREF+, not volts, because the reference is not measured. Before each conversion the unit checks on the converter itself that it is enabled, idle and holds this input; it selects its input again when another is held, which stops, switches, starts and calibrates the converter, and it reports HAL_ERROR for good when the converter was stopped or is converting behind it. Every wait is the SDK's and is counted in HAL ticks, which must be advancing: 2ms for a conversion; on a switch 2ms each to stop, disable and enable and 228ms for calibration, about a quarter of a second in all before an error. One thread only, never from an interrupt. The same kernel clock feeds the DAC. No internal channels, injected or differential conversion, triggers, interrupts, DMA, oversampling or analog watchdog. PC4, PC5, PB0 and PB1 need the SBS pin remap and are excluded. Accuracy, source impedance and noise are not qualified; build is not a measurement.",
+      "guidance": "Generated component. The first unit on a converter sets the ADC and DAC kernel clock to HCLK divided by 8 (18MHz in the captured 144MHz profile) before it enables the converter's bus clock, reads the clock configuration back, sets 12-bit resolution, software trigger and one conversion per request, activates the converter and runs its offset calibration; every unit on that converter shares the one handle, and each unit switches its own pad to analog mode. Use the returned interface; do not initialize the converter, its clock or the pad again. The units own the converter: do not combine them with an analog_input_pin allocation on the same converter. The two hold the converter in different ownership modes, so a request that makes that combination is refused, and the refusal names the converter under ownership_conflicts. read converts once with the SDK's longest sampling time and returns counts 0..4095, right aligned: a fraction of VREF+, not volts, because the reference is not measured. Before each conversion the unit checks on the converter itself that it is enabled, idle and holds this input; it selects its input again when another is held, which stops, switches, starts and calibrates the converter, and it reports HAL_ERROR for good when the converter was stopped or is converting behind it. Every wait is the SDK's and is counted in HAL ticks, which must be advancing: 2ms for a conversion; on a switch 2ms each to stop, disable and enable and 228ms for calibration, about a quarter of a second in all before an error. One thread only, never from an interrupt. The same kernel clock feeds the DAC. No internal channels, injected or differential conversion, triggers, interrupts, DMA, oversampling or analog watchdog. PC4, PC5, PB0 and PB1 need the SBS pin remap and are excluded. Accuracy, source impedance and noise are not qualified; build is not a measurement.",
       "symbols": [
         [
           "adc-c",
@@ -1958,7 +1962,8 @@
             "analog-api-read"
           ]
         }
-      }
+      },
+      "instance_mode": "generated_units"
     },
     {
       "capability": "input_capture",

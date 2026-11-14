@@ -210,6 +210,21 @@ body in the SDK's C file, and the generator refuses a unit that calls a
 what a call does or how long it can take cites the lines of the body that
 say so.
 
+Capacity counts the holders of a shared instance; it cannot keep two ways of
+holding it apart. An allocation that shares its instance may therefore name
+an `instance_mode`, which becomes the `mode` of its role in schema 5: the
+firmware tool lets holders that name modes share a resource only when the
+modes are equal. The policy rule on ownership modes has to name the mode, and
+an instance kind that one capability holds with a mode and another without is
+refused, because a role that names none shares with everyone.
+
+A profile that widens a capability the accepted graph already published can
+say `reviewed_routes`. Its links then keep the relation they were accepted
+with, so a plan names the same routes as before. A pad admitted since gets a
+route of that relation, named as the accepted ones are, and every such route
+states the alternate function of the descriptor route between the same two
+ends. Without it a profile selects the descriptor routes themselves.
+
 The chip-specific inputs are `stm32c5/imports/device-inventory.json` and
 `device-domains.json`, together with the policy text the domains configuration
 cites line by line. A rule that is BKPT's own decision, such as which pads may be
@@ -283,6 +298,33 @@ chip; the failed start of the watchdog cannot be provoked there.
 
 Round 5 needs a firmware tool build that reads the `earlier` field. It is a
 candidate: it has no review record and the manifest does not name it.
+
+`stm32c5/candidates/device-coverage-r6/` replaces round 5 before any
+acceptance, under policy version 8. Two things differ, 21 records in all:
+
+- `analog_input_pin` and `analog_reading` name different ownership modes on
+  the converter. A request that takes both on one converter is refused in
+  either order, and the refusal names the converter and the two modes under
+  `ownership_conflicts`. Several reading units still share the converter, and
+  allocations alone are planned as on the accepted graph. The unit keeps its
+  own check of the converter, which is what stands against code outside the
+  graph.
+- The I2C capabilities select their routes by `scl_on` and `sda_on` again.
+  Since round 3 they had selected the descriptor routes, so every plan with
+  I2C named other routes than the accepted graph did, for the same pads. The
+  four accepted routes keep their identifiers and gain the alternate function
+  of their descriptor route; the five pads admitted since get routes named
+  the same way.
+
+A fixed suite of 662 requests was solved on the accepted graph and on round 6
+with one firmware tool build: all 476 requests the accepted graph plans get
+the same resource for every role, the same route identifiers and the same
+generated files; 12 of 12 combinations of the two analog capabilities are
+refused. No component template changed, and the firmware built from round 6
+for the four self-check applications is byte for byte the firmware that
+passed on the NUCLEO-C542RC in round 5, so those runs stand and none was
+repeated. Round 6 needs a firmware tool build that reads `earlier` and
+`mode`. It is a candidate: it has no review record.
 
 ## Licensing and third-party content
 

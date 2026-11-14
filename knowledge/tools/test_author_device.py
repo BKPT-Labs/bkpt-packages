@@ -193,6 +193,7 @@ def domains_under_test(functions=None, low=LOW, high=HIGH, table=TABLE):
     subject.sources, subject.value, subject.prefix, subject.conditions = sources, base, "PART", {}
     subject.policy_source = sources["policy"]
     subject.unbonded, subject.composed, subject.narrowed = set(), False, []
+    subject.shared_holders = {}
     subject.config = {
         "policy": {"source": "policy", "label": "Policy", "evidence_prefix": "policy3",
                    "lines": {"functions": 1, "requests": 2, "symbols": 3, "general": 4, "allocation": 5}},
@@ -347,6 +348,53 @@ class Allocations(unittest.TestCase):
                                        for pin in ("PA1", "PA2")]
         subject.route_marks()
         self.assertEqual(subject.allocation({**self.SPEC, "excluded_pads": ["PA2"]}), ["BUS1:PA1"])
+
+    def moded(self, schema=5, policy="Ownership modes: by_hand and by_units tell the holders apart.\n", **changes):
+        subject = domains_under_test()
+        subject.value["schema"] = schema
+        subject.sources["policy"] = subject.policy_source = source(POLICY + policy, "policy")
+        subject.config["policy"]["lines"]["ownership_modes"] = 6
+        subject.eligible = ["PA1", "PA2"]
+        subject.value["resources"] += [{"id": f"PART.{pin}", "kind": "pin", "attributes": {}, "evidence": []}
+                                       for pin in ("PA1", "PA2")]
+        subject.route_marks()
+        subject.allocation({**self.SPEC, "share_instance": True, **changes})
+        return subject
+
+    def test_a_shared_instance_is_held_in_the_mode_the_policy_names(self):
+        subject = self.moded(instance_mode="by_hand")
+        capability, card = subject.value["capabilities"][0], subject.value["implementations"][0]
+        self.assertEqual([role.get("mode") for role in capability["roles"]], ["by_hand", None])
+        self.assertIn("policy3-ownership_modes", capability["evidence"])
+        self.assertIn("policy3-ownership_modes", card["evidence"])
+        # Without a mode the role is what it always was.
+        plain = self.moded().value["capabilities"][0]
+        self.assertNotIn("mode", plain["roles"][0])
+        self.assertNotIn("policy3-ownership_modes", plain["evidence"])
+        for message, changes in (("does not name the ownership mode", {"instance_mode": "by_magic"}),
+                                 ("need graph schema 5", {"instance_mode": "by_hand", "schema": 4}),
+                                 ("is for an instance the capability shares", {"instance_mode": "by_hand", "share_instance": False})):
+            with self.assertRaises(SystemExit, msg=message) as refused:
+                self.moded(**changes)
+            self.assertIn(message, str(refused.exception))
+        # A name inside another word is not the mode.
+        with self.assertRaises(SystemExit):
+            self.moded(instance_mode="hand")
+
+    def test_every_capability_that_shares_a_moded_instance_names_a_mode(self):
+        second = {**self.SPEC, "capability": "bus_clock_unit", "card": "card.bus-unit", "share_instance": True}
+        subject = self.moded(instance_mode="by_hand")
+        subject.allocation({**second, "instance_mode": "by_units"})
+        self.assertEqual([capability["roles"][0]["mode"] for capability in subject.value["capabilities"]], ["by_hand", "by_units"])
+        # One holder without a mode would share with both and undo the exclusion, in either order.
+        with self.assertRaises(SystemExit) as refused:
+            self.moded(instance_mode="by_hand").allocation(second)
+        self.assertIn("['bus_clock_unit'] name none", str(refused.exception))
+        with self.assertRaises(SystemExit) as refused:
+            self.moded().allocation({**second, "instance_mode": "by_units"})
+        self.assertIn("['bus_clock_pin'] name none", str(refused.exception))
+        # Two capabilities that both name none share as they always did.
+        self.assertEqual(len(self.moded().allocation(second)), 2)
 
     def test_a_route_value_another_stage_wrote_is_never_replaced(self):
         def conflicting(subject):

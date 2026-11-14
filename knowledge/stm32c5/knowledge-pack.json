@@ -66,7 +66,8 @@
     "candidates/device-coverage-r2/candidate.json",
     "candidates/device-coverage-r3/candidate.json",
     "candidates/device-coverage-r4/candidate.json",
-    "candidates/device-coverage-r5/candidate.json"
+    "candidates/device-coverage-r5/candidate.json",
+    "candidates/device-coverage-r6/candidate.json"
   ],
   "previous": [
     {
