@@ -5,13 +5,15 @@
       "id": "board-description",
       "path": "architecture/sources/boards/stm32c542cc-lqfp48-declared-v2.json",
       "revision": "version 2, worked example",
-      "authority": "bkpt_declared_board_example"
+      "authority": "bkpt_declared_board_example",
+      "scope": "board"
     },
     {
       "id": "board-policy",
       "path": "architecture/sources/bkpt-board-policy-declared-v1.txt",
       "revision": "version 1 candidate",
-      "authority": "bkpt_engineering_policy_candidate"
+      "authority": "bkpt_engineering_policy_candidate",
+      "scope": "policy"
     }
   ],
   "policy": {

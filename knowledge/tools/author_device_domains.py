@@ -103,7 +103,7 @@ class Domains:
             if record.get("sha256", inventory.sha256(data)) != inventory.sha256(data):
                 raise SystemExit(f"source {record['id']} differs from the hash the configuration pins")
             pinned = {**record, "sha256": inventory.sha256(data)}
-            pinned = {key: pinned[key] for key in ("id", "path", "sha256", "revision", "authority")}
+            pinned = {key: pinned[key] for key in ("id", "path", "sha256", "revision", "authority")}  # scope is added last, for every source
             if any(existing["id"] == record["id"] for existing in self.value["sources"]):
                 raise SystemExit(f"source {record['id']} is already pinned")
             self.value["sources"].append(pinned)
@@ -111,6 +111,15 @@ class Domains:
         if len(self.value["sources"]) > inventory.LIMITS["sources"]:
             raise SystemExit(f"more than {inventory.LIMITS['sources']} sources; a later graph schema allows more")
         self.policy_source = sources[config["policy"]["source"]]
+        # What each source is about, as its author declares it: inline for a
+        # source this configuration or the board file pins, by identifier for
+        # a source of the reviewed graph or of the inventory stage.
+        self.declared_scopes = dict(config.get("base_source_scopes", {}))
+        for record in config["sources"]:
+            if "scope" in record:
+                if record["id"] in self.declared_scopes:
+                    raise SystemExit(f"source {record['id']} declares its scope twice")
+                self.declared_scopes[record["id"]] = record["scope"]
         pinout = sources[inventory_config["pinout"]["source"]]
         self.pads = {}
         for _, _, value, name in inventory.children(pinout, "die_pads"):
@@ -723,6 +732,75 @@ class Domains:
                 raise SystemExit(f"{service['id']}: nothing to add")
             extend(service, added)
 
+    SCOPES = ("device", "board", "sdk", "policy", "implementation")
+
+    def source_metadata(self):
+        """Schema 5: every source states what it is about. The scope is a
+        declaration of the configuration or the board file, never derived
+        from an identifier, a path or an authority; a source without one is
+        refused. The same declarations may correct the authority or revision
+        string a reviewed source was written with: metadata only, the bytes
+        and their hash stay as they are."""
+        if self.value["schema"] < 5:
+            if self.declared_scopes or self.config.get("source_authorities") or self.config.get("source_revisions"):
+                raise SystemExit("source scope and metadata corrections need graph schema 5")
+            return {}
+        known = {source["id"] for source in self.value["sources"]}
+        for key in ("source_authorities", "source_revisions"):
+            for identifier, text in self.config.get(key, {}).items():
+                if not text.strip() or len(text) > 256:
+                    raise SystemExit(f"{key}: {identifier} is given an empty or oversized value")
+        counts = {}
+        for source in self.value["sources"]:
+            scope = self.declared_scopes.get(source["id"])
+            if scope not in self.SCOPES:
+                raise SystemExit(f"source {source['id']} declares no scope of {', '.join(self.SCOPES)}")
+            source["authority"] = self.config.get("source_authorities", {}).get(source["id"], source["authority"])
+            source["revision"] = self.config.get("source_revisions", {}).get(source["id"], source["revision"])
+            source["scope"] = scope
+            counts[scope] = counts.get(scope, 0) + 1
+        if "source_scope" in self.config["policy"]["lines"]:
+            extend(self.target, [self.policy("source_scope")])
+        return counts
+
+    def cited_symbols(self, spec):
+        """Cite the SDK symbols a card names. An entry marked "definition" is
+        cited under an identifier of its own and must be a function with its
+        body, so that it cannot be mistaken for a prototype cited elsewhere."""
+        cited = []
+        for source_id, symbol, *marks in spec.get("symbols", []):
+            if marks not in ([], ["definition"]):
+                raise SystemExit(f"{spec['card']}: unknown mark {marks} on symbol {symbol}")
+            source = self.source(source_id)
+            if marks and inventory.declaration(source, symbol)[2] != "definition":
+                raise SystemExit(f"{spec['card']}: {symbol} is marked as a definition and {source_id} holds none")
+            cited.append(self.graph.cite_symbol("inv-def" if marks else "inv-api", source, symbol))
+        return cited
+
+    def reworded(self):
+        """Wording of a reviewed capability that claims more than its code
+        does, restated by exact replacement. The rule that asks for it is
+        cited."""
+        for spec in self.config.get("capability_restatements", []):
+            capability = find(self.value["capabilities"], spec["capability"])
+            capability["description"] = restate(capability["id"], capability["description"], spec["description"])
+            if "policy" in spec:
+                extend(capability, [self.policy(spec["policy"])])
+
+    def definitions(self, spec, generated):
+        """A unit that calls an SDK function cites that function where it is
+        defined: its preconditions, waits and return values are there and not
+        at its prototype. A call whose definition the card does not cite is
+        refused."""
+        cited = {}
+        for source_id, symbol, *_ in spec.get("symbols", []):
+            cited.setdefault(symbol, []).append(source_id)
+        for name in sorted(set(re.findall(r"\b(HAL_[A-Za-z0-9_]+)\s*\(", generated))):
+            kinds = [inventory.declaration(self.source(source_id), name)[2] for source_id in cited.get(name, [])]
+            if "definition" not in kinds:
+                raise SystemExit(f"{spec['card']}: the unit calls {name}; the card must cite its definition, "
+                                 f"not only {'a declaration' if kinds else 'the call'}")
+
     def supersede(self):
         """Older policy texts limit themselves to one part, package, board and
         a few pads. Records that still cite them for what they say about
@@ -742,7 +820,8 @@ class Domains:
         for spec in self.config.get("restatements", []):
             card = find(self.value["implementations"], spec["implementation"])
             card["guidance"] = restate(card["id"], card["guidance"], spec["guidance"])
-            extend(card, [self.policy(spec["policy"])])
+            if "policy" in spec:
+                extend(card, [self.policy(spec["policy"])])
 
     def service_restatements(self):
         """Target service wording a widening made untrue, restated by exact
@@ -957,6 +1036,9 @@ class Domains:
                             if resource["kind"] == record["kind"] and record["attributes"]
                             and all(resource["attributes"].get(key) == value
                                     for key, value in record["attributes"].items())]
+                # The role's domain as the reviewed graph searched it: its
+                # preferences first, then by identifier.
+                searched = [*record.get("prefer", []), *sorted(set(reviewed) - set(record.get("prefer", [])))]
                 joined = [link["relation"] for link in capability["links"]
                           if role in spec["roles"] and link["from"] == spec["roles"][role]["from"] and link["to"] == role]
                 if len(reviewed) > 1 and len(joined) == 1:
@@ -981,6 +1063,20 @@ class Domains:
                     self.narrowed.append(f"{capability['id']}.{role} has no reviewed first choice here")
                 else:
                     raise SystemExit(f"{capability['id']}.{role}: no single reviewed resource in the new domain to keep as first choice")
+                if "earlier_through" in spec:
+                    # The accepted graph of that revision gave the role this
+                    # domain. The engine searches it before it admits a
+                    # resource added since, so a request that graph could plan
+                    # keeps its plan. Only what is still a resource the role
+                    # can take is listed; a role that gained nothing lists none.
+                    if self.value["schema"] < 5:
+                        raise SystemExit("earlier role domains need graph schema 5")
+                    current = {resource["id"] for resource in self.value["resources"]
+                               if resource["kind"] == record["kind"]
+                               and all(resource["attributes"].get(key) == value for key, value in record["attributes"].items())}
+                    before = [name for name in searched if name in current]
+                    if before and set(before) != current:
+                        record["earlier"] = [{"through": spec["earlier_through"], "resources": before}]
             for role, binding in spec["roles"].items():
                 links = [link for link in capability["links"] if link["from"] == binding["from"] and link["to"] == role]
                 if len(links) != 1:
@@ -1022,7 +1118,8 @@ class Domains:
             card["guidance"] = restate(card["id"], card["guidance"], patch.get("guidance", []))
             for field, replacements in patch.get("interface", {}).items():
                 component["interface"][field] = restate(card["id"], component["interface"][field], replacements)
-            component.setdefault("interface_sources", {}).update(patch.get("interface_sources", {}))
+            if patch.get("interface_sources"):
+                component.setdefault("interface_sources", {}).update(patch["interface_sources"])
             for identifier in patch.get("evidence_remove", []):
                 card["evidence"].remove(identifier)
             symbols = [self.graph.cite_symbol("inv-api", self.source(source), symbol)
@@ -1106,7 +1203,7 @@ class Domains:
         if spec.get("share_instance"):
             for instance in sorted({edge["from"] for edge in found}):
                 find(self.value["resources"], instance)["capacity"] = len({edge["to"] for edge in found if edge["from"] == instance})
-        symbols = [self.graph.cite_symbol("inv-api", self.source(source), symbol) for source, symbol in spec.get("symbols", [])]
+        symbols = self.cited_symbols(spec)
         quoted = [self.graph.cite(entry["id"], self.source(entry["source"]), entry["start"], entry["end"], entry["statement"])
                   for entry in spec.get("cites", [])]
         evidence = [rule, general, *symbols, *quoted, *spec.get("evidence", [])]
@@ -1116,6 +1213,7 @@ class Domains:
         card = {"id": spec["card"], "target": self.graph.target, "guidance": spec["guidance"],
                 "evidence": [*evidence, *cites], "edits": []}
         if "component" in spec:
+            self.card_evidence = card["evidence"]
             card.update(self.component(spec, {spec["instance_role"]: {edge["from"] for edge in found},
                                               "pad": {edge["to"] for edge in found}}))
         self.value["capabilities"].append({
@@ -1159,7 +1257,7 @@ class Domains:
             links.append({"from": role, "to": spec["interrupt_role"], "relation": "raises_interrupt"})
         for instance in instances:
             extend(find(self.value["resources"], instance), [rule])
-        symbols = [self.graph.cite_symbol("inv-api", self.source(source), symbol) for source, symbol in spec.get("symbols", [])]
+        symbols = self.cited_symbols(spec)
         quoted = [self.graph.cite(entry["id"], self.source(entry["source"]), entry["start"], entry["end"], entry["statement"])
                   for entry in spec.get("cites", [])]
         evidence = [rule, *symbols, *quoted, *spec.get("evidence", [])]
@@ -1182,6 +1280,7 @@ class Domains:
             card["component"], card["edits"] = copy.deepcopy(like["component"]), copy.deepcopy(like["edits"])
             self.bindings({**spec, "parameters": parameters}, card["component"]["bindings"], ends)
         else:
+            self.card_evidence = card["evidence"]
             card.update(self.component(spec, ends))
         self.value["capabilities"].append({
             "id": spec["capability"], "target": self.graph.target, "description": spec["description"],
@@ -1288,6 +1387,10 @@ class Domains:
             self.source(templates[file["template"]]["source"]).excerpt(
                 templates[file["template"]]["start_line"], templates[file["template"]]["end_line"])
             for file in component["files"])
+        self.definitions(spec, generated)
+        if "sdk_definitions" in self.config["policy"]["lines"]:
+            # Set on the card by the caller: the rule this check enforces.
+            self.definition_rule = self.policy("sdk_definitions")
         for edit in component["edits"]:
             unbound = sorted(set(re.findall(r"\{\{([A-Za-z0-9_]+)\}\}", edit["new"])) - set(component["bindings"]))
             if unbound:
@@ -1298,7 +1401,8 @@ class Domains:
             for call in re.findall(r"\{\{[A-Za-z0-9_]+\}\}_[A-Za-z0-9_]+(?=\()", edit["new"]):
                 if call + "(" not in generated:
                     raise SystemExit(f"{card}: a shared edit calls {call}, which this component does not define")
-        return {"component": component, "edits": static}
+        return {"component": component, "edits": static,
+                **({"evidence": [*self.card_evidence, self.definition_rule]} if getattr(self, "definition_rule", None) else {})}
 
     def bindings(self, spec, bindings, ends):
         """Each value a template takes is one the allocation can always
@@ -1337,6 +1441,7 @@ class Domains:
 def run(graph, sources, summary, inventory_config, config, source_root):
     """The domains stage over a graph the inventory stage has filled."""
     inventory.use_schema(graph.value, config.get("graph_schema"))
+    graph.labels = dict(config.get("source_labels", {}))
     domains = Domains(graph, sources, inventory_config, config, source_root)
     domains.board()
     domains.foundation_pads()
@@ -1361,6 +1466,10 @@ def run(graph, sources, summary, inventory_config, config, source_root):
     domains.restatements()
     domains.service_restatements()
     domains.service_evidence()
+    domains.reworded()
+    scopes = domains.source_metadata()
+    if scopes:
+        summary["source_scopes"] = scopes
     domains.supersede()
     if domains.unbonded:
         summary["unbonded_signals"] = sorted(domains.unbonded)

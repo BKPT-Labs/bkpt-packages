@@ -5,13 +5,14 @@
       "id": "board-netlist",
       "path": "firmware/sources/st/c5/pack-2.1.0/netlist.json",
       "revision": "ST board pack 2.1.0; MB2213 B02",
-      "authority": "manufacturer_machine_readable"
+      "authority": "manufacturer_machine_readable",
+      "scope": "board"
     }
   ],
   "policy": {
-    "source": "policy-v6",
-    "label": "BKPT policy, version 6",
-    "evidence_prefix": "policy6",
+    "source": "policy-v7",
+    "label": "BKPT policy, version 7",
+    "evidence_prefix": "policy7",
     "lines": {
       "debug": 5,
       "clock": 6,

@@ -134,11 +134,14 @@ def declaration(source: Source, symbol: str):
     "definition": a function cited through the end of its body.
     A function is cited from its documentation comment when one ends on the
     line above. Only a comment block that closes on its own line counts, so a
-    trailing remark on a preprocessor line is never mistaken for one."""
+    trailing remark on a preprocessor line is never mistaken for one. A
+    sentence of a comment that names a function with empty parentheses and
+    goes on in words ("provides a NAME() function to ...") is not a
+    declaration."""
     name = re.escape(symbol)
     value = re.compile(rf"^\s*(?:#define\s+{name}\b|{name}\s*=)")
     function = re.compile(
-        rf"^(?!(?:{STATEMENT_KEYWORDS})\b)(?:__STATIC_INLINE\s+)?[A-Za-z_]\w*(?:\s+[A-Za-z_]\w*)*[\s\*]+{name}\s*\(")
+        rf"^(?!(?:{STATEMENT_KEYWORDS})\b)(?:__STATIC_INLINE\s+)?[A-Za-z_]\w*(?:\s+[A-Za-z_]\w*)*[\s\*]+{name}\s*\((?!\)\s+[A-Za-z])")
     matches = [(index + 1, bool(function.match(line)))
                for index, line in enumerate(source.lines) if value.match(line) or function.match(line)]
     if len(matches) != 1:
@@ -211,7 +214,17 @@ class Graph:
     def cite_symbol(self, prefix, source, symbol):
         start, end, kind = declaration(source, symbol)
         described = any("/*" in line for line in source.lines[start - 1:end])
-        if kind == "definition":
+        label = getattr(self, "labels", {}).get(source.id)
+        if label:
+            # A source that is not SDK code is called what it is, and a macro
+            # it defines is quoted with its value: a module switch that is
+            # cited as existing is otherwise read as switched on.
+            defined = re.search(r"#define\s+" + re.escape(symbol) + r"\s+(.+?)\s*(?:/\*.*)?$", source.lines[start - 1])
+            if defined:
+                statement = f"{label} defines {symbol} as {defined.group(1).strip()[:80]} on this line."
+            else:
+                statement = f"{label} declares {symbol} in these lines."
+        elif kind == "definition":
             statement = (f"SDK source documents and defines {symbol} in these lines." if described
                          else f"SDK source defines {symbol} in these lines.")
         elif kind == "prototype":

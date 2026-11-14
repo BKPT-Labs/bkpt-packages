@@ -1,0 +1,77 @@
+// SPDX-License-Identifier: LicenseRef-BKPT-Proprietary
+/*
+ * BKPT resource-bound initialization, adapted from ST HAL2 2.1.0 API contracts
+ * and STM32CubeC5 initialization examples. Manufacturer-derived portions:
+ * BSD 3-clause "New" or "Revised" License
+ * 
+ * Copyright (c) 2026, STMicroelectronics
+ * 
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ * 
+ *   * Redistributions of source code must retain the above copyright notice, this
+ *     list of conditions and the following disclaimer.
+ * 
+ *   * Redistributions in binary form must reproduce the above copyright notice,
+ *     this list of conditions and the following disclaimer in the documentation
+ *     and/or other materials provided with the distribution.
+ * 
+ *   * Neither the name of the STMicroelectronics nor the names of its contributors may
+ *     be used to endorse or promote products derived from this software without
+ *     specific prior written permission.
+ * 
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
+ * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+ * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+#ifndef {{unit}}_H
+#define {{unit}}_H
+#include "stm32_hal.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
+/* Independent watchdog {{watchdog_name}} with a nominal reset time of {{timeout_ms}} ms,
+ * counted from the low-speed internal oscillator. Generated init runs once
+ * after mx_system_init and only prepares the handle: the watchdog is not
+ * running until start is called.
+ */
+hal_status_t {{unit}}_init(void);
+/* Starts the watchdog. From then on the microcontroller is reset unless
+ * refresh is called again within the reset time, and the watchdog cannot be
+ * stopped or reconfigured before a reset. No window: a refresh is allowed at
+ * any time. HAL_BUSY when a start was already made. One thread only, never
+ * from an interrupt.
+ * The SDK enables the watchdog before it waits for the watchdog's registers
+ * to take the new values, and those waits can fail. When start returns
+ * anything but HAL_OK or HAL_BUSY the watchdog may therefore already be
+ * running, with a reset time that is not known: state then reports 2, a
+ * reset may follow, refresh still restarts the count, and start cannot be
+ * tried again.
+ */
+hal_status_t {{unit}}_start(void);
+/* Restarts the count. Callable from the owning thread or from an interrupt.
+ * HAL_ERROR before any start; after a start that failed the count is
+ * restarted all the same, because the watchdog may be running.
+ */
+hal_status_t {{unit}}_refresh(void);
+/* The reset time the driver set, in milliseconds of the nominal oscillator
+ * frequency. 0 before start. 0xFFFFFFFF after a start that failed: the
+ * watchdog may be running and its reset time is not known.
+ */
+uint32_t {{unit}}_timeout_ms(void);
+/* 0: not started. 1: running with the time timeout_ms reports. 2: a start
+ * failed; the watchdog may be running with a reset time that is not known.
+ */
+uint32_t {{unit}}_state(void);
+#ifdef __cplusplus
+}
+#endif
+#endif

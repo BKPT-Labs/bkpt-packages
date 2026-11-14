@@ -520,7 +520,7 @@ class Boards(unittest.TestCase):
         self.assertEqual(nucleo["policy"]["lines"], {"debug": 5, "clock": 6, "general": 7, "boot": 8, "console": 9, "user_button": 18,
                                                      "two_wire_header": 28})
         self.assertEqual((nucleo["policy"]["source"], nucleo["board"]["kind"], nucleo["board"]["source"]),
-                         ("policy-v6", "netlist", "board-netlist"))
+                         ("policy-v7", "netlist", "board-netlist"))
         for path in recipes:
             recipe = compose.load(path)
             config = compose.load(path.parent / recipe["domains"])
@@ -538,10 +538,38 @@ class Boards(unittest.TestCase):
     # Every checked-in recipe and the graph it composes to. A change of these
     # bytes is a change of what is published and is made here on purpose.
     COMPOSED = {
-        "stm32c5/targets/nucleo-c542rc.json": "30977ef02bf7246b636e59356eeed22944906550b83f11c0ae12ef4702b5cd36",
-        "stm32c5/targets/stm32c542cc-lqfp48-declared.json": "520e5de98443cf188aba8007db5909e62da33f040d5ba90767118010f3fec233",
-        "stm32c5/targets/stm32c542kc-lqfp32-declared.json": "6222dcd9c628bde188c74d058af0b05c72190ec71705ce2e9a6c086b13518249",
+        "stm32c5/targets/nucleo-c542rc.json": "eee22d6339611d99632c8092d9a21fbf5f3d2ea4fdd723f7ec79e5b69ab127eb",
+        "stm32c5/targets/stm32c542cc-lqfp48-declared.json": "36742f9a9749fde9c2e393969820ea557961c5677426098ebd00ecf93c14c4d2",
+        "stm32c5/targets/stm32c542kc-lqfp32-declared.json": "892bd50ae349cf9eb248039207678bc4d520a559821e2a5d7150c3dbbb1ec6f1",
     }
+
+    @unittest.skipUnless(os.environ.get("BKPT_KNOWLEDGE_SOURCE_ROOT"), "needs the pinned sources: set BKPT_KNOWLEDGE_SOURCE_ROOT")
+    def test_a_widened_role_lists_the_domain_the_accepted_graph_gave_it(self):
+        knowledge = pathlib.Path(__file__).resolve().parents[1]
+        graph, _ = compose.compose(knowledge / "stm32c5/targets/nucleo-c542rc.json",
+                                          pathlib.Path(os.environ["BKPT_KNOWLEDGE_SOURCE_ROOT"]))
+        accepted = json.loads((knowledge / "stm32c5/candidates/device-coverage-r2/accepted.json").read_bytes())
+        pins = [record for record in accepted["resources"] if record["kind"] == "pin"]
+        for name in ("i2c_controller_dma", "i2c_controller_operation"):
+            before = next(capability for capability in accepted["capabilities"] if capability["id"] == name)
+            after = next(capability for capability in graph.value["capabilities"] if capability["id"] == name)
+            for role in ("scl", "sda"):
+                was = next(entry for entry in before["roles"] if entry["id"] == role)
+                # What the accepted graph searched for this role: every pad its attributes select, by identifier.
+                domain = sorted(record["id"] for record in pins
+                                if all(record["attributes"].get(key) == value for key, value in was["attributes"].items()))
+                now = next(entry for entry in after["roles"] if entry["id"] == role)
+                self.assertEqual(now["earlier"], [{"through": 2, "resources": domain}], (name, role))
+                self.assertEqual(len(domain), 4)
+            # A role that gained nothing lists nothing.
+            self.assertNotIn("earlier", next(entry for entry in after["roles"] if entry["id"] == "bus"))
+        widened = [(capability["id"], role["id"]) for capability in graph.value["capabilities"]
+                   for role in capability["roles"] if "earlier" in role]
+        self.assertEqual(len(widened), 4)
+        self.assertEqual(graph.value["schema"], 5)
+        self.assertTrue(all(source.get("scope") in ("device", "board", "sdk", "policy", "implementation")
+                            for source in graph.value["sources"]))
+        self.assertEqual({source["id"] for source in graph.value["sources"] if source["scope"] == "board"}, {"board", "board-netlist"})
 
     @unittest.skipUnless(os.environ.get("BKPT_KNOWLEDGE_SOURCE_ROOT"), "needs the pinned sources: set BKPT_KNOWLEDGE_SOURCE_ROOT")
     def test_the_checked_in_recipes_compose_to_the_same_bytes(self):

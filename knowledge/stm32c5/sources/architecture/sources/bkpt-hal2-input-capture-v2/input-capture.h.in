@@ -1,0 +1,71 @@
+// SPDX-License-Identifier: LicenseRef-BKPT-Proprietary
+/*
+ * BKPT resource-bound initialization, adapted from ST HAL2 2.1.0 API contracts
+ * and STM32CubeC5 initialization examples. Manufacturer-derived portions:
+ * BSD 3-clause "New" or "Revised" License
+ * 
+ * Copyright (c) 2026, STMicroelectronics
+ * 
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ * 
+ *   * Redistributions of source code must retain the above copyright notice, this
+ *     list of conditions and the following disclaimer.
+ * 
+ *   * Redistributions in binary form must reproduce the above copyright notice,
+ *     this list of conditions and the following disclaimer in the documentation
+ *     and/or other materials provided with the distribution.
+ * 
+ *   * Neither the name of the STMicroelectronics nor the names of its contributors may
+ *     be used to endorse or promote products derived from this software without
+ *     specific prior written permission.
+ * 
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
+ * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+ * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+#ifndef {{unit}}_H
+#define {{unit}}_H
+#include "stm32_hal.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
+/* Period and high time of a digital signal on pad {{pad_name}}, measured by the
+ * allocated timer channel on request. The whole timer belongs to this unit:
+ * it counts microseconds, 1 MHz under the pinned 144 MHz timer clock, over a
+ * 16-bit period, captures both edges of the input, and uses the compare flag
+ * of the other of its first two channels as a half-turn mark; that channel
+ * drives no pad. Generated init runs once after mx_system_init; failure is
+ * fail-stop. The pad is switched to the timer by init with the selected pull
+ * ({{pull}}).
+ */
+hal_status_t {{unit}}_init(void);
+/* Waits for a rising edge, the falling edge after it and the next rising
+ * edge, then writes *period_us, rising edge to rising edge, and *high_us,
+ * rising edge to falling edge, in whole microseconds of the timer clock.
+ * timeout_ms, 1..60000, is counted on the same clock from the call: when
+ * the three edges have not occurred by then the call returns HAL_TIMEOUT,
+ * and an edge at or after the limit is not used. The call blocks and polls
+ * the timer. It must look at the timer at least every 32.768 ms to follow
+ * the 16-bit counter: when the thread is held longer than that between two
+ * looks the measurement may end with HAL_ERROR, and when it is held for
+ * 65.536 ms or longer it always does. Two edges closer together than the
+ * loop can follow also end it with HAL_ERROR, by the timer's overcapture
+ * flag or an edge found already waiting. A measurement is never completed
+ * from a count the unit could not follow. A held thread delays the return,
+ * also past the time limit, by the time it was held. One thread only, never
+ * from an interrupt. Outputs are written only with HAL_OK.
+ */
+hal_status_t {{unit}}_measure(uint32_t timeout_ms, uint32_t *period_us, uint32_t *high_us);
+#ifdef __cplusplus
+}
+#endif
+#endif

@@ -852,5 +852,104 @@ class Citations(unittest.TestCase):
             self.assertIn(message, str(refused.exception))
 
 
+SDK_C = """/**
+  * @brief Start the unit.
+  * @note  Only while the gate is off.
+  */
+hal_status_t HAL_UNIT_Start(void)
+{
+  return HAL_OK;
+}
+"""
+SDK_H = "hal_status_t HAL_UNIT_Start(void);\n#define USE_UNIT_MODULE      0U\n"
+
+
+class Scopes(unittest.TestCase):
+    """What a source is about is declared, and what a citation calls its source is true."""
+
+    def subject(self, schema=5, **config):
+        subject = domains_under_test()
+        subject.value.update(schema=schema, sources=[
+            {"id": "policy", "authority": "BKPT engineering policy", "revision": "candidate v1"},
+            {"id": "table", "authority": "STMicroelectronics", "revision": "r"}])
+        subject.target = {"evidence": []}
+        subject.config.update(config)
+        subject.declared_scopes = dict(config.get("base_source_scopes", {}))
+        return subject
+
+    def test_every_source_of_a_schema_5_graph_declares_one_of_the_scopes(self):
+        subject = self.subject(base_source_scopes={"policy": "policy", "table": "device"},
+                               source_authorities={"table": "manufacturer_document_text_extraction"},
+                               source_revisions={"table": "RM1 Rev 1, page 2"})
+        self.assertEqual(subject.source_metadata(), {"policy": 1, "device": 1})
+        self.assertEqual(subject.value["sources"][1], {"id": "table", "authority": "manufacturer_document_text_extraction",
+                                                       "revision": "RM1 Rev 1, page 2", "scope": "device"})
+        self.assertEqual(subject.value["sources"][0]["authority"], "BKPT engineering policy")
+        for scopes, message in (({"policy": "policy"}, "source table declares no scope"),
+                                ({"policy": "policy", "table": "chip"}, "source table declares no scope")):
+            with self.assertRaises(SystemExit) as refused:
+                self.subject(base_source_scopes=scopes).source_metadata()
+            self.assertIn(message, str(refused.exception))
+        with self.assertRaises(SystemExit) as refused:
+            self.subject(base_source_scopes={"policy": "policy", "table": "device"}, source_revisions={"table": " "}).source_metadata()
+        self.assertIn("empty or oversized", str(refused.exception))
+
+    def test_an_older_graph_schema_takes_no_scope(self):
+        self.assertEqual(self.subject(schema=4).source_metadata(), {})
+        with self.assertRaises(SystemExit) as refused:
+            self.subject(schema=4, base_source_scopes={"policy": "policy"}).source_metadata()
+        self.assertIn("need graph schema 5", str(refused.exception))
+
+    def test_a_symbol_citation_names_the_class_of_its_source_and_a_macro_value(self):
+        subject = domains_under_test()
+        header = source(SDK_H, "conf")
+        self.assertIn("SDK source declares USE_UNIT_MODULE", subject.graph.cite_symbol("a", header, "USE_UNIT_MODULE") and
+                      subject.value["evidence"][-1]["statement"])
+        subject.graph.labels = {"conf": "Captured configuration"}
+        subject.graph.cite_symbol("b", header, "USE_UNIT_MODULE")
+        self.assertEqual(subject.value["evidence"][-1]["statement"], "Captured configuration defines USE_UNIT_MODULE as 0U on this line.")
+        subject.graph.cite_symbol("b", header, "HAL_UNIT_Start")
+        self.assertEqual(subject.value["evidence"][-1]["statement"], "Captured configuration declares HAL_UNIT_Start in these lines.")
+
+    def test_a_unit_must_cite_the_definition_of_every_sdk_function_it_calls(self):
+        subject = domains_under_test()
+        subject.sources.update(body=source(SDK_C, "body"), head=source(SDK_H, "head"))
+        unit = "  if (HAL_UNIT_Start() != HAL_OK) { return; }\n  /* HAL_OK is not a call */\n"
+        subject.definitions({"card": "card.unit", "symbols": [["head", "HAL_UNIT_Start"], ["body", "HAL_UNIT_Start", "definition"]]}, unit)
+        for symbols, message in (([["head", "HAL_UNIT_Start"]], "must cite its definition, not only a declaration"),
+                                 ([], "must cite its definition, not only the call")):
+            with self.assertRaises(SystemExit) as refused:
+                subject.definitions({"card": "card.unit", "symbols": symbols}, unit)
+            self.assertIn(message, str(refused.exception))
+
+    def test_a_symbol_marked_as_a_definition_is_cited_under_its_own_identifier(self):
+        subject = domains_under_test()
+        subject.sources.update(body=source(SDK_C, "body"), head=source(SDK_H, "head"))
+        cited = subject.cited_symbols({"card": "card.unit", "symbols": [["head", "HAL_UNIT_Start"], ["body", "HAL_UNIT_Start", "definition"]]})
+        self.assertEqual(cited, ["inv-api-HAL_UNIT_Start", "inv-def-HAL_UNIT_Start"])
+        whole = domains.find(subject.value["evidence"], "inv-def-HAL_UNIT_Start")
+        # From the documentation comment, where the precondition is, to the end of the body.
+        self.assertEqual((whole["start_line"], whole["end_line"]), (1, 8))
+        for symbols, message in (([["head", "HAL_UNIT_Start", "definition"]], "marked as a definition and head holds none"),
+                                 ([["body", "HAL_UNIT_Start", "body"]], "unknown mark")):
+            with self.assertRaises(SystemExit) as refused:
+                subject.cited_symbols({"card": "card.unit", "symbols": symbols})
+            self.assertIn(message, str(refused.exception))
+
+    def test_a_sentence_that_names_a_function_is_not_its_declaration(self):
+        prose = "/* This subsection provides a HAL_UNIT_Start() function to start it. */\n" + SDK_C
+        self.assertEqual(inventory.declaration(source(prose, "body"), "HAL_UNIT_Start"), (2, 9, "definition"))
+
+    def test_a_reviewed_description_is_restated_by_exact_replacement(self):
+        subject = domains_under_test()
+        subject.value["capabilities"].append({"id": "copy", "description": "Copy with release proof.", "evidence": []})
+        subject.config["capability_restatements"] = [{"capability": "copy", "description": [["release proof", "a read-back check"]]}]
+        subject.reworded()
+        self.assertEqual(subject.value["capabilities"][0], {"id": "copy", "description": "Copy with a read-back check.", "evidence": []})
+        subject.config["capability_restatements"][0]["description"] = [["absent", "x"]]
+        with self.assertRaises(SystemExit):
+            subject.reworded()
+
+
 if __name__ == "__main__":
     unittest.main()

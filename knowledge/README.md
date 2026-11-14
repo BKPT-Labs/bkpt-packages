@@ -187,6 +187,29 @@ The bounds the firmware tool puts on a graph are mirrored in one table per
 schema in `author_device_inventory.py` and set for one run; the STM32C5 family
 asks for schema 5, because its graph pins more than 128 sources.
 
+In schema 5 a role can state the domain an earlier revision gave it. A profile
+that widens roles of an accepted graph carries `earlier_through` with that
+pack revision. The generator then lists on each widened role, as `earlier`,
+the resources the accepted graph searched for it, in that graph's search
+order. The firmware tool searches that domain before it admits a resource
+added since, so a request the accepted graph could plan keeps its plan. A
+role that gained nothing lists nothing.
+
+Every source of a schema 5 graph carries a `scope`: `device`, `board`, `sdk`,
+`policy` or `implementation`. The family configuration states it per source
+and a board file states it for its own sources. Nothing is inferred, and a
+source without one is refused. `source_authorities`, `source_revisions` and
+`source_labels` in the configuration give the sources one vocabulary for who
+stands behind a file and for how a citation names it, so that a captured
+configuration file is not called SDK source.
+
+A component card cites the definition of every SDK function its unit calls,
+not only the prototype. A symbol entry marked `definition` pins the function
+body in the SDK's C file, and the generator refuses a unit that calls a
+`HAL_` function whose definition its card does not cite. A statement about
+what a call does or how long it can take cites the lines of the body that
+say so.
+
 The chip-specific inputs are `stm32c5/imports/device-inventory.json` and
 `device-domains.json`, together with the policy text the domains configuration
 cites line by line. A rule that is BKPT's own decision, such as which pads may be
@@ -224,6 +247,42 @@ analog reading on PA0 and PA1, input capture on PA0 with TIM2, periodic
 interrupts on TIM1, TIM2 and TIM6, the CRC-32 unit against zlib and a watchdog
 reset. The checks stimulate the pads from inside the chip and are not a
 measurement of accuracy. Round 4 is a candidate too: it has no review record.
+
+`stm32c5/candidates/device-coverage-r5/` answers the two independent reviews
+of round 3, which both rejected it. Rounds 3 and 4 stay as packaged. It is
+written under policy version 7 and changes this:
+
+- SCL and SDA of the two I2C capabilities list the four pads the accepted
+  graph gave them as their earlier domain. A fixed suite of 555 requests was
+  solved on the accepted graph and on round 5 with one firmware tool build:
+  all 405 requests the accepted graph plans get the same resource for every
+  role.
+- Input capture, version 2 of the unit, counts counter wraps with a second
+  compare mark at half a turn, so a caller that polls late gets the right
+  duration or an error and never a wrong one, and it keeps its time limit on
+  the timer's own count.
+- Analog reading, version 3, checks on every read that the converter is
+  still enabled and still set to the unit's input. Its header states the
+  bounds the SDK's own timeouts give and that they need the HAL tick.
+  `analog_input_pin` and `analog_reading` must not be requested for one
+  converter: the policy and both cards say so, and the unit reports a foreign
+  stop as an error. The solver does not refuse the combination.
+- The independent watchdog, version 2, reports a start whose outcome is
+  unknown as a state of its own, in which refresh works and no timeout is
+  promised.
+- The SDK implementation files of the converter, the CRC unit and the
+  watchdog are pinned, and every precondition cites the function body.
+  Every source states its scope and authority.
+
+On the NUCLEO-C542RC the four self-check applications passed on the round 5
+builds. Input capture returned 119000 and 59000 counts for every one of eight
+measurements polled 20 ms late, an error when polled 70 ms late, and kept a
+1 ms limit within 1 ms. Analog reading corrected a foreign channel selection
+and reported a foreign stop. The checks stimulate the pads from inside the
+chip; the failed start of the watchdog cannot be provoked there.
+
+Round 5 needs a firmware tool build that reads the `earlier` field. It is a
+candidate: it has no review record and the manifest does not name it.
 
 ## Licensing and third-party content
 
