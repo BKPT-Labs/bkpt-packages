@@ -694,6 +694,35 @@ class Domains:
                 f"Clock descriptor element {value['id']} of type {value['type']} names {', '.join(value['clocked_instance'])} as clocked by it{detail}. What can be configured, not the captured configuration."))
         return [*cites, self.policy(spec["policy"])] if cites else []
 
+    def vectors(self):
+        """An interrupt cites the enumerator and the vector the inventory
+        transcribed for it. A reviewed record carried its symbols on other
+        evidence; the lines that show them are added, never replaced."""
+        added = 0
+        for record in self.value["resources"]:
+            if record["kind"] != "interrupt" or not record["id"].endswith(".irq"):
+                continue
+            name = self.name(record["id"])[:-len(".irq")]
+            held = [identifier for identifier in (f"inv-irq-{name}", f"inv-vector-{name}")
+                    if identifier in self.graph.evidence_ids and identifier not in record["evidence"]]
+            if held:
+                extend(record, held)
+                added += 1
+        return added
+
+    def service_evidence(self):
+        """Evidence a target service should cite and does not: a record the
+        graph already holds, or a rule of the policy. Nothing is restated."""
+        for spec in self.config.get("service_evidence", []):
+            service = find(self.target["services"], spec["service"])
+            missing = sorted(set(spec.get("evidence", [])) - self.graph.evidence_ids)
+            if missing:
+                raise SystemExit(f"{service['id']}: no evidence {missing}")
+            added = [*spec.get("evidence", []), *(self.policy(name) for name in spec.get("policy", []))]
+            if not added or all(identifier in service["evidence"] for identifier in added):
+                raise SystemExit(f"{service['id']}: nothing to add")
+            extend(service, added)
+
     def supersede(self):
         """Older policy texts limit themselves to one part, package, board and
         a few pads. Records that still cite them for what they say about
@@ -749,6 +778,9 @@ class Domains:
         self.pack(spec)
         entries = {entry.value["name"]: entry for entry in descriptor.parse(source)["peripherals"]}
         removed = self.removed(spec)
+        # What the limitations entry of this part says, cited by every instance
+        # a class covers "unless the part's limitations remove it".
+        self.limited = f"limited-{self.target['part']}"
         promoted, skipped = [], {}
         for cls in self.config["instance_classes"]:
             ip = cls["ip"]
@@ -805,7 +837,7 @@ class Domains:
         evidence += [self.graph.cite(
             f"described-{name}", description, block["start"], block["name_line"],
             f"Device description declares peripheral {name}{layout}. A layout statement, not proof of identical behaviour, clocks or errata."),
-            rule, *cls.get("evidence", []), *self.clocked(name)]
+            rule, *cls.get("evidence", []), *self.clocked(name), *([self.limited] if hasattr(self, "limited") else [])]
         attributes = dict(cls.get("attributes", {}))
         for attribute, (source_id, symbol, *agree) in cls["symbols"].items():
             attributes[attribute] = symbol.format(**fields)
@@ -960,6 +992,11 @@ class Domains:
             for card in patch.get("implementations_remove", []):
                 capability["implementations"].remove(card)
             extend(capability, [rule, general, instance_rule])
+            for pin in sorted(extra):
+                # A pad outside general allocation that this profile may take:
+                # the capability cites what the board says of it and the rule.
+                if any(self.name(edge["to"]) == pin for found in routes.values() for edge in found):
+                    extend(capability, [self.net_cite[pin], self.policy(extra[pin])])
         for patch in spec["cards"]:
             card = find(self.value["implementations"], patch["card"])
             component = card["component"]
@@ -1320,8 +1357,10 @@ def run(graph, sources, summary, inventory_config, config, source_root):
     if config.get("pad_capabilities"):
         summary["pad_capabilities"] = {spec["capability"]: domains.pad_capability(spec) for spec in config["pad_capabilities"]}
     summary["reservations"] = [domains.name(record["resource"]) for record in domains.target["reservations"]]
+    summary["interrupts_given_their_vector_lines"] = domains.vectors()
     domains.restatements()
     domains.service_restatements()
+    domains.service_evidence()
     domains.supersede()
     if domains.unbonded:
         summary["unbonded_signals"] = sorted(domains.unbonded)

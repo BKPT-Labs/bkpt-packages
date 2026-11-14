@@ -538,9 +538,9 @@ class Boards(unittest.TestCase):
     # Every checked-in recipe and the graph it composes to. A change of these
     # bytes is a change of what is published and is made here on purpose.
     COMPOSED = {
-        "stm32c5/targets/nucleo-c542rc.json": "14f3c48960f83d48c7f091c39eecc73cab4801a50153c81109cc02f00bdbf6ac",
-        "stm32c5/targets/stm32c542cc-lqfp48-declared.json": "db0fffb14bcbb2aec80e0faf004d0c7eadc1901df5faa534453924d3b2686290",
-        "stm32c5/targets/stm32c542kc-lqfp32-declared.json": "2cfb3de8ea81ea28112ae8aa80c8d87d4e49982a5d81b75e72ca5ad3ec64c027",
+        "stm32c5/targets/nucleo-c542rc.json": "6be437b4a4063a11a6837583b8ea6fb504693cde4db54dd0455f2e26ae797c5d",
+        "stm32c5/targets/stm32c542cc-lqfp48-declared.json": "854c3e08f06f4089108965ec7ded7fa25ab8647bb4c1590cc9dd1662366b0e8c",
+        "stm32c5/targets/stm32c542kc-lqfp32-declared.json": "3d57cf9fa81c8a4dde2e8ac9c689262b0cfdff4d83a1f9dda1cf4f497a747c96",
     }
 
     @unittest.skipUnless(os.environ.get("BKPT_KNOWLEDGE_SOURCE_ROOT"), "needs the pinned sources: set BKPT_KNOWLEDGE_SOURCE_ROOT")
@@ -639,6 +639,37 @@ class Boards(unittest.TestCase):
         with self.assertRaises(SystemExit) as refused:
             subject.foundation_pads()
         self.assertIn("OSC on PA1", str(refused.exception))
+
+
+class Positions(unittest.TestCase):
+    """A role that selects a pad by its package position means that pad."""
+
+    def positioned(self, moved_to=None):
+        subject = retargeted()
+        pad = next(record for record in subject.value["resources"] if record["id"] == "PART-C.PA1")
+        position = pad["attributes"]["package_position"]
+        subject.value["capabilities"].append({
+            "id": "at-position", "target": "NEW", "evidence": ["kept"], "parameters": {}, "implementations": ["card"],
+            "roles": [{"id": "pin", "kind": "pin", "attributes": {"package_position": position}}]})
+        subject.pads(source(SMALL), "P{port}{index}")
+        # What the inventory stage then writes from the new package's bonds.
+        pad["attributes"]["package_position"] = moved_to or position
+        return subject
+
+    def test_the_same_position_on_the_new_package_is_kept(self):
+        subject = self.positioned()
+        subject.settle()
+        self.assertEqual(subject.positional, {("at-position", "pin"): {"PA1"}})
+
+    def test_a_position_that_is_another_pad_or_none_on_the_new_package_is_refused(self):
+        with self.assertRaises(SystemExit) as refused:
+            self.positioned(moved_to="99").settle()
+        self.assertIn("at-position.pin selects by package position: it meant ['PA1']", str(refused.exception))
+
+    def test_a_role_another_stage_freed_from_its_position_is_not_held_to_it(self):
+        subject = self.positioned(moved_to="99")
+        subject.value["capabilities"][-1]["roles"][0]["attributes"] = {"allocation": "general"}
+        subject.settle()
 
 
 if __name__ == "__main__":

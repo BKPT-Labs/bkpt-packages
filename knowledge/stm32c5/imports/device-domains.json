@@ -181,7 +181,8 @@
       "channel_timer_update": 32,
       "gpio_input": 33,
       "crc_unit": 34,
-      "watchdog": 35
+      "watchdog": 35,
+      "earlier_texts": 36
     }
   },
   "board_rules": [
@@ -1222,7 +1223,7 @@
         "channel_symbol"
       ],
       "description": "Allocate a pad routed to an external input of ADC1 for analog conversion written by the application. Allocation only: no code is generated; the converter is shared, one allocation per offered input. Pads that need the SBS pin remap are not offered.",
-      "guidance": "Allocation only; no component is generated. resource_bindings gives the converter's hal_instance and clock_enable_api, the pad's port_symbol, pin_symbol and clock_enable_api, and under routes the selected signal with its channel_symbol. The application enables the ADC module (USE_HAL_ADC_MODULE in generated/hal/stm32c5xx_hal_conf.h and stm32c5xx_drivers/hal/stm32c5xx_hal_adc.c in CMakeLists.txt), enables both clocks, initializes the pad with mode HAL_GPIO_MODE_ANALOG, and configures and reads the converter through the SDK ADC API in stm32c5xx_hal_adc.h starting from HAL_ADC_Init with the allocated hal_instance. The converter is one shared unit: sequencing of several inputs, sampling time, calibration, reference voltage and accuracy are application decisions. Internal channels, injected and differential conversion are not covered. Only the pad each input uses at reset is offered: PC4, PC5, PB0 and PB1 need the SBS pin remap and are excluded, so no remap is required. No electrical or errata qualification.",
+      "guidance": "Allocation only; no component is generated. resource_bindings gives the converter's hal_instance and clock_enable_api, the pad's port_symbol, pin_symbol and clock_enable_api, and under routes the selected signal with its channel_symbol. The application enables the ADC module (USE_HAL_ADC_MODULE in generated/hal/stm32c5xx_hal_conf.h and stm32c5xx_drivers/hal/stm32c5xx_hal_adc.c in CMakeLists.txt), enables both clocks, initializes the pad with mode HAL_GPIO_MODE_ANALOG, and configures and reads the converter through the SDK ADC API in stm32c5xx_hal_adc.h starting from HAL_ADC_Init with the allocated hal_instance. The converter is one shared unit: sequencing of several inputs, sampling time, calibration, reference voltage and accuracy are application decisions. Internal channels, injected and differential conversion are not covered. Only the pad each input uses without the SBS pin remap is offered: PC4, PC5, PB0 and PB1 need the SBS pin remap and are excluded, so no remap is required. No electrical or errata qualification.",
       "symbols": [
         [
           "adc-h",
@@ -1272,7 +1273,7 @@
         "compare_unit_symbol"
       ],
       "description": "One edge-aligned PWM output on a covered channel timer and a pad one of its channels is routed to. The frequency is one of the exact divisions of the pinned 144MHz timer clock; duty is set at run time in thousandths of the period. Generated component with init, start, set duty and stop. The whole timer belongs to the output.",
-      "guidance": "Generated component owns the timer handle, the time base, one compare unit in PWM mode 1 with preload, the channel and the pad. Use the returned interface; do not initialize the timer, the channel or the pad again. Supports only the listed frequencies at the captured 144MHz kernel clock: each has an exact prescaler and period, the period is at least 1000 counts and full duty fits a 16-bit compare register. Duty is thousandths of the period rounded down to a whole count; the duty in force from a period boundary on is the last one written before it. The first period after a start can be shorter at the pad, never longer. start and stop belong to one thread; set duty may also run in an interrupt. Active high, counting up, internal clock; no dithering, complementary output, dead time, break input, one-pulse or any other channel of the timer. On a timer with a break function the SDK sets the main output enable when the channel starts. The level of the pad while stopped is not established. Init verifies the clock and register factors; dynamic clock changes are outside the contract. Build is not a measurement of frequency, duty or edge quality.",
+      "guidance": "Generated component owns the timer handle, the time base, one compare unit in PWM mode 1 with preload, the channel and the pad. Use the returned interface; do not initialize the timer, the channel or the pad again. Supports only the listed frequencies at the captured 144MHz kernel clock: each has an exact prescaler and period, the period is at least 1000 counts and full duty fits a 16-bit compare register. Duty is thousandths of the period rounded down to a whole count; the duty in force from a period boundary on is the last one written before it. The first period after a start can be shorter at the pad; that it is not longer follows from the order of the calls and is not measured. start and stop belong to one thread; set duty may also run in an interrupt. Active high, counting up, internal clock; no dithering, complementary output, dead time, break input, one-pulse or any other channel of the timer. On a timer with a break function the SDK sets the main output enable when the channel starts. The level of the pad while stopped is not established. Init verifies the clock and register factors; dynamic clock changes are outside the contract. Build is not a measurement of frequency, duty or edge quality.",
       "parameters": {
         "frequency_hz": {
           "type": "choice",
@@ -1530,7 +1531,7 @@
         "claims": [],
         "interface": {
           "setup": "Already initialized after mx_system_init. Header bkpt_components/{{unit}}.h; private timer handle, time base, compare unit, channel and pad. No manual timer, channel or GPIO setup.",
-          "start": "{{unit}}_start(duty_permille), 0..1000: checked HAL_OK restarts the counter and then enables the nominal {{frequency_hz}}Hz output, so the first period at the pad can be shorter than a full one and every later period is whole. One thread only, never from an interrupt; fails while running.",
+          "start": "{{unit}}_start(duty_permille), 0..1000: checked HAL_OK restarts the counter and then enables the nominal {{frequency_hz}}Hz output, so the first period at the pad can be shorter than a full one; later periods are whole by the timer's own counting, which is not measured. One thread only, never from an interrupt; fails while running.",
           "set_duty": "{{unit}}_set_duty(duty_permille), 0..1000, rounded down to a whole count of the {{period}}+1 count period: checked HAL_OK; the duty in force from a period boundary on is the last one written before it. Fails unless running. Owning thread or an interrupt; an interrupt that preempts start or stop gets a failure until start has finished and from the moment stop begins.",
           "stop": "{{unit}}_stop(): checked HAL_OK stops the output, then the counter; idempotent when stopped. One thread only, never from an interrupt.",
           "scope": "Exact factors and run-time clock/register checks for the pinned 144MHz profile. Active high, edge aligned. No clock changes, complementary outputs, dead time, break inputs, other channels, DMA or measured timing. The pad level while stopped is not established.",
@@ -2462,6 +2463,20 @@
           "gpio-c",
           "HAL_GPIO_ReadPin"
         ]
+      ]
+    }
+  ],
+  "service_evidence": [
+    {
+      "service": "hal-timebase",
+      "evidence": [
+        "system-startup-complete"
+      ]
+    },
+    {
+      "service": "startup-ownership",
+      "policy": [
+        "earlier_texts"
       ]
     }
   ]

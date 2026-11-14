@@ -820,5 +820,37 @@ class Internal(unittest.TestCase):
         inventory.use_schema({"schema": 4}, None)
 
 
+class Citations(unittest.TestCase):
+    """Evidence a record should carry and a reviewed base did not give it."""
+
+    def test_an_interrupt_cites_the_enum_and_vector_lines_the_inventory_holds(self):
+        subject = domains_under_test()
+        subject.value["resources"] += [
+            {"id": "PART.FIRST.irq", "kind": "interrupt", "attributes": {}, "evidence": ["reviewed"]},
+            {"id": "PART.SECOND.irq", "kind": "interrupt", "attributes": {}, "evidence": ["inv-irq-SECOND"]},
+            {"id": "PART.THIRD.irq", "kind": "interrupt", "attributes": {}, "evidence": ["reviewed"]}]
+        for identifier in ("inv-irq-FIRST", "inv-vector-FIRST", "inv-irq-SECOND"):
+            subject.graph.cite(identifier, subject.sources["table"], 1, 1, "Transcribed.")
+        self.assertEqual(subject.vectors(), 1)
+        cited = {record["id"]: record["evidence"] for record in subject.value["resources"] if record["kind"] == "interrupt"}
+        self.assertEqual(cited, {"PART.FIRST.irq": ["reviewed", "inv-irq-FIRST", "inv-vector-FIRST"],
+                                 "PART.SECOND.irq": ["inv-irq-SECOND"], "PART.THIRD.irq": ["reviewed"]})
+
+    def test_a_service_is_given_evidence_the_graph_holds_or_a_rule(self):
+        def given(**spec):
+            subject = domains_under_test()
+            subject.target = {"services": [{"id": "clock", "evidence": ["reviewed"]}]}
+            subject.graph.cite("startup", subject.sources["table"], 1, 1, "Start-up.")
+            subject.config["service_evidence"] = [{"service": "clock", **spec}]
+            subject.service_evidence()
+            return subject.target["services"][0]["evidence"]
+        self.assertEqual(given(evidence=["startup"], policy=["general"]), ["reviewed", "startup", "policy3-general"])
+        for message, spec in (("no evidence ['absent']", {"evidence": ["absent"]}), ("nothing to add", {}),
+                              ("nothing to add", {"evidence": []})):
+            with self.assertRaises(SystemExit, msg=spec) as refused:
+                given(**spec)
+            self.assertIn(message, str(refused.exception))
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -172,6 +172,12 @@ class Retarget:
 
         before = {(capability["id"], role["id"]): selected(role)
                   for capability in self.value["capabilities"] for role in capability["roles"]}
+        # A position is a fact of one package. A role that selects by it is
+        # remembered with the pads it meant, and held to them in settle().
+        self.positional = {key: {identifier.split(".", 1)[1] for identifier in pads}
+                           for key, pads in before.items() if pads is not None and "package_position" in next(
+                               role for capability in self.value["capabilities"] if capability["id"] == key[0]
+                               for role in capability["roles"] if role["id"] == key[1])["attributes"]}
         gone = set()
         for record in self.value["resources"]:
             if record["kind"] != "pin":
@@ -241,6 +247,16 @@ class Retarget:
         """After every stage ran: add the replacements they made citable, drop
         sources nothing cites any more, and refuse a record without a source.
         A record that left the graph takes its pending replacements with it."""
+        for (capability_id, role_id), meant in getattr(self, "positional", {}).items():
+            role = next((role for capability in self.value["capabilities"] if capability["id"] == capability_id
+                         for role in capability["roles"] if role["id"] == role_id), None)
+            if role is None or "package_position" not in (role.get("attributes") or {}):
+                continue
+            now = {record["attributes"]["pin"] for record in self.value["resources"] if record["kind"] == "pin"
+                   and all(record["attributes"].get(key) == value for key, value in role["attributes"].items())}
+            if now != meant:
+                raise SystemExit(f"{capability_id}.{role_id} selects by package position: it meant {sorted(meant)} and on this "
+                                 f"package the same position is {sorted(now)}; the recipe must drop or revise it")
         known = {record["id"] for record in self.value["evidence"]}
         for key, holder in holders(self.value):
             for identifier in self.pending.get(key, []):
