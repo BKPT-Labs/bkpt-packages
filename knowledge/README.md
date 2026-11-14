@@ -23,9 +23,9 @@ and trace components and is unchanged.
 | [`stm32c5`](stm32c5/knowledge-pack.json) | STM32C542RCT6, LQFP64, NUCLEO-C542RC, STM32 HAL2 2.1.0 | Development |
 
 The STM32C5 package covers the exact part, package, board and SDK version named
-in its manifest. It contains 14 scoped capability profiles (for example a managed
-SPI DMA transfer or a periodic timer interrupt). That is not 14 fully supported
-peripherals and not coverage of the whole STM32C5 family.
+in its manifest. It contains 17 scoped capability profiles (for example a managed
+SPI DMA transfer, a PWM output or a periodic timer interrupt). That is not 17
+fully supported peripherals and not coverage of the whole STM32C5 family.
 
 ## What a package contains
 
@@ -34,13 +34,13 @@ Using `stm32c5/` as the example:
 | Path | Contents |
 | --- | --- |
 | `knowledge-pack.json` | The package manifest: target identity, input files with their hashes, and declared coverage |
-| `architecture/` | The reviewed capability graph (`accepted.json`), its review record, and the manifest of the project foundation it builds on |
+| `architecture/` | The first reviewed capability graph (`accepted.json`), its review record and foundation manifest. The manifest's `inputs.architecture` names the graph that is active now |
 | `catalog/` | BKPT-authored knowledge and import declarations, component source and templates |
 | `imports/` | Declarations that pin the manufacturer device descriptors and driver packs the package was derived from |
 | `sources/` | BKPT-authored source snapshots that the reviewed graph cites |
 | `source-inputs.json` | Every file the package refers to, BKPT-authored or external, with its exact hash |
 | `tests/` | Host-side checks of the component adapters |
-| `candidates/` | A newer reviewed graph kept apart from the default one. Listing it in the manifest does not activate it |
+| `candidates/` | Newer reviewed graphs, each in its own folder. One becomes the default only when the manifest's `inputs.architecture` names it |
 | `pending/` | Paused, incomplete research. See below |
 
 ## How much to trust what you read
@@ -166,8 +166,10 @@ manufacturer statement.
 NUCLEO-C542RC: 17 capability profiles on top of the reviewed workflow-efficiency
 graph. It is accepted: `accepted.json` holds the reviewed bytes and
 `accepted.review.json` binds them to an independent data review and an
-independent regression review. It is not the pack's active architecture input
-yet, so installing the pack does not use it.
+independent regression review. Since pack revision 2 it is the pack's active
+architecture input: `inputs.architecture` in the manifest names it, and the
+graph of revision 1 stays at `architecture/accepted.json`, listed under
+`previous`.
 
 ## Licensing and third-party content
 
