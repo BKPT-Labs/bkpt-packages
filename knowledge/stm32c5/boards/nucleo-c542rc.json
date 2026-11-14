@@ -9,16 +9,17 @@
     }
   ],
   "policy": {
-    "source": "policy-v5",
-    "label": "BKPT policy, version 5",
-    "evidence_prefix": "policy5",
+    "source": "policy-v6",
+    "label": "BKPT policy, version 6",
+    "evidence_prefix": "policy6",
     "lines": {
       "debug": 5,
       "clock": 6,
       "general": 7,
       "boot": 8,
       "console": 9,
-      "user_button": 18
+      "user_button": 18,
+      "two_wire_header": 28
     }
   },
   "board": {
@@ -66,6 +67,12 @@
     "uart_transfer_operation": {
       "PA2": "console",
       "PA3": "console"
+    },
+    "i2c_controller_dma": {
+      "PB9": "two_wire_header"
+    },
+    "i2c_controller_operation": {
+      "PB9": "two_wire_header"
     }
   },
   "assumption": "General allocation follows the board netlist: solder-bridge state, connector use and external circuits are not verified."

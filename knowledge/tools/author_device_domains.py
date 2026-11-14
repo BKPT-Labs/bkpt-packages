@@ -42,8 +42,8 @@ def extend(record, evidence):
     for identifier in evidence:
         if identifier not in record["evidence"]:
             record["evidence"].append(identifier)
-    if len(record["evidence"]) > 64:
-        raise SystemExit(f"{record['id']} cites more than 64 sources")
+    if len(record["evidence"]) > inventory.LIMITS["citations"]:
+        raise SystemExit(f"{record['id']} cites more than {inventory.LIMITS['citations']} sources")
 
 
 def restate(owner, text, replacements):
@@ -108,8 +108,8 @@ class Domains:
                 raise SystemExit(f"source {record['id']} is already pinned")
             self.value["sources"].append(pinned)
             sources[record["id"]] = inventory.Source(pinned, source_root)
-        if len(self.value["sources"]) > 128:
-            raise SystemExit("more than 128 sources")
+        if len(self.value["sources"]) > inventory.LIMITS["sources"]:
+            raise SystemExit(f"more than {inventory.LIMITS['sources']} sources; a later graph schema allows more")
         self.policy_source = sources[config["policy"]["source"]]
         pinout = sources[inventory_config["pinout"]["source"]]
         self.pads = {}
@@ -175,7 +175,7 @@ class Domains:
                 raise SystemExit("assumption to restate not found exactly once")
             self.target["assumptions"][self.target["assumptions"].index(old)] = new
         self.target["assumptions"].append(self.config["assumption"])
-        if len(self.target["assumptions"]) > 16:
+        if len(self.target["assumptions"]) > inventory.LIMITS["assumptions"]:
             raise SystemExit("too many target assumptions")
 
     def reserve(self, pin, record, evidence):
@@ -349,8 +349,8 @@ class Domains:
         values.extend(pin for pin in pins if pin not in values)
         if not values:
             raise SystemExit(f"{capability['id']}: no choice is left for {parameter}")
-        if len(values) > 128:
-            raise SystemExit("choice domain exceeds 128 values")
+        if len(values) > inventory.LIMITS["choices"]:
+            raise SystemExit(f"choice domain exceeds {inventory.LIMITS['choices']} values")
 
     def gpio_output(self):
         spec = self.config["gpio_output"]
@@ -656,11 +656,43 @@ class Domains:
             name = pathlib.PurePosixPath(find(self.value["sources"], spec[key])["path"]).name
             if not re.search(rf'schemaType="{kind}" path="[^"]*/{re.escape(name)}"', family):
                 raise SystemExit(f"the pack does not give {part} the {kind} descriptor {name}")
+        clock = self.config.get("clock_descriptor")
+        if clock:
+            name = pathlib.PurePosixPath(find(self.value["sources"], clock["source"])["path"]).name
+            if not re.search(rf'schemaType="clock" path="[^"]*/{re.escape(name)}"', block):
+                raise SystemExit(f"the pack does not give {part} the clock descriptor {name}")
         if spec["die_in_path"].format(die=pinout["die_name"]) not in find(self.value["sources"], spec["source"])["path"]:
             raise SystemExit(f"this package is die {pinout['die_name']}; the peripherals descriptor is for another die")
         self.graph.cite(f"pack-variant-{part}", pack, variant, close,
                         f"Pack description declares variant {part} with its package and pinout descriptor.")
         extend(self.target, [f"pack-variant-{part}"])
+
+    def clocked(self, name):
+        """What the manufacturer's clock descriptor says feeds an instance:
+        every clock element that names it, cited with its inputs and limit.
+        The descriptor states what can be configured, never what is."""
+        spec = self.config.get("clock_descriptor")
+        if not spec:
+            return []
+        if not hasattr(self, "clock_elements"):
+            source = self.source(spec["source"])
+            self.clock_elements = (source, list(descriptor.parse(source)["tree"]["elements"]))
+        source, elements = self.clock_elements
+        cites = []
+        for element in elements:
+            value = element.value
+            if name not in value.get("clocked_instance", []):
+                continue
+            if element.end - element.start >= inventory.LIMITS["excerpt_lines"]:
+                raise SystemExit(f"clock element {value['id']} is longer than one citation may be")
+            inputs = [entry["label"] for entry in value.get("possible_Input", [])]
+            detail = f" with the inputs {', '.join(inputs)}" if inputs else ""
+            if "max" in value:
+                detail += f" and a highest value of {value['max']}"
+            cites.append(self.graph.cite(
+                f"clock-{value['id']}", source, element.start, element.end,
+                f"Clock descriptor element {value['id']} of type {value['type']} names {', '.join(value['clocked_instance'])} as clocked by it{detail}. What can be configured, not the captured configuration."))
+        return [*cites, self.policy(spec["policy"])] if cites else []
 
     def supersede(self):
         """Older policy texts limit themselves to one part, package, board and
@@ -725,15 +757,24 @@ class Domains:
                 if value.get("peripheralType") not in ip["types"] or value.get("digitalName") != ip["digitalName"]:
                     continue
                 identifiers = {signal["id"] for signal in value.get("pinout_signals", [])}
-                if not identifiers & set(cls.get("needs_signals", identifiers or {None})):
+                internal = bool(cls.get("internal"))
+                if not internal and not identifiers & set(cls.get("needs_signals", identifiers or {None})):
                     continue
                 if value.get("peripheralVersionNum") not in ip["versions"]:
                     skipped[name] = f"IP version {value.get('peripheralVersionNum')} is not covered"
                 elif name in removed:
                     skipped[name] = "removed for this part"
-                elif f"{self.prefix}.{name}" not in self.graph.resource_ids:
+                elif f"{self.prefix}.{name}" not in self.graph.resource_ids and not internal:
                     skipped[name] = "no signal of it is bonded in this package"
                 else:
+                    if f"{self.prefix}.{name}" not in self.graph.resource_ids:
+                        # A class used without any pad exists on every package of
+                        # the die, so the descriptor's declaration is its record.
+                        self.graph.resource(
+                            f"{self.prefix}.{name}", self.config["device_description"]["unpromoted_kind"], {"instance": name},
+                            self.conditions, [self.graph.cite(
+                                f"declared-{name}", source, entry["name"].start, entry["peripheralVersionNum"].end,
+                                f"Peripherals descriptor declares {name} with type {value['peripheralType']} and IP version {value['peripheralVersionNum']}.")])
                     self.promote(name, cls, entry, source)
                     promoted.append(name)
         return promoted, skipped
@@ -764,7 +805,7 @@ class Domains:
         evidence += [self.graph.cite(
             f"described-{name}", description, block["start"], block["name_line"],
             f"Device description declares peripheral {name}{layout}. A layout statement, not proof of identical behaviour, clocks or errata."),
-            rule, *cls.get("evidence", [])]
+            rule, *cls.get("evidence", []), *self.clocked(name)]
         attributes = dict(cls.get("attributes", {}))
         for attribute, (source_id, symbol, *agree) in cls["symbols"].items():
             attributes[attribute] = symbol.format(**fields)
@@ -786,8 +827,17 @@ class Domains:
             return found[0].value["source"], cite
 
         if "interrupt" in cls:
-            interrupt, cite = link("interrupt", cls["interrupt"])
-            self.interrupt(name, interrupt, block, description, record, rule, [cite])
+            # A class may name its interrupt by several descriptor signals, in
+            # order: one instance has a vector of its own for an event that
+            # another instance of the same IP raises on its only vector.
+            wanted = cls["interrupt"] if isinstance(cls["interrupt"], list) else [cls["interrupt"]]
+            declared = {item.value["ip_signal"] for item in entry["interconnect"] if item.value["type"] == "interrupt"}
+            present = [signal for signal in wanted if signal in declared]
+            if not present:
+                raise SystemExit(f"{name}: the descriptor declares none of the interrupts {wanted}")
+            interrupt, cite = link("interrupt", present[0])
+            self.interrupt(name, interrupt, block, description, record,
+                           self.policy(cls["interrupt_policy"]) if "interrupt_policy" in cls else rule, [cite])
         for direction, signal in cls.get("requests", {}).items():
             request, cite = link("dma request", signal)
             self.request(name, direction, request, [cite])
@@ -813,12 +863,13 @@ class Domains:
                 match = re.fullmatch(spec["id"], signal.value["id"])
                 if not match:
                     continue
-                marks = {key: template.format(*match.groups()) for key, template in spec["attributes"].items()}
+                marks = {key: template.format(*match.groups(), instance=name) for key, template in spec["attributes"].items()}
                 cites = [self.graph.cite(
                     f"declared-signal-{signal.value['name']}", source, signal.start, signal.end,
                     f"Peripherals descriptor declares signal {signal.value['name']} of {name} with identifier {signal.value['id']}."), mark_rule]
                 for key, (source_id, agree) in spec.get("symbols", {}).items():
-                    cites.append(self.symbol("inv-mark", source_id, marks[key], signal.value["name"], agree.format(*match.groups())))
+                    cites.append(self.symbol("inv-mark", source_id, marks[key], signal.value["name"],
+                                             agree.format(*match.groups(), instance=name)))
                 self.mark(signal.value["name"], marks, cites)
 
     def profile(self, spec):
@@ -844,6 +895,8 @@ class Domains:
             if stray:
                 raise SystemExit(f"function {binding['function']} is routed from uncovered instances {stray}")
             found = [edge for edge in found if self.name(edge["to"]) in allowed]
+            if "pad_requires" in spec:
+                found = [edge for edge in found if self.structured(self.name(edge["to"]), spec["pad_requires"], rule)]
             if not found:
                 raise SystemExit(f"no allowed route carries {binding['function']}")
             routes[role] = found
@@ -872,12 +925,25 @@ class Domains:
                             if resource["kind"] == record["kind"] and record["attributes"]
                             and all(resource["attributes"].get(key) == value
                                     for key, value in record["attributes"].items())]
+                joined = [link["relation"] for link in capability["links"]
+                          if role in spec["roles"] and link["from"] == spec["roles"][role]["from"] and link["to"] == role]
+                if len(reviewed) > 1 and len(joined) == 1:
+                    # Roles that select by the same pad attribute are told apart
+                    # by the reviewed route that reaches each pad.
+                    reached = {edge["to"] for edge in self.value["edges"]
+                               if edge["relation"] == joined[0] and edge["from"] in covered}
+                    reviewed = [name for name in reviewed if name in reached]
                 record["attributes"] = {} if role == instance["role"] else dict(marker)
                 kept = [name for name in reviewed
                         if all(find(self.value["resources"], name)["attributes"].get(key) == value
                                for key, value in record["attributes"].items())]
-                if len(reviewed) == 1 and kept:
+                if reviewed and len(kept) == len(reviewed):
                     record["prefer"] = kept
+                elif self.composed and kept:
+                    # Some reviewed choices are not available on this package or board.
+                    record["prefer"] = kept
+                    lost = ", ".join(self.name(name) for name in reviewed if name not in kept)
+                    self.narrowed.append(f"{capability['id']}.{role} lost the reviewed choices {lost}")
                 elif self.composed and len(reviewed) <= 1:
                     # The reviewed first choice is not available on this package or board.
                     self.narrowed.append(f"{capability['id']}.{role} has no reviewed first choice here")
@@ -928,6 +994,32 @@ class Domains:
         return {role: sorted({f"{self.name(edge['from'])}:{self.name(edge['to'])}" for edge in found})
                 for role, found in routes.items()}
 
+
+    def structured(self, pin, required, rule):
+        """Whether the pinout descriptor gives a pad the I/O structure option
+        a profile requires. A pad that has it cites the lines that say so."""
+        if not hasattr(self, "pad_lines"):
+            pinout = self.source(self.config["peripherals"]["pinout"])
+            self.pad_lines = {}
+            for start, end, value, _ in inventory.children(pinout, "die_pads"):
+                if value["type"] == "gpio":
+                    self.pad_lines[self.pad_name(value)] = (pinout, start, end, value)
+        pinout, start, end, value = self.pad_lines[pin]
+        structure = value.get("io_structure", {})
+        if required["option"] not in structure.get("options", []):
+            return False
+        meaning = [(start, end, text) for start, end, text, key in inventory.children(pinout, "io_structure_options_description")
+                   if key == required["option"]]
+        if len(meaning) != 1:
+            raise SystemExit(f"the pinout descriptor does not describe the I/O structure option {required['option']}")
+        described = self.graph.cite(
+            f"pad-structure-option-{required['option']}", pinout, meaning[0][0], meaning[0][1],
+            f"Pinout descriptor describes the I/O structure option {required['option']} as: {meaning[0][2]}.")
+        cite = self.graph.cite(
+            f"pad-structure-{pin}", pinout, start, end,
+            f"Pinout descriptor gives pad {pin} the I/O structure {structure.get('type')} with options {', '.join(structure['options'])}. A declared structure, not a measured drive strength.")
+        extend(self.resource(pin), [cite, described, rule])
+        return True
 
     def allocation(self, spec):
         """A capability that allocates an instance and a routed pad without
@@ -987,7 +1079,8 @@ class Domains:
         card = {"id": spec["card"], "target": self.graph.target, "guidance": spec["guidance"],
                 "evidence": [*evidence, *cites], "edits": []}
         if "component" in spec:
-            card.update(self.component(spec, found))
+            card.update(self.component(spec, {spec["instance_role"]: {edge["from"] for edge in found},
+                                              "pad": {edge["to"] for edge in found}}))
         self.value["capabilities"].append({
             "id": spec["capability"], "target": self.graph.target, "description": spec["description"],
             "parameters": copy.deepcopy(spec.get("parameters", {})),
@@ -1002,7 +1095,127 @@ class Domains:
         self.value["implementations"].append(card)
         return sorted({f"{self.name(edge['from'])}:{self.name(edge['to'])}" for edge in found})
 
-    def component(self, spec, routes):
+    def instance_capability(self, spec):
+        """A capability that takes one whole instance of a class and no pad:
+        a unit that runs inside the chip, such as a time base, a watchdog or a
+        checksum unit. With an interrupt role the instance must raise exactly
+        one interrupt the graph records, and the capability takes that vector
+        with it. Everything else is as for an allocation with a component."""
+        rule = self.policy(spec["policy"])
+        kind, role = spec["instance_kind"], spec["instance_role"]
+        instances = sorted(record["id"] for record in self.value["resources"] if record["kind"] == kind)
+        if not instances:
+            raise SystemExit(f"{spec['capability']}: no {kind} instance")
+        ends = {role: set(instances)}
+        roles = [{"id": role, "kind": kind, "attributes": {}, "parameter_attributes": {}, "count": 1}]
+        links = []
+        if "interrupt_role" in spec:
+            raised = {}
+            for instance in instances:
+                found = [edge["to"] for edge in self.value["edges"]
+                         if edge["from"] == instance and edge["relation"] == "raises_interrupt"]
+                if len(found) != 1:
+                    raise SystemExit(f"{spec['capability']}: {self.name(instance)} raises {len(found)} recorded interrupts, not one")
+                raised[instance] = found[0]
+            ends[spec["interrupt_role"]] = set(raised.values())
+            roles.append({"id": spec["interrupt_role"], "kind": "interrupt", "attributes": {}, "parameter_attributes": {}, "count": 1})
+            links.append({"from": role, "to": spec["interrupt_role"], "relation": "raises_interrupt"})
+        for instance in instances:
+            extend(find(self.value["resources"], instance), [rule])
+        symbols = [self.graph.cite_symbol("inv-api", self.source(source), symbol) for source, symbol in spec.get("symbols", [])]
+        quoted = [self.graph.cite(entry["id"], self.source(entry["source"]), entry["start"], entry["end"], entry["statement"])
+                  for entry in spec.get("cites", [])]
+        evidence = [rule, *symbols, *quoted, *spec.get("evidence", [])]
+        for records, identifier in ((self.value["capabilities"], spec["capability"]), (self.value["implementations"], spec["card"])):
+            if any(record["id"] == identifier for record in records):
+                raise SystemExit(f"{identifier} already exists")
+        card = {"id": spec["card"], "target": self.graph.target, "guidance": spec["guidance"],
+                "evidence": list(evidence), "edits": []}
+        if "route_attributes" in spec:
+            raise SystemExit(f"{spec['card']}: a capability without a pad has no route to read")
+        parameters = copy.deepcopy(spec.get("parameters", {}))
+        if "like" in spec:
+            # The same reviewed component on another class of instance: its
+            # parameters, unit and integration edits are taken whole, and
+            # every value its templates read must exist on the new instances.
+            if "component" in spec or "parameters" in spec:
+                raise SystemExit(f"{spec['card']}: a card like a reviewed one takes its component and parameters from it")
+            like = find(self.value["implementations"], spec["like"]["card"])
+            parameters = copy.deepcopy(find(self.value["capabilities"], spec["like"]["capability"])["parameters"])
+            card["component"], card["edits"] = copy.deepcopy(like["component"]), copy.deepcopy(like["edits"])
+            self.bindings({**spec, "parameters": parameters}, card["component"]["bindings"], ends)
+        else:
+            card.update(self.component(spec, ends))
+        self.value["capabilities"].append({
+            "id": spec["capability"], "target": self.graph.target, "description": spec["description"],
+            "parameters": parameters, "roles": roles, "links": links,
+            "implementations": [spec["card"]], "parameter_constraints": [], "domain_complete": False,
+            "closure_evidence": [], "evidence": list(evidence),
+        })
+        self.value["implementations"].append(card)
+        return [self.name(instance) for instance in instances]
+
+    def pad_capability(self, spec):
+        """A capability that takes one pad eligible for general allocation and
+        generates nothing: the card states how the application uses the pad
+        through the SDK, as the reviewed GPIO output card does."""
+        rule, general = self.policy(spec["policy"]), self.policy("general")
+        pins = list(self.eligible)
+        if not pins:
+            raise SystemExit(f"{spec['capability']}: no pad is eligible")
+        for pin in pins:
+            record = self.resource(pin)
+            record["attributes"].update(spec["pad_attribute"])
+            extend(record, [rule])
+        symbols = [self.graph.cite_symbol("inv-api", self.source(source), symbol) for source, symbol in spec.get("symbols", [])]
+        evidence = [rule, general, *symbols, *spec.get("evidence", [])]
+        for records, identifier in ((self.value["capabilities"], spec["capability"]), (self.value["implementations"], spec["card"])):
+            if any(record["id"] == identifier for record in records):
+                raise SystemExit(f"{identifier} already exists")
+        parameters = copy.deepcopy(spec.get("parameters", {}))
+        if "pin" in parameters:
+            raise SystemExit(f"{spec['capability']}: the pad choice is added here")
+        parameters = {"pin": {"type": "choice", "values": pins}, **parameters}
+        if len(pins) > inventory.LIMITS["choices"]:
+            raise SystemExit(f"choice domain exceeds {inventory.LIMITS['choices']} values")
+        self.value["capabilities"].append({
+            "id": spec["capability"], "target": self.graph.target, "description": spec["description"],
+            "parameters": parameters,
+            "roles": [{"id": "pin", "kind": "pin", "attributes": dict(spec["pad_attribute"]),
+                       "parameter_attributes": {"pin": "pin"}, "count": 1}],
+            "links": [], "implementations": [spec["card"]], "parameter_constraints": [], "domain_complete": False,
+            "closure_evidence": [], "evidence": list(evidence),
+        })
+        self.value["implementations"].append({"id": spec["card"], "target": self.graph.target, "guidance": spec["guidance"],
+                                              "evidence": list(evidence), "edits": []})
+        return len(pins)
+
+    def static_edits(self, spec):
+        """Integration edits a component needs that no reviewed card writes
+        yet, such as switching on an SDK module nothing used before. Each one
+        names the pinned foundation file it changes: that file must be the
+        bytes the reviewed edits of the same path are pinned to, and hold the
+        text to replace exactly once."""
+        edits = []
+        for edit in spec.get("static_edits", []):
+            pinned = {existing["expected_sha256"] for card in self.value["implementations"]
+                      for existing in [*card["edits"], *card.get("component", {}).get("edits", [])]
+                      if existing["path"] == edit["path"]}
+            if len(pinned) != 1:
+                raise SystemExit(f"{spec['card']}: no single reviewed hash for {edit['path']}")
+            record = find(self.value["sources"], edit["source"])
+            if record["sha256"] not in pinned:
+                raise SystemExit(f"{spec['card']}: source {edit['source']} is not the file the reviewed edits of {edit['path']} are pinned to")
+            source = self.source(edit["source"])
+            if source.excerpt(1, len(source.lines)).count(edit["old"]) != 1:
+                raise SystemExit(f"{spec['card']}: {edit['path']} does not hold the text to replace exactly once: {edit['old'][:60]!r}")
+            if edit["mode"] not in ("replace", "insert_before"):
+                raise SystemExit(f"{spec['card']}: unknown edit mode {edit['mode']}")
+            edits.append({"path": edit["path"], "expected_sha256": record["sha256"], "old": edit["old"],
+                          "new": edit["new"], "mode": edit["mode"]})
+        return edits
+
+    def component(self, spec, ends):
         """A generated unit for an allocation. Its integration edits are not
         written a second time: they are the edits of a reviewed card, taken
         unchanged, so two cards that need the same module agree byte for byte
@@ -1014,11 +1227,12 @@ class Domains:
         card, shared = spec["card"], spec["edits_from"]
         like = find(self.value["implementations"], shared["card"])
         static = []
-        for text in shared["static"]:
+        for text in shared.get("static", []):
             edits = [edit for edit in like["edits"] if text in edit["new"]]
             if len(edits) != 1:
                 raise SystemExit(f"{card}: expected one edit of {shared['card']} that writes {text!r}, found {len(edits)}")
             static.append(copy.deepcopy(edits[0]))
+        static += self.static_edits(spec)
         component = copy.deepcopy(spec["component"])
         if "edits" in component:
             raise SystemExit(f"{card}: a component takes its integration edits from a reviewed card")
@@ -1029,7 +1243,7 @@ class Domains:
         missing = sorted(set(cited) - set(templates))
         if missing:
             raise SystemExit(f"{card}: no template evidence {missing}")
-        self.bindings(spec, component["bindings"], routes)
+        self.bindings(spec, component["bindings"], ends)
         # The shared edits compile a file, include a header and call a
         # function of the unit: this unit must generate and define them.
         paths = {file["path"] for file in component["files"]}
@@ -1049,10 +1263,10 @@ class Domains:
                     raise SystemExit(f"{card}: a shared edit calls {call}, which this component does not define")
         return {"component": component, "edits": static}
 
-    def bindings(self, spec, bindings, routes):
-        """Each value a template takes is one the allocation can always supply."""
+    def bindings(self, spec, bindings, ends):
+        """Each value a template takes is one the allocation can always
+        supply: `ends` gives, for every role, the resources it may be given."""
         card, parameters = spec["card"], spec.get("parameters", {})
-        ends = {spec["instance_role"]: "from", "pad": "to"}
         for name, binding in bindings.items():
             source, table = binding["source"], binding.get("map")
             kind = source["type"]
@@ -1067,12 +1281,12 @@ class Domains:
             elif kind == "resource_attribute":
                 if source["role"] not in ends:
                     raise SystemExit(f"{card}: binding {name} reads a role the allocation does not have")
-                lacking = sorted({self.name(edge[ends[source["role"]]]) for edge in routes
-                                  if source["attribute"] not in find(self.value["resources"], edge[ends[source["role"]]])["attributes"]})
+                lacking = sorted(self.name(identifier) for identifier in ends[source["role"]]
+                                 if source["attribute"] not in find(self.value["resources"], identifier)["attributes"])
                 if lacking:
                     raise SystemExit(f"{card}: binding {name} needs {source['attribute']}, which {lacking} do not have")
             elif kind == "route_attribute":
-                if (source["from"], source["to"], source["relation"]) != (spec["instance_role"], "pad", "signal"):
+                if "pad" not in ends or (source["from"], source["to"], source["relation"]) != (spec["instance_role"], "pad", "signal"):
                     raise SystemExit(f"{card}: binding {name} reads a route the allocation does not have")
                 if source["attribute"] not in spec["route_attributes"]:
                     raise SystemExit(f"{card}: binding {name} reads {source['attribute']}, which the allocation does not require of every route")
@@ -1085,6 +1299,7 @@ class Domains:
 
 def run(graph, sources, summary, inventory_config, config, source_root):
     """The domains stage over a graph the inventory stage has filled."""
+    inventory.use_schema(graph.value, config.get("graph_schema"))
     domains = Domains(graph, sources, inventory_config, config, source_root)
     domains.board()
     domains.foundation_pads()
@@ -1099,6 +1314,11 @@ def run(graph, sources, summary, inventory_config, config, source_root):
         summary["instances_not_promoted"] = skipped
     summary["profiles"] = [domains.profile(spec) for spec in config["profiles"]]
     summary["allocations"] = {spec["capability"]: domains.allocation(spec) for spec in config.get("allocations", [])}
+    if config.get("instance_capabilities"):
+        summary["instance_capabilities"] = {spec["capability"]: domains.instance_capability(spec)
+                                            for spec in config["instance_capabilities"]}
+    if config.get("pad_capabilities"):
+        summary["pad_capabilities"] = {spec["capability"]: domains.pad_capability(spec) for spec in config["pad_capabilities"]}
     summary["reservations"] = [domains.name(record["resource"]) for record in domains.target["reservations"]]
     domains.restatements()
     domains.service_restatements()

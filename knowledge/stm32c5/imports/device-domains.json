@@ -2,9 +2,9 @@
   "schema": 1,
   "sources": [
     {
-      "id": "policy-v5",
-      "path": "architecture/sources/bkpt-capability-policy-v5.txt",
-      "revision": "version 5 candidate",
+      "id": "policy-v6",
+      "path": "architecture/sources/bkpt-capability-policy-v6.txt",
+      "revision": "version 6 candidate",
       "authority": "bkpt_engineering_policy_candidate"
     },
     {
@@ -78,12 +78,48 @@
       "path": "architecture/sources/bkpt-hal2-pwm-v1/pwm-rates.json",
       "revision": "version 1 candidate",
       "authority": "bkpt_engineering_policy_candidate"
+    },
+    {
+      "id": "clock-descriptor",
+      "path": "architecture/sources/stm32c5-dfp-2.1.0/clock/STM32C542(C-K-R)C(T-U)x_clock.json",
+      "revision": "ST DFP 2.1.0; exact-byte copy of the clock descriptor of the installed pack",
+      "authority": "manufacturer_machine_readable"
+    },
+    {
+      "id": "datasheet-adc",
+      "path": "architecture/sources/documents/DS15135-rev2-pages76-77-adc-extracted.txt",
+      "revision": "DS15135 Rev 2, pages 76 and 77",
+      "authority": "manufacturer_document_text_extraction"
+    },
+    {
+      "id": "analog-reading-h-source",
+      "path": "architecture/sources/bkpt-hal2-analog-reading-v1/analog-reading.h.in",
+      "revision": "version 1 candidate",
+      "authority": "BKPT authored integration artifact"
+    },
+    {
+      "id": "analog-reading-c-source",
+      "path": "architecture/sources/bkpt-hal2-analog-reading-v1/analog-reading.c.in",
+      "revision": "version 1 candidate",
+      "authority": "BKPT authored integration artifact"
+    },
+    {
+      "id": "input-capture-h-source",
+      "path": "architecture/sources/bkpt-hal2-input-capture-v1/input-capture.h.in",
+      "revision": "version 1 candidate",
+      "authority": "BKPT authored integration artifact"
+    },
+    {
+      "id": "input-capture-c-source",
+      "path": "architecture/sources/bkpt-hal2-input-capture-v1/input-capture.c.in",
+      "revision": "version 1 candidate",
+      "authority": "BKPT authored integration artifact"
     }
   ],
   "policy": {
-    "source": "policy-v5",
-    "label": "BKPT policy, version 5",
-    "evidence_prefix": "policy5",
+    "source": "policy-v6",
+    "label": "BKPT policy, version 6",
+    "evidence_prefix": "policy6",
     "lines": {
       "inventory": 4,
       "gpio_output": 10,
@@ -99,7 +135,15 @@
       "backup_domain": 21,
       "supersedes": 22,
       "foundation_pads": 23,
-      "pwm_output": 24
+      "pwm_output": 24,
+      "i2c_functions": 25,
+      "i2c_instances": 26,
+      "i2c_pins": 27,
+      "kernel_clocks": 29,
+      "analog_reading": 30,
+      "input_capture": 31,
+      "channel_timer_update": 32,
+      "gpio_input": 33
     }
   },
   "board_rules": [
@@ -108,7 +152,8 @@
     "general",
     "boot",
     "console",
-    "user_button"
+    "user_button",
+    "two_wire_header"
   ],
   "general_attribute": {
     "allocation": "general"
@@ -224,6 +269,54 @@
       "start": 66,
       "end": 66,
       "statement": "Exact source-bound PWM API declaration."
+    },
+    {
+      "id": "analog-reading-h",
+      "source": "analog-reading-h-source",
+      "statement": "Authored analog reading header: one single-ended input of a shared converter, read on request. Not manufacturer evidence."
+    },
+    {
+      "id": "analog-reading-c",
+      "source": "analog-reading-c-source",
+      "statement": "Authored analog reading unit: converter bring-up shared by every unit on the converter, channel selection while stopped, one polled conversion per read, through the SDK ADC, RCC and GPIO interfaces. Not manufacturer evidence."
+    },
+    {
+      "id": "analog-api-init",
+      "source": "analog-reading-h-source",
+      "start": 49,
+      "end": 49,
+      "statement": "Exact source-bound analog reading API declaration."
+    },
+    {
+      "id": "analog-api-read",
+      "source": "analog-reading-h-source",
+      "start": 61,
+      "end": 61,
+      "statement": "Exact source-bound analog reading API declaration."
+    },
+    {
+      "id": "input-capture-h",
+      "source": "input-capture-h-source",
+      "statement": "Authored input capture header: period and high time of a signal on the allocated timer channel and pad. Not manufacturer evidence."
+    },
+    {
+      "id": "input-capture-c",
+      "source": "input-capture-c-source",
+      "statement": "Authored input capture unit with a private handle: a microsecond time base, capture of both edges on the channel's own pin and a polled measurement with overflow and overcapture handling, through the SDK timer and GPIO interfaces. Not manufacturer evidence."
+    },
+    {
+      "id": "capture-api-init",
+      "source": "input-capture-h-source",
+      "start": 48,
+      "end": 48,
+      "statement": "Exact source-bound input capture API declaration."
+    },
+    {
+      "id": "capture-api-measure",
+      "source": "input-capture-h-source",
+      "start": 60,
+      "end": 60,
+      "statement": "Exact source-bound input capture API declaration."
     }
   ],
   "device_description": {
@@ -348,8 +441,32 @@
               "compare unit {0}"
             ]
           }
+        },
+        {
+          "id": "CH([1-4])",
+          "policy": "input_capture",
+          "attributes": {
+            "capture_unit_symbol": "HAL_TIM_IC_CAPTURE_UNIT_{0}",
+            "input_source_symbol": "HAL_TIM_INPUT_{instance}_TI{0}_GPIO",
+            "channel_number": "{0}"
+          },
+          "symbols": {
+            "capture_unit_symbol": [
+              "tim-h",
+              "capture unit {0}"
+            ],
+            "input_source_symbol": [
+              "tim-h",
+              "{instance}_CH{0}"
+            ]
+          }
         }
-      ]
+      ],
+      "interrupt": [
+        "UPD",
+        "GLOBAL"
+      ],
+      "interrupt_policy": "channel_timer_update"
     },
     {
       "kind": "analog_converter",
@@ -516,6 +633,59 @@
         "functions": {
           "TX": "uart_tx",
           "RX": "uart_rx"
+        }
+      }
+    },
+    {
+      "kind": "two_wire",
+      "policy": "i2c_instances",
+      "ip": {
+        "types": [
+          "i2c"
+        ],
+        "digitalName": "c7amba_i2c2",
+        "versions": [
+          2.1
+        ]
+      },
+      "bus_clock": {
+        "APB1": "PCLK1"
+      },
+      "symbols": {
+        "hal_instance": [
+          "i2c-h",
+          "HAL_{instance}",
+          "{instance}_BASE"
+        ],
+        "clock_enable_api": [
+          "rcc-h",
+          "HAL_RCC_{instance}_EnableClock",
+          "PERIPH_{instance}"
+        ],
+        "kernel_clock_api": [
+          "rcc-c",
+          "HAL_RCC_{instance}_SetKernelClkSource",
+          "hal_rcc_{lower}_clk_src_t"
+        ],
+        "kernel_clock_source": [
+          "rcc-h",
+          "HAL_RCC_{instance}_CLK_SRC_{bus_clock}",
+          "{instance} kernel clock"
+        ]
+      },
+      "attributes": {
+        "ownership_policy": "exclusive"
+      },
+      "requests": {
+        "rx": "rx",
+        "tx": "tx"
+      },
+      "roles": {
+        "policy": "i2c_functions",
+        "protocol": "I2C",
+        "functions": {
+          "SCL": "i2c_scl",
+          "SDA": "i2c_sda"
         }
       }
     }
@@ -762,6 +932,82 @@
           "evidence": [
             "preset-uart"
           ]
+        }
+      ]
+    },
+    {
+      "capabilities": [
+        "i2c_controller_dma",
+        "i2c_controller_operation"
+      ],
+      "policy": "i2c_pins",
+      "instance": {
+        "role": "bus",
+        "policy": "i2c_instances"
+      },
+      "pad_attribute": {
+        "i2c_pad": "true"
+      },
+      "pad_requires": {
+        "option": "f"
+      },
+      "roles": {
+        "scl": {
+          "from": "bus",
+          "function": "i2c_scl",
+          "binding": "scl_alternate"
+        },
+        "sda": {
+          "from": "bus",
+          "function": "i2c_sda",
+          "binding": "sda_alternate"
+        }
+      },
+      "alternate_symbol": {
+        "source": "gpio-h",
+        "symbol": "HAL_GPIO_{alternate}",
+        "split": "AF"
+      },
+      "capability": {
+        "description": [
+          [
+            "I2C1 controller TX/RX DMA with two request/channel pairs",
+            "I2C controller TX/RX DMA on a covered instance, with SCL and SDA on any allowed routed pad the pinout descriptor declares Fm+ capable, and two request/channel pairs"
+          ]
+        ]
+      },
+      "cards": [
+        {
+          "card": "hal2.i2c-dma",
+          "guidance": [
+            [
+              "selected PB6/PB8 SCL and PB7/PB9 SDA AF4 initialization",
+              "initialization of the selected SCL and SDA pads with the alternate function of the selected route"
+            ],
+            [
+              "checked HAL FMP I/O-drive enable on selected PB6/PB8 SCL and PB7/PB9 SDA FT_f pads",
+              "checked HAL FMP I/O-drive enable; the selected SCL and SDA pads are ones the pinout descriptor declares with the Fm+ option f"
+            ]
+          ],
+          "interface": {
+            "scope": [
+              [
+                "checked HAL FMP I/O-drive enable on selected PB6/PB8 SCL and PB7/PB9 SDA FT_f pads",
+                "checked HAL FMP I/O-drive enable; the selected SCL and SDA pads are ones the pinout descriptor declares with the Fm+ option f"
+              ]
+            ]
+          }
+        },
+        {
+          "card": "hal2.i2c-dma-operation",
+          "interface": {
+            "scope": [
+              [
+                "checked HAL FMP I/O-drive enable on selected PB6/PB8 SCL and PB7/PB9 SDA FT_f pads",
+                "checked HAL FMP I/O-drive enable; the selected SCL and SDA pads are ones the pinout descriptor declares with the Fm+ option f"
+              ]
+            ]
+          }
         }
       ]
     }
@@ -1146,6 +1392,507 @@
           ]
         }
       }
+    },
+    {
+      "capability": "analog_reading",
+      "card": "hal2.analog-reading",
+      "policy": "analog_reading",
+      "function": "adc_input",
+      "instance_kind": "analog_converter",
+      "instance_role": "converter",
+      "pad_attribute": {
+        "analog_input_pad": "true"
+      },
+      "excluded_pads": [
+        "PC4",
+        "PC5",
+        "PB0",
+        "PB1"
+      ],
+      "route_attributes": [
+        "channel_symbol"
+      ],
+      "description": "Read one analog input of a covered converter on request: a generated unit per input with init and a blocking read that returns the 12-bit count, the pad voltage as a fraction of VREF+. The converter is shared, so every offered input may have one unit. Pads that need the SBS pin remap are not offered.",
+      "guidance": "Generated component. The first unit on a converter sets the ADC and DAC kernel clock to HCLK divided by 8 (18MHz in the captured 144MHz profile), 12-bit resolution, software trigger and one conversion per request, activates the converter and runs its offset calibration; every unit on that converter shares the one handle, and each unit switches its own pad to analog mode. Use the returned interface; do not initialize the converter, its clock or the pad again. read converts once with the longest sampling time and returns counts 0..4095, right aligned: a fraction of VREF+, not volts, because the reference is not measured. A read of another input than the previous one stops, switches, starts and calibrates the converter first. One thread only, never from an interrupt. The same kernel clock feeds the DAC. No internal channels, injected or differential conversion, triggers, interrupts, DMA, oversampling or analog watchdog. PC4, PC5, PB0 and PB1 need the SBS pin remap and are excluded. Accuracy, source impedance and noise are not qualified; build is not a measurement.",
+      "symbols": [
+        [
+          "adc-h",
+          "HAL_ADC_Init"
+        ],
+        [
+          "adc-h",
+          "HAL_ADC_SetConfig"
+        ],
+        [
+          "adc-h",
+          "HAL_ADC_REG_SetConfig"
+        ],
+        [
+          "adc-h",
+          "HAL_ADC_SetConfigChannel"
+        ],
+        [
+          "adc-h",
+          "HAL_ADC_Start"
+        ],
+        [
+          "adc-h",
+          "HAL_ADC_Stop"
+        ],
+        [
+          "adc-h",
+          "HAL_ADC_Calibrate"
+        ],
+        [
+          "adc-h",
+          "HAL_ADC_REG_StartConv"
+        ],
+        [
+          "adc-h",
+          "HAL_ADC_REG_PollForConv"
+        ],
+        [
+          "adc-h",
+          "HAL_ADC_REG_ReadConversionData"
+        ],
+        [
+          "adc-h",
+          "HAL_ADC_REG_StopConv"
+        ],
+        [
+          "adc-h",
+          "HAL_ADC_RESOLUTION_12_BIT"
+        ],
+        [
+          "adc-h",
+          "HAL_ADC_SAMPLING_TIME_289CYCLES"
+        ],
+        [
+          "adc-h",
+          "HAL_ADC_REG_TRIG_SOFTWARE"
+        ],
+        [
+          "rcc-h",
+          "HAL_RCC_ADCDAC_SetConfigKernelClk"
+        ],
+        [
+          "rcc-h",
+          "HAL_RCC_ADCDAC_GetKernelClkFreq"
+        ],
+        [
+          "rcc-h",
+          "HAL_RCC_ADCDAC_CLK_SRC_HCLK"
+        ],
+        [
+          "rcc-h",
+          "HAL_RCC_ADCDAC_PRESCALER8"
+        ],
+        [
+          "gpio-h",
+          "HAL_GPIO_MODE_ANALOG"
+        ],
+        [
+          "preset-conf",
+          "USE_HAL_ADC_MODULE"
+        ]
+      ],
+      "cites": [
+        {
+          "id": "ds-adc-clock",
+          "source": "datasheet-adc",
+          "start": 35,
+          "end": 37,
+          "statement": "DS15135 page 76, ADC characteristics: the ADC clock frequency fADC is 8 to 36 MHz for a VDDA of 2.7 to 3.6 V. Text extraction of a table; the row is quoted, the table layout is not visually validated."
+        },
+        {
+          "id": "sdk-adc-source",
+          "source": "sdk-build",
+          "start": 1162,
+          "end": 1162,
+          "statement": "SDK build adds hal_adc.c only under its HAL ADC component selection; the captured build selects no such component, so the file is added through the root extension point."
+        }
+      ],
+      "evidence": [
+        "preset-clock",
+        "cmake-extension",
+        "sdk-common-includes"
+      ],
+      "share_instance": true,
+      "edits_from": {
+        "card": "hal2.timer-update"
+      },
+      "static_edits": [
+        {
+          "path": "generated/hal/stm32c5xx_hal_conf.h",
+          "source": "preset-conf",
+          "mode": "replace",
+          "old": "#define USE_HAL_ADC_MODULE                      0U",
+          "new": "#define USE_HAL_ADC_MODULE                      1U"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "source": "root-cmake",
+          "mode": "insert_before",
+          "old": "  # Add additional source files here",
+          "new": "  stm32c5xx_drivers/hal/stm32c5xx_hal_adc.c\n"
+        }
+      ],
+      "component": {
+        "bindings": {
+          "unit": {
+            "source": {
+              "type": "instance"
+            }
+          },
+          "converter_name": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "converter",
+              "attribute": "instance"
+            }
+          },
+          "converter_instance": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "converter",
+              "attribute": "hal_instance"
+            }
+          },
+          "converter_clock": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "converter",
+              "attribute": "clock_enable_api"
+            }
+          },
+          "pad_port": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "pad",
+              "attribute": "port_symbol"
+            }
+          },
+          "pad_pin": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "pad",
+              "attribute": "pin_symbol"
+            }
+          },
+          "pad_clock": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "pad",
+              "attribute": "clock_enable_api"
+            }
+          },
+          "pad_name": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "pad",
+              "attribute": "pin"
+            }
+          },
+          "channel": {
+            "source": {
+              "type": "route_attribute",
+              "from": "converter",
+              "to": "pad",
+              "relation": "signal",
+              "attribute": "channel_symbol"
+            }
+          }
+        },
+        "files": [
+          {
+            "path": "bkpt_components/{{unit}}.h",
+            "template": "analog-reading-h"
+          },
+          {
+            "path": "bkpt_components/{{unit}}.c",
+            "template": "analog-reading-c"
+          }
+        ],
+        "claims": [],
+        "interface": {
+          "setup": "Already initialized after mx_system_init. Header bkpt_components/{{unit}}.h; the converter, its kernel clock, calibration and the pad {{pad_name}} are set up. No manual ADC, clock or GPIO setup.",
+          "read": "{{unit}}_read(&counts): checked HAL_OK converts this input once, blocking for at most a few milliseconds, and writes counts 0..4095, the pad voltage as a fraction of VREF+ in steps of 1/4096. Not volts: the reference is not measured. One thread only, never from an interrupt, never while another unit of the same converter reads.",
+          "scope": "12-bit, software trigger, longest sampling time, 18MHz converter clock checked at init for the pinned 144MHz profile. A read after a read of another input restarts and recalibrates the converter first. No internal channels, triggers, interrupts, DMA, oversampling or measured accuracy.",
+          "declarations": "hal_status_t {{unit}}_init(void);\nhal_status_t {{unit}}_read(uint32_t *counts);"
+        },
+        "interface_sources": {
+          "declarations": [
+            "analog-api-init",
+            "analog-api-read"
+          ]
+        }
+      }
+    },
+    {
+      "capability": "input_capture",
+      "card": "hal2.input-capture",
+      "policy": "input_capture",
+      "function": "timer_channel",
+      "instance_kind": "channel_timer",
+      "instance_role": "timer",
+      "pad_attribute": {
+        "timer_channel_pad": "true"
+      },
+      "route_attributes": [
+        "alternate",
+        "alternate_symbol",
+        "channel_symbol",
+        "capture_unit_symbol",
+        "input_source_symbol",
+        "channel_number"
+      ],
+      "description": "Measure the period and high time of a digital signal on a pad one channel of a covered timer is routed to: a generated unit with init and a blocking, polled measurement in microseconds with a time limit. The whole timer belongs to the measurement.",
+      "guidance": "Generated component owns the timer handle, a 1MHz time base over a 16-bit period, capture of both edges on the allocated channel's own pin, and the pad as an input with the selected pull. Use the returned interface; do not initialize the timer, the channel or the pad again. measure waits for a rising edge, the falling edge after it and the next rising edge and returns period and high time in whole microseconds of the timer clock, or HAL_TIMEOUT after the time limit the caller passes, 1..60000 ms. The capture register is polled: edges closer together than the loop can follow are reported as HAL_ERROR through the overcapture flag or a capture found waiting, never as a wrong value, and the same happens when an interrupt holds the thread across two edges. One thread only, never from an interrupt. No input filter, prescaled capture, interrupt or DMA capture, other channels or XOR input. Init verifies the clock and register factors for the pinned 144MHz profile; times are counts of the nominal clock, not measured against a reference.",
+      "parameters": {
+        "pull": {
+          "type": "choice",
+          "values": [
+            "none",
+            "up",
+            "down"
+          ]
+        }
+      },
+      "symbols": [
+        [
+          "tim-c",
+          "HAL_TIM_Init"
+        ],
+        [
+          "tim-c",
+          "HAL_TIM_IC_SetConfigChannel"
+        ],
+        [
+          "tim-c",
+          "HAL_TIM_IC_SetConfigCaptureUnit"
+        ],
+        [
+          "tim-c",
+          "HAL_TIM_IC_ReadChannelCapturedValue"
+        ],
+        [
+          "tim-c",
+          "HAL_TIM_IC_StartChannel"
+        ],
+        [
+          "tim-c",
+          "HAL_TIM_IC_StopChannel"
+        ],
+        [
+          "tim-c",
+          "HAL_TIM_Start"
+        ],
+        [
+          "tim-c",
+          "HAL_TIM_Stop"
+        ],
+        [
+          "tim-h",
+          "HAL_TIM_IC_RISING_FALLING"
+        ],
+        [
+          "tim-h",
+          "HAL_TIM_IC_DIRECT"
+        ],
+        [
+          "tim-h",
+          "HAL_TIM_IC_DIV1"
+        ],
+        [
+          "gpio-h",
+          "HAL_GPIO_MODE_ALTERNATE"
+        ],
+        [
+          "gpio-h",
+          "HAL_GPIO_PULL_NO"
+        ],
+        [
+          "gpio-h",
+          "HAL_GPIO_PULL_UP"
+        ],
+        [
+          "gpio-h",
+          "HAL_GPIO_PULL_DOWN"
+        ],
+        [
+          "gpio-c",
+          "HAL_GPIO_ReadPin"
+        ],
+        [
+          "preset-conf",
+          "USE_HAL_TIM_MODULE"
+        ]
+      ],
+      "evidence": [
+        "timer-clock",
+        "v2-timer-setconfig",
+        "preset-config",
+        "cmake-extension",
+        "sdk-timer-source-gate",
+        "sdk-common-includes"
+      ],
+      "edits_from": {
+        "card": "hal2.timer-update",
+        "static": [
+          "USE_HAL_TIM_MODULE ",
+          "stm32c5xx_hal_tim.c"
+        ]
+      },
+      "component": {
+        "bindings": {
+          "unit": {
+            "source": {
+              "type": "instance"
+            }
+          },
+          "pull": {
+            "source": {
+              "type": "parameter",
+              "name": "pull"
+            }
+          },
+          "pull_symbol": {
+            "source": {
+              "type": "parameter",
+              "name": "pull"
+            },
+            "map": {
+              "none": "HAL_GPIO_PULL_NO",
+              "up": "HAL_GPIO_PULL_UP",
+              "down": "HAL_GPIO_PULL_DOWN"
+            }
+          },
+          "timer_instance": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "timer",
+              "attribute": "hal_instance"
+            }
+          },
+          "timer_clock": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "timer",
+              "attribute": "clock_enable_api"
+            }
+          },
+          "timer_reset": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "timer",
+              "attribute": "reset_api"
+            }
+          },
+          "peripheral_symbol": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "timer",
+              "attribute": "peripheral_symbol"
+            }
+          },
+          "pad_port": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "pad",
+              "attribute": "port_symbol"
+            }
+          },
+          "pad_pin": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "pad",
+              "attribute": "pin_symbol"
+            }
+          },
+          "pad_clock": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "pad",
+              "attribute": "clock_enable_api"
+            }
+          },
+          "pad_name": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "pad",
+              "attribute": "pin"
+            }
+          },
+          "pad_alternate": {
+            "source": {
+              "type": "route_attribute",
+              "from": "timer",
+              "to": "pad",
+              "relation": "signal",
+              "attribute": "alternate_symbol"
+            }
+          },
+          "channel": {
+            "source": {
+              "type": "route_attribute",
+              "from": "timer",
+              "to": "pad",
+              "relation": "signal",
+              "attribute": "channel_symbol"
+            }
+          },
+          "capture_unit": {
+            "source": {
+              "type": "route_attribute",
+              "from": "timer",
+              "to": "pad",
+              "relation": "signal",
+              "attribute": "capture_unit_symbol"
+            }
+          },
+          "input_source": {
+            "source": {
+              "type": "route_attribute",
+              "from": "timer",
+              "to": "pad",
+              "relation": "signal",
+              "attribute": "input_source_symbol"
+            }
+          },
+          "channel_number": {
+            "source": {
+              "type": "route_attribute",
+              "from": "timer",
+              "to": "pad",
+              "relation": "signal",
+              "attribute": "channel_number"
+            }
+          }
+        },
+        "files": [
+          {
+            "path": "bkpt_components/{{unit}}.h",
+            "template": "input-capture-h"
+          },
+          {
+            "path": "bkpt_components/{{unit}}.c",
+            "template": "input-capture-c"
+          }
+        ],
+        "claims": [],
+        "interface": {
+          "setup": "Already initialized after mx_system_init. Header bkpt_components/{{unit}}.h; private timer handle, 1MHz time base, capture of both edges and the pad {{pad_name}} as an input with pull {{pull}}. No manual timer, channel or GPIO setup.",
+          "measure": "{{unit}}_measure(timeout_ms, &period_us, &high_us), timeout 1..60000: checked HAL_OK waited for a rising edge, the falling edge after it and the next rising edge and wrote period and high time in microseconds. HAL_TIMEOUT when the edges did not arrive in time; HAL_ERROR when edges came faster than the polled capture could follow. Blocking; one thread only, never from an interrupt.",
+          "scope": "Polled capture with a microsecond count for the pinned 144MHz profile, checked at init and before each measurement. No stated minimum pulse width, input filter, interrupt or DMA capture or measured accuracy. Outputs are written only with HAL_OK.",
+          "declarations": "hal_status_t {{unit}}_init(void);\nhal_status_t {{unit}}_measure(uint32_t timeout_ms, uint32_t *period_us, uint32_t *high_us);"
+        },
+        "interface_sources": {
+          "declarations": [
+            "capture-api-init",
+            "capture-api-measure"
+          ]
+        }
+      }
     }
   ],
   "supersedes": {
@@ -1201,5 +1948,107 @@
       "GPIO interrupt composition covers PA4/PA5 CPU delivery only, with exclusive physical EXTI4/5 ownership across any consumers. Pending edge flags can coalesce. No complete EXTI/errata/electrical, shared-line or DMA-trigger coverage.",
       "GPIO interrupt composition covers CPU delivery only, with exclusive ownership of each physical external line across any consumers. Pending edge flags can coalesce. No complete EXTI/errata/electrical, shared-line or DMA-trigger coverage."
     ]
+  ],
+  "graph_schema": 5,
+  "clock_descriptor": {
+    "source": "clock-descriptor",
+    "policy": "kernel_clocks"
+  },
+  "instance_capabilities": [
+    {
+      "capability": "periodic_interrupt_channel_timer",
+      "card": "hal2.timer-update-channel-timer",
+      "policy": "channel_timer_update",
+      "instance_kind": "channel_timer",
+      "instance_role": "timer",
+      "interrupt_role": "interrupt",
+      "like": {
+        "capability": "periodic_interrupt",
+        "card": "hal2.timer-update"
+      },
+      "description": "Periodic update interrupt on a timer the timer channel allocation covers, with the generated component, exact rate choices and rules of periodic_interrupt on TIM6 and TIM7, unchanged. It takes the whole timer and its update vector and uses no channel or pad; use it when the basic timers are taken or more periodic interrupts are needed.",
+      "guidance": "The reviewed periodic update component on a channel timer. Generated component owns persistent timer state, callback adapter, initialization, clock/factor verification, fresh-period start/stop and vector dispatch. Use returned interface; do not duplicate timer setup or weak callbacks. Supports only the complete declared set of exact nominal integer rates1..1000 at the captured144MHz kernel. PSC<=65534 and ARR1..65535; repetition0, upcounter/internal clock, no dithering. Init and start verify actual clock/register factors. Any dynamic clock changes are outside contract. Per-instance callback runs in IRQ context and must remain bounded; main/thread owns start/stop. Application chooses tick meaning. Build is not hardware rate/latency verification. The update vector is the timer's own update vector or, on a timer with one vector, its global vector; only the update event is enabled, and no channel of the timer is used.",
+      "symbols": [
+        [
+          "tim-c",
+          "HAL_TIM_Init"
+        ],
+        [
+          "tim-c",
+          "HAL_TIM_IRQHandler"
+        ]
+      ],
+      "evidence": [
+        "timer-init-config",
+        "timer-dispatch",
+        "timer-clock",
+        "preset-config",
+        "timer-counter-up",
+        "timer-internal-clock",
+        "nvic-priority-constants",
+        "preset-systick-handler",
+        "preset-systick-component",
+        "cmake-extension",
+        "preset-nvic-group",
+        "preset-systick-priority",
+        "preset-component-selection",
+        "preset-library-link",
+        "sdk-common-includes",
+        "sdk-timer-source-gate",
+        "v2-timer-formula",
+        "v2-timer-setconfig",
+        "v2-timer-start",
+        "v2-timer-stop",
+        "v2-timer-register",
+        "v2-timer-callback-type",
+        "v2-timer-ug",
+        "v2-timer-rm-ug",
+        "v2-timer-rm-update",
+        "v2-timer-rates",
+        "v2-nvic-mask",
+        "v2-nvic-clear",
+        "v2-nvic-hal",
+        "v2-barrier",
+        "v2-thread-mode"
+      ]
+    }
+  ],
+  "pad_capabilities": [
+    {
+      "capability": "gpio_input",
+      "card": "hal2.gpio-input",
+      "policy": "gpio_input",
+      "pad_attribute": {
+        "supports_gpio_input": "true"
+      },
+      "description": "Allocate a digital input on any pad eligible for general allocation. No code is generated: the application initializes the pad as an input with the pull it needs and reads it through the SDK.",
+      "guidance": "Selected GPIO input after mx_system_init: use resource port_symbol, pin_symbol and clock_enable_api (zero arguments; void). Enable the selected clock, zero hal_gpio_config_t, set mode=HAL_GPIO_MODE_INPUT and pull=HAL_GPIO_PULL_NO, HAL_GPIO_PULL_UP or HAL_GPIO_PULL_DOWN, and check the HAL_GPIO_Init status. Read with HAL_GPIO_ReadPin(port_symbol, pin_symbol), which returns HAL_GPIO_PIN_SET or HAL_GPIO_PIN_RESET. An input without a pull that nothing drives reads an undefined level. Debouncing, thresholds and the external circuit are application matters; for an edge interrupt use gpio_input_interrupt instead. HAL/LL sources are already included and the declarations come from stm32_hal.h; do not redeclare them.",
+      "symbols": [
+        [
+          "gpio-h",
+          "HAL_GPIO_MODE_INPUT"
+        ],
+        [
+          "gpio-h",
+          "HAL_GPIO_PULL_NO"
+        ],
+        [
+          "gpio-h",
+          "HAL_GPIO_PULL_UP"
+        ],
+        [
+          "gpio-h",
+          "HAL_GPIO_PULL_DOWN"
+        ],
+        [
+          "gpio-c",
+          "HAL_GPIO_Init"
+        ],
+        [
+          "gpio-c",
+          "HAL_GPIO_ReadPin"
+        ]
+      ]
+    }
   ]
 }

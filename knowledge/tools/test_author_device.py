@@ -681,5 +681,144 @@ class Classes(unittest.TestCase):
         self.assertIn("TX is bus_data", str(refused.exception))
 
 
+class Internal(unittest.TestCase):
+    """Capabilities without a pad, pad capabilities that generate nothing, and
+    integration edits no reviewed card has written yet."""
+    SPEC = {"capability": "bus_tick", "card": "card.bus-tick", "policy": "allocation", "instance_kind": "bus",
+            "instance_role": "bus", "description": "Tick.", "guidance": "Generated."}
+
+    def subject(self, raises=("BUS1", "BUS2")):
+        subject = domains_under_test()
+        Allocations.reviewed(Allocations(), subject)
+        for name in raises:
+            subject.value["resources"].append({"id": f"PART.{name}.irq", "kind": "interrupt",
+                                               "attributes": {"handler": f"{name}_Handler"}, "evidence": []})
+            subject.value["edges"].append({"id": f"{name}.raises", "relation": "raises_interrupt", "from": f"PART.{name}",
+                                           "to": f"PART.{name}.irq", "evidence": []})
+        return subject
+
+    def component(self, **bindings):
+        return {"edits_from": {"card": "card.reviewed", "static": ["MODULE 1"]},
+                "component": {"bindings": {"unit": {"source": {"type": "instance"}}, **bindings},
+                              "files": [{"path": "units/{{unit}}.h", "template": "unit-h"},
+                                        {"path": "units/{{unit}}.c", "template": "unit-c"}],
+                              "claims": [], "interface": {"start": "{{unit}}_start()"}}}
+
+    def test_a_capability_without_a_pad_takes_an_instance_and_its_one_interrupt(self):
+        subject = self.subject()
+        handler = {"handler": {"source": {"type": "resource_attribute", "role": "interrupt", "attribute": "handler"}}}
+        offered = subject.instance_capability({**self.SPEC, "interrupt_role": "interrupt", **self.component(**handler)})
+        self.assertEqual(offered, ["BUS1", "BUS2"])
+        capability = subject.value["capabilities"][0]
+        self.assertEqual([(role["id"], role["kind"]) for role in capability["roles"]], [("bus", "bus"), ("interrupt", "interrupt")])
+        self.assertEqual(capability["links"], [{"from": "bus", "to": "interrupt", "relation": "raises_interrupt"}])
+        self.assertIn("policy3-allocation", domains.find(subject.value["resources"], "PART.BUS1")["evidence"])
+
+    def test_an_instance_must_raise_exactly_one_recorded_interrupt(self):
+        with self.assertRaises(SystemExit) as refused:
+            self.subject(raises=("BUS1",)).instance_capability({**self.SPEC, "interrupt_role": "interrupt", **self.component()})
+        self.assertIn("BUS2 raises 0 recorded interrupts", str(refused.exception))
+
+    def test_a_capability_without_a_pad_cannot_read_a_pad_or_a_route(self):
+        port = {"port": {"source": {"type": "resource_attribute", "role": "pad", "attribute": "port"}}}
+        with self.assertRaises(SystemExit) as refused:
+            self.subject().instance_capability({**self.SPEC, **self.component(**port)})
+        self.assertIn("a role the allocation does not have", str(refused.exception))
+        line = {"line": {"source": {"type": "route_attribute", "from": "bus", "to": "pad", "relation": "signal", "attribute": "signal"}}}
+        with self.assertRaises(SystemExit) as refused:
+            self.subject().instance_capability({**self.SPEC, **self.component(**line)})
+        self.assertIn("a route the allocation does not have", str(refused.exception))
+        with self.assertRaises(SystemExit) as refused:
+            self.subject().instance_capability({**self.SPEC, "route_attributes": ["signal"], **self.component()})
+        self.assertIn("has no route to read", str(refused.exception))
+
+    def test_a_reviewed_component_is_taken_whole_for_another_class(self):
+        subject = self.subject()
+        reviewed = subject.value["implementations"][0]
+        reviewed["component"].update(bindings={"unit": {"source": {"type": "instance"}},
+                                               "block": {"source": {"type": "resource_attribute", "role": "bus", "attribute": "symbol"}}},
+                                     files=[], claims=[], interface={})
+        subject.value["capabilities"].append({"id": "reviewed_tick", "parameters": {"rate": {"type": "choice", "values": ["1"]}}})
+        like = {"like": {"capability": "reviewed_tick", "card": "card.reviewed"}}
+        subject.instance_capability({**self.SPEC, **like})
+        capability, card = subject.value["capabilities"][-1], subject.value["implementations"][-1]
+        self.assertEqual(capability["parameters"], {"rate": {"type": "choice", "values": ["1"]}})
+        self.assertEqual((card["component"], card["edits"]), (reviewed["component"], reviewed["edits"]))
+        self.assertIsNot(card["component"], reviewed["component"])
+        with self.assertRaises(SystemExit) as refused:
+            self.subject().instance_capability({**self.SPEC, **like, "parameters": {}})
+        self.assertIn("takes its component and parameters from it", str(refused.exception))
+        other = self.subject()
+        other.value["implementations"][0]["component"]["bindings"] = {
+            "reset": {"source": {"type": "resource_attribute", "role": "bus", "attribute": "reset"}}}
+        other.value["capabilities"].append({"id": "reviewed_tick", "parameters": {}})
+        with self.assertRaises(SystemExit) as refused:
+            other.instance_capability({**self.SPEC, **like})
+        self.assertIn("needs reset, which ['BUS1', 'BUS2'] do not have", str(refused.exception))
+
+    EDIT = {"path": "conf.h", "source": "conf", "mode": "replace", "old": "OTHER 0", "new": "OTHER 1"}
+
+    def edited(self, text="MODULE 0\nOTHER 0\n", pinned=None, **change):
+        subject = self.subject()
+        conf = source(text, "conf")
+        subject.sources["conf"] = conf
+        subject.value["sources"] = [{"id": "conf", "sha256": inventory.sha256(text.encode("utf-8"))}]
+        for edit in subject.value["implementations"][0]["edits"]:
+            edit["expected_sha256"] = pinned or subject.value["sources"][0]["sha256"]
+        return subject, subject.static_edits({"card": "card.new", "static_edits": [{**self.EDIT, **change}]})
+
+    def test_an_authored_edit_is_pinned_to_the_file_the_reviewed_edits_change(self):
+        subject, edits = self.edited()
+        self.assertEqual(edits, [{"path": "conf.h", "expected_sha256": subject.value["sources"][0]["sha256"],
+                                  "old": "OTHER 0", "new": "OTHER 1", "mode": "replace"}])
+        for message, change in (("no single reviewed hash for other.h", {"path": "other.h"}),
+                                ("does not hold the text to replace exactly once", {"old": "ABSENT 0"}),
+                                ("unknown edit mode", {"mode": "append"})):
+            with self.assertRaises(SystemExit, msg=message) as refused:
+                self.edited(**change)
+            self.assertIn(message, str(refused.exception))
+        with self.assertRaises(SystemExit) as refused:
+            self.edited(text="OTHER 0\nOTHER 0\n")
+        self.assertIn("exactly once", str(refused.exception))
+        with self.assertRaises(SystemExit) as refused:
+            self.edited(pinned="another file")
+        self.assertIn("is not the file the reviewed edits of conf.h are pinned to", str(refused.exception))
+
+    def test_a_pad_capability_offers_every_eligible_pad_and_generates_nothing(self):
+        subject = domains_under_test()
+        subject.eligible = ["PA1", "PA2"]
+        subject.value["resources"] += [{"id": f"PART.{pin}", "kind": "pin", "attributes": {}, "evidence": []}
+                                       for pin in ("PA1", "PA2", "PA3")]
+        spec = {"capability": "level_input", "card": "card.level-input", "policy": "allocation",
+                "pad_attribute": {"reads_level": "true"}, "description": "Read.", "guidance": "Read it."}
+        self.assertEqual(subject.pad_capability(spec), 2)
+        capability, card = subject.value["capabilities"][0], subject.value["implementations"][0]
+        self.assertEqual(capability["parameters"], {"pin": {"type": "choice", "values": ["PA1", "PA2"]}})
+        self.assertEqual(capability["roles"], [{"id": "pin", "kind": "pin", "attributes": {"reads_level": "true"},
+                                                "parameter_attributes": {"pin": "pin"}, "count": 1}])
+        self.assertEqual((card["edits"], "component" in card), ([], False))
+        marked = {record["id"] for record in subject.value["resources"] if record["attributes"].get("reads_level")}
+        self.assertEqual(marked, {"PART.PA1", "PART.PA2"})
+        with self.assertRaises(SystemExit):
+            subject.pad_capability(spec)
+        empty = domains_under_test()
+        empty.eligible = []
+        with self.assertRaises(SystemExit):
+            empty.pad_capability(spec)
+
+    def test_a_later_graph_schema_raises_the_bounds_for_one_run_only(self):
+        graph = {"schema": 4}
+        inventory.use_schema(graph, 5)
+        self.assertEqual((graph["schema"], inventory.LIMITS["sources"], inventory.LIMITS["citations"]), (5, 1024, 128))
+        inventory.use_schema({"schema": 4}, None)
+        self.assertEqual((inventory.LIMITS["sources"], inventory.LIMITS["citations"]), (128, 64))
+        for wanted in (3, 6):
+            with self.assertRaises(SystemExit):
+                inventory.use_schema({"schema": 4}, wanted)
+        with self.assertRaises(SystemExit):
+            inventory.use_schema({"schema": 5}, 4)
+        inventory.use_schema({"schema": 4}, None)
+
+
 if __name__ == "__main__":
     unittest.main()

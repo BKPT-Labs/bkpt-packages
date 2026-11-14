@@ -34,6 +34,29 @@ import sys
 STATEMENT_KEYWORDS = "return|if|else|while|for|switch|case|do|goto|sizeof|typedef"
 
 
+# Bounds the firmware tool's engine puts on a bundle, mirrored here so that a
+# graph it would refuse is refused where it is written, with the reason.
+# Schema 4 is the default; a family configuration that asks for a later graph
+# schema gets the bounds of that schema for the run.
+SCHEMA_LIMITS = {
+    4: {"sources": 128, "citations": 64, "assumptions": 16, "choices": 128, "excerpt_lines": 400},
+    5: {"sources": 1024, "citations": 128, "assumptions": 64, "choices": 256, "excerpt_lines": 1024},
+}
+LIMITS = dict(SCHEMA_LIMITS[4])
+
+
+def use_schema(graph_value, wanted):
+    """Set the bounds for one run. A graph is never moved to an older schema."""
+    LIMITS.clear()
+    LIMITS.update(SCHEMA_LIMITS[4])
+    if wanted is None:
+        return
+    if wanted not in SCHEMA_LIMITS or wanted < graph_value["schema"]:
+        raise SystemExit(f"graph schema {wanted} is unknown or older than the base graph's {graph_value['schema']}")
+    graph_value["schema"] = wanted
+    LIMITS.update(SCHEMA_LIMITS[wanted])
+
+
 def sha256(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
@@ -243,8 +266,8 @@ def complete(record, attributes, evidence):
     for identifier in evidence:
         if identifier not in record["evidence"]:
             record["evidence"].append(identifier)
-    if len(record["evidence"]) > 64:
-        raise SystemExit(f"{record['id']} cites more than 64 sources")
+    if len(record["evidence"]) > LIMITS["citations"]:
+        raise SystemExit(f"{record['id']} cites more than {LIMITS['citations']} sources")
 
 
 def pins_and_routes(graph: Graph, config, sources):

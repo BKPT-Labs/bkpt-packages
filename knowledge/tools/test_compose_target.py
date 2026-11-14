@@ -511,13 +511,16 @@ class Boards(unittest.TestCase):
         self.assertEqual((nucleo["board"]["reserved_nets"], nucleo["board"]["excluded_nets"]),
                          ({"DBG.SWDIO": "debug", "DBG.SWCLK": "debug", "OSC_IN": "clock", "OSC_OUT": "clock"},
                           {"PH2_BOOT0": "boot", "PA2": "console", "PA3": "console"}))
-        self.assertEqual(nucleo["profile_pads"], {"uart_transfer_operation": {"PA2": "console", "PA3": "console"}})
+        self.assertEqual(nucleo["profile_pads"], {"uart_transfer_operation": {"PA2": "console", "PA3": "console"},
+                                                  "i2c_controller_dma": {"PB9": "two_wire_header"},
+                                                  "i2c_controller_operation": {"PB9": "two_wire_header"}})
         self.assertEqual(nucleo["feature_pads"], {"PC13": {
             "policy": "user_button", "attributes": {"board_feature": "user_button"},
             "circuit": [{"net": "3V3", "member": ["B1", "3"]}, {"net": "GND", "member": ["R13", "1"]}]}})
-        self.assertEqual(nucleo["policy"]["lines"], {"debug": 5, "clock": 6, "general": 7, "boot": 8, "console": 9, "user_button": 18})
+        self.assertEqual(nucleo["policy"]["lines"], {"debug": 5, "clock": 6, "general": 7, "boot": 8, "console": 9, "user_button": 18,
+                                                     "two_wire_header": 28})
         self.assertEqual((nucleo["policy"]["source"], nucleo["board"]["kind"], nucleo["board"]["source"]),
-                         ("policy-v5", "netlist", "board-netlist"))
+                         ("policy-v6", "netlist", "board-netlist"))
         for path in recipes:
             recipe = compose.load(path)
             config = compose.load(path.parent / recipe["domains"])
@@ -535,9 +538,9 @@ class Boards(unittest.TestCase):
     # Every checked-in recipe and the graph it composes to. A change of these
     # bytes is a change of what is published and is made here on purpose.
     COMPOSED = {
-        "stm32c5/targets/nucleo-c542rc.json": "4a8426d041bafc47f32570c33e5de0b94e0f0560729202e15641536495ad97d6",
-        "stm32c5/targets/stm32c542cc-lqfp48-declared.json": "49f2e0bb9b42468e3a74141be699df79743beba055da8494cff929fe726cf4ef",
-        "stm32c5/targets/stm32c542kc-lqfp32-declared.json": "b120efd11c6256ed8a30c0ac2f1e87129f452853d7eec6f53f70e3d5927f717a",
+        "stm32c5/targets/nucleo-c542rc.json": "f1b45087b44ad4620ca077d98be592bfdb9bfd567fee8fc50876be688152008e",
+        "stm32c5/targets/stm32c542cc-lqfp48-declared.json": "a55afebd87290b64df520f674545e6d49ec2237413599346c9e1cde09c86e864",
+        "stm32c5/targets/stm32c542kc-lqfp32-declared.json": "e2742d67497268b7efe15677f1449c4edbce9678af16faa1ea26665d7daca58e",
     }
 
     @unittest.skipUnless(os.environ.get("BKPT_KNOWLEDGE_SOURCE_ROOT"), "needs the pinned sources: set BKPT_KNOWLEDGE_SOURCE_ROOT")
