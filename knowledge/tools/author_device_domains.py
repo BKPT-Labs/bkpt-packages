@@ -803,6 +803,92 @@ class Domains:
                 raise SystemExit(f"{spec['card']}: the unit calls {name}; the card must cite its definition, "
                                  f"not only {'a declaration' if kinds else 'the call'}")
 
+    def definition_coverage(self):
+        """The definition rule on the finished graph. Every card with a
+        generated unit is checked, whether the unit was written for the card
+        or taken whole from another one, except the cards the configuration
+        lists as accepted before the rule; the policy rule must name each of
+        those. A HAL function the templates call by name is cited by the card
+        over its whole definition. A HAL function they call through a binding
+        is cited so by the resource that supplies the name, or by the card.
+        Returns the cards checked."""
+        spec = self.config.get("definition_rule")
+        if not spec:
+            return []
+        rule, wording = self.policy(spec["policy"]), self.policy_text(spec["policy"])
+        cards = [card for card in self.value["implementations"] if card.get("component")]
+        exempt = spec.get("accepted_before", [])
+        for identifier in exempt:
+            if all(card["id"] != identifier for card in cards):
+                raise SystemExit(f"definition rule: {identifier} is not a card with a generated unit")
+            if not re.search(rf"(?<![A-Za-z0-9_.-]){re.escape(identifier)}(?![A-Za-z0-9_-])", wording):
+                raise SystemExit(f"definition rule: the policy does not name the exempt card {identifier}")
+        evidence = {record["id"]: record for record in self.value["evidence"]}
+        texts, places = {}, {}
+
+        def defined(name):
+            """Every pinned source that defines the function, with the lines."""
+            if name not in places:
+                found = []
+                for identifier, source in self.sources.items():
+                    if identifier not in texts:
+                        texts[identifier] = "\n".join(source.lines)
+                    if name not in texts[identifier]:
+                        continue
+                    try:
+                        start, end, kind = inventory.declaration(source, name)
+                    except SystemExit:
+                        continue
+                    if kind == "definition":
+                        found.append((identifier, start, end))
+                places[name] = found
+            return places[name]
+
+        def cited(holder, name):
+            records = [evidence[identifier] for identifier in holder["evidence"] if identifier in evidence]
+            return any(record["source"] == source and record["start_line"] <= start and record["end_line"] >= end
+                       for source, start, end in defined(name) for record in records)
+
+        checked = []
+        for card in cards:
+            if card["id"] in exempt:
+                continue
+            component = card["component"]
+            templates = [evidence[file["template"]] for file in component["files"]]
+            generated = "\n".join(self.source(record["source"]).excerpt(record["start_line"], record["end_line"])
+                                  for record in templates)
+            for name in sorted(set(re.findall(r"\b(HAL_[A-Za-z0-9_]+)\s*\(", generated))):
+                if not defined(name):
+                    raise SystemExit(f"{card['id']}: the unit calls {name}, and no pinned source defines it")
+                if not cited(card, name):
+                    raise SystemExit(f"{card['id']}: the unit calls {name}; the card must cite its whole definition")
+            capabilities = [capability for capability in self.value["capabilities"] if card["id"] in capability["implementations"]]
+            for placeholder in sorted(set(re.findall(r"\{\{([A-Za-z0-9_]+)\}\}\s*\(", generated))):
+                binding = component["bindings"].get(placeholder)
+                if binding is None:
+                    raise SystemExit(f"{card['id']}: the unit calls {{{{{placeholder}}}}}, which no binding supplies")
+                source, table = binding["source"], binding.get("map") or {}
+                suppliers = []
+                if source["type"] == "resource_attribute":
+                    for capability in capabilities:
+                        role = find(capability["roles"], source["role"])
+                        suppliers += [resource for resource in self.value["resources"] if resource["kind"] == role["kind"]
+                                      and all(resource["attributes"].get(key) == value for key, value in role["attributes"].items())]
+                names = {(table.get(resource["attributes"].get(source["attribute"]), resource["attributes"].get(source["attribute"])),
+                          resource["id"]) for resource in suppliers} or {(value, None) for value in table.values()}
+                for name, supplier in sorted(names, key=str):
+                    if not isinstance(name, str) or not name.startswith("HAL_"):
+                        continue
+                    if not defined(name):
+                        raise SystemExit(f"{card['id']}: {{{{{placeholder}}}}} can be {name}, and no pinned source defines it")
+                    holder = find(self.value["resources"], supplier) if supplier else card
+                    if not cited(holder, name) and not cited(card, name):
+                        raise SystemExit(f"{card['id']}: {{{{{placeholder}}}}} can be {name}; "
+                                         f"{self.name(supplier) if supplier else 'the card'} must cite its whole definition")
+            extend(card, [rule])
+            checked.append(card["id"])
+        return checked
+
     def supersede(self):
         """Older policy texts limit themselves to one part, package, board and
         a few pads. Records that still cite them for what they say about
@@ -1529,6 +1615,9 @@ def run(graph, sources, summary, inventory_config, config, source_root):
     if scopes:
         summary["source_scopes"] = scopes
     domains.supersede()
+    covered = domains.definition_coverage()
+    if covered:
+        summary["cards_under_the_definition_rule"] = covered
     if domains.unbonded:
         summary["unbonded_signals"] = sorted(domains.unbonded)
     if domains.narrowed:

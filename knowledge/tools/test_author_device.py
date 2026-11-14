@@ -912,6 +912,75 @@ hal_status_t HAL_UNIT_Start(void)
 SDK_H = "hal_status_t HAL_UNIT_Start(void);\n#define USE_UNIT_MODULE      0U\n"
 
 
+class DefinitionRule(unittest.TestCase):
+    """Every finished card with a generated unit cites the SDK functions the unit calls where they are defined."""
+    UNIT = "void {{unit}}_go(void)\n{\n  {{clock}}();\n  (void)HAL_UNIT_Start();\n}\n"
+    CLOCK = "__STATIC_INLINE void HAL_CLOCK_On(void)\n{\n}\n"
+
+    def subject(self, card=("inv-def-HAL_UNIT_Start",), resource=("inv-api-HAL_CLOCK_On",), exempt=("card.old",),
+                policy="Definitions: authored. The card card.old was accepted before this rule.\n"):
+        subject = domains_under_test()
+        subject.sources.update(body=source(SDK_C, "body"), head=source(SDK_H, "head"),
+                               unit=source(self.UNIT, "unit"), clock=source(self.CLOCK, "clock"))
+        subject.sources["policy"] = subject.policy_source = source(POLICY + policy, "policy")
+        subject.config["policy"]["lines"]["definitions"] = 6
+        subject.config["definition_rule"] = {"policy": "definitions", "accepted_before": list(exempt)}
+        subject.graph.cite("unit-c", subject.sources["unit"], 1, 5, "Authored.")
+        domains.find(subject.value["evidence"], "unit-c")["role"] = "template"
+        subject.graph.cite_symbol("inv-api", subject.sources["head"], "HAL_UNIT_Start")
+        subject.graph.cite_symbol("inv-def", subject.sources["body"], "HAL_UNIT_Start")
+        subject.graph.cite_symbol("inv-api", subject.sources["clock"], "HAL_CLOCK_On")
+        subject.graph.cite("body-part", subject.sources["body"], 5, 7, "Part of the body.")
+        for record in subject.value["resources"]:
+            if record["kind"] == "bus":
+                record["attributes"]["enable"] = "HAL_CLOCK_On"
+                record["evidence"] = list(resource)
+        component = {"files": [{"path": "{{unit}}.c", "template": "unit-c"}],
+                     "bindings": {"unit": {"source": {"type": "instance"}},
+                                  "clock": {"source": {"type": "resource_attribute", "role": "bus", "attribute": "enable"}}}}
+        subject.value["capabilities"].append({"id": "capability", "implementations": ["card.new", "card.old"],
+                                              "roles": [{"id": "bus", "kind": "bus", "attributes": {}}]})
+        subject.value["implementations"] += [{"id": "card.new", "evidence": list(card), "component": copy.deepcopy(component)},
+                                             {"id": "card.old", "evidence": [], "component": copy.deepcopy(component)},
+                                             {"id": "card.plain", "evidence": []}]
+        return subject
+
+    def refused(self, message, **change):
+        with self.assertRaises(SystemExit) as refused:
+            self.subject(**change).definition_coverage()
+        self.assertIn(message, str(refused.exception))
+
+    def test_a_card_cites_what_its_unit_calls_and_a_resource_what_it_supplies(self):
+        subject = self.subject()
+        self.assertEqual(subject.definition_coverage(), ["card.new"])
+        new, old = (domains.find(subject.value["implementations"], name) for name in ("card.new", "card.old"))
+        self.assertIn("policy3-definitions", new["evidence"])
+        # A card accepted before the rule is left as it was.
+        self.assertEqual(old["evidence"], [])
+        # The card may cite a function a binding supplies when the resource does not.
+        self.assertEqual(self.subject(card=("inv-def-HAL_UNIT_Start", "inv-api-HAL_CLOCK_On"), resource=()).definition_coverage(), ["card.new"])
+        # Without the configuration key nothing is checked.
+        silent = self.subject(card=())
+        del silent.config["definition_rule"]
+        self.assertEqual(silent.definition_coverage(), [])
+
+    def test_a_prototype_or_a_part_of_the_body_is_not_the_definition(self):
+        self.refused("card.new: the unit calls HAL_UNIT_Start; the card must cite its whole definition", card=("inv-api-HAL_UNIT_Start",))
+        self.refused("the card must cite its whole definition", card=("body-part",))
+        self.refused("the card must cite its whole definition", card=())
+
+    def test_a_function_called_through_a_binding_is_checked_on_every_resource_that_can_supply_it(self):
+        self.refused("card.new: {{clock}} can be HAL_CLOCK_On; BUS1 must cite its whole definition", resource=())
+
+    def test_a_card_that_takes_its_unit_from_another_is_checked_unless_the_policy_names_it(self):
+        self.refused("card.old: the unit calls HAL_UNIT_Start", exempt=())
+        self.refused("the policy does not name the exempt card card.old", policy="Definitions: authored.\n")
+        # A longer name that contains the card's name does not name it.
+        self.refused("the policy does not name the exempt card card.old", policy="Definitions: authored. card.old-style and xcard.old.\n")
+        self.refused("card.plain is not a card with a generated unit", exempt=("card.old", "card.plain"),
+                     policy="Definitions: authored. card.old and card.plain.\n")
+
+
 class Scopes(unittest.TestCase):
     """What a source is about is declared, and what a citation calls its source is true."""
 

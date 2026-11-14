@@ -39,7 +39,7 @@ Using `stm32c5/` as the example:
 | `imports/` | Declarations that pin the manufacturer device descriptors and driver packs the package was derived from |
 | `sources/` | BKPT-authored source snapshots that the reviewed graph cites |
 | `source-inputs.json` | Every file the package refers to, BKPT-authored or external, with its exact hash |
-| `tests/` | Host-side checks of the component adapters |
+| `tests/` | Host-side checks of the component adapters, and a host model of the input capture unit |
 | `candidates/` | Newer reviewed graphs, each in its own folder. One becomes the default only when the manifest's `inputs.architecture` names it |
 | `pending/` | Paused, incomplete research. See below |
 
@@ -210,6 +210,15 @@ body in the SDK's C file, and the generator refuses a unit that calls a
 what a call does or how long it can take cites the lines of the body that
 say so.
 
+That rule is checked once more when the graph is finished, on every card
+with a generated unit, whether the unit was written for the card or taken
+whole from another one: a citation of the card must contain the whole
+definition of each `HAL_` function the templates call by name, and a `HAL_`
+function they call through a binding must be cited so by the resource that
+supplies the name, or by the card. `definition_rule.accepted_before` in the
+family configuration lists the cards that were accepted before the rule and
+stay outside it until they are changed; the policy rule has to name each.
+
 Capacity counts the holders of a shared instance; it cannot keep two ways of
 holding it apart. An allocation that shares its instance may therefore name
 an `instance_mode`, which becomes the `mode` of its role in schema 5: the
@@ -325,6 +334,44 @@ for the four self-check applications is byte for byte the firmware that
 passed on the NUCLEO-C542RC in round 5, so those runs stand and none was
 repeated. Round 6 needs a firmware tool build that reads `earlier` and
 `mode`. It is a candidate: it has no review record.
+
+`stm32c5/candidates/device-coverage-r7/` answers the two follow-up reviews
+of round 6, under policy version 9. Rounds 3 to 6 stay as packaged. 38
+records differ from round 6:
+
+- Input capture, version 3. Version 2 read the timer's status and cleared
+  the marks it had seen in two statements; a thread held for a turn of the
+  counter or more between them lost a turn, and the unit returned a wrong
+  period and high time as a success. Version 3 takes one look at the timer
+  as one step with interrupts masked, ends the measurement when a mark is
+  set behind its acknowledgement, and places captures and counts around a
+  wrap by their value. Header, card and policy state what a result means,
+  the conditions it rests on and when a measurement completes.
+  `stm32c5/tests/input_capture_model.py` runs the unit's own template
+  against a simulated timer that delays the caller at every register
+  access: version 3 holds its property in 43,772 cases, and version 2 fails
+  there with the values the reviews reported.
+- Analog reading, header version 4, text only: the limit the unit gives the
+  SDK, the tick the SDK's waits count, and the cleanup after a time-out are
+  stated apart from time for the caller.
+- Independent watchdog, version 3: a refresh is refused while the SDK's
+  start call runs, because the reference manual lets any key but the access
+  key write-protect the watchdog's registers again.
+- The definition rule is checked on every finished card. The channel timer
+  card, which takes the basic timer's unit whole, cites seven definitions
+  it lacked. Twelve cards of the accepted graph are named as accepted
+  before the rule.
+
+The replay against the accepted graph, now 2,222 requests with those of the
+round 6 review: all 1,682 requests the accepted graph plans keep their
+resources, route identifiers and generated files. On the NUCLEO-C542RC the
+capture, system and analog self-check applications passed on the round 7
+builds; the capture application also held its thread between half a turn
+and two turns of the counter and got the true value or an error each time.
+The periodic interrupt application is byte for byte the firmware that passed
+in round 5. A delay between two chosen statements cannot be placed on a
+board; that part rests on the model. Round 7 is a candidate: it has no
+review record.
 
 ## Licensing and third-party content
 

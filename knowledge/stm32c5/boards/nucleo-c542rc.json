@@ -10,9 +10,9 @@
     }
   ],
   "policy": {
-    "source": "policy-v8",
-    "label": "BKPT policy, version 8",
-    "evidence_prefix": "policy8",
+    "source": "policy-v9",
+    "label": "BKPT policy, version 9",
+    "evidence_prefix": "policy9",
     "lines": {
       "debug": 5,
       "clock": 6,

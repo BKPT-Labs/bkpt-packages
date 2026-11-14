@@ -520,7 +520,7 @@ class Boards(unittest.TestCase):
         self.assertEqual(nucleo["policy"]["lines"], {"debug": 5, "clock": 6, "general": 7, "boot": 8, "console": 9, "user_button": 18,
                                                      "two_wire_header": 28})
         self.assertEqual((nucleo["policy"]["source"], nucleo["board"]["kind"], nucleo["board"]["source"]),
-                         ("policy-v8", "netlist", "board-netlist"))
+                         ("policy-v9", "netlist", "board-netlist"))
         for path in recipes:
             recipe = compose.load(path)
             config = compose.load(path.parent / recipe["domains"])
@@ -538,9 +538,9 @@ class Boards(unittest.TestCase):
     # Every checked-in recipe and the graph it composes to. A change of these
     # bytes is a change of what is published and is made here on purpose.
     COMPOSED = {
-        "stm32c5/targets/nucleo-c542rc.json": "477c68df1a041c57dfb0d808ce4b24a94911e6b757ff374430b27154cdc0b987",
-        "stm32c5/targets/stm32c542cc-lqfp48-declared.json": "4789e698ee6199eb6d33b2c842f42d456cb9d0a3c79391c80e3642a6715085f9",
-        "stm32c5/targets/stm32c542kc-lqfp32-declared.json": "ea38c8d4e6e1f5290a27f368fd92099830998c395dea85b4f8df836984343332",
+        "stm32c5/targets/nucleo-c542rc.json": "817ca4113239937547c09f3baff6a755b9a838bc34922675768f128ecf9b968b",
+        "stm32c5/targets/stm32c542cc-lqfp48-declared.json": "9c6e560c968250079978b17fba73c679597858072532241c50a60ccbe668ba33",
+        "stm32c5/targets/stm32c542kc-lqfp32-declared.json": "d7b48e818b4c03672ec3a51c9c38aad59be3a6c41d033ff41c6fcdd9b02f2d2d",
     }
 
     @unittest.skipUnless(os.environ.get("BKPT_KNOWLEDGE_SOURCE_ROOT"), "needs the pinned sources: set BKPT_KNOWLEDGE_SOURCE_ROOT")
@@ -608,7 +608,7 @@ class Boards(unittest.TestCase):
                 self.assertEqual(edge["id"], f"{edge['from'].split('.', 1)[1]}.{relation}.{edge['to'].split('.', 1)[1]}")
                 self.assertEqual(edge["attributes"], {"alternate": route["attributes"]["alternate"]})
                 self.assertTrue(set(route["evidence"]) <= set(edge["evidence"]))
-                self.assertIn("policy8-reviewed_routes", edge["evidence"])
+                self.assertIn("policy9-reviewed_routes", edge["evidence"])
                 # The descriptor route keeps its own identifier beside it.
                 self.assertIn(route["id"], edges)
             for card in ("hal2.i2c-dma", "hal2.i2c-dma-operation"):
@@ -638,6 +638,35 @@ class Boards(unittest.TestCase):
         capacity = [{record["id"]: record.get("capacity") for record in value["resources"] if record["kind"] == "analog_converter"}
                     for value in (accepted, graph.value)]
         self.assertEqual(capacity[0], capacity[1])
+
+    @unittest.skipUnless(os.environ.get("BKPT_KNOWLEDGE_SOURCE_ROOT"), "needs the pinned sources: set BKPT_KNOWLEDGE_SOURCE_ROOT")
+    def test_the_definition_rule_exempts_only_cards_of_the_accepted_graph(self):
+        knowledge = pathlib.Path(__file__).resolve().parents[1]
+        graph, summary = compose.compose(knowledge / "stm32c5/targets/nucleo-c542rc.json",
+                                         pathlib.Path(os.environ["BKPT_KNOWLEDGE_SOURCE_ROOT"]))
+        accepted = json.loads((knowledge / "stm32c5/candidates/device-coverage-r2/accepted.json").read_bytes())
+        exempt = compose.load(knowledge / "stm32c5/imports/device-domains.json")["definition_rule"]["accepted_before"]
+        before = {card["id"]: card for card in accepted["implementations"] if card.get("component")}
+        now = {card["id"]: card for card in graph.value["implementations"] if card.get("component")}
+        # Only a card the accepted graph holds can be exempt, and its unit must not have changed since.
+        self.assertTrue(set(exempt) <= set(before))
+        for name in exempt:
+            self.assertEqual(now[name]["component"]["files"], before[name]["component"]["files"], name)
+        covered = sorted(set(now) - set(exempt))
+        self.assertEqual(covered, ["hal2.analog-reading", "hal2.crc32", "hal2.independent-watchdog", "hal2.input-capture",
+                                   "hal2.pwm-output", "hal2.timer-update-channel-timer"])
+        rule = next(record for record in graph.value["evidence"] if record["id"] == "policy9-sdk_definitions")
+        for name in covered:
+            self.assertIn(rule["id"], now[name]["evidence"], name)
+        for name in exempt:
+            self.assertNotIn(rule["id"], now[name]["evidence"], name)
+        # The unit taken whole from the basic timer card cites what that card never had to.
+        timer = now["hal2.timer-update-channel-timer"]
+        self.assertEqual(timer["component"]["files"], now["hal2.timer-update"]["component"]["files"])
+        for symbol in ("HAL_CORTEX_NVIC_ClearPendingIRQ", "HAL_CORTEX_NVIC_EnableIRQ", "HAL_CORTEX_NVIC_SetPriority",
+                       "HAL_RCC_TIM_GetKernelClkFreq", "HAL_TIM_GetState", "HAL_TIM_SetConfig", "HAL_TIM_Start_IT"):
+            self.assertIn(f"inv-api-{symbol}", timer["evidence"])
+            self.assertNotIn(f"inv-api-{symbol}", now["hal2.timer-update"]["evidence"])
 
     @unittest.skipUnless(os.environ.get("BKPT_KNOWLEDGE_SOURCE_ROOT"), "needs the pinned sources: set BKPT_KNOWLEDGE_SOURCE_ROOT")
     def test_the_checked_in_recipes_compose_to_the_same_bytes(self):

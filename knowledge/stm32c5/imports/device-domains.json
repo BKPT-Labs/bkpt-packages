@@ -2,9 +2,9 @@
   "schema": 1,
   "sources": [
     {
-      "id": "policy-v8",
-      "path": "architecture/sources/bkpt-capability-policy-v8.txt",
-      "revision": "version 8 candidate",
+      "id": "policy-v9",
+      "path": "architecture/sources/bkpt-capability-policy-v9.txt",
+      "revision": "version 9 candidate",
       "authority": "bkpt_engineering_policy_candidate",
       "scope": "policy"
     },
@@ -108,8 +108,8 @@
     },
     {
       "id": "analog-reading-h-source",
-      "path": "architecture/sources/bkpt-hal2-analog-reading-v3/analog-reading.h.in",
-      "revision": "version 3 candidate",
+      "path": "architecture/sources/bkpt-hal2-analog-reading-v4/analog-reading.h.in",
+      "revision": "version 4 candidate",
       "authority": "bkpt_authored_implementation",
       "scope": "implementation"
     },
@@ -122,15 +122,15 @@
     },
     {
       "id": "input-capture-h-source",
-      "path": "architecture/sources/bkpt-hal2-input-capture-v2/input-capture.h.in",
-      "revision": "version 2 candidate",
+      "path": "architecture/sources/bkpt-hal2-input-capture-v3/input-capture.h.in",
+      "revision": "version 3 candidate",
       "authority": "bkpt_authored_implementation",
       "scope": "implementation"
     },
     {
       "id": "input-capture-c-source",
-      "path": "architecture/sources/bkpt-hal2-input-capture-v2/input-capture.c.in",
-      "revision": "version 2 candidate",
+      "path": "architecture/sources/bkpt-hal2-input-capture-v3/input-capture.c.in",
+      "revision": "version 3 candidate",
       "authority": "bkpt_authored_implementation",
       "scope": "implementation"
     },
@@ -164,15 +164,15 @@
     },
     {
       "id": "watchdog-h-source",
-      "path": "architecture/sources/bkpt-hal2-watchdog-v2/watchdog.h.in",
-      "revision": "version 2 candidate",
+      "path": "architecture/sources/bkpt-hal2-watchdog-v3/watchdog.h.in",
+      "revision": "version 3 candidate",
       "authority": "bkpt_authored_implementation",
       "scope": "implementation"
     },
     {
       "id": "watchdog-c-source",
-      "path": "architecture/sources/bkpt-hal2-watchdog-v2/watchdog.c.in",
-      "revision": "version 2 candidate",
+      "path": "architecture/sources/bkpt-hal2-watchdog-v3/watchdog.c.in",
+      "revision": "version 3 candidate",
       "authority": "bkpt_authored_implementation",
       "scope": "implementation"
     },
@@ -210,12 +210,19 @@
       "revision": "RM0522 Rev 1, pages 989, 1076, 1234, 1322 and 1423",
       "authority": "manufacturer_document_text_extraction",
       "scope": "device"
+    },
+    {
+      "id": "rm-iwdg-key",
+      "path": "architecture/sources/documents/RM0522-rev1-iwdg-key-extracted.txt",
+      "revision": "RM0522 Rev 1, pages 1534 and 1538",
+      "authority": "manufacturer_document_text_extraction",
+      "scope": "device"
     }
   ],
   "policy": {
-    "source": "policy-v8",
-    "label": "BKPT policy, version 8",
-    "evidence_prefix": "policy8",
+    "source": "policy-v9",
+    "label": "BKPT policy, version 9",
+    "evidence_prefix": "policy9",
     "lines": {
       "inventory": 4,
       "gpio_output": 10,
@@ -376,7 +383,7 @@
     {
       "id": "analog-reading-h",
       "source": "analog-reading-h-source",
-      "statement": "Authored analog reading header, version 3: one single-ended input of a shared converter, read on request, with the SDK's own time bounds of a read and the ownership of the converter stated. Not manufacturer evidence."
+      "statement": "Authored analog reading header, version 4: one single-ended input of a shared converter, read on request, with the limits the SDK's waits have, the tick they count and the cleanup after a time-out stated apart from time for the caller, and the ownership of the converter. Not manufacturer evidence."
     },
     {
       "id": "analog-reading-c",
@@ -393,19 +400,19 @@
     {
       "id": "analog-api-read",
       "source": "analog-reading-h-source",
-      "start": 74,
-      "end": 74,
+      "start": 82,
+      "end": 82,
       "statement": "Exact source-bound analog reading API declaration."
     },
     {
       "id": "input-capture-h",
       "source": "input-capture-h-source",
-      "statement": "Authored input capture header, version 2: period and high time of a signal on the allocated timer channel and pad, with the time limit and the limits of polling stated. Not manufacturer evidence."
+      "statement": "Authored input capture header, version 3: period and high time of a signal on the allocated timer channel and pad, with what a result means under delays of the caller, the conditions it rests on and when a measurement completes. Not manufacturer evidence."
     },
     {
       "id": "input-capture-c",
       "source": "input-capture-c-source",
-      "statement": "Authored input capture unit, version 2, with a private handle: a microsecond time base, capture of both edges on the channel's own pin, turns of the 16-bit counter counted from the overflow flag and a half-turn compare flag so that a gap between two looks too long to resolve ends the measurement, and a time limit on the timer's own count. Through the SDK timer and GPIO interfaces. Not manufacturer evidence."
+      "statement": "Authored input capture unit, version 3, with a private handle: a microsecond time base, capture of both edges on the channel's own pin, turns of the 16-bit counter counted from the overflow flag and a half-turn compare flag in a look that reads the count and the status, acknowledges the marks seen and reads them again with interrupts masked, so that a gap too long to resolve ends the measurement, captures and counts placed around a wrap by their value, and a time limit on the timer's own count. Through the SDK timer and GPIO interfaces. Not manufacturer evidence."
     },
     {
       "id": "capture-api-init",
@@ -417,8 +424,8 @@
     {
       "id": "capture-api-measure",
       "source": "input-capture-h-source",
-      "start": 67,
-      "end": 67,
+      "start": 84,
+      "end": 84,
       "statement": "Exact source-bound input capture API declaration."
     },
     {
@@ -448,12 +455,12 @@
     {
       "id": "watchdog-h",
       "source": "watchdog-h-source",
-      "statement": "Authored independent watchdog header, version 2: prepare, start, refresh, the reset time set and a state that tells a failed start, after which the watchdog may be running, from one that was never made. Not manufacturer evidence."
+      "statement": "Authored independent watchdog header, version 3: prepare, start, refresh, the reset time set and a state that tells a start in progress, in which a refresh is refused, and a failed start, after which the watchdog may be running, from a start that was never made. Not manufacturer evidence."
     },
     {
       "id": "watchdog-c",
       "source": "watchdog-c-source",
-      "statement": "Authored independent watchdog unit, version 2, with a private handle, without window or early interrupt, through the SDK IWDG interface; a start that the SDK reports as failed leaves the unit in a state of its own in which a refresh is still passed on. Not manufacturer evidence."
+      "statement": "Authored independent watchdog unit, version 3, with a private handle, without window or early interrupt, through the SDK IWDG interface; a refresh is refused until the SDK's start call has returned, and a start that the SDK reports as failed leaves the unit in a state of its own in which a refresh is passed on. Not manufacturer evidence."
     },
     {
       "id": "watchdog-api-init",
@@ -472,22 +479,22 @@
     {
       "id": "watchdog-api-refresh",
       "source": "watchdog-h-source",
-      "start": 64,
-      "end": 64,
+      "start": 67,
+      "end": 67,
       "statement": "Exact source-bound watchdog API declaration."
     },
     {
       "id": "watchdog-api-timeout",
       "source": "watchdog-h-source",
-      "start": 69,
-      "end": 69,
+      "start": 72,
+      "end": 72,
       "statement": "Exact source-bound watchdog API declaration."
     },
     {
       "id": "watchdog-api-state",
       "source": "watchdog-h-source",
-      "start": 73,
-      "end": 73,
+      "start": 77,
+      "end": 77,
       "statement": "Exact source-bound watchdog API declaration."
     }
   ],
@@ -1296,7 +1303,7 @@
         "channel_symbol"
       ],
       "description": "Allocate a pad routed to an external input of ADC1 for analog conversion written by the application. Allocation only: no code is generated; the converter is shared, one allocation per offered input. Not to be combined with analog_reading on the same converter. Pads that need the SBS pin remap are not offered.",
-      "guidance": "Allocation only; no component is generated. resource_bindings gives the converter's hal_instance and clock_enable_api, the pad's port_symbol, pin_symbol and clock_enable_api, and under routes the selected signal with its channel_symbol. The application enables the ADC module (USE_HAL_ADC_MODULE in generated/hal/stm32c5xx_hal_conf.h and stm32c5xx_drivers/hal/stm32c5xx_hal_adc.c in CMakeLists.txt), enables both clocks, initializes the pad with mode HAL_GPIO_MODE_ANALOG, and configures and reads the converter through the SDK ADC API in stm32c5xx_hal_adc.h starting from HAL_ADC_Init with the allocated hal_instance. The converter is one shared unit: sequencing of several inputs, sampling time, calibration, reference voltage and accuracy are application decisions. Internal channels, injected and differential conversion are not covered. Only the pad each input uses without the SBS pin remap is offered: PC4, PC5, PB0 and PB1 need the SBS pin remap and are excluded, so no remap is required. Not together with analog_reading on the same converter: its generated units own the converter's configuration. The two hold the converter in different ownership modes, so a request with both on one converter is refused, and the refusal names the converter under ownership_conflicts. No electrical or errata qualification.",
+      "guidance": "Allocation only; no component is generated. resource_bindings gives the converter's hal_instance and clock_enable_api, the pad's port_symbol, pin_symbol and clock_enable_api, and under routes the selected signal with its channel_symbol. The application enables the ADC module (USE_HAL_ADC_MODULE in generated/hal/stm32c5xx_hal_conf.h and stm32c5xx_drivers/hal/stm32c5xx_hal_adc.c in CMakeLists.txt), enables both clocks, initializes the pad with mode HAL_GPIO_MODE_ANALOG, and configures and reads the converter through the SDK ADC API in stm32c5xx_hal_adc.h starting from HAL_ADC_Init with the allocated hal_instance. The converter is one shared unit: sequencing of several inputs, sampling time, calibration, reference voltage and accuracy are application decisions. Internal channels, injected and differential conversion are not covered. Only the pad each input uses without the SBS pin remap is offered: PC4, PC5, PB0 and PB1 need the SBS pin remap and are excluded, so no remap is required. Not together with analog_reading on the same converter: its generated units own the converter's configuration. The two hold the converter in different ownership modes, so a request with both on one converter is refused. When the engine has confirmed that ownership is what stands in the way, the refusal says so and names the converter under ownership_conflicts. No electrical or errata qualification.",
       "symbols": [
         [
           "adc-h",
@@ -1664,7 +1671,7 @@
         "channel_symbol"
       ],
       "description": "Read one analog input of a covered converter on request: a generated unit per input with init and a blocking read that returns the 12-bit count, the pad voltage as a fraction of VREF+. The units share the converter and own its configuration, so every offered input may have one unit, and no analog input allocation may be used on the same converter beside them. Pads that need the SBS pin remap are not offered.",
-      "guidance": "Generated component. The first unit on a converter sets the ADC and DAC kernel clock to HCLK divided by 8 (18MHz in the captured 144MHz profile) before it enables the converter's bus clock, reads the clock configuration back, sets 12-bit resolution, software trigger and one conversion per request, activates the converter and runs its offset calibration; every unit on that converter shares the one handle, and each unit switches its own pad to analog mode. Use the returned interface; do not initialize the converter, its clock or the pad again. The units own the converter: do not combine them with an analog_input_pin allocation on the same converter. The two hold the converter in different ownership modes, so a request that makes that combination is refused, and the refusal names the converter under ownership_conflicts. read converts once with the SDK's longest sampling time and returns counts 0..4095, right aligned: a fraction of VREF+, not volts, because the reference is not measured. Before each conversion the unit checks on the converter itself that it is enabled, idle and holds this input; it selects its input again when another is held, which stops, switches, starts and calibrates the converter, and it reports HAL_ERROR for good when the converter was stopped or is converting behind it. Every wait is the SDK's and is counted in HAL ticks, which must be advancing: 2ms for a conversion; on a switch 2ms each to stop, disable and enable and 228ms for calibration, about a quarter of a second in all before an error. One thread only, never from an interrupt. The same kernel clock feeds the DAC. No internal channels, injected or differential conversion, triggers, interrupts, DMA, oversampling or analog watchdog. PC4, PC5, PB0 and PB1 need the SBS pin remap and are excluded. Accuracy, source impedance and noise are not qualified; build is not a measurement.",
+      "guidance": "Generated component. The first unit on a converter sets the ADC and DAC kernel clock to HCLK divided by 8 (18MHz in the captured 144MHz profile) before it enables the converter's bus clock, reads the clock configuration back, sets 12-bit resolution, software trigger and one conversion per request, activates the converter and runs its offset calibration; every unit on that converter shares the one handle, and each unit switches its own pad to analog mode. Use the returned interface; do not initialize the converter, its clock or the pad again. The units own the converter: do not combine them with an analog_input_pin allocation on the same converter. The two hold the converter in different ownership modes, so a request that makes that combination is refused. When the engine has confirmed that ownership is what stands in the way, the refusal says so and names the converter under ownership_conflicts. read converts once with the SDK's longest sampling time and returns counts 0..4095, right aligned: a fraction of VREF+, not volts, because the reference is not measured. Before each conversion the unit checks on the converter itself that it is enabled, idle and holds this input; it selects its input again when another is held, which stops, switches, starts and calibrates the converter, and it reports HAL_ERROR for good when the converter was stopped or is converting behind it. Every wait is the SDK's and counts HAL ticks, which must be advancing; a wait gives up when the ticks exceed its limit, so up to one tick after it. The conversion has a limit of 2ms, and when it does not finish the unit stops it, where the SDK waits with a limit of 2ms again, before it returns HAL_TIMEOUT: up to about 6ms of ticks. A switch adds the SDK's limits of 2ms to disable, 2ms to enable and 228ms for the calibration: at most about a quarter of a second of ticks. These count ticks and not time for the caller: a delayed thread takes longer by its delay. One thread only, never from an interrupt. The same kernel clock feeds the DAC. No internal channels, injected or differential conversion, triggers, interrupts, DMA, oversampling or analog watchdog. PC4, PC5, PB0 and PB1 need the SBS pin remap and are excluded. Accuracy, source impedance and noise are not qualified; build is not a measurement.",
       "symbols": [
         [
           "adc-c",
@@ -1846,6 +1853,20 @@
           "start": 6019,
           "end": 6032,
           "statement": "SDK ADC calibration: it starts the self-calibration and waits for its end against ADC_CALIBRATION_TIMEOUT_MS, counted with HAL_GetTick, and reports an error when the limit passes."
+        },
+        {
+          "id": "sdk-adc-poll-wait",
+          "source": "adc-c",
+          "start": 4044,
+          "end": 4057,
+          "statement": "SDK ADC polled conversion: it waits for the end-of-conversion flag and returns HAL_TIMEOUT when the HAL ticks passed since the call are greater than the limit it was given, so not before one tick more than the limit."
+        },
+        {
+          "id": "sdk-adc-stop-wait",
+          "source": "adc-c",
+          "start": 6070,
+          "end": 6097,
+          "statement": "SDK ADC stop of a regular conversion: after the stop request it waits until no conversion is ongoing and gives up when the HAL ticks passed are greater than ADC_CONV_STOP_TIMEOUT_MS. The unit calls it after a conversion that timed out."
         }
       ],
       "evidence": [
@@ -1952,7 +1973,7 @@
         "claims": [],
         "interface": {
           "setup": "Already initialized after mx_system_init. Header bkpt_components/{{unit}}.h; the converter, its kernel clock, calibration and the pad {{pad_name}} are set up. No manual ADC, clock or GPIO setup.",
-          "read": "{{unit}}_read(&counts): checked HAL_OK converts this input once and writes counts 0..4095, the pad voltage as a fraction of VREF+ in steps of 1/4096. Not volts: the reference is not measured. Blocking: at most 2ms of HAL ticks when the converter holds this input, and up to about a quarter of a second, the SDK's stop, start and 228ms calibration limits, when it has to switch from another input. The HAL tick must be advancing. One thread only, never from an interrupt, never while another unit of the same converter reads.",
+          "read": "{{unit}}_read(&counts): checked HAL_OK converts this input once and writes counts 0..4095, the pad voltage as a fraction of VREF+ in steps of 1/4096. Not volts: the reference is not measured. Blocking. The waits count HAL ticks, which must be advancing, and each ends up to one tick after its limit. When the converter holds this input: a limit of 2ms for the conversion and, when it does not finish, 2ms again to stop it before HAL_TIMEOUT, up to about 6ms of ticks. When it has to switch from another input: in addition the SDK's limits to disable and to enable the converter and 228ms for the calibration, at most about a quarter of a second of ticks. A delayed thread takes longer by its delay. One thread only, never from an interrupt, never while another unit of the same converter reads.",
           "scope": "12-bit, software trigger, the SDK's longest sampling time, 18MHz converter clock set before the bus clock and checked at init for the pinned 144MHz profile. The units own the converter: no analog_input_pin allocation and no application ADC calls on it. A converter found stopped or converting behind the unit is a permanent HAL_ERROR. No internal channels, triggers, interrupts, DMA, oversampling or measured accuracy.",
           "declarations": "hal_status_t {{unit}}_init(void);\nhal_status_t {{unit}}_read(uint32_t *counts);"
         },
@@ -1984,7 +2005,7 @@
         "channel_number"
       ],
       "description": "Measure the period and high time of a digital signal on a pad one channel of a covered timer is routed to: a generated unit with init and a blocking, polled measurement in microseconds with a time limit counted on the timer. The whole timer belongs to the measurement.",
-      "guidance": "Generated component owns the timer handle, a 1MHz time base over a 16-bit period, capture of both edges on the allocated channel's own pin, the compare flag of the other of the timer's first two channels as a half-turn mark (that channel drives no pad), and the pad as an input with the selected pull. Use the returned interface; do not initialize the timer, a channel or the pad again. measure waits for a rising edge, the falling edge after it and the next rising edge and returns period and high time in whole microseconds of the timer clock. The time limit, 1..60000 ms, is counted on the same clock from the call: HAL_TIMEOUT when the edges have not occurred by then, and an edge at or after the limit is not used. The unit polls: it must look at the timer at least every 32.768ms to follow the 16-bit counter. A thread held longer than that between two looks may get HAL_ERROR and one held for 65.536ms or more always does; edges closer together than the loop can follow also give HAL_ERROR, through the overcapture flag or a capture found waiting. A measurement is never completed from a count the unit could not follow, and a held thread delays the return by the time it was held. One thread only, never from an interrupt. No input filter, prescaled capture, interrupt or DMA capture or XOR input. Init verifies the clock and register factors for the pinned 144MHz profile; times are counts of the nominal clock, not measured against a reference.",
+      "guidance": "Generated component owns the timer handle, a 1MHz time base over a 16-bit period, capture of both edges on the allocated channel's own pin, the compare flag of the other of the timer's first two channels as a half-turn mark (that channel drives no pad), and the pad as an input with the selected pull. Use the returned interface; do not initialize the timer, a channel or the pad again. measure waits for a rising edge, the falling edge after it and the next rising edge and returns period and high time in whole microseconds of the timer clock. The time limit, 1..60000 ms, is counted on the same clock from the start of the counter: an edge at or after the limit is not used, and HAL_TIMEOUT means that the three edges did not all occur before it. The unit polls. In each pass it reads the count and the status, acknowledges the marks it saw and reads the marks again, as one step with interrupts masked for those three or four register accesses, and it ends the measurement with HAL_ERROR when both marks are set at once, when a mark is set behind an acknowledgement, on the overcapture flag, or when a further edge arrives while one is read. Provided that nothing else writes the timer and that the timer and the pad behave as the reference manual describes, HAL_OK comes with the true period and high time, wherever and for however long the calling thread was delayed, and a delay the unit cannot resolve ends in HAL_ERROR and not in a value. A measurement completes without that error when the thread is not delayed for 32ms or longer between two passes and each edge is read before the next one arrives; a delay of 65.536ms or more from one pass to the next sets both marks. The basis is the reasoning in the unit's source and a host model that runs the unit's template against a simulated timer (stm32c5/tests/input_capture_model.py); on a board only delays between two passes were provoked. A delayed thread returns later by its delay, also past the limit. One thread only, never from an interrupt. No input filter, prescaled capture, interrupt or DMA capture or XOR input. Init verifies the clock and register factors for the pinned 144MHz profile; times are counts of the nominal clock, not measured against a reference.",
       "parameters": {
         "pull": {
           "type": "choice",
@@ -2234,9 +2255,9 @@
         ],
         "claims": [],
         "interface": {
-          "setup": "Already initialized after mx_system_init. Header bkpt_components/{{unit}}.h; private timer handle, 1MHz time base, capture of both edges, a half-turn mark on another channel's flag, and the pad {{pad_name}} as an input with pull {{pull}}. No manual timer, channel or GPIO setup.",
-          "measure": "{{unit}}_measure(timeout_ms, &period_us, &high_us), timeout 1..60000 counted on the timer from the call: checked HAL_OK waited for a rising edge, the falling edge after it and the next rising edge and wrote period and high time in microseconds. HAL_TIMEOUT when the edges did not occur within the limit. HAL_ERROR when edges came faster than the polled capture could follow or the thread was held too long between two looks at the timer (possible above 32.768ms, certain from 65.536ms). Blocking; one thread only, never from an interrupt.",
-          "scope": "Polled capture with a microsecond count for the pinned 144MHz profile, checked at init and before each measurement. A result is never built on a count the unit could not follow. No stated minimum pulse width, input filter, interrupt or DMA capture or measured accuracy. Outputs are written only with HAL_OK.",
+          "setup": "Already initialized after mx_system_init. Header bkpt_components/{{unit}}.h; private timer handle, 1MHz time base, capture of both edges, a half-turn mark on another channel's flag, interrupts masked for three or four register accesses in each pass of a measurement, and the pad {{pad_name}} as an input with pull {{pull}}. No manual timer, channel or GPIO setup.",
+          "measure": "{{unit}}_measure(timeout_ms, &period_us, &high_us), timeout 1..60000 counted on the timer from the start of its counter: checked HAL_OK waited for the first rising edge the channel captured, the falling edge after it and the next rising edge, all before the limit, and wrote period and high time in microseconds. HAL_TIMEOUT when the three edges did not all occur before the limit. HAL_ERROR when the unit could not follow the counter or the edges: a delay of the calling thread that it cannot resolve (possible from 32ms between two passes, both marks set from 65.536ms), or an edge that arrived before the previous one was read. Blocking; one thread only, never from an interrupt.",
+          "scope": "Polled capture with a microsecond count for the pinned 144MHz profile, checked at init and before each measurement. What HAL_OK and HAL_TIMEOUT mean holds provided that nothing else writes the timer and that timer and pad behave as the reference manual describes; it was checked on a host model of the timer, and on a board for delays between two passes only. No stated minimum pulse width, input filter, interrupt or DMA capture or measured accuracy. Outputs are written only with HAL_OK.",
           "declarations": "hal_status_t {{unit}}_init(void);\nhal_status_t {{unit}}_measure(uint32_t timeout_ms, uint32_t *period_us, uint32_t *high_us);"
         },
         "interface_sources": {
@@ -2368,6 +2389,34 @@
         [
           "tim-c",
           "HAL_TIM_IRQHandler"
+        ],
+        [
+          "v2-cortex-c",
+          "HAL_CORTEX_NVIC_ClearPendingIRQ"
+        ],
+        [
+          "v2-cortex-c",
+          "HAL_CORTEX_NVIC_EnableIRQ"
+        ],
+        [
+          "v2-cortex-c",
+          "HAL_CORTEX_NVIC_SetPriority"
+        ],
+        [
+          "rcc-c",
+          "HAL_RCC_TIM_GetKernelClkFreq"
+        ],
+        [
+          "tim-c",
+          "HAL_TIM_GetState"
+        ],
+        [
+          "tim-c",
+          "HAL_TIM_SetConfig"
+        ],
+        [
+          "tim-c",
+          "HAL_TIM_Start_IT"
         ]
       ],
       "evidence": [
@@ -2564,7 +2613,7 @@
         }
       },
       "description": "Independent watchdog with a chosen reset time: a generated unit that prepares the watchdog, and start, refresh, the time actually set and a state for the application. Once started it resets the microcontroller unless refreshed in time and cannot be stopped; a start that fails may leave it running.",
-      "guidance": "Generated component owns the watchdog handle. Generated init only prepares it: the application calls start when it is ready, and from then on must call refresh within the reset time or the microcontroller resets. The watchdog cannot be stopped or reconfigured before a reset, so start it only when the refresh path is in place. The reset time is the selected number of milliseconds at the nominal 32kHz of the low-speed internal oscillator; timeout_ms reports the time the driver set, and the oscillator's real frequency shifts it. The SDK enables the watchdog before it waits for its registers, and those waits can fail: when start returns an error other than busy, state reports 2, the watchdog may be running with a reset time that is not known, timeout_ms reports 0xFFFFFFFF, refresh still restarts the count, start cannot be tried again, and a reset may follow. No window (a refresh is allowed at any time) and no early interrupt. refresh may be called from the owning thread or an interrupt; start from the thread only. Behaviour while a debugger halts the core and in low-power modes, and the option bytes, are not covered. Build does not exercise the reset.",
+      "guidance": "Generated component owns the watchdog handle. Generated init only prepares it: the application calls start when it is ready, and from then on must call refresh within the reset time or the microcontroller resets. The watchdog cannot be stopped or reconfigured before a reset, so start it only when the refresh path is in place. The reset time is the selected number of milliseconds at the nominal 32kHz of the low-speed internal oscillator; timeout_ms reports the time the driver set, and the oscillator's real frequency shifts it. While start runs, state reports 3 and refresh returns HAL_BUSY and writes nothing: a refresh writes the reload key, the reference manual states that any key but the access key write-protects the watchdog's registers again, and the SDK writes the access key and then the prescaler and the reload value, so a refresh from an interrupt inside start could leave the watchdog with other values than the unit reports. The SDK enables the watchdog before it waits for its registers, and those waits can fail: when start returns an error other than busy, state reports 2, the watchdog may be running with a reset time that is not known, timeout_ms reports 0xFFFFFFFF, refresh still restarts the count, start cannot be tried again, and a reset may follow. No window (a refresh is allowed at any time) and no early interrupt. refresh may be called from the owning thread or an interrupt, and is refused from an interrupt that arrives while start runs; start from the thread only. Behaviour while a debugger halts the core and in low-power modes, and the option bytes, are not covered. Build does not exercise the reset.",
       "symbols": [
         [
           "iwdg-c",
@@ -2602,6 +2651,27 @@
           "start": 1330,
           "end": 1330,
           "statement": "SDK build adds hal_iwdg.c only under its HAL IWDG component selection; the captured build selects no such component, so the file is added through the root extension point."
+        },
+        {
+          "id": "rm-iwdg-key-register",
+          "source": "rm-iwdg-key",
+          "start": 74,
+          "end": 83,
+          "statement": "RM0522 page 1538, IWDG key register: writing 0xAAAA reloads the counter and write-protects the registers, 0x5555 enables write access to them, and any value different from 0x5555 write-protects them. Text extraction."
+        },
+        {
+          "id": "rm-iwdg-access-protection",
+          "source": "rm-iwdg-key",
+          "start": 30,
+          "end": 34,
+          "statement": "RM0522 page 1534, section 37.4.6: the prescaler, reload, early wake-up and window registers are write-protected until 0x0000 5555 is written to the key register. Text extraction; the sentence on other values is cut by a figure on these lines and is cited from the key register description."
+        },
+        {
+          "id": "sdk-iwdg-start-sequence",
+          "source": "iwdg-c",
+          "start": 426,
+          "end": 431,
+          "statement": "SDK IWDG start: it enables the watchdog, enables write access and then writes the prescaler and the reload value, in this order and before its waits."
         }
       ],
       "evidence": [
@@ -2668,12 +2738,12 @@
         "claims": [],
         "interface": {
           "setup": "Prepared after mx_system_init, not running. Header bkpt_components/{{unit}}.h; private watchdog handle.",
-          "start": "{{unit}}_start(): checked HAL_OK starts the watchdog with a nominal reset time of {{timeout_ms}} ms; it cannot be stopped afterwards. HAL_BUSY when a start was already made. Any other result is a failed start after which the watchdog may be running with a reset time that is not known: state is 2 and a reset may follow. Thread only.",
-          "refresh": "{{unit}}_refresh(): checked HAL_OK restarts the count; call it more often than the reset time. Thread or interrupt. HAL_ERROR before any start; after a failed start the count is restarted all the same.",
-          "timeout": "{{unit}}_timeout_ms(): the reset time the driver set, in milliseconds of the nominal oscillator; 0 before start; 0xFFFFFFFF after a failed start, when it is not known.",
+          "start": "{{unit}}_start(): checked HAL_OK starts the watchdog with a nominal reset time of {{timeout_ms}} ms; it cannot be stopped afterwards. HAL_BUSY when a start was already made. While it runs, state is 3 and refresh is refused. Any other result is a failed start after which the watchdog may be running with a reset time that is not known: state is 2 and a reset may follow. Thread only.",
+          "refresh": "{{unit}}_refresh(): checked HAL_OK restarts the count; call it more often than the reset time. Thread or interrupt. HAL_ERROR before any start; HAL_BUSY, with nothing written, while start is running; after a failed start the count is restarted all the same.",
+          "timeout": "{{unit}}_timeout_ms(): the reset time the driver set, in milliseconds of the nominal oscillator; 0 before start; 0xFFFFFFFF while start runs and after a failed start, when it is not known.",
           "scope": "No window, no early interrupt, nominal 32kHz oscillator. The reset time is not measured, the reset is not exercised by a build, and a failed start is not recoverable.",
           "declarations": "hal_status_t {{unit}}_init(void);\nhal_status_t {{unit}}_start(void);\nhal_status_t {{unit}}_refresh(void);\nuint32_t {{unit}}_timeout_ms(void);\nuint32_t {{unit}}_state(void);",
-          "state": "{{unit}}_state(): 0 not started, 1 running with the reported time, 2 a start failed and the watchdog may be running."
+          "state": "{{unit}}_state(): 0 not started, 1 running with the reported time, 2 a start failed and the watchdog may be running, 3 start is running (seen only from an interrupt)."
         },
         "interface_sources": {
           "declarations": [
@@ -2958,5 +3028,22 @@
         ]
       ]
     }
-  ]
+  ],
+  "definition_rule": {
+    "policy": "sdk_definitions",
+    "accepted_before": [
+      "hal2.timer-update",
+      "hal2.dma-memory-copy",
+      "hal2.i2c-dma",
+      "hal2.spi-dma",
+      "hal2.uart-dma-tx-component",
+      "hal2.uart-dma-rx-component",
+      "hal2.uart-dma-duplex-component",
+      "hal2.dma-memory-copy-operation",
+      "hal2.i2c-dma-operation",
+      "hal2.spi-transfer-operation",
+      "hal2.uart-transfer-operation",
+      "hal2.gpio-input-interrupt"
+    ]
+  }
 }
