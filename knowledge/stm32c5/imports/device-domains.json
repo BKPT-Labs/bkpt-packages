@@ -114,6 +114,42 @@
       "path": "architecture/sources/bkpt-hal2-input-capture-v1/input-capture.c.in",
       "revision": "version 1 candidate",
       "authority": "BKPT authored integration artifact"
+    },
+    {
+      "id": "crc-h",
+      "path": "sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_crc.h",
+      "revision": "HAL2 pack 2.1.0",
+      "authority": "manufacturer_sdk"
+    },
+    {
+      "id": "iwdg-h",
+      "path": "sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/hal/stm32c5xx_hal_iwdg.h",
+      "revision": "HAL2 pack 2.1.0",
+      "authority": "manufacturer_sdk"
+    },
+    {
+      "id": "crc32-h-source",
+      "path": "architecture/sources/bkpt-hal2-crc32-v1/crc32.h.in",
+      "revision": "version 1 candidate",
+      "authority": "BKPT authored integration artifact"
+    },
+    {
+      "id": "crc32-c-source",
+      "path": "architecture/sources/bkpt-hal2-crc32-v1/crc32.c.in",
+      "revision": "version 1 candidate",
+      "authority": "BKPT authored integration artifact"
+    },
+    {
+      "id": "watchdog-h-source",
+      "path": "architecture/sources/bkpt-hal2-watchdog-v1/watchdog.h.in",
+      "revision": "version 1 candidate",
+      "authority": "BKPT authored integration artifact"
+    },
+    {
+      "id": "watchdog-c-source",
+      "path": "architecture/sources/bkpt-hal2-watchdog-v1/watchdog.c.in",
+      "revision": "version 1 candidate",
+      "authority": "BKPT authored integration artifact"
     }
   ],
   "policy": {
@@ -143,7 +179,9 @@
       "analog_reading": 30,
       "input_capture": 31,
       "channel_timer_update": 32,
-      "gpio_input": 33
+      "gpio_input": 33,
+      "crc_unit": 34,
+      "watchdog": 35
     }
   },
   "board_rules": [
@@ -317,6 +355,68 @@
       "start": 60,
       "end": 60,
       "statement": "Exact source-bound input capture API declaration."
+    },
+    {
+      "id": "crc32-h",
+      "source": "crc32-h-source",
+      "statement": "Authored CRC-32 header: the checksum of a buffer of bytes in one call. Not manufacturer evidence."
+    },
+    {
+      "id": "crc32-c",
+      "source": "crc32-c-source",
+      "statement": "Authored CRC-32 unit with a private handle: polynomial, initial value and bit reversal through the SDK CRC interface, the final inversion in the unit. Not manufacturer evidence."
+    },
+    {
+      "id": "crc32-api-init",
+      "source": "crc32-h-source",
+      "start": 48,
+      "end": 48,
+      "statement": "Exact source-bound CRC-32 API declaration."
+    },
+    {
+      "id": "crc32-api-compute",
+      "source": "crc32-h-source",
+      "start": 54,
+      "end": 54,
+      "statement": "Exact source-bound CRC-32 API declaration."
+    },
+    {
+      "id": "watchdog-h",
+      "source": "watchdog-h-source",
+      "statement": "Authored independent watchdog header: prepare, start, refresh and the reset time set. Not manufacturer evidence."
+    },
+    {
+      "id": "watchdog-c",
+      "source": "watchdog-c-source",
+      "statement": "Authored independent watchdog unit with a private handle, without window or early interrupt, through the SDK IWDG interface. Not manufacturer evidence."
+    },
+    {
+      "id": "watchdog-api-init",
+      "source": "watchdog-h-source",
+      "start": 46,
+      "end": 46,
+      "statement": "Exact source-bound watchdog API declaration."
+    },
+    {
+      "id": "watchdog-api-start",
+      "source": "watchdog-h-source",
+      "start": 53,
+      "end": 53,
+      "statement": "Exact source-bound watchdog API declaration."
+    },
+    {
+      "id": "watchdog-api-refresh",
+      "source": "watchdog-h-source",
+      "start": 57,
+      "end": 57,
+      "statement": "Exact source-bound watchdog API declaration."
+    },
+    {
+      "id": "watchdog-api-timeout",
+      "source": "watchdog-h-source",
+      "start": 61,
+      "end": 61,
+      "statement": "Exact source-bound watchdog API declaration."
     }
   ],
   "device_description": {
@@ -687,6 +787,59 @@
           "SCL": "i2c_scl",
           "SDA": "i2c_sda"
         }
+      }
+    },
+    {
+      "kind": "checksum_unit",
+      "policy": "crc_unit",
+      "internal": true,
+      "ip": {
+        "types": [
+          "crc"
+        ],
+        "digitalName": "c7amba_integtest1",
+        "versions": [
+          2.4
+        ]
+      },
+      "symbols": {
+        "hal_instance": [
+          "crc-h",
+          "HAL_{instance}",
+          "{instance}_BASE"
+        ],
+        "clock_enable_api": [
+          "rcc-h",
+          "HAL_RCC_{instance}_EnableClock",
+          "PERIPH_{instance}"
+        ]
+      },
+      "attributes": {
+        "ownership_policy": "exclusive"
+      }
+    },
+    {
+      "kind": "watchdog",
+      "policy": "watchdog",
+      "internal": true,
+      "ip": {
+        "types": [
+          "iwdg"
+        ],
+        "digitalName": "c7amba_wdgls",
+        "versions": [
+          4.2
+        ]
+      },
+      "symbols": {
+        "hal_instance": [
+          "iwdg-h",
+          "HAL_{instance}1",
+          "{instance}_BASE"
+        ]
+      },
+      "attributes": {
+        "ownership_policy": "exclusive"
       }
     }
   ],
@@ -2011,6 +2164,267 @@
         "v2-barrier",
         "v2-thread-mode"
       ]
+    },
+    {
+      "capability": "crc32_checksum",
+      "card": "hal2.crc32",
+      "policy": "crc_unit",
+      "instance_kind": "checksum_unit",
+      "instance_role": "unit",
+      "description": "CRC-32 (ISO 3309, zlib) of a buffer of bytes on the hardware CRC unit: a generated unit with init and a one-call computation. The whole CRC unit belongs to it.",
+      "guidance": "Generated component owns the CRC handle and its configuration: polynomial 0x04C11DB7, initial value 0xFFFFFFFF, every input byte and the result bit-reversed; the unit inverts the result. Use the returned interface; do not initialize the CRC unit again. compute takes a buffer of 1 or more bytes, starts from the initial value on every call and returns the CRC-32 whose value for the ASCII characters 123456789 is 0xCBF43926. One thread only, never from an interrupt. No other polynomial or size, no accumulation across calls, no DMA. The check value is arithmetic for testing a build, not a measurement.",
+      "symbols": [
+        [
+          "crc-h",
+          "HAL_CRC_Init"
+        ],
+        [
+          "crc-h",
+          "HAL_CRC_SetConfig"
+        ],
+        [
+          "crc-h",
+          "HAL_CRC_Calculate"
+        ],
+        [
+          "crc-h",
+          "HAL_CRC_INDATA_REVERSE_BYTE"
+        ],
+        [
+          "crc-h",
+          "HAL_CRC_OUTDATA_REVERSE_BIT"
+        ],
+        [
+          "crc-h",
+          "HAL_CRC_POLY_SIZE_32B"
+        ],
+        [
+          "preset-conf",
+          "USE_HAL_CRC_MODULE"
+        ]
+      ],
+      "cites": [
+        {
+          "id": "sdk-crc-source",
+          "source": "sdk-build",
+          "start": 1197,
+          "end": 1197,
+          "statement": "SDK build adds hal_crc.c only under its HAL CRC component selection; the captured build selects no such component, so the file is added through the root extension point."
+        }
+      ],
+      "evidence": [
+        "cmake-extension",
+        "sdk-common-includes"
+      ],
+      "edits_from": {
+        "card": "hal2.timer-update"
+      },
+      "static_edits": [
+        {
+          "path": "generated/hal/stm32c5xx_hal_conf.h",
+          "source": "preset-conf",
+          "mode": "replace",
+          "old": "#define USE_HAL_CRC_MODULE                      0U",
+          "new": "#define USE_HAL_CRC_MODULE                      1U"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "source": "root-cmake",
+          "mode": "insert_before",
+          "old": "  # Add additional source files here",
+          "new": "  stm32c5xx_drivers/hal/stm32c5xx_hal_crc.c\n"
+        }
+      ],
+      "component": {
+        "bindings": {
+          "unit": {
+            "source": {
+              "type": "instance"
+            }
+          },
+          "crc_name": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "unit",
+              "attribute": "instance"
+            }
+          },
+          "crc_instance": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "unit",
+              "attribute": "hal_instance"
+            }
+          },
+          "crc_clock": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "unit",
+              "attribute": "clock_enable_api"
+            }
+          }
+        },
+        "files": [
+          {
+            "path": "bkpt_components/{{unit}}.h",
+            "template": "crc32-h"
+          },
+          {
+            "path": "bkpt_components/{{unit}}.c",
+            "template": "crc32-c"
+          }
+        ],
+        "claims": [],
+        "interface": {
+          "setup": "Already initialized after mx_system_init. Header bkpt_components/{{unit}}.h; private CRC handle and configuration. No manual CRC or clock setup.",
+          "compute": "{{unit}}_compute(data, bytes, &crc32), bytes 1 or more: checked HAL_OK writes the CRC-32 of the buffer, computed from the initial value. Nothing is carried between calls. One thread only, never from an interrupt.",
+          "scope": "CRC-32 of ISO 3309 and zlib only: 123456789 gives 0xCBF43926. No other polynomial, size or accumulation.",
+          "declarations": "hal_status_t {{unit}}_init(void);\nhal_status_t {{unit}}_compute(const void *data, uint32_t bytes, uint32_t *crc32);"
+        },
+        "interface_sources": {
+          "declarations": [
+            "crc32-api-init",
+            "crc32-api-compute"
+          ]
+        }
+      }
+    },
+    {
+      "capability": "independent_watchdog",
+      "card": "hal2.independent-watchdog",
+      "policy": "watchdog",
+      "instance_kind": "watchdog",
+      "instance_role": "watchdog",
+      "parameters": {
+        "timeout_ms": {
+          "type": "choice",
+          "values": [
+            "100",
+            "250",
+            "500",
+            "1000",
+            "2000",
+            "4000",
+            "8000"
+          ]
+        }
+      },
+      "description": "Independent watchdog with a chosen reset time: a generated unit that prepares the watchdog, and start, refresh and the time actually set for the application. Once started it resets the microcontroller unless refreshed in time and cannot be stopped.",
+      "guidance": "Generated component owns the watchdog handle. Generated init only prepares it: the application calls start when it is ready, and from then on must call refresh within the reset time or the microcontroller resets. The watchdog cannot be stopped or reconfigured before a reset, so start it only when the refresh path is in place. The reset time is the selected number of milliseconds at the nominal 32kHz of the low-speed internal oscillator; timeout_ms reports the time the driver set, and the oscillator's real frequency shifts it. No window (a refresh is allowed at any time) and no early interrupt. refresh may be called from the owning thread or an interrupt; start from the thread only. Behaviour while a debugger halts the core and in low-power modes, and the option bytes, are not covered. Build does not exercise the reset.",
+      "symbols": [
+        [
+          "iwdg-h",
+          "HAL_IWDG_Init"
+        ],
+        [
+          "iwdg-h",
+          "HAL_IWDG_Start"
+        ],
+        [
+          "iwdg-h",
+          "HAL_IWDG_Refresh"
+        ],
+        [
+          "iwdg-h",
+          "HAL_IWDG_GetMaxTime"
+        ],
+        [
+          "preset-conf",
+          "USE_HAL_IWDG_MODULE"
+        ],
+        [
+          "preset-conf",
+          "USE_HAL_IWDG_TIME_UNIT"
+        ]
+      ],
+      "cites": [
+        {
+          "id": "sdk-iwdg-source",
+          "source": "sdk-build",
+          "start": 1330,
+          "end": 1330,
+          "statement": "SDK build adds hal_iwdg.c only under its HAL IWDG component selection; the captured build selects no such component, so the file is added through the root extension point."
+        }
+      ],
+      "evidence": [
+        "cmake-extension",
+        "sdk-common-includes"
+      ],
+      "edits_from": {
+        "card": "hal2.timer-update"
+      },
+      "static_edits": [
+        {
+          "path": "generated/hal/stm32c5xx_hal_conf.h",
+          "source": "preset-conf",
+          "mode": "replace",
+          "old": "#define USE_HAL_IWDG_MODULE                     0U",
+          "new": "#define USE_HAL_IWDG_MODULE                     1U"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "source": "root-cmake",
+          "mode": "insert_before",
+          "old": "  # Add additional source files here",
+          "new": "  stm32c5xx_drivers/hal/stm32c5xx_hal_iwdg.c\n"
+        }
+      ],
+      "component": {
+        "bindings": {
+          "unit": {
+            "source": {
+              "type": "instance"
+            }
+          },
+          "timeout_ms": {
+            "source": {
+              "type": "parameter",
+              "name": "timeout_ms"
+            }
+          },
+          "watchdog_name": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "watchdog",
+              "attribute": "instance"
+            }
+          },
+          "watchdog_instance": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "watchdog",
+              "attribute": "hal_instance"
+            }
+          }
+        },
+        "files": [
+          {
+            "path": "bkpt_components/{{unit}}.h",
+            "template": "watchdog-h"
+          },
+          {
+            "path": "bkpt_components/{{unit}}.c",
+            "template": "watchdog-c"
+          }
+        ],
+        "claims": [],
+        "interface": {
+          "setup": "Prepared after mx_system_init, not running. Header bkpt_components/{{unit}}.h; private watchdog handle.",
+          "start": "{{unit}}_start(): checked HAL_OK starts the watchdog with a nominal reset time of {{timeout_ms}} ms. It cannot be stopped afterwards. Thread only; fails when already started.",
+          "refresh": "{{unit}}_refresh(): checked HAL_OK restarts the count; call it more often than the reset time. Thread or interrupt; fails unless started.",
+          "timeout": "{{unit}}_timeout_ms(): the reset time the driver set, in milliseconds of the nominal oscillator, or 0 before start.",
+          "scope": "No window, no early interrupt, nominal 32kHz oscillator. The reset time is not measured and the reset is not exercised by a build.",
+          "declarations": "hal_status_t {{unit}}_init(void);\nhal_status_t {{unit}}_start(void);\nhal_status_t {{unit}}_refresh(void);\nuint32_t {{unit}}_timeout_ms(void);"
+        },
+        "interface_sources": {
+          "declarations": [
+            "watchdog-api-init",
+            "watchdog-api-start",
+            "watchdog-api-refresh",
+            "watchdog-api-timeout"
+          ]
+        }
+      }
     }
   ],
   "pad_capabilities": [
