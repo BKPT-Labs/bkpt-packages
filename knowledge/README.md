@@ -212,6 +212,19 @@ run on a board, and the manifest's `inputs.architecture` does not name it.
 It is written in graph schema 5, which needs a firmware tool build that reads
 that schema.
 
+`stm32c5/candidates/device-coverage-r4/` replaces it before any acceptance. The
+first run of round 3 on the NUCLEO-C542RC showed that the analog reading unit
+could not start: it enabled the converter's bus clock and then asked the SDK
+for the ADC and DAC kernel clock, which the SDK refuses while that bus clock is
+on. Round 4 cites version 2 of the unit, which sets the kernel clock first and
+reads the configuration back, and the SDK lines that state the order. Nothing
+else differs from round 3: six records, all of the analog reading component.
+On that board the four self-check applications of the round then passed:
+analog reading on PA0 and PA1, input capture on PA0 with TIM2, periodic
+interrupts on TIM1, TIM2 and TIM6, the CRC-32 unit against zlib and a watchdog
+reset. The checks stimulate the pads from inside the chip and are not a
+measurement of accuracy. Round 4 is a candidate too: it has no review record.
+
 ## Licensing and third-party content
 
 Files written by BKPT carry the SPDX identifier `LicenseRef-BKPT-Proprietary`.

@@ -99,8 +99,8 @@
     },
     {
       "id": "analog-reading-c-source",
-      "path": "architecture/sources/bkpt-hal2-analog-reading-v1/analog-reading.c.in",
-      "revision": "version 1 candidate",
+      "path": "architecture/sources/bkpt-hal2-analog-reading-v2/analog-reading.c.in",
+      "revision": "version 2 candidate",
       "authority": "BKPT authored integration artifact"
     },
     {
@@ -317,7 +317,7 @@
     {
       "id": "analog-reading-c",
       "source": "analog-reading-c-source",
-      "statement": "Authored analog reading unit: converter bring-up shared by every unit on the converter, channel selection while stopped, one polled conversion per read, through the SDK ADC, RCC and GPIO interfaces. Not manufacturer evidence."
+      "statement": "Authored analog reading unit, version 2: the ADC and DAC kernel clock is set before the converter's bus clock is enabled and judged by reading the configuration back; then converter bring-up shared by every unit on the converter, channel selection while stopped and one polled conversion per read, through the SDK ADC, RCC and GPIO interfaces. Not manufacturer evidence."
     },
     {
       "id": "analog-api-init",
@@ -1648,6 +1648,10 @@
         [
           "preset-conf",
           "USE_HAL_ADC_MODULE"
+        ],
+        [
+          "rcc-h",
+          "HAL_RCC_ADCDAC_GetConfigKernelClk"
         ]
       ],
       "cites": [
@@ -1664,6 +1668,13 @@
           "start": 1162,
           "end": 1162,
           "statement": "SDK build adds hal_adc.c only under its HAL ADC component selection; the captured build selects no such component, so the file is added through the root extension point."
+        },
+        {
+          "id": "sdk-adcdac-clock-order",
+          "source": "rcc-c",
+          "start": 2765,
+          "end": 2791,
+          "statement": "SDK source of HAL_RCC_ADCDAC_SetConfigKernelClk: its note says source and prescaler can be updated only while ADCDAC is disabled, and the function returns HAL_ERROR when the ADC12 bus clock is enabled."
         }
       ],
       "evidence": [
