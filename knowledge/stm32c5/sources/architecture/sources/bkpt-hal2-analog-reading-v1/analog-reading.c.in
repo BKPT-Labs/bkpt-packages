@@ -1,0 +1,138 @@
+// SPDX-License-Identifier: LicenseRef-BKPT-Proprietary
+/*
+ * BKPT resource-bound initialization, adapted from ST HAL2 2.1.0 API contracts
+ * and STM32CubeC5 initialization examples. Manufacturer-derived portions:
+ * BSD 3-clause "New" or "Revised" License
+ * 
+ * Copyright (c) 2026, STMicroelectronics
+ * 
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ * 
+ *   * Redistributions of source code must retain the above copyright notice, this
+ *     list of conditions and the following disclaimer.
+ * 
+ *   * Redistributions in binary form must reproduce the above copyright notice,
+ *     this list of conditions and the following disclaimer in the documentation
+ *     and/or other materials provided with the distribution.
+ * 
+ *   * Neither the name of the STMicroelectronics nor the names of its contributors may
+ *     be used to endorse or promote products derived from this software without
+ *     specific prior written permission.
+ * 
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
+ * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+ * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+#include "{{unit}}.h"
+/* Units on the same converter share one handle and its state. Each unit
+ * carries these definitions as weak ones, so the program holds exactly one of
+ * each whatever the number of units. */
+__attribute__((weak)) hal_adc_handle_t bkpt_shared_{{converter_name}}_handle;
+/* 0 not attempted, 1 active and calibrated, 2 failed. */
+__attribute__((weak)) unsigned int bkpt_shared_{{converter_name}}_state;
+/* The channel the sequencer holds, or HAL_ADC_CHANNEL_NONE. */
+__attribute__((weak)) uint32_t bkpt_shared_{{converter_name}}_channel;
+static unsigned int attempted;
+static hal_status_t status = HAL_ERROR;
+static hal_status_t select_input(void)
+{
+  hal_adc_handle_t *converter = &bkpt_shared_{{converter_name}}_handle;
+  hal_adc_channel_config_t input = {0};
+  input.group = HAL_ADC_GROUP_REGULAR;
+  input.sequencer_rank = 1U;
+  input.sampling_time = HAL_ADC_SAMPLING_TIME_289CYCLES;
+  input.input_mode = HAL_ADC_IN_SINGLE_ENDED;
+  hal_status_t result = HAL_ADC_SetConfigChannel(converter, {{channel}}, &input);
+  if (result != HAL_OK) { return result; }
+  result = HAL_ADC_Start(converter);
+  if (result != HAL_OK) { return result; }
+  result = HAL_ADC_Calibrate(converter);
+  if (result != HAL_OK) { return result; }
+  bkpt_shared_{{converter_name}}_channel = (uint32_t){{channel}};
+  return HAL_OK;
+}
+static hal_status_t bring_up(void)
+{
+  hal_adc_handle_t *converter = &bkpt_shared_{{converter_name}}_handle;
+  {{converter_clock}}();
+  if (LL_ADC_IsEnabled((ADC_TypeDef *)((uint32_t){{converter_instance}})) != 0U) { return HAL_BUSY; }
+  hal_status_t result = HAL_RCC_ADCDAC_SetConfigKernelClk(HAL_RCC_ADCDAC_CLK_SRC_HCLK, HAL_RCC_ADCDAC_PRESCALER8);
+  if (result != HAL_OK) { return result; }
+  if (HAL_RCC_ADCDAC_GetKernelClkFreq() != 18000000U) { return HAL_ERROR; }
+  result = HAL_ADC_Init(converter, {{converter_instance}});
+  if (result != HAL_OK) { return result; }
+  hal_adc_config_t config = {0};
+  config.resolution = HAL_ADC_RESOLUTION_12_BIT;
+  config.sampling_mode = HAL_ADC_SAMPLING_MODE_NORMAL;
+  result = HAL_ADC_SetConfig(converter, &config);
+  if (result != HAL_OK) { return result; }
+  hal_adc_reg_config_t regular = {0};
+  regular.trigger_src = HAL_ADC_REG_TRIG_SOFTWARE;
+  regular.trigger_edge = HAL_ADC_REG_TRIG_EDGE_NONE;
+  regular.sequencer_length = 1U;
+  regular.sequencer_discont = HAL_ADC_REG_SEQ_DISCONT_DISABLE;
+  regular.continuous = HAL_ADC_REG_CONV_SINGLE;
+  regular.overrun = HAL_ADC_REG_OVR_DATA_OVERWRITTEN;
+  result = HAL_ADC_REG_SetConfig(converter, &regular);
+  if (result != HAL_OK) { return result; }
+  return select_input();
+}
+hal_status_t {{unit}}_init(void)
+{
+  if (attempted != 0U) { return status; }
+  attempted = 1U;
+  if (bkpt_shared_{{converter_name}}_state == 0U) {
+    bkpt_shared_{{converter_name}}_state = 2U;
+    bkpt_shared_{{converter_name}}_channel = (uint32_t)HAL_ADC_CHANNEL_NONE;
+    status = bring_up();
+    if (status != HAL_OK) { return status; }
+    bkpt_shared_{{converter_name}}_state = 1U;
+  } else if (bkpt_shared_{{converter_name}}_state != 1U) {
+    return status;
+  }
+  {{pad_clock}}();
+  hal_gpio_config_t gpio = {0};
+  gpio.mode = HAL_GPIO_MODE_ANALOG;
+  gpio.pull = HAL_GPIO_PULL_NO;
+  status = HAL_GPIO_Init({{pad_port}}, {{pad_pin}}, &gpio);
+  return status;
+}
+hal_status_t {{unit}}_read(uint32_t *counts)
+{
+  hal_adc_handle_t *converter = &bkpt_shared_{{converter_name}}_handle;
+  if (attempted == 0U || status != HAL_OK || bkpt_shared_{{converter_name}}_state != 1U) { return HAL_ERROR; }
+  if (counts == NULL) { return HAL_INVALID_PARAM; }
+  if (__get_IPSR() != 0U) { return HAL_BUSY; }
+  if (HAL_ADC_GetState(converter) != HAL_ADC_STATE_ACTIVE ||
+      HAL_ADC_GetStateGroup(converter, HAL_ADC_GROUP_REGULAR) != HAL_ADC_GROUP_STATE_IDLE) { return HAL_BUSY; }
+  hal_status_t result;
+  if (bkpt_shared_{{converter_name}}_channel != (uint32_t){{channel}}) {
+    /* The SDK configures a channel only while the converter is stopped. */
+    bkpt_shared_{{converter_name}}_channel = (uint32_t)HAL_ADC_CHANNEL_NONE;
+    result = HAL_ADC_Stop(converter);
+    if (result == HAL_OK) { result = select_input(); }
+    if (result != HAL_OK) { bkpt_shared_{{converter_name}}_state = 2U; return HAL_ERROR; }
+  }
+  result = HAL_ADC_REG_StartConv(converter);
+  if (result != HAL_OK) { return result; }
+  result = HAL_ADC_REG_PollForConv(converter, 2U);
+  if (result != HAL_OK) {
+    if (HAL_ADC_REG_StopConv(converter) != HAL_OK) { bkpt_shared_{{converter_name}}_state = 2U; }
+    return result;
+  }
+  const uint32_t data = (uint32_t)HAL_ADC_REG_ReadConversionData(converter);
+  /* One conversion per start: the group must be idle again for the next read. */
+  if (HAL_ADC_GetStateGroup(converter, HAL_ADC_GROUP_REGULAR) != HAL_ADC_GROUP_STATE_IDLE &&
+      HAL_ADC_REG_StopConv(converter) != HAL_OK) { bkpt_shared_{{converter_name}}_state = 2U; return HAL_ERROR; }
+  *counts = data;
+  return HAL_OK;
+}

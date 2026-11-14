@@ -1,0 +1,66 @@
+// SPDX-License-Identifier: LicenseRef-BKPT-Proprietary
+/*
+ * BKPT resource-bound initialization, adapted from ST HAL2 2.1.0 API contracts
+ * and STM32CubeC5 initialization examples. Manufacturer-derived portions:
+ * BSD 3-clause "New" or "Revised" License
+ * 
+ * Copyright (c) 2026, STMicroelectronics
+ * 
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ * 
+ *   * Redistributions of source code must retain the above copyright notice, this
+ *     list of conditions and the following disclaimer.
+ * 
+ *   * Redistributions in binary form must reproduce the above copyright notice,
+ *     this list of conditions and the following disclaimer in the documentation
+ *     and/or other materials provided with the distribution.
+ * 
+ *   * Neither the name of the STMicroelectronics nor the names of its contributors may
+ *     be used to endorse or promote products derived from this software without
+ *     specific prior written permission.
+ * 
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
+ * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+ * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+#include "{{unit}}.h"
+static unsigned int attempted;
+static volatile unsigned int started;
+static hal_status_t status = HAL_ERROR;
+static hal_iwdg_handle_t watchdog;
+hal_status_t {{unit}}_init(void)
+{
+  if (attempted != 0U) { return status; }
+  attempted = 1U;
+  status = HAL_IWDG_Init(&watchdog, {{watchdog_instance}});
+  return status;
+}
+hal_status_t {{unit}}_start(void)
+{
+  if (attempted == 0U || status != HAL_OK) { return HAL_ERROR; }
+  if (__get_IPSR() != 0U || started != 0U) { return HAL_BUSY; }
+  /* No window (minimum time 0) and no early interrupt (time 0). */
+  const hal_status_t result = HAL_IWDG_Start(&watchdog, 0U, {{timeout_ms}}U, 0U);
+  if (result != HAL_OK) { status = HAL_ERROR; return result; }
+  started = 1U;
+  return HAL_OK;
+}
+hal_status_t {{unit}}_refresh(void)
+{
+  if (attempted == 0U || status != HAL_OK || started == 0U) { return HAL_ERROR; }
+  return HAL_IWDG_Refresh(&watchdog);
+}
+uint32_t {{unit}}_timeout_ms(void)
+{
+  if (attempted == 0U || status != HAL_OK || started == 0U) { return 0U; }
+  return HAL_IWDG_GetMaxTime(&watchdog);
+}

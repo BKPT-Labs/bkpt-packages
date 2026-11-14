@@ -156,6 +156,37 @@ measures its own output pad: the frequency agreed within a quarter of a
 percent and the duty within twelve thousandths, with every lifecycle call
 returning what the interface states.
 
+A capability does not have to be an instance with one routed pad. The family
+configuration can also state:
+
+- a capability on a whole instance without a pad, with the one interrupt the
+  instance raises when it needs it: a periodic interrupt on a channel timer, a
+  CRC-32 unit, the independent watchdog. A class used this way exists on every
+  package of the die, so the peripherals descriptor's declaration is its
+  record;
+- a capability on one eligible pad that generates nothing, such as a GPIO
+  input, whose card says how the application uses the pad through the SDK;
+- a reviewed component taken whole for another class of instance, which is how
+  the periodic interrupt of TIM6 and TIM7 serves the channel timers;
+- an integration edit no reviewed card has written yet, for example switching
+  on an SDK module nothing used before. It is pinned to the same foundation
+  file as the reviewed edits of that path and checked against it;
+- a pad structure a profile requires, read from the pinout descriptor together
+  with the descriptor's own description of the option. The I2C profiles take
+  SCL and SDA on any allowed routed pad the descriptor declares Fm+ capable;
+- the clock descriptor element that feeds each covered instance, cited as
+  what can be configured, never as what is configured.
+
+Several units may share one instance when its ownership allows it: every unit
+of `analog_reading` on a converter uses one handle. The engine generates a
+file per unit, so the shared handle is a weak definition each unit carries
+and the linker keeps once.
+
+A family configuration may ask for a later graph schema with `graph_schema`.
+The bounds the firmware tool puts on a graph are mirrored in one table per
+schema in `author_device_inventory.py` and set for one run; the STM32C5 family
+asks for schema 5, because its graph pins more than 128 sources.
+
 The chip-specific inputs are `stm32c5/imports/device-inventory.json` and
 `device-domains.json`, together with the policy text the domains configuration
 cites line by line. A rule that is BKPT's own decision, such as which pads may be
@@ -170,6 +201,16 @@ independent regression review. Since pack revision 2 it is the pack's active
 architecture input: `inputs.architecture` in the manifest names it, and the
 graph of revision 1 stays at `architecture/accepted.json`, listed under
 `previous`.
+
+`stm32c5/candidates/device-coverage-r3/` is the next graph for the same target:
+23 capability profiles. It adds I2C on every allowed Fm+ pad, analog reading,
+input capture, the periodic interrupt on the channel timers, a CRC-32 unit,
+the independent watchdog and GPIO input, under policy version 6, and applies
+the review items of the accepted graph that were generator or data matters.
+It is a candidate, not accepted: it has no review record, nothing in it was
+run on a board, and the manifest's `inputs.architecture` does not name it.
+It is written in graph schema 5, which needs a firmware tool build that reads
+that schema.
 
 ## Licensing and third-party content
 

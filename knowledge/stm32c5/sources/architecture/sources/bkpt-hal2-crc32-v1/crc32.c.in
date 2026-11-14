@@ -1,0 +1,66 @@
+// SPDX-License-Identifier: LicenseRef-BKPT-Proprietary
+/*
+ * BKPT resource-bound initialization, adapted from ST HAL2 2.1.0 API contracts
+ * and STM32CubeC5 initialization examples. Manufacturer-derived portions:
+ * BSD 3-clause "New" or "Revised" License
+ * 
+ * Copyright (c) 2026, STMicroelectronics
+ * 
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ * 
+ *   * Redistributions of source code must retain the above copyright notice, this
+ *     list of conditions and the following disclaimer.
+ * 
+ *   * Redistributions in binary form must reproduce the above copyright notice,
+ *     this list of conditions and the following disclaimer in the documentation
+ *     and/or other materials provided with the distribution.
+ * 
+ *   * Neither the name of the STMicroelectronics nor the names of its contributors may
+ *     be used to endorse or promote products derived from this software without
+ *     specific prior written permission.
+ * 
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
+ * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+ * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+#include "{{unit}}.h"
+static unsigned int attempted;
+static hal_status_t status = HAL_ERROR;
+static hal_crc_handle_t unit;
+hal_status_t {{unit}}_init(void)
+{
+  if (attempted != 0U) { return status; }
+  attempted = 1U;
+  {{crc_clock}}();
+  status = HAL_CRC_Init(&unit, {{crc_instance}});
+  if (status != HAL_OK) { return status; }
+  hal_crc_config_t config = {0};
+  config.polynomial_coefficient = 0x04C11DB7U;
+  config.polynomial_size = HAL_CRC_POLY_SIZE_32B;
+  config.crc_init_value = 0xFFFFFFFFU;
+  config.input_data_reverse_mode = HAL_CRC_INDATA_REVERSE_BYTE;
+  config.output_data_reverse_mode = HAL_CRC_OUTDATA_REVERSE_BIT;
+  status = HAL_CRC_SetConfig(&unit, &config);
+  return status;
+}
+hal_status_t {{unit}}_compute(const void *data, uint32_t bytes, uint32_t *crc32)
+{
+  if (attempted == 0U || status != HAL_OK) { return HAL_ERROR; }
+  if (data == NULL || crc32 == NULL || bytes == 0U) { return HAL_INVALID_PARAM; }
+  if (__get_IPSR() != 0U || HAL_CRC_GetState(&unit) != HAL_CRC_STATE_IDLE) { return HAL_BUSY; }
+  uint32_t value = 0U;
+  /* Calculate starts from the configured initial value, Accumulate would continue. */
+  const hal_status_t result = HAL_CRC_Calculate(&unit, data, bytes, &value);
+  if (result != HAL_OK) { return result; }
+  *crc32 = value ^ 0xFFFFFFFFU;
+  return HAL_OK;
+}

@@ -1,0 +1,165 @@
+// SPDX-License-Identifier: LicenseRef-BKPT-Proprietary
+/*
+ * BKPT resource-bound initialization, adapted from ST HAL2 2.1.0 API contracts
+ * and STM32CubeC5 initialization examples. Manufacturer-derived portions:
+ * BSD 3-clause "New" or "Revised" License
+ * 
+ * Copyright (c) 2026, STMicroelectronics
+ * 
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ * 
+ *   * Redistributions of source code must retain the above copyright notice, this
+ *     list of conditions and the following disclaimer.
+ * 
+ *   * Redistributions in binary form must reproduce the above copyright notice,
+ *     this list of conditions and the following disclaimer in the documentation
+ *     and/or other materials provided with the distribution.
+ * 
+ *   * Neither the name of the STMicroelectronics nor the names of its contributors may
+ *     be used to endorse or promote products derived from this software without
+ *     specific prior written permission.
+ * 
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
+ * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+ * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+#include "{{unit}}.h"
+static unsigned int attempted;
+static hal_status_t status = HAL_ERROR;
+static hal_tim_handle_t timer;
+/* 144 MHz divided by 144: one count is one microsecond. */
+static const uint32_t prescaler = 143U;
+static const uint32_t period = 65535U;
+/* Status bits of this channel: capture flags are bits 1..4 and overcapture
+ * flags bits 9..12, in channel order. */
+static const uint32_t captured = TIM_SR_CC1IF << ({{channel_number}}U - 1U);
+static const uint32_t overcaptured = TIM_SR_CC1OF << ({{channel_number}}U - 1U);
+static int clock_and_registers_match(void)
+{
+  return HAL_RCC_TIM_GetKernelClkFreq({{peripheral_symbol}}) == 144000000U &&
+         LL_TIM_GetPrescaler({{peripheral_symbol}}) == prescaler &&
+         LL_TIM_GetAutoReload({{peripheral_symbol}}) == period;
+}
+hal_status_t {{unit}}_init(void)
+{
+  if (attempted != 0U) { return status; }
+  attempted = 1U;
+  if (HAL_RCC_TIM_GetKernelClkFreq({{peripheral_symbol}}) != 144000000U) { return status; }
+  {{timer_clock}}();
+  if (LL_TIM_IsEnabledCounter({{peripheral_symbol}}) != 0U) { status = HAL_BUSY; return status; }
+  {{timer_reset}}();
+  status = HAL_TIM_Init(&timer, {{timer_instance}});
+  if (status != HAL_OK) { return status; }
+  hal_tim_config_t config = {0};
+  config.prescaler = prescaler;
+  config.period = period;
+  config.repetition_counter = 0U;
+  config.counter_mode = HAL_TIM_COUNTER_UP;
+  config.clock_sel.clock_source = HAL_TIM_CLK_INTERNAL;
+  status = HAL_TIM_SetConfig(&timer, &config);
+  if (status != HAL_OK) { return status; }
+  hal_tim_ic_channel_config_t input = {0};
+  input.source = {{input_source}};
+  input.polarity = HAL_TIM_IC_RISING_FALLING;
+  input.filter = HAL_TIM_FDIV1;
+  status = HAL_TIM_IC_SetConfigChannel(&timer, {{channel}}, &input);
+  if (status != HAL_OK) { return status; }
+  hal_tim_ic_capture_unit_config_t unit = {0};
+  unit.source = HAL_TIM_IC_DIRECT;
+  unit.prescaler = HAL_TIM_IC_DIV1;
+  status = HAL_TIM_IC_SetConfigCaptureUnit(&timer, {{capture_unit}}, &unit);
+  if (status != HAL_OK) { return status; }
+  if (!clock_and_registers_match()) { status = HAL_ERROR; return status; }
+  {{pad_clock}}();
+  hal_gpio_config_t gpio = {0};
+  gpio.mode = HAL_GPIO_MODE_ALTERNATE;
+  gpio.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
+  gpio.pull = {{pull_symbol}};
+  gpio.speed = HAL_GPIO_SPEED_FREQ_LOW;
+  gpio.alternate = {{pad_alternate}};
+  status = HAL_GPIO_Init({{pad_port}}, {{pad_pin}}, &gpio);
+  return status;
+}
+/* Waits for the next captured edge. *at is its time in counts since the
+ * measurement began and *level the pad level right after it. An overflow of
+ * the 16-bit counter is counted when its flag is seen; a capture taken just
+ * before an overflow that is seen in the same reading belongs to the count
+ * before it. */
+static hal_status_t next_edge(uint32_t *wraps, uint32_t limit, uint32_t *at, uint32_t *level)
+{
+  for (;;) {
+    const uint32_t flags = {{peripheral_symbol}}->SR;
+    uint32_t wrapped = 0U;
+    if ((flags & TIM_SR_UIF) != 0U) {
+      {{peripheral_symbol}}->SR = ~TIM_SR_UIF;
+      *wraps += 1U;
+      wrapped = 1U;
+    }
+    if ((flags & overcaptured) != 0U) { return HAL_ERROR; }
+    if ((flags & captured) != 0U) {
+      /* Reading the capture register clears the capture flag. */
+      const uint32_t value = HAL_TIM_IC_ReadChannelCapturedValue(&timer, {{channel}}) & 0xFFFFU;
+      const uint32_t high = (HAL_GPIO_ReadPin({{pad_port}}, {{pad_pin}}) == HAL_GPIO_PIN_SET) ? 1U : 0U;
+      const uint32_t after = {{peripheral_symbol}}->SR;
+      /* An edge that arrived meanwhile makes the level read above ambiguous. */
+      if ((after & (captured | overcaptured)) != 0U) { return HAL_ERROR; }
+      const uint32_t turns = (wrapped != 0U && value >= 0x8000U) ? (*wraps - 1U) : *wraps;
+      *at = (turns << 16) | value;
+      *level = high;
+      return HAL_OK;
+    }
+    if (*wraps >= limit) { return HAL_TIMEOUT; }
+  }
+}
+hal_status_t {{unit}}_measure(uint32_t timeout_ms, uint32_t *period_us, uint32_t *high_us)
+{
+  if (attempted == 0U || status != HAL_OK) { return HAL_ERROR; }
+  if (period_us == NULL || high_us == NULL || timeout_ms == 0U || timeout_ms > 60000U) { return HAL_INVALID_PARAM; }
+  if (__get_IPSR() != 0U || HAL_TIM_GetState(&timer) != HAL_TIM_STATE_IDLE ||
+      LL_TIM_IsEnabledCounter({{peripheral_symbol}}) != 0U) { return HAL_BUSY; }
+  if (!clock_and_registers_match()) { return HAL_ERROR; }
+  /* The time limit is counted in whole turns of the counter, 65.536 ms each,
+   * rounded up, plus the turn in progress. */
+  const uint32_t limit = (timeout_ms * 1000U + 65535U) / 65536U + 1U;
+  LL_TIM_GenerateEvent_UPDATE({{peripheral_symbol}});
+  {{peripheral_symbol}}->SR = 0U;
+  hal_status_t result = HAL_TIM_Start(&timer);
+  if (result != HAL_OK) { status = HAL_ERROR; return result; }
+  result = HAL_TIM_IC_StartChannel(&timer, {{channel}});
+  if (result != HAL_OK) { (void)HAL_TIM_Stop(&timer); status = HAL_ERROR; return result; }
+  uint32_t wraps = 0U;
+  uint32_t at = 0U;
+  uint32_t level = 0U;
+  uint32_t rise = 0U;
+  uint32_t fall = 0U;
+  uint32_t next = 0U;
+  /* 0 waits for a rising edge, 1 for the falling edge, 2 for the rising edge that ends the period. */
+  unsigned int step = 0U;
+  while (result == HAL_OK && step < 3U) {
+    result = next_edge(&wraps, limit, &at, &level);
+    if (result != HAL_OK) { break; }
+    if (step == 0U) {
+      if (level != 0U) { rise = at; step = 1U; }
+    } else if (step == 1U) {
+      if (level != 0U) { result = HAL_ERROR; } else { fall = at; step = 2U; }
+    } else {
+      if (level == 0U) { result = HAL_ERROR; } else { next = at; step = 3U; }
+    }
+  }
+  hal_status_t stopped = HAL_TIM_IC_StopChannel(&timer, {{channel}});
+  if (stopped == HAL_OK) { stopped = HAL_TIM_Stop(&timer); }
+  if (stopped != HAL_OK || LL_TIM_IsEnabledCounter({{peripheral_symbol}}) != 0U) { status = HAL_ERROR; return HAL_ERROR; }
+  if (result != HAL_OK) { return result; }
+  *period_us = next - rise;
+  *high_us = fall - rise;
+  return HAL_OK;
+}
