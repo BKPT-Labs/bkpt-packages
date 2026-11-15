@@ -1,0 +1,6 @@
+{
+  "bundle_sha256": "817ca4113239937547c09f3baff6a755b9a838bc34922675768f128ecf9b968b",
+  "reviewer": "Independent Claude Fable 5.2 data review (claude-data-review.md rejected round 3 6be437b4; claude-followup-r6.md accepted round 6 477c68df with a reservation; claude-followup-r7.md accepts these bytes) and independent Codex gpt-6-astra regression review (codex-regression.md rejected 6be437b4 on six must-fix; codex-followup-r6.md rejected 477c68df on two must-fix; codex-followup-r7.md accepts these bytes)",
+  "reviewed_at": "2026-11-14",
+  "decision": "accept"
+}

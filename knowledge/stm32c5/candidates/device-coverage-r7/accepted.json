@@ -883,10 +883,10 @@
       "scope": "sdk"
     },
     {
-      "id": "policy-v7",
-      "path": "architecture/sources/bkpt-capability-policy-v7.txt",
-      "sha256": "d2a12129b4774d85cc15e5255406ed968a3d2cbf1655986b58a92744b0676f7e",
-      "revision": "version 7 candidate",
+      "id": "policy-v9",
+      "path": "architecture/sources/bkpt-capability-policy-v9.txt",
+      "sha256": "b9a816a7579cabea7fe88281907ee3aca4255f3af1e4b8807eda1a7c61d5f273",
+      "revision": "version 9 candidate",
       "authority": "bkpt_engineering_policy_candidate",
       "scope": "policy"
     },
@@ -1012,9 +1012,9 @@
     },
     {
       "id": "analog-reading-h-source",
-      "path": "architecture/sources/bkpt-hal2-analog-reading-v3/analog-reading.h.in",
-      "sha256": "63ba8078e6de3a5e7c0cb4486e80ae22a1106e3d947ba3e1c6d7dde76ac973e4",
-      "revision": "version 3 candidate",
+      "path": "architecture/sources/bkpt-hal2-analog-reading-v4/analog-reading.h.in",
+      "sha256": "dd883765b8d94147aed2c32cbb88de4a669afdda12bceb87092634d7cdab2a08",
+      "revision": "version 4 candidate",
       "authority": "bkpt_authored_implementation",
       "scope": "implementation"
     },
@@ -1028,17 +1028,17 @@
     },
     {
       "id": "input-capture-h-source",
-      "path": "architecture/sources/bkpt-hal2-input-capture-v2/input-capture.h.in",
-      "sha256": "05fd137ffc384792c38a17597e91bf009f513e37ec04f5e2f0b481e120cbe11c",
-      "revision": "version 2 candidate",
+      "path": "architecture/sources/bkpt-hal2-input-capture-v3/input-capture.h.in",
+      "sha256": "7cb3e9e4ed8b96ae0683528f4d24c0989bd423b04b64f35ed1e3080dcc438d94",
+      "revision": "version 3 candidate",
       "authority": "bkpt_authored_implementation",
       "scope": "implementation"
     },
     {
       "id": "input-capture-c-source",
-      "path": "architecture/sources/bkpt-hal2-input-capture-v2/input-capture.c.in",
-      "sha256": "0bbae37e6713f7f247caa104eef7408ddae535d641323fb32575b1194a844b93",
-      "revision": "version 2 candidate",
+      "path": "architecture/sources/bkpt-hal2-input-capture-v3/input-capture.c.in",
+      "sha256": "d6f90dbd52d09756fdf7ac0409392c71a6052f8a20b0373367908d6694a975a4",
+      "revision": "version 3 candidate",
       "authority": "bkpt_authored_implementation",
       "scope": "implementation"
     },
@@ -1076,17 +1076,17 @@
     },
     {
       "id": "watchdog-h-source",
-      "path": "architecture/sources/bkpt-hal2-watchdog-v2/watchdog.h.in",
-      "sha256": "5d88e6d7c8f73c7e3f590367ee6917fbfbb4a11404deb79398e52c29a6ffe9ba",
-      "revision": "version 2 candidate",
+      "path": "architecture/sources/bkpt-hal2-watchdog-v3/watchdog.h.in",
+      "sha256": "8955c32bf22be97c9423189bfd360e091dfb034a0e3439ee1c948eb0034718b7",
+      "revision": "version 3 candidate",
       "authority": "bkpt_authored_implementation",
       "scope": "implementation"
     },
     {
       "id": "watchdog-c-source",
-      "path": "architecture/sources/bkpt-hal2-watchdog-v2/watchdog.c.in",
-      "sha256": "8eb4d505702c3639e5fad9bfba6290e2151fd7e4c8c4020dc50a6eb96b7f2781",
-      "revision": "version 2 candidate",
+      "path": "architecture/sources/bkpt-hal2-watchdog-v3/watchdog.c.in",
+      "sha256": "ace2e1953dd286b33d55d8d4fd4ebc52470a5379b1b38a85e3501345ce8a07b8",
+      "revision": "version 3 candidate",
       "authority": "bkpt_authored_implementation",
       "scope": "implementation"
     },
@@ -1127,6 +1127,14 @@
       "path": "architecture/sources/documents/RM0522-rev1-timer-pwm-compare-extracted.txt",
       "sha256": "fd1386c0bfe1f894d9e44b196b2935b68ae649c20f6a19f6f721bac1138baeac",
       "revision": "RM0522 Rev 1, pages 989, 1076, 1234, 1322 and 1423",
+      "authority": "manufacturer_document_text_extraction",
+      "scope": "device"
+    },
+    {
+      "id": "rm-iwdg-key",
+      "path": "architecture/sources/documents/RM0522-rev1-iwdg-key-extracted.txt",
+      "sha256": "f30eb52f1dc995ea83c23007d27d25c943cc27cf2b967ddea0dea8dce9c207f6",
+      "revision": "RM0522 Rev 1, pages 1534 and 1538",
       "authority": "manufacturer_document_text_extraction",
       "scope": "device"
     }
@@ -12406,12 +12414,12 @@
       ]
     },
     {
-      "id": "policy7-general",
-      "source": "policy-v7",
+      "id": "policy9-general",
+      "source": "policy-v9",
       "start_line": 7,
       "end_line": 7,
       "excerpt_sha256": "ee3708c620640ccf76ed277b6bf6d2626ed1c86c2cd5d7109d3527a8f5fd606a",
-      "statement": "BKPT policy, version 7: General allocation. Authored engineering policy, not a manufacturer statement.",
+      "statement": "BKPT policy, version 9: General allocation. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
@@ -12472,12 +12480,12 @@
       ]
     },
     {
-      "id": "policy7-debug",
-      "source": "policy-v7",
+      "id": "policy9-debug",
+      "source": "policy-v9",
       "start_line": 5,
       "end_line": 5,
       "excerpt_sha256": "74d79e69d8b8d24d605ceed8c1fe6ca44f220b7b1963de2b93025188a92b8086",
-      "statement": "BKPT policy, version 7: Debug access. Authored engineering policy, not a manufacturer statement.",
+      "statement": "BKPT policy, version 9: Debug access. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
@@ -12516,12 +12524,12 @@
       ]
     },
     {
-      "id": "policy7-console",
-      "source": "policy-v7",
+      "id": "policy9-console",
+      "source": "policy-v9",
       "start_line": 9,
       "end_line": 9,
       "excerpt_sha256": "5455726bbc4b09550eddaaaab35d4f65182e2862055083a8445ccbae8c1afd2c",
-      "statement": "BKPT policy, version 7: Console. Authored engineering policy, not a manufacturer statement.",
+      "statement": "BKPT policy, version 9: Console. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
@@ -12835,12 +12843,12 @@
       ]
     },
     {
-      "id": "policy7-backup_domain",
-      "source": "policy-v7",
+      "id": "policy9-backup_domain",
+      "source": "policy-v9",
       "start_line": 21,
       "end_line": 21,
       "excerpt_sha256": "22755f4e7bf687d62c61bcea80f85ffc6b937f199f97cfbf71c1f4f49930fffc",
-      "statement": "BKPT policy, version 7: Backup domain pads. Authored engineering policy, not a manufacturer statement.",
+      "statement": "BKPT policy, version 9: Backup domain pads. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
@@ -13000,12 +13008,12 @@
       ]
     },
     {
-      "id": "policy7-clock",
-      "source": "policy-v7",
+      "id": "policy9-clock",
+      "source": "policy-v9",
       "start_line": 6,
       "end_line": 6,
       "excerpt_sha256": "a4545cb7db1e26f34a24eb5e81b868ca803620f4104ddd448c30146ed933aa01",
-      "statement": "BKPT policy, version 7: Clock input. Authored engineering policy, not a manufacturer statement.",
+      "statement": "BKPT policy, version 9: Clock input. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
@@ -13033,45 +13041,45 @@
       ]
     },
     {
-      "id": "policy7-boot",
-      "source": "policy-v7",
+      "id": "policy9-boot",
+      "source": "policy-v9",
       "start_line": 8,
       "end_line": 8,
       "excerpt_sha256": "c62728103c86bd2a587d3dca164a8feaaf8a5f99d87d34bbd7472aaf3260535f",
-      "statement": "BKPT policy, version 7: Boot strap. Authored engineering policy, not a manufacturer statement.",
+      "statement": "BKPT policy, version 9: Boot strap. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
     },
     {
-      "id": "policy7-foundation_pads",
-      "source": "policy-v7",
+      "id": "policy9-foundation_pads",
+      "source": "policy-v9",
       "start_line": 23,
       "end_line": 23,
       "excerpt_sha256": "67e8fc734c3991eca2188e1d69406b6a3601c410c2b9acd3c6fa62889b90e11a",
-      "statement": "BKPT policy, version 7: Foundation pads. Authored engineering policy, not a manufacturer statement.",
+      "statement": "BKPT policy, version 9: Foundation pads. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
     },
     {
-      "id": "policy7-gpio_output",
-      "source": "policy-v7",
+      "id": "policy9-gpio_output",
+      "source": "policy-v9",
       "start_line": 10,
       "end_line": 10,
       "excerpt_sha256": "7af3efcb5419c616f71d97aba88276223e0f6b57d1843e2f999ce3f87b94f050",
-      "statement": "BKPT policy, version 7: GPIO output domain. Authored engineering policy, not a manufacturer statement.",
+      "statement": "BKPT policy, version 9: GPIO output domain. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
     },
     {
-      "id": "policy7-gpio_interrupt",
-      "source": "policy-v7",
+      "id": "policy9-gpio_interrupt",
+      "source": "policy-v9",
       "start_line": 11,
       "end_line": 11,
       "excerpt_sha256": "60f858024ac93fda28c3a9fbc8127c685dc081bae9c7dc212c6f994cbb070798",
-      "statement": "BKPT policy, version 7: GPIO interrupt domain. Authored engineering policy, not a manufacturer statement.",
+      "statement": "BKPT policy, version 9: GPIO interrupt domain. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
@@ -13308,12 +13316,12 @@
       ]
     },
     {
-      "id": "policy7-user_button",
-      "source": "policy-v7",
+      "id": "policy9-user_button",
+      "source": "policy-v9",
       "start_line": 18,
       "end_line": 18,
       "excerpt_sha256": "af8053d8d6b7dcb17af613ae9d90c8589a6501498a36bad42daf35e845fab275",
-      "statement": "BKPT policy, version 7: User button. Authored engineering policy, not a manufacturer statement.",
+      "statement": "BKPT policy, version 9: User button. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
@@ -13464,9 +13472,9 @@
       "id": "analog-reading-h",
       "source": "analog-reading-h-source",
       "start_line": 1,
-      "end_line": 78,
-      "excerpt_sha256": "141eca038c5960477aa4dea31afc08229eaaa819be2851ac644f995bc0d1372d",
-      "statement": "Authored analog reading header, version 3: one single-ended input of a shared converter, read on request, with the SDK's own time bounds of a read and the ownership of the converter stated. Not manufacturer evidence.",
+      "end_line": 86,
+      "excerpt_sha256": "f857ef18e573c3863cc037e31ab79ec56499a54d8d0947d18d013d2ffb9b5825",
+      "statement": "Authored analog reading header, version 4: one single-ended input of a shared converter, read on request, with the limits the SDK's waits have, the tick they count and the cleanup after a time-out stated apart from time for the caller, and the ownership of the converter. Not manufacturer evidence.",
       "targets": [
         "NUCLEO-C542RC"
       ],
@@ -13499,8 +13507,8 @@
     {
       "id": "analog-api-read",
       "source": "analog-reading-h-source",
-      "start_line": 74,
-      "end_line": 74,
+      "start_line": 82,
+      "end_line": 82,
       "excerpt_sha256": "9adb349940cd37956d3f759718de716ec31caf4e3cbfe2d2d2853da45d666ba9",
       "statement": "Exact source-bound analog reading API declaration.",
       "targets": [
@@ -13512,9 +13520,9 @@
       "id": "input-capture-h",
       "source": "input-capture-h-source",
       "start_line": 1,
-      "end_line": 71,
-      "excerpt_sha256": "df3f4072f348bef7c68717e41b34d0b972c2f0b7aec0cb85abedb90763d3e636",
-      "statement": "Authored input capture header, version 2: period and high time of a signal on the allocated timer channel and pad, with the time limit and the limits of polling stated. Not manufacturer evidence.",
+      "end_line": 88,
+      "excerpt_sha256": "5bcc5fd9e6b157a1aa153daeaeea89675961cfd9f9b912b552e51218b49416b9",
+      "statement": "Authored input capture header, version 3: period and high time of a signal on the allocated timer channel and pad, with what a result means under delays of the caller, the conditions it rests on and when a measurement completes. Not manufacturer evidence.",
       "targets": [
         "NUCLEO-C542RC"
       ],
@@ -13524,9 +13532,9 @@
       "id": "input-capture-c",
       "source": "input-capture-c-source",
       "start_line": 1,
-      "end_line": 204,
-      "excerpt_sha256": "e2e113e83fd2beacb9483fa10e01dfcaa01954064b2086d5b2757523fa1b8ca2",
-      "statement": "Authored input capture unit, version 2, with a private handle: a microsecond time base, capture of both edges on the channel's own pin, turns of the 16-bit counter counted from the overflow flag and a half-turn compare flag so that a gap between two looks too long to resolve ends the measurement, and a time limit on the timer's own count. Through the SDK timer and GPIO interfaces. Not manufacturer evidence.",
+      "end_line": 221,
+      "excerpt_sha256": "7a24d1b6df3c7001ea03cbe0a7651871f48c6c40ad684ce2051d093de4dcc7e0",
+      "statement": "Authored input capture unit, version 3, with a private handle: a microsecond time base, capture of both edges on the channel's own pin, turns of the 16-bit counter counted from the overflow flag and a half-turn compare flag in a look that reads the count and the status, acknowledges the marks seen and reads them again with interrupts masked, so that a gap too long to resolve ends the measurement, captures and counts placed around a wrap by their value, and a time limit on the timer's own count. Through the SDK timer and GPIO interfaces. Not manufacturer evidence.",
       "targets": [
         "NUCLEO-C542RC"
       ],
@@ -13547,8 +13555,8 @@
     {
       "id": "capture-api-measure",
       "source": "input-capture-h-source",
-      "start_line": 67,
-      "end_line": 67,
+      "start_line": 84,
+      "end_line": 84,
       "excerpt_sha256": "f0e16eef4f547977d32fab52600688baf300256760c9ba688889f2c43bab0f23",
       "statement": "Exact source-bound input capture API declaration.",
       "targets": [
@@ -13608,9 +13616,9 @@
       "id": "watchdog-h",
       "source": "watchdog-h-source",
       "start_line": 1,
-      "end_line": 77,
-      "excerpt_sha256": "b3ca7d9c789dfbc24a6e3406f01c73ef530f1e5d67107f96262ca1976fcfb579",
-      "statement": "Authored independent watchdog header, version 2: prepare, start, refresh, the reset time set and a state that tells a failed start, after which the watchdog may be running, from one that was never made. Not manufacturer evidence.",
+      "end_line": 81,
+      "excerpt_sha256": "18ea58a83d23e154692f53312ef91fb3e8ba4e20dfe86fd40177add892668ed3",
+      "statement": "Authored independent watchdog header, version 3: prepare, start, refresh, the reset time set and a state that tells a start in progress, in which a refresh is refused, and a failed start, after which the watchdog may be running, from a start that was never made. Not manufacturer evidence.",
       "targets": [
         "NUCLEO-C542RC"
       ],
@@ -13620,9 +13628,9 @@
       "id": "watchdog-c",
       "source": "watchdog-c-source",
       "start_line": 1,
-      "end_line": 77,
-      "excerpt_sha256": "f0ba1ea66c1c7ae3b4a893621835530424c6bf6e570f3ea78a73212c6e7ec62a",
-      "statement": "Authored independent watchdog unit, version 2, with a private handle, without window or early interrupt, through the SDK IWDG interface; a start that the SDK reports as failed leaves the unit in a state of its own in which a refresh is still passed on. Not manufacturer evidence.",
+      "end_line": 82,
+      "excerpt_sha256": "3731ad3b215511845ecb848d51eb04abfe9897cbd90608308e99eb79ccbaf685",
+      "statement": "Authored independent watchdog unit, version 3, with a private handle, without window or early interrupt, through the SDK IWDG interface; a refresh is refused until the SDK's start call has returned, and a start that the SDK reports as failed leaves the unit in a state of its own in which a refresh is passed on. Not manufacturer evidence.",
       "targets": [
         "NUCLEO-C542RC"
       ],
@@ -13655,8 +13663,8 @@
     {
       "id": "watchdog-api-refresh",
       "source": "watchdog-h-source",
-      "start_line": 64,
-      "end_line": 64,
+      "start_line": 67,
+      "end_line": 67,
       "excerpt_sha256": "9338de7db843254dc682675e1731813d60373d3f5350dbc76fe38a27f9a6cead",
       "statement": "Exact source-bound watchdog API declaration.",
       "targets": [
@@ -13667,8 +13675,8 @@
     {
       "id": "watchdog-api-timeout",
       "source": "watchdog-h-source",
-      "start_line": 69,
-      "end_line": 69,
+      "start_line": 72,
+      "end_line": 72,
       "excerpt_sha256": "10f349bb3091295c6fa44fc41a3aec7bbcbd69a4281d414bcca62d8cd41ae7d1",
       "statement": "Exact source-bound watchdog API declaration.",
       "targets": [
@@ -13679,8 +13687,8 @@
     {
       "id": "watchdog-api-state",
       "source": "watchdog-h-source",
-      "start_line": 73,
-      "end_line": 73,
+      "start_line": 77,
+      "end_line": 77,
       "excerpt_sha256": "fcc385e5654c9a409d189371d1f48fe305946aa8917126721d6d1cbcb4199a2b",
       "statement": "Exact source-bound watchdog API declaration.",
       "targets": [
@@ -13711,12 +13719,12 @@
       ]
     },
     {
-      "id": "policy7-timer_channels",
-      "source": "policy-v7",
+      "id": "policy9-timer_channels",
+      "source": "policy-v9",
       "start_line": 19,
       "end_line": 19,
       "excerpt_sha256": "5896d1624cd212aba7ebb579e9c9add7cd745ab5f402943d28b987dcfdc44bde",
-      "statement": "BKPT policy, version 7: Timer channels. Authored engineering policy, not a manufacturer statement.",
+      "statement": "BKPT policy, version 9: Timer channels. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
@@ -13766,12 +13774,12 @@
       ]
     },
     {
-      "id": "policy7-kernel_clocks",
-      "source": "policy-v7",
+      "id": "policy9-kernel_clocks",
+      "source": "policy-v9",
       "start_line": 29,
       "end_line": 29,
       "excerpt_sha256": "1b5fcad40131145f37b7fa4686ba4e245867b32f83d78965f77987cab64c1013",
-      "statement": "BKPT policy, version 7: Kernel clocks. Authored engineering policy, not a manufacturer statement.",
+      "statement": "BKPT policy, version 9: Kernel clocks. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
@@ -13832,12 +13840,12 @@
       ]
     },
     {
-      "id": "policy7-channel_timer_update",
-      "source": "policy-v7",
+      "id": "policy9-channel_timer_update",
+      "source": "policy-v9",
       "start_line": 32,
       "end_line": 32,
       "excerpt_sha256": "d19b8f88415f99d72dda188ae1d4a46f65fbdeee03be129aff5adcb2f18f5e5a",
-      "statement": "BKPT policy, version 7: Channel timer update interrupt. Authored engineering policy, not a manufacturer statement.",
+      "statement": "BKPT policy, version 9: Channel timer update interrupt. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
@@ -13986,12 +13994,12 @@
       ]
     },
     {
-      "id": "policy7-input_capture",
-      "source": "policy-v7",
+      "id": "policy9-input_capture",
+      "source": "policy-v9",
       "start_line": 31,
       "end_line": 31,
-      "excerpt_sha256": "5bf83553881bbd2808003729917bef2a36636ab2267aedc5f1abb8503176ac82",
-      "statement": "BKPT policy, version 7: Input capture. Authored engineering policy, not a manufacturer statement.",
+      "excerpt_sha256": "336780e0d7fc1b56aaabebc1b20ee8340ec17cad11dd6140ad1c779dd1d33f8f",
+      "statement": "BKPT policy, version 9: Input capture. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
@@ -14756,12 +14764,12 @@
       ]
     },
     {
-      "id": "policy7-analog_inputs",
-      "source": "policy-v7",
+      "id": "policy9-analog_inputs",
+      "source": "policy-v9",
       "start_line": 20,
       "end_line": 20,
       "excerpt_sha256": "d6b2480752fe6e0310552778354461b0c8beccb09ac033836a05ec38993c2ef8",
-      "statement": "BKPT policy, version 7: Analog inputs. Authored engineering policy, not a manufacturer statement.",
+      "statement": "BKPT policy, version 9: Analog inputs. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
@@ -15119,12 +15127,12 @@
       ]
     },
     {
-      "id": "policy7-spi_instances",
-      "source": "policy-v7",
+      "id": "policy9-spi_instances",
+      "source": "policy-v9",
       "start_line": 14,
       "end_line": 14,
       "excerpt_sha256": "4aad693f9b3de03673d656e793dad0574df98e8d993d27070ff72262a2ff8a6d",
-      "statement": "BKPT policy, version 7: SPI instances. Authored engineering policy, not a manufacturer statement.",
+      "statement": "BKPT policy, version 9: SPI instances. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
@@ -15273,12 +15281,12 @@
       ]
     },
     {
-      "id": "policy7-functions",
-      "source": "policy-v7",
+      "id": "policy9-functions",
+      "source": "policy-v9",
       "start_line": 13,
       "end_line": 13,
       "excerpt_sha256": "3f80b7bfff1905627b010733fc19530cc10c36da0182836ca2746e2f45f06f7a",
-      "statement": "BKPT policy, version 7: Signal functions. Authored engineering policy, not a manufacturer statement.",
+      "statement": "BKPT policy, version 9: Signal functions. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
@@ -15460,12 +15468,12 @@
       ]
     },
     {
-      "id": "policy7-dma_requests",
-      "source": "policy-v7",
+      "id": "policy9-dma_requests",
+      "source": "policy-v9",
       "start_line": 17,
       "end_line": 17,
       "excerpt_sha256": "ddef337c0eecb9152299c9f87dc1d3161d1e873857233eb1072d9450b07fee85",
-      "statement": "BKPT policy, version 7: DMA request lines. Authored engineering policy, not a manufacturer statement.",
+      "statement": "BKPT policy, version 9: DMA request lines. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
@@ -15636,12 +15644,12 @@
       ]
     },
     {
-      "id": "policy7-uart_instances",
-      "source": "policy-v7",
+      "id": "policy9-uart_instances",
+      "source": "policy-v9",
       "start_line": 15,
       "end_line": 15,
       "excerpt_sha256": "e82eef3c3b54da8fcb4a5c2def5a8d626217dbf6faad4b8f6ff00b0a0535417d",
-      "statement": "BKPT policy, version 7: UART instances. Authored engineering policy, not a manufacturer statement.",
+      "statement": "BKPT policy, version 9: UART instances. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
@@ -16714,12 +16722,12 @@
       ]
     },
     {
-      "id": "policy7-i2c_instances",
-      "source": "policy-v7",
+      "id": "policy9-i2c_instances",
+      "source": "policy-v9",
       "start_line": 26,
       "end_line": 26,
       "excerpt_sha256": "7f3f42467895da8977b4887e781662a47484edb71a9fd0480b8dbb4cc2f0905d",
-      "statement": "BKPT policy, version 7: I2C instances. Authored engineering policy, not a manufacturer statement.",
+      "statement": "BKPT policy, version 9: I2C instances. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
@@ -16857,12 +16865,12 @@
       ]
     },
     {
-      "id": "policy7-i2c_functions",
-      "source": "policy-v7",
+      "id": "policy9-i2c_functions",
+      "source": "policy-v9",
       "start_line": 25,
       "end_line": 25,
       "excerpt_sha256": "3b36ce1934dd0bc6a4353d13b3dc6ebb99b8a32e63978b76b265b5d2e8f4a4e1",
-      "statement": "BKPT policy, version 7: Two-wire signal functions. Authored engineering policy, not a manufacturer statement.",
+      "statement": "BKPT policy, version 9: Two-wire signal functions. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
@@ -16901,12 +16909,12 @@
       ]
     },
     {
-      "id": "policy7-crc_unit",
-      "source": "policy-v7",
+      "id": "policy9-crc_unit",
+      "source": "policy-v9",
       "start_line": 34,
       "end_line": 34,
       "excerpt_sha256": "e69a0c3f967acd022cc79b53f722104d9764c27d63ab365a0f78505118b6a100",
-      "statement": "BKPT policy, version 7: Checksum unit. Authored engineering policy, not a manufacturer statement.",
+      "statement": "BKPT policy, version 9: Checksum unit. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
@@ -16978,12 +16986,12 @@
       ]
     },
     {
-      "id": "policy7-watchdog",
-      "source": "policy-v7",
+      "id": "policy9-watchdog",
+      "source": "policy-v9",
       "start_line": 35,
       "end_line": 35,
-      "excerpt_sha256": "629510e69d2cd8d23adfd6e798c106d80ffa60b2e246cd9d90b692a18a47c6df",
-      "statement": "BKPT policy, version 7: Independent watchdog. Authored engineering policy, not a manufacturer statement.",
+      "excerpt_sha256": "76348fb2d2d0f6113893dd6890f28b693e3b9fb001f6db379ad1f1065e0e9bad",
+      "statement": "BKPT policy, version 9: Independent watchdog. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
@@ -17033,12 +17041,12 @@
       ]
     },
     {
-      "id": "policy7-spi_pins",
-      "source": "policy-v7",
+      "id": "policy9-spi_pins",
+      "source": "policy-v9",
       "start_line": 12,
       "end_line": 12,
       "excerpt_sha256": "7ecb29635de8b29ae6c3e42c95de6d5356fc17c247cef3d3cf304e3cf3c9c99d",
-      "statement": "BKPT policy, version 7: SPI pin domain. Authored engineering policy, not a manufacturer statement.",
+      "statement": "BKPT policy, version 9: SPI pin domain. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
@@ -17088,12 +17096,12 @@
       ]
     },
     {
-      "id": "policy7-uart_pins",
-      "source": "policy-v7",
+      "id": "policy9-uart_pins",
+      "source": "policy-v9",
       "start_line": 16,
       "end_line": 16,
       "excerpt_sha256": "60e4a7982c8c8f2c42fc023d17664be058c026d8f7b5f6047a3613fecb55aaab",
-      "statement": "BKPT policy, version 7: UART pin domain. Authored engineering policy, not a manufacturer statement.",
+      "statement": "BKPT policy, version 9: UART pin domain. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
@@ -17154,12 +17162,12 @@
       ]
     },
     {
-      "id": "policy7-i2c_pins",
-      "source": "policy-v7",
+      "id": "policy9-i2c_pins",
+      "source": "policy-v9",
       "start_line": 27,
       "end_line": 27,
       "excerpt_sha256": "bf6b41161f3ed4501ee87d551d7aee42d273cdc430909bd5d38061f42957373b",
-      "statement": "BKPT policy, version 7: I2C pin domain. Authored engineering policy, not a manufacturer statement.",
+      "statement": "BKPT policy, version 9: I2C pin domain. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
@@ -17275,12 +17283,12 @@
       ]
     },
     {
-      "id": "policy7-two_wire_header",
-      "source": "policy-v7",
+      "id": "policy9-two_wire_header",
+      "source": "policy-v9",
       "start_line": 28,
       "end_line": 28,
       "excerpt_sha256": "f90c3c18a3108e7a11c4fe9cc5d6625aea6a80f11cac1005264b70eb7216ad0a",
-      "statement": "BKPT policy, version 7: Two-wire header. Authored engineering policy, not a manufacturer statement.",
+      "statement": "BKPT policy, version 9: Two-wire header. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
@@ -17292,6 +17300,17 @@
       "end_line": 120,
       "excerpt_sha256": "b86e65891f256adde149936d954418f973439e1684ed9bb9e87490613d92f450",
       "statement": "SDK source declares HAL_GPIO_AF_9 with its description.",
+      "targets": [
+        "NUCLEO-C542RC"
+      ]
+    },
+    {
+      "id": "policy9-reviewed_routes",
+      "source": "policy-v9",
+      "start_line": 40,
+      "end_line": 40,
+      "excerpt_sha256": "58288a298c6a88d7198300bb0592a2c94006da2165880f5e3c1ef1b05019c089",
+      "statement": "BKPT policy, version 9: Reviewed routes. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
@@ -17451,12 +17470,23 @@
       ]
     },
     {
-      "id": "policy7-pwm_output",
-      "source": "policy-v7",
+      "id": "policy9-ownership_modes",
+      "source": "policy-v9",
+      "start_line": 39,
+      "end_line": 39,
+      "excerpt_sha256": "9e64563371be3593795fef17264ba753146403865f3ae06d729f77117df0bc3a",
+      "statement": "BKPT policy, version 9: Ownership modes. Authored engineering policy, not a manufacturer statement.",
+      "targets": [
+        "NUCLEO-C542RC"
+      ]
+    },
+    {
+      "id": "policy9-pwm_output",
+      "source": "policy-v9",
       "start_line": 24,
       "end_line": 24,
       "excerpt_sha256": "63e6c143883e7333d24e3432e2fb8877d1c95a1c03a8e892789848dcf3f7d538",
-      "statement": "BKPT policy, version 7: PWM output. Authored engineering policy, not a manufacturer statement.",
+      "statement": "BKPT policy, version 9: PWM output. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
@@ -17627,23 +17657,23 @@
       ]
     },
     {
-      "id": "policy7-sdk_definitions",
-      "source": "policy-v7",
+      "id": "policy9-sdk_definitions",
+      "source": "policy-v9",
       "start_line": 37,
       "end_line": 37,
-      "excerpt_sha256": "826df509af1ab171e319d4356d43eb4ffca13a59fe10ac33a164bf3fdd189b1e",
-      "statement": "BKPT policy, version 7: SDK definitions. Authored engineering policy, not a manufacturer statement.",
+      "excerpt_sha256": "f915ae616d4028fc0db7343e47ad5fef00f90d8940fdf6dfe1f9c7fa6f159586",
+      "statement": "BKPT policy, version 9: SDK definitions. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
     },
     {
-      "id": "policy7-analog_reading",
-      "source": "policy-v7",
+      "id": "policy9-analog_reading",
+      "source": "policy-v9",
       "start_line": 30,
       "end_line": 30,
-      "excerpt_sha256": "ea1d05558f69b25ae9032d912f54a981f375a3ecb5367fbbbc17332dabb5e506",
-      "statement": "BKPT policy, version 7: Analog reading. Authored engineering policy, not a manufacturer statement.",
+      "excerpt_sha256": "b5719bcb79fc59da73f9fd66f83464bcd4e5a947eddc5a755d10d485d431bdbb",
+      "statement": "BKPT policy, version 9: Analog reading. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
@@ -18023,6 +18053,28 @@
       ]
     },
     {
+      "id": "sdk-adc-poll-wait",
+      "source": "adc-c",
+      "start_line": 4044,
+      "end_line": 4057,
+      "excerpt_sha256": "8958cf6096039ce578de72fda2db0aeea36171b14e1791b9bedb022fb2406efe",
+      "statement": "SDK ADC polled conversion: it waits for the end-of-conversion flag and returns HAL_TIMEOUT when the HAL ticks passed since the call are greater than the limit it was given, so not before one tick more than the limit.",
+      "targets": [
+        "NUCLEO-C542RC"
+      ]
+    },
+    {
+      "id": "sdk-adc-stop-wait",
+      "source": "adc-c",
+      "start_line": 6070,
+      "end_line": 6097,
+      "excerpt_sha256": "26923db5db3dc1ee0c22b8e3caa8f5c24bc4d9c491e40635f99583002136486c",
+      "statement": "SDK ADC stop of a regular conversion: after the stop request it waits until no conversion is ongoing and gives up when the HAL ticks passed are greater than ADC_CONV_STOP_TIMEOUT_MS. The unit calls it after a conversion that timed out.",
+      "targets": [
+        "NUCLEO-C542RC"
+      ]
+    },
+    {
       "id": "inv-api-HAL_TIM_IC_SetConfigChannel",
       "source": "tim-c",
       "start_line": 5979,
@@ -18205,6 +18257,50 @@
       "end_line": 9654,
       "excerpt_sha256": "aab78b394962df417f76fcbde3e54ef5caa445518a162fb268969fd49a43b4e8",
       "statement": "SDK source documents and defines HAL_TIM_IRQHandler in these lines.",
+      "targets": [
+        "NUCLEO-C542RC"
+      ]
+    },
+    {
+      "id": "inv-api-HAL_CORTEX_NVIC_ClearPendingIRQ",
+      "source": "v2-cortex-c",
+      "start_line": 490,
+      "end_line": 502,
+      "excerpt_sha256": "49ad4bb7e367d130d9714acdcfc285a301ec24ecbd14a0a19786e41ac5c6bfd2",
+      "statement": "SDK source documents and defines HAL_CORTEX_NVIC_ClearPendingIRQ in these lines.",
+      "targets": [
+        "NUCLEO-C542RC"
+      ]
+    },
+    {
+      "id": "inv-api-HAL_CORTEX_NVIC_EnableIRQ",
+      "source": "v2-cortex-c",
+      "start_line": 417,
+      "end_line": 429,
+      "excerpt_sha256": "57decd980fcc7fb3cb47234771f4a809dd22f6027ba4e7a0cb041c6563edd23c",
+      "statement": "SDK source documents and defines HAL_CORTEX_NVIC_EnableIRQ in these lines.",
+      "targets": [
+        "NUCLEO-C542RC"
+      ]
+    },
+    {
+      "id": "inv-api-HAL_CORTEX_NVIC_SetPriority",
+      "source": "v2-cortex-c",
+      "start_line": 366,
+      "end_line": 387,
+      "excerpt_sha256": "84b83b7c3a4286017c9183529f358b07fc0edd2f73b9627a627cd7b2bacf92a5",
+      "statement": "SDK source documents and defines HAL_CORTEX_NVIC_SetPriority in these lines.",
+      "targets": [
+        "NUCLEO-C542RC"
+      ]
+    },
+    {
+      "id": "inv-api-HAL_TIM_Start_IT",
+      "source": "tim-c",
+      "start_line": 4769,
+      "end_line": 4784,
+      "excerpt_sha256": "41be474e38297e7f6dd18fc316876f80adfafbf5ceb642eba2911ccc731eeaea",
+      "statement": "SDK source documents and defines HAL_TIM_Start_IT in these lines.",
       "targets": [
         "NUCLEO-C542RC"
       ]
@@ -18397,12 +18493,45 @@
       ]
     },
     {
-      "id": "policy7-gpio_input",
-      "source": "policy-v7",
+      "id": "rm-iwdg-key-register",
+      "source": "rm-iwdg-key",
+      "start_line": 74,
+      "end_line": 83,
+      "excerpt_sha256": "5b45158d838c1c4c985b0ca8eb2024b6f1ca4ec19f269e2109ab57bb1f933154",
+      "statement": "RM0522 page 1538, IWDG key register: writing 0xAAAA reloads the counter and write-protects the registers, 0x5555 enables write access to them, and any value different from 0x5555 write-protects them. Text extraction.",
+      "targets": [
+        "NUCLEO-C542RC"
+      ]
+    },
+    {
+      "id": "rm-iwdg-access-protection",
+      "source": "rm-iwdg-key",
+      "start_line": 30,
+      "end_line": 34,
+      "excerpt_sha256": "3854d99162edf9cfcd34bb819c6605d85d1082d405aea7a1273cd4c7a535559f",
+      "statement": "RM0522 page 1534, section 37.4.6: the prescaler, reload, early wake-up and window registers are write-protected until 0x0000 5555 is written to the key register. Text extraction; the sentence on other values is cut by a figure on these lines and is cited from the key register description.",
+      "targets": [
+        "NUCLEO-C542RC"
+      ]
+    },
+    {
+      "id": "sdk-iwdg-start-sequence",
+      "source": "iwdg-c",
+      "start_line": 426,
+      "end_line": 431,
+      "excerpt_sha256": "88f0a5d1fc3759efa225c1c867f2f35bf93dacaaf302a6d382b2d1af345534b9",
+      "statement": "SDK IWDG start: it enables the watchdog, enables write access and then writes the prescaler and the reload value, in this order and before its waits.",
+      "targets": [
+        "NUCLEO-C542RC"
+      ]
+    },
+    {
+      "id": "policy9-gpio_input",
+      "source": "policy-v9",
       "start_line": 33,
       "end_line": 33,
       "excerpt_sha256": "f5a211fd2497f2408b38bac398ac08fe60aa00492c744fa361401b5ed0eeda20",
-      "statement": "BKPT policy, version 7: GPIO input domain. Authored engineering policy, not a manufacturer statement.",
+      "statement": "BKPT policy, version 9: GPIO input domain. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
@@ -18430,34 +18559,34 @@
       ]
     },
     {
-      "id": "policy7-earlier_texts",
-      "source": "policy-v7",
+      "id": "policy9-earlier_texts",
+      "source": "policy-v9",
       "start_line": 36,
       "end_line": 36,
       "excerpt_sha256": "988ae8791008dc847429a2247999c27174ae4f81aea8899a199f326b38f3b170",
-      "statement": "BKPT policy, version 7: Earlier texts. Authored engineering policy, not a manufacturer statement.",
+      "statement": "BKPT policy, version 9: Earlier texts. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
     },
     {
-      "id": "policy7-source_scope",
-      "source": "policy-v7",
+      "id": "policy9-source_scope",
+      "source": "policy-v9",
       "start_line": 38,
       "end_line": 38,
       "excerpt_sha256": "bcca1008d835cb0e50a4299c3474a72283fce265aab14e95fe031b46dde8a398",
-      "statement": "BKPT policy, version 7: Source scope. Authored engineering policy, not a manufacturer statement.",
+      "statement": "BKPT policy, version 9: Source scope. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
     },
     {
-      "id": "policy7-supersedes",
-      "source": "policy-v7",
+      "id": "policy9-supersedes",
+      "source": "policy-v9",
       "start_line": 22,
       "end_line": 22,
       "excerpt_sha256": "3be72b6a8e1523d57717d63c8f429788ce2bbe3051032d5863959f6be790ffc1",
-      "statement": "BKPT policy, version 7: Supersession. Authored engineering policy, not a manufacturer statement.",
+      "statement": "BKPT policy, version 9: Supersession. Authored engineering policy, not a manufacturer statement.",
       "targets": [
         "NUCLEO-C542RC"
       ]
@@ -18535,15 +18664,15 @@
         "dma-errata-9",
         "dma-errata-10",
         "net-PA13",
-        "policy7-debug",
+        "policy9-debug",
         "net-PA14",
         "net-PH0",
-        "policy7-clock",
+        "policy9-clock",
         "net-PH1",
-        "policy7-foundation_pads",
+        "policy9-foundation_pads",
         "pack-variant-STM32C542RCT6",
-        "policy7-source_scope",
-        "policy7-supersedes"
+        "policy9-source_scope",
+        "policy9-supersedes"
       ],
       "services": [
         {
@@ -18596,10 +18725,10 @@
             "preset-io-init",
             "system-startup-complete",
             "stdio-handle",
-            "policy7-uart_instances",
+            "policy9-uart_instances",
             "instances-uart-private-init",
-            "policy7-earlier_texts",
-            "policy7-supersedes"
+            "policy9-earlier_texts",
+            "policy9-supersedes"
           ]
         }
       ]
@@ -18753,16 +18882,16 @@
         "inv-pin-HAL_GPIO_PIN_5",
         "inv-clock-HAL_RCC_GPIOA_EnableClock",
         "net-PA5",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOA",
-        "policy7-timer_channels",
-        "policy7-analog_inputs",
-        "policy7-pwm_output",
-        "policy7-analog_reading",
-        "policy7-input_capture",
-        "policy7-gpio_input"
+        "policy9-timer_channels",
+        "policy9-analog_inputs",
+        "policy9-pwm_output",
+        "policy9-analog_reading",
+        "policy9-input_capture",
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -18798,11 +18927,11 @@
         "declared-ip-USART2",
         "declared-bus-USART2",
         "described-USART2",
-        "policy7-uart_instances",
+        "policy9-uart_instances",
         "preset-clock",
         "clock-USART2_Clock_Source",
         "clock-USART2_Input_Clock",
-        "policy7-kernel_clocks",
+        "policy9-kernel_clocks",
         "limited-STM32C542RCT6",
         "inv-instance-HAL_UART2",
         "inv-instance-HAL_RCC_USART2_EnableClock",
@@ -18842,8 +18971,8 @@
         "inv-pin-HAL_GPIO_PIN_2",
         "inv-clock-HAL_RCC_GPIOA_EnableClock",
         "net-PA2",
-        "policy7-console",
-        "policy7-uart_pins"
+        "policy9-console",
+        "policy9-uart_pins"
       ],
       "implementation": null
     },
@@ -18877,8 +19006,8 @@
         "inv-pin-HAL_GPIO_PIN_3",
         "inv-clock-HAL_RCC_GPIOA_EnableClock",
         "net-PA3",
-        "policy7-console",
-        "policy7-uart_pins"
+        "policy9-console",
+        "policy9-uart_pins"
       ],
       "implementation": null
     },
@@ -18919,13 +19048,13 @@
         "inv-pin-HAL_GPIO_PIN_4",
         "inv-clock-HAL_RCC_GPIOA_EnableClock",
         "net-PA4",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOA",
-        "policy7-analog_inputs",
-        "policy7-analog_reading",
-        "policy7-gpio_input"
+        "policy9-analog_inputs",
+        "policy9-analog_reading",
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -19435,10 +19564,10 @@
         "declared-ip-I2C1",
         "declared-bus-I2C1",
         "described-I2C1",
-        "policy7-i2c_instances",
+        "policy9-i2c_instances",
         "clock-I2C1_Clock_Source",
         "clock-I2C1_Input_Clock",
-        "policy7-kernel_clocks",
+        "policy9-kernel_clocks",
         "limited-STM32C542RCT6",
         "inv-instance-HAL_I2C1",
         "inv-instance-HAL_RCC_I2C1_EnableClock",
@@ -19472,12 +19601,12 @@
         "declared-ip-SPI1",
         "declared-bus-SPI1",
         "described-SPI1",
-        "policy7-spi_instances",
+        "policy9-spi_instances",
         "preset-clock",
         "transfer-rate-policy",
         "clock-SPI1_Clock_Source",
         "clock-SPI1_Input_Clock",
-        "policy7-kernel_clocks",
+        "policy9-kernel_clocks",
         "limited-STM32C542RCT6",
         "inv-instance-HAL_SPI1",
         "inv-instance-HAL_RCC_SPI1_EnableClock",
@@ -19772,18 +19901,18 @@
         "inv-pin-HAL_GPIO_PIN_6",
         "inv-clock-HAL_RCC_GPIOB_EnableClock",
         "net-PB6",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOB",
-        "policy7-uart_pins",
+        "policy9-uart_pins",
         "pad-structure-PB6",
         "pad-structure-option-f",
-        "policy7-i2c_pins",
-        "policy7-timer_channels",
-        "policy7-pwm_output",
-        "policy7-input_capture",
-        "policy7-gpio_input"
+        "policy9-i2c_pins",
+        "policy9-timer_channels",
+        "policy9-pwm_output",
+        "policy9-input_capture",
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -19822,15 +19951,15 @@
         "inv-pin-HAL_GPIO_PIN_7",
         "inv-clock-HAL_RCC_GPIOB_EnableClock",
         "net-PB7",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOB",
-        "policy7-uart_pins",
+        "policy9-uart_pins",
         "pad-structure-PB7",
         "pad-structure-option-f",
-        "policy7-i2c_pins",
-        "policy7-gpio_input"
+        "policy9-i2c_pins",
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -19869,14 +19998,14 @@
         "inv-pin-HAL_GPIO_PIN_6",
         "inv-clock-HAL_RCC_GPIOA_EnableClock",
         "net-PA6",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOA",
-        "policy7-uart_pins",
-        "policy7-analog_inputs",
-        "policy7-analog_reading",
-        "policy7-gpio_input"
+        "policy9-uart_pins",
+        "policy9-analog_inputs",
+        "policy9-analog_reading",
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -19916,17 +20045,17 @@
         "inv-pin-HAL_GPIO_PIN_7",
         "inv-clock-HAL_RCC_GPIOA_EnableClock",
         "net-PA7",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOA",
-        "policy7-uart_pins",
-        "policy7-timer_channels",
-        "policy7-analog_inputs",
-        "policy7-pwm_output",
-        "policy7-analog_reading",
-        "policy7-input_capture",
-        "policy7-gpio_input"
+        "policy9-uart_pins",
+        "policy9-timer_channels",
+        "policy9-analog_inputs",
+        "policy9-pwm_output",
+        "policy9-analog_reading",
+        "policy9-input_capture",
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -19997,18 +20126,18 @@
         "inv-pin-HAL_GPIO_PIN_8",
         "inv-clock-HAL_RCC_GPIOB_EnableClock",
         "net-PB8",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOB",
-        "policy7-uart_pins",
+        "policy9-uart_pins",
         "pad-structure-PB8",
         "pad-structure-option-f",
-        "policy7-i2c_pins",
-        "policy7-timer_channels",
-        "policy7-pwm_output",
-        "policy7-input_capture",
-        "policy7-gpio_input"
+        "policy9-i2c_pins",
+        "policy9-timer_channels",
+        "policy9-pwm_output",
+        "policy9-input_capture",
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -20043,11 +20172,11 @@
         "inv-pin-HAL_GPIO_PIN_9",
         "inv-clock-HAL_RCC_GPIOB_EnableClock",
         "net-PB9",
-        "policy7-general",
+        "policy9-general",
         "pad-structure-PB9",
         "pad-structure-option-f",
-        "policy7-i2c_pins",
-        "policy7-two_wire_header"
+        "policy9-i2c_pins",
+        "policy9-two_wire_header"
       ],
       "implementation": null
     },
@@ -20068,7 +20197,7 @@
         "exti-types",
         "exti-mux",
         "exti-policy",
-        "policy7-supersedes"
+        "policy9-supersedes"
       ],
       "implementation": null
     },
@@ -20094,10 +20223,10 @@
         "exti-vector-declarations",
         "exti-vector-entries",
         "exti-policy",
-        "policy7-gpio_interrupt",
+        "policy9-gpio_interrupt",
         "inv-irq-EXTI4",
         "inv-vector-EXTI4",
-        "policy7-supersedes"
+        "policy9-supersedes"
       ],
       "implementation": null
     },
@@ -20118,7 +20247,7 @@
         "exti-types",
         "exti-mux",
         "exti-policy",
-        "policy7-supersedes"
+        "policy9-supersedes"
       ],
       "implementation": null
     },
@@ -20144,10 +20273,10 @@
         "exti-vector-declarations",
         "exti-vector-entries",
         "exti-policy",
-        "policy7-gpio_interrupt",
+        "policy9-gpio_interrupt",
         "inv-irq-EXTI5",
         "inv-vector-EXTI5",
-        "policy7-supersedes"
+        "policy9-supersedes"
       ],
       "implementation": null
     },
@@ -20184,17 +20313,17 @@
         "inv-pin-HAL_GPIO_PIN_0",
         "inv-clock-HAL_RCC_GPIOA_EnableClock",
         "net-PA0",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOA",
-        "policy7-uart_pins",
-        "policy7-timer_channels",
-        "policy7-analog_inputs",
-        "policy7-pwm_output",
-        "policy7-analog_reading",
-        "policy7-input_capture",
-        "policy7-gpio_input"
+        "policy9-uart_pins",
+        "policy9-timer_channels",
+        "policy9-analog_inputs",
+        "policy9-pwm_output",
+        "policy9-analog_reading",
+        "policy9-input_capture",
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -20231,17 +20360,17 @@
         "inv-pin-HAL_GPIO_PIN_1",
         "inv-clock-HAL_RCC_GPIOA_EnableClock",
         "net-PA1",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOA",
-        "policy7-uart_pins",
-        "policy7-timer_channels",
-        "policy7-analog_inputs",
-        "policy7-pwm_output",
-        "policy7-analog_reading",
-        "policy7-input_capture",
-        "policy7-gpio_input"
+        "policy9-uart_pins",
+        "policy9-timer_channels",
+        "policy9-analog_inputs",
+        "policy9-pwm_output",
+        "policy9-analog_reading",
+        "policy9-input_capture",
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -20277,17 +20406,17 @@
         "inv-pin-HAL_GPIO_PIN_8",
         "inv-clock-HAL_RCC_GPIOA_EnableClock",
         "net-PA8",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOA",
         "pad-structure-PA8",
         "pad-structure-option-f",
-        "policy7-i2c_pins",
-        "policy7-timer_channels",
-        "policy7-pwm_output",
-        "policy7-input_capture",
-        "policy7-gpio_input"
+        "policy9-i2c_pins",
+        "policy9-timer_channels",
+        "policy9-pwm_output",
+        "policy9-input_capture",
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -20323,15 +20452,15 @@
         "inv-pin-HAL_GPIO_PIN_9",
         "inv-clock-HAL_RCC_GPIOA_EnableClock",
         "net-PA9",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOA",
-        "policy7-uart_pins",
-        "policy7-timer_channels",
-        "policy7-pwm_output",
-        "policy7-input_capture",
-        "policy7-gpio_input"
+        "policy9-uart_pins",
+        "policy9-timer_channels",
+        "policy9-pwm_output",
+        "policy9-input_capture",
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -20367,15 +20496,15 @@
         "inv-pin-HAL_GPIO_PIN_10",
         "inv-clock-HAL_RCC_GPIOA_EnableClock",
         "net-PA10",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOA",
-        "policy7-uart_pins",
-        "policy7-timer_channels",
-        "policy7-pwm_output",
-        "policy7-input_capture",
-        "policy7-gpio_input"
+        "policy9-uart_pins",
+        "policy9-timer_channels",
+        "policy9-pwm_output",
+        "policy9-input_capture",
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -20404,7 +20533,7 @@
         "inv-pin-HAL_GPIO_PIN_11",
         "inv-clock-HAL_RCC_GPIOA_EnableClock",
         "net-PA11",
-        "policy7-general"
+        "policy9-general"
       ],
       "implementation": null
     },
@@ -20433,7 +20562,7 @@
         "inv-pin-HAL_GPIO_PIN_12",
         "inv-clock-HAL_RCC_GPIOA_EnableClock",
         "net-PA12",
-        "policy7-general"
+        "policy9-general"
       ],
       "implementation": null
     },
@@ -20463,7 +20592,7 @@
         "inv-pin-HAL_GPIO_PIN_13",
         "inv-clock-HAL_RCC_GPIOA_EnableClock",
         "net-PA13",
-        "policy7-debug"
+        "policy9-debug"
       ],
       "implementation": null
     },
@@ -20493,7 +20622,7 @@
         "inv-pin-HAL_GPIO_PIN_14",
         "inv-clock-HAL_RCC_GPIOA_EnableClock",
         "net-PA14",
-        "policy7-debug"
+        "policy9-debug"
       ],
       "implementation": null
     },
@@ -20523,7 +20652,7 @@
         "inv-pin-HAL_GPIO_PIN_15",
         "inv-clock-HAL_RCC_GPIOA_EnableClock",
         "net-PA15",
-        "policy7-general"
+        "policy9-general"
       ],
       "implementation": null
     },
@@ -20558,12 +20687,12 @@
         "inv-pin-HAL_GPIO_PIN_0",
         "inv-clock-HAL_RCC_GPIOB_EnableClock",
         "net-PB0",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOB",
-        "policy7-uart_pins",
-        "policy7-gpio_input"
+        "policy9-uart_pins",
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -20598,12 +20727,12 @@
         "inv-pin-HAL_GPIO_PIN_1",
         "inv-clock-HAL_RCC_GPIOB_EnableClock",
         "net-PB1",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOB",
-        "policy7-uart_pins",
-        "policy7-gpio_input"
+        "policy9-uart_pins",
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -20637,11 +20766,11 @@
         "inv-pin-HAL_GPIO_PIN_2",
         "inv-clock-HAL_RCC_GPIOB_EnableClock",
         "net-PB2",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOB",
-        "policy7-gpio_input"
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -20671,7 +20800,7 @@
         "inv-pin-HAL_GPIO_PIN_3",
         "inv-clock-HAL_RCC_GPIOB_EnableClock",
         "net-PB3",
-        "policy7-general"
+        "policy9-general"
       ],
       "implementation": null
     },
@@ -20709,18 +20838,18 @@
         "inv-pin-HAL_GPIO_PIN_4",
         "inv-clock-HAL_RCC_GPIOB_EnableClock",
         "net-PB4",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOB",
-        "policy7-uart_pins",
+        "policy9-uart_pins",
         "pad-structure-PB4",
         "pad-structure-option-f",
-        "policy7-i2c_pins",
-        "policy7-timer_channels",
-        "policy7-pwm_output",
-        "policy7-input_capture",
-        "policy7-gpio_input"
+        "policy9-i2c_pins",
+        "policy9-timer_channels",
+        "policy9-pwm_output",
+        "policy9-input_capture",
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -20756,15 +20885,15 @@
         "inv-pin-HAL_GPIO_PIN_5",
         "inv-clock-HAL_RCC_GPIOB_EnableClock",
         "net-PB5",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOB",
-        "policy7-uart_pins",
-        "policy7-timer_channels",
-        "policy7-pwm_output",
-        "policy7-input_capture",
-        "policy7-gpio_input"
+        "policy9-uart_pins",
+        "policy9-timer_channels",
+        "policy9-pwm_output",
+        "policy9-input_capture",
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -20801,18 +20930,18 @@
         "inv-pin-HAL_GPIO_PIN_10",
         "inv-clock-HAL_RCC_GPIOB_EnableClock",
         "net-PB10",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOB",
-        "policy7-uart_pins",
+        "policy9-uart_pins",
         "pad-structure-PB10",
         "pad-structure-option-f",
-        "policy7-i2c_pins",
-        "policy7-timer_channels",
-        "policy7-pwm_output",
-        "policy7-input_capture",
-        "policy7-gpio_input"
+        "policy9-i2c_pins",
+        "policy9-timer_channels",
+        "policy9-pwm_output",
+        "policy9-input_capture",
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -20849,18 +20978,18 @@
         "inv-pin-HAL_GPIO_PIN_12",
         "inv-clock-HAL_RCC_GPIOB_EnableClock",
         "net-PB12",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOB",
-        "policy7-uart_pins",
+        "policy9-uart_pins",
         "pad-structure-PB12",
         "pad-structure-option-f",
-        "policy7-i2c_pins",
-        "policy7-timer_channels",
-        "policy7-pwm_output",
-        "policy7-input_capture",
-        "policy7-gpio_input"
+        "policy9-i2c_pins",
+        "policy9-timer_channels",
+        "policy9-pwm_output",
+        "policy9-input_capture",
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -20896,15 +21025,15 @@
         "inv-pin-HAL_GPIO_PIN_13",
         "inv-clock-HAL_RCC_GPIOB_EnableClock",
         "net-PB13",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOB",
-        "policy7-uart_pins",
-        "policy7-timer_channels",
-        "policy7-pwm_output",
-        "policy7-input_capture",
-        "policy7-gpio_input"
+        "policy9-uart_pins",
+        "policy9-timer_channels",
+        "policy9-pwm_output",
+        "policy9-input_capture",
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -20940,15 +21069,15 @@
         "inv-pin-HAL_GPIO_PIN_14",
         "inv-clock-HAL_RCC_GPIOB_EnableClock",
         "net-PB14",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOB",
-        "policy7-uart_pins",
-        "policy7-timer_channels",
-        "policy7-pwm_output",
-        "policy7-input_capture",
-        "policy7-gpio_input"
+        "policy9-uart_pins",
+        "policy9-timer_channels",
+        "policy9-pwm_output",
+        "policy9-input_capture",
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -20984,15 +21113,15 @@
         "inv-pin-HAL_GPIO_PIN_15",
         "inv-clock-HAL_RCC_GPIOB_EnableClock",
         "net-PB15",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOB",
-        "policy7-uart_pins",
-        "policy7-timer_channels",
-        "policy7-pwm_output",
-        "policy7-input_capture",
-        "policy7-gpio_input"
+        "policy9-uart_pins",
+        "policy9-timer_channels",
+        "policy9-pwm_output",
+        "policy9-input_capture",
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -21027,13 +21156,13 @@
         "inv-pin-HAL_GPIO_PIN_0",
         "inv-clock-HAL_RCC_GPIOC_EnableClock",
         "net-PC0",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOC",
-        "policy7-analog_inputs",
-        "policy7-analog_reading",
-        "policy7-gpio_input"
+        "policy9-analog_inputs",
+        "policy9-analog_reading",
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -21068,13 +21197,13 @@
         "inv-pin-HAL_GPIO_PIN_1",
         "inv-clock-HAL_RCC_GPIOC_EnableClock",
         "net-PC1",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOC",
-        "policy7-analog_inputs",
-        "policy7-analog_reading",
-        "policy7-gpio_input"
+        "policy9-analog_inputs",
+        "policy9-analog_reading",
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -21109,13 +21238,13 @@
         "inv-pin-HAL_GPIO_PIN_2",
         "inv-clock-HAL_RCC_GPIOC_EnableClock",
         "net-PC2",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOC",
-        "policy7-analog_inputs",
-        "policy7-analog_reading",
-        "policy7-gpio_input"
+        "policy9-analog_inputs",
+        "policy9-analog_reading",
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -21150,13 +21279,13 @@
         "inv-pin-HAL_GPIO_PIN_3",
         "inv-clock-HAL_RCC_GPIOC_EnableClock",
         "net-PC3",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOC",
-        "policy7-analog_inputs",
-        "policy7-analog_reading",
-        "policy7-gpio_input"
+        "policy9-analog_inputs",
+        "policy9-analog_reading",
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -21192,15 +21321,15 @@
         "inv-pin-HAL_GPIO_PIN_4",
         "inv-clock-HAL_RCC_GPIOC_EnableClock",
         "net-PC4",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOC",
-        "policy7-uart_pins",
-        "policy7-timer_channels",
-        "policy7-pwm_output",
-        "policy7-input_capture",
-        "policy7-gpio_input"
+        "policy9-uart_pins",
+        "policy9-timer_channels",
+        "policy9-pwm_output",
+        "policy9-input_capture",
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -21234,11 +21363,11 @@
         "inv-pin-HAL_GPIO_PIN_5",
         "inv-clock-HAL_RCC_GPIOC_EnableClock",
         "net-PC5",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOC",
-        "policy7-gpio_input"
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -21273,14 +21402,14 @@
         "inv-pin-HAL_GPIO_PIN_6",
         "inv-clock-HAL_RCC_GPIOC_EnableClock",
         "net-PC6",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOC",
-        "policy7-timer_channels",
-        "policy7-pwm_output",
-        "policy7-input_capture",
-        "policy7-gpio_input"
+        "policy9-timer_channels",
+        "policy9-pwm_output",
+        "policy9-input_capture",
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -21315,14 +21444,14 @@
         "inv-pin-HAL_GPIO_PIN_7",
         "inv-clock-HAL_RCC_GPIOC_EnableClock",
         "net-PC7",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOC",
-        "policy7-timer_channels",
-        "policy7-pwm_output",
-        "policy7-input_capture",
-        "policy7-gpio_input"
+        "policy9-timer_channels",
+        "policy9-pwm_output",
+        "policy9-input_capture",
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -21357,14 +21486,14 @@
         "inv-pin-HAL_GPIO_PIN_8",
         "inv-clock-HAL_RCC_GPIOC_EnableClock",
         "net-PC8",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOC",
-        "policy7-timer_channels",
-        "policy7-pwm_output",
-        "policy7-input_capture",
-        "policy7-gpio_input"
+        "policy9-timer_channels",
+        "policy9-pwm_output",
+        "policy9-input_capture",
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -21400,17 +21529,17 @@
         "inv-pin-HAL_GPIO_PIN_9",
         "inv-clock-HAL_RCC_GPIOC_EnableClock",
         "net-PC9",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOC",
         "pad-structure-PC9",
         "pad-structure-option-f",
-        "policy7-i2c_pins",
-        "policy7-timer_channels",
-        "policy7-pwm_output",
-        "policy7-input_capture",
-        "policy7-gpio_input"
+        "policy9-i2c_pins",
+        "policy9-timer_channels",
+        "policy9-pwm_output",
+        "policy9-input_capture",
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -21445,12 +21574,12 @@
         "inv-pin-HAL_GPIO_PIN_10",
         "inv-clock-HAL_RCC_GPIOC_EnableClock",
         "net-PC10",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOC",
-        "policy7-uart_pins",
-        "policy7-gpio_input"
+        "policy9-uart_pins",
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -21485,12 +21614,12 @@
         "inv-pin-HAL_GPIO_PIN_11",
         "inv-clock-HAL_RCC_GPIOC_EnableClock",
         "net-PC11",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOC",
-        "policy7-uart_pins",
-        "policy7-gpio_input"
+        "policy9-uart_pins",
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -21526,15 +21655,15 @@
         "inv-pin-HAL_GPIO_PIN_12",
         "inv-clock-HAL_RCC_GPIOC_EnableClock",
         "net-PC12",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOC",
-        "policy7-uart_pins",
-        "policy7-timer_channels",
-        "policy7-pwm_output",
-        "policy7-input_capture",
-        "policy7-gpio_input"
+        "policy9-uart_pins",
+        "policy9-timer_channels",
+        "policy9-pwm_output",
+        "policy9-input_capture",
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -21565,12 +21694,12 @@
         "inv-port-HAL_GPIOC",
         "inv-pin-HAL_GPIO_PIN_13",
         "inv-clock-HAL_RCC_GPIOC_EnableClock",
-        "policy7-backup_domain",
+        "policy9-backup_domain",
         "ds-backup-domain-pads",
         "net-PC13",
-        "policy7-gpio_interrupt",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOC",
-        "policy7-user_button",
+        "policy9-user_button",
         "net-3V3-B1.3",
         "net-GND-R13.1"
       ],
@@ -21601,7 +21730,7 @@
         "inv-port-HAL_GPIOC",
         "inv-pin-HAL_GPIO_PIN_14",
         "inv-clock-HAL_RCC_GPIOC_EnableClock",
-        "policy7-backup_domain",
+        "policy9-backup_domain",
         "ds-backup-domain-pads",
         "net-PC14"
       ],
@@ -21632,7 +21761,7 @@
         "inv-port-HAL_GPIOC",
         "inv-pin-HAL_GPIO_PIN_15",
         "inv-clock-HAL_RCC_GPIOC_EnableClock",
-        "policy7-backup_domain",
+        "policy9-backup_domain",
         "ds-backup-domain-pads",
         "net-PC15"
       ],
@@ -21669,12 +21798,12 @@
         "inv-pin-HAL_GPIO_PIN_2",
         "inv-clock-HAL_RCC_GPIOD_EnableClock",
         "net-PD2",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOD",
-        "policy7-uart_pins",
-        "policy7-gpio_input"
+        "policy9-uart_pins",
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -21708,11 +21837,11 @@
         "inv-pin-HAL_GPIO_PIN_2",
         "inv-clock-HAL_RCC_GPIOE_EnableClock",
         "net-PE2",
-        "policy7-general",
-        "policy7-gpio_output",
-        "policy7-gpio_interrupt",
+        "policy9-general",
+        "policy9-gpio_output",
+        "policy9-gpio_interrupt",
         "inv-exti-HAL_EXTI_GPIOE",
-        "policy7-gpio_input"
+        "policy9-gpio_input"
       ],
       "implementation": null
     },
@@ -21742,7 +21871,7 @@
         "inv-pin-HAL_GPIO_PIN_0",
         "inv-clock-HAL_RCC_GPIOH_EnableClock",
         "net-PH0",
-        "policy7-clock"
+        "policy9-clock"
       ],
       "implementation": null
     },
@@ -21772,7 +21901,7 @@
         "inv-pin-HAL_GPIO_PIN_1",
         "inv-clock-HAL_RCC_GPIOH_EnableClock",
         "net-PH1",
-        "policy7-clock"
+        "policy9-clock"
       ],
       "implementation": null
     },
@@ -21802,7 +21931,7 @@
         "inv-pin-HAL_GPIO_PIN_2",
         "inv-clock-HAL_RCC_GPIOH_EnableClock",
         "net-PH2",
-        "policy7-boot"
+        "policy9-boot"
       ],
       "implementation": null
     },
@@ -21826,11 +21955,11 @@
         "declared-ADC1",
         "declared-ip-ADC1",
         "described-ADC1",
-        "policy7-analog_inputs",
+        "policy9-analog_inputs",
         "clock-ADC_DAC_Clock_Source",
         "clock-ADC_Input_Clock",
         "clock-ADCDACPRE_DIV",
-        "policy7-kernel_clocks",
+        "policy9-kernel_clocks",
         "limited-STM32C542RCT6",
         "inv-instance-HAL_ADC1",
         "inv-instance-HAL_RCC_ADC12_EnableClock"
@@ -21979,12 +22108,12 @@
         "declared-ip-SPI2",
         "declared-bus-SPI2",
         "described-SPI2",
-        "policy7-spi_instances",
+        "policy9-spi_instances",
         "preset-clock",
         "transfer-rate-policy",
         "clock-SPI2_Clock_Source",
         "clock-SPI2_Input_Clock",
-        "policy7-kernel_clocks",
+        "policy9-kernel_clocks",
         "limited-STM32C542RCT6",
         "inv-instance-HAL_SPI2",
         "inv-instance-HAL_RCC_SPI2_EnableClock",
@@ -22151,15 +22280,15 @@
         "declared-TIM12",
         "declared-ip-TIM12",
         "described-TIM12",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "clock-TIMx_Input_Clock",
-        "policy7-kernel_clocks",
+        "policy9-kernel_clocks",
         "limited-STM32C542RCT6",
         "inv-instance-HAL_TIM12",
         "inv-instance-HAL_RCC_TIM12_EnableClock",
         "inv-instance-TIM12",
         "inv-instance-HAL_RCC_TIM12_Reset",
-        "policy7-channel_timer_update"
+        "policy9-channel_timer_update"
       ],
       "implementation": null
     },
@@ -22185,15 +22314,15 @@
         "declared-TIM15",
         "declared-ip-TIM15",
         "described-TIM15",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "clock-TIMx2_Input_Clock",
-        "policy7-kernel_clocks",
+        "policy9-kernel_clocks",
         "limited-STM32C542RCT6",
         "inv-instance-HAL_TIM15",
         "inv-instance-HAL_RCC_TIM15_EnableClock",
         "inv-instance-TIM15",
         "inv-instance-HAL_RCC_TIM15_Reset",
-        "policy7-channel_timer_update"
+        "policy9-channel_timer_update"
       ],
       "implementation": null
     },
@@ -22219,15 +22348,15 @@
         "declared-TIM1",
         "declared-ip-TIM1",
         "described-TIM1",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "clock-TIMx2_Input_Clock",
-        "policy7-kernel_clocks",
+        "policy9-kernel_clocks",
         "limited-STM32C542RCT6",
         "inv-instance-HAL_TIM1",
         "inv-instance-HAL_RCC_TIM1_EnableClock",
         "inv-instance-TIM1",
         "inv-instance-HAL_RCC_TIM1_Reset",
-        "policy7-channel_timer_update"
+        "policy9-channel_timer_update"
       ],
       "implementation": null
     },
@@ -22253,15 +22382,15 @@
         "declared-TIM2",
         "declared-ip-TIM2",
         "described-TIM2",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "clock-TIMx_Input_Clock",
-        "policy7-kernel_clocks",
+        "policy9-kernel_clocks",
         "limited-STM32C542RCT6",
         "inv-instance-HAL_TIM2",
         "inv-instance-HAL_RCC_TIM2_EnableClock",
         "inv-instance-TIM2",
         "inv-instance-HAL_RCC_TIM2_Reset",
-        "policy7-channel_timer_update"
+        "policy9-channel_timer_update"
       ],
       "implementation": null
     },
@@ -22287,15 +22416,15 @@
         "declared-TIM8",
         "declared-ip-TIM8",
         "described-TIM8",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "clock-TIMx2_Input_Clock",
-        "policy7-kernel_clocks",
+        "policy9-kernel_clocks",
         "limited-STM32C542RCT6",
         "inv-instance-HAL_TIM8",
         "inv-instance-HAL_RCC_TIM8_EnableClock",
         "inv-instance-TIM8",
         "inv-instance-HAL_RCC_TIM8_Reset",
-        "policy7-channel_timer_update"
+        "policy9-channel_timer_update"
       ],
       "implementation": null
     },
@@ -22323,11 +22452,11 @@
         "declared-ip-UART4",
         "declared-bus-UART4",
         "described-UART4",
-        "policy7-uart_instances",
+        "policy9-uart_instances",
         "preset-clock",
         "clock-UART4_Input_Clock",
         "clock-UART4_Clock_Source",
-        "policy7-kernel_clocks",
+        "policy9-kernel_clocks",
         "limited-STM32C542RCT6",
         "inv-instance-HAL_UART4",
         "inv-instance-HAL_RCC_UART4_EnableClock",
@@ -22361,11 +22490,11 @@
         "declared-ip-UART5",
         "declared-bus-UART5",
         "described-UART5",
-        "policy7-uart_instances",
+        "policy9-uart_instances",
         "preset-clock",
         "clock-UART5_Clock_Source",
         "clock-UART5_Input_Clock",
-        "policy7-kernel_clocks",
+        "policy9-kernel_clocks",
         "limited-STM32C542RCT6",
         "inv-instance-HAL_UART5",
         "inv-instance-HAL_RCC_UART5_EnableClock",
@@ -22399,11 +22528,11 @@
         "declared-ip-USART1",
         "declared-bus-USART1",
         "described-USART1",
-        "policy7-uart_instances",
+        "policy9-uart_instances",
         "preset-clock",
         "clock-USART1_Clock_Source",
         "clock-USART1_Input_Clock",
-        "policy7-kernel_clocks",
+        "policy9-kernel_clocks",
         "limited-STM32C542RCT6",
         "inv-instance-HAL_UART1",
         "inv-instance-HAL_RCC_USART1_EnableClock",
@@ -22597,7 +22726,7 @@
       "evidence": [
         "inv-irq-EXTI0",
         "inv-vector-EXTI0",
-        "policy7-gpio_interrupt"
+        "policy9-gpio_interrupt"
       ],
       "implementation": null
     },
@@ -22621,7 +22750,7 @@
       "evidence": [
         "inv-irq-EXTI1",
         "inv-vector-EXTI1",
-        "policy7-gpio_interrupt"
+        "policy9-gpio_interrupt"
       ],
       "implementation": null
     },
@@ -22645,7 +22774,7 @@
       "evidence": [
         "inv-irq-EXTI2",
         "inv-vector-EXTI2",
-        "policy7-gpio_interrupt"
+        "policy9-gpio_interrupt"
       ],
       "implementation": null
     },
@@ -22669,7 +22798,7 @@
       "evidence": [
         "inv-irq-EXTI3",
         "inv-vector-EXTI3",
-        "policy7-gpio_interrupt"
+        "policy9-gpio_interrupt"
       ],
       "implementation": null
     },
@@ -22693,7 +22822,7 @@
       "evidence": [
         "inv-irq-EXTI6",
         "inv-vector-EXTI6",
-        "policy7-gpio_interrupt"
+        "policy9-gpio_interrupt"
       ],
       "implementation": null
     },
@@ -22717,7 +22846,7 @@
       "evidence": [
         "inv-irq-EXTI7",
         "inv-vector-EXTI7",
-        "policy7-gpio_interrupt"
+        "policy9-gpio_interrupt"
       ],
       "implementation": null
     },
@@ -22741,7 +22870,7 @@
       "evidence": [
         "inv-irq-EXTI8",
         "inv-vector-EXTI8",
-        "policy7-gpio_interrupt"
+        "policy9-gpio_interrupt"
       ],
       "implementation": null
     },
@@ -22765,7 +22894,7 @@
       "evidence": [
         "inv-irq-EXTI9",
         "inv-vector-EXTI9",
-        "policy7-gpio_interrupt"
+        "policy9-gpio_interrupt"
       ],
       "implementation": null
     },
@@ -22789,7 +22918,7 @@
       "evidence": [
         "inv-irq-EXTI10",
         "inv-vector-EXTI10",
-        "policy7-gpio_interrupt"
+        "policy9-gpio_interrupt"
       ],
       "implementation": null
     },
@@ -22813,7 +22942,7 @@
       "evidence": [
         "inv-irq-EXTI11",
         "inv-vector-EXTI11",
-        "policy7-gpio_interrupt"
+        "policy9-gpio_interrupt"
       ],
       "implementation": null
     },
@@ -22837,7 +22966,7 @@
       "evidence": [
         "inv-irq-EXTI12",
         "inv-vector-EXTI12",
-        "policy7-gpio_interrupt"
+        "policy9-gpio_interrupt"
       ],
       "implementation": null
     },
@@ -22861,7 +22990,7 @@
       "evidence": [
         "inv-irq-EXTI13",
         "inv-vector-EXTI13",
-        "policy7-gpio_interrupt"
+        "policy9-gpio_interrupt"
       ],
       "implementation": null
     },
@@ -22885,7 +23014,7 @@
       "evidence": [
         "inv-irq-EXTI14",
         "inv-vector-EXTI14",
-        "policy7-gpio_interrupt"
+        "policy9-gpio_interrupt"
       ],
       "implementation": null
     },
@@ -22909,7 +23038,7 @@
       "evidence": [
         "inv-irq-EXTI15",
         "inv-vector-EXTI15",
-        "policy7-gpio_interrupt"
+        "policy9-gpio_interrupt"
       ],
       "implementation": null
     },
@@ -23685,7 +23814,7 @@
       "evidence": [
         "inv-exti-HAL_EXTI_LINE_0",
         "exti-mux",
-        "policy7-gpio_interrupt"
+        "policy9-gpio_interrupt"
       ],
       "implementation": null
     },
@@ -23705,7 +23834,7 @@
       "evidence": [
         "inv-exti-HAL_EXTI_LINE_1",
         "exti-mux",
-        "policy7-gpio_interrupt"
+        "policy9-gpio_interrupt"
       ],
       "implementation": null
     },
@@ -23725,7 +23854,7 @@
       "evidence": [
         "inv-exti-HAL_EXTI_LINE_10",
         "exti-mux",
-        "policy7-gpio_interrupt"
+        "policy9-gpio_interrupt"
       ],
       "implementation": null
     },
@@ -23745,7 +23874,7 @@
       "evidence": [
         "inv-exti-HAL_EXTI_LINE_6",
         "exti-mux",
-        "policy7-gpio_interrupt"
+        "policy9-gpio_interrupt"
       ],
       "implementation": null
     },
@@ -23765,7 +23894,7 @@
       "evidence": [
         "inv-exti-HAL_EXTI_LINE_7",
         "exti-mux",
-        "policy7-gpio_interrupt"
+        "policy9-gpio_interrupt"
       ],
       "implementation": null
     },
@@ -23785,7 +23914,7 @@
       "evidence": [
         "inv-exti-HAL_EXTI_LINE_8",
         "exti-mux",
-        "policy7-gpio_interrupt"
+        "policy9-gpio_interrupt"
       ],
       "implementation": null
     },
@@ -23805,7 +23934,7 @@
       "evidence": [
         "inv-exti-HAL_EXTI_LINE_9",
         "exti-mux",
-        "policy7-gpio_interrupt"
+        "policy9-gpio_interrupt"
       ],
       "implementation": null
     },
@@ -23825,7 +23954,7 @@
       "evidence": [
         "inv-exti-HAL_EXTI_LINE_12",
         "exti-mux",
-        "policy7-gpio_interrupt"
+        "policy9-gpio_interrupt"
       ],
       "implementation": null
     },
@@ -23845,7 +23974,7 @@
       "evidence": [
         "inv-exti-HAL_EXTI_LINE_13",
         "exti-mux",
-        "policy7-gpio_interrupt"
+        "policy9-gpio_interrupt"
       ],
       "implementation": null
     },
@@ -23865,7 +23994,7 @@
       "evidence": [
         "inv-exti-HAL_EXTI_LINE_14",
         "exti-mux",
-        "policy7-gpio_interrupt"
+        "policy9-gpio_interrupt"
       ],
       "implementation": null
     },
@@ -23885,7 +24014,7 @@
       "evidence": [
         "inv-exti-HAL_EXTI_LINE_15",
         "exti-mux",
-        "policy7-gpio_interrupt"
+        "policy9-gpio_interrupt"
       ],
       "implementation": null
     },
@@ -23905,7 +24034,7 @@
       "evidence": [
         "inv-exti-HAL_EXTI_LINE_2",
         "exti-mux",
-        "policy7-gpio_interrupt"
+        "policy9-gpio_interrupt"
       ],
       "implementation": null
     },
@@ -23925,7 +24054,7 @@
       "evidence": [
         "inv-exti-HAL_EXTI_LINE_11",
         "exti-mux",
-        "policy7-gpio_interrupt"
+        "policy9-gpio_interrupt"
       ],
       "implementation": null
     },
@@ -23945,7 +24074,7 @@
       "evidence": [
         "inv-exti-HAL_EXTI_LINE_3",
         "exti-mux",
-        "policy7-gpio_interrupt"
+        "policy9-gpio_interrupt"
       ],
       "implementation": null
     },
@@ -23973,7 +24102,7 @@
         "inv-request-HAL_LPDMA1_REQUEST_SPI2_RX",
         "inv-request-LL_LPDMA2_REQUEST_SPI2_RX",
         "inv-request-HAL_LPDMA2_REQUEST_SPI2_RX",
-        "policy7-dma_requests",
+        "policy9-dma_requests",
         "rm-dma-410",
         "component-dma-request-forward"
       ],
@@ -24003,7 +24132,7 @@
         "inv-request-HAL_LPDMA1_REQUEST_SPI2_TX",
         "inv-request-LL_LPDMA2_REQUEST_SPI2_TX",
         "inv-request-HAL_LPDMA2_REQUEST_SPI2_TX",
-        "policy7-dma_requests",
+        "policy9-dma_requests",
         "rm-dma-410",
         "component-dma-request-forward"
       ],
@@ -24033,7 +24162,7 @@
         "inv-request-HAL_LPDMA1_REQUEST_UART4_RX",
         "inv-request-LL_LPDMA2_REQUEST_UART4_RX",
         "inv-request-HAL_LPDMA2_REQUEST_UART4_RX",
-        "policy7-dma_requests",
+        "policy9-dma_requests",
         "rm-dma-410",
         "component-dma-request-forward"
       ],
@@ -24063,7 +24192,7 @@
         "inv-request-HAL_LPDMA1_REQUEST_UART4_TX",
         "inv-request-LL_LPDMA2_REQUEST_UART4_TX",
         "inv-request-HAL_LPDMA2_REQUEST_UART4_TX",
-        "policy7-dma_requests",
+        "policy9-dma_requests",
         "rm-dma-410",
         "component-dma-request-forward"
       ],
@@ -24093,7 +24222,7 @@
         "inv-request-HAL_LPDMA1_REQUEST_UART5_RX",
         "inv-request-LL_LPDMA2_REQUEST_UART5_RX",
         "inv-request-HAL_LPDMA2_REQUEST_UART5_RX",
-        "policy7-dma_requests",
+        "policy9-dma_requests",
         "rm-dma-410",
         "component-dma-request-forward"
       ],
@@ -24123,7 +24252,7 @@
         "inv-request-HAL_LPDMA1_REQUEST_UART5_TX",
         "inv-request-LL_LPDMA2_REQUEST_UART5_TX",
         "inv-request-HAL_LPDMA2_REQUEST_UART5_TX",
-        "policy7-dma_requests",
+        "policy9-dma_requests",
         "rm-dma-410",
         "component-dma-request-forward"
       ],
@@ -24153,7 +24282,7 @@
         "inv-request-HAL_LPDMA1_REQUEST_USART1_RX",
         "inv-request-LL_LPDMA2_REQUEST_USART1_RX",
         "inv-request-HAL_LPDMA2_REQUEST_USART1_RX",
-        "policy7-dma_requests",
+        "policy9-dma_requests",
         "rm-dma-410",
         "component-dma-request-forward"
       ],
@@ -24183,7 +24312,7 @@
         "inv-request-HAL_LPDMA1_REQUEST_USART1_TX",
         "inv-request-LL_LPDMA2_REQUEST_USART1_TX",
         "inv-request-HAL_LPDMA2_REQUEST_USART1_TX",
-        "policy7-dma_requests",
+        "policy9-dma_requests",
         "rm-dma-410",
         "component-dma-request-forward"
       ],
@@ -24208,9 +24337,9 @@
         "declared-CRC",
         "declared-ip-CRC",
         "described-CRC",
-        "policy7-crc_unit",
+        "policy9-crc_unit",
         "clock-AHB_Clock",
-        "policy7-kernel_clocks",
+        "policy9-kernel_clocks",
         "limited-STM32C542RCT6",
         "inv-instance-HAL_CRC",
         "inv-instance-HAL_RCC_CRC_EnableClock"
@@ -24235,9 +24364,9 @@
         "declared-IWDG",
         "declared-ip-IWDG",
         "described-IWDG",
-        "policy7-watchdog",
+        "policy9-watchdog",
         "clock-IWDG_Input_Clock",
-        "policy7-kernel_clocks",
+        "policy9-kernel_clocks",
         "limited-STM32C542RCT6",
         "inv-instance-HAL_IWDG1"
       ],
@@ -25291,8 +25420,16 @@
       },
       "evidence": [
         "dma-i2c-config",
-        "dma-pin-route-PB6"
-      ]
+        "dma-pin-route-PB6",
+        "inv-signal-I2C1_SCL-PB6",
+        "declared-role-I2C1_SCL",
+        "policy9-i2c_functions",
+        "policy9-i2c_pins",
+        "policy9-reviewed_routes"
+      ],
+      "attributes": {
+        "alternate": "AF4"
+      }
     },
     {
       "id": "I2C1.sda_on.PB7",
@@ -25306,8 +25443,16 @@
       },
       "evidence": [
         "dma-i2c-config",
-        "dma-pin-route-PB7"
-      ]
+        "dma-pin-route-PB7",
+        "inv-signal-I2C1_SDA-PB7",
+        "declared-role-I2C1_SDA",
+        "policy9-i2c_functions",
+        "policy9-i2c_pins",
+        "policy9-reviewed_routes"
+      ],
+      "attributes": {
+        "alternate": "AF4"
+      }
     },
     {
       "id": "SPI1.sck_on.PA5",
@@ -25366,8 +25511,16 @@
       },
       "evidence": [
         "transfer-pin-PB8",
-        "transfer-ds-pb8-pb9"
-      ]
+        "transfer-ds-pb8-pb9",
+        "inv-signal-I2C1_SCL-PB8",
+        "declared-role-I2C1_SCL",
+        "policy9-i2c_functions",
+        "policy9-i2c_pins",
+        "policy9-reviewed_routes"
+      ],
+      "attributes": {
+        "alternate": "AF4"
+      }
     },
     {
       "id": "I2C1.sda_on.PB9",
@@ -25381,8 +25534,16 @@
       },
       "evidence": [
         "transfer-pin-PB9",
-        "transfer-ds-pb8-pb9"
-      ]
+        "transfer-ds-pb8-pb9",
+        "inv-signal-I2C1_SDA-PB9",
+        "declared-role-I2C1_SDA",
+        "policy9-i2c_functions",
+        "policy9-i2c_pins",
+        "policy9-reviewed_routes"
+      ],
+      "attributes": {
+        "alternate": "AF4"
+      }
     },
     {
       "id": "PA4.exti-route",
@@ -25402,7 +25563,7 @@
         "exti-policy",
         "dma-pa4-gpio",
         "dma-pa4-bond",
-        "policy7-supersedes"
+        "policy9-supersedes"
       ]
     },
     {
@@ -25423,7 +25584,7 @@
         "exti-policy",
         "dma-pa4-gpio",
         "dma-pa4-bond",
-        "policy7-supersedes"
+        "policy9-supersedes"
       ]
     },
     {
@@ -25444,7 +25605,7 @@
         "exti-policy",
         "pin-gpio",
         "pin-bonds",
-        "policy7-supersedes"
+        "policy9-supersedes"
       ]
     },
     {
@@ -25465,7 +25626,7 @@
         "exti-policy",
         "pin-gpio",
         "pin-bonds",
-        "policy7-supersedes"
+        "policy9-supersedes"
       ]
     },
     {
@@ -25481,7 +25642,7 @@
       "evidence": [
         "inv-signal-ADC1_IN0-PA0",
         "declared-signal-ADC1_IN0",
-        "policy7-analog_inputs",
+        "policy9-analog_inputs",
         "inv-mark-HAL_ADC_CHANNEL_0"
       ],
       "attributes": {
@@ -25504,7 +25665,7 @@
       "evidence": [
         "inv-signal-ADC1_IN1-PA1",
         "declared-signal-ADC1_IN1",
-        "policy7-analog_inputs",
+        "policy9-analog_inputs",
         "inv-mark-HAL_ADC_CHANNEL_1"
       ],
       "attributes": {
@@ -25527,7 +25688,7 @@
       "evidence": [
         "inv-signal-ADC1_IN10-PC2",
         "declared-signal-ADC1_IN10",
-        "policy7-analog_inputs",
+        "policy9-analog_inputs",
         "inv-mark-HAL_ADC_CHANNEL_10"
       ],
       "attributes": {
@@ -25550,7 +25711,7 @@
       "evidence": [
         "inv-signal-ADC1_IN11-PC3",
         "declared-signal-ADC1_IN11",
-        "policy7-analog_inputs",
+        "policy9-analog_inputs",
         "inv-mark-HAL_ADC_CHANNEL_11"
       ],
       "attributes": {
@@ -25573,7 +25734,7 @@
       "evidence": [
         "inv-signal-ADC1_IN2-PA2",
         "declared-signal-ADC1_IN2",
-        "policy7-analog_inputs",
+        "policy9-analog_inputs",
         "inv-mark-HAL_ADC_CHANNEL_2"
       ],
       "attributes": {
@@ -25596,7 +25757,7 @@
       "evidence": [
         "inv-signal-ADC1_IN2-PC4",
         "declared-signal-ADC1_IN2",
-        "policy7-analog_inputs",
+        "policy9-analog_inputs",
         "inv-mark-HAL_ADC_CHANNEL_2"
       ],
       "attributes": {
@@ -25619,7 +25780,7 @@
       "evidence": [
         "inv-signal-ADC1_IN3-PA3",
         "declared-signal-ADC1_IN3",
-        "policy7-analog_inputs",
+        "policy9-analog_inputs",
         "inv-mark-HAL_ADC_CHANNEL_3"
       ],
       "attributes": {
@@ -25642,7 +25803,7 @@
       "evidence": [
         "inv-signal-ADC1_IN4-PA4",
         "declared-signal-ADC1_IN4",
-        "policy7-analog_inputs",
+        "policy9-analog_inputs",
         "inv-mark-HAL_ADC_CHANNEL_4"
       ],
       "attributes": {
@@ -25665,7 +25826,7 @@
       "evidence": [
         "inv-signal-ADC1_IN5-PA5",
         "declared-signal-ADC1_IN5",
-        "policy7-analog_inputs",
+        "policy9-analog_inputs",
         "inv-mark-HAL_ADC_CHANNEL_5"
       ],
       "attributes": {
@@ -25688,7 +25849,7 @@
       "evidence": [
         "inv-signal-ADC1_IN5-PC5",
         "declared-signal-ADC1_IN5",
-        "policy7-analog_inputs",
+        "policy9-analog_inputs",
         "inv-mark-HAL_ADC_CHANNEL_5"
       ],
       "attributes": {
@@ -25711,7 +25872,7 @@
       "evidence": [
         "inv-signal-ADC1_IN6-PA6",
         "declared-signal-ADC1_IN6",
-        "policy7-analog_inputs",
+        "policy9-analog_inputs",
         "inv-mark-HAL_ADC_CHANNEL_6"
       ],
       "attributes": {
@@ -25734,7 +25895,7 @@
       "evidence": [
         "inv-signal-ADC1_IN6-PB0",
         "declared-signal-ADC1_IN6",
-        "policy7-analog_inputs",
+        "policy9-analog_inputs",
         "inv-mark-HAL_ADC_CHANNEL_6"
       ],
       "attributes": {
@@ -25757,7 +25918,7 @@
       "evidence": [
         "inv-signal-ADC1_IN7-PA7",
         "declared-signal-ADC1_IN7",
-        "policy7-analog_inputs",
+        "policy9-analog_inputs",
         "inv-mark-HAL_ADC_CHANNEL_7"
       ],
       "attributes": {
@@ -25780,7 +25941,7 @@
       "evidence": [
         "inv-signal-ADC1_IN7-PB1",
         "declared-signal-ADC1_IN7",
-        "policy7-analog_inputs",
+        "policy9-analog_inputs",
         "inv-mark-HAL_ADC_CHANNEL_7"
       ],
       "attributes": {
@@ -25803,7 +25964,7 @@
       "evidence": [
         "inv-signal-ADC1_IN8-PC0",
         "declared-signal-ADC1_IN8",
-        "policy7-analog_inputs",
+        "policy9-analog_inputs",
         "inv-mark-HAL_ADC_CHANNEL_8"
       ],
       "attributes": {
@@ -25826,7 +25987,7 @@
       "evidence": [
         "inv-signal-ADC1_IN9-PC1",
         "declared-signal-ADC1_IN9",
-        "policy7-analog_inputs",
+        "policy9-analog_inputs",
         "inv-mark-HAL_ADC_CHANNEL_9"
       ],
       "attributes": {
@@ -26767,7 +26928,7 @@
       "evidence": [
         "inv-signal-I2C1_SCL-PA11",
         "declared-role-I2C1_SCL",
-        "policy7-i2c_functions"
+        "policy9-i2c_functions"
       ],
       "attributes": {
         "signal": "I2C1_SCL",
@@ -26789,7 +26950,7 @@
       "evidence": [
         "inv-signal-I2C1_SCL-PA8",
         "declared-role-I2C1_SCL",
-        "policy7-i2c_functions"
+        "policy9-i2c_functions"
       ],
       "attributes": {
         "signal": "I2C1_SCL",
@@ -26811,7 +26972,7 @@
       "evidence": [
         "inv-signal-I2C1_SCL-PB10",
         "declared-role-I2C1_SCL",
-        "policy7-i2c_functions"
+        "policy9-i2c_functions"
       ],
       "attributes": {
         "signal": "I2C1_SCL",
@@ -26833,7 +26994,7 @@
       "evidence": [
         "inv-signal-I2C1_SCL-PB3",
         "declared-role-I2C1_SCL",
-        "policy7-i2c_functions"
+        "policy9-i2c_functions"
       ],
       "attributes": {
         "signal": "I2C1_SCL",
@@ -26855,7 +27016,7 @@
       "evidence": [
         "inv-signal-I2C1_SCL-PB6",
         "declared-role-I2C1_SCL",
-        "policy7-i2c_functions"
+        "policy9-i2c_functions"
       ],
       "attributes": {
         "signal": "I2C1_SCL",
@@ -26877,7 +27038,7 @@
       "evidence": [
         "inv-signal-I2C1_SCL-PB8",
         "declared-role-I2C1_SCL",
-        "policy7-i2c_functions"
+        "policy9-i2c_functions"
       ],
       "attributes": {
         "signal": "I2C1_SCL",
@@ -26899,7 +27060,7 @@
       "evidence": [
         "inv-signal-I2C1_SCL-PH1",
         "declared-role-I2C1_SCL",
-        "policy7-i2c_functions"
+        "policy9-i2c_functions"
       ],
       "attributes": {
         "signal": "I2C1_SCL",
@@ -26921,7 +27082,7 @@
       "evidence": [
         "inv-signal-I2C1_SDA-PA12",
         "declared-role-I2C1_SDA",
-        "policy7-i2c_functions"
+        "policy9-i2c_functions"
       ],
       "attributes": {
         "signal": "I2C1_SDA",
@@ -26943,7 +27104,7 @@
       "evidence": [
         "inv-signal-I2C1_SDA-PB12",
         "declared-role-I2C1_SDA",
-        "policy7-i2c_functions"
+        "policy9-i2c_functions"
       ],
       "attributes": {
         "signal": "I2C1_SDA",
@@ -26965,7 +27126,7 @@
       "evidence": [
         "inv-signal-I2C1_SDA-PB3",
         "declared-role-I2C1_SDA",
-        "policy7-i2c_functions"
+        "policy9-i2c_functions"
       ],
       "attributes": {
         "signal": "I2C1_SDA",
@@ -26987,7 +27148,7 @@
       "evidence": [
         "inv-signal-I2C1_SDA-PB4",
         "declared-role-I2C1_SDA",
-        "policy7-i2c_functions"
+        "policy9-i2c_functions"
       ],
       "attributes": {
         "signal": "I2C1_SDA",
@@ -27009,7 +27170,7 @@
       "evidence": [
         "inv-signal-I2C1_SDA-PB7",
         "declared-role-I2C1_SDA",
-        "policy7-i2c_functions"
+        "policy9-i2c_functions"
       ],
       "attributes": {
         "signal": "I2C1_SDA",
@@ -27031,7 +27192,7 @@
       "evidence": [
         "inv-signal-I2C1_SDA-PB9",
         "declared-role-I2C1_SDA",
-        "policy7-i2c_functions"
+        "policy9-i2c_functions"
       ],
       "attributes": {
         "signal": "I2C1_SDA",
@@ -27053,7 +27214,7 @@
       "evidence": [
         "inv-signal-I2C1_SDA-PC9",
         "declared-role-I2C1_SDA",
-        "policy7-i2c_functions"
+        "policy9-i2c_functions"
       ],
       "attributes": {
         "signal": "I2C1_SDA",
@@ -27075,7 +27236,7 @@
       "evidence": [
         "inv-signal-I2C1_SDA-PH0",
         "declared-role-I2C1_SDA",
-        "policy7-i2c_functions"
+        "policy9-i2c_functions"
       ],
       "attributes": {
         "signal": "I2C1_SDA",
@@ -29188,7 +29349,7 @@
       "evidence": [
         "inv-signal-SPI1_MISO-PA6",
         "declared-role-SPI1_MISO",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "SPI1_MISO",
@@ -29210,7 +29371,7 @@
       "evidence": [
         "inv-signal-SPI1_MISO-PB0",
         "declared-role-SPI1_MISO",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "SPI1_MISO",
@@ -29232,7 +29393,7 @@
       "evidence": [
         "inv-signal-SPI1_MISO-PB4",
         "declared-role-SPI1_MISO",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "SPI1_MISO",
@@ -29254,7 +29415,7 @@
       "evidence": [
         "inv-signal-SPI1_MISO-PB6",
         "declared-role-SPI1_MISO",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "SPI1_MISO",
@@ -29276,7 +29437,7 @@
       "evidence": [
         "inv-signal-SPI1_MOSI-PA4",
         "declared-role-SPI1_MOSI",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "SPI1_MOSI",
@@ -29298,7 +29459,7 @@
       "evidence": [
         "inv-signal-SPI1_MOSI-PA7",
         "declared-role-SPI1_MOSI",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "SPI1_MOSI",
@@ -29320,7 +29481,7 @@
       "evidence": [
         "inv-signal-SPI1_MOSI-PB15",
         "declared-role-SPI1_MOSI",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "SPI1_MOSI",
@@ -29342,7 +29503,7 @@
       "evidence": [
         "inv-signal-SPI1_MOSI-PB5",
         "declared-role-SPI1_MOSI",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "SPI1_MOSI",
@@ -29478,7 +29639,7 @@
       "evidence": [
         "inv-signal-SPI1_SCK-PA5",
         "declared-role-SPI1_SCK",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "SPI1_SCK",
@@ -29500,7 +29661,7 @@
       "evidence": [
         "inv-signal-SPI1_SCK-PB3",
         "declared-role-SPI1_SCK",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "SPI1_SCK",
@@ -29522,7 +29683,7 @@
       "evidence": [
         "inv-signal-SPI1_SCK-PB7",
         "declared-role-SPI1_SCK",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "SPI1_SCK",
@@ -29544,7 +29705,7 @@
       "evidence": [
         "inv-signal-SPI1_SCK-PB9",
         "declared-role-SPI1_SCK",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "SPI1_SCK",
@@ -29566,7 +29727,7 @@
       "evidence": [
         "inv-signal-SPI2_MISO-PA7",
         "declared-role-SPI2_MISO",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "SPI2_MISO",
@@ -29588,7 +29749,7 @@
       "evidence": [
         "inv-signal-SPI2_MISO-PB14",
         "declared-role-SPI2_MISO",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "SPI2_MISO",
@@ -29610,7 +29771,7 @@
       "evidence": [
         "inv-signal-SPI2_MISO-PC11",
         "declared-role-SPI2_MISO",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "SPI2_MISO",
@@ -29632,7 +29793,7 @@
       "evidence": [
         "inv-signal-SPI2_MISO-PC2",
         "declared-role-SPI2_MISO",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "SPI2_MISO",
@@ -29654,7 +29815,7 @@
       "evidence": [
         "inv-signal-SPI2_MOSI-PA3",
         "declared-role-SPI2_MOSI",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "SPI2_MOSI",
@@ -29676,7 +29837,7 @@
       "evidence": [
         "inv-signal-SPI2_MOSI-PA8",
         "declared-role-SPI2_MOSI",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "SPI2_MOSI",
@@ -29698,7 +29859,7 @@
       "evidence": [
         "inv-signal-SPI2_MOSI-PB15",
         "declared-role-SPI2_MOSI",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "SPI2_MOSI",
@@ -29720,7 +29881,7 @@
       "evidence": [
         "inv-signal-SPI2_MOSI-PB2",
         "declared-role-SPI2_MOSI",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "SPI2_MOSI",
@@ -29742,7 +29903,7 @@
       "evidence": [
         "inv-signal-SPI2_MOSI-PC1",
         "declared-role-SPI2_MOSI",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "SPI2_MOSI",
@@ -29764,7 +29925,7 @@
       "evidence": [
         "inv-signal-SPI2_MOSI-PC12",
         "declared-role-SPI2_MOSI",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "SPI2_MOSI",
@@ -29786,7 +29947,7 @@
       "evidence": [
         "inv-signal-SPI2_MOSI-PC3",
         "declared-role-SPI2_MOSI",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "SPI2_MOSI",
@@ -30017,7 +30178,7 @@
       "evidence": [
         "inv-signal-SPI2_SCK-PA12",
         "declared-role-SPI2_SCK",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "SPI2_SCK",
@@ -30039,7 +30200,7 @@
       "evidence": [
         "inv-signal-SPI2_SCK-PA5",
         "declared-role-SPI2_SCK",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "SPI2_SCK",
@@ -30061,7 +30222,7 @@
       "evidence": [
         "inv-signal-SPI2_SCK-PA9",
         "declared-role-SPI2_SCK",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "SPI2_SCK",
@@ -30083,7 +30244,7 @@
       "evidence": [
         "inv-signal-SPI2_SCK-PB10",
         "declared-role-SPI2_SCK",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "SPI2_SCK",
@@ -30105,7 +30266,7 @@
       "evidence": [
         "inv-signal-SPI2_SCK-PB13",
         "declared-role-SPI2_SCK",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "SPI2_SCK",
@@ -30127,7 +30288,7 @@
       "evidence": [
         "inv-signal-SPI2_SCK-PB2",
         "declared-role-SPI2_SCK",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "SPI2_SCK",
@@ -30149,7 +30310,7 @@
       "evidence": [
         "inv-signal-SPI2_SCK-PC10",
         "declared-role-SPI2_SCK",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "SPI2_SCK",
@@ -30261,10 +30422,10 @@
       "evidence": [
         "inv-signal-TIM12_CH1-PB14",
         "declared-signal-TIM12_CH1",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_1",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_1",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_1",
         "inv-mark-HAL_TIM_INPUT_TIM12_TI1_GPIO",
         "inv-alternate-HAL_GPIO_AF_2"
@@ -30295,10 +30456,10 @@
       "evidence": [
         "inv-signal-TIM12_CH1-PC14",
         "declared-signal-TIM12_CH1",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_1",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_1",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_1",
         "inv-mark-HAL_TIM_INPUT_TIM12_TI1_GPIO"
       ],
@@ -30327,10 +30488,10 @@
       "evidence": [
         "inv-signal-TIM12_CH1-PC6",
         "declared-signal-TIM12_CH1",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_1",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_1",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_1",
         "inv-mark-HAL_TIM_INPUT_TIM12_TI1_GPIO",
         "inv-alternate-HAL_GPIO_AF_2"
@@ -30361,10 +30522,10 @@
       "evidence": [
         "inv-signal-TIM12_CH2-PB15",
         "declared-signal-TIM12_CH2",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_2",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_2",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_2",
         "inv-mark-HAL_TIM_INPUT_TIM12_TI2_GPIO",
         "inv-alternate-HAL_GPIO_AF_2"
@@ -30395,10 +30556,10 @@
       "evidence": [
         "inv-signal-TIM12_CH2-PC15",
         "declared-signal-TIM12_CH2",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_2",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_2",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_2",
         "inv-mark-HAL_TIM_INPUT_TIM12_TI2_GPIO"
       ],
@@ -30427,10 +30588,10 @@
       "evidence": [
         "inv-signal-TIM12_CH2-PC9",
         "declared-signal-TIM12_CH2",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_2",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_2",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_2",
         "inv-mark-HAL_TIM_INPUT_TIM12_TI2_GPIO",
         "inv-alternate-HAL_GPIO_AF_2"
@@ -30499,10 +30660,10 @@
       "evidence": [
         "inv-signal-TIM15_CH1-PA2",
         "declared-signal-TIM15_CH1",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_1",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_1",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_1",
         "inv-mark-HAL_TIM_INPUT_TIM15_TI1_GPIO"
       ],
@@ -30531,10 +30692,10 @@
       "evidence": [
         "inv-signal-TIM15_CH1-PA7",
         "declared-signal-TIM15_CH1",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_1",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_1",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_1",
         "inv-mark-HAL_TIM_INPUT_TIM15_TI1_GPIO",
         "inv-alternate-HAL_GPIO_AF_4"
@@ -30565,10 +30726,10 @@
       "evidence": [
         "inv-signal-TIM15_CH1-PB4",
         "declared-signal-TIM15_CH1",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_1",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_1",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_1",
         "inv-mark-HAL_TIM_INPUT_TIM15_TI1_GPIO",
         "inv-alternate-HAL_GPIO_AF_2"
@@ -30599,10 +30760,10 @@
       "evidence": [
         "inv-signal-TIM15_CH1-PC12",
         "declared-signal-TIM15_CH1",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_1",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_1",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_1",
         "inv-mark-HAL_TIM_INPUT_TIM15_TI1_GPIO",
         "inv-alternate-HAL_GPIO_AF_2"
@@ -30671,10 +30832,10 @@
       "evidence": [
         "inv-signal-TIM15_CH2-PA3",
         "declared-signal-TIM15_CH2",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_2",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_2",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_2",
         "inv-mark-HAL_TIM_INPUT_TIM15_TI2_GPIO"
       ],
@@ -30703,10 +30864,10 @@
       "evidence": [
         "inv-signal-TIM15_CH2-PA8",
         "declared-signal-TIM15_CH2",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_2",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_2",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_2",
         "inv-mark-HAL_TIM_INPUT_TIM15_TI2_GPIO",
         "inv-alternate-HAL_GPIO_AF_4"
@@ -30794,10 +30955,10 @@
       "evidence": [
         "inv-signal-TIM1_CH1-PA8",
         "declared-signal-TIM1_CH1",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_1",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_1",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_1",
         "inv-mark-HAL_TIM_INPUT_TIM1_TI1_GPIO",
         "inv-alternate-HAL_GPIO_AF_1"
@@ -30828,10 +30989,10 @@
       "evidence": [
         "inv-signal-TIM1_CH1-PB8",
         "declared-signal-TIM1_CH1",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_1",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_1",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_1",
         "inv-mark-HAL_TIM_INPUT_TIM1_TI1_GPIO",
         "inv-alternate-HAL_GPIO_AF_1"
@@ -30900,10 +31061,10 @@
       "evidence": [
         "inv-signal-TIM1_CH2-PA9",
         "declared-signal-TIM1_CH2",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_2",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_2",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_2",
         "inv-mark-HAL_TIM_INPUT_TIM1_TI2_GPIO",
         "inv-alternate-HAL_GPIO_AF_1"
@@ -30991,10 +31152,10 @@
       "evidence": [
         "inv-signal-TIM1_CH3-PA10",
         "declared-signal-TIM1_CH3",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_3",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_3",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_3",
         "inv-mark-HAL_TIM_INPUT_TIM1_TI3_GPIO",
         "inv-alternate-HAL_GPIO_AF_1"
@@ -31025,10 +31186,10 @@
       "evidence": [
         "inv-signal-TIM1_CH3-PA5",
         "declared-signal-TIM1_CH3",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_3",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_3",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_3",
         "inv-mark-HAL_TIM_INPUT_TIM1_TI3_GPIO",
         "inv-alternate-HAL_GPIO_AF_2"
@@ -31097,10 +31258,10 @@
       "evidence": [
         "inv-signal-TIM1_CH4-PA11",
         "declared-signal-TIM1_CH4",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_4",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_4",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_4",
         "inv-mark-HAL_TIM_INPUT_TIM1_TI4_GPIO"
       ],
@@ -31167,10 +31328,10 @@
       "evidence": [
         "inv-signal-TIM2_CH1-PA0",
         "declared-signal-TIM2_CH1",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_1",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_1",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_1",
         "inv-mark-HAL_TIM_INPUT_TIM2_TI1_GPIO",
         "inv-alternate-HAL_GPIO_AF_1"
@@ -31201,10 +31362,10 @@
       "evidence": [
         "inv-signal-TIM2_CH1-PA15",
         "declared-signal-TIM2_CH1",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_1",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_1",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_1",
         "inv-mark-HAL_TIM_INPUT_TIM2_TI1_GPIO"
       ],
@@ -31233,10 +31394,10 @@
       "evidence": [
         "inv-signal-TIM2_CH1-PA5",
         "declared-signal-TIM2_CH1",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_1",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_1",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_1",
         "inv-mark-HAL_TIM_INPUT_TIM2_TI1_GPIO",
         "inv-alternate-HAL_GPIO_AF_1"
@@ -31267,10 +31428,10 @@
       "evidence": [
         "inv-signal-TIM2_CH2-PA1",
         "declared-signal-TIM2_CH2",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_2",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_2",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_2",
         "inv-mark-HAL_TIM_INPUT_TIM2_TI2_GPIO",
         "inv-alternate-HAL_GPIO_AF_1"
@@ -31301,10 +31462,10 @@
       "evidence": [
         "inv-signal-TIM2_CH2-PB3",
         "declared-signal-TIM2_CH2",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_2",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_2",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_2",
         "inv-mark-HAL_TIM_INPUT_TIM2_TI2_GPIO"
       ],
@@ -31333,10 +31494,10 @@
       "evidence": [
         "inv-signal-TIM2_CH3-PA2",
         "declared-signal-TIM2_CH3",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_3",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_3",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_3",
         "inv-mark-HAL_TIM_INPUT_TIM2_TI3_GPIO"
       ],
@@ -31365,10 +31526,10 @@
       "evidence": [
         "inv-signal-TIM2_CH3-PB10",
         "declared-signal-TIM2_CH3",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_3",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_3",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_3",
         "inv-mark-HAL_TIM_INPUT_TIM2_TI3_GPIO",
         "inv-alternate-HAL_GPIO_AF_1"
@@ -31399,10 +31560,10 @@
       "evidence": [
         "inv-signal-TIM2_CH4-PA3",
         "declared-signal-TIM2_CH4",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_4",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_4",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_4",
         "inv-mark-HAL_TIM_INPUT_TIM2_TI4_GPIO"
       ],
@@ -31431,10 +31592,10 @@
       "evidence": [
         "inv-signal-TIM2_CH4-PA8",
         "declared-signal-TIM2_CH4",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_4",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_4",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_4",
         "inv-mark-HAL_TIM_INPUT_TIM2_TI4_GPIO",
         "inv-alternate-HAL_GPIO_AF_14"
@@ -31465,10 +31626,10 @@
       "evidence": [
         "inv-signal-TIM2_CH4-PC4",
         "declared-signal-TIM2_CH4",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_4",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_4",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_4",
         "inv-mark-HAL_TIM_INPUT_TIM2_TI4_GPIO",
         "inv-alternate-HAL_GPIO_AF_1"
@@ -31651,10 +31812,10 @@
       "evidence": [
         "inv-signal-TIM8_CH1-PB10",
         "declared-signal-TIM8_CH1",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_1",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_1",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_1",
         "inv-mark-HAL_TIM_INPUT_TIM8_TI1_GPIO",
         "inv-alternate-HAL_GPIO_AF_2"
@@ -31685,10 +31846,10 @@
       "evidence": [
         "inv-signal-TIM8_CH1-PB3",
         "declared-signal-TIM8_CH1",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_1",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_1",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_1",
         "inv-mark-HAL_TIM_INPUT_TIM8_TI1_GPIO"
       ],
@@ -31717,10 +31878,10 @@
       "evidence": [
         "inv-signal-TIM8_CH1-PC6",
         "declared-signal-TIM8_CH1",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_1",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_1",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_1",
         "inv-mark-HAL_TIM_INPUT_TIM8_TI1_GPIO",
         "inv-alternate-HAL_GPIO_AF_3"
@@ -31808,10 +31969,10 @@
       "evidence": [
         "inv-signal-TIM8_CH2-PB13",
         "declared-signal-TIM8_CH2",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_2",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_2",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_2",
         "inv-mark-HAL_TIM_INPUT_TIM8_TI2_GPIO",
         "inv-alternate-HAL_GPIO_AF_2"
@@ -31842,10 +32003,10 @@
       "evidence": [
         "inv-signal-TIM8_CH2-PB4",
         "declared-signal-TIM8_CH2",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_2",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_2",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_2",
         "inv-mark-HAL_TIM_INPUT_TIM8_TI2_GPIO",
         "inv-alternate-HAL_GPIO_AF_13"
@@ -31876,10 +32037,10 @@
       "evidence": [
         "inv-signal-TIM8_CH2-PC7",
         "declared-signal-TIM8_CH2",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_2",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_2",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_2",
         "inv-mark-HAL_TIM_INPUT_TIM8_TI2_GPIO",
         "inv-alternate-HAL_GPIO_AF_3"
@@ -31986,10 +32147,10 @@
       "evidence": [
         "inv-signal-TIM8_CH3-PB12",
         "declared-signal-TIM8_CH3",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_3",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_3",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_3",
         "inv-mark-HAL_TIM_INPUT_TIM8_TI3_GPIO",
         "inv-alternate-HAL_GPIO_AF_2"
@@ -32020,10 +32181,10 @@
       "evidence": [
         "inv-signal-TIM8_CH3-PB5",
         "declared-signal-TIM8_CH3",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_3",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_3",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_3",
         "inv-mark-HAL_TIM_INPUT_TIM8_TI3_GPIO",
         "inv-alternate-HAL_GPIO_AF_13"
@@ -32054,10 +32215,10 @@
       "evidence": [
         "inv-signal-TIM8_CH3-PC8",
         "declared-signal-TIM8_CH3",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_3",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_3",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_3",
         "inv-mark-HAL_TIM_INPUT_TIM8_TI3_GPIO",
         "inv-alternate-HAL_GPIO_AF_3"
@@ -32145,10 +32306,10 @@
       "evidence": [
         "inv-signal-TIM8_CH4-PB6",
         "declared-signal-TIM8_CH4",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_4",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_4",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_4",
         "inv-mark-HAL_TIM_INPUT_TIM8_TI4_GPIO",
         "inv-alternate-HAL_GPIO_AF_13"
@@ -32179,10 +32340,10 @@
       "evidence": [
         "inv-signal-TIM8_CH4-PC9",
         "declared-signal-TIM8_CH4",
-        "policy7-timer_channels",
+        "policy9-timer_channels",
         "inv-mark-HAL_TIM_CHANNEL_4",
         "inv-mark-HAL_TIM_OC_COMPARE_UNIT_4",
-        "policy7-input_capture",
+        "policy9-input_capture",
         "inv-mark-HAL_TIM_IC_CAPTURE_UNIT_4",
         "inv-mark-HAL_TIM_INPUT_TIM8_TI4_GPIO",
         "inv-alternate-HAL_GPIO_AF_3"
@@ -32346,7 +32507,7 @@
       "evidence": [
         "inv-signal-UART4_RX-PA1",
         "declared-role-UART4_RX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "UART4_RX",
@@ -32368,7 +32529,7 @@
       "evidence": [
         "inv-signal-UART4_RX-PA11",
         "declared-role-UART4_RX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "UART4_RX",
@@ -32390,7 +32551,7 @@
       "evidence": [
         "inv-signal-UART4_RX-PB8",
         "declared-role-UART4_RX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "UART4_RX",
@@ -32412,7 +32573,7 @@
       "evidence": [
         "inv-signal-UART4_RX-PC11",
         "declared-role-UART4_RX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "UART4_RX",
@@ -32434,7 +32595,7 @@
       "evidence": [
         "inv-signal-UART4_TX-PA0",
         "declared-role-UART4_TX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "UART4_TX",
@@ -32456,7 +32617,7 @@
       "evidence": [
         "inv-signal-UART4_TX-PA12",
         "declared-role-UART4_TX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "UART4_TX",
@@ -32478,7 +32639,7 @@
       "evidence": [
         "inv-signal-UART4_TX-PB9",
         "declared-role-UART4_TX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "UART4_TX",
@@ -32500,7 +32661,7 @@
       "evidence": [
         "inv-signal-UART4_TX-PC10",
         "declared-role-UART4_TX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "UART4_TX",
@@ -32598,7 +32759,7 @@
       "evidence": [
         "inv-signal-UART5_RX-PB12",
         "declared-role-UART5_RX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "UART5_RX",
@@ -32620,7 +32781,7 @@
       "evidence": [
         "inv-signal-UART5_RX-PB15",
         "declared-role-UART5_RX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "UART5_RX",
@@ -32642,7 +32803,7 @@
       "evidence": [
         "inv-signal-UART5_RX-PB5",
         "declared-role-UART5_RX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "UART5_RX",
@@ -32664,7 +32825,7 @@
       "evidence": [
         "inv-signal-UART5_RX-PD2",
         "declared-role-UART5_RX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "UART5_RX",
@@ -32686,7 +32847,7 @@
       "evidence": [
         "inv-signal-UART5_TX-PB13",
         "declared-role-UART5_TX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "UART5_TX",
@@ -32708,7 +32869,7 @@
       "evidence": [
         "inv-signal-UART5_TX-PB6",
         "declared-role-UART5_TX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "UART5_TX",
@@ -32730,7 +32891,7 @@
       "evidence": [
         "inv-signal-UART5_TX-PC12",
         "declared-role-UART5_TX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "UART5_TX",
@@ -32961,7 +33122,7 @@
       "evidence": [
         "inv-signal-USART1_RX-PA10",
         "declared-role-USART1_RX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "USART1_RX",
@@ -32983,7 +33144,7 @@
       "evidence": [
         "inv-signal-USART1_RX-PA7",
         "declared-role-USART1_RX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "USART1_RX",
@@ -33005,7 +33166,7 @@
       "evidence": [
         "inv-signal-USART1_RX-PB15",
         "declared-role-USART1_RX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "USART1_RX",
@@ -33027,7 +33188,7 @@
       "evidence": [
         "inv-signal-USART1_RX-PB4",
         "declared-role-USART1_RX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "USART1_RX",
@@ -33049,7 +33210,7 @@
       "evidence": [
         "inv-signal-USART1_RX-PB7",
         "declared-role-USART1_RX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "USART1_RX",
@@ -33071,7 +33232,7 @@
       "evidence": [
         "inv-signal-USART1_TX-PA15",
         "declared-role-USART1_TX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "USART1_TX",
@@ -33093,7 +33254,7 @@
       "evidence": [
         "inv-signal-USART1_TX-PA6",
         "declared-role-USART1_TX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "USART1_TX",
@@ -33115,7 +33276,7 @@
       "evidence": [
         "inv-signal-USART1_TX-PA9",
         "declared-role-USART1_TX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "USART1_TX",
@@ -33137,7 +33298,7 @@
       "evidence": [
         "inv-signal-USART1_TX-PB14",
         "declared-role-USART1_TX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "USART1_TX",
@@ -33159,7 +33320,7 @@
       "evidence": [
         "inv-signal-USART1_TX-PB3",
         "declared-role-USART1_TX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "USART1_TX",
@@ -33181,7 +33342,7 @@
       "evidence": [
         "inv-signal-USART1_TX-PB6",
         "declared-role-USART1_TX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "USART1_TX",
@@ -33393,7 +33554,7 @@
       "evidence": [
         "inv-signal-USART2_RX-PA12",
         "declared-role-USART2_RX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "USART2_RX",
@@ -33415,7 +33576,7 @@
       "evidence": [
         "inv-signal-USART2_RX-PA3",
         "declared-role-USART2_RX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "USART2_RX",
@@ -33437,7 +33598,7 @@
       "evidence": [
         "inv-signal-USART2_RX-PB1",
         "declared-role-USART2_RX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "USART2_RX",
@@ -33459,7 +33620,7 @@
       "evidence": [
         "inv-signal-USART2_RX-PC11",
         "declared-role-USART2_RX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "USART2_RX",
@@ -33481,7 +33642,7 @@
       "evidence": [
         "inv-signal-USART2_RX-PC4",
         "declared-role-USART2_RX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "USART2_RX",
@@ -33503,7 +33664,7 @@
       "evidence": [
         "inv-signal-USART2_TX-PA11",
         "declared-role-USART2_TX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "USART2_TX",
@@ -33525,7 +33686,7 @@
       "evidence": [
         "inv-signal-USART2_TX-PA2",
         "declared-role-USART2_TX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "USART2_TX",
@@ -33547,7 +33708,7 @@
       "evidence": [
         "inv-signal-USART2_TX-PB0",
         "declared-role-USART2_TX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "USART2_TX",
@@ -33569,7 +33730,7 @@
       "evidence": [
         "inv-signal-USART2_TX-PB10",
         "declared-role-USART2_TX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "USART2_TX",
@@ -33591,7 +33752,7 @@
       "evidence": [
         "inv-signal-USART2_TX-PC10",
         "declared-role-USART2_TX",
-        "policy7-functions"
+        "policy9-functions"
       ],
       "attributes": {
         "signal": "USART2_TX",
@@ -34405,7 +34566,7 @@
         "declared-interrupt-TIM1-UPD",
         "described-irq-TIM1",
         "inv-irq-TIM1_UPD",
-        "policy7-channel_timer_update"
+        "policy9-channel_timer_update"
       ]
     },
     {
@@ -34422,7 +34583,7 @@
         "declared-interrupt-TIM12-GLOBAL",
         "described-irq-TIM12",
         "inv-irq-TIM12",
-        "policy7-channel_timer_update"
+        "policy9-channel_timer_update"
       ]
     },
     {
@@ -34439,7 +34600,7 @@
         "declared-interrupt-TIM15-GLOBAL",
         "described-irq-TIM15",
         "inv-irq-TIM15",
-        "policy7-channel_timer_update"
+        "policy9-channel_timer_update"
       ]
     },
     {
@@ -34456,7 +34617,7 @@
         "declared-interrupt-TIM2-GLOBAL",
         "described-irq-TIM2",
         "inv-irq-TIM2",
-        "policy7-channel_timer_update"
+        "policy9-channel_timer_update"
       ]
     },
     {
@@ -34473,7 +34634,7 @@
         "declared-interrupt-TIM8-UPD",
         "described-irq-TIM8",
         "inv-irq-TIM8_UPD",
-        "policy7-channel_timer_update"
+        "policy9-channel_timer_update"
       ]
     },
     {
@@ -34490,7 +34651,7 @@
         "declared-interrupt-SPI2-GLOBAL",
         "described-irq-SPI2",
         "inv-irq-SPI2",
-        "policy7-spi_instances"
+        "policy9-spi_instances"
       ]
     },
     {
@@ -34505,7 +34666,7 @@
       },
       "evidence": [
         "request-row-SPI2-rx",
-        "policy7-dma_requests"
+        "policy9-dma_requests"
       ]
     },
     {
@@ -34648,7 +34809,7 @@
       },
       "evidence": [
         "request-row-SPI2-tx",
-        "policy7-dma_requests"
+        "policy9-dma_requests"
       ]
     },
     {
@@ -34793,7 +34954,7 @@
         "declared-interrupt-UART4-GLOBAL",
         "described-irq-UART4",
         "inv-irq-UART4",
-        "policy7-uart_instances"
+        "policy9-uart_instances"
       ]
     },
     {
@@ -34808,7 +34969,7 @@
       },
       "evidence": [
         "request-row-UART4-rx",
-        "policy7-dma_requests"
+        "policy9-dma_requests"
       ]
     },
     {
@@ -34951,7 +35112,7 @@
       },
       "evidence": [
         "request-row-UART4-tx",
-        "policy7-dma_requests"
+        "policy9-dma_requests"
       ]
     },
     {
@@ -35096,7 +35257,7 @@
         "declared-interrupt-UART5-GLOBAL",
         "described-irq-UART5",
         "inv-irq-UART5",
-        "policy7-uart_instances"
+        "policy9-uart_instances"
       ]
     },
     {
@@ -35111,7 +35272,7 @@
       },
       "evidence": [
         "request-row-UART5-rx",
-        "policy7-dma_requests"
+        "policy9-dma_requests"
       ]
     },
     {
@@ -35254,7 +35415,7 @@
       },
       "evidence": [
         "request-row-UART5-tx",
-        "policy7-dma_requests"
+        "policy9-dma_requests"
       ]
     },
     {
@@ -35399,7 +35560,7 @@
         "declared-interrupt-USART1-GLOBAL",
         "described-irq-USART1",
         "inv-irq-USART1",
-        "policy7-uart_instances"
+        "policy9-uart_instances"
       ]
     },
     {
@@ -35414,7 +35575,7 @@
       },
       "evidence": [
         "request-row-USART1-rx",
-        "policy7-dma_requests"
+        "policy9-dma_requests"
       ]
     },
     {
@@ -35557,7 +35718,7 @@
       },
       "evidence": [
         "request-row-USART1-tx",
-        "policy7-dma_requests"
+        "policy9-dma_requests"
       ]
     },
     {
@@ -35687,6 +35848,111 @@
         "rm-dma-request-selection",
         "rm-dma-383"
       ]
+    },
+    {
+      "id": "I2C1.scl_on.PA8",
+      "target": "NUCLEO-C542RC",
+      "from": "STM32C542RCT6.I2C1",
+      "to": "STM32C542RCT6.PA8",
+      "relation": "scl_on",
+      "conditions": {
+        "foundation_profile": "c5-hal2-minimal-1",
+        "operation_mode": "run"
+      },
+      "evidence": [
+        "inv-signal-I2C1_SCL-PA8",
+        "declared-role-I2C1_SCL",
+        "policy9-i2c_functions",
+        "policy9-i2c_pins",
+        "policy9-reviewed_routes"
+      ],
+      "attributes": {
+        "alternate": "AF9"
+      }
+    },
+    {
+      "id": "I2C1.scl_on.PB10",
+      "target": "NUCLEO-C542RC",
+      "from": "STM32C542RCT6.I2C1",
+      "to": "STM32C542RCT6.PB10",
+      "relation": "scl_on",
+      "conditions": {
+        "foundation_profile": "c5-hal2-minimal-1",
+        "operation_mode": "run"
+      },
+      "evidence": [
+        "inv-signal-I2C1_SCL-PB10",
+        "declared-role-I2C1_SCL",
+        "policy9-i2c_functions",
+        "policy9-i2c_pins",
+        "policy9-reviewed_routes"
+      ],
+      "attributes": {
+        "alternate": "AF4"
+      }
+    },
+    {
+      "id": "I2C1.sda_on.PB12",
+      "target": "NUCLEO-C542RC",
+      "from": "STM32C542RCT6.I2C1",
+      "to": "STM32C542RCT6.PB12",
+      "relation": "sda_on",
+      "conditions": {
+        "foundation_profile": "c5-hal2-minimal-1",
+        "operation_mode": "run"
+      },
+      "evidence": [
+        "inv-signal-I2C1_SDA-PB12",
+        "declared-role-I2C1_SDA",
+        "policy9-i2c_functions",
+        "policy9-i2c_pins",
+        "policy9-reviewed_routes"
+      ],
+      "attributes": {
+        "alternate": "AF4"
+      }
+    },
+    {
+      "id": "I2C1.sda_on.PB4",
+      "target": "NUCLEO-C542RC",
+      "from": "STM32C542RCT6.I2C1",
+      "to": "STM32C542RCT6.PB4",
+      "relation": "sda_on",
+      "conditions": {
+        "foundation_profile": "c5-hal2-minimal-1",
+        "operation_mode": "run"
+      },
+      "evidence": [
+        "inv-signal-I2C1_SDA-PB4",
+        "declared-role-I2C1_SDA",
+        "policy9-i2c_functions",
+        "policy9-i2c_pins",
+        "policy9-reviewed_routes"
+      ],
+      "attributes": {
+        "alternate": "AF9"
+      }
+    },
+    {
+      "id": "I2C1.sda_on.PC9",
+      "target": "NUCLEO-C542RC",
+      "from": "STM32C542RCT6.I2C1",
+      "to": "STM32C542RCT6.PC9",
+      "relation": "sda_on",
+      "conditions": {
+        "foundation_profile": "c5-hal2-minimal-1",
+        "operation_mode": "run"
+      },
+      "evidence": [
+        "inv-signal-I2C1_SDA-PC9",
+        "declared-role-I2C1_SDA",
+        "policy9-i2c_functions",
+        "policy9-i2c_pins",
+        "policy9-reviewed_routes"
+      ],
+      "attributes": {
+        "alternate": "AF9"
+      }
     }
   ],
   "capabilities": [
@@ -35800,7 +36066,7 @@
         "v2-timer-rates",
         "v2-timer-formula",
         "timer-clock",
-        "policy7-supersedes"
+        "policy9-supersedes"
       ],
       "implementations": [
         "hal2.timer-update"
@@ -35875,9 +36141,9 @@
         "policy-domain",
         "dma-pa4-gpio",
         "dma-pa4-bond",
-        "policy7-gpio_output",
-        "policy7-general",
-        "policy7-supersedes"
+        "policy9-gpio_output",
+        "policy9-general",
+        "policy9-supersedes"
       ],
       "implementations": [
         "hal2.gpio-output"
@@ -35946,7 +36212,7 @@
         "async-instance",
         "uart-pins",
         "policy-domain",
-        "policy7-supersedes"
+        "policy9-supersedes"
       ],
       "implementations": [
         "hal2.uart-polling",
@@ -36580,18 +36846,12 @@
         {
           "from": "bus",
           "to": "scl",
-          "relation": "signal",
-          "attributes": {
-            "function": "i2c_scl"
-          }
+          "relation": "scl_on"
         },
         {
           "from": "bus",
           "to": "sda",
-          "relation": "signal",
-          "attributes": {
-            "function": "i2c_sda"
-          }
+          "relation": "sda_on"
         },
         {
           "from": "bus",
@@ -36648,11 +36908,12 @@
         "transfer-pin-PB8",
         "transfer-pin-PB9",
         "transfer-ds-pb8-pb9",
-        "policy7-i2c_pins",
-        "policy7-general",
-        "policy7-i2c_instances",
+        "policy9-i2c_pins",
+        "policy9-general",
+        "policy9-i2c_instances",
         "net-PB9",
-        "policy7-two_wire_header"
+        "policy9-two_wire_header",
+        "policy9-reviewed_routes"
       ]
     },
     {
@@ -37046,18 +37307,12 @@
         {
           "from": "bus",
           "to": "scl",
-          "relation": "signal",
-          "attributes": {
-            "function": "i2c_scl"
-          }
+          "relation": "scl_on"
         },
         {
           "from": "bus",
           "to": "sda",
-          "relation": "signal",
-          "attributes": {
-            "function": "i2c_sda"
-          }
+          "relation": "sda_on"
         },
         {
           "from": "bus",
@@ -37115,11 +37370,12 @@
         "transfer-pin-PB8",
         "transfer-pin-PB9",
         "transfer-ds-pb8-pb9",
-        "policy7-i2c_pins",
-        "policy7-general",
-        "policy7-i2c_instances",
+        "policy9-i2c_pins",
+        "policy9-general",
+        "policy9-i2c_instances",
         "net-PB9",
-        "policy7-two_wire_header"
+        "policy9-two_wire_header",
+        "policy9-reviewed_routes"
       ]
     },
     {
@@ -37338,9 +37594,9 @@
         "transfer-dma-async-abort",
         "transfer-rate-policy",
         "preset-clock",
-        "policy7-spi_pins",
-        "policy7-general",
-        "policy7-spi_instances"
+        "policy9-spi_pins",
+        "policy9-general",
+        "policy9-spi_instances"
       ]
     },
     {
@@ -37534,11 +37790,11 @@
         "transfer-dma-async-abort",
         "transfer-rate-policy",
         "preset-clock",
-        "policy7-uart_pins",
-        "policy7-general",
-        "policy7-uart_instances",
+        "policy9-uart_pins",
+        "policy9-general",
+        "policy9-uart_instances",
         "net-PA2",
-        "policy7-console",
+        "policy9-console",
         "net-PA3"
       ]
     },
@@ -37660,9 +37916,9 @@
         "dma-pa4-gpio",
         "dma-pa4-bond",
         "pin-bonds",
-        "policy7-gpio_interrupt",
-        "policy7-general",
-        "policy7-supersedes"
+        "policy9-gpio_interrupt",
+        "policy9-general",
+        "policy9-supersedes"
       ],
       "implementations": [
         "hal2.gpio-input-interrupt"
@@ -37708,8 +37964,8 @@
       "domain_complete": false,
       "closure_evidence": [],
       "evidence": [
-        "policy7-timer_channels",
-        "policy7-general",
+        "policy9-timer_channels",
+        "policy9-general",
         "inv-api-HAL_TIM_Init",
         "inv-api-HAL_GPIO_MODE_ALTERNATE",
         "inv-api-USE_HAL_TIM_MODULE"
@@ -37726,7 +37982,8 @@
           "kind": "analog_converter",
           "attributes": {},
           "parameter_attributes": {},
-          "count": 1
+          "count": 1,
+          "mode": "application_driver"
         },
         {
           "id": "pad",
@@ -37755,15 +38012,16 @@
       "domain_complete": false,
       "closure_evidence": [],
       "evidence": [
-        "policy7-analog_inputs",
-        "policy7-general",
+        "policy9-analog_inputs",
+        "policy9-general",
         "inv-api-HAL_ADC_Init",
         "inv-api-HAL_GPIO_MODE_ANALOG",
         "inv-api-USE_HAL_ADC_MODULE",
         "inv-api-HAL_SBS_REMAP_ADC_IN2_TO_PC4",
         "inv-api-HAL_SBS_REMAP_ADC_IN5_TO_PC5",
         "inv-api-HAL_SBS_REMAP_ADC_IN6_TO_PB0",
-        "inv-api-HAL_SBS_REMAP_ADC_IN7_TO_PB1"
+        "inv-api-HAL_SBS_REMAP_ADC_IN7_TO_PB1",
+        "policy9-ownership_modes"
       ]
     },
     {
@@ -37830,8 +38088,8 @@
       "domain_complete": false,
       "closure_evidence": [],
       "evidence": [
-        "policy7-pwm_output",
-        "policy7-general",
+        "policy9-pwm_output",
+        "policy9-general",
         "inv-api-HAL_TIM_Init",
         "inv-api-HAL_TIM_OC_SetConfigCompareUnit",
         "inv-api-HAL_TIM_OC_EnableComparePreload",
@@ -37872,7 +38130,8 @@
           "kind": "analog_converter",
           "attributes": {},
           "parameter_attributes": {},
-          "count": 1
+          "count": 1,
+          "mode": "generated_units"
         },
         {
           "id": "pad",
@@ -37901,8 +38160,8 @@
       "domain_complete": false,
       "closure_evidence": [],
       "evidence": [
-        "policy7-analog_reading",
-        "policy7-general",
+        "policy9-analog_reading",
+        "policy9-general",
         "inv-def-HAL_ADC_Init",
         "inv-def-HAL_ADC_SetConfig",
         "inv-def-HAL_ADC_REG_SetConfig",
@@ -37940,9 +38199,12 @@
         "ds-adc-sampling",
         "sdk-adc-stop-powers-down",
         "sdk-adc-calibration-wait",
+        "sdk-adc-poll-wait",
+        "sdk-adc-stop-wait",
         "preset-clock",
         "cmake-extension",
-        "sdk-common-includes"
+        "sdk-common-includes",
+        "policy9-ownership_modes"
       ]
     },
     {
@@ -37994,8 +38256,8 @@
       "domain_complete": false,
       "closure_evidence": [],
       "evidence": [
-        "policy7-input_capture",
-        "policy7-general",
+        "policy9-input_capture",
+        "policy9-general",
         "inv-api-HAL_TIM_Init",
         "inv-api-HAL_TIM_IC_SetConfigChannel",
         "inv-api-HAL_TIM_IC_SetConfigCaptureUnit",
@@ -38136,9 +38398,16 @@
       "domain_complete": false,
       "closure_evidence": [],
       "evidence": [
-        "policy7-channel_timer_update",
+        "policy9-channel_timer_update",
         "inv-api-HAL_TIM_Init",
         "inv-api-HAL_TIM_IRQHandler",
+        "inv-api-HAL_CORTEX_NVIC_ClearPendingIRQ",
+        "inv-api-HAL_CORTEX_NVIC_EnableIRQ",
+        "inv-api-HAL_CORTEX_NVIC_SetPriority",
+        "inv-api-HAL_RCC_TIM_GetKernelClkFreq",
+        "inv-api-HAL_TIM_GetState",
+        "inv-api-HAL_TIM_SetConfig",
+        "inv-api-HAL_TIM_Start_IT",
         "timer-init-config",
         "timer-dispatch",
         "timer-clock",
@@ -38194,7 +38463,7 @@
       "domain_complete": false,
       "closure_evidence": [],
       "evidence": [
-        "policy7-crc_unit",
+        "policy9-crc_unit",
         "inv-def-HAL_CRC_Init",
         "inv-def-HAL_CRC_SetConfig",
         "inv-def-HAL_CRC_Calculate",
@@ -38244,7 +38513,7 @@
       "domain_complete": false,
       "closure_evidence": [],
       "evidence": [
-        "policy7-watchdog",
+        "policy9-watchdog",
         "inv-def-HAL_IWDG_Init",
         "inv-def-HAL_IWDG_Start",
         "inv-def-HAL_IWDG_Refresh",
@@ -38252,6 +38521,9 @@
         "inv-api-USE_HAL_IWDG_MODULE",
         "inv-api-USE_HAL_IWDG_TIME_UNIT",
         "sdk-iwdg-source",
+        "rm-iwdg-key-register",
+        "rm-iwdg-access-protection",
+        "sdk-iwdg-start-sequence",
         "cmake-extension",
         "sdk-common-includes"
       ]
@@ -38325,8 +38597,8 @@
       "domain_complete": false,
       "closure_evidence": [],
       "evidence": [
-        "policy7-gpio_input",
-        "policy7-general",
+        "policy9-gpio_input",
+        "policy9-general",
         "inv-api-HAL_GPIO_MODE_INPUT",
         "inv-api-HAL_GPIO_PULL_NO",
         "inv-api-HAL_GPIO_PULL_UP",
@@ -38673,7 +38945,7 @@
         "operation-gpio-api",
         "operation-gpio-clock-api",
         "operation-gpio-include-chain",
-        "policy7-gpio_output"
+        "policy9-gpio_output"
       ],
       "edits": []
     },
@@ -38993,8 +39265,8 @@
         "transfer-pin-PB8",
         "transfer-pin-PB9",
         "transfer-ds-pb8-pb9",
-        "policy7-i2c_pins",
-        "policy7-i2c_instances",
+        "policy9-i2c_pins",
+        "policy9-i2c_instances",
         "inv-alternate-HAL_GPIO_AF_4",
         "inv-alternate-HAL_GPIO_AF_9"
       ],
@@ -39098,7 +39370,7 @@
               "type": "route_attribute",
               "from": "bus",
               "to": "scl",
-              "relation": "signal",
+              "relation": "scl_on",
               "attribute": "alternate"
             },
             "map": {
@@ -39132,7 +39404,7 @@
               "type": "route_attribute",
               "from": "bus",
               "to": "sda",
-              "relation": "signal",
+              "relation": "sda_on",
               "attribute": "alternate"
             },
             "map": {
@@ -40405,8 +40677,8 @@
         "transfer-dma-irq-order",
         "transfer-dma-callback-fields",
         "transfer-dma-async-abort",
-        "policy7-i2c_pins",
-        "policy7-i2c_instances",
+        "policy9-i2c_pins",
+        "policy9-i2c_instances",
         "inv-alternate-HAL_GPIO_AF_4",
         "inv-alternate-HAL_GPIO_AF_9"
       ],
@@ -40510,7 +40782,7 @@
               "type": "route_attribute",
               "from": "bus",
               "to": "scl",
-              "relation": "signal",
+              "relation": "scl_on",
               "attribute": "alternate"
             },
             "map": {
@@ -40544,7 +40816,7 @@
               "type": "route_attribute",
               "from": "bus",
               "to": "sda",
-              "relation": "signal",
+              "relation": "sda_on",
               "attribute": "alternate"
             },
             "map": {
@@ -40793,8 +41065,8 @@
         "transfer-dma-async-abort",
         "transfer-rate-policy",
         "preset-clock",
-        "policy7-spi_pins",
-        "policy7-spi_instances",
+        "policy9-spi_pins",
+        "policy9-spi_instances",
         "inv-alternate-HAL_GPIO_AF_4",
         "inv-alternate-HAL_GPIO_AF_5",
         "inv-alternate-HAL_GPIO_AF_6",
@@ -41253,8 +41525,8 @@
         "transfer-dma-async-abort",
         "transfer-rate-policy",
         "preset-clock",
-        "policy7-uart_pins",
-        "policy7-uart_instances",
+        "policy9-uart_pins",
+        "policy9-uart_instances",
         "inv-alternate-HAL_GPIO_AF_11",
         "inv-alternate-HAL_GPIO_AF_14",
         "inv-alternate-HAL_GPIO_AF_4",
@@ -41621,8 +41893,8 @@
         "v2-thread-mode",
         "preset-nvic-group",
         "cmake-extension",
-        "policy7-gpio_interrupt",
-        "policy7-supersedes"
+        "policy9-gpio_interrupt",
+        "policy9-supersedes"
       ],
       "edits": [
         {
@@ -41791,8 +42063,8 @@
         "preset-uart",
         "preset-io-init",
         "policy-domain",
-        "policy7-uart_instances",
-        "policy7-supersedes"
+        "policy9-uart_instances",
+        "policy9-supersedes"
       ],
       "edits": [
         {
@@ -41809,8 +42081,8 @@
       "target": "NUCLEO-C542RC",
       "guidance": "Allocation only; no component is generated. resource_bindings gives the timer's hal_instance and clock_enable_api, the pad's port_symbol, pin_symbol and clock_enable_api, and under routes the selected signal with its alternate_symbol and channel_symbol. The application enables the TIM module if no other selected card does (USE_HAL_TIM_MODULE in generated/hal/stm32c5xx_hal_conf.h and stm32c5xx_drivers/hal/stm32c5xx_hal_tim.c in CMakeLists.txt), enables both clocks, initializes the pad with mode HAL_GPIO_MODE_ALTERNATE and the route's alternate_symbol, and drives the channel through the SDK TIM API in stm32c5xx_hal_tim.h starting from HAL_TIM_Init with the allocated hal_instance. Period, duty, polarity, compare or capture mode, complementary outputs, dead time and break are application decisions. One counter serves all channels, so the allocation takes the whole timer. No timing, electrical or errata qualification.",
       "evidence": [
-        "policy7-timer_channels",
-        "policy7-general",
+        "policy9-timer_channels",
+        "policy9-general",
         "inv-api-HAL_TIM_Init",
         "inv-api-HAL_GPIO_MODE_ALTERNATE",
         "inv-api-USE_HAL_TIM_MODULE",
@@ -41826,17 +42098,18 @@
     {
       "id": "hal2.analog-input-allocation",
       "target": "NUCLEO-C542RC",
-      "guidance": "Allocation only; no component is generated. resource_bindings gives the converter's hal_instance and clock_enable_api, the pad's port_symbol, pin_symbol and clock_enable_api, and under routes the selected signal with its channel_symbol. The application enables the ADC module (USE_HAL_ADC_MODULE in generated/hal/stm32c5xx_hal_conf.h and stm32c5xx_drivers/hal/stm32c5xx_hal_adc.c in CMakeLists.txt), enables both clocks, initializes the pad with mode HAL_GPIO_MODE_ANALOG, and configures and reads the converter through the SDK ADC API in stm32c5xx_hal_adc.h starting from HAL_ADC_Init with the allocated hal_instance. The converter is one shared unit: sequencing of several inputs, sampling time, calibration, reference voltage and accuracy are application decisions. Internal channels, injected and differential conversion are not covered. Only the pad each input uses without the SBS pin remap is offered: PC4, PC5, PB0 and PB1 need the SBS pin remap and are excluded, so no remap is required. Not together with analog_reading on the same converter: its generated units own the converter's configuration, and the solver does not refuse the combination. No electrical or errata qualification.",
+      "guidance": "Allocation only; no component is generated. resource_bindings gives the converter's hal_instance and clock_enable_api, the pad's port_symbol, pin_symbol and clock_enable_api, and under routes the selected signal with its channel_symbol. The application enables the ADC module (USE_HAL_ADC_MODULE in generated/hal/stm32c5xx_hal_conf.h and stm32c5xx_drivers/hal/stm32c5xx_hal_adc.c in CMakeLists.txt), enables both clocks, initializes the pad with mode HAL_GPIO_MODE_ANALOG, and configures and reads the converter through the SDK ADC API in stm32c5xx_hal_adc.h starting from HAL_ADC_Init with the allocated hal_instance. The converter is one shared unit: sequencing of several inputs, sampling time, calibration, reference voltage and accuracy are application decisions. Internal channels, injected and differential conversion are not covered. Only the pad each input uses without the SBS pin remap is offered: PC4, PC5, PB0 and PB1 need the SBS pin remap and are excluded, so no remap is required. Not together with analog_reading on the same converter: its generated units own the converter's configuration. The two hold the converter in different ownership modes, so a request with both on one converter is refused. When the engine has confirmed that ownership is what stands in the way, the refusal says so and names the converter under ownership_conflicts. No electrical or errata qualification.",
       "evidence": [
-        "policy7-analog_inputs",
-        "policy7-general",
+        "policy9-analog_inputs",
+        "policy9-general",
         "inv-api-HAL_ADC_Init",
         "inv-api-HAL_GPIO_MODE_ANALOG",
         "inv-api-USE_HAL_ADC_MODULE",
         "inv-api-HAL_SBS_REMAP_ADC_IN2_TO_PC4",
         "inv-api-HAL_SBS_REMAP_ADC_IN5_TO_PC5",
         "inv-api-HAL_SBS_REMAP_ADC_IN6_TO_PB0",
-        "inv-api-HAL_SBS_REMAP_ADC_IN7_TO_PB1"
+        "inv-api-HAL_SBS_REMAP_ADC_IN7_TO_PB1",
+        "policy9-ownership_modes"
       ],
       "edits": []
     },
@@ -41845,8 +42118,8 @@
       "target": "NUCLEO-C542RC",
       "guidance": "Generated component owns the timer handle, the time base, one compare unit in PWM mode 1 with preload, the channel and the pad. Use the returned interface; do not initialize the timer, the channel or the pad again. Supports only the listed frequencies at the captured 144MHz kernel clock: each has an exact prescaler and period, the period is at least 1000 counts and full duty fits a 16-bit compare register. Duty is thousandths of the period rounded down to a whole count; the duty in force from a period boundary on is the last one written before it. The first period after a start can be shorter at the pad; that it is not longer follows from the order of the calls and is not measured. start and stop belong to one thread; set duty may also run in an interrupt. Active high, counting up, internal clock; no dithering, complementary output, dead time, break input, one-pulse or any other channel of the timer. On a timer with a break function the SDK sets the main output enable when the channel starts. The level of the pad while stopped is not established. Init verifies the clock and register factors; dynamic clock changes are outside the contract. Build is not a measurement of frequency, duty or edge quality.",
       "evidence": [
-        "policy7-pwm_output",
-        "policy7-general",
+        "policy9-pwm_output",
+        "policy9-general",
         "inv-api-HAL_TIM_Init",
         "inv-api-HAL_TIM_OC_SetConfigCompareUnit",
         "inv-api-HAL_TIM_OC_EnableComparePreload",
@@ -41874,7 +42147,7 @@
         "cmake-extension",
         "sdk-timer-source-gate",
         "sdk-common-includes",
-        "policy7-sdk_definitions"
+        "policy9-sdk_definitions"
       ],
       "edits": [
         {
@@ -42087,10 +42360,10 @@
     {
       "id": "hal2.analog-reading",
       "target": "NUCLEO-C542RC",
-      "guidance": "Generated component. The first unit on a converter sets the ADC and DAC kernel clock to HCLK divided by 8 (18MHz in the captured 144MHz profile) before it enables the converter's bus clock, reads the clock configuration back, sets 12-bit resolution, software trigger and one conversion per request, activates the converter and runs its offset calibration; every unit on that converter shares the one handle, and each unit switches its own pad to analog mode. Use the returned interface; do not initialize the converter, its clock or the pad again. The units own the converter: do not combine them with an analog_input_pin allocation on the same converter. The solver does not refuse that combination, so the request must not make it. read converts once with the SDK's longest sampling time and returns counts 0..4095, right aligned: a fraction of VREF+, not volts, because the reference is not measured. Before each conversion the unit checks on the converter itself that it is enabled, idle and holds this input; it selects its input again when another is held, which stops, switches, starts and calibrates the converter, and it reports HAL_ERROR for good when the converter was stopped or is converting behind it. Every wait is the SDK's and is counted in HAL ticks, which must be advancing: 2ms for a conversion; on a switch 2ms each to stop, disable and enable and 228ms for calibration, about a quarter of a second in all before an error. One thread only, never from an interrupt. The same kernel clock feeds the DAC. No internal channels, injected or differential conversion, triggers, interrupts, DMA, oversampling or analog watchdog. PC4, PC5, PB0 and PB1 need the SBS pin remap and are excluded. Accuracy, source impedance and noise are not qualified; build is not a measurement.",
+      "guidance": "Generated component. The first unit on a converter sets the ADC and DAC kernel clock to HCLK divided by 8 (18MHz in the captured 144MHz profile) before it enables the converter's bus clock, reads the clock configuration back, sets 12-bit resolution, software trigger and one conversion per request, activates the converter and runs its offset calibration; every unit on that converter shares the one handle, and each unit switches its own pad to analog mode. Use the returned interface; do not initialize the converter, its clock or the pad again. The units own the converter: do not combine them with an analog_input_pin allocation on the same converter. The two hold the converter in different ownership modes, so a request that makes that combination is refused. When the engine has confirmed that ownership is what stands in the way, the refusal says so and names the converter under ownership_conflicts. read converts once with the SDK's longest sampling time and returns counts 0..4095, right aligned: a fraction of VREF+, not volts, because the reference is not measured. Before each conversion the unit checks on the converter itself that it is enabled, idle and holds this input; it selects its input again when another is held, which stops, switches, starts and calibrates the converter, and it reports HAL_ERROR for good when the converter was stopped or is converting behind it. Every wait is the SDK's and counts HAL ticks, which must be advancing; a wait gives up when the ticks exceed its limit, so up to one tick after it. The conversion has a limit of 2ms, and when it does not finish the unit stops it, where the SDK waits with a limit of 2ms again, before it returns HAL_TIMEOUT: up to about 6ms of ticks. A switch adds the SDK's limits of 2ms to disable, 2ms to enable and 228ms for the calibration: at most about a quarter of a second of ticks. These count ticks and not time for the caller: a delayed thread takes longer by its delay. One thread only, never from an interrupt. The same kernel clock feeds the DAC. No internal channels, injected or differential conversion, triggers, interrupts, DMA, oversampling or analog watchdog. PC4, PC5, PB0 and PB1 need the SBS pin remap and are excluded. Accuracy, source impedance and noise are not qualified; build is not a measurement.",
       "evidence": [
-        "policy7-analog_reading",
-        "policy7-general",
+        "policy9-analog_reading",
+        "policy9-general",
         "inv-def-HAL_ADC_Init",
         "inv-def-HAL_ADC_SetConfig",
         "inv-def-HAL_ADC_REG_SetConfig",
@@ -42128,10 +42401,13 @@
         "ds-adc-sampling",
         "sdk-adc-stop-powers-down",
         "sdk-adc-calibration-wait",
+        "sdk-adc-poll-wait",
+        "sdk-adc-stop-wait",
         "preset-clock",
         "cmake-extension",
         "sdk-common-includes",
-        "policy7-sdk_definitions"
+        "policy9-ownership_modes",
+        "policy9-sdk_definitions"
       ],
       "edits": [
         {
@@ -42228,7 +42504,7 @@
         "claims": [],
         "interface": {
           "setup": "Already initialized after mx_system_init. Header bkpt_components/{{unit}}.h; the converter, its kernel clock, calibration and the pad {{pad_name}} are set up. No manual ADC, clock or GPIO setup.",
-          "read": "{{unit}}_read(&counts): checked HAL_OK converts this input once and writes counts 0..4095, the pad voltage as a fraction of VREF+ in steps of 1/4096. Not volts: the reference is not measured. Blocking: at most 2ms of HAL ticks when the converter holds this input, and up to about a quarter of a second, the SDK's stop, start and 228ms calibration limits, when it has to switch from another input. The HAL tick must be advancing. One thread only, never from an interrupt, never while another unit of the same converter reads.",
+          "read": "{{unit}}_read(&counts): checked HAL_OK converts this input once and writes counts 0..4095, the pad voltage as a fraction of VREF+ in steps of 1/4096. Not volts: the reference is not measured. Blocking. The waits count HAL ticks, which must be advancing, and each ends up to one tick after its limit. When the converter holds this input: a limit of 2ms for the conversion and, when it does not finish, 2ms again to stop it before HAL_TIMEOUT, up to about 6ms of ticks. When it has to switch from another input: in addition the SDK's limits to disable and to enable the converter and 228ms for the calibration, at most about a quarter of a second of ticks. A delayed thread takes longer by its delay. One thread only, never from an interrupt, never while another unit of the same converter reads.",
           "scope": "12-bit, software trigger, the SDK's longest sampling time, 18MHz converter clock set before the bus clock and checked at init for the pinned 144MHz profile. The units own the converter: no analog_input_pin allocation and no application ADC calls on it. A converter found stopped or converting behind the unit is a permanent HAL_ERROR. No internal channels, triggers, interrupts, DMA, oversampling or measured accuracy.",
           "declarations": "hal_status_t {{unit}}_init(void);\nhal_status_t {{unit}}_read(uint32_t *counts);"
         },
@@ -42266,10 +42542,10 @@
     {
       "id": "hal2.input-capture",
       "target": "NUCLEO-C542RC",
-      "guidance": "Generated component owns the timer handle, a 1MHz time base over a 16-bit period, capture of both edges on the allocated channel's own pin, the compare flag of the other of the timer's first two channels as a half-turn mark (that channel drives no pad), and the pad as an input with the selected pull. Use the returned interface; do not initialize the timer, a channel or the pad again. measure waits for a rising edge, the falling edge after it and the next rising edge and returns period and high time in whole microseconds of the timer clock. The time limit, 1..60000 ms, is counted on the same clock from the call: HAL_TIMEOUT when the edges have not occurred by then, and an edge at or after the limit is not used. The unit polls: it must look at the timer at least every 32.768ms to follow the 16-bit counter. A thread held longer than that between two looks may get HAL_ERROR and one held for 65.536ms or more always does; edges closer together than the loop can follow also give HAL_ERROR, through the overcapture flag or a capture found waiting. A measurement is never completed from a count the unit could not follow, and a held thread delays the return by the time it was held. One thread only, never from an interrupt. No input filter, prescaled capture, interrupt or DMA capture or XOR input. Init verifies the clock and register factors for the pinned 144MHz profile; times are counts of the nominal clock, not measured against a reference.",
+      "guidance": "Generated component owns the timer handle, a 1MHz time base over a 16-bit period, capture of both edges on the allocated channel's own pin, the compare flag of the other of the timer's first two channels as a half-turn mark (that channel drives no pad), and the pad as an input with the selected pull. Use the returned interface; do not initialize the timer, a channel or the pad again. measure waits for a rising edge, the falling edge after it and the next rising edge and returns period and high time in whole microseconds of the timer clock. The time limit, 1..60000 ms, is counted on the same clock from the start of the counter: an edge at or after the limit is not used, and HAL_TIMEOUT means that the three edges did not all occur before it. The unit polls. In each pass it reads the count and the status, acknowledges the marks it saw and reads the marks again, as one step with interrupts masked for those three or four register accesses, and it ends the measurement with HAL_ERROR when both marks are set at once, when a mark is set behind an acknowledgement, on the overcapture flag, or when a further edge arrives while one is read. Provided that nothing else writes the timer and that the timer and the pad behave as the reference manual describes, HAL_OK comes with the true period and high time, wherever and for however long the calling thread was delayed, and a delay the unit cannot resolve ends in HAL_ERROR and not in a value. A measurement completes without that error when the thread is not delayed for 32ms or longer between two passes and each edge is read before the next one arrives; a delay of 65.536ms or more from one pass to the next sets both marks. The basis is the reasoning in the unit's source and a host model that runs the unit's template against a simulated timer (stm32c5/tests/input_capture_model.py); on a board only delays between two passes were provoked. A delayed thread returns later by its delay, also past the limit. One thread only, never from an interrupt. No input filter, prescaled capture, interrupt or DMA capture or XOR input. Init verifies the clock and register factors for the pinned 144MHz profile; times are counts of the nominal clock, not measured against a reference.",
       "evidence": [
-        "policy7-input_capture",
-        "policy7-general",
+        "policy9-input_capture",
+        "policy9-general",
         "inv-api-HAL_TIM_Init",
         "inv-api-HAL_TIM_IC_SetConfigChannel",
         "inv-api-HAL_TIM_IC_SetConfigCaptureUnit",
@@ -42301,7 +42577,7 @@
         "cmake-extension",
         "sdk-timer-source-gate",
         "sdk-common-includes",
-        "policy7-sdk_definitions"
+        "policy9-sdk_definitions"
       ],
       "edits": [
         {
@@ -42455,9 +42731,9 @@
         ],
         "claims": [],
         "interface": {
-          "setup": "Already initialized after mx_system_init. Header bkpt_components/{{unit}}.h; private timer handle, 1MHz time base, capture of both edges, a half-turn mark on another channel's flag, and the pad {{pad_name}} as an input with pull {{pull}}. No manual timer, channel or GPIO setup.",
-          "measure": "{{unit}}_measure(timeout_ms, &period_us, &high_us), timeout 1..60000 counted on the timer from the call: checked HAL_OK waited for a rising edge, the falling edge after it and the next rising edge and wrote period and high time in microseconds. HAL_TIMEOUT when the edges did not occur within the limit. HAL_ERROR when edges came faster than the polled capture could follow or the thread was held too long between two looks at the timer (possible above 32.768ms, certain from 65.536ms). Blocking; one thread only, never from an interrupt.",
-          "scope": "Polled capture with a microsecond count for the pinned 144MHz profile, checked at init and before each measurement. A result is never built on a count the unit could not follow. No stated minimum pulse width, input filter, interrupt or DMA capture or measured accuracy. Outputs are written only with HAL_OK.",
+          "setup": "Already initialized after mx_system_init. Header bkpt_components/{{unit}}.h; private timer handle, 1MHz time base, capture of both edges, a half-turn mark on another channel's flag, interrupts masked for three or four register accesses in each pass of a measurement, and the pad {{pad_name}} as an input with pull {{pull}}. No manual timer, channel or GPIO setup.",
+          "measure": "{{unit}}_measure(timeout_ms, &period_us, &high_us), timeout 1..60000 counted on the timer from the start of its counter: checked HAL_OK waited for the first rising edge the channel captured, the falling edge after it and the next rising edge, all before the limit, and wrote period and high time in microseconds. HAL_TIMEOUT when the three edges did not all occur before the limit. HAL_ERROR when the unit could not follow the counter or the edges: a delay of the calling thread that it cannot resolve (possible from 32ms between two passes, both marks set from 65.536ms), or an edge that arrived before the previous one was read. Blocking; one thread only, never from an interrupt.",
+          "scope": "Polled capture with a microsecond count for the pinned 144MHz profile, checked at init and before each measurement. What HAL_OK and HAL_TIMEOUT mean holds provided that nothing else writes the timer and that timer and pad behave as the reference manual describes; it was checked on a host model of the timer, and on a board for delays between two passes only. No stated minimum pulse width, input filter, interrupt or DMA capture or measured accuracy. Outputs are written only with HAL_OK.",
           "declarations": "hal_status_t {{unit}}_init(void);\nhal_status_t {{unit}}_measure(uint32_t timeout_ms, uint32_t *period_us, uint32_t *high_us);"
         },
         "interface_sources": {
@@ -42496,9 +42772,16 @@
       "target": "NUCLEO-C542RC",
       "guidance": "The reviewed periodic update component on a channel timer. Generated component owns persistent timer state, callback adapter, initialization, clock/factor verification, fresh-period start/stop and vector dispatch. Use returned interface; do not duplicate timer setup or weak callbacks. Supports only the complete declared set of exact nominal integer rates1..1000 at the captured144MHz kernel. PSC<=65534 and ARR1..65535; repetition0, upcounter/internal clock, no dithering. Init and start verify actual clock/register factors. Any dynamic clock changes are outside contract. Per-instance callback runs in IRQ context and must remain bounded; main/thread owns start/stop. Application chooses tick meaning. Build is not hardware rate/latency verification. The update vector is the timer's own update vector or, on a timer with one vector, its global vector; only the update event is enabled, and no channel of the timer is used.",
       "evidence": [
-        "policy7-channel_timer_update",
+        "policy9-channel_timer_update",
         "inv-api-HAL_TIM_Init",
         "inv-api-HAL_TIM_IRQHandler",
+        "inv-api-HAL_CORTEX_NVIC_ClearPendingIRQ",
+        "inv-api-HAL_CORTEX_NVIC_EnableIRQ",
+        "inv-api-HAL_CORTEX_NVIC_SetPriority",
+        "inv-api-HAL_RCC_TIM_GetKernelClkFreq",
+        "inv-api-HAL_TIM_GetState",
+        "inv-api-HAL_TIM_SetConfig",
+        "inv-api-HAL_TIM_Start_IT",
         "timer-init-config",
         "timer-dispatch",
         "timer-clock",
@@ -42529,7 +42812,8 @@
         "v2-nvic-clear",
         "v2-nvic-hal",
         "v2-barrier",
-        "v2-thread-mode"
+        "v2-thread-mode",
+        "policy9-sdk_definitions"
       ],
       "edits": [
         {
@@ -42813,7 +43097,7 @@
       "target": "NUCLEO-C542RC",
       "guidance": "Generated component owns the CRC handle and its configuration: polynomial 0x04C11DB7, initial value 0xFFFFFFFF, every input byte and the result bit-reversed; the unit inverts the result. Use the returned interface; do not initialize the CRC unit again. compute takes a buffer of 1 or more bytes, starts from the initial value on every call and returns the CRC-32 whose value for the ASCII characters 123456789 is 0xCBF43926. One thread only, never from an interrupt. No other polynomial or size, no accumulation across calls, no DMA. The check value is arithmetic for testing a build, not a measurement.",
       "evidence": [
-        "policy7-crc_unit",
+        "policy9-crc_unit",
         "inv-def-HAL_CRC_Init",
         "inv-def-HAL_CRC_SetConfig",
         "inv-def-HAL_CRC_Calculate",
@@ -42826,7 +43110,7 @@
         "sdk-crc-feed",
         "cmake-extension",
         "sdk-common-includes",
-        "policy7-sdk_definitions"
+        "policy9-sdk_definitions"
       ],
       "edits": [
         {
@@ -42924,9 +43208,9 @@
     {
       "id": "hal2.independent-watchdog",
       "target": "NUCLEO-C542RC",
-      "guidance": "Generated component owns the watchdog handle. Generated init only prepares it: the application calls start when it is ready, and from then on must call refresh within the reset time or the microcontroller resets. The watchdog cannot be stopped or reconfigured before a reset, so start it only when the refresh path is in place. The reset time is the selected number of milliseconds at the nominal 32kHz of the low-speed internal oscillator; timeout_ms reports the time the driver set, and the oscillator's real frequency shifts it. The SDK enables the watchdog before it waits for its registers, and those waits can fail: when start returns an error other than busy, state reports 2, the watchdog may be running with a reset time that is not known, timeout_ms reports 0xFFFFFFFF, refresh still restarts the count, start cannot be tried again, and a reset may follow. No window (a refresh is allowed at any time) and no early interrupt. refresh may be called from the owning thread or an interrupt; start from the thread only. Behaviour while a debugger halts the core and in low-power modes, and the option bytes, are not covered. Build does not exercise the reset.",
+      "guidance": "Generated component owns the watchdog handle. Generated init only prepares it: the application calls start when it is ready, and from then on must call refresh within the reset time or the microcontroller resets. The watchdog cannot be stopped or reconfigured before a reset, so start it only when the refresh path is in place. The reset time is the selected number of milliseconds at the nominal 32kHz of the low-speed internal oscillator; timeout_ms reports the time the driver set, and the oscillator's real frequency shifts it. While start runs, state reports 3 and refresh returns HAL_BUSY and writes nothing: a refresh writes the reload key, the reference manual states that any key but the access key write-protects the watchdog's registers again, and the SDK writes the access key and then the prescaler and the reload value, so a refresh from an interrupt inside start could leave the watchdog with other values than the unit reports. The SDK enables the watchdog before it waits for its registers, and those waits can fail: when start returns an error other than busy, state reports 2, the watchdog may be running with a reset time that is not known, timeout_ms reports 0xFFFFFFFF, refresh still restarts the count, start cannot be tried again, and a reset may follow. No window (a refresh is allowed at any time) and no early interrupt. refresh may be called from the owning thread or an interrupt, and is refused from an interrupt that arrives while start runs; start from the thread only. Behaviour while a debugger halts the core and in low-power modes, and the option bytes, are not covered. Build does not exercise the reset.",
       "evidence": [
-        "policy7-watchdog",
+        "policy9-watchdog",
         "inv-def-HAL_IWDG_Init",
         "inv-def-HAL_IWDG_Start",
         "inv-def-HAL_IWDG_Refresh",
@@ -42934,9 +43218,12 @@
         "inv-api-USE_HAL_IWDG_MODULE",
         "inv-api-USE_HAL_IWDG_TIME_UNIT",
         "sdk-iwdg-source",
+        "rm-iwdg-key-register",
+        "rm-iwdg-access-protection",
+        "sdk-iwdg-start-sequence",
         "cmake-extension",
         "sdk-common-includes",
-        "policy7-sdk_definitions"
+        "policy9-sdk_definitions"
       ],
       "edits": [
         {
@@ -42995,12 +43282,12 @@
         "claims": [],
         "interface": {
           "setup": "Prepared after mx_system_init, not running. Header bkpt_components/{{unit}}.h; private watchdog handle.",
-          "start": "{{unit}}_start(): checked HAL_OK starts the watchdog with a nominal reset time of {{timeout_ms}} ms; it cannot be stopped afterwards. HAL_BUSY when a start was already made. Any other result is a failed start after which the watchdog may be running with a reset time that is not known: state is 2 and a reset may follow. Thread only.",
-          "refresh": "{{unit}}_refresh(): checked HAL_OK restarts the count; call it more often than the reset time. Thread or interrupt. HAL_ERROR before any start; after a failed start the count is restarted all the same.",
-          "timeout": "{{unit}}_timeout_ms(): the reset time the driver set, in milliseconds of the nominal oscillator; 0 before start; 0xFFFFFFFF after a failed start, when it is not known.",
+          "start": "{{unit}}_start(): checked HAL_OK starts the watchdog with a nominal reset time of {{timeout_ms}} ms; it cannot be stopped afterwards. HAL_BUSY when a start was already made. While it runs, state is 3 and refresh is refused. Any other result is a failed start after which the watchdog may be running with a reset time that is not known: state is 2 and a reset may follow. Thread only.",
+          "refresh": "{{unit}}_refresh(): checked HAL_OK restarts the count; call it more often than the reset time. Thread or interrupt. HAL_ERROR before any start; HAL_BUSY, with nothing written, while start is running; after a failed start the count is restarted all the same.",
+          "timeout": "{{unit}}_timeout_ms(): the reset time the driver set, in milliseconds of the nominal oscillator; 0 before start; 0xFFFFFFFF while start runs and after a failed start, when it is not known.",
           "scope": "No window, no early interrupt, nominal 32kHz oscillator. The reset time is not measured, the reset is not exercised by a build, and a failed start is not recoverable.",
           "declarations": "hal_status_t {{unit}}_init(void);\nhal_status_t {{unit}}_start(void);\nhal_status_t {{unit}}_refresh(void);\nuint32_t {{unit}}_timeout_ms(void);\nuint32_t {{unit}}_state(void);",
-          "state": "{{unit}}_state(): 0 not started, 1 running with the reported time, 2 a start failed and the watchdog may be running."
+          "state": "{{unit}}_state(): 0 not started, 1 running with the reported time, 2 a start failed and the watchdog may be running, 3 start is running (seen only from an interrupt)."
         },
         "interface_sources": {
           "declarations": [
@@ -43041,8 +43328,8 @@
       "target": "NUCLEO-C542RC",
       "guidance": "Selected GPIO input after mx_system_init: use resource port_symbol, pin_symbol and clock_enable_api (zero arguments; void). Enable the selected clock, zero hal_gpio_config_t, set mode=HAL_GPIO_MODE_INPUT and pull=HAL_GPIO_PULL_NO, HAL_GPIO_PULL_UP or HAL_GPIO_PULL_DOWN, and check the HAL_GPIO_Init status. Read with HAL_GPIO_ReadPin(port_symbol, pin_symbol), which returns HAL_GPIO_PIN_SET or HAL_GPIO_PIN_RESET. An input without a pull that nothing drives reads an undefined level. Debouncing, thresholds and the external circuit are application matters; for an edge interrupt use gpio_input_interrupt instead. HAL/LL sources are already included and the declarations come from stm32_hal.h; do not redeclare them.",
       "evidence": [
-        "policy7-gpio_input",
-        "policy7-general",
+        "policy9-gpio_input",
+        "policy9-general",
         "inv-api-HAL_GPIO_MODE_INPUT",
         "inv-api-HAL_GPIO_PULL_NO",
         "inv-api-HAL_GPIO_PULL_UP",

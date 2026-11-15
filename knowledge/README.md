@@ -23,8 +23,8 @@ and trace components and is unchanged.
 | [`stm32c5`](stm32c5/knowledge-pack.json) | STM32C542RCT6, LQFP64, NUCLEO-C542RC, STM32 HAL2 2.1.0 | Development |
 
 The STM32C5 package covers the exact part, package, board and SDK version named
-in its manifest. It contains 17 scoped capability profiles (for example a managed
-SPI DMA transfer, a PWM output or a periodic timer interrupt). That is not 17
+in its manifest. It contains 23 scoped capability profiles (for example a managed
+SPI DMA transfer, a PWM output or a periodic timer interrupt). That is not 23
 fully supported peripherals and not coverage of the whole STM32C5 family.
 
 ## What a package contains
@@ -240,138 +240,66 @@ cites line by line. A rule that is BKPT's own decision, such as which pads may b
 allocated, lives in that policy text and is cited as policy, never as a
 manufacturer statement.
 
-`stm32c5/candidates/device-coverage-r2/` is the output for the STM32C542 on the
-NUCLEO-C542RC: 17 capability profiles on top of the reviewed workflow-efficiency
-graph. It is accepted: `accepted.json` holds the reviewed bytes and
-`accepted.review.json` binds them to an independent data review and an
-independent regression review. Since pack revision 2 it is the pack's active
-architecture input: `inputs.architecture` in the manifest names it, and the
-graph of revision 1 stays at `architecture/accepted.json`, listed under
-`previous`.
+`stm32c5/candidates/device-coverage-r7/` is the graph for the STM32C542 on the
+NUCLEO-C542RC that the pack uses since revision 3: 23 capability profiles,
+written in graph schema 5 under policy version 9. It is accepted:
+`accepted.json` holds the reviewed bytes and `accepted.review.json` binds them
+to two independent reviews. `inputs.architecture` in the manifest names it.
+The graph of revision 2 (`candidates/device-coverage-r2/`, 17 profiles) and
+the graph of revision 1 (`architecture/accepted.json`) stay in the pack and
+are listed under `previous`.
 
-`stm32c5/candidates/device-coverage-r3/` is the next graph for the same target:
-23 capability profiles. It adds I2C on every allowed Fm+ pad, analog reading,
-input capture, the periodic interrupt on the channel timers, a CRC-32 unit,
-the independent watchdog and GPIO input, under policy version 6, and applies
-the review items of the accepted graph that were generator or data matters.
-It is a candidate, not accepted: it has no review record, nothing in it was
-run on a board, and the manifest's `inputs.architecture` does not name it.
-It is written in graph schema 5, which needs a firmware tool build that reads
-that schema.
+On top of the revision 2 graph it adds:
 
-`stm32c5/candidates/device-coverage-r4/` replaces it before any acceptance. The
-first run of round 3 on the NUCLEO-C542RC showed that the analog reading unit
-could not start: it enabled the converter's bus clock and then asked the SDK
-for the ADC and DAC kernel clock, which the SDK refuses while that bus clock is
-on. Round 4 cites version 2 of the unit, which sets the kernel clock first and
-reads the configuration back, and the SDK lines that state the order. Nothing
-else differs from round 3: six records, all of the analog reading component.
-On that board the four self-check applications of the round then passed:
-analog reading on PA0 and PA1, input capture on PA0 with TIM2, periodic
-interrupts on TIM1, TIM2 and TIM6, the CRC-32 unit against zlib and a watchdog
-reset. The checks stimulate the pads from inside the chip and are not a
-measurement of accuracy. Round 4 is a candidate too: it has no review record.
+- I2C1 SCL and SDA on every allowed routed pad the pinout descriptor declares
+  Fm+ capable. The four pads of the earlier graph are the roles' `earlier`
+  domain, so a request that graph planned keeps its pads.
+- `analog_reading`: one unit per input on the shared converter, with
+  calibration, a 12-bit count as a fraction of VREF+, and a check on every
+  read that the converter is still enabled and set to the unit's input.
+  `analog_input_pin` (the application configures the converter) and
+  `analog_reading` name different ownership modes on the converter, so a
+  request for both on one converter is refused in either order.
+- `input_capture`: period and high time in microseconds on a channel timer.
+  One look at the timer is one step with interrupts masked; a mark set behind
+  its acknowledgement ends the measurement with an error. The header states
+  what a result means and the conditions it rests on.
+- `periodic_interrupt_channel_timer` on TIM1, TIM2, TIM8, TIM12 and TIM15,
+  `crc32_checksum`, `independent_watchdog` and `gpio_input`.
+- A declared scope on every source (device, board, sdk, policy,
+  implementation), so a fact about the board can be told from a fact about
+  the chip.
+- Citations of SDK function definitions for every precondition a new unit
+  relies on. Twelve cards accepted before that rule are named as exempt.
 
-`stm32c5/candidates/device-coverage-r5/` answers the two independent reviews
-of round 3, which both rejected it. Rounds 3 and 4 stay as packaged. It is
-written under policy version 7 and changes this:
+How it was checked:
 
-- SCL and SDA of the two I2C capabilities list the four pads the accepted
-  graph gave them as their earlier domain. A fixed suite of 555 requests was
-  solved on the accepted graph and on round 5 with one firmware tool build:
-  all 405 requests the accepted graph plans get the same resource for every
-  role.
-- Input capture, version 2 of the unit, counts counter wraps with a second
-  compare mark at half a turn, so a caller that polls late gets the right
-  duration or an error and never a wrong one, and it keeps its time limit on
-  the timer's own count.
-- Analog reading, version 3, checks on every read that the converter is
-  still enabled and still set to the unit's input. Its header states the
-  bounds the SDK's own timeouts give and that they need the HAL tick.
-  `analog_input_pin` and `analog_reading` must not be requested for one
-  converter: the policy and both cards say so, and the unit reports a foreign
-  stop as an error. The solver does not refuse the combination.
-- The independent watchdog, version 2, reports a start whose outcome is
-  unknown as a state of its own, in which refresh works and no timeout is
-  promised.
-- The SDK implementation files of the converter, the CRC unit and the
-  watchdog are pinned, and every precondition cites the function body.
-  Every source states its scope and authority.
+- Two independent reviews rejected the first version of this round and one
+  rejected a later one; their findings were a start-up order the SDK refuses
+  for the converter's kernel clock, an input capture that could return a
+  wrong value after a delayed poll, a default allocation that changed in a
+  crowded request, and statements a unit could not keep. Both accept these
+  bytes.
+- A fixed suite of 2,222 requests was solved on the revision 2 graph and on
+  this one with one firmware tool build: all 1,682 requests the earlier graph
+  plans keep their resources, route identifiers and generated files. The
+  suite and its tool are kept with the evaluation data, and a replay is a
+  step of every later revision.
+- `stm32c5/tests/input_capture_model.py` runs the input capture unit's own
+  template against a simulated timer that delays the caller at every register
+  access: 43,772 cases without a violation, and the previous version of the
+  unit fails there with the values the reviews reported.
+- On the NUCLEO-C542RC four self-check applications passed: analog reading on
+  PA0 and PA1, input capture on PA0 with TIM2 including held polls from half
+  a turn to two turns of the counter, periodic interrupts on TIM1, TIM2 and
+  TIM6, the CRC-32 unit against zlib and a watchdog reset. The checks
+  stimulate the pads from inside the chip and are not a measurement of
+  accuracy. A failed watchdog start and a delay between two chosen statements
+  cannot be provoked on a board; those rest on the SDK source and the model.
 
-On the NUCLEO-C542RC the four self-check applications passed on the round 5
-builds. Input capture returned 119000 and 59000 counts for every one of eight
-measurements polled 20 ms late, an error when polled 70 ms late, and kept a
-1 ms limit within 1 ms. Analog reading corrected a foreign channel selection
-and reported a foreign stop. The checks stimulate the pads from inside the
-chip; the failed start of the watchdog cannot be provoked there.
-
-Round 5 needs a firmware tool build that reads the `earlier` field. It is a
-candidate: it has no review record and the manifest does not name it.
-
-`stm32c5/candidates/device-coverage-r6/` replaces round 5 before any
-acceptance, under policy version 8. Two things differ, 21 records in all:
-
-- `analog_input_pin` and `analog_reading` name different ownership modes on
-  the converter. A request that takes both on one converter is refused in
-  either order, and the refusal names the converter and the two modes under
-  `ownership_conflicts`. Several reading units still share the converter, and
-  allocations alone are planned as on the accepted graph. The unit keeps its
-  own check of the converter, which is what stands against code outside the
-  graph.
-- The I2C capabilities select their routes by `scl_on` and `sda_on` again.
-  Since round 3 they had selected the descriptor routes, so every plan with
-  I2C named other routes than the accepted graph did, for the same pads. The
-  four accepted routes keep their identifiers and gain the alternate function
-  of their descriptor route; the five pads admitted since get routes named
-  the same way.
-
-A fixed suite of 662 requests was solved on the accepted graph and on round 6
-with one firmware tool build: all 476 requests the accepted graph plans get
-the same resource for every role, the same route identifiers and the same
-generated files; 12 of 12 combinations of the two analog capabilities are
-refused. No component template changed, and the firmware built from round 6
-for the four self-check applications is byte for byte the firmware that
-passed on the NUCLEO-C542RC in round 5, so those runs stand and none was
-repeated. Round 6 needs a firmware tool build that reads `earlier` and
-`mode`. It is a candidate: it has no review record.
-
-`stm32c5/candidates/device-coverage-r7/` answers the two follow-up reviews
-of round 6, under policy version 9. Rounds 3 to 6 stay as packaged. 38
-records differ from round 6:
-
-- Input capture, version 3. Version 2 read the timer's status and cleared
-  the marks it had seen in two statements; a thread held for a turn of the
-  counter or more between them lost a turn, and the unit returned a wrong
-  period and high time as a success. Version 3 takes one look at the timer
-  as one step with interrupts masked, ends the measurement when a mark is
-  set behind its acknowledgement, and places captures and counts around a
-  wrap by their value. Header, card and policy state what a result means,
-  the conditions it rests on and when a measurement completes.
-  `stm32c5/tests/input_capture_model.py` runs the unit's own template
-  against a simulated timer that delays the caller at every register
-  access: version 3 holds its property in 43,772 cases, and version 2 fails
-  there with the values the reviews reported.
-- Analog reading, header version 4, text only: the limit the unit gives the
-  SDK, the tick the SDK's waits count, and the cleanup after a time-out are
-  stated apart from time for the caller.
-- Independent watchdog, version 3: a refresh is refused while the SDK's
-  start call runs, because the reference manual lets any key but the access
-  key write-protect the watchdog's registers again.
-- The definition rule is checked on every finished card. The channel timer
-  card, which takes the basic timer's unit whole, cites seven definitions
-  it lacked. Twelve cards of the accepted graph are named as accepted
-  before the rule.
-
-The replay against the accepted graph, now 2,222 requests with those of the
-round 6 review: all 1,682 requests the accepted graph plans keep their
-resources, route identifiers and generated files. On the NUCLEO-C542RC the
-capture, system and analog self-check applications passed on the round 7
-builds; the capture application also held its thread between half a turn
-and two turns of the counter and got the true value or an error each time.
-The periodic interrupt application is byte for byte the firmware that passed
-in round 5. A delay between two chosen statements cannot be placed on a
-board; that part rests on the model. Round 7 is a candidate: it has no
-review record.
+The STM32C542CCT6 (LQFP48) and STM32C542KCT6 (LQFP32) recipes compose from the
+same family data, but their graphs were not reviewed, built or run in this
+round.
 
 ## Licensing and third-party content
 
