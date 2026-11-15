@@ -2,7 +2,7 @@
   "schema": 1,
   "id": "stm32c5-device-v1",
   "base": {
-    "path": "../candidates/workflow-efficiency/accepted.json",
+    "git_blob": "22aaa52883116ae87ef2cda4a2f1b4c1066c577c",
     "sha256": "69e0402c5d98d358464be3d1ba629668acb544f1ff92121da6efcc22f2c20928"
   },
   "target": "NUCLEO-C542RC",
@@ -15,13 +15,17 @@
   },
   "pinout": {
     "source": "pinout",
-    "identifying": ["name", "instance", "die_pad"]
+    "identifying": [
+      "name",
+      "instance",
+      "die_pad"
+    ]
   },
   "excluded_signals": [
     {
       "signal": "DAC1_OUT2",
       "pad": "PA5",
-      "reason": "The descriptor names DAC1_OUT2 on PA5 while datasheet DS15135 page 40 names DAC2_OUT1. Unresolved source conflict; no route is published until it is settled."
+      "reason": "The descriptor names DAC1_OUT2 on PA5 while datasheet DS15135 page 40 names DAC2_OUT1. Unresolved source conflict; no route is recorded until it is settled."
     }
   ],
   "gpio_symbols": {

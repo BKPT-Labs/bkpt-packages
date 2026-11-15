@@ -34,13 +34,14 @@ Using `stm32c5/` as the example:
 | Path | Contents |
 | --- | --- |
 | `knowledge-pack.json` | The package manifest: target identity, input files with their hashes, and declared coverage |
-| `architecture/` | The first reviewed capability graph (`accepted.json`), its review record and foundation manifest. The manifest's `inputs.architecture` names the graph that is active now |
+| `graph.json` | The capability graph of the chip: one file, updated in place. An older graph is in the repository's history, not in the tree |
+| `graph.review.json` | The review record that binds the graph's exact bytes |
+| `foundation-manifest.json` | The manifest of the project foundation the graph builds on |
 | `catalog/` | BKPT-authored knowledge and import declarations, component source and templates |
 | `imports/` | Declarations that pin the manufacturer device descriptors and driver packs the package was derived from |
-| `sources/` | BKPT-authored source snapshots that the reviewed graph cites |
-| `source-inputs.json` | Every file the package refers to, BKPT-authored or external, with its exact hash |
+| `sources/` | BKPT-authored source snapshots that the graph cites |
+| `source-inputs.json` | Every file the graph pins, BKPT-authored or external, with its exact hash |
 | `tests/` | Host-side checks of the component adapters, and a host model of the input capture unit |
-| `candidates/` | Newer reviewed graphs, each in its own folder. One becomes the default only when the manifest's `inputs.architecture` names it |
 | `pending/` | Paused, incomplete research. See below |
 
 ## How much to trust what you read
@@ -60,8 +61,8 @@ no reviewed coverage here, not that the silicon lacks it. Names of symbols,
 registers or pins are never treated as proof of behavior.
 
 Files under `pending/` are research that was paused before review finished. They
-are published as projections with the source excerpts removed, each recording
-the hash of its original. They are not accepted claims and the tooling does not
+are kept as projections with the source excerpts removed, each recording
+the hash of its original. They are not reviewed claims and the tooling does not
 load them. The helper scripts in `pending/tools/` were written for the original
 research workspace and expect its layout; they are not needed to use a package
 and are not meant to be run from this checkout.
@@ -83,8 +84,10 @@ and to the locations of the SDK. The package manifest names the catalogs it is
 meant to produce. It does not install anything by itself, and there is no
 automatic package installer yet.
 
-Reviewed files and their review records are immutable: changing a reviewed graph
-means publishing a new one with a new review, never editing in place.
+The graph changes in place and the branch `main` holds the latest one. A review
+record binds exact bytes, so a changed graph needs a new review before it is
+merged, and the record beside it is replaced with it. A source the graph cites
+is never edited: a changed text is a new file under a new name.
 
 ## Generating a whole-device graph
 
@@ -99,8 +102,8 @@ the lines it came from.
 | `compose_target.py` | Builds one target from layers that vary independently: the reviewed graph, the part and its package descriptor, and the board as its own file (from a netlist, or declared by its owner). Facts tied to the old part, package or board are relocated, replaced or dropped by a decision the recipe states |
 | `target_support.py` | Gives a composed target what it needs besides its graph: a project foundation derived from the reviewed base under the identity of its own part and board, and an entry for the board in the knowledge corpus. Both come from the recipe; the foundation's files are the base's, checked by hash while they are copied |
 | `descriptor.py` | Reads a manufacturer JSON descriptor while keeping the lines of every value, so a derived record can cite them |
-| `package_candidate.py` | Places a generated graph in a package as a candidate, with the list of every source it pins. BKPT-authored sources are copied in; manufacturer sources are listed by hash only |
-| `test_author_device.py` | Checks for the tools on small synthetic sources |
+| `package_graph.py` | Writes a generated graph into a package as its `graph.json`, with the list of every source it pins, and updates the manifest. BKPT-authored sources are copied in; manufacturer sources are listed by hash only |
+| `test_author_device.py`, `test_compose_target.py`, `test_package_graph.py` | Checks for the tools on small synthetic sources |
 
 A capability covers a peripheral class, not a list of instance names. A class is a
 peripheral type and IP version as the manufacturer's peripherals descriptor names
@@ -127,7 +130,7 @@ chip source or a board file.
 With `BKPT_KNOWLEDGE_SOURCE_ROOT` set to the folder that holds the pinned
 sources, `test_compose_target.py` also composes every checked-in recipe and
 compares the result with the hash recorded in the test. A change that alters
-a published graph therefore has to change that hash in the same commit.
+a graph therefore has to change that hash in the same commit.
 
 A target that shares the base's start-up files gets its foundation from a
 derivation record under `stm32c5/foundations/`. The record states the new
@@ -143,7 +146,7 @@ package: `target_support.py` installs them from your copy of the base. Give it
 and one corpus. `stm32c5/targets/` holds three: the NUCLEO-C542RC, and the
 STM32C542CCT6 in LQFP48 and the STM32C542KCT6 in LQFP32 on owner-declared
 boards. The 32-pin package bonds two pads to one pin, which the firmware
-tool's corpus accepts from the build that keys a pin by position and pad.
+tool's corpus takes from the build that keys a pin by position and pad.
 
 An allocation in `device-domains.json` can carry a generated component: its
 parameters, the bindings that fill a template from the allocated instance, pad
@@ -188,11 +191,11 @@ schema in `author_device_inventory.py` and set for one run; the STM32C5 family
 asks for schema 5, because its graph pins more than 128 sources.
 
 In schema 5 a role can state the domain an earlier revision gave it. A profile
-that widens roles of an accepted graph carries `earlier_through` with that
+that widens roles of an earlier graph carries `earlier_through` with that
 pack revision. The generator then lists on each widened role, as `earlier`,
-the resources the accepted graph searched for it, in that graph's search
+the resources the earlier graph searched for it, in that graph's search
 order. The firmware tool searches that domain before it admits a resource
-added since, so a request the accepted graph could plan keeps its plan. A
+added since, so a request the earlier graph could plan keeps its plan. A
 role that gained nothing lists nothing.
 
 Every source of a schema 5 graph carries a `scope`: `device`, `board`, `sdk`,
@@ -215,8 +218,8 @@ with a generated unit, whether the unit was written for the card or taken
 whole from another one: a citation of the card must contain the whole
 definition of each `HAL_` function the templates call by name, and a `HAL_`
 function they call through a binding must be cited so by the resource that
-supplies the name, or by the card. `definition_rule.accepted_before` in the
-family configuration lists the cards that were accepted before the rule and
+supplies the name, or by the card. `definition_rule.exempt` in the
+family configuration lists the cards that were reviewed before the rule and
 stay outside it until they are changed; the policy rule has to name each.
 
 Capacity counts the holders of a shared instance; it cannot keep two ways of
@@ -227,10 +230,10 @@ modes are equal. The policy rule on ownership modes has to name the mode, and
 an instance kind that one capability holds with a mode and another without is
 refused, because a role that names none shares with everyone.
 
-A profile that widens a capability the accepted graph already published can
-say `reviewed_routes`. Its links then keep the relation they were accepted
+A profile that widens a capability an earlier graph already held can
+say `reviewed_routes`. Its links then keep the relation they were reviewed
 with, so a plan names the same routes as before. A pad admitted since gets a
-route of that relation, named as the accepted ones are, and every such route
+route of that relation, named as the earlier ones are, and every such route
 states the alternate function of the descriptor route between the same two
 ends. Without it a profile selects the descriptor routes themselves.
 
@@ -240,14 +243,13 @@ cites line by line. A rule that is BKPT's own decision, such as which pads may b
 allocated, lives in that policy text and is cited as policy, never as a
 manufacturer statement.
 
-`stm32c5/candidates/device-coverage-r7/` is the graph for the STM32C542 on the
-NUCLEO-C542RC that the pack uses since revision 3: 23 capability profiles,
-written in graph schema 5 under policy version 9. It is accepted:
-`accepted.json` holds the reviewed bytes and `accepted.review.json` binds them
-to two independent reviews. `inputs.architecture` in the manifest names it.
-The graph of revision 2 (`candidates/device-coverage-r2/`, 17 profiles) and
-the graph of revision 1 (`architecture/accepted.json`) stay in the pack and
-are listed under `previous`.
+`stm32c5/graph.json` is the graph for the STM32C542 on the NUCLEO-C542RC:
+23 capability profiles at pack revision 3, written in graph schema 5 under
+policy version 9. `graph.review.json` binds its bytes to two independent
+reviews, and `inputs.architecture` in the manifest names it with its hash.
+The graphs of revision 1 (14 profiles) and revision 2 (17 profiles) are in
+the repository's history. The pack revision is a plain count: a role's
+`earlier` domain names the last revision that gave it that domain.
 
 On top of the revision 2 graph it adds:
 
@@ -270,15 +272,15 @@ On top of the revision 2 graph it adds:
   implementation), so a fact about the board can be told from a fact about
   the chip.
 - Citations of SDK function definitions for every precondition a new unit
-  relies on. Twelve cards accepted before that rule are named as exempt.
+  relies on. Twelve cards reviewed before that rule are named as exempt.
 
 How it was checked:
 
-- Two independent reviews rejected the first version of this round and one
+- Two independent reviews rejected the first version of these additions and one
   rejected a later one; their findings were a start-up order the SDK refuses
   for the converter's kernel clock, an input capture that could return a
   wrong value after a delayed poll, a default allocation that changed in a
-  crowded request, and statements a unit could not keep. Both accept these
+  crowded request, and statements a unit could not keep. Both passed these
   bytes.
 - A fixed suite of 2,222 requests was solved on the revision 2 graph and on
   this one with one firmware tool build: all 1,682 requests the earlier graph
@@ -298,8 +300,7 @@ How it was checked:
   cannot be provoked on a board; those rest on the SDK source and the model.
 
 The STM32C542CCT6 (LQFP48) and STM32C542KCT6 (LQFP32) recipes compose from the
-same family data, but their graphs were not reviewed, built or run in this
-round.
+same family data, but their graphs were not reviewed, built or run.
 
 ## Licensing and third-party content
 

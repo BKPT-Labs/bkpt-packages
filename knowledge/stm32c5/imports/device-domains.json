@@ -3031,7 +3031,7 @@
   ],
   "definition_rule": {
     "policy": "sdk_definitions",
-    "accepted_before": [
+    "exempt": [
       "hal2.timer-update",
       "hal2.dma-memory-copy",
       "hal2.i2c-dma",

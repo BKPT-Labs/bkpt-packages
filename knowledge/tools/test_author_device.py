@@ -493,8 +493,8 @@ class Allocations(unittest.TestCase):
         self.refused("does not have", parameters={})
         self.refused("does not have", bindings=changed("divider", source={"type": "parameter", "name": "speed"}, map={}))
         self.refused("cannot be mapped", bindings=changed("unit", map={"a": "b"}))
-        self.refused("does not accept", bindings=changed("divider", map={"1": "{{other}}", "2": "4"}))
-        self.refused("does not accept", bindings=changed("divider", map={"1": "", "2": "4"}))
+        self.refused("the engine refuses", bindings=changed("divider", map={"1": "{{other}}", "2": "4"}))
+        self.refused("the engine refuses", bindings=changed("divider", map={"1": "", "2": "4"}))
         self.refused("a role the allocation does not have",
                      bindings=changed("block", source={"type": "resource_attribute", "role": "clock", "attribute": "symbol"}))
         self.refused("needs reset, which ['BUS1'] do not have",
@@ -918,13 +918,13 @@ class DefinitionRule(unittest.TestCase):
     CLOCK = "__STATIC_INLINE void HAL_CLOCK_On(void)\n{\n}\n"
 
     def subject(self, card=("inv-def-HAL_UNIT_Start",), resource=("inv-api-HAL_CLOCK_On",), exempt=("card.old",),
-                policy="Definitions: authored. The card card.old was accepted before this rule.\n"):
+                policy="Definitions: authored. The card card.old was reviewed before this rule.\n"):
         subject = domains_under_test()
         subject.sources.update(body=source(SDK_C, "body"), head=source(SDK_H, "head"),
                                unit=source(self.UNIT, "unit"), clock=source(self.CLOCK, "clock"))
         subject.sources["policy"] = subject.policy_source = source(POLICY + policy, "policy")
         subject.config["policy"]["lines"]["definitions"] = 6
-        subject.config["definition_rule"] = {"policy": "definitions", "accepted_before": list(exempt)}
+        subject.config["definition_rule"] = {"policy": "definitions", "exempt": list(exempt)}
         subject.graph.cite("unit-c", subject.sources["unit"], 1, 5, "Authored.")
         domains.find(subject.value["evidence"], "unit-c")["role"] = "template"
         subject.graph.cite_symbol("inv-api", subject.sources["head"], "HAL_UNIT_Start")
@@ -955,7 +955,7 @@ class DefinitionRule(unittest.TestCase):
         self.assertEqual(subject.definition_coverage(), ["card.new"])
         new, old = (domains.find(subject.value["implementations"], name) for name in ("card.new", "card.old"))
         self.assertIn("policy3-definitions", new["evidence"])
-        # A card accepted before the rule is left as it was.
+        # A card reviewed before the rule is left as it was.
         self.assertEqual(old["evidence"], [])
         # The card may cite a function a binding supplies when the resource does not.
         self.assertEqual(self.subject(card=("inv-def-HAL_UNIT_Start", "inv-api-HAL_CLOCK_On"), resource=()).definition_coverage(), ["card.new"])
@@ -987,7 +987,7 @@ class Scopes(unittest.TestCase):
     def subject(self, schema=5, **config):
         subject = domains_under_test()
         subject.value.update(schema=schema, sources=[
-            {"id": "policy", "authority": "BKPT engineering policy", "revision": "candidate v1"},
+            {"id": "policy", "authority": "BKPT engineering policy", "revision": "draft v1"},
             {"id": "table", "authority": "STMicroelectronics", "revision": "r"}])
         subject.target = {"evidence": []}
         subject.config.update(config)

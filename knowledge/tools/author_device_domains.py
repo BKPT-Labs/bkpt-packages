@@ -13,7 +13,7 @@ all cited line by line:
 * an authored policy text, which says how those are turned into rules.
 
 It then widens existing capabilities to that domain. A capability that needed a
-fixed pad or instance now accepts any covered one, keeps the reviewed one as
+fixed pad or instance now takes any covered one, keeps the reviewed one as
 its first choice, and reads the alternate function from the selected route.
 
 The family configuration states no board. `compose_target.py` applies the
@@ -807,7 +807,7 @@ class Domains:
         """The definition rule on the finished graph. Every card with a
         generated unit is checked, whether the unit was written for the card
         or taken whole from another one, except the cards the configuration
-        lists as accepted before the rule; the policy rule must name each of
+        lists as exempt, reviewed before the rule; the policy rule must name each of
         those. A HAL function the templates call by name is cited by the card
         over its whole definition. A HAL function they call through a binding
         is cited so by the resource that supplies the name, or by the card.
@@ -817,7 +817,7 @@ class Domains:
             return []
         rule, wording = self.policy(spec["policy"]), self.policy_text(spec["policy"])
         cards = [card for card in self.value["implementations"] if card.get("component")]
-        exempt = spec.get("accepted_before", [])
+        exempt = spec.get("exempt", [])
         for identifier in exempt:
             if all(card["id"] != identifier for card in cards):
                 raise SystemExit(f"definition rule: {identifier} is not a card with a generated unit")
@@ -1115,7 +1115,7 @@ class Domains:
             text = symbol_spec["symbol"].format(alternate=alternate.replace(symbol_spec["split"], symbol_spec["split"] + "_", 1))
             mapping[alternate] = text
             cites.append(self.graph.cite_symbol("inv-alternate", symbol_source, text))
-        accepted_relations = {}
+        earlier_relations = {}
         for capability in capabilities:
             for role in [instance["role"], *spec["roles"]]:
                 record = find(capability["roles"], role)
@@ -1153,7 +1153,7 @@ class Domains:
                 else:
                     raise SystemExit(f"{capability['id']}.{role}: no single reviewed resource in the new domain to keep as first choice")
                 if "earlier_through" in spec:
-                    # The accepted graph of that revision gave the role this
+                    # The graph of that revision gave the role this
                     # domain. The engine searches it before it admits a
                     # resource added since, so a request that graph could plan
                     # keeps its plan. Only what is still a resource the role
@@ -1171,12 +1171,12 @@ class Domains:
                 if len(links) != 1:
                     raise SystemExit(f"{capability['id']}: expected one link from {binding['from']} to {role}")
                 if spec.get("reviewed_routes"):
-                    # The link keeps the relation it was accepted with, and so
-                    # the identifiers of the routes the accepted graph selected.
+                    # The link keeps the relation it was reviewed with, and so
+                    # the identifiers of the routes the earlier graph selected.
                     if links[0]["relation"] == "signal" or links[0].get("attributes"):
                         raise SystemExit(f"{capability['id']}.{role}: no reviewed relation of its own to keep")
-                    if accepted_relations.setdefault(role, links[0]["relation"]) != links[0]["relation"]:
-                        raise SystemExit(f"{role}: the profile's capabilities were accepted with different relations")
+                    if earlier_relations.setdefault(role, links[0]["relation"]) != links[0]["relation"]:
+                        raise SystemExit(f"{role}: the profile's capabilities were reviewed with different relations")
                 else:
                     links[0]["relation"] = "signal"
                     links[0]["attributes"] = {"function": binding["function"]}
@@ -1190,16 +1190,16 @@ class Domains:
                 # the capability cites what the board says of it and the rule.
                 if any(self.name(edge["to"]) == pin for found in routes.values() for edge in found):
                     extend(capability, [self.net_cite[pin], self.policy(extra[pin])])
-        for role, relation in accepted_relations.items():
+        for role, relation in earlier_relations.items():
             kept = self.policy("reviewed_routes")
-            accepted = {(edge["from"], edge["to"]): edge for edge in self.value["edges"] if edge["relation"] == relation}
-            for edge in accepted.values():
-                # New routes of the relation are named as the accepted ones are.
+            earlier = {(edge["from"], edge["to"]): edge for edge in self.value["edges"] if edge["relation"] == relation}
+            for edge in earlier.values():
+                # New routes of the relation are named as the earlier ones are.
                 if edge["id"] != f"{self.name(edge['from'])}.{relation}.{self.name(edge['to'])}":
-                    raise SystemExit(f"{edge['id']}: the accepted routes of {relation} are not named instance.relation.pad")
+                    raise SystemExit(f"{edge['id']}: the earlier routes of {relation} are not named instance.relation.pad")
             taken = {edge["id"] for edge in self.value["edges"]}
             for route in routes[role]:
-                edge = accepted.get((route["from"], route["to"]))
+                edge = earlier.get((route["from"], route["to"]))
                 if edge is None:
                     edge = {"id": f"{self.name(route['from'])}.{relation}.{self.name(route['to'])}", "target": route["target"],
                             "from": route["from"], "to": route["to"], "relation": relation,
@@ -1228,7 +1228,7 @@ class Domains:
             for role, binding in spec["roles"].items():
                 component["bindings"][binding["binding"]] = {
                     "source": {"type": "route_attribute", "from": binding["from"], "to": role,
-                               "relation": accepted_relations.get(role, "signal"), "attribute": "alternate"},
+                               "relation": earlier_relations.get(role, "signal"), "attribute": "alternate"},
                     "map": dict(mapping),
                 }
             replaced = set()
@@ -1579,7 +1579,7 @@ class Domains:
                 raise SystemExit(f"{card}: binding {name} has an unknown source {kind}")
             for value in (table or {}).values():
                 if not 0 < len(value) <= 256 or any(not 32 <= ord(letter) <= 126 for letter in value) or "{{" in value or "}}" in value:
-                    raise SystemExit(f"{card}: binding {name} maps to a value the engine does not accept")
+                    raise SystemExit(f"{card}: binding {name} maps to a value the engine refuses")
 
 
 def run(graph, sources, summary, inventory_config, config, source_root):

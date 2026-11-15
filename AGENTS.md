@@ -12,16 +12,30 @@ outputs. Those are external inputs or installed artifacts, referenced by exact
 hash and version. Preserve third-party notices already present in existing packages.
 
 Reviewed input bytes and their attestations are immutable. Never normalize line
-endings or rewrite source paths inside an accepted bundle without new review
+endings or rewrite source paths inside a reviewed graph without new review
 bindings. Source presence, bounded review, implementation and hardware coverage
 remain separate states. Pending C5 claims may be committed as explicitly
 unqualified, excerpt-free projections. Their original evidence and review working
-files stay external; projections must never inherit acceptance of original bytes.
+files stay external; projections must never inherit the review of original bytes.
 
 This repository is public. Publish migration/research changes only within the
 user-authorized scope, on a feature branch and draft PR. Do not merge them
 into main as part of a Toolkit code PR. Root legacy index.json is unchanged by
 the firmware knowledge migration.
+
+## One graph per chip
+
+A knowledge package holds one capability graph, `knowledge/<pack>/graph.json`,
+updated in place; `main` holds the latest. No folder or file is named after a
+review step or an iteration, and no older graph is kept in the tree: read one
+from history with `git show <commit>:<path>` or by its blob. The layer the
+generators start from is read that way too (`imports/device-inventory.json`
+names its blob). Generate with the tools in `knowledge/tools`, write the
+result with `package_graph.py`, and run the tool tests with
+`BKPT_KNOWLEDGE_SOURCE_ROOT` set to the folder of the pinned sources. A source
+the graph cites is never edited or renamed: a changed text is a new file.
+`graph.review.json` binds the graph's bytes because the firmware tool's
+catalog build asks for it.
 
 ## Recorder publication
 

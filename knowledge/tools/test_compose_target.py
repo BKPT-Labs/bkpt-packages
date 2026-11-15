@@ -9,6 +9,7 @@ import io
 import json
 import os
 import pathlib
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -18,6 +19,19 @@ import author_device_domains as domains  # noqa: E402
 import author_device_inventory as inventory  # noqa: E402
 import compose_target as compose  # noqa: E402
 import target_support as support  # noqa: E402
+
+
+# The graph of pack revision 2, which roles widened since name as their
+# earlier domain. The tree holds one graph, so it is read from history.
+EARLIER_GRAPH_BLOB = "2d1dedbbd4c509b62163c5e69465e9da555e7613"
+
+
+def earlier_graph():
+    found = subprocess.run(["git", "-C", str(pathlib.Path(__file__).resolve().parent), "cat-file", "blob", EARLIER_GRAPH_BLOB],
+                           capture_output=True)
+    if found.returncode != 0:
+        raise unittest.SkipTest("needs the repository's complete history")
+    return json.loads(found.stdout)
 
 
 def source(text, identifier="synthetic"):
@@ -502,7 +516,7 @@ class Boards(unittest.TestCase):
             subject.policy_entry("console")
         self.assertIn("console", str(refused.exception))
 
-    def test_the_checked_in_recipes_name_board_files_their_family_configuration_accepts(self):
+    def test_the_checked_in_recipes_name_board_files_their_family_configuration_allows(self):
         recipes = sorted(pathlib.Path(__file__).resolve().parents[1].glob("*/targets/*.json"))
         self.assertGreaterEqual(len(recipes), 3)
         kinds = set()
@@ -536,7 +550,7 @@ class Boards(unittest.TestCase):
         self.assertEqual(kinds, {"netlist", "declared"})
 
     # Every checked-in recipe and the graph it composes to. A change of these
-    # bytes is a change of what is published and is made here on purpose.
+    # bytes is a change of the graph on main and is made here on purpose.
     COMPOSED = {
         "stm32c5/targets/nucleo-c542rc.json": "817ca4113239937547c09f3baff6a755b9a838bc34922675768f128ecf9b968b",
         "stm32c5/targets/stm32c542cc-lqfp48-declared.json": "9c6e560c968250079978b17fba73c679597858072532241c50a60ccbe668ba33",
@@ -544,18 +558,18 @@ class Boards(unittest.TestCase):
     }
 
     @unittest.skipUnless(os.environ.get("BKPT_KNOWLEDGE_SOURCE_ROOT"), "needs the pinned sources: set BKPT_KNOWLEDGE_SOURCE_ROOT")
-    def test_a_widened_role_lists_the_domain_the_accepted_graph_gave_it(self):
+    def test_a_widened_role_lists_the_domain_the_earlier_graph_gave_it(self):
         knowledge = pathlib.Path(__file__).resolve().parents[1]
         graph, _ = compose.compose(knowledge / "stm32c5/targets/nucleo-c542rc.json",
                                           pathlib.Path(os.environ["BKPT_KNOWLEDGE_SOURCE_ROOT"]))
-        accepted = json.loads((knowledge / "stm32c5/candidates/device-coverage-r2/accepted.json").read_bytes())
-        pins = [record for record in accepted["resources"] if record["kind"] == "pin"]
+        earlier = earlier_graph()
+        pins = [record for record in earlier["resources"] if record["kind"] == "pin"]
         for name in ("i2c_controller_dma", "i2c_controller_operation"):
-            before = next(capability for capability in accepted["capabilities"] if capability["id"] == name)
+            before = next(capability for capability in earlier["capabilities"] if capability["id"] == name)
             after = next(capability for capability in graph.value["capabilities"] if capability["id"] == name)
             for role in ("scl", "sda"):
                 was = next(entry for entry in before["roles"] if entry["id"] == role)
-                # What the accepted graph searched for this role: every pad its attributes select, by identifier.
+                # What the earlier graph searched for this role: every pad its attributes select, by identifier.
                 domain = sorted(record["id"] for record in pins
                                 if all(record["attributes"].get(key) == value for key, value in was["attributes"].items()))
                 now = next(entry for entry in after["roles"] if entry["id"] == role)
@@ -572,24 +586,24 @@ class Boards(unittest.TestCase):
         self.assertEqual({source["id"] for source in graph.value["sources"] if source["scope"] == "board"}, {"board", "board-netlist"})
 
     @unittest.skipUnless(os.environ.get("BKPT_KNOWLEDGE_SOURCE_ROOT"), "needs the pinned sources: set BKPT_KNOWLEDGE_SOURCE_ROOT")
-    def test_a_widened_profile_keeps_the_accepted_route_identifiers(self):
+    def test_a_widened_profile_keeps_the_earlier_route_identifiers(self):
         knowledge = pathlib.Path(__file__).resolve().parents[1]
         graph, _ = compose.compose(knowledge / "stm32c5/targets/nucleo-c542rc.json",
                                    pathlib.Path(os.environ["BKPT_KNOWLEDGE_SOURCE_ROOT"]))
-        accepted = json.loads((knowledge / "stm32c5/candidates/device-coverage-r2/accepted.json").read_bytes())
+        earlier = earlier_graph()
         edges = {edge["id"]: edge for edge in graph.value["edges"]}
         resources = {record["id"]: record for record in graph.value["resources"]}
         for name in ("i2c_controller_dma", "i2c_controller_operation"):
-            before = next(capability for capability in accepted["capabilities"] if capability["id"] == name)
+            before = next(capability for capability in earlier["capabilities"] if capability["id"] == name)
             after = next(capability for capability in graph.value["capabilities"] if capability["id"] == name)
-            # The links are the accepted ones, relation for relation.
+            # The links are the earlier ones, relation for relation.
             self.assertEqual(after["links"], before["links"], name)
         for relation, role, function in (("scl_on", "scl", "i2c_scl"), ("sda_on", "sda", "i2c_sda")):
-            was = {edge["id"]: edge for edge in accepted["edges"] if edge["relation"] == relation}
+            was = {edge["id"]: edge for edge in earlier["edges"] if edge["relation"] == relation}
             now = {edge["id"]: edge for edge in graph.value["edges"] if edge["relation"] == relation}
             self.assertEqual(len(was), 2)
             for identifier, edge in was.items():
-                # An accepted route keeps its identifier, ends, relation and conditions, and what it cited.
+                # An earlier route keeps its identifier, ends, relation and conditions, and what it cited.
                 kept = now[identifier]
                 self.assertEqual([kept[key] for key in ("from", "to", "relation", "conditions")],
                                  [edge[key] for key in ("from", "to", "relation", "conditions")])
@@ -629,26 +643,26 @@ class Boards(unittest.TestCase):
         holders = {capability["id"] for capability in graph.value["capabilities"]
                    for role in capability["roles"] if role["kind"] == "analog_converter"}
         self.assertEqual(holders, {"analog_input_pin", "analog_reading"})
-        accepted = json.loads((knowledge / "stm32c5/candidates/device-coverage-r2/accepted.json").read_bytes())
-        before = next(capability for capability in accepted["capabilities"] if capability["id"] == "analog_input_pin")
+        earlier = earlier_graph()
+        before = next(capability for capability in earlier["capabilities"] if capability["id"] == "analog_input_pin")
         after = next(capability for capability in graph.value["capabilities"] if capability["id"] == "analog_input_pin")
-        # The mode is all the accepted allocation gained: same roles otherwise, same links, same converter capacity.
+        # The mode is all the earlier allocation gained: same roles otherwise, same links, same converter capacity.
         self.assertEqual([{key: value for key, value in role.items() if key != "mode"} for role in after["roles"]], before["roles"])
         self.assertEqual(after["links"], before["links"])
         capacity = [{record["id"]: record.get("capacity") for record in value["resources"] if record["kind"] == "analog_converter"}
-                    for value in (accepted, graph.value)]
+                    for value in (earlier, graph.value)]
         self.assertEqual(capacity[0], capacity[1])
 
     @unittest.skipUnless(os.environ.get("BKPT_KNOWLEDGE_SOURCE_ROOT"), "needs the pinned sources: set BKPT_KNOWLEDGE_SOURCE_ROOT")
-    def test_the_definition_rule_exempts_only_cards_of_the_accepted_graph(self):
+    def test_the_definition_rule_exempts_only_cards_of_the_earlier_graph(self):
         knowledge = pathlib.Path(__file__).resolve().parents[1]
         graph, summary = compose.compose(knowledge / "stm32c5/targets/nucleo-c542rc.json",
                                          pathlib.Path(os.environ["BKPT_KNOWLEDGE_SOURCE_ROOT"]))
-        accepted = json.loads((knowledge / "stm32c5/candidates/device-coverage-r2/accepted.json").read_bytes())
-        exempt = compose.load(knowledge / "stm32c5/imports/device-domains.json")["definition_rule"]["accepted_before"]
-        before = {card["id"]: card for card in accepted["implementations"] if card.get("component")}
+        earlier = earlier_graph()
+        exempt = compose.load(knowledge / "stm32c5/imports/device-domains.json")["definition_rule"]["exempt"]
+        before = {card["id"]: card for card in earlier["implementations"] if card.get("component")}
         now = {card["id"]: card for card in graph.value["implementations"] if card.get("component")}
-        # Only a card the accepted graph holds can be exempt, and its unit must not have changed since.
+        # Only a card the earlier graph holds can be exempt, and its unit must not have changed since.
         self.assertTrue(set(exempt) <= set(before))
         for name in exempt:
             self.assertEqual(now[name]["component"]["files"], before[name]["component"]["files"], name)

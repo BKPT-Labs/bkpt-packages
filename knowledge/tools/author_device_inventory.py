@@ -17,8 +17,8 @@ the name means is for a reviewed capability to say, not for this tool.
 
 Existing sources, evidence, edges, capabilities and implementations keep their
 values. An existing pin gains only the descriptor attributes it lacked, and the
-target gains one assumption. The output is a candidate: it needs an independent
-review before `bkpt-fw architecture build` will accept it.
+target gains one assumption. The output needs an independent review before it
+is merged, and `bkpt-fw architecture build` asks for the review record.
 
 Usage:
     python author_device_inventory.py --config CONFIG.json --source-root ROOT --out NEW.json
@@ -28,6 +28,7 @@ import hashlib
 import json
 import pathlib
 import re
+import subprocess
 import sys
 
 # A line that starts with one of these is a statement, never a declaration.
@@ -433,14 +434,31 @@ def interrupts(graph: Graph, config, sources):
     return len(external), sum(1 for handler, _ in slots if handler == "0"), len(slots)
 
 
+def base_layer(spec, folder: pathlib.Path) -> bytes:
+    """The bytes of the first layer a graph is generated from.
+
+    The tree holds one graph per chip, the generated one. The layer the
+    generators start from was written by hand before them and is kept in the
+    repository's history: it is read there by the identifier of its blob and
+    checked against the configured hash. A configuration may also name a
+    file."""
+    if "git_blob" in spec:
+        found = subprocess.run(["git", "-C", str(folder), "cat-file", "blob", spec["git_blob"]], capture_output=True)
+        if found.returncode != 0:
+            raise SystemExit("the base layer is not in this repository's history; a complete clone is needed")
+        data = found.stdout
+    else:
+        data = (folder / spec["path"]).read_bytes()
+    if sha256(data) != spec["sha256"]:
+        raise SystemExit("base graph differs from the configured hash")
+    return data
+
+
 def build(config_path: pathlib.Path, source_root: pathlib.Path):
     """Run the inventory stage and return (graph, sources by id, summary).
     A later authoring stage may keep extending the returned graph."""
     config = json.loads(config_path.read_text(encoding="utf-8"))
-    base_bytes = (config_path.parent / config["base"]["path"]).read_bytes()
-    if sha256(base_bytes) != config["base"]["sha256"]:
-        raise SystemExit("base graph differs from the configured hash")
-    return build_from(config, json.loads(base_bytes), source_root)
+    return build_from(config, json.loads(base_layer(config["base"], config_path.parent)), source_root)
 
 
 def build_from(config, base, source_root: pathlib.Path):
@@ -463,7 +481,7 @@ def build_from(config, base, source_root: pathlib.Path):
 
 
 def encoded(graph: Graph) -> bytes:
-    """The bytes a graph is published as, and the bytes its hash names."""
+    """The bytes a graph is written as, and the bytes its hash names."""
     return (json.dumps(graph.value, indent=2, ensure_ascii=False) + "\n").encode("utf-8")
 
 

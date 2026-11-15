@@ -1,7 +1,7 @@
 {
   "schema": "bkpt.knowledge-pack-source/1",
   "id": "stm32c5",
-  "revision": "3",
+  "revision": 3,
   "state": "development",
   "targets": [
     {
@@ -13,11 +13,11 @@
   ],
   "inputs": {
     "architecture": {
-      "path": "candidates/device-coverage-r7/accepted.json",
+      "path": "graph.json",
       "sha256": "817ca4113239937547c09f3baff6a755b9a838bc34922675768f128ecf9b968b"
     },
     "architecture_review": {
-      "path": "candidates/device-coverage-r7/accepted.review.json",
+      "path": "graph.review.json",
       "sha256": "f0acbcd83bfb29b5a6e2ae199092b8da852b454a80bc029b605070b84f81306f"
     },
     "devices": {
@@ -33,7 +33,7 @@
       "sha256": "7fef6ac733ccc13e3c02c3cbedf94ad69acfd0a7c0fb8f846519b77052aee194"
     }
   },
-  "source_inputs": "candidates/device-coverage-r7/source-inputs.json",
+  "source_inputs": "source-inputs.json",
   "installed_artifacts": {
     "knowledge": "knowledge.sqlite",
     "architecture": "capabilities.sqlite",
@@ -46,7 +46,7 @@
     "vendor_assets": "external"
   },
   "coverage": {
-    "accepted_profile_count": 23,
+    "capability_count": 23,
     "full_device": false,
     "research": "pending/index.json",
     "research_runtime_admitted": false
@@ -55,55 +55,10 @@
     "id": "c5-hal2-minimal",
     "sha256": "1ad793e28e0d712ba6ec6e9eca69594113958bd8061c06d34669c04483974e8e",
     "files": "external installation; includes generated vendor inputs",
-    "manifest": "candidates/device-coverage-r7/foundation-manifest.json"
+    "manifest": "foundation-manifest.json"
   },
   "provenance": {
     "firmware_source_git": "9791fa3cb49b9c6db78aa46e1f330dd71d54a742",
-    "review": "candidates/device-coverage-r7/accepted.review.json"
-  },
-  "candidates": [
-    "candidates/workflow-efficiency/candidate.json",
-    "candidates/device-coverage-r2/candidate.json",
-    "candidates/device-coverage-r7/candidate.json"
-  ],
-  "previous": [
-    {
-      "architecture": {
-        "path": "architecture/accepted.json",
-        "sha256": "e8c92d6edfeff13f3e95b59cefe96b010a851918982a45c3c4eb34fc43d6ab4f"
-      },
-      "architecture_review": {
-        "path": "architecture/accepted.review.json",
-        "sha256": "2fe7d9019da3e8c1a8127be5e973de8d65507e1a6be753de1499f4cecf918ac0"
-      },
-      "source_inputs": "source-inputs.json",
-      "foundation": {
-        "id": "c5-hal2-base",
-        "sha256": "984d149c42f73b44ff98d0da6164f804808811c8eed0c3824d1dfd10307629c2",
-        "files": "external installation; includes generated vendor inputs",
-        "manifest": "architecture/foundation-manifest.json"
-      },
-      "accepted_profile_count": 14,
-      "revision": "1"
-    },
-    {
-      "revision": "2",
-      "architecture": {
-        "path": "candidates/device-coverage-r2/accepted.json",
-        "sha256": "4a8426d041bafc47f32570c33e5de0b94e0f0560729202e15641536495ad97d6"
-      },
-      "architecture_review": {
-        "path": "candidates/device-coverage-r2/accepted.review.json",
-        "sha256": "01510ef932fb03bbecdddd49b23b3d4feac79d804c03a33a7c9e1b4392c5a9f2"
-      },
-      "source_inputs": "candidates/device-coverage-r2/source-inputs.json",
-      "foundation": {
-        "id": "c5-hal2-minimal",
-        "sha256": "1ad793e28e0d712ba6ec6e9eca69594113958bd8061c06d34669c04483974e8e",
-        "files": "external installation; includes generated vendor inputs",
-        "manifest": "candidates/device-coverage-r2/foundation-manifest.json"
-      },
-      "accepted_profile_count": 17
-    }
-  ]
+    "review": "graph.review.json"
+  }
 }

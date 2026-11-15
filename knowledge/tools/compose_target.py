@@ -19,8 +19,8 @@ original target, so every target is the same flat bundle the engine already
 solves. A board may restrict what is available and say what is connected; it
 cannot change what the silicon declares or waive what the foundation needs.
 
-A composed graph is a new candidate. Reviewed layers do not make a reviewed
-composition: the result needs its own review before it is accepted.
+Reviewed layers do not make a reviewed composition: a composed graph needs
+its own review before it is merged.
 
 Usage:
     python compose_target.py --recipe RECIPE.json --source-root ROOT --out NEW.json
@@ -432,11 +432,7 @@ def compose(recipe_path: pathlib.Path, source_root: pathlib.Path):
         raise SystemExit("a recipe names the board file of its target")
     inventory_config = load(folder / recipe["inventory"])
     config = load(folder / recipe["domains"])
-    base_path = (folder / recipe["inventory"]).parent / inventory_config["base"]["path"]
-    data = base_path.read_bytes()
-    if inventory.sha256(data) != inventory_config["base"]["sha256"]:
-        raise SystemExit("base graph differs from the configured hash")
-    base = json.loads(data)
+    base = json.loads(inventory.base_layer(inventory_config["base"], (folder / recipe["inventory"]).parent))
     retarget = None
     if "target" in recipe:
         retarget = Retarget(base, recipe, inventory_config, source_root)

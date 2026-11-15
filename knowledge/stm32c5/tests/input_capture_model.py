@@ -11,7 +11,7 @@ pinned template with test bindings, compiles it with a host C compiler next to
 input_capture_model.c, and lets that model delay the caller at every access to the timer.
 
 What is run:
-  replay_codex, replay_claude   the two traces of the round 6 follow-up reviews, each
+  replay_codex, replay_claude   the two traces of the follow-up reviews, each
                                 with its delay tried at every boundary around its moment;
   sweep                         one delay of 14 lengths at every boundary around the
                                 first four marks of two signals;
