@@ -86,9 +86,11 @@ class Briefs(unittest.TestCase):
         with self.assertRaisesRegex(SystemExit, "more than one brief"):
             subject.run(graph(), {}, duplicate)
         held = graph()
-        held.value["capabilities"][0]["brief"] = "Old"
-        with self.assertRaisesRegex(SystemExit, "already carries a brief"):
+        held.value["capabilities"][1]["brief"] = "Old"
+        with self.assertRaisesRegex(SystemExit, "already carry a brief"):
             subject.run(held, {}, config())
+        # Refused before any record changed: the first capability got no brief.
+        self.assertNotIn("brief", held.value["capabilities"][0])
         stray = config()
         stray["briefs"][0]["note"] = "x"
         with self.assertRaisesRegex(SystemExit, "nothing else"):
@@ -105,6 +107,10 @@ class Briefs(unittest.TestCase):
             subject.run(graph(), {}, listed)
         with self.assertRaisesRegex(SystemExit, "a list of briefs"):
             subject.run(graph(), {}, {"schema": 1, "graph_schema": 6})
+        # A configuration whose top level is not an object, even one made of allowed key names.
+        for top in (["schema"], ["schema", "briefs"], [], "schema", 1, None):
+            with self.assertRaisesRegex(SystemExit, "a list of briefs", msg=repr(top)):
+                subject.run(graph(), {}, top)
 
     def test_without_graph_schema_a_schema_6_graph_keeps_its_bounds(self):
         subject.run(graph(6), {}, {key: value for key, value in config().items() if key != "graph_schema"})

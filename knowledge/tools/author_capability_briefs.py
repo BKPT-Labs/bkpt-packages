@@ -49,7 +49,8 @@ def check(capability, brief):
 def run(graph, summary, config, dropped=()):
     """Write the briefs into the graph's capabilities. `dropped` names the
     capabilities the recipe removed for its package."""
-    if set(config) - {"schema", "graph_schema", "briefs"} or config.get("schema") != 1 or not isinstance(config.get("briefs"), list):
+    if (not isinstance(config, dict) or set(config) - {"schema", "graph_schema", "briefs"} or config.get("schema") != 1
+            or not isinstance(config.get("briefs"), list)):
         raise SystemExit("a briefs configuration has schema 1, a list of briefs and nothing but graph_schema besides")
     # Without graph_schema the graph keeps its schema and its bounds, as in the clock stage.
     inventory.use_schema(graph.value, config.get("graph_schema", graph.value["schema"]))
@@ -71,10 +72,12 @@ def run(graph, summary, config, dropped=()):
     missing = sorted(set(held) - set(briefs))
     if missing:
         raise SystemExit(f"capabilities without a brief: {missing}")
+    carrying = [capability["id"] for capability in graph.value["capabilities"] if "brief" in capability]
+    if carrying:
+        # Checked before any record changes, so a refused run writes no brief.
+        raise SystemExit(f"{carrying}: already carry a brief; this stage writes every brief")
     written = []
     for capability in graph.value["capabilities"]:
-        if "brief" in capability:
-            raise SystemExit(f"{capability['id']}: already carries a brief; this stage writes every brief")
         # The brief stands right after the description, where a reader of the
         # graph looks for it. The record is changed in place, not replaced.
         ordered = {}
