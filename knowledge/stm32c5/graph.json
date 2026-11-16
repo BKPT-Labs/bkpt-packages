@@ -56006,7 +56006,7 @@
       "id": "uart_transfer_operation",
       "target": "NUCLEO-C542RC",
       "description": "Managed serialized UART DMA on USART1, USART2, UART4 or UART5, with TX and RX on any allowed routed pad: finite TX/RX or explicitly indefinite fixed-length RX. Six baud choices; exclusive callbacks/channels; bounded terminal cancellation and physical buffer release.",
-      "brief": "Managed serialized UART DMA, TX or RX, on USART1, USART2, UART4 or UART5; six baud choices",
+      "brief": "Managed UART DMA, TX and RX one at a time, on USART1, USART2, UART4 or UART5, 6 baud rates",
       "parameters": {
         "baud_rate": {
           "type": "choice",
@@ -56444,7 +56444,7 @@
       "id": "pwm_output",
       "target": "NUCLEO-C542RC",
       "description": "One edge-aligned PWM output on a covered channel timer and a pad one of its channels is routed to. The frequency is one of the exact divisions of the pinned 144MHz timer clock; duty is set at run time in thousandths of the period. Generated component with init, start, set duty and stop. The whole timer belongs to the output.",
-      "brief": "Generated edge-aligned PWM on a channel timer pad, 18 rates 50 Hz to 100 kHz, run-time duty",
+      "brief": "Generated edge-aligned PWM on a channel timer pad, 18 rates 50 Hz-100 kHz, run-time duty",
       "parameters": {
         "frequency_hz": {
           "type": "choice",

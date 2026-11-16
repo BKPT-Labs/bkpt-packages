@@ -99,6 +99,12 @@ class Briefs(unittest.TestCase):
         named["briefs"][0]["capability"] = 7
         with self.assertRaisesRegex(SystemExit, "nothing else"):
             subject.run(graph(), {}, named)
+        listed = config()
+        listed["briefs"][0] = ["one", "First line"]
+        with self.assertRaisesRegex(SystemExit, "nothing else"):
+            subject.run(graph(), {}, listed)
+        with self.assertRaisesRegex(SystemExit, "a list of briefs"):
+            subject.run(graph(), {}, {"schema": 1, "graph_schema": 6})
 
     def test_without_graph_schema_a_schema_6_graph_keeps_its_bounds(self):
         subject.run(graph(6), {}, {key: value for key, value in config().items() if key != "graph_schema"})

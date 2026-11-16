@@ -52,7 +52,7 @@
     },
     {
       "capability": "uart_transfer_operation",
-      "brief": "Managed serialized UART DMA, TX or RX, on USART1, USART2, UART4 or UART5; six baud choices"
+      "brief": "Managed UART DMA, TX and RX one at a time, on USART1, USART2, UART4 or UART5, 6 baud rates"
     },
     {
       "capability": "gpio_input_interrupt",
@@ -68,7 +68,7 @@
     },
     {
       "capability": "pwm_output",
-      "brief": "Generated edge-aligned PWM on a channel timer pad, 18 rates 50 Hz to 100 kHz, run-time duty"
+      "brief": "Generated edge-aligned PWM on a channel timer pad, 18 rates 50 Hz-100 kHz, run-time duty"
     },
     {
       "capability": "analog_reading",

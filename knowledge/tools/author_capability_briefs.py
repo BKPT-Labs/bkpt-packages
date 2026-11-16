@@ -49,15 +49,15 @@ def check(capability, brief):
 def run(graph, summary, config, dropped=()):
     """Write the briefs into the graph's capabilities. `dropped` names the
     capabilities the recipe removed for its package."""
-    if set(config) - {"schema", "graph_schema", "briefs"} or config.get("schema") != 1:
-        raise SystemExit("a briefs configuration has schema 1 and only graph_schema and briefs")
+    if set(config) - {"schema", "graph_schema", "briefs"} or config.get("schema") != 1 or not isinstance(config.get("briefs"), list):
+        raise SystemExit("a briefs configuration has schema 1, a list of briefs and nothing but graph_schema besides")
     # Without graph_schema the graph keeps its schema and its bounds, as in the clock stage.
     inventory.use_schema(graph.value, config.get("graph_schema", graph.value["schema"]))
     if graph.value["schema"] < BRIEF_SCHEMA:
         raise SystemExit(f"a brief needs graph schema {BRIEF_SCHEMA}; this graph is schema {graph.value['schema']}")
     briefs = {}
     for entry in config["briefs"]:
-        if set(entry) != {"capability", "brief"} or not isinstance(entry["capability"], str):
+        if not isinstance(entry, dict) or set(entry) != {"capability", "brief"} or not isinstance(entry["capability"], str):
             raise SystemExit("a brief entry names its capability and its brief, nothing else")
         name = entry["capability"]
         if name in briefs:
