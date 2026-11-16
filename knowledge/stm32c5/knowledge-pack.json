@@ -1,7 +1,7 @@
 {
   "schema": "bkpt.knowledge-pack-source/1",
   "id": "stm32c5",
-  "revision": 4,
+  "revision": 5,
   "state": "development",
   "targets": [
     {
@@ -14,7 +14,7 @@
   "inputs": {
     "architecture": {
       "path": "graph.json",
-      "sha256": "8d52bfb3d3ccb60b03a49308441c305363cf08f3498a39eb68fbf17fbdf2de9b"
+      "sha256": "b5ef00241c8527b6bf425fc249bcc8d43fe3dd650369302bc23620deea194004"
     },
     "architecture_review": {
       "path": "graph.review.json",

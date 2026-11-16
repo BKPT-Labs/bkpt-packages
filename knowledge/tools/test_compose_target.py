@@ -552,9 +552,9 @@ class Boards(unittest.TestCase):
     # Every checked-in recipe and the graph it composes to. A change of these
     # bytes is a change of the graph on main and is made here on purpose.
     COMPOSED = {
-        "stm32c5/targets/nucleo-c542rc.json": "8d52bfb3d3ccb60b03a49308441c305363cf08f3498a39eb68fbf17fbdf2de9b",
-        "stm32c5/targets/stm32c542cc-lqfp48-declared.json": "f1b7bb0394772535b2a07a9aea4db298dcaa08567b332b30f1fb65e8f7ff774a",
-        "stm32c5/targets/stm32c542kc-lqfp32-declared.json": "5d8a83c555e2f130aa019806d6a82c32efb41e81bd7c835bb8320130890248d0",
+        "stm32c5/targets/nucleo-c542rc.json": "b5ef00241c8527b6bf425fc249bcc8d43fe3dd650369302bc23620deea194004",
+        "stm32c5/targets/stm32c542cc-lqfp48-declared.json": "bc092d47e440b14df8268ec1c3806ea13932a73c8c4159fb0868519727cd6438",
+        "stm32c5/targets/stm32c542kc-lqfp32-declared.json": "4487f1e9d65cf963a13fb3d9f5ca171fbd22dd24eea29feae9ee73d9b18c62d9",
     }
 
     @unittest.skipUnless(os.environ.get("BKPT_KNOWLEDGE_SOURCE_ROOT"), "needs the pinned sources: set BKPT_KNOWLEDGE_SOURCE_ROOT")
@@ -580,7 +580,8 @@ class Boards(unittest.TestCase):
         widened = [(capability["id"], role["id"]) for capability in graph.value["capabilities"]
                    for role in capability["roles"] if "earlier" in role]
         self.assertEqual(len(widened), 4)
-        self.assertEqual(graph.value["schema"], 5)
+        # Schema 6: the recipe names the briefs, and schema 6 admits a capability's brief.
+        self.assertEqual(graph.value["schema"], 6)
         self.assertTrue(all(source.get("scope") in ("device", "board", "sdk", "policy", "implementation")
                             for source in graph.value["sources"]))
         self.assertEqual({source["id"] for source in graph.value["sources"] if source["scope"] == "board"}, {"board", "board-netlist"})

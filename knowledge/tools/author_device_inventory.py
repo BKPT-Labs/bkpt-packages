@@ -42,6 +42,8 @@ STATEMENT_KEYWORDS = "return|if|else|while|for|switch|case|do|goto|sizeof|typede
 SCHEMA_LIMITS = {
     4: {"sources": 128, "citations": 64, "assumptions": 16, "choices": 128, "excerpt_lines": 400},
     5: {"sources": 1024, "citations": 128, "assumptions": 64, "choices": 256, "excerpt_lines": 1024},
+    # Schema 6 admits a capability's brief and keeps the bounds of schema 5.
+    6: {"sources": 1024, "citations": 128, "assumptions": 64, "choices": 256, "excerpt_lines": 1024},
 }
 LIMITS = dict(SCHEMA_LIMITS[4])
 

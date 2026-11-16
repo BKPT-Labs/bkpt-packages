@@ -1,5 +1,5 @@
 {
-  "schema": 5,
+  "schema": 6,
   "id": "stm32c5-device-v1",
   "sources": [
     {
@@ -54331,6 +54331,7 @@
       "id": "periodic_interrupt",
       "target": "NUCLEO-C542RC",
       "description": "Resource-bound TIM6/7 periodic update component with exact nominal frequency choices in the pinned144MHz profile; independent per-handle callbacks and start/stop/IRQ wiring.",
+      "brief": "Generated callback at an exact rate of 1 to 1000 Hz on basic timer TIM6 or TIM7",
       "parameters": {
         "frequency_hz": {
           "type": "choice",
@@ -54450,6 +54451,7 @@
       "id": "gpio_output",
       "target": "NUCLEO-C542RC",
       "description": "Allocate a GPIO output on any pad eligible for general allocation. The application initializes the selected pad; external load and device-select behavior is an application requirement.",
+      "brief": "Digital output on any pad eligible for general allocation; the application initializes it",
       "parameters": {
         "pin": {
           "type": "choice",
@@ -54527,6 +54529,7 @@
       "id": "serial_endpoint",
       "target": "NUCLEO-C542RC",
       "description": "Select USART2 polling1152008N1 endpoint and PA2/PA3 AF7 routes. Shared integration initializes the handle before application use.",
+      "brief": "Polled USART2 at 115200 8N1 on PA2/PA3, using the handle the shared init sets up",
       "parameters": {
         "baud_rate": {
           "type": "integer",
@@ -54599,6 +54602,7 @@
       "id": "dma_memory_copy",
       "target": "NUCLEO-C542RC",
       "description": "Finite memory-to-memory DMA with source-backed width/length rules and IRQ/error/abort integration; arbitrary pointers and protection state remain application obligations.",
+      "brief": "Raw memory-to-memory DMA, 1, 2 or 4-byte width, with IRQ, error and abort wiring",
       "parameters": {
         "width_bytes": {
           "type": "choice",
@@ -54668,6 +54672,7 @@
       "id": "uart_dma_tx",
       "target": "NUCLEO-C542RC",
       "description": "Finite USART2 tx DMA; each active direction owns one request/channel/IRQ. Uses existing1152008N1 pins and peripheral IRQ. RX/TX may run concurrently only in duplex profile.",
+      "brief": "Raw USART2 DMA transmit at 115200 on PA2/PA3; RX at the same time needs duplex",
       "parameters": {
         "baud_rate": {
           "type": "choice",
@@ -54794,6 +54799,7 @@
       "id": "uart_dma_rx",
       "target": "NUCLEO-C542RC",
       "description": "Finite USART2 rx DMA; each active direction owns one request/channel/IRQ. Uses existing1152008N1 pins and peripheral IRQ. RX/TX may run concurrently only in duplex profile.",
+      "brief": "Raw USART2 DMA receive at 115200 on PA2/PA3; TX at the same time needs duplex",
       "parameters": {
         "baud_rate": {
           "type": "choice",
@@ -54920,6 +54926,7 @@
       "id": "uart_dma_duplex",
       "target": "NUCLEO-C542RC",
       "description": "Finite USART2 duplex DMA; each active direction owns one request/channel/IRQ. Uses existing1152008N1 pins and peripheral IRQ. RX/TX may run concurrently only in duplex profile.",
+      "brief": "Raw USART2 DMA transmit and receive at 115200 on PA2/PA3, both may run at once",
       "parameters": {
         "baud_rate": {
           "type": "choice",
@@ -55084,6 +55091,7 @@
       "id": "i2c_controller_dma",
       "target": "NUCLEO-C542RC",
       "description": "I2C controller TX/RX DMA on a covered instance, with SCL and SDA on any allowed routed pad the pinout descriptor declares Fm+ capable, and two request/channel pairs and event/error IRQs; serialized bus operations at the captured1MHz timing, not an arbitrary-rate solver.",
+      "brief": "Raw I2C controller DMA at 1 MHz, 7-bit address, SCL and SDA on Fm+ capable pads",
       "parameters": {
         "bus_hz": {
           "type": "choice",
@@ -55304,6 +55312,7 @@
       "id": "spi_controller_dma",
       "target": "NUCLEO-C542RC",
       "description": "SPI1 full-duplex8bit mode0 DMA with both request/channel pairs and EOT IRQ. Captured9MHz/internal-NSS profile; external slave select/protocol must be separately allocated.",
+      "brief": "Raw SPI1 full-duplex DMA, mode 0, 8-bit, 9 MHz on PA5/PA6/PA7; chip select is separate",
       "parameters": {
         "serial_clock_hz": {
           "type": "choice",
@@ -55479,6 +55488,7 @@
       "id": "dma_memory_copy_operation",
       "target": "NUCLEO-C542RC",
       "description": "Managed finite operation: private callback/IRQ ownership, checked start, nonblocking poll/cancel, observed deadlines and a register read-back check that the DMA channel was released. Finite memory-to-memory DMA with source-backed width/length rules and IRQ/error/abort integration; arbitrary pointers and protection state remain application obligations.",
+      "brief": "Managed memory-to-memory DMA: checked start, nonblocking poll and cancel, deadlines",
       "parameters": {
         "width_bytes": {
           "type": "choice",
@@ -55549,6 +55559,7 @@
       "id": "i2c_controller_operation",
       "target": "NUCLEO-C542RC",
       "description": "Managed finite operation: private callback/IRQ ownership, checked start, nonblocking poll/cancel, observed deadlines and a register read-back check that the DMA channels were released. I2C controller TX/RX DMA on a covered instance, with SCL and SDA on any allowed routed pad the pinout descriptor declares Fm+ capable, and two request/channel pairs and event/error IRQs; serialized bus operations at the captured1MHz timing, not an arbitrary-rate solver.",
+      "brief": "Managed I2C controller DMA at 1 MHz on Fm+ pads, up to 255 bytes, poll and cancel",
       "parameters": {
         "bus_hz": {
           "type": "choice",
@@ -55770,6 +55781,7 @@
       "id": "spi_transfer_operation",
       "target": "NUCLEO-C542RC",
       "description": "Managed finite full-duplex DMA on SPI1 or SPI2 with modes0..3 and five nominal rates <=9MHz; SCK, MISO and MOSI on any eligible routed pad. Private callbacks/IRQs, staged nonblocking stop, a register read-back check before buffers are released; external CS remains caller-owned.",
+      "brief": "Managed SPI1 or SPI2 full-duplex DMA, modes 0 to 3, 562.5 kHz to 9 MHz, any eligible pad",
       "parameters": {
         "serial_clock_hz": {
           "type": "choice",
@@ -55994,6 +56006,7 @@
       "id": "uart_transfer_operation",
       "target": "NUCLEO-C542RC",
       "description": "Managed serialized UART DMA on USART1, USART2, UART4 or UART5, with TX and RX on any allowed routed pad: finite TX/RX or explicitly indefinite fixed-length RX. Six baud choices; exclusive callbacks/channels; bounded terminal cancellation and physical buffer release.",
+      "brief": "Managed UART DMA on USART1, USART2, UART4 or UART5, 9600 to 230400 baud, any allowed pad",
       "parameters": {
         "baud_rate": {
           "type": "choice",
@@ -56198,6 +56211,7 @@
       "id": "gpio_input_interrupt",
       "target": "NUCLEO-C542RC",
       "description": "Exclusive GPIO input with a dedicated external-line CPU interrupt on any pad eligible for general allocation, or on a pad the board names for this use; explicit edge and pull, bounded callback, start, stop and restart. One external line serves the same pad index on every port.",
+      "brief": "Input pad with its own EXTI interrupt, chosen edge and pull, callback, start, stop",
       "parameters": {
         "pin": {
           "type": "choice",
@@ -56324,6 +56338,7 @@
       "id": "timer_channel_pin",
       "target": "NUCLEO-C542RC",
       "description": "Allocate one timer of TIM1, TIM2, TIM8, TIM12 or TIM15 and a pad one of its channels is routed to, for PWM, output compare or input capture written by the application. Allocation only: no code is generated and the timer is not shared.",
+      "brief": "TIM1, TIM2, TIM8, TIM12 or TIM15 with one channel pad; allocation only, no code",
       "parameters": {},
       "roles": [
         {
@@ -56375,6 +56390,7 @@
       "id": "analog_input_pin",
       "target": "NUCLEO-C542RC",
       "description": "Allocate a pad routed to an external input of ADC1 for analog conversion written by the application. Allocation only: no code is generated; the converter is shared, one allocation per offered input. Not to be combined with analog_reading on the same converter. Pads that need the SBS pin remap are not offered.",
+      "brief": "ADC1 input pad for conversion the application writes; allocation only, no code",
       "parameters": {},
       "roles": [
         {
@@ -56428,6 +56444,7 @@
       "id": "pwm_output",
       "target": "NUCLEO-C542RC",
       "description": "One edge-aligned PWM output on a covered channel timer and a pad one of its channels is routed to. The frequency is one of the exact divisions of the pinned 144MHz timer clock; duty is set at run time in thousandths of the period. Generated component with init, start, set duty and stop. The whole timer belongs to the output.",
+      "brief": "Generated edge-aligned PWM on a channel timer pad, 50 Hz to 100 kHz, duty at run time",
       "parameters": {
         "frequency_hz": {
           "type": "choice",
@@ -56527,6 +56544,7 @@
       "id": "analog_reading",
       "target": "NUCLEO-C542RC",
       "description": "Read one analog input of a covered converter on request: a generated unit per input with init and a blocking read that returns the 12-bit count, the pad voltage as a fraction of VREF+. The units share the converter and own its configuration, so every offered input may have one unit, and no analog input allocation may be used on the same converter beside them. Pads that need the SBS pin remap are not offered.",
+      "brief": "Generated blocking 12-bit read of one ADC input pad as a fraction of VREF+",
       "parameters": {},
       "roles": [
         {
@@ -56617,6 +56635,7 @@
       "id": "input_capture",
       "target": "NUCLEO-C542RC",
       "description": "Measure the period and high time of a digital signal on a pad one channel of a covered timer is routed to: a generated unit with init and a blocking, polled measurement in microseconds with a time limit counted on the timer. The whole timer belongs to the measurement.",
+      "brief": "Generated blocking measure of period and high time in microseconds on a channel timer pad",
       "parameters": {
         "pull": {
           "type": "choice",
@@ -56705,6 +56724,7 @@
       "id": "periodic_interrupt_channel_timer",
       "target": "NUCLEO-C542RC",
       "description": "Periodic update interrupt on a timer the timer channel allocation covers, with the generated component, exact rate choices and rules of periodic_interrupt on TIM6 and TIM7, unchanged. It takes the whole timer and its update vector and uses no channel or pad; use it when the basic timers are taken or more periodic interrupts are needed.",
+      "brief": "The TIM6/TIM7 exact-rate callback unit on a whole TIM1, TIM2, TIM8, TIM12 or TIM15",
       "parameters": {
         "frequency_hz": {
           "type": "choice",
@@ -56859,6 +56879,7 @@
       "id": "crc32_checksum",
       "target": "NUCLEO-C542RC",
       "description": "CRC-32 (ISO 3309, zlib) of a buffer of bytes on the hardware CRC unit: a generated unit with init and a one-call computation. The whole CRC unit belongs to it.",
+      "brief": "Generated CRC-32 (zlib) of a byte buffer in one call on the hardware CRC unit",
       "parameters": {},
       "roles": [
         {
@@ -56896,6 +56917,7 @@
       "id": "independent_watchdog",
       "target": "NUCLEO-C542RC",
       "description": "Independent watchdog with a chosen reset time: a generated unit that prepares the watchdog, and start, refresh, the time actually set and a state for the application. Once started it resets the microcontroller unless refreshed in time and cannot be stopped; a start that fails may leave it running.",
+      "brief": "Generated watchdog with a 100 ms to 8 s reset time; cannot be stopped once started",
       "parameters": {
         "timeout_ms": {
           "type": "choice",
@@ -56948,6 +56970,7 @@
       "id": "gpio_input",
       "target": "NUCLEO-C542RC",
       "description": "Allocate a digital input on any pad eligible for general allocation. No code is generated: the application initializes the pad as an input with the pull it needs and reads it through the SDK.",
+      "brief": "Digital input on any pad eligible for general allocation; allocation only, no code",
       "parameters": {
         "pin": {
           "type": "choice",

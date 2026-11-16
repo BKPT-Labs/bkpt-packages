@@ -7,6 +7,7 @@ A recipe names what a target is made of:
 * the chip family's inventory and domains configuration;
 * the part and package of this target, with that package's pinout descriptor;
 * optionally the chip family's clocks configuration, for the clock stage;
+* optionally the chip family's briefs configuration: one line per capability;
 * the board, as its own file: derived from a netlist for an official board, or
   declared by its owner for any other. The family configuration says nothing
   about a board, so the target the reviewed graph was written for is a recipe
@@ -33,6 +34,7 @@ import pathlib
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import author_capability_briefs as briefs  # noqa: E402
 import author_device_clocks as clocks  # noqa: E402
 import author_device_domains as domains  # noqa: E402
 import author_device_inventory as inventory  # noqa: E402
@@ -463,6 +465,11 @@ def compose(recipe_path: pathlib.Path, source_root: pathlib.Path):
         clock_config = load(folder / recipe["clocks"])
         clock_config["composed"] = retarget is not None
         clocks.run(graph, sources, summary, inventory_config, clock_config, source_root)
+    if "briefs" in recipe:
+        # One line per capability for the index, after every stage that may
+        # add a capability, so that none is left without its line.
+        dropped = retarget.report["removed_capabilities"] if retarget else ()
+        briefs.run(graph, summary, load(folder / recipe["briefs"]), dropped)
     summary["buildable"] = buildable
     if retarget:
         retarget.settle()

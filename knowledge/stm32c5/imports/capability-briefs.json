@@ -1,0 +1,98 @@
+{
+  "schema": 1,
+  "graph_schema": 6,
+  "briefs": [
+    {
+      "capability": "periodic_interrupt",
+      "brief": "Generated callback at an exact rate of 1 to 1000 Hz on basic timer TIM6 or TIM7"
+    },
+    {
+      "capability": "gpio_output",
+      "brief": "Digital output on any pad eligible for general allocation; the application initializes it"
+    },
+    {
+      "capability": "serial_endpoint",
+      "brief": "Polled USART2 at 115200 8N1 on PA2/PA3, using the handle the shared init sets up"
+    },
+    {
+      "capability": "dma_memory_copy",
+      "brief": "Raw memory-to-memory DMA, 1, 2 or 4-byte width, with IRQ, error and abort wiring"
+    },
+    {
+      "capability": "uart_dma_tx",
+      "brief": "Raw USART2 DMA transmit at 115200 on PA2/PA3; RX at the same time needs duplex"
+    },
+    {
+      "capability": "uart_dma_rx",
+      "brief": "Raw USART2 DMA receive at 115200 on PA2/PA3; TX at the same time needs duplex"
+    },
+    {
+      "capability": "uart_dma_duplex",
+      "brief": "Raw USART2 DMA transmit and receive at 115200 on PA2/PA3, both may run at once"
+    },
+    {
+      "capability": "i2c_controller_dma",
+      "brief": "Raw I2C controller DMA at 1 MHz, 7-bit address, SCL and SDA on Fm+ capable pads"
+    },
+    {
+      "capability": "spi_controller_dma",
+      "brief": "Raw SPI1 full-duplex DMA, mode 0, 8-bit, 9 MHz on PA5/PA6/PA7; chip select is separate"
+    },
+    {
+      "capability": "dma_memory_copy_operation",
+      "brief": "Managed memory-to-memory DMA: checked start, nonblocking poll and cancel, deadlines"
+    },
+    {
+      "capability": "i2c_controller_operation",
+      "brief": "Managed I2C controller DMA at 1 MHz on Fm+ pads, up to 255 bytes, poll and cancel"
+    },
+    {
+      "capability": "spi_transfer_operation",
+      "brief": "Managed SPI1 or SPI2 full-duplex DMA, modes 0 to 3, 562.5 kHz to 9 MHz, any eligible pad"
+    },
+    {
+      "capability": "uart_transfer_operation",
+      "brief": "Managed UART DMA on USART1, USART2, UART4 or UART5, 9600 to 230400 baud, any allowed pad"
+    },
+    {
+      "capability": "gpio_input_interrupt",
+      "brief": "Input pad with its own EXTI interrupt, chosen edge and pull, callback, start, stop"
+    },
+    {
+      "capability": "timer_channel_pin",
+      "brief": "TIM1, TIM2, TIM8, TIM12 or TIM15 with one channel pad; allocation only, no code"
+    },
+    {
+      "capability": "analog_input_pin",
+      "brief": "ADC1 input pad for conversion the application writes; allocation only, no code"
+    },
+    {
+      "capability": "pwm_output",
+      "brief": "Generated edge-aligned PWM on a channel timer pad, 50 Hz to 100 kHz, duty at run time"
+    },
+    {
+      "capability": "analog_reading",
+      "brief": "Generated blocking 12-bit read of one ADC input pad as a fraction of VREF+"
+    },
+    {
+      "capability": "input_capture",
+      "brief": "Generated blocking measure of period and high time in microseconds on a channel timer pad"
+    },
+    {
+      "capability": "periodic_interrupt_channel_timer",
+      "brief": "The TIM6/TIM7 exact-rate callback unit on a whole TIM1, TIM2, TIM8, TIM12 or TIM15"
+    },
+    {
+      "capability": "crc32_checksum",
+      "brief": "Generated CRC-32 (zlib) of a byte buffer in one call on the hardware CRC unit"
+    },
+    {
+      "capability": "independent_watchdog",
+      "brief": "Generated watchdog with a 100 ms to 8 s reset time; cannot be stopped once started"
+    },
+    {
+      "capability": "gpio_input",
+      "brief": "Digital input on any pad eligible for general allocation; allocation only, no code"
+    }
+  ]
+}

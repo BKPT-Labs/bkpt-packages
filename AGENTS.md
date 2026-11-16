@@ -36,6 +36,9 @@ result with `package_graph.py`, and run the tool tests with
 the graph cites is never edited or renamed: a changed text is a new file.
 `graph.review.json` binds the graph's bytes because the firmware tool's
 catalog build asks for it.
+Every capability carries a `brief` (graph schema 6), authored in
+`imports/capability-briefs.json`; a capability is added together with its
+brief, or the briefs stage refuses the graph.
 
 ## Recorder publication
 

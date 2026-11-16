@@ -860,7 +860,7 @@ class Internal(unittest.TestCase):
         self.assertEqual((graph["schema"], inventory.LIMITS["sources"], inventory.LIMITS["citations"]), (5, 1024, 128))
         inventory.use_schema({"schema": 4}, None)
         self.assertEqual((inventory.LIMITS["sources"], inventory.LIMITS["citations"]), (128, 64))
-        for wanted in (3, 6):
+        for wanted in (3, 7):
             with self.assertRaises(SystemExit):
                 inventory.use_schema({"schema": 4}, wanted)
         with self.assertRaises(SystemExit):

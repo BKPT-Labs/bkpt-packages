@@ -101,11 +101,12 @@ the lines it came from.
 | `author_device_inventory.py` | Transcribes pins, signal routes and interrupts from the manufacturer's pinout descriptor, device header and vector table. An inventory records what is declared, not what is usable |
 | `author_device_domains.py` | Decides what a capability may use: allocation rules from the board file, instances checked against the device description, DMA request lines checked against the reference manual and the SDK, and the capabilities that are widened or added. It has no command line: `compose_target.py` runs it for the board a recipe names |
 | `author_device_clocks.py` | Records the clock tree from the manufacturer's clock descriptor, the clock functions the SDK compiles for the part, and one clock profile with the frequency of every clock the captured configuration determines. It adds records and citations only; `compose_target.py` runs it for a recipe that names a clocks configuration, and its own command line runs it on a graph that does not hold its records yet |
+| `author_capability_briefs.py` | Writes each capability's brief, one short authored line from `imports/capability-briefs.json`, and raises the graph to schema 6. It refuses a capability without a brief, a brief for a capability the graph does not hold, and a brief outside 1 to 96 bytes of printable ASCII without a leading or trailing space. `compose_target.py` runs it last for a recipe that names a briefs configuration |
 | `compose_target.py` | Builds one target from layers that vary independently: the reviewed graph, the part and its package descriptor, and the board as its own file (from a netlist, or declared by its owner). Facts tied to the old part, package or board are relocated, replaced or dropped by a decision the recipe states |
 | `target_support.py` | Gives a composed target what it needs besides its graph: a project foundation derived from the reviewed base under the identity of its own part and board, and an entry for the board in the knowledge corpus. Both come from the recipe; the foundation's files are the base's, checked by hash while they are copied |
 | `descriptor.py` | Reads a manufacturer JSON descriptor while keeping the lines of every value, so a derived record can cite them |
 | `package_graph.py` | Writes a generated graph into a package as its `graph.json`, with the list of every source it pins, and updates the manifest. BKPT-authored sources are copied in; manufacturer sources are listed by hash only |
-| `test_author_device.py`, `test_author_clocks.py`, `test_compose_target.py`, `test_package_graph.py` | Checks for the tools on small synthetic sources |
+| `test_author_device.py`, `test_author_clocks.py`, `test_author_briefs.py`, `test_compose_target.py`, `test_package_graph.py` | Checks for the tools on small synthetic sources |
 
 A capability covers a peripheral class, not a list of instance names. A class is a
 peripheral type and IP version as the manufacturer's peripherals descriptor names
@@ -190,7 +191,17 @@ and the linker keeps once.
 A family configuration may ask for a later graph schema with `graph_schema`.
 The bounds the firmware tool puts on a graph are mirrored in one table per
 schema in `author_device_inventory.py` and set for one run; the STM32C5 family
-asks for schema 5, because its graph pins more than 128 sources.
+asks for schema 5, because its graph pins more than 128 sources, and the
+briefs stage raises it to schema 6.
+
+In schema 6 a capability carries a `brief`: one line that, with the
+capability's ID, is the row an agent reads in the index of a chip's
+capabilities before it reads the whole input contract of the ones it uses.
+It says what the capability gives the application and tells siblings apart,
+and states nothing its description, parameters and roles do not. Schema 6 has
+the bounds of schema 5, and solving does not read a brief, so every request
+keeps its plan. A new capability is added together with its line in
+`stm32c5/imports/capability-briefs.json`; the stage refuses a graph without it.
 
 In schema 5 a role can state the domain an earlier revision gave it. A profile
 that widens roles of an earlier graph carries `earlier_through` with that
@@ -246,12 +257,13 @@ allocated, lives in that policy text and is cited as policy, never as a
 manufacturer statement.
 
 `stm32c5/graph.json` is the graph for the STM32C542 on the NUCLEO-C542RC:
-23 capability profiles at pack revision 4, written in graph schema 5 under
+23 capability profiles at pack revision 5, written in graph schema 6 under
 policy version 9 and clock policy version 5. `graph.review.json` names the
 exact bytes its reviews passed, and `inputs.architecture` in the manifest
 names the graph with its hash; the tool tests fail when the two disagree.
 The graphs of revision 1 (14 profiles), revision 2 (17 profiles) and
-revision 3 (23 profiles, no clock records) are in the repository's history. The pack revision is a plain count: a role's
+revision 3 (23 profiles, no clock records) and revision 4 (clock records, no
+briefs) are in the repository's history. The pack revision is a plain count: a role's
 `earlier` domain names the last revision that gave it that domain.
 
 On top of the revision 2 graph it adds:

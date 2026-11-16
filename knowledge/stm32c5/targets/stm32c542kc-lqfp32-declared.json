@@ -4,6 +4,7 @@
   "inventory": "../imports/device-inventory.json",
   "domains": "../imports/device-domains.json",
   "clocks": "../imports/device-clocks.json",
+  "briefs": "../imports/capability-briefs.json",
   "board": "../boards/declared-stm32c542kc-lqfp32.json",
   "target": {
     "id": "STM32C542KC-LQFP32",
