@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "state": "resumed_review_items_closed_unpublished_candidates_lane_idle",
+  "state": "resumed_review_items_closed_not_in_graph_lane_idle",
   "runtime_admission": false,
   "full_device_coverage": false,
   "original_checkpoint_sha256": "f03e98f2621431af7542bc238e4fc3abc49382cae1fbaf7bc60adeba16e0d405",
@@ -26,7 +26,7 @@
       "previous_original_sha256": "544322016b5455b5c3722ceedb411a5de8e63881399e3a00466b9220090922cb",
       "sources": 16,
       "excerpts": 196,
-      "review_state": "bounded_source_review_completed_unpublished_candidate",
+      "review_state": "bounded_source_review_completed_not_in_graph",
       "closure": "Corrections from usart-sdk-review applied; fresh Claude reviews (usart-corrections-review, then usart-final-review with verifier run) ended ACCEPT WITH MINOR CORRECTIONS, those corrections applied; independent Codex regression check on the final bytes found none after one dropped statement was restored. Bounded source review only. No operational qualification; SDK findings are source-derived and conditional, not hardware observations.",
       "review_limits": [
         "Full smartcard transfer/IRQ/DMA/retry/TCBGT lifecycle not reviewed (only Init/SetConfig and LL configuration).",
@@ -43,7 +43,7 @@
       "previous_original_sha256": "d27569fcf4eaf2d8284a1d841f161118fc30970f8815f70a3bf4810855d1254a",
       "sources": 3,
       "excerpts": 27,
-      "review_state": "bounded_source_review_completed_unpublished_candidate",
+      "review_state": "bounded_source_review_completed_not_in_graph",
       "closure": "Citation corrections from rm-scope-review applied (header lines 1300-1379; Ethernet RM87/RM96 with RM87 visual; timers RM96/RM97; PKA precision; subsection filters); Claude rm-scope-corrections-review verdict ACCEPT with verifier run; independent Codex regression check found none. Scope declarations only; page binding is not semantic or operational closure.",
       "review_limits": [
         "Content of excluded chapters was not read for semantics.",
@@ -58,7 +58,7 @@
       "previous_original_sha256": "a55a0016a154396698f2394dd1dacff34ebb7df6d9747d4168f82fca47c957ed",
       "sources": 12,
       "excerpts": 60,
-      "review_state": "bounded_source_review_completed_unpublished_candidate",
+      "review_state": "bounded_source_review_completed_not_in_graph",
       "closure": "Final correction review done: Claude interconnect-corrections-review confirmed C2-C5, C7, C8 and required N1-N4 (COMP2 routes on RM1139 with new visual, inference labelling, listed omissions, exact LL lines); applied; Claude interconnect-final-review with verifier run ended ACCEPT WITH MINOR CORRECTIONS, applied; independent Codex regression check found none. Presence-only routes; no route is admitted. No operational qualification; SDK findings are source-derived and conditional, not hardware observations.",
       "review_limits": [
         "Visual confirmation is partial: RM372 (column order, named summary conflicts) and RM1139 (Table 315/316 COMP2 columns) only; all 244 detail rows and RM373 are text/grid checked only.",
@@ -73,7 +73,7 @@
       "previous_original_sha256": "a86699d5e457a9e2ea3d0538d8fbf28d32bf2640ba2e32839fc5268c3f02eee3",
       "sources": 13,
       "excerpts": 210,
-      "review_state": "bounded_source_review_completed_unpublished_candidate",
+      "review_state": "bounded_source_review_completed_not_in_graph",
       "closure": "Official review restarted under new attempt names in two bounded parts (r2, r2b); their findings applied except one refuted by RM p599; Claude correction reviews a and b with verifier run each ended ACCEPT WITH MINOR CORRECTIONS, applied; independent Codex regression check on the final bytes found none after one dropped statement was restored. Bounded source review with listed unreached items. No operational qualification; SDK findings are source-derived and conditional, not hardware observations.",
       "review_limits": [
         "Not reached by any reviewer at statement level: REG_stop and stop_lowlevel bodies behind the IDLE after timeout claim, RM p582, the dedicated IRQ handlers (IRQ_REG, IRQ_INJ, IRQ_AWD), the TrigNext sentence, and the calibration loss under deep power-down RM claim.",
@@ -90,7 +90,7 @@
       "previous_original_sha256": "772b5742b3e34b1a06f50e63e45cc72cbd05698565e9d71566ee00b2cfe1afd6",
       "sources": 10,
       "excerpts": 147,
-      "review_state": "bounded_source_review_completed_unpublished_candidate",
+      "review_state": "bounded_source_review_completed_not_in_graph",
       "closure": "AP IDR CLASS discrepancy authored as a conflict and the existing RM2526 render bound as a visual check for the CTI numbering conflict; official review restarted under new attempt names in four bounded parts (r2a to r2d) with verifier run; their corrections applied, including one required ETM external input selector conflict; independent Codex regression check on the final bytes found none. Document review only: no debug connection, register read or trace capture was performed or is authorized.",
       "review_limits": [
         "The part D corrections were confirmed by the Codex pass against bound page text, not by a further Claude part.",
@@ -121,7 +121,7 @@
     "CRC source-derived width-validation defect needs owning-lane implementation and qualification",
     "ADC reserved-trigger/oversampling/JAUTO and source-register conflicts; full lifecycle/electrical qualification",
     "Watchdog irreversible lifecycle, pending interrupts and timing/option-byte qualification",
-    "ADC completion, CoreSight, interconnect, USART/UART and RM scope candidates have completed bounded source reviews (2026-11-10); items their reviewers did not reach are listed per file in each acceptance receipt and stay open",
+    "ADC completion, CoreSight, interconnect, USART/UART and RM scope items have completed bounded source reviews (2026-11-10); items their reviewers did not reach are listed per file in each review record and stay open",
     "Complete remaining shared UART wrappers/options, DMA linked-list lifecycle and all per-mode integration contracts",
     "PM0264 and AN2606 PDF byte pinning unavailable after bounded official download timeouts; no full architecture/bootloader qualification",
     "Reconcile source contradictions without silent repairs; no operational closure from chapter coverage or integrity counts",
@@ -411,7 +411,7 @@
     }
   ],
   "tracker": "https://linear.app/bkptlabs/issue/BKPAI-14",
-  "resume": "Use the original source-bound files in the external research workspace for corrections and reviews; these excerpt-free projections are not executable catalogs or accepted replacements. Review outcomes listed here describe the original bytes only and are bounded source reviews, not runtime admission.",
+  "resume": "Use the original source-bound files in the external research workspace for corrections and reviews; these excerpt-free projections are not executable catalogs or replacements for them. Review outcomes listed here describe the original bytes only and are bounded source reviews, not runtime admission.",
   "authoring_helpers": [
     {
       "path": "tools/author.py",
