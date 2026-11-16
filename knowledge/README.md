@@ -101,7 +101,7 @@ the lines it came from.
 | `author_device_inventory.py` | Transcribes pins, signal routes and interrupts from the manufacturer's pinout descriptor, device header and vector table. An inventory records what is declared, not what is usable |
 | `author_device_domains.py` | Decides what a capability may use: allocation rules from the board file, instances checked against the device description, DMA request lines checked against the reference manual and the SDK, and the capabilities that are widened or added. It has no command line: `compose_target.py` runs it for the board a recipe names |
 | `author_device_clocks.py` | Records the clock tree from the manufacturer's clock descriptor, the clock functions the SDK compiles for the part, and one clock profile with the frequency of every clock the captured configuration determines. It adds records and citations only; `compose_target.py` runs it for a recipe that names a clocks configuration, and its own command line runs it on a graph that does not hold its records yet |
-| `author_capability_briefs.py` | Writes each capability's brief, one short authored line from `imports/capability-briefs.json`, and raises the graph to schema 6. It refuses a capability without a brief, a brief for a capability the graph does not hold, and a brief outside 1 to 96 bytes of printable ASCII without a leading or trailing space. `compose_target.py` runs it last for a recipe that names a briefs configuration |
+| `author_capability_briefs.py` | Writes each capability's brief, one short authored line from `imports/capability-briefs.json`, and raises the graph to schema 6. It refuses a capability without a brief, a brief for a capability the graph does not hold unless the recipe dropped it for its package, the same capability twice, a capability that already carries a brief, and a brief outside 1 to 96 bytes of printable ASCII or with a leading or trailing space. `compose_target.py` runs it last for a recipe that names a briefs configuration |
 | `compose_target.py` | Builds one target from layers that vary independently: the reviewed graph, the part and its package descriptor, and the board as its own file (from a netlist, or declared by its owner). Facts tied to the old part, package or board are relocated, replaced or dropped by a decision the recipe states |
 | `target_support.py` | Gives a composed target what it needs besides its graph: a project foundation derived from the reviewed base under the identity of its own part and board, and an entry for the board in the knowledge corpus. Both come from the recipe; the foundation's files are the base's, checked by hash while they are copied |
 | `descriptor.py` | Reads a manufacturer JSON descriptor while keeping the lines of every value, so a derived record can cite them |
@@ -198,7 +198,8 @@ In schema 6 a capability carries a `brief`: one line that, with the
 capability's ID, is the row an agent reads in the index of a chip's
 capabilities before it reads the whole input contract of the ones it uses.
 It says what the capability gives the application and tells siblings apart,
-and states nothing its description, parameters and roles do not. Schema 6 has
+and states nothing its description, parameters, roles and implementation
+cards do not. Schema 6 has
 the bounds of schema 5, and solving does not read a brief, so every request
 keeps its plan. A new capability is added together with its line in
 `stm32c5/imports/capability-briefs.json`; the stage refuses a graph without it.

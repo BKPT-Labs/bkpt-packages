@@ -95,6 +95,14 @@ class Briefs(unittest.TestCase):
             subject.run(graph(), {}, stray)
         with self.assertRaisesRegex(SystemExit, "schema 1"):
             subject.run(graph(), {}, {**config(), "extra": 1})
+        named = config()
+        named["briefs"][0]["capability"] = 7
+        with self.assertRaisesRegex(SystemExit, "nothing else"):
+            subject.run(graph(), {}, named)
+
+    def test_without_graph_schema_a_schema_6_graph_keeps_its_bounds(self):
+        subject.run(graph(6), {}, {key: value for key, value in config().items() if key != "graph_schema"})
+        self.assertEqual(inventory.LIMITS, inventory.SCHEMA_LIMITS[6])
 
     def test_the_package_graph_carries_the_family_briefs(self):
         # Every capability of the package graph carries the brief of the family

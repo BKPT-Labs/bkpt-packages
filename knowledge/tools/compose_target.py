@@ -460,8 +460,8 @@ def compose(recipe_path: pathlib.Path, source_root: pathlib.Path):
     graph, sources, summary = inventory.build_from(inventory_config, base, source_root)
     domains.run(graph, sources, summary, inventory_config, config, source_root)
     if "clocks" in recipe:
-        # The clock stage adds records and citations only; it runs last so
-        # that it sees every instance the domains stage promoted.
+        # The clock stage adds records and citations only; it runs after the
+        # domains stage so that it sees every instance that stage promoted.
         clock_config = load(folder / recipe["clocks"])
         clock_config["composed"] = retarget is not None
         clocks.run(graph, sources, summary, inventory_config, clock_config, source_root)

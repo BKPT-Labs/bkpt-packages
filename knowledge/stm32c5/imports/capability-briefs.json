@@ -4,11 +4,11 @@
   "briefs": [
     {
       "capability": "periodic_interrupt",
-      "brief": "Generated callback at an exact rate of 1 to 1000 Hz on basic timer TIM6 or TIM7"
+      "brief": "Generated callback on basic timer TIM6 or TIM7, one of 66 exact rates from 1 to 1000 Hz"
     },
     {
       "capability": "gpio_output",
-      "brief": "Digital output on any pad eligible for general allocation; the application initializes it"
+      "brief": "Digital output on any pad eligible for general allocation; allocation only, no code"
     },
     {
       "capability": "serial_endpoint",
@@ -32,7 +32,7 @@
     },
     {
       "capability": "i2c_controller_dma",
-      "brief": "Raw I2C controller DMA at 1 MHz, 7-bit address, SCL and SDA on Fm+ capable pads"
+      "brief": "Raw I2C TX/RX DMA at 1 MHz to a 7-bit address, SCL and SDA on Fm+ capable pads"
     },
     {
       "capability": "spi_controller_dma",
@@ -44,19 +44,19 @@
     },
     {
       "capability": "i2c_controller_operation",
-      "brief": "Managed I2C controller DMA at 1 MHz on Fm+ pads, up to 255 bytes, poll and cancel"
+      "brief": "Managed I2C DMA at 1 MHz on Fm+ pads, up to 255 bytes, checked start, poll and cancel"
     },
     {
       "capability": "spi_transfer_operation",
-      "brief": "Managed SPI1 or SPI2 full-duplex DMA, modes 0 to 3, 562.5 kHz to 9 MHz, any eligible pad"
+      "brief": "Managed SPI1/SPI2 full-duplex DMA, modes 0-3, 5 rates to 9 MHz, eligible pads, CS separate"
     },
     {
       "capability": "uart_transfer_operation",
-      "brief": "Managed UART DMA on USART1, USART2, UART4 or UART5, 9600 to 230400 baud, any allowed pad"
+      "brief": "Managed serialized UART DMA, TX or RX, on USART1, USART2, UART4 or UART5; six baud choices"
     },
     {
       "capability": "gpio_input_interrupt",
-      "brief": "Input pad with its own EXTI interrupt, chosen edge and pull, callback, start, stop"
+      "brief": "Generated input with its own EXTI interrupt, chosen edge and pull, callback, start, stop"
     },
     {
       "capability": "timer_channel_pin",
@@ -68,7 +68,7 @@
     },
     {
       "capability": "pwm_output",
-      "brief": "Generated edge-aligned PWM on a channel timer pad, 50 Hz to 100 kHz, duty at run time"
+      "brief": "Generated edge-aligned PWM on a channel timer pad, 18 rates 50 Hz to 100 kHz, run-time duty"
     },
     {
       "capability": "analog_reading",
@@ -80,7 +80,7 @@
     },
     {
       "capability": "periodic_interrupt_channel_timer",
-      "brief": "The TIM6/TIM7 exact-rate callback unit on a whole TIM1, TIM2, TIM8, TIM12 or TIM15"
+      "brief": "Generated exact-rate callback on a whole channel timer when TIM6/TIM7 are taken; no pad"
     },
     {
       "capability": "crc32_checksum",
@@ -88,7 +88,7 @@
     },
     {
       "capability": "independent_watchdog",
-      "brief": "Generated watchdog with a 100 ms to 8 s reset time; cannot be stopped once started"
+      "brief": "Generated watchdog, seven reset times 100 ms to 8 s; cannot be stopped once started"
     },
     {
       "capability": "gpio_input",

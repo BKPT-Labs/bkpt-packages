@@ -14,7 +14,7 @@
   "inputs": {
     "architecture": {
       "path": "graph.json",
-      "sha256": "b5ef00241c8527b6bf425fc249bcc8d43fe3dd650369302bc23620deea194004"
+      "sha256": "9a2952d519c1507f05e8d373824d267208c26953c13de18a30d6a2ad4734bb95"
     },
     "architecture_review": {
       "path": "graph.review.json",
