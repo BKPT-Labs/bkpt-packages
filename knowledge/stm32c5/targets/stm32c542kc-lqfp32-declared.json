@@ -3,6 +3,7 @@
   "id": "stm32c542kc-lqfp32-declared-v1",
   "inventory": "../imports/device-inventory.json",
   "domains": "../imports/device-domains.json",
+  "clocks": "../imports/device-clocks.json",
   "board": "../boards/declared-stm32c542kc-lqfp32.json",
   "target": {
     "id": "STM32C542KC-LQFP32",

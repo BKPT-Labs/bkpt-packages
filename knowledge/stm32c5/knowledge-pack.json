@@ -1,7 +1,7 @@
 {
   "schema": "bkpt.knowledge-pack-source/1",
   "id": "stm32c5",
-  "revision": 3,
+  "revision": 4,
   "state": "development",
   "targets": [
     {
@@ -14,11 +14,11 @@
   "inputs": {
     "architecture": {
       "path": "graph.json",
-      "sha256": "817ca4113239937547c09f3baff6a755b9a838bc34922675768f128ecf9b968b"
+      "sha256": "8d52bfb3d3ccb60b03a49308441c305363cf08f3498a39eb68fbf17fbdf2de9b"
     },
     "architecture_review": {
       "path": "graph.review.json",
-      "sha256": "f0acbcd83bfb29b5a6e2ae199092b8da852b454a80bc029b605070b84f81306f"
+      "sha256": "a1638034336bf43e85fb9b1ec397d0c7a2cc05b04fa56e93a0492e43abaadc4b"
     },
     "devices": {
       "path": "imports/devices.json",

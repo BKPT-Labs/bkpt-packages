@@ -552,9 +552,9 @@ class Boards(unittest.TestCase):
     # Every checked-in recipe and the graph it composes to. A change of these
     # bytes is a change of the graph on main and is made here on purpose.
     COMPOSED = {
-        "stm32c5/targets/nucleo-c542rc.json": "817ca4113239937547c09f3baff6a755b9a838bc34922675768f128ecf9b968b",
-        "stm32c5/targets/stm32c542cc-lqfp48-declared.json": "9c6e560c968250079978b17fba73c679597858072532241c50a60ccbe668ba33",
-        "stm32c5/targets/stm32c542kc-lqfp32-declared.json": "d7b48e818b4c03672ec3a51c9c38aad59be3a6c41d033ff41c6fcdd9b02f2d2d",
+        "stm32c5/targets/nucleo-c542rc.json": "8d52bfb3d3ccb60b03a49308441c305363cf08f3498a39eb68fbf17fbdf2de9b",
+        "stm32c5/targets/stm32c542cc-lqfp48-declared.json": "f1b7bb0394772535b2a07a9aea4db298dcaa08567b332b30f1fb65e8f7ff774a",
+        "stm32c5/targets/stm32c542kc-lqfp32-declared.json": "5d8a83c555e2f130aa019806d6a82c32efb41e81bd7c835bb8320130890248d0",
     }
 
     @unittest.skipUnless(os.environ.get("BKPT_KNOWLEDGE_SOURCE_ROOT"), "needs the pinned sources: set BKPT_KNOWLEDGE_SOURCE_ROOT")
@@ -690,6 +690,31 @@ class Boards(unittest.TestCase):
             with contextlib.redirect_stdout(io.StringIO()):
                 graph, _ = compose.compose(knowledge / name, pathlib.Path(os.environ["BKPT_KNOWLEDGE_SOURCE_ROOT"]))
             self.assertEqual(inventory.sha256(inventory.encoded(graph)), expected, name)
+
+    def test_the_package_graph_is_what_its_recipe_composes_to(self):
+        # One graph per chip: the file in the tree is the composition of the
+        # package's own target, and the manifest names it by that hash.
+        knowledge = pathlib.Path(__file__).resolve().parents[1]
+        expected = self.COMPOSED["stm32c5/targets/nucleo-c542rc.json"]
+        self.assertEqual(inventory.sha256((knowledge / "stm32c5/graph.json").read_bytes()), expected)
+        pack = compose.load(knowledge / "stm32c5/knowledge-pack.json")
+        self.assertEqual(pack["inputs"]["architecture"], {"path": "graph.json", "sha256": expected})
+        graph = compose.load(knowledge / "stm32c5/graph.json")
+        self.assertEqual(pack["coverage"]["capability_count"], len(graph["capabilities"]))
+        # A role's earlier domain names a revision before the package's.
+        named = [entry["through"] for capability in graph["capabilities"] for role in capability["roles"] for entry in role.get("earlier", [])]
+        self.assertTrue(named and all(isinstance(value, int) and value < pack["revision"] for value in named))
+
+    def test_the_review_record_binds_the_package_graph(self):
+        # The firmware tool compiles a catalog only with a record that names
+        # the graph's exact bytes, so a graph is merged with the record of
+        # its own review. This fails on a branch whose review is not done.
+        knowledge = pathlib.Path(__file__).resolve().parents[1]
+        pack = compose.load(knowledge / "stm32c5/knowledge-pack.json")
+        record = knowledge / "stm32c5" / pack["inputs"]["architecture_review"]["path"]
+        self.assertEqual(inventory.sha256(record.read_bytes()), pack["inputs"]["architecture_review"]["sha256"])
+        review = compose.load(record)
+        self.assertEqual((review["bundle_sha256"], review["decision"]), (pack["inputs"]["architecture"]["sha256"], "accept"))
 
     def test_a_board_file_cannot_reach_into_the_chip(self):
         for key in ("instances", "profiles", "route_marks", "allocations"):

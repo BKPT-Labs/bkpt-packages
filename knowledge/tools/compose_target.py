@@ -6,6 +6,7 @@ A recipe names what a target is made of:
 * a reviewed graph, written for one part, package and board;
 * the chip family's inventory and domains configuration;
 * the part and package of this target, with that package's pinout descriptor;
+* optionally the chip family's clocks configuration, for the clock stage;
 * the board, as its own file: derived from a netlist for an official board, or
   declared by its owner for any other. The family configuration says nothing
   about a board, so the target the reviewed graph was written for is a recipe
@@ -32,6 +33,7 @@ import pathlib
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import author_device_clocks as clocks  # noqa: E402
 import author_device_domains as domains  # noqa: E402
 import author_device_inventory as inventory  # noqa: E402
 import target_support as support  # noqa: E402
@@ -455,6 +457,12 @@ def compose(recipe_path: pathlib.Path, source_root: pathlib.Path):
     board_statements(record, board, source_root)
     graph, sources, summary = inventory.build_from(inventory_config, base, source_root)
     domains.run(graph, sources, summary, inventory_config, config, source_root)
+    if "clocks" in recipe:
+        # The clock stage adds records and citations only; it runs last so
+        # that it sees every instance the domains stage promoted.
+        clock_config = load(folder / recipe["clocks"])
+        clock_config["composed"] = retarget is not None
+        clocks.run(graph, sources, summary, inventory_config, clock_config, source_root)
     summary["buildable"] = buildable
     if retarget:
         retarget.settle()

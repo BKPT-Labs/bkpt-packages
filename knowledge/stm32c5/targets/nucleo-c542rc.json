@@ -3,5 +3,6 @@
   "id": "stm32c5-device-v1",
   "inventory": "../imports/device-inventory.json",
   "domains": "../imports/device-domains.json",
+  "clocks": "../imports/device-clocks.json",
   "board": "../boards/nucleo-c542rc.json"
 }

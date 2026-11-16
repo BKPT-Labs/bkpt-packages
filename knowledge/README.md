@@ -86,8 +86,9 @@ automatic package installer yet.
 
 The graph changes in place and the branch `main` holds the latest one. A review
 record binds exact bytes, so a changed graph needs a new review before it is
-merged, and the record beside it is replaced with it. A source the graph cites
-is never edited: a changed text is a new file under a new name.
+merged, and the record beside it is replaced with it. A source a graph cites
+is never edited once it is committed: a changed text is a new file under a
+new name, and a text the graph no longer cites leaves the package.
 
 ## Generating a whole-device graph
 
@@ -99,11 +100,12 @@ the lines it came from.
 | --- | --- |
 | `author_device_inventory.py` | Transcribes pins, signal routes and interrupts from the manufacturer's pinout descriptor, device header and vector table. An inventory records what is declared, not what is usable |
 | `author_device_domains.py` | Decides what a capability may use: allocation rules from the board file, instances checked against the device description, DMA request lines checked against the reference manual and the SDK, and the capabilities that are widened or added. It has no command line: `compose_target.py` runs it for the board a recipe names |
+| `author_device_clocks.py` | Records the clock tree from the manufacturer's clock descriptor, the clock functions the SDK compiles for the part, and one clock profile with the frequency of every clock the captured configuration determines. It adds records and citations only; `compose_target.py` runs it for a recipe that names a clocks configuration, and its own command line runs it on a graph that does not hold its records yet |
 | `compose_target.py` | Builds one target from layers that vary independently: the reviewed graph, the part and its package descriptor, and the board as its own file (from a netlist, or declared by its owner). Facts tied to the old part, package or board are relocated, replaced or dropped by a decision the recipe states |
 | `target_support.py` | Gives a composed target what it needs besides its graph: a project foundation derived from the reviewed base under the identity of its own part and board, and an entry for the board in the knowledge corpus. Both come from the recipe; the foundation's files are the base's, checked by hash while they are copied |
 | `descriptor.py` | Reads a manufacturer JSON descriptor while keeping the lines of every value, so a derived record can cite them |
 | `package_graph.py` | Writes a generated graph into a package as its `graph.json`, with the list of every source it pins, and updates the manifest. BKPT-authored sources are copied in; manufacturer sources are listed by hash only |
-| `test_author_device.py`, `test_compose_target.py`, `test_package_graph.py` | Checks for the tools on small synthetic sources |
+| `test_author_device.py`, `test_author_clocks.py`, `test_compose_target.py`, `test_package_graph.py` | Checks for the tools on small synthetic sources |
 
 A capability covers a peripheral class, not a list of instance names. A class is a
 peripheral type and IP version as the manufacturer's peripherals descriptor names
@@ -244,11 +246,12 @@ allocated, lives in that policy text and is cited as policy, never as a
 manufacturer statement.
 
 `stm32c5/graph.json` is the graph for the STM32C542 on the NUCLEO-C542RC:
-23 capability profiles at pack revision 3, written in graph schema 5 under
-policy version 9. `graph.review.json` binds its bytes to two independent
-reviews, and `inputs.architecture` in the manifest names it with its hash.
-The graphs of revision 1 (14 profiles) and revision 2 (17 profiles) are in
-the repository's history. The pack revision is a plain count: a role's
+23 capability profiles at pack revision 4, written in graph schema 5 under
+policy version 9 and clock policy version 5. `graph.review.json` names the
+exact bytes its reviews passed, and `inputs.architecture` in the manifest
+names the graph with its hash; the tool tests fail when the two disagree.
+The graphs of revision 1 (14 profiles), revision 2 (17 profiles) and
+revision 3 (23 profiles, no clock records) are in the repository's history. The pack revision is a plain count: a role's
 `earlier` domain names the last revision that gave it that domain.
 
 On top of the revision 2 graph it adds:
@@ -280,8 +283,8 @@ How it was checked:
   rejected a later one; their findings were a start-up order the SDK refuses
   for the converter's kernel clock, an input capture that could return a
   wrong value after a delayed poll, a default allocation that changed in a
-  crowded request, and statements a unit could not keep. Both passed these
-  bytes.
+  crowded request, and statements a unit could not keep. Both passed the
+  revision 3 graph (sha256 817ca411...).
 - A fixed suite of 2,222 requests was solved on the revision 2 graph and on
   this one with one firmware tool build: all 1,682 requests the earlier graph
   plans keep their resources, route identifiers and generated files. The
@@ -301,6 +304,122 @@ How it was checked:
 
 The STM32C542CCT6 (LQFP48) and STM32C542KCT6 (LQFP32) recipes compose from the
 same family data, but their graphs were not reviewed, built or run.
+
+## Clocks
+
+Revision 4 adds what the manufacturer's sources say about clocks. No
+capability gained or lost a role, a link or a parameter, so every request
+keeps its plan. The family input is `stm32c5/imports/device-clocks.json`.
+
+| Kind of record | One per | What it holds |
+| --- | --- | --- |
+| `clock_node` | element of the clock descriptor (75) | The descriptor's type, role, limits, choices or inputs, and the instances it names as clocked by it. What can be configured |
+| `peripheral_clock` | name with a clock enable function in the SDK's RCC header that is compiled for the part (44) | Bus, enable field, and the enable, disable, state, reset, Sleep and Stop mode functions the header defines under that name |
+| `kernel_clock` | name with a kernel clock source setter (14) | Setter, getter, frequency function, the enumerators of the setter's type and the descriptor selector they are the inputs of |
+| `clock_assignment` | clock the profile determines (44) | Nominal frequency, the selection that gives it and the SDK symbol of that selection |
+
+`clock_input` routes join the nodes as the descriptor connects them, `clocks`
+and `gates` routes join a node or a peripheral clock to the resource of an
+instance it serves, and the target's `clock-profile` service states the bus
+and timer frequencies. A record is read by its exact ID:
+`STM32C542RCT6.rcc.USART1`, `STM32C542RCT6.rcc.kernel.USART1`,
+`STM32C542RCT6.clock-profile.hse24-psis144-ahb-apb-div1.USART1_Input_Clock`.
+
+How the stage keeps to its sources:
+
+- Whether a function is compiled for the part is decided from the header's
+  own conditional lines and the macros the part's device header defines. A
+  test of more than one macro has no verdict unless the configuration settles
+  it from one cited definition.
+- A kernel clock of the SDK is paired with a descriptor selector only when
+  its enumerators and the selector's inputs are the same set. Four enumerators
+  carry another label than the descriptor (`HCLK` for `HCLK1`, `HSE_DIV` for
+  `RTCPRE`, `PSIDIV3` for `PSI_DIV_3`, `HSIDIV3` for `HSI_DIV_3`), one selects
+  no input (`NONE` of the RTC), and the configuration says so.
+- A profile is the selections the captured clock configuration makes, each
+  cited at its line. Frequencies are arithmetic over the descriptor; a value
+  above a limit the descriptor states is refused, and the two values the
+  captured configuration states for itself must come out the same.
+- Every selection cites the line that makes it; a selection without one is
+  refused. The check of that line is textual. The stage first joins lines
+  that end in a backslash, leaves out comments and literal contents, and
+  leaves out a block under an `#if` or `#elif` whose condition is a zero
+  literal. A line joined to another is then left out altogether. The stage
+  evaluates no other preprocessor condition, expands no macro and reads no
+  trigraph or digraph. What is
+  left of the line has one of three forms: a statement that fills the line
+  and assigns the selection's SDK symbol or number alone, without a cast, to
+  the field the configuration names for the element; a call of that field
+  whose arguments are each one plain name or number, the value being one of
+  them, on a line that is no directive; or a `#define` of that field as the
+  value alone. The symbol has to say the
+  selection. This guards against a citation that says something else than
+  the configuration; it does not prove what the program does. Whether the
+  field is the right one for the element, whether the line is compiled and
+  reached, and whether anything after it changes the selection are reviewed
+  with the configuration.
+- A selection a component makes in its own initialization (the kernel clock
+  of a UART, the ADC and DAC clock) is found only at a template line that
+  calls the setter with the source, or at a captured line that calls the
+  paired setter with the enumerator, within the same bounds. `holds_while` names
+  the case the assignment is stated for: the instance assigned to one of the
+  capabilities that make the selection, and that capability's initialization
+  of it completed successfully. Every clock derived through it carries the
+  same case. For any other case the graph says nothing: a selector's reset
+  selection is not recorded and may be the same input, as it was on the
+  board for six of them.
+- An assignment says how far the captured configuration runs its clock
+  (`running`). `captured`: it feeds the system clock, or is derived from it,
+  rests on no component's selection and names no instance that has a
+  peripheral clock record. `gated`: any other clock derived from the system
+  clock; `peripheral_clocks` lists the records of the instances it names,
+  and no assignment says whether one of them is enabled, so `gated` does not
+  mean off. `not_stated`: nothing captured switches its source on. A clock derived from a typical value, as
+  the watchdog's clock from the LSI, names it (`nominal_source`).
+- A capability whose rates rest on a clock cites that clock's assignment, and
+  every baud rate, serial clock and timer frequency it offers must divide the
+  assigned frequency exactly.
+- A selector or divider the descriptor names for several instances carries
+  `shared_by`: the ADC and DAC clock, the FDCAN clock and the 48 MHz clock of
+  USB and RNG.
+
+How it was checked:
+
+- The fixed suite of 2,222 requests was solved on the revision 3 graph and on
+  this one: all 1,824 requests the earlier graph plans keep their resources,
+  route identifiers and generated files.
+- On the NUCLEO-C542RC a self-check written from the graph compared what the
+  SDK reports with what the graph assigns. Eight frequencies and seven
+  selections agreed. Of the 13 kernel clocks that have a frequency function,
+  eight have an assignment: two were set by the application's own components
+  (USART2, ADC and DAC) and six stood at their reset selection, which is the
+  assigned one; all eight reported the assigned frequency. These are the
+  SDK's computation from the registers, not a measurement against an outside
+  reference.
+- For all 44 peripheral clocks the SDK's state agreed with the record's
+  enable field read from the register. Then each record's enable function
+  was called and a clock that had been off was switched off again with the
+  record's disable function: 36 fields were seen to go from 0 to 1 and 35
+  back to 0 (WWDG has no disable function). Eight clocks were already on
+  (ADC12, FLASH, GPIOA, SRAM1, SRAM2, TIM1, TIM6, USART2) and were left on,
+  so for those the functions were not seen to write the field. Only the
+  record's own field was read. Nothing here shows that a clock reaches its
+  peripheral, and the reset, Sleep and Stop functions were not exercised.
+- The reference manual says in its clock chapter that timer clocks equal HCLK
+  and in its basic timer chapter that the counter clock is the APB clock. On
+  that board TIM6 (APB1) and TIM1 (APB2) each kept 1000 updates per second
+  against SysTick while the prescaler of their bus was 4. For APB1 a console
+  line sent in the same interval arrived at a quarter of the baud rate, so the bus clock
+  was seen to be a quarter on the wire; for APB2 the prescaler is known from
+  the register only. This rules out a timer clock equal to the APB clock or
+  twice it and agrees with HCLK. One board, one observation; the stage
+  refuses a profile whose APB1 or APB2 prescaler is not 1.
+
+Not covered: any other profile, the oscillators' accuracy and start-up,
+low-power modes beyond the names of their gating functions, the clock outputs,
+and the bus-level enable functions. The manufacturer's configuration mapping
+gives each record its reference manual chapter; the pointer for TIM6 is
+withheld because it names the wrong chapter.
 
 ## Licensing and third-party content
 

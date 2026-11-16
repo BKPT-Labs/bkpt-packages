@@ -1,0 +1,642 @@
+{
+  "schema": 1,
+  "sources": [
+    {
+      "id": "clock-policy-v5",
+      "path": "architecture/sources/bkpt-clock-policy-v5.txt",
+      "revision": "version 5",
+      "authority": "bkpt_engineering_policy",
+      "scope": "policy",
+      "sha256": "9338bd926c09da364c5782e09593cf277840723c085c7935205220f98f752c7f"
+    },
+    {
+      "id": "bus-ll",
+      "path": "sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_bus.h",
+      "revision": "HAL2 pack 2.1.0",
+      "authority": "manufacturer_sdk",
+      "scope": "sdk",
+      "sha256": "bac710c45c3998cede26333b7fdaa3a2c6057b9d4735ade6d28c9f446f2a8def"
+    },
+    {
+      "id": "rm-rcc-chapter",
+      "path": "architecture/sources/documents/RM0522-rev1-rcc-chapter-v1-extracted.txt",
+      "revision": "RM0522 Rev 1, pages 251 to 326; text extraction; PDF sha256 1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+      "authority": "manufacturer_document_text_extraction",
+      "scope": "device",
+      "sha256": "0a0da2fb32bbec6a481475efba90f056495d308bf2b810a6989a17d7b6b5ca02"
+    },
+    {
+      "id": "configuration-mapping",
+      "path": "architecture/sources/stm32c5-dfp-2.1.0/peripheral_configuration_mapping.json",
+      "revision": "ST DFP 2.1.0; exact-byte copy of the configuration mapping of the installed pack; series-wide",
+      "authority": "manufacturer_machine_readable",
+      "scope": "device",
+      "sha256": "52cb415974bb9e776e4055270d58907c3379a496da63ab7316294ffd05dfe477"
+    },
+    {
+      "id": "preset-external-env",
+      "path": "foundations/c5-hal2-base-1/files/generated/hal/stm32_external_env.h",
+      "revision": "captured foundation 1",
+      "authority": "captured_generated_source",
+      "scope": "sdk",
+      "sha256": "6d42987663145b74289c74a05df5c6450f11ac7416ac6b83f9f67613cf65a656"
+    }
+  ],
+  "policy": {
+    "source": "clock-policy-v5",
+    "label": "BKPT clock policy, version 5",
+    "evidence_prefix": "clockpolicy5",
+    "lines": {
+      "clock_nodes": 4,
+      "peripheral_clocks": 5,
+      "kernel_clocks": 6,
+      "instance_links": 7,
+      "shared_clocks": 8,
+      "profile": 9,
+      "component_selections": 10,
+      "rate_basis": 11,
+      "timer_clock": 12,
+      "chapter_pointers": 13,
+      "nominal_sources": 14
+    }
+  },
+  "own_kinds": [
+    "clock_node",
+    "peripheral_clock",
+    "kernel_clock",
+    "clock_assignment"
+  ],
+  "source_types": [
+    "variableSource",
+    "fixedSource",
+    "distinctFrequencieOscillator"
+  ],
+  "fixed_source_types": [
+    "fixedSource"
+  ],
+  "shared_types": [
+    "multiplexor",
+    "divider"
+  ],
+  "descriptor": {
+    "source": "clock-descriptor",
+    "kind": "clock_node",
+    "relation": "clock_input",
+    "clocks_relation": "clocks"
+  },
+  "sdk": {
+    "header": "rcc-h",
+    "definitions": "rcc-c",
+    "bus_header": "bus-ll",
+    "device_header": "device-header",
+    "function_prefix": "HAL_RCC_",
+    "defined": [
+      {
+        "macro": "HSE_VALUE",
+        "source": "preset-external-env",
+        "label": "Captured external oscillator settings"
+      }
+    ],
+    "undetermined": [
+      "LSE_VALUE",
+      "AUDIO_CLOCK_VALUE"
+    ],
+    "settled": [
+      {
+        "test": "defined(USE_HAL_RCC_MODULE) && (USE_HAL_RCC_MODULE == 1)",
+        "verdict": true,
+        "source": "preset-conf",
+        "macro": "USE_HAL_RCC_MODULE",
+        "value": "1U",
+        "label": "Captured foundation configuration"
+      }
+    ]
+  },
+  "mapping": {
+    "source": "configuration-mapping",
+    "withheld_chapters": {
+      "TIM6": "The mapping names chapter 32, General-purpose timers (TIM2/TIM3/TIM4/TIM5); RM0522 Rev 1 describes TIM6 in chapter 33, Basic timers (TIM6/TIM7)."
+    }
+  },
+  "gates": {
+    "kind": "peripheral_clock",
+    "relation": "gates",
+    "resource_attribute": "clock_enable_api",
+    "unpromoted_kind": "descriptor_instance",
+    "functions": {
+      "enable_api": "HAL_RCC_{name}_EnableClock",
+      "disable_api": "HAL_RCC_{name}_DisableClock",
+      "is_enabled_api": "HAL_RCC_{name}_IsEnabledClock",
+      "reset_api": "HAL_RCC_{name}_Reset",
+      "sleep_enable_api": "HAL_RCC_LP_{name}_EnableClockInSleepMode",
+      "sleep_disable_api": "HAL_RCC_LP_{name}_DisableClockInSleepMode",
+      "stop_enable_api": "HAL_RCC_LP_{name}_EnableClockInStopMode",
+      "stop_disable_api": "HAL_RCC_LP_{name}_DisableClockInStopMode"
+    },
+    "stated_links": {
+      "FDCAN": [
+        {
+          "source": "rm-rcc-chapter",
+          "pattern": "^Bit 9 FDCANEN: FDCAN1 and FDCAN2 clock enable",
+          "instances": [
+            "FDCAN1",
+            "FDCAN2"
+          ],
+          "label": "RM0522 Rev 1, RCC register description: bit FDCANEN enables the clock of FDCAN1 and FDCAN2."
+        }
+      ],
+      "RTCAPB": [
+        {
+          "source": "rm-rcc-chapter",
+          "pattern": "^Bit 21 RTCAPBEN: RTC APB interface clock enable",
+          "instances": [
+            "RTC"
+          ],
+          "label": "RM0522 Rev 1, RCC register description: bit RTCAPBEN enables the APB interface clock of the RTC."
+        }
+      ]
+    }
+  },
+  "kernel_clocks": {
+    "kind": "kernel_clock",
+    "relation": "kernel_clock_selector",
+    "functions": {
+      "set_source_api": "HAL_RCC_{name}_SetKernelClkSource",
+      "get_source_api": "HAL_RCC_{name}_GetKernelClkSource",
+      "frequency_api": "HAL_RCC_{name}_GetKernelClkFreq",
+      "set_prescaler_api": "HAL_RCC_{name}_SetKernelClkPrescaler",
+      "get_prescaler_api": "HAL_RCC_{name}_GetKernelClkPrescaler",
+      "set_config_api": "HAL_RCC_{name}_SetConfigKernelClk",
+      "get_config_api": "HAL_RCC_{name}_GetConfigKernelClk"
+    },
+    "selectors": {
+      "ADCDAC": {
+        "element": "ADC_DAC_Clock_Source",
+        "prefix": "HAL_RCC_ADCDAC_CLK_SRC_",
+        "labels": {
+          "HCLK": "HCLK1"
+        }
+      },
+      "CK48": {
+        "element": "USB_RNG_Clock_Source",
+        "prefix": "HAL_RCC_CK48_CLK_SRC_",
+        "labels": {
+          "PSIDIV3": "PSI_DIV_3",
+          "HSIDIV3": "HSI_DIV_3"
+        }
+      },
+      "FDCAN": {
+        "element": "FDCAN_Clock_Source",
+        "prefix": "HAL_RCC_FDCAN_CLK_SRC_"
+      },
+      "I2C1": {
+        "element": "I2C1_Clock_Source",
+        "prefix": "HAL_RCC_I2C1_CLK_SRC_"
+      },
+      "I3C1": {
+        "element": "I3C1_Clock_Source",
+        "prefix": "HAL_RCC_I3C1_CLK_SRC_"
+      },
+      "LPTIM1": {
+        "element": "LPTIM1_Clock_Source",
+        "prefix": "HAL_RCC_LPTIM1_CLK_SRC_"
+      },
+      "LPUART1": {
+        "element": "LPUART_Clock_Source",
+        "prefix": "HAL_RCC_LPUART1_CLK_SRC_"
+      },
+      "RTC": {
+        "element": "RTC_Clock_Source",
+        "prefix": "HAL_RCC_RTC_CLK_SRC_",
+        "labels": {
+          "HSE_DIV": "RTCPRE"
+        },
+        "without_input": [
+          "NONE"
+        ]
+      },
+      "SPI1": {
+        "element": "SPI1_Clock_Source",
+        "prefix": "HAL_RCC_SPI1_CLK_SRC_"
+      },
+      "SPI2": {
+        "element": "SPI2_Clock_Source",
+        "prefix": "HAL_RCC_SPI2_CLK_SRC_"
+      },
+      "UART4": {
+        "element": "UART4_Clock_Source",
+        "prefix": "HAL_RCC_UART4_CLK_SRC_"
+      },
+      "UART5": {
+        "element": "UART5_Clock_Source",
+        "prefix": "HAL_RCC_UART5_CLK_SRC_"
+      },
+      "USART1": {
+        "element": "USART1_Clock_Source",
+        "prefix": "HAL_RCC_USART1_CLK_SRC_"
+      },
+      "USART2": {
+        "element": "USART2_Clock_Source",
+        "prefix": "HAL_RCC_USART2_CLK_SRC_"
+      }
+    },
+    "selectors_without_setter": {
+      "Cortex_Clock_Mux": "The SysTick external clock selector; the SDK declares no kernel clock setter of this form for it.",
+      "DAC1SH_Clock_Source": "The DAC sample and hold clock selector; the SDK sets it with HAL_RCC_DAC1_SetSampleHoldClkSource.",
+      "LSCO_Clock_Source": "The low-speed clock output selector; the SDK enables the output with HAL_RCC_EnableLSCO.",
+      "MCO1_Clock_Source": "A clock output, not a peripheral kernel clock; the SDK declares no kernel clock setter for it.",
+      "MCO2_Clock_Source": "A clock output, not a peripheral kernel clock; the SDK declares no kernel clock setter for it.",
+      "PSI_Clock_Mux": "The PSI reference selector; the SDK sets it with HAL_RCC_PSI_SetConfig.",
+      "System_Clock_Source": "The system clock selector; the SDK sets it with HAL_RCC_SetSYSCLKSource."
+    }
+  },
+  "profile": {
+    "id": "hse24-psis144-ahb-apb-div1",
+    "kind": "clock_assignment",
+    "relation": "assigns",
+    "component_attribute": "kernel_clock_source",
+    "selections": [
+      {
+        "element": "HSE",
+        "value": 24000000,
+        "cite": [
+          [
+            "preset-external-env",
+            "^#define HSE_VALUE\\b",
+            "Captured external oscillator settings define HSE_VALUE as 24000000 Hz: the value stated for the board's external source, not a measurement of it."
+          ]
+        ],
+        "field": "HSE_VALUE",
+        "support": [
+          [
+            "preset-rcc",
+            "config_psi\\.psi_ref = HAL_RCC_PSI_REF_24MHZ;",
+            "Captured clock configuration names a 24 MHz reference for the PSI oscillator."
+          ],
+          [
+            "preset-rcc",
+            "HAL_RCC_HSE_Enable\\(HAL_RCC_HSE_ON\\)",
+            "Captured clock configuration switches the HSE oscillator on."
+          ]
+        ]
+      },
+      {
+        "element": "PSI_Clock_Mux",
+        "input": "HSE",
+        "symbol": "HAL_RCC_PSI_SRC_HSE",
+        "cite": [
+          [
+            "preset-rcc",
+            "config_psi\\.psi_source = HAL_RCC_PSI_SRC_HSE;",
+            "Captured clock configuration selects HSE as the reference source of the PSI oscillator."
+          ]
+        ],
+        "field": "psi_source"
+      },
+      {
+        "element": "PSI",
+        "value": 144000000,
+        "symbol": "HAL_RCC_PSI_OUT_144MHZ",
+        "cite": [
+          [
+            "preset-rcc",
+            "config_psi\\.psi_out = HAL_RCC_PSI_OUT_144MHZ;",
+            "Captured clock configuration selects the 144 MHz output of the PSI oscillator."
+          ]
+        ],
+        "field": "psi_out",
+        "support": [
+          [
+            "preset-rcc",
+            "HAL_RCC_PSIS_Enable\\(\\)",
+            "Captured clock configuration switches the PSIS output on."
+          ]
+        ]
+      },
+      {
+        "element": "System_Clock_Source",
+        "input": "PSIS",
+        "symbol": "HAL_RCC_SYSCLK_SRC_PSIS",
+        "cite": [
+          [
+            "preset-rcc",
+            "HAL_RCC_SetSYSCLKSource\\(HAL_RCC_SYSCLK_SRC_PSIS\\)",
+            "Captured clock configuration selects PSIS as the system clock source."
+          ]
+        ],
+        "field": "HAL_RCC_SetSYSCLKSource"
+      },
+      {
+        "element": "AHB_Clock_Divider",
+        "value": 1,
+        "symbol": "HAL_RCC_HCLK_PRESCALER1",
+        "cite": [
+          [
+            "preset-rcc",
+            "config_bus\\.hclk_prescaler\\s+= HAL_RCC_HCLK_PRESCALER1;",
+            "Captured clock configuration sets the AHB prescaler to 1."
+          ]
+        ],
+        "field": "hclk_prescaler"
+      },
+      {
+        "element": "APB1_Clock_Divider",
+        "value": 1,
+        "symbol": "HAL_RCC_PCLK_PRESCALER1",
+        "cite": [
+          [
+            "preset-rcc",
+            "config_bus\\.pclk1_prescaler = HAL_RCC_PCLK_PRESCALER1;",
+            "Captured clock configuration sets the APB1 prescaler to 1."
+          ]
+        ],
+        "field": "pclk1_prescaler"
+      },
+      {
+        "element": "APB2_Clock_Divider",
+        "value": 1,
+        "symbol": "HAL_RCC_PCLK_PRESCALER1",
+        "cite": [
+          [
+            "preset-rcc",
+            "config_bus\\.pclk2_prescaler = HAL_RCC_PCLK_PRESCALER1;",
+            "Captured clock configuration sets the APB2 prescaler to 1."
+          ]
+        ],
+        "field": "pclk2_prescaler"
+      },
+      {
+        "element": "APB3_Clock_Divider",
+        "value": 1,
+        "symbol": "HAL_RCC_PCLK_PRESCALER1",
+        "cite": [
+          [
+            "preset-rcc",
+            "config_bus\\.pclk3_prescaler = HAL_RCC_PCLK_PRESCALER1;",
+            "Captured clock configuration sets the APB3 prescaler to 1."
+          ]
+        ],
+        "field": "pclk3_prescaler"
+      },
+      {
+        "element": "LSI",
+        "value": 32000,
+        "basis": "nominal",
+        "cite": [
+          [
+            "device-header",
+            "^#define LSI_VALUE\\b",
+            "Device header defines LSI_VALUE as 32000 Hz and calls it a typical value."
+          ]
+        ],
+        "field": "LSI_VALUE"
+      },
+      {
+        "element": "ADC_DAC_Clock_Source",
+        "input": "HCLK1",
+        "basis": "component",
+        "capability": "analog_reading",
+        "symbol": "HAL_RCC_ADCDAC_CLK_SRC_HCLK",
+        "evidence": [
+          "policy9-analog_reading"
+        ],
+        "cite": [
+          [
+            "analog-reading-c-source",
+            "HAL_RCC_ADCDAC_SetConfigKernelClk\\(HAL_RCC_ADCDAC_CLK_SRC_HCLK, HAL_RCC_ADCDAC_PRESCALER8\\)",
+            "Analog reading unit, initialization of the first unit on a converter: these lines ask the SDK for HCLK with prescaler 8 as the ADC and DAC kernel clock, read the configuration back and fail the initialization unless it is that source, that divider and 18 MHz. Authored implementation, not a manufacturer statement.",
+            5
+          ]
+        ],
+        "field": "HAL_RCC_ADCDAC_SetConfigKernelClk",
+        "instance": "ADC1"
+      },
+      {
+        "element": "ADCDACPRE_DIV",
+        "value": 8,
+        "basis": "component",
+        "capability": "analog_reading",
+        "symbol": "HAL_RCC_ADCDAC_PRESCALER8",
+        "evidence": [
+          "policy9-analog_reading"
+        ],
+        "cite": [
+          [
+            "analog-reading-c-source",
+            "HAL_RCC_ADCDAC_SetConfigKernelClk\\(HAL_RCC_ADCDAC_CLK_SRC_HCLK, HAL_RCC_ADCDAC_PRESCALER8\\)",
+            "Analog reading unit, initialization of the first unit on a converter: these lines ask the SDK for HCLK with prescaler 8 as the ADC and DAC kernel clock, read the configuration back and fail the initialization unless it is that source, that divider and 18 MHz. Authored implementation, not a manufacturer statement.",
+            5
+          ]
+        ],
+        "field": "HAL_RCC_ADCDAC_SetConfigKernelClk",
+        "instance": "ADC1"
+      }
+    ],
+    "expect": {
+      "System_Clock_Frequency": {
+        "source": "preset-rcc",
+        "pattern": "SYSCLK\\(Hz\\)\\s+= 144000000\\s*$",
+        "label": "Captured clock configuration states SYSCLK as 144000000 Hz in its own description; the clock stage derives the same value."
+      },
+      "HCLK_Frequency": {
+        "source": "preset-rcc",
+        "pattern": "HCLK\\(Hz\\)\\s+= 144000000\\s*$",
+        "label": "Captured clock configuration states HCLK as 144000000 Hz in its own description; the clock stage derives the same value."
+      }
+    },
+    "system_clock": "System_Clock_Frequency",
+    "captured_component_selections": [
+      {
+        "value": "HAL_RCC_USART2_CLK_SRC_PCLK1",
+        "card": "hal2.uart-init",
+        "cite": [
+          [
+            "preset-uart",
+            "HAL_RCC_USART2_SetKernelClkSource\\(HAL_RCC_USART2_CLK_SRC_PCLK1\\)",
+            "Captured USART2 initialization selects PCLK1 as the USART2 kernel clock."
+          ]
+        ]
+      }
+    ],
+    "component_api_attribute": "kernel_clock_api",
+    "gating_cite": [
+      "rm-rcc-chapter",
+      "^Each peripheral clock can be enabled by the corresponding EN bit",
+      "RM0522 Rev 1 section 9.4.15: each peripheral clock can be enabled by the corresponding EN bit in the RCC_AHBxENR and RCC_APBxENR registers.",
+      1
+    ]
+  },
+  "rate_basis": [
+    {
+      "capabilities": [
+        "periodic_interrupt"
+      ],
+      "elements": [
+        "TIMx_Input_Clock"
+      ],
+      "divides": "frequency_hz",
+      "policy": [
+        "timer_clock"
+      ]
+    },
+    {
+      "capabilities": [
+        "periodic_interrupt_channel_timer",
+        "pwm_output"
+      ],
+      "elements": [
+        "TIMx_Input_Clock",
+        "TIMx2_Input_Clock"
+      ],
+      "divides": "frequency_hz",
+      "policy": [
+        "timer_clock"
+      ]
+    },
+    {
+      "capabilities": [
+        "input_capture",
+        "timer_channel_pin"
+      ],
+      "elements": [
+        "TIMx_Input_Clock",
+        "TIMx2_Input_Clock"
+      ],
+      "policy": [
+        "timer_clock"
+      ]
+    },
+    {
+      "capabilities": [
+        "serial_endpoint",
+        "uart_dma_tx",
+        "uart_dma_rx",
+        "uart_dma_duplex"
+      ],
+      "elements": [
+        "USART2_Input_Clock"
+      ],
+      "divides": "baud_rate"
+    },
+    {
+      "capabilities": [
+        "uart_transfer_operation"
+      ],
+      "elements": [
+        "USART1_Input_Clock",
+        "USART2_Input_Clock",
+        "UART4_Input_Clock",
+        "UART5_Input_Clock"
+      ],
+      "divides": "baud_rate"
+    },
+    {
+      "capabilities": [
+        "spi_controller_dma"
+      ],
+      "elements": [
+        "SPI1_Input_Clock"
+      ],
+      "divides": "serial_clock_hz"
+    },
+    {
+      "capabilities": [
+        "spi_transfer_operation"
+      ],
+      "elements": [
+        "SPI1_Input_Clock",
+        "SPI2_Input_Clock"
+      ],
+      "divides": "serial_clock_hz"
+    },
+    {
+      "capabilities": [
+        "i2c_controller_dma",
+        "i2c_controller_operation"
+      ],
+      "elements": [
+        "I2C1_Input_Clock"
+      ]
+    },
+    {
+      "capabilities": [
+        "analog_reading"
+      ],
+      "elements": [
+        "ADC_Input_Clock"
+      ]
+    },
+    {
+      "capabilities": [
+        "independent_watchdog"
+      ],
+      "elements": [
+        "IWDG_Input_Clock"
+      ]
+    }
+  ],
+  "service": {
+    "id": "clock-profile",
+    "kind": "clock_profile",
+    "description": "The one clock profile of this target: nominal bus and timer clock frequencies after the captured start-up. Derived from the manufacturer's clock descriptor and the captured configuration; not a measurement.",
+    "frequencies": {
+      "sysclk_hz": "System_Clock_Frequency",
+      "hclk_hz": "HCLK_Frequency",
+      "pclk1_hz": "APB1_Peripheral_Clock",
+      "pclk2_hz": "APB2_Peripheral_Clock",
+      "pclk3_hz": "APB3_Peripheral_Clock",
+      "apb1_timer_hz": "TIMx_Input_Clock",
+      "apb2_timer_hz": "TIMx2_Input_Clock"
+    },
+    "properties": {
+      "system_clock_source": "PSIS: the PSI oscillator at 144 MHz on the 24 MHz HSE reference",
+      "configured_by": "mx_system_init(), before application code",
+      "read_api": "HAL_RCC_GetSYSCLKFreq, HAL_RCC_GetHCLKFreq, HAL_RCC_GetPCLK1Freq, HAL_RCC_GetPCLK2Freq, HAL_RCC_GetPCLK3Freq",
+      "records": "By exact resource ID: {prefix}.rcc.NAME (enable, reset, low-power calls), {prefix}.rcc.kernel.NAME (kernel clock sources), {prefix}.clock-profile.{profile}.ELEMENT (assigned frequency).",
+      "limitation": "Rate choices of this catalog hold for this profile only: application code must not change the system clock source or a bus prescaler."
+    },
+    "symbols": [
+      "HAL_RCC_GetSYSCLKFreq",
+      "HAL_RCC_GetHCLKFreq",
+      "HAL_RCC_GetPCLK1Freq",
+      "HAL_RCC_GetPCLK2Freq",
+      "HAL_RCC_GetPCLK3Freq"
+    ],
+    "evidence": [
+      "preset-clock"
+    ]
+  },
+  "timer_clock": {
+    "elements": [
+      "TIMx_Input_Clock",
+      "TIMx2_Input_Clock"
+    ],
+    "cite": [
+      [
+        "rm-rcc-chapter",
+        "^The timer clock frequencies \\(excluding LPTIM\\) are fixed and equal to HCLK",
+        "RM0522 Rev 1 section 9.4.14 states that the timer clock frequencies, LPTIM excluded, are fixed and equal to HCLK."
+      ],
+      [
+        "rm-rcc-chapter",
+        "^Note: All timers \\(except LPTIM\\) are clocked by HCLK",
+        "RM0522 Rev 1, RCC clock overview: all timers except LPTIM are clocked by HCLK, independently of their respective PCLK."
+      ]
+    ],
+    "evidence": [
+      "clock-doc-disagreement",
+      "inv-api-HAL_RCC_TIM_GetKernelClkFreq"
+    ],
+    "requires": {
+      "APB1_Clock_Divider": "1",
+      "APB2_Clock_Divider": "1"
+    },
+    "role_suffix": "TIM"
+  },
+  "assumption_replacements": [
+    [
+      "RM0522 RCC/TIM6-7 clock descriptions disagree. Only the captured HCLK=PCLK1 div1 preset is covered; general clock solving is absent.",
+      "Clocks are recorded as declared; one profile is assigned, no other is solved. RM0522 disagrees on timer clocks; equal at APB div1."
+    ]
+  ]
+}

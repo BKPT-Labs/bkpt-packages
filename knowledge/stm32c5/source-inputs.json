@@ -416,6 +416,14 @@
       "revision": "version 3 candidate",
       "authority": "bkpt_authored_implementation",
       "package_path": "sources/architecture/sources/bkpt-hal2-watchdog-v3/watchdog.c.in"
+    },
+    {
+      "id": "clock-policy-v5",
+      "path": "architecture/sources/bkpt-clock-policy-v5.txt",
+      "sha256": "9338bd926c09da364c5782e09593cf277840723c085c7935205220f98f752c7f",
+      "revision": "version 5",
+      "authority": "bkpt_engineering_policy",
+      "package_path": "sources/architecture/sources/bkpt-clock-policy-v5.txt"
     }
   ],
   "external": [
@@ -1048,6 +1056,34 @@
       "sha256": "f30eb52f1dc995ea83c23007d27d25c943cc27cf2b967ddea0dea8dce9c207f6",
       "revision": "RM0522 Rev 1, pages 1534 and 1538",
       "authority": "manufacturer_document_text_extraction"
+    },
+    {
+      "id": "bus-ll",
+      "path": "sdk/stm32c5-hal2-2.1.0/stm32c5xx_drivers/ll/stm32c5xx_ll_bus.h",
+      "sha256": "bac710c45c3998cede26333b7fdaa3a2c6057b9d4735ade6d28c9f446f2a8def",
+      "revision": "HAL2 pack 2.1.0",
+      "authority": "manufacturer_sdk"
+    },
+    {
+      "id": "rm-rcc-chapter",
+      "path": "architecture/sources/documents/RM0522-rev1-rcc-chapter-v1-extracted.txt",
+      "sha256": "0a0da2fb32bbec6a481475efba90f056495d308bf2b810a6989a17d7b6b5ca02",
+      "revision": "RM0522 Rev 1, pages 251 to 326; text extraction; PDF sha256 1e1ef57a207d7fcecafc887f6b00035f941e2e0692d479dc4ebb440a9166e009",
+      "authority": "manufacturer_document_text_extraction"
+    },
+    {
+      "id": "configuration-mapping",
+      "path": "architecture/sources/stm32c5-dfp-2.1.0/peripheral_configuration_mapping.json",
+      "sha256": "52cb415974bb9e776e4055270d58907c3379a496da63ab7316294ffd05dfe477",
+      "revision": "ST DFP 2.1.0; exact-byte copy of the configuration mapping of the installed pack; series-wide",
+      "authority": "manufacturer_machine_readable"
+    },
+    {
+      "id": "preset-external-env",
+      "path": "foundations/c5-hal2-base-1/files/generated/hal/stm32_external_env.h",
+      "sha256": "6d42987663145b74289c74a05df5c6450f11ac7416ac6b83f9f67613cf65a656",
+      "revision": "captured foundation 1",
+      "authority": "captured_generated_source"
     }
   ]
 }
