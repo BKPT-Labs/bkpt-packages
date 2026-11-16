@@ -18,7 +18,7 @@
     },
     "architecture_review": {
       "path": "graph.review.json",
-      "sha256": "a1638034336bf43e85fb9b1ec397d0c7a2cc05b04fa56e93a0492e43abaadc4b"
+      "sha256": "601a026e9a03bd80b1113e200b961b42527af241d724a5dc1911664a57a6a337"
     },
     "devices": {
       "path": "imports/devices.json",
