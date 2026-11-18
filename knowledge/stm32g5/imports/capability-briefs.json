@@ -1,0 +1,34 @@
+{
+  "schema": 1,
+  "graph_schema": 6,
+  "briefs": [
+    {
+      "capability": "play_logic_gate",
+      "brief": "Generated PLAY gate: two input pads to one output pad, and/or/xor/nand/nor/xnor, optional filter"
+    },
+    {
+      "capability": "play_signal_route",
+      "brief": "Generated PLAY route: one input pad to one output pad, buffered or inverted, optional filter"
+    },
+    {
+      "capability": "play_software_gate",
+      "brief": "Generated PLAY gate of one input pad and a software trigger to an output pad, set at run time"
+    },
+    {
+      "capability": "gpio_output",
+      "brief": "Application-owned GPIO output on a header-only NUCLEO-G564RE net"
+    },
+    {
+      "capability": "crc32_checksum",
+      "brief": "Generated CRC-32 (zlib) of a byte buffer in one call on the hardware CRC unit"
+    },
+    {
+      "capability": "independent_watchdog",
+      "brief": "Generated watchdog, seven reset times 100 ms to 8 s; cannot be stopped once started"
+    },
+    {
+      "capability": "gpio_input",
+      "brief": "Application-owned GPIO input on a header-only NUCLEO-G564RE net"
+    }
+  ]
+}

@@ -1,0 +1,1034 @@
+{
+  "schema": 1,
+  "id": "stm32g5-device-v1",
+  "graph_schema": 6,
+  "target": {
+    "id": "NUCLEO-G564RE",
+    "board": "NUCLEO-G564RE",
+    "part": "STM32G564RET3",
+    "package": "LQFP64",
+    "sdk": "stm32g5-hal2-2.0.0",
+    "foundation": "g5-hal2-minimal",
+    "foundation_manifest": "foundation-manifest.json",
+    "context": {
+      "foundation_profile": "g5-hal2-minimal-1",
+      "operation_mode": "run",
+      "sdk": "stm32g5-hal2-2.0.0"
+    },
+    "evidence": [
+      "identity",
+      "board-identity",
+      "board-device",
+      "policy-4",
+      "policy-5",
+      "policy-6",
+      "policy-11"
+    ],
+    "assumptions": [
+      "Acceptance binds authoring bytes, not complete silicon knowledge or runtime behavior.",
+      "Target is nominal NUCLEO-G564RE, MB2067 B02. PLAY allocation uses the Cube board composition, board netlist and bridge population. PC13 is the active-high B1 input through SB5. Attached shields, external drivers, modifications and actual bridge state must be checked by the operator.",
+      "PLAY units cover combinational functions of pads and software triggers through one lookup table each; registered outputs, clock gates, edge detection, edge triggers, interrupts, EXTI, low-power modes and security attributes are not covered.",
+      "No PLAY timing, propagation delay, glitch behavior, filter accuracy or LSI frequency is claimed; register read-back through SDK getters is not a measurement.",
+      "A PLAY unit's initialization stops and restarts PLAY1, holding the kernel-clock features of every other unit in reset meanwhile; all units initialize before main's loop."
+    ]
+  },
+  "reservations": [
+    {
+      "pad": "PA13",
+      "evidence": [
+        "policy-4"
+      ]
+    },
+    {
+      "pad": "PA14",
+      "evidence": [
+        "policy-4"
+      ]
+    },
+    {
+      "pad": "PB3",
+      "evidence": [
+        "policy-4"
+      ]
+    },
+    {
+      "pad": "PC14",
+      "evidence": [
+        "policy-4"
+      ]
+    },
+    {
+      "pad": "PC15",
+      "evidence": [
+        "policy-4"
+      ]
+    },
+    {
+      "pad": "PH0",
+      "evidence": [
+        "policy-4"
+      ]
+    },
+    {
+      "pad": "PH1",
+      "evidence": [
+        "policy-4"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "dfp",
+      "path": "stm32g5xx-dfp/STMicroelectronics.stm32g5xx_dfp.pdsc",
+      "revision": "ST DFP 2.0.0",
+      "authority": "manufacturer_machine_readable",
+      "scope": "device",
+      "sha256": "798e030aaa0474bbc2ad6bb474d2ae2b13c1ecc4396b2f59d7042583d50bdade"
+    },
+    {
+      "id": "pinout",
+      "path": "stm32g5xx-dfp/Descriptors/pinout/STM32G5(5-6)4R(B-C-E)Tx(Z-_)_pinout.json",
+      "revision": "ST DFP 2.0.0",
+      "authority": "manufacturer_machine_readable",
+      "scope": "device",
+      "sha256": "164283b38897a01d2ef6e0099c3a387b3f05f62b90ea6967cdc37f5b2a2b0154"
+    },
+    {
+      "id": "device-header",
+      "path": "stm32g5xx-dfp/Include/stm32g564xx.h",
+      "revision": "ST DFP 2.0.0",
+      "authority": "manufacturer_machine_readable",
+      "scope": "device",
+      "sha256": "1e4bcf72a3621131af0cbbb07261b1d24dfb19fe302deac00810b44de87d2a3f"
+    },
+    {
+      "id": "startup",
+      "path": "stm32g5xx-dfp/Source/startup_stm32g564xx.c",
+      "revision": "ST DFP 2.0.0",
+      "authority": "manufacturer_sdk",
+      "scope": "sdk",
+      "sha256": "c96a30705853a8351e7906a083debaca20f86dc4b9dcd713ac18e91e86528569"
+    },
+    {
+      "id": "gpio-h",
+      "path": "stm32g5xx-drivers/hal/stm32g5xx_hal_gpio.h",
+      "revision": "HAL2 pack 2.0.0",
+      "authority": "manufacturer_sdk",
+      "scope": "sdk",
+      "sha256": "ade8cd1ec19974a4aba63d0cf65742be03d5543e1d51583d49ac6c0043ccc4db"
+    },
+    {
+      "id": "gpio-c",
+      "path": "stm32g5xx-drivers/hal/stm32g5xx_hal_gpio.c",
+      "revision": "HAL2 pack 2.0.0",
+      "authority": "manufacturer_sdk",
+      "scope": "sdk",
+      "sha256": "0d2bba71e97ecf41b5a8faf4f1567ef9cd00e3c3275fc4b48ab7faa5c266f24a"
+    },
+    {
+      "id": "rcc-h",
+      "path": "stm32g5xx-drivers/hal/stm32g5xx_hal_rcc.h",
+      "revision": "HAL2 pack 2.0.0",
+      "authority": "manufacturer_sdk",
+      "scope": "sdk",
+      "sha256": "b9ac8f5da953d50e8f606ba31af955140a80e911b6f1789c958dd8f3e804475b"
+    },
+    {
+      "id": "rcc-c",
+      "path": "stm32g5xx-drivers/hal/stm32g5xx_hal_rcc.c",
+      "revision": "HAL2 pack 2.0.0",
+      "authority": "manufacturer_sdk",
+      "scope": "sdk",
+      "sha256": "08d015677688a42f6e42df99b222904871275338335eac7164ab7d306f8bb760"
+    },
+    {
+      "id": "play-h",
+      "path": "stm32g5xx-drivers/hal/stm32g5xx_hal_play.h",
+      "revision": "HAL2 pack 2.0.0",
+      "authority": "manufacturer_sdk",
+      "scope": "sdk",
+      "sha256": "9f33b09dd8bd4d47f7e2333908f69cc627fd0a7f380f967dc5a0d58488e421e6"
+    },
+    {
+      "id": "play-c",
+      "path": "stm32g5xx-drivers/hal/stm32g5xx_hal_play.c",
+      "revision": "HAL2 pack 2.0.0",
+      "authority": "manufacturer_sdk",
+      "scope": "sdk",
+      "sha256": "d2bfe7c5425ebe8a29eb7a15b49a6df0b466ac1b7c2fa82f08ea792eef372b15"
+    },
+    {
+      "id": "play-helpers",
+      "path": "stm32g5xx-drivers/.config/template/helpers/play_helpers.js",
+      "revision": "HAL2 pack 2.0.0",
+      "authority": "manufacturer_sdk",
+      "scope": "sdk",
+      "sha256": "639fd609f0b53144841aa9ed6df026011fc796ebe6f369b4b3d925973f3a1832"
+    },
+    {
+      "id": "hal-conf",
+      "path": "STM32CubeG5/examples/templates/no_os/NUCLEO-G564RE/generated/hal/stm32g5xx_hal_conf.h",
+      "revision": "STM32CubeG5 2.0.0",
+      "authority": "captured_generated_source",
+      "scope": "sdk",
+      "label": "Captured foundation configuration",
+      "sha256": "de65c43d95d7040e2a1db323d171b42bcd536ab836f3d1f3960561a50e164548"
+    },
+    {
+      "id": "example-gate-xor-play",
+      "path": "STM32CubeG5/examples/hal/play/gate_xor/NUCLEO-G564RE/generated/hal/mx_play1.c",
+      "revision": "STM32CubeG5 2.0.0",
+      "authority": "manufacturer_example_code",
+      "scope": "sdk",
+      "sha256": "de976a8d1018b215e152c504a2a7b8cc869d561b95b2e42a2df5822298d5ae4c"
+    },
+    {
+      "id": "example-gate-xor-rcc",
+      "path": "STM32CubeG5/examples/hal/play/gate_xor/NUCLEO-G564RE/generated/hal/mx_rcc.c",
+      "revision": "STM32CubeG5 2.0.0",
+      "authority": "manufacturer_example_code",
+      "scope": "sdk",
+      "sha256": "227ca7f2f5f18280c360f0328b3918f65d0483a271490c78bc23a25d25be6b00"
+    },
+    {
+      "id": "example-gate-xor-readme",
+      "path": "STM32CubeG5/examples/hal/play/gate_xor/README.md",
+      "revision": "STM32CubeG5 2.0.0",
+      "authority": "manufacturer_example_code",
+      "scope": "sdk",
+      "sha256": "0bbf11ebab07cea1b85608a2fd7ed6dd78efefd2ada5ae3d75ebefc6637943f1"
+    },
+    {
+      "id": "example-gate-xor-components",
+      "path": "STM32CubeG5/examples/hal/play/gate_xor/NUCLEO-G564RE/cmake/cmake/components.cmake",
+      "revision": "STM32CubeG5 2.0.0",
+      "authority": "manufacturer_example_code",
+      "scope": "sdk",
+      "sha256": "fdf459c9856c6fa827f677a46f08fe41e9d1d0e468e3604310ffea45c59ef556"
+    },
+    {
+      "id": "example-signal-routing-play",
+      "path": "STM32CubeG5/examples/hal/play/signal_routing/NUCLEO-G564RE/generated/hal/mx_play1.c",
+      "revision": "STM32CubeG5 2.0.0",
+      "authority": "manufacturer_example_code",
+      "scope": "sdk",
+      "sha256": "fdc0569a9d0aeefcef2ef482f0d562d8a0b45961a68716c6a8376ceb619940b6"
+    },
+    {
+      "id": "example-counter-play",
+      "path": "STM32CubeG5/examples/hal/play/counter_3bits/NUCLEO-G564RE/generated/hal/mx_play1.c",
+      "revision": "STM32CubeG5 2.0.0",
+      "authority": "manufacturer_example_code",
+      "scope": "sdk",
+      "sha256": "d11fff628387ace601b38ca36e1725b3ffa3a61ff4be49b6acda964cde37a4af"
+    },
+    {
+      "id": "example-alarm-play",
+      "path": "STM32CubeG5/examples/hal/play/emergency_alarm/NUCLEO-G564RE/generated/hal/mx_play1.c",
+      "revision": "STM32CubeG5 2.0.0",
+      "authority": "manufacturer_example_code",
+      "scope": "sdk",
+      "sha256": "094f656e3ee34e72340f8c1e9463ea0b29134efb2428620f661caf798ad5966d"
+    },
+    {
+      "id": "board-project",
+      "path": "STM32CubeG5/examples/templates/start_from_nucleo/NUCLEO-G564RE/template_start_from_nucleo.ioc2",
+      "revision": "STM32CubeG5 2.0.0 start_from_nucleo project, board nucleo-g564re_hw-board 2.0.0",
+      "authority": "manufacturer_machine_readable",
+      "scope": "board",
+      "sha256": "258e4409b4f780e82eb523e58396a856afc4016053f4ec7c526a0bf20e17fb01"
+    },
+    {
+      "id": "policy",
+      "path": "architecture/sources/bkpt-g5-play-v1/bkpt-g5-play-policy-v1.txt",
+      "package_file": "catalog/play/bkpt-g5-play-policy-v1.txt",
+      "revision": "BKPT G5 PLAY policy version 1",
+      "authority": "bkpt_engineering_policy",
+      "scope": "policy",
+      "sha256": "dc5417424f706c41177c3768be0b61a0d222c43e44d918939c00f9cb3c9f2fe4"
+    },
+    {
+      "id": "template-logic-gate-h",
+      "path": "architecture/sources/bkpt-g5-play-v1/play-logic-gate.h.in",
+      "package_file": "catalog/play/play-logic-gate.h.in",
+      "revision": "BKPT G5 PLAY components v1",
+      "authority": "bkpt_authored_implementation",
+      "scope": "implementation",
+      "sha256": "4170b8d3b8286547d1bbd3a80129ad00631c5c85b79dacbb1908ffcfbd547e2b"
+    },
+    {
+      "id": "template-logic-gate-c",
+      "path": "architecture/sources/bkpt-g5-play-v1/play-logic-gate.c.in",
+      "package_file": "catalog/play/play-logic-gate.c.in",
+      "revision": "BKPT G5 PLAY components v1",
+      "authority": "bkpt_authored_implementation",
+      "scope": "implementation",
+      "sha256": "00d87b982b6dd17b0956b511854fc1c877e6efec31b494dc4ef922d93caca439"
+    },
+    {
+      "id": "template-signal-route-h",
+      "path": "architecture/sources/bkpt-g5-play-v1/play-signal-route.h.in",
+      "package_file": "catalog/play/play-signal-route.h.in",
+      "revision": "BKPT G5 PLAY components v1",
+      "authority": "bkpt_authored_implementation",
+      "scope": "implementation",
+      "sha256": "bb071018b47b8a1cab5bd5511541d31e256e1bfc1b14431bb9d27a7759d6bb11"
+    },
+    {
+      "id": "template-signal-route-c",
+      "path": "architecture/sources/bkpt-g5-play-v1/play-signal-route.c.in",
+      "package_file": "catalog/play/play-signal-route.c.in",
+      "revision": "BKPT G5 PLAY components v1",
+      "authority": "bkpt_authored_implementation",
+      "scope": "implementation",
+      "sha256": "06c6f0bb96a2db047df24960acbbacf003f7a49302b2893e4b23d392189de635"
+    },
+    {
+      "id": "template-software-gate-h",
+      "path": "architecture/sources/bkpt-g5-play-v1/play-software-gate.h.in",
+      "package_file": "catalog/play/play-software-gate.h.in",
+      "revision": "BKPT G5 PLAY components v1",
+      "authority": "bkpt_authored_implementation",
+      "scope": "implementation",
+      "sha256": "975d38dabe7b1c6021e21c03d79d7bd078a8d3a57ab605a58987bcafdf86de39"
+    },
+    {
+      "id": "template-software-gate-c",
+      "path": "architecture/sources/bkpt-g5-play-v1/play-software-gate.c.in",
+      "package_file": "catalog/play/play-software-gate.c.in",
+      "revision": "BKPT G5 PLAY components v1",
+      "authority": "bkpt_authored_implementation",
+      "scope": "implementation",
+      "sha256": "2738f9768da3da63fa36c4768a00d10326996a8cab8464d23fadb754738cae37"
+    }
+  ],
+  "policy": {
+    "source": "policy",
+    "rules": 11,
+    "prefix": "policy",
+    "label": "BKPT G5 PLAY policy, version 1"
+  },
+  "cites": [
+    {
+      "id": "identity",
+      "source": "dfp",
+      "start": "<variant Dvariant=\"STM32G564RET3\">",
+      "end": "STM32G5(5-6)4R(B-C-E)Tx(Z-_)_pinout.json",
+      "statement": "DFP 2.0.0 declares variant STM32G564RET3 in an LQFP64 package and names the pinout descriptor STM32G5(5-6)4R(B-C-E)Tx(Z-_)_pinout.json for it."
+    },
+    {
+      "id": "play-instance",
+      "source": "device-header",
+      "start": "#define PLAY1                          PLAY1_NS",
+      "statement": "Device header defines PLAY1 as the non-secure PLAY instance outside the secure build."
+    },
+    {
+      "id": "play-intro",
+      "source": "play-c",
+      "start": "The programmable logic array allows the user",
+      "end": "by cascading logic elements.",
+      "statement": "SDK describes PLAY as lookup tables programmed to any logical function, cascadable into more complex functions."
+    },
+    {
+      "id": "play-usage-order",
+      "source": "play-c",
+      "start": "3. Configure the combinational and/or sequential logic functions in this order:",
+      "end": "After this step, the PLAY Outputs can be connected to GPIOs or internal peripherals.",
+      "statement": "SDK usage text: configure input multiplexers, then lookup tables, then output multiplexers; HAL_PLAY_Start locks the configuration and makes the kernel clock operational; only after it may PLAY outputs be connected to GPIOs. It also gives the truth table encoding."
+    },
+    {
+      "id": "play-truth-formula",
+      "source": "play-c",
+      "start": "The truth table of a lookup table is composed of 16 combinations",
+      "end": "for IN3, IN2, IN1 & IN0: 0x8000",
+      "statement": "SDK documents the truth table: combination ID = IN0 + 2*IN1 + 4*IN2 + 8*IN3 and the value is the sum of O(y) * 2^y; AND of IN1 and IN0 is 0x8888."
+    },
+    {
+      "id": "play-update",
+      "source": "play-c",
+      "start": "6. Update PLAY Configuration (optional):",
+      "end": "Or disabling GPIO and disconnecting each peripheral taking the PLAY peripheral as inputs.",
+      "statement": "SDK: to update lookup table configurations call HAL_PLAY_Stop first; it disables interrupts, clears flags and unlocks the configuration; outputs should be disconnected meanwhile to avoid glitches."
+    },
+    {
+      "id": "play-config-table",
+      "source": "play-c",
+      "start": "USE_HAL_PLAY_CLK_ENABLE_MODEL     | HAL_CLK_ENABLE_NO",
+      "statement": "SDK: by default HAL_PLAY_Init does not enable the PLAY clock (USE_HAL_PLAY_CLK_ENABLE_MODEL is HAL_CLK_ENABLE_NO)."
+    },
+    {
+      "id": "play-write-timeout",
+      "source": "play-c",
+      "start": "@brief Maximum Timeout for any write on Software Trigger or Edge Trigger register.",
+      "end": "#define PLAY_WRITE_TIMEOUT_MS (4000U)",
+      "statement": "SDK: a software trigger or edge trigger write takes 3 cycles of the PLAY kernel clock plus 2 PCLK cycles; the SDK bounds it by 4000 ms."
+    },
+    {
+      "id": "play-edge-write",
+      "source": "play-c",
+      "start": "static hal_status_t PLAY_LUT_SetEdgeTrigger(const hal_play_handle_t *hplay,",
+      "nth": 1,
+      "end": "^}$",
+      "regex_end": true,
+      "statement": "SDK defines the edge trigger write HAL_PLAY_Start ends with: HAL_BUSY when a write is pending, then it waits on the write-busy flag up to the given limit of HAL ticks."
+    },
+    {
+      "id": "play-min-pulse-range",
+      "source": "play-h",
+      "start": "uint32_t                       min_pulse_width; /*!< Minimum Pulse Width. Value in range 0x00 to 0xFF */",
+      "statement": "SDK: the input multiplexer minimum pulse width is a value from 0x00 to 0xFF."
+    },
+    {
+      "id": "play-truth-helper",
+      "source": "play-helpers",
+      "start": "helper_play_truth_table_from_expr(expr, vars) {",
+      "end": "return table;",
+      "statement": "SDK code generator turns an expression of A, B, C, D into a truth table by setting bit i when the expression holds with A = bit 0, B = bit 1, C = bit 2, D = bit 3 of i."
+    },
+    {
+      "id": "rcc-play-default",
+      "source": "rcc-h",
+      "start": "- PLAY: kernel clock is from LSE (default), LSI, PLL2P, HSE, HSI or HSI48.",
+      "statement": "SDK: the PLAY kernel clock is LSE by default and can be LSI, PLL2P, HSE, HSI or HSI48."
+    },
+    {
+      "id": "example-kernel-lsi",
+      "source": "example-gate-xor-play",
+      "start": "HAL_RCC_PLAY1_EnableClock();",
+      "end": "if (HAL_RCC_PLAY1_SetKernelClkSource(HAL_RCC_PLAY1_CLK_SRC_LSI) != HAL_OK)",
+      "statement": "ST gate_xor example for NUCLEO-G564RE enables the PLAY1 clock, initializes PLAY1 and selects LSI as its kernel clock."
+    },
+    {
+      "id": "example-input-filter",
+      "source": "example-gate-xor-play",
+      "start": "in_config[0].source          = HAL_PLAY1_IN_IN4_MUX4;",
+      "end": "in_config[0].min_pulse_width = 100;",
+      "statement": "ST gate_xor example configures input multiplexer 4 on external input IN4 with edge detection bypassed and a minimum pulse width of 100."
+    },
+    {
+      "id": "example-xor-table",
+      "source": "example-gate-xor-play",
+      "start": "lut_config[0].truth_table     = 0x6666; /* Logical expression: A ^ B */",
+      "end": "lut_config[0].input_source[HAL_PLAY_LUT_INPUT3] = HAL_PLAY_LUT_INPUT_DEFAULT;",
+      "statement": "ST gate_xor example writes 0x6666 for A ^ B with A on lookup table input 0, B on input 1 and the default source on inputs 2 and 3 that the table ignores."
+    },
+    {
+      "id": "example-input-pad",
+      "source": "example-gate-xor-play",
+      "start": "PC13    ------>   PLAY1_IN4",
+      "end": "HAL_GPIO_Init(HAL_GPIOC, HAL_GPIO_PIN_13, &gpio_config);",
+      "statement": "ST gate_xor example sets PC13 (the user button input PLAY1_IN4) to alternate function 14, push-pull, pull-down, high speed."
+    },
+    {
+      "id": "example-output-pad",
+      "source": "example-gate-xor-play",
+      "start": "PD11    ------>   PLAY1_OUT0",
+      "end": "HAL_GPIO_Init(HAL_GPIOD, HAL_GPIO_PIN_11, &gpio_config);",
+      "statement": "ST gate_xor example sets PD11 (PLAY1_OUT0) to alternate function 14, push-pull, no pull, high speed."
+    },
+    {
+      "id": "example-lsi-enable",
+      "source": "example-gate-xor-rcc",
+      "start": "/* Resources using LSI (32 kHz):",
+      "end": "if (HAL_RCC_PLAY1_SetKernelClkDivider(HAL_RCC_PLAY1_CLK_DIVIDER1) != HAL_OK)",
+      "statement": "ST gate_xor example enables LSI (32 kHz) and sets the PLAY1 kernel clock divider to 1."
+    },
+    {
+      "id": "example-filter-note",
+      "source": "example-gate-xor-readme",
+      "start": "As the PLAY input is configured to be filtered by setting a minimal pulse width",
+      "statement": "ST gate_xor README: a filtered input is taken into account only if stable for a number of PLAY clock cycles set by the filter configuration."
+    },
+    {
+      "id": "example-components",
+      "source": "example-gate-xor-components",
+      "start": "Cgroup:STM32 HAL#Csub:GPIO#Cversion:2.0.0\")",
+      "nth": 0,
+      "end": "Cgroup:STM32 LL#Csub:PLAY#Cversion:2.0.0\")",
+      "statement": "ST gate_xor example lists the STM32 HAL GPIO and PLAY and STM32 LL GPIO and PLAY components among its CMSIS components."
+    },
+    {
+      "id": "example-route-buffer",
+      "source": "example-signal-routing-play",
+      "start": "lut_config[0].truth_table     = 0xAAAA; /* Logical expression: A */",
+      "statement": "ST signal_routing example writes 0xAAAA for the expression A."
+    },
+    {
+      "id": "example-route-lsi",
+      "source": "example-signal-routing-play",
+      "start": "if (HAL_RCC_PLAY1_SetKernelClkSource(HAL_RCC_PLAY1_CLK_SRC_LSI) != HAL_OK)",
+      "statement": "ST signal_routing example selects LSI as PLAY1 kernel clock."
+    },
+    {
+      "id": "example-counter-invert",
+      "source": "example-counter-play",
+      "start": "lut_config[0].truth_table     = 0x5555; /* Logical expression: !A */",
+      "statement": "ST counter_3bits example writes 0x5555 for the expression !A."
+    },
+    {
+      "id": "example-counter-lsi",
+      "source": "example-counter-play",
+      "start": "if (HAL_RCC_PLAY1_SetKernelClkSource(HAL_RCC_PLAY1_CLK_SRC_LSI) != HAL_OK)",
+      "statement": "ST counter_3bits example selects LSI as PLAY1 kernel clock."
+    },
+    {
+      "id": "example-alarm-lsi",
+      "source": "example-alarm-play",
+      "start": "if (HAL_RCC_PLAY1_SetKernelClkSource(HAL_RCC_PLAY1_CLK_SRC_LSI) != HAL_OK)",
+      "statement": "ST emergency_alarm example selects LSI as PLAY1 kernel clock."
+    },
+    {
+      "id": "example-alarm-or",
+      "source": "example-alarm-play",
+      "start": "lut_config[8].truth_table     = 0xFFFE; /* Logical expression: A | B | C | D */",
+      "statement": "ST emergency_alarm example writes 0xFFFE for A | B | C | D."
+    },
+    {
+      "id": "board-identity",
+      "source": "board-project",
+      "start": "\"boardUID\": \"STMicroelectronics.nucleo-g564re_hw-board.2.0.0$STMicroelectronics::NUCLEO-G564RE@NUG564RE$CR1\",",
+      "statement": "The NUCLEO-G564RE start_from_nucleo project composes board nucleo-g564re_hw-board 2.0.0 (NUG564RE, CR1)."
+    },
+    {
+      "id": "board-device",
+      "source": "board-project",
+      "start": "      device: STM32G564RET3",
+      "statement": "The NUCLEO-G564RE start_from_nucleo project builds for device STM32G564RET3."
+    }
+  ],
+  "board": {
+    "source": "board-project",
+    "section": "\"File: NUCLEO-G564RE_project/.settings/hw-composition.store.json\" = \"\"\"",
+    "input_parts": [
+      "B1"
+    ],
+    "statement": "Board composition: board part {reference} ({name}) pin {part_pin} is connected to device package position {position}.",
+    "composition_statement": "Board composition of the NUCLEO-G564RE project: every board part connected to a device package position."
+  },
+  "symbols": {
+    "definition": [
+      [
+        "play-c",
+        "HAL_PLAY_Init"
+      ],
+      [
+        "play-c",
+        "HAL_PLAY_GetState"
+      ],
+      [
+        "play-c",
+        "HAL_PLAY_INPUT_SetConfig"
+      ],
+      [
+        "play-c",
+        "HAL_PLAY_LUT_SetConfig"
+      ],
+      [
+        "play-c",
+        "HAL_PLAY_OUTPUT_SetConfig"
+      ],
+      [
+        "play-c",
+        "HAL_PLAY_Start"
+      ],
+      [
+        "play-c",
+        "HAL_PLAY_Stop"
+      ],
+      [
+        "play-c",
+        "HAL_PLAY_INPUT_GetSource"
+      ],
+      [
+        "play-c",
+        "HAL_PLAY_INPUT_GetMinPulseWidth"
+      ],
+      [
+        "play-c",
+        "HAL_PLAY_INPUT_GetEdgeDetectionMode"
+      ],
+      [
+        "play-c",
+        "HAL_PLAY_LUT_GetTruthTable"
+      ],
+      [
+        "play-c",
+        "HAL_PLAY_LUT_GetSource"
+      ],
+      [
+        "play-c",
+        "HAL_PLAY_LUT_GetClockGateSource"
+      ],
+      [
+        "play-c",
+        "HAL_PLAY_OUTPUT_GetSource"
+      ],
+      [
+        "play-c",
+        "HAL_PLAY_WriteSWTrigger"
+      ],
+      [
+        "play-c",
+        "HAL_PLAY_ReadSWTrigger"
+      ],
+      [
+        "rcc-h",
+        "HAL_RCC_PLAY1_EnableClock"
+      ],
+      [
+        "rcc-c",
+        "HAL_RCC_LSI_Enable"
+      ],
+      [
+        "rcc-c",
+        "HAL_RCC_PLAY1_SetKernelClkSource"
+      ],
+      [
+        "rcc-c",
+        "HAL_RCC_PLAY1_SetKernelClkDivider"
+      ],
+      [
+        "rcc-c",
+        "HAL_RCC_PLAY1_GetKernelClkSource"
+      ],
+      [
+        "rcc-c",
+        "HAL_RCC_PLAY1_GetKernelClkDivider"
+      ],
+      [
+        "gpio-c",
+        "HAL_GPIO_Init"
+      ],
+      [
+        "rcc-h",
+        "HAL_RCC_PLAY1_Reset"
+      ]
+    ],
+    "value": [
+      [
+        "play-h",
+        "HAL_PLAY1"
+      ],
+      [
+        "play-h",
+        "HAL_PLAY_EDGE_DETECTION_BYPASSED"
+      ],
+      [
+        "play-h",
+        "HAL_PLAY_LUT_INPUT_DEFAULT"
+      ],
+      [
+        "play-h",
+        "HAL_PLAY_LUT_CLK_GATE_OFF"
+      ],
+      [
+        "play-h",
+        "HAL_PLAY_LUT_INPUT0"
+      ],
+      [
+        "play-h",
+        "HAL_PLAY_LUT_INPUT1"
+      ],
+      [
+        "play-h",
+        "HAL_PLAY_LUT_INPUT2"
+      ],
+      [
+        "play-h",
+        "HAL_PLAY_LUT_INPUT3"
+      ],
+      [
+        "play-h",
+        "HAL_PLAY_SW_TRIGGER_SET"
+      ],
+      [
+        "play-h",
+        "HAL_PLAY_SW_TRIGGER_RESET"
+      ],
+      [
+        "play-h",
+        "HAL_PLAY_STATE_RESET"
+      ],
+      [
+        "play-h",
+        "HAL_PLAY_STATE_IDLE"
+      ],
+      [
+        "play-h",
+        "HAL_PLAY_STATE_ACTIVE"
+      ],
+      [
+        "rcc-h",
+        "HAL_RCC_PLAY1_CLK_SRC_LSI"
+      ],
+      [
+        "rcc-h",
+        "HAL_RCC_PLAY1_CLK_DIVIDER1"
+      ],
+      [
+        "gpio-h",
+        "HAL_GPIO_MODE_ALTERNATE"
+      ],
+      [
+        "gpio-h",
+        "HAL_GPIO_OUTPUT_PUSHPULL"
+      ],
+      [
+        "gpio-h",
+        "HAL_GPIO_SPEED_FREQ_HIGH"
+      ],
+      [
+        "gpio-h",
+        "HAL_GPIO_PULL_NO"
+      ],
+      [
+        "gpio-h",
+        "HAL_GPIO_PULL_UP"
+      ],
+      [
+        "gpio-h",
+        "HAL_GPIO_PULL_DOWN"
+      ],
+      [
+        "gpio-h",
+        "HAL_GPIO_PIN_RESET"
+      ],
+      [
+        "gpio-h",
+        "HAL_GPIO_AF_14"
+      ],
+      [
+        "hal-conf",
+        "USE_HAL_PLAY_MODULE"
+      ],
+      [
+        "hal-conf",
+        "USE_HAL_GPIO_MODULE"
+      ]
+    ]
+  },
+  "play": {
+    "instance": "PLAY1",
+    "count": 16,
+    "signal_input": "PLAY1_IN{n}",
+    "signal_output": "PLAY1_OUT{n}",
+    "instance_evidence": [
+      "play-instance",
+      "play-intro",
+      "sdk-HAL_PLAY1",
+      "policy-2",
+      "policy-5"
+    ],
+    "instance_attributes": {
+      "instance": "PLAY1",
+      "hal_instance": "HAL_PLAY1",
+      "clock_enable_api": "HAL_RCC_PLAY1_EnableClock",
+      "ownership_policy": "shared_by_play_units"
+    },
+    "kinds": {
+      "input": {
+        "kind": "play_input",
+        "id": "IN{n}",
+        "attributes": {
+          "name": "IN{n}",
+          "mux_symbol": "HAL_PLAY_IN{n}",
+          "source_symbol": "HAL_PLAY1_IN_IN{n}_MUX{n}",
+          "lut_source_symbol": "HAL_PLAY_LUT_INPUT_FILTER{n}"
+        }
+      },
+      "lut": {
+        "kind": "play_lut",
+        "id": "LUT{n}",
+        "attributes": {
+          "name": "LUT{n}",
+          "lut_symbol": "HAL_PLAY_LUT{n}",
+          "direct_output_symbol": "HAL_PLAY_LUT{n}_OUT_DIRECT"
+        }
+      },
+      "output": {
+        "kind": "play_output",
+        "id": "OUT{n}",
+        "attributes": {
+          "name": "OUT{n}",
+          "output_symbol": "HAL_PLAY_OUT{n}"
+        }
+      },
+      "trigger": {
+        "kind": "play_sw_trigger",
+        "id": "SWTRIG{n}",
+        "attributes": {
+          "name": "SWTRIG{n}",
+          "trigger_symbol": "HAL_PLAY_SWTRIG{n}",
+          "lut_source_symbol": "HAL_PLAY_LUT_INPUT_SWTRIG{n}"
+        }
+      }
+    },
+    "pad_attribute": {
+      "input": "play_input_pad",
+      "output": "play_output_pad"
+    },
+    "route_relation": "play_pad"
+  },
+  "truth_tables": {
+    "and": {
+      "expression": "A & B",
+      "table": "0x8888"
+    },
+    "or": {
+      "expression": "A | B",
+      "table": "0xEEEE"
+    },
+    "xor": {
+      "expression": "A ^ B",
+      "table": "0x6666"
+    },
+    "nand": {
+      "expression": "!(A & B)",
+      "table": "0x7777"
+    },
+    "nor": {
+      "expression": "!(A | B)",
+      "table": "0x1111"
+    },
+    "xnor": {
+      "expression": "!(A ^ B)",
+      "table": "0x9999"
+    },
+    "buffer": {
+      "expression": "A",
+      "table": "0xAAAA"
+    },
+    "invert": {
+      "expression": "!A",
+      "table": "0x5555"
+    }
+  },
+  "integration": {
+    "id": "hal2.play-integration",
+    "guidance": "Shared integration of every generated PLAY unit: switches on the SDK's PLAY and GPIO modules in the captured HAL configuration and adds the STM32 HAL and LL GPIO and PLAY components that the STM32CubeG5 PLAY examples list to the foundation's CMSIS component list, so the SDK's CMake builds stm32g5xx_hal_play.c and stm32g5xx_hal_gpio.c. No PLAY, clock or pad setup of its own; the units do that.",
+    "evidence": [
+      "policy-10",
+      "sdk-USE_HAL_PLAY_MODULE",
+      "sdk-USE_HAL_GPIO_MODULE",
+      "example-components",
+      "play-config-table"
+    ],
+    "edits": [
+      {
+        "path": "generated/hal/stm32g5xx_hal_conf.h",
+        "mode": "replace",
+        "old": "#define USE_HAL_PLAY_MODULE                     0U",
+        "new": "#define USE_HAL_PLAY_MODULE                     1U"
+      },
+      {
+        "path": "generated/hal/stm32g5xx_hal_conf.h",
+        "mode": "replace",
+        "old": "#define USE_HAL_GPIO_MODULE                     0U",
+        "new": "#define USE_HAL_GPIO_MODULE                     1U"
+      },
+      {
+        "path": "cmake/components.cmake",
+        "mode": "insert_before",
+        "old": "if(${CMAKE_BUILD_TYPE} STREQUAL \"debug_GCC_NUCLEO-G564RE\")",
+        "new": "# BKPT PLAY units: STM32 HAL and LL GPIO and PLAY, as the STM32CubeG5 PLAY examples list them.\nlist(APPEND CMSIS_COMPONENTS_LIST \"Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32 HAL#Csub:GPIO#Cversion:2.0.0\")\nlist(APPEND CMSIS_COMPONENTS_LIST \"Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32 HAL#Csub:PLAY#Cversion:2.0.0\")\nlist(APPEND CMSIS_COMPONENTS_LIST \"Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32 LL#Csub:GPIO#Cversion:2.0.0\")\nlist(APPEND CMSIS_COMPONENTS_LIST \"Cvendor:STMicroelectronics#Cclass:Device#Cgroup:STM32 LL#Csub:PLAY#Cversion:2.0.0\")\n"
+      }
+    ]
+  },
+  "unit_edits": [
+    {
+      "path": "CMakeLists.txt",
+      "old": "  # Add additional source files here",
+      "new": "  bkpt_components/{{unit}}.c\n"
+    },
+    {
+      "path": "main.c",
+      "old": "#include \"main.h\"",
+      "new": "#include \"bkpt_components/{{unit}}.h\"\n"
+    },
+    {
+      "path": "main.c",
+      "old": "    while (1) {}",
+      "new": "    if ({{unit}}_init() != HAL_OK) { return -1; }\n"
+    }
+  ],
+  "common_unit_evidence": [
+    "policy-5",
+    "policy-6",
+    "policy-7",
+    "policy-8",
+    "policy-9",
+    "policy-11",
+    "play-usage-order",
+    "play-truth-formula",
+    "play-update",
+    "play-config-table",
+    "play-edge-write",
+    "play-min-pulse-range",
+    "example-kernel-lsi",
+    "example-lsi-enable",
+    "example-route-lsi",
+    "example-counter-lsi",
+    "example-alarm-lsi",
+    "example-input-filter",
+    "example-input-pad",
+    "example-output-pad",
+    "example-filter-note",
+    "rcc-play-default",
+    "sdk-HAL_PLAY_Init",
+    "sdk-HAL_PLAY_GetState",
+    "sdk-HAL_PLAY_INPUT_SetConfig",
+    "sdk-HAL_PLAY_LUT_SetConfig",
+    "sdk-HAL_PLAY_OUTPUT_SetConfig",
+    "sdk-HAL_PLAY_Start",
+    "sdk-HAL_PLAY_Stop",
+    "sdk-HAL_PLAY_INPUT_GetSource",
+    "sdk-HAL_PLAY_INPUT_GetMinPulseWidth",
+    "sdk-HAL_PLAY_INPUT_GetEdgeDetectionMode",
+    "sdk-HAL_PLAY_LUT_GetTruthTable",
+    "sdk-HAL_PLAY_LUT_GetSource",
+    "sdk-HAL_PLAY_LUT_GetClockGateSource",
+    "sdk-HAL_PLAY_OUTPUT_GetSource",
+    "sdk-HAL_RCC_PLAY1_EnableClock",
+    "sdk-HAL_RCC_LSI_Enable",
+    "sdk-HAL_RCC_PLAY1_SetKernelClkSource",
+    "sdk-HAL_RCC_PLAY1_SetKernelClkDivider",
+    "sdk-HAL_RCC_PLAY1_GetKernelClkSource",
+    "sdk-HAL_RCC_PLAY1_GetKernelClkDivider",
+    "sdk-HAL_GPIO_Init",
+    "sdk-HAL_PLAY1",
+    "sdk-HAL_PLAY_EDGE_DETECTION_BYPASSED",
+    "sdk-HAL_PLAY_LUT_INPUT_DEFAULT",
+    "sdk-HAL_PLAY_LUT_CLK_GATE_OFF",
+    "sdk-HAL_PLAY_LUT_INPUT0",
+    "sdk-HAL_PLAY_LUT_INPUT1",
+    "sdk-HAL_PLAY_LUT_INPUT2",
+    "sdk-HAL_PLAY_LUT_INPUT3",
+    "sdk-HAL_PLAY_STATE_RESET",
+    "sdk-HAL_PLAY_STATE_IDLE",
+    "sdk-HAL_PLAY_STATE_ACTIVE",
+    "sdk-HAL_RCC_PLAY1_CLK_SRC_LSI",
+    "sdk-HAL_RCC_PLAY1_CLK_DIVIDER1",
+    "sdk-HAL_GPIO_MODE_ALTERNATE",
+    "sdk-HAL_GPIO_OUTPUT_PUSHPULL",
+    "sdk-HAL_GPIO_SPEED_FREQ_HIGH",
+    "sdk-HAL_GPIO_PULL_NO",
+    "sdk-HAL_GPIO_PULL_UP",
+    "sdk-HAL_GPIO_PULL_DOWN",
+    "sdk-HAL_GPIO_PIN_RESET",
+    "sdk-HAL_GPIO_AF_14",
+    "sdk-HAL_RCC_PLAY1_Reset"
+  ],
+  "parameters": {
+    "min_pulse_width": {
+      "type": "integer",
+      "unit": "kernel_clock_cycles",
+      "min": "0",
+      "max": "255"
+    },
+    "pull": {
+      "type": "choice",
+      "values": [
+        "none",
+        "up",
+        "down"
+      ]
+    }
+  },
+  "maps": {
+    "pull": {
+      "none": "HAL_GPIO_PULL_NO",
+      "up": "HAL_GPIO_PULL_UP",
+      "down": "HAL_GPIO_PULL_DOWN"
+    },
+    "alternate": {
+      "AF14": "HAL_GPIO_AF_14"
+    }
+  },
+  "capabilities": [
+    {
+      "id": "play_logic_gate",
+      "card": "hal2.play-logic-gate",
+      "functions": [
+        "and",
+        "or",
+        "xor",
+        "nand",
+        "nor",
+        "xnor"
+      ],
+      "inputs": [
+        "a",
+        "b"
+      ],
+      "trigger": false,
+      "description": "Two-input logic gate in the PLAY: two input pads, each through its own PLAY1 input multiplexer and filter, combined by one lookup table into and, or, xor, nand, nor or xnor, driven on an output pad through an output multiplexer. Generated component: init only, configured once at start-up. Pads and multiplexers are those the pinout descriptor routes to PLAY1 and the NUCLEO-G564RE leaves free; PLAY1 is shared with the other PLAY units.",
+      "brief": "Generated PLAY gate: two input pads to one output pad, and/or/xor/nand/nor/xnor, filtered",
+      "templates": [
+        "template-logic-gate-h",
+        "template-logic-gate-c"
+      ],
+      "evidence": [
+        "example-xor-table",
+        "example-alarm-or",
+        "play-truth-helper"
+      ],
+      "guidance": "Generated component owns two PLAY1 input multiplexers, one lookup table, one output multiplexer and three pads. {{unit}}_init, called from main after mx_system_init, sets both input pads to alternate function 14 with the chosen pulls, globally resets and initializes PLAY1 with LSI as kernel clock on the first PLAY unit (stopping it on a later one), writes the two input multiplexers (external input, edge detection bypassed, the chosen minimum pulse width), the truth table of the chosen function with A on lookup table input 0 and B on input 1, the output multiplexer on the table's direct output, starts PLAY1 with no edge trigger, checks the selected PLAY mux, LUT and filter fields through SDK getters and only then connects the output pad. Unused table inputs 2 and 3 keep the SDK default source; every listed table ignores them. Do not configure PLAY1, its clock or these pads elsewhere; every other PLAY user must be a generated PLAY unit. No timing, glitch or electrical behavior is established."
+    },
+    {
+      "id": "play_signal_route",
+      "card": "hal2.play-signal-route",
+      "functions": [
+        "buffer",
+        "invert"
+      ],
+      "inputs": [
+        "a"
+      ],
+      "trigger": false,
+      "description": "One input pad routed through a PLAY1 input multiplexer and filter and one lookup table, unchanged or inverted, to an output pad through an output multiplexer. Generated component: init only, configured once at start-up. Pads and multiplexers are those the pinout descriptor routes to PLAY1 and the NUCLEO-G564RE leaves free; PLAY1 is shared with the other PLAY units.",
+      "brief": "Generated PLAY route: one input pad to one output pad, buffered or inverted, filtered",
+      "templates": [
+        "template-signal-route-h",
+        "template-signal-route-c"
+      ],
+      "evidence": [
+        "example-route-buffer",
+        "example-counter-invert"
+      ],
+      "guidance": "Generated component owns one PLAY1 input multiplexer, one lookup table, one output multiplexer and two pads. {{unit}}_init, called from main after mx_system_init, sets the input pad to alternate function 14 with the chosen pull, globally resets and initializes PLAY1 with LSI as kernel clock on the first PLAY unit (stopping it on a later one), writes the input multiplexer (external input, edge detection bypassed, the chosen minimum pulse width), the truth table of buffer or invert with the input on lookup table input 0, the output multiplexer on the table's direct output, starts PLAY1 with no edge trigger, checks the selected PLAY mux, LUT and filter fields through SDK getters and only then connects the output pad. Unused table inputs 1 to 3 keep the SDK default source; both tables ignore them. Do not configure PLAY1, its clock or these pads elsewhere; every other PLAY user must be a generated PLAY unit. No timing, glitch or electrical behavior is established."
+    },
+    {
+      "id": "play_software_gate",
+      "card": "hal2.play-software-gate",
+      "functions": [
+        "and",
+        "or",
+        "xor",
+        "nand",
+        "nor",
+        "xnor"
+      ],
+      "inputs": [
+        "a"
+      ],
+      "trigger": true,
+      "description": "One input pad combined in the PLAY with a software trigger the application writes: the pad through a PLAY1 input multiplexer and filter is input A, the trigger is input B, one lookup table computes and, or, xor, nand, nor or xnor, driven on an output pad through an output multiplexer. Generated component with init, set trigger and get trigger. PLAY1 is shared with the other PLAY units.",
+      "brief": "Generated PLAY gate of one input pad and a software trigger to an output pad, set at run time",
+      "templates": [
+        "template-software-gate-h",
+        "template-software-gate-c"
+      ],
+      "evidence": [
+        "example-xor-table",
+        "example-alarm-or",
+        "play-truth-helper",
+        "play-write-timeout",
+        "sdk-HAL_PLAY_WriteSWTrigger",
+        "sdk-HAL_PLAY_ReadSWTrigger",
+        "sdk-HAL_PLAY_SW_TRIGGER_SET",
+        "sdk-HAL_PLAY_SW_TRIGGER_RESET"
+      ],
+      "guidance": "Generated component owns one PLAY1 input multiplexer, one software trigger, one lookup table, one output multiplexer and two pads. {{unit}}_init, called from main after mx_system_init, sets the input pad to alternate function 14 with the chosen pull, globally resets and initializes PLAY1 with LSI as kernel clock on the first PLAY unit (stopping it on a later one), writes the input multiplexer (external input, edge detection bypassed, the chosen minimum pulse width), the truth table of the chosen function with the pad on lookup table input 0 and the software trigger on input 1, the output multiplexer on the table's direct output, starts PLAY1 with no edge trigger, reads every written field back and then connects the output pad. set_trigger writes the trigger through the SDK and waits on its write-busy flag up to 10 ms of HAL ticks; get_trigger reads it. Whether a trigger level survives another unit's initialization is not established: set triggers after all units are initialized. Do not configure PLAY1, its clock, this trigger or these pads elsewhere. No timing, glitch or electrical behavior is established."
+    }
+  ]
+}

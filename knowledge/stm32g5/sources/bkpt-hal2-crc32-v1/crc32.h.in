@@ -1,0 +1,58 @@
+// SPDX-License-Identifier: LicenseRef-BKPT-Proprietary
+/*
+ * BKPT resource-bound initialization, adapted from ST HAL2 2.1.0 API contracts
+ * and STM32CubeC5 initialization examples. Manufacturer-derived portions:
+ * BSD 3-clause "New" or "Revised" License
+ * 
+ * Copyright (c) 2026, STMicroelectronics
+ * 
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ * 
+ *   * Redistributions of source code must retain the above copyright notice, this
+ *     list of conditions and the following disclaimer.
+ * 
+ *   * Redistributions in binary form must reproduce the above copyright notice,
+ *     this list of conditions and the following disclaimer in the documentation
+ *     and/or other materials provided with the distribution.
+ * 
+ *   * Neither the name of the STMicroelectronics nor the names of its contributors may
+ *     be used to endorse or promote products derived from this software without
+ *     specific prior written permission.
+ * 
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
+ * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+ * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+#ifndef {{unit}}_H
+#define {{unit}}_H
+#include "stm32_hal.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
+/* CRC-32 of a buffer of bytes on the {{crc_name}} unit: polynomial 0x04C11DB7,
+ * initial value 0xFFFFFFFF, every input byte and the result bit-reversed, the
+ * result inverted. This is the CRC-32 of ISO 3309 and zlib; its value for the
+ * nine ASCII characters "123456789" is 0xCBF43926. The whole unit belongs to
+ * this component. Generated init runs once after mx_system_init; failure is
+ * fail-stop.
+ */
+hal_status_t {{unit}}_init(void);
+/* Computes the CRC-32 of bytes bytes at data, from the initial value, in one
+ * call, and writes it to *crc32. Nothing is carried from one call to the
+ * next. bytes is 1 or more. One thread only, never from an interrupt.
+ * *crc32 is written only with HAL_OK.
+ */
+hal_status_t {{unit}}_compute(const void *data, uint32_t bytes, uint32_t *crc32);
+#ifdef __cplusplus
+}
+#endif
+#endif

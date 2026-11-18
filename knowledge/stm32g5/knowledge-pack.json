@@ -1,0 +1,65 @@
+{
+  "schema": "bkpt.knowledge-pack-source/1",
+  "id": "stm32g5",
+  "revision": 1,
+  "state": "development",
+  "targets": [
+    {
+      "part": "STM32G564RET3",
+      "package": "LQFP64",
+      "board": "NUCLEO-G564RE",
+      "sdk": "stm32g5-hal2-2.0.0"
+    }
+  ],
+  "inputs": {
+    "architecture": {
+      "path": "graph.json",
+      "sha256": "fe75d9ae9656dbf8105f7a4cf97d429cdbbe7cd8c13d9cffd5b67d03595e2d30"
+    },
+    "architecture_review": {
+      "path": "graph.review.json",
+      "sha256": "d65af45d7dac5364c85b0a160e786fde3c77c42692a53adcb10be29f9832d80f"
+    },
+    "devices": {
+      "path": "imports/devices.json",
+      "sha256": "1fbf3e4778af7f4e52284a8af61e142a47daef73c01b01407bf4adcc8ce513c0"
+    },
+    "components": {
+      "path": "imports/components.json",
+      "sha256": "7b0578c4e35dc3de1169a21ced9591cae673225eb406508c26506719209cca7f"
+    },
+    "knowledge": {
+      "path": "catalog/stm32g5.json",
+      "sha256": "e789836642adc9f9dbc569d0a92b414bb7e768b3946b78a4240ff6ac0205b72f"
+    }
+  },
+  "source_inputs": "source-inputs.json",
+  "installed_artifacts": {
+    "knowledge": "knowledge.sqlite",
+    "architecture": "capabilities.sqlite",
+    "devices": "devices.sqlite",
+    "components": "components.sqlite"
+  },
+  "runtime": {
+    "executable": "bkpt-fw",
+    "configuration": "operator-owned absolute paths",
+    "vendor_assets": "external"
+  },
+  "coverage": {
+    "capability_count": 7,
+    "full_device": false,
+    "hardware_verified": false
+  },
+  "foundation": {
+    "id": "g5-hal2-minimal",
+    "sha256": "7f06391c64c414729663ba96519b403a3782e881194dd95d4e16bf8fdd7efd53",
+    "files": "External ST assets and reconstructed build inputs",
+    "manifest": "foundation-manifest.json"
+  },
+  "provenance": {
+    "review": "graph.review.json",
+    "STM32CubeG5": "55256c5f5d7050ea2474fb006877c12bbdd09f4c",
+    "DFP": "2288c48393e70c4a787cd0c1b5bcaf163d67340f",
+    "HAL2": "6df73a63fe7e2b480df2a17fbee2c7657337442e"
+  }
+}

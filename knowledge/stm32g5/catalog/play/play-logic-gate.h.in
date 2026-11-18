@@ -1,0 +1,23 @@
+// SPDX-License-Identifier: LicenseRef-BKPT-Proprietary
+/* BKPT generated PLAY unit {{unit}}: {{function}} of pad {{pad_a_name}} (PLAY1 {{a_name}}, input A)
+   and pad {{pad_b_name}} (PLAY1 {{b_name}}, input B), computed by PLAY1 {{lut_name}} and driven on
+   pad {{pad_out_name}} through PLAY1 {{out_name}}. STM32G5 HAL2 2.0.0, NUCLEO-G564RE. */
+#ifndef BKPT_{{unit}}_H
+#define BKPT_{{unit}}_H
+
+#include "stm32_hal.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* Sets up both input pads, the PLAY1 input multiplexers, the lookup table, the output multiplexer
+   and the output pad, then checks the selected PLAY configuration fields. Called once, from one thread, never from an
+   interrupt. HAL_OK: the unit is running. Any other value is final for this unit. */
+hal_status_t {{unit}}_init(void);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* BKPT_{{unit}}_H */

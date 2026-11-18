@@ -1,0 +1,3694 @@
+{
+  "schema": 1,
+  "id": "g5-hal2-minimal",
+  "revision": "1",
+  "parts": [
+    "STM32G564RET3"
+  ],
+  "boards": [
+    "NUCLEO-G564RE"
+  ],
+  "sdk": "stm32g5-hal2-2.0.0",
+  "hal": "HAL2",
+  "build": {
+    "configure": [
+      "--preset",
+      "debug_GCC_{{board}}",
+      "-B",
+      "build/{{host}}"
+    ],
+    "build": [
+      "--build",
+      "build/{{host}}",
+      "--parallel"
+    ],
+    "artifact": "build/{{host}}/{{name}}.elf"
+  },
+  "configuration": [
+    "GCC no-OS board template with its original system initialization and idle main. No PLAY instance is configured by the foundation."
+  ],
+  "provenance": [
+    {
+      "uri": "https://github.com/STMicroelectronics/STM32CubeG5/blob/55256c5f5d7050ea2474fb006877c12bbdd09f4c/examples/templates/no_os/NUCLEO-G564RE/cmake/CMakeLists.txt",
+      "revision": "STM32CubeG5 2.0.0",
+      "sha256": "06fa6d9f9c1a3a3c4c29f69ad7c992e992b52bab02d8c752847a7c3e71ab05fc",
+      "locator": "examples/templates/no_os/NUCLEO-G564RE; project name parameterized and build inputs relocated into the materialized project."
+    }
+  ],
+  "files": [
+    {
+      "source": "foundation-inputs/CMakeLists.txt",
+      "destination": "CMakeLists.txt",
+      "root": "g5_reference",
+      "sha256": "20d3f811e70313437c0ebef1a24ee9de780b9b8ce13532e3cd5341cf4a65b7e3",
+      "mode": "render",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/examples/templates/no_os/NUCLEO-G564RE/cmake/CMakePresets.json",
+      "destination": "CMakePresets.json",
+      "root": "g5_reference",
+      "sha256": "d37b16e25b53196bc987798bf713c2d017be6aa8181ab2056067967392b67ebb",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/examples/templates/no_os/LICENSE.md",
+      "destination": "LICENSE.md",
+      "root": "g5_reference",
+      "sha256": "a9cf113764bbbc40fec7ec01a5d3e2e9ccce06ba42c28835c396d1023125e4ee",
+      "mode": "copy",
+      "role": "license"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/a-profile/cmsis_armclang_a.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/a-profile/cmsis_armclang_a.h",
+      "root": "g5_reference",
+      "sha256": "e3a6811ff4efb84514114b0b4832ba94bfccfc661039cf3f00e3c373cce29655",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/a-profile/cmsis_clang_a.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/a-profile/cmsis_clang_a.h",
+      "root": "g5_reference",
+      "sha256": "179ee88a1c2e7c2e56fe399e9e88f4dba1916edf80152d88c71807db4e675ce7",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/a-profile/cmsis_cp15.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/a-profile/cmsis_cp15.h",
+      "root": "g5_reference",
+      "sha256": "2fee149025d4d08f20fa54fe18162d24d5abc61908964501ff20f50621418a7a",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/a-profile/cmsis_gcc_a.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/a-profile/cmsis_gcc_a.h",
+      "root": "g5_reference",
+      "sha256": "bdf9a2a49a012704b799951e66c6af13f7513349eef5f7291fd1d7ac0add0f0c",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/a-profile/cmsis_iccarm_a.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/a-profile/cmsis_iccarm_a.h",
+      "root": "g5_reference",
+      "sha256": "c41d99a21bdcd2050d6d428ea2591837999cd7871e39d49eb7b10fe1ed3c4ab0",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/a-profile/irq_ctrl.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/a-profile/irq_ctrl.h",
+      "root": "g5_reference",
+      "sha256": "ba65458c3550ed2613902e084ddcd69f9feae1dfb80bcb99d50e10c88ef8c336",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/cmsis_armclang.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/cmsis_armclang.h",
+      "root": "g5_reference",
+      "sha256": "f7361b36a56909eff2b1cecd778443fd9da21eaa86878dabf5e8e216f6bfea29",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/cmsis_clang.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/cmsis_clang.h",
+      "root": "g5_reference",
+      "sha256": "015fd70aaca6475443082154b7c844d6db58e757b2dbe3fa3bd2673e0c353ba0",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/cmsis_compiler.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/cmsis_compiler.h",
+      "root": "g5_reference",
+      "sha256": "8932e7ac5c9a13b199c64f25b3dc67ebf0a877b33dbcf434d4e1b78e625f57c5",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/cmsis_gcc.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/cmsis_gcc.h",
+      "root": "g5_reference",
+      "sha256": "7c34c8eb47e78acc8da3122fd27fc912b653b14817a2e1fb55ed41fb55c54281",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/cmsis_iccarm.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/cmsis_iccarm.h",
+      "root": "g5_reference",
+      "sha256": "636f5dbc40e48243aad3312b3942457bae0df2f4d6725680572a13307b6d454f",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/cmsis_version.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/cmsis_version.h",
+      "root": "g5_reference",
+      "sha256": "3b9195c5373a2a4dbfd968b083b3d7f5f446f9ec2e126f75928ac1ff4356b91e",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/core_ca.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/core_ca.h",
+      "root": "g5_reference",
+      "sha256": "84e0df477d2e9cfefd7afe1e69d5dc29887f914147cf603f9823d3ab8bc6b1ef",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/core_cm0.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/core_cm0.h",
+      "root": "g5_reference",
+      "sha256": "7ad6ed17206a7cb99bfef0ec36411620fb2ba9b4ef0cc1152b0e68c7db62348f",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/core_cm0plus.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/core_cm0plus.h",
+      "root": "g5_reference",
+      "sha256": "3a01ca99a202b3c2acf476e9523181c9f6ddb027fa8e097c0be0037b213c8f23",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/core_cm1.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/core_cm1.h",
+      "root": "g5_reference",
+      "sha256": "d5c5fade64174a97e81156e765cffa867aace08ccd66617bf5622327e1ede099",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/core_cm23.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/core_cm23.h",
+      "root": "g5_reference",
+      "sha256": "8d2fb0ec0e59c664392591fe703cf7243e50969f05d9c6c4e4fea42cb99032cb",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/core_cm3.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/core_cm3.h",
+      "root": "g5_reference",
+      "sha256": "00c9f5f9b9244661549e0ee7d4fa0e82de049f40c17902c201c1eb00fce70936",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/core_cm33.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/core_cm33.h",
+      "root": "g5_reference",
+      "sha256": "47bd70aed10df47c7ca54bf049685d24ae886294b2d05ac6e411804dfe81b4b8",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/core_cm35p.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/core_cm35p.h",
+      "root": "g5_reference",
+      "sha256": "eb1c002b97357517d1e070b0565f8bd3d859c95d09074e47b9cf59cee70f8130",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/core_cm4.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/core_cm4.h",
+      "root": "g5_reference",
+      "sha256": "5d6f71c32258821ebf371045a5670fe74a1cab49318f8df75344adfe4813de04",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/core_cm52.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/core_cm52.h",
+      "root": "g5_reference",
+      "sha256": "647b222cdf36b0ede804853c153b6d1486603de7c881ea3ed3acacb69b7b3c7b",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/core_cm55.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/core_cm55.h",
+      "root": "g5_reference",
+      "sha256": "b0772b23e6dfce96638e7ca0040a063d9b399ed91a2843c62c32192a059d0231",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/core_cm7.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/core_cm7.h",
+      "root": "g5_reference",
+      "sha256": "2927d0c055445d19cef7d311e076961ffa86f7af4bcbc5673dbd14d9c160ac29",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/core_cm85.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/core_cm85.h",
+      "root": "g5_reference",
+      "sha256": "acea058815b71ec3710415001518e014d19f50be7b06e1ecf1a6071f28945698",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/core_sc000.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/core_sc000.h",
+      "root": "g5_reference",
+      "sha256": "8a42600f7afd149a6029cc147f0aa7e48ad016b1729d87de24e29b74163910d0",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/core_sc300.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/core_sc300.h",
+      "root": "g5_reference",
+      "sha256": "7846ebbc73ded9559195026f7719a6ffa7646cb0fd2de8a5927812b9ce8bc944",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/core_starmc1.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/core_starmc1.h",
+      "root": "g5_reference",
+      "sha256": "1201164ecf3ecf25df9a49b6abea55eb3b612addfdd0b9d1d460b0e95bc3f9f1",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/core_starmc3.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/core_starmc3.h",
+      "root": "g5_reference",
+      "sha256": "425936814b668ef4523bf759d6ac6f9dce8a8dd3d64087b3711239854bbb53f5",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/m-profile/armv7m_cachel1.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/m-profile/armv7m_cachel1.h",
+      "root": "g5_reference",
+      "sha256": "f7905d3e336feccda0647f214e791b424c5f92e788f1303e587cebca729b6dc3",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/m-profile/armv7m_mpu.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/m-profile/armv7m_mpu.h",
+      "root": "g5_reference",
+      "sha256": "44294dc3e331deb8daae269793e579cc10920a9b88d133bbaf3a7af65d29f9e4",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/m-profile/armv81m_pac.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/m-profile/armv81m_pac.h",
+      "root": "g5_reference",
+      "sha256": "fe2f5db52980237fe8bafe265b660ef9caac90bae4c478d34f243e82346d1daa",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/m-profile/armv8m_mpu.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/m-profile/armv8m_mpu.h",
+      "root": "g5_reference",
+      "sha256": "3540efc65de718421637748878159d19e2aabc53609eb4bd02d6894cc9977582",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/m-profile/armv8m_pmu.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/m-profile/armv8m_pmu.h",
+      "root": "g5_reference",
+      "sha256": "1323587da9fea03c96a685a9cf60c576b4d0532b3339501401332ff8a6c58e32",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/m-profile/cmsis_armclang_m.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/m-profile/cmsis_armclang_m.h",
+      "root": "g5_reference",
+      "sha256": "d7425ea4ca4577e557f9ea155006f5506db1e9f6580442d56d6417549ad53b92",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/m-profile/cmsis_clang_m.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/m-profile/cmsis_clang_m.h",
+      "root": "g5_reference",
+      "sha256": "4d6c792c84658954f991176e1774513c367df20d22f2ab2f43c30c6f14e2f106",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/m-profile/cmsis_gcc_m.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/m-profile/cmsis_gcc_m.h",
+      "root": "g5_reference",
+      "sha256": "56241ce5b4798048f84429e28c1949d30bb907155f0b8351cb36aaaa9cbbeabb",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/m-profile/cmsis_iccarm_m.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/m-profile/cmsis_iccarm_m.h",
+      "root": "g5_reference",
+      "sha256": "044ea6c892db7a8e65664894416e516d5aa1f6461ab94026bfc3feb28fcce1ca",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/m-profile/cmsis_tiarmclang_m.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/m-profile/cmsis_tiarmclang_m.h",
+      "root": "g5_reference",
+      "sha256": "c753507cf915b193908baad0754322144c1b40192cdaf22da0aa8b9202185cef",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/r-profile/cmsis_armclang_r.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/r-profile/cmsis_armclang_r.h",
+      "root": "g5_reference",
+      "sha256": "d3875ee329abb8a5746cfda99633d71f30a131156ebc8aafc8b2ec4992df8616",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/r-profile/cmsis_clang_r.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/r-profile/cmsis_clang_r.h",
+      "root": "g5_reference",
+      "sha256": "50cb3a674ebffb742934ec63c86948ec321771ee4c645d136a5d897dcc2ead07",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/r-profile/cmsis_gcc_r.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/r-profile/cmsis_gcc_r.h",
+      "root": "g5_reference",
+      "sha256": "3502300039821e8f1b8ecbd7a5cc433c5ce90da41e4d71fccaec0bb1568404da",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/r-profile/cmsis_iccarm_r.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/r-profile/cmsis_iccarm_r.h",
+      "root": "g5_reference",
+      "sha256": "8295759ba6993f3a71c4b7cd953e75bcb59c016960670f2a9613b081d6afd415",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMSIS/Core/Include/tz_context.h",
+      "destination": "arch/cmsis/CMSIS/Core/Include/tz_context.h",
+      "root": "g5_reference",
+      "sha256": "2bcc2a5fea0567eff96dd3f2fd197b88feaa144bfe0df6146abd802701456d3b",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/CMakeLists.txt",
+      "destination": "arch/cmsis/CMakeLists.txt",
+      "root": "g5_reference",
+      "sha256": "faedf0edf576e9db19adb5bdc1b16b80001f2d11ead7c6b81415cdd84dfc8930",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/arch/cmsis/LICENSE.md",
+      "destination": "arch/cmsis/LICENSE.md",
+      "root": "g5_reference",
+      "sha256": "74bd6056782f02fd8b23ebf2e9a69ce513d9c94a16cfdfda8545d2e1a6ed0f73",
+      "mode": "copy",
+      "role": "license"
+    },
+    {
+      "source": "STM32CubeG5/examples/templates/no_os/NUCLEO-G564RE/cmake/cmake/GCC.14.3.1.cmake",
+      "destination": "cmake/GCC.14.3.1.cmake",
+      "root": "g5_reference",
+      "sha256": "ed3f3dd57073596594b664fd437fdeda9881ba90debee4c39950aaf480028a7c",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "foundation-inputs/components.cmake",
+      "destination": "cmake/components.cmake",
+      "root": "g5_reference",
+      "sha256": "3540273d2661be388ed10e02e676aa09d586f8d2c346baea81478a38505bd5e1",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "foundation-inputs/files.cmake",
+      "destination": "cmake/files.cmake",
+      "root": "g5_reference",
+      "sha256": "80beea388f3dc6084e6daa24fb9b9b4f605547589402b4e477cc024d083e54f0",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "foundation-inputs/flags.cmake",
+      "destination": "cmake/flags.cmake",
+      "root": "g5_reference",
+      "sha256": "b755b421e0507264403081cf455e7fbf639d2d38752101cc677170d5b5609dfd",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/examples/templates/no_os/NUCLEO-G564RE/cmake/cmake/target.cmake",
+      "destination": "cmake/target.cmake",
+      "root": "g5_reference",
+      "sha256": "6d14debf35e6bf0431987114c70dbc1c3e3d79296e1bbfda36935abde146ac81",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/examples/templates/no_os/NUCLEO-G564RE/generated/hal/CMakeLists.txt",
+      "destination": "generated/hal/CMakeLists.txt",
+      "root": "g5_reference",
+      "sha256": "0c2f4172603a25e00492858ebe3cc1237a45c6c7cb78caefa0bb6238795bbba4",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/examples/templates/no_os/NUCLEO-G564RE/generated/hal/STM32_HAL_Driver_codegen.cmake",
+      "destination": "generated/hal/STM32_HAL_Driver_codegen.cmake",
+      "root": "g5_reference",
+      "sha256": "239ba1c93db2164be8a6a8ba49e0298628c8fcafdec502ecf70f3cec010bf870",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/examples/templates/no_os/NUCLEO-G564RE/generated/hal/STM32_HAL_Driver_codegen.gpdsc",
+      "destination": "generated/hal/STM32_HAL_Driver_codegen.gpdsc",
+      "root": "g5_reference",
+      "sha256": "093f6a49000fb10074927017202c7db2945258dbc70fb64956e7c394c0e69ce4",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/examples/templates/no_os/NUCLEO-G564RE/generated/hal/mx_cortex_mpu.c",
+      "destination": "generated/hal/mx_cortex_mpu.c",
+      "root": "g5_reference",
+      "sha256": "e96281542b60bfb6c9bb9afc98e7cf768772888e28e9557ec720bacff92455b7",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/examples/templates/no_os/NUCLEO-G564RE/generated/hal/mx_cortex_mpu.h",
+      "destination": "generated/hal/mx_cortex_mpu.h",
+      "root": "g5_reference",
+      "sha256": "462274c7f5ac36d4310111feeb9120e928a51f50859c59e7a512781cffc2bfb4",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/examples/templates/no_os/NUCLEO-G564RE/generated/hal/mx_cortex_nvic.c",
+      "destination": "generated/hal/mx_cortex_nvic.c",
+      "root": "g5_reference",
+      "sha256": "55bbc7693008f67bb5f1ad5e27ac2acea6b6f56ec93689c9bb828753e2caa54b",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/examples/templates/no_os/NUCLEO-G564RE/generated/hal/mx_cortex_nvic.h",
+      "destination": "generated/hal/mx_cortex_nvic.h",
+      "root": "g5_reference",
+      "sha256": "3cc3185ffbc614d3b5c7093ae918d89cdade05ec25fb131ef36333fd0341884a",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/examples/templates/no_os/NUCLEO-G564RE/generated/hal/mx_def.h",
+      "destination": "generated/hal/mx_def.h",
+      "root": "g5_reference",
+      "sha256": "4e3934cf0aa949d449352c5abcb5994f47abe473517c14c061042750eefe6114",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/examples/templates/no_os/NUCLEO-G564RE/generated/hal/mx_hal_def.h",
+      "destination": "generated/hal/mx_hal_def.h",
+      "root": "g5_reference",
+      "sha256": "584b7d8eea413168ecf1a42eb615438f5129c108166f7780bd05b56a1e22fb02",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/examples/templates/no_os/NUCLEO-G564RE/generated/hal/mx_icache.c",
+      "destination": "generated/hal/mx_icache.c",
+      "root": "g5_reference",
+      "sha256": "5144e14dff86c8f1f4f33028adbc66dd0f085afc87682b39eb948ce2ecd563f4",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/examples/templates/no_os/NUCLEO-G564RE/generated/hal/mx_icache.h",
+      "destination": "generated/hal/mx_icache.h",
+      "root": "g5_reference",
+      "sha256": "b7b448bef994d773d72178fd463e68fe4a7b01493e4b5c36a2f7a8ab5785a760",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/examples/templates/no_os/NUCLEO-G564RE/generated/hal/mx_rcc.c",
+      "destination": "generated/hal/mx_rcc.c",
+      "root": "g5_reference",
+      "sha256": "e380972d85fb8afc4cb3a87a2b7617ae31b2754b741a11743db591ef9b5d001e",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/examples/templates/no_os/NUCLEO-G564RE/generated/hal/mx_rcc.h",
+      "destination": "generated/hal/mx_rcc.h",
+      "root": "g5_reference",
+      "sha256": "8c8fa4d0be7b286fa5ececca67e95ae246dd39ea578a8aa64e1bb00555ff3dc4",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/examples/templates/no_os/NUCLEO-G564RE/generated/hal/mx_stm32g5xx_hal_drivers_license.md",
+      "destination": "generated/hal/mx_stm32g5xx_hal_drivers_license.md",
+      "root": "g5_reference",
+      "sha256": "c16d1d625a67401bbb77f0fcad77cae560c05a104073909f3b30af6c98f727aa",
+      "mode": "copy",
+      "role": "license"
+    },
+    {
+      "source": "STM32CubeG5/examples/templates/no_os/NUCLEO-G564RE/generated/hal/mx_system.c",
+      "destination": "generated/hal/mx_system.c",
+      "root": "g5_reference",
+      "sha256": "6a2899a3412cc6449c8e7aeef1bace0a8b47cf7b694cda67da5d738e2b7c81b6",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/examples/templates/no_os/NUCLEO-G564RE/generated/hal/mx_system.h",
+      "destination": "generated/hal/mx_system.h",
+      "root": "g5_reference",
+      "sha256": "4892ea39d0c8d3f28524f688cee1f831a73d950506dc0c2e2863ba87395c75c5",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/examples/templates/no_os/NUCLEO-G564RE/generated/hal/stm32g5xx_hal_conf.h",
+      "destination": "generated/hal/stm32g5xx_hal_conf.h",
+      "root": "g5_reference",
+      "sha256": "de65c43d95d7040e2a1db323d171b42bcd536ab836f3d1f3960561a50e164548",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/examples/templates/no_os/NUCLEO-G564RE/generated/utilities/syscalls/CMakeLists.txt",
+      "destination": "generated/utilities/syscalls/CMakeLists.txt",
+      "root": "g5_reference",
+      "sha256": "98fa5a267933e124c4a494f79e4a7cecedb00010510852ca35b037d42a5d8432",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/examples/templates/no_os/NUCLEO-G564RE/generated/utilities/syscalls/STMicroelectronics.syscalls.cmake",
+      "destination": "generated/utilities/syscalls/STMicroelectronics.syscalls.cmake",
+      "root": "g5_reference",
+      "sha256": "3245846fd21100e8bad6c33031338a48393048b26d9e5ac19fa1a15b03ca5051",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/examples/templates/no_os/NUCLEO-G564RE/generated/utilities/syscalls/STMicroelectronics.syscalls.gpdsc",
+      "destination": "generated/utilities/syscalls/STMicroelectronics.syscalls.gpdsc",
+      "root": "g5_reference",
+      "sha256": "74785b5265d56d00848851520e57772ee600b469c68e9042ea45036591f281f0",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/examples/templates/no_os/NUCLEO-G564RE/generated/utilities/syscalls/mx_syscalls_license.md",
+      "destination": "generated/utilities/syscalls/mx_syscalls_license.md",
+      "root": "g5_reference",
+      "sha256": "4c55823755465daec4e30d95b3d02d2c3141b5cb262ca89583f4029d0e2db636",
+      "mode": "copy",
+      "role": "license"
+    },
+    {
+      "source": "STM32CubeG5/examples/templates/no_os/application/main.c",
+      "destination": "main.c",
+      "root": "g5_reference",
+      "sha256": "9e3cb6becffbef79ee032e2bfc16b48efaa34691bc2af7e79f8783407a58c22a",
+      "mode": "copy",
+      "role": "application"
+    },
+    {
+      "source": "STM32CubeG5/examples/templates/no_os/application/main.h",
+      "destination": "main.h",
+      "root": "g5_reference",
+      "sha256": "3ce5f86dd10983d0565370b4a2c22f31f748de4cae1a8fe57407859ad2d884f4",
+      "mode": "copy",
+      "role": "application"
+    },
+    {
+      "source": "stm32g5xx-dfp/CMakeLists.txt",
+      "destination": "stm32g5xx_dfp/CMakeLists.txt",
+      "root": "g5_reference",
+      "sha256": "9a4b77189a51a3262d3b24d05911b1f84c8095ee87e64794ac2fec087c0a04e9",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Include/Templates/partition_stm32g534xx.h",
+      "destination": "stm32g5xx_dfp/Include/Templates/partition_stm32g534xx.h",
+      "root": "g5_reference",
+      "sha256": "03d3d3d275e705a1d6ba703643d0ec5a53f959859173c532f696be16fd280c6f",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Include/Templates/partition_stm32g544xx.h",
+      "destination": "stm32g5xx_dfp/Include/Templates/partition_stm32g544xx.h",
+      "root": "g5_reference",
+      "sha256": "7debd1e298b6e8d5fbf7e3f1ed68bf2f255b44eff0f85a7f723285feea02c8d9",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Include/Templates/partition_stm32g553xx.h",
+      "destination": "stm32g5xx_dfp/Include/Templates/partition_stm32g553xx.h",
+      "root": "g5_reference",
+      "sha256": "96285bb68c05c998d4874d9c5ecc368273ddc5b371da17193ff778e450979003",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Include/Templates/partition_stm32g554xx.h",
+      "destination": "stm32g5xx_dfp/Include/Templates/partition_stm32g554xx.h",
+      "root": "g5_reference",
+      "sha256": "23a07e152d775db3f83e44d6e7cdc7ac9faa82266d2c6b880e2e761468b44d0f",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Include/Templates/partition_stm32g563xx.h",
+      "destination": "stm32g5xx_dfp/Include/Templates/partition_stm32g563xx.h",
+      "root": "g5_reference",
+      "sha256": "a655d0a56742f554122520b147f24cb5f3f660092e7c8d4260851f66faf64dca",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Include/Templates/partition_stm32g564xx.h",
+      "destination": "stm32g5xx_dfp/Include/Templates/partition_stm32g564xx.h",
+      "root": "g5_reference",
+      "sha256": "f5884f4705b2e2de38529104c777df686e718567318ad78eecada21939339a1a",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Include/Templates/stm32_external_env.h",
+      "destination": "stm32g5xx_dfp/Include/Templates/stm32_external_env.h",
+      "root": "g5_reference",
+      "sha256": "2ae2fd5812c58bcd4b9db896cf120378d5f34afa8c5d3c4d0cfbbf3da371b611",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Include/partition_stm32g5xx.h",
+      "destination": "stm32g5xx_dfp/Include/partition_stm32g5xx.h",
+      "root": "g5_reference",
+      "sha256": "76ceb54ce052a2969f1eccbe77c7891c7156f7efcdfc0845057b1e8364fd5add",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Include/stm32g534xx.h",
+      "destination": "stm32g5xx_dfp/Include/stm32g534xx.h",
+      "root": "g5_reference",
+      "sha256": "73c446d39d9ce168825bb7d8f8e98869ce09249c35abfd80331918b58a8c97d4",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Include/stm32g544xx.h",
+      "destination": "stm32g5xx_dfp/Include/stm32g544xx.h",
+      "root": "g5_reference",
+      "sha256": "03929958f0a43749588af51448095982bbbfb5e6dd83b7f6e057bf532e42595b",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Include/stm32g553xx.h",
+      "destination": "stm32g5xx_dfp/Include/stm32g553xx.h",
+      "root": "g5_reference",
+      "sha256": "fc1a2a67a26090845c129d76b8bd5dde209692493ca7a5b8e071dfeed9e312a5",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Include/stm32g554xx.h",
+      "destination": "stm32g5xx_dfp/Include/stm32g554xx.h",
+      "root": "g5_reference",
+      "sha256": "38acbeb45ce1c4ee5a02c54184386ffd5e1ecf31e5578a28f95933b4df57b500",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Include/stm32g563xx.h",
+      "destination": "stm32g5xx_dfp/Include/stm32g563xx.h",
+      "root": "g5_reference",
+      "sha256": "1a77aa91a29d3873a1a26136c2211342bafdabbf587ce786b95dcb798522d07c",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Include/stm32g564xx.h",
+      "destination": "stm32g5xx_dfp/Include/stm32g564xx.h",
+      "root": "g5_reference",
+      "sha256": "1e4bcf72a3621131af0cbbb07261b1d24dfb19fe302deac00810b44de87d2a3f",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Include/stm32g5xx.h",
+      "destination": "stm32g5xx_dfp/Include/stm32g5xx.h",
+      "root": "g5_reference",
+      "sha256": "9d11f6faec4c7a49d873d60757394f6206c091cbfcb215414dd6aa314ad4f983",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Include/system_stm32g5xx.h",
+      "destination": "stm32g5xx_dfp/Include/system_stm32g5xx.h",
+      "root": "g5_reference",
+      "sha256": "873efb23986c2e7f5341e244290898f5cafd4469ace055aa17946354cf711b2e",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/LICENSE.md",
+      "destination": "stm32g5xx_dfp/LICENSE.md",
+      "root": "g5_reference",
+      "sha256": "8a9f2e3a814b1e8c8184c4d3e3c35e5e51998eaf0c1917919fdbfbf29d35db0f",
+      "mode": "copy",
+      "role": "license"
+    },
+    {
+      "source": "stm32g5xx-dfp/RTE_Components.h",
+      "destination": "stm32g5xx_dfp/RTE_Components.h",
+      "root": "g5_reference",
+      "sha256": "f1f83e2e21b6b373f4c360320b59dad6ab3d8f67bb93fa68714f03d6c6dec5d0",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g534x8_flash.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g534x8_flash.sct",
+      "root": "g5_reference",
+      "sha256": "95c8264c7caa663914acca380e77ef7488af886be5b623e73c182c2b77705071",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g534x8_flash_ns.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g534x8_flash_ns.sct",
+      "root": "g5_reference",
+      "sha256": "6d6a24955da0e99d961db56f4c495b64be514cc33960ce5a318e29af5d94c1b9",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g534x8_flash_s.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g534x8_flash_s.sct",
+      "root": "g5_reference",
+      "sha256": "e6020028669438df3c9c35c7cbda6bb7af752d89a715bfffd418bac4cb5b6862",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g534xb_flash.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g534xb_flash.sct",
+      "root": "g5_reference",
+      "sha256": "2e4baefc2ff3d1810eb76d6113f32f81e4a9177f4f6d6d1b91ecf809cadfc017",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g534xb_flash_ns.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g534xb_flash_ns.sct",
+      "root": "g5_reference",
+      "sha256": "0a8f9c35f0fc95fc475afd5745e654baf78f95d068e43ebbf650da1d268cc4b0",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g534xb_flash_s.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g534xb_flash_s.sct",
+      "root": "g5_reference",
+      "sha256": "24ff89370a33aac2e1c9a28839f69c8ccd7de293cf5b8dc4c402679a4bc6873f",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g534xc_flash.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g534xc_flash.sct",
+      "root": "g5_reference",
+      "sha256": "e498e4ac605b6f54bfafaba17c5b2d0ba1256658389558c9e8cc5c41fc865630",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g534xc_flash_ns.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g534xc_flash_ns.sct",
+      "root": "g5_reference",
+      "sha256": "3c4182ae90ad163545a29f41e8016fe77253954e92e16d826406ef2531720c5a",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g534xc_flash_s.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g534xc_flash_s.sct",
+      "root": "g5_reference",
+      "sha256": "695ff86ebe32c80845836866290362b80769b35e211b113bca8dd01d50523f57",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g534xx_sram.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g534xx_sram.sct",
+      "root": "g5_reference",
+      "sha256": "ae3f71dccfe7a632e1cf1d8ee0aa9f700decf430b62517dbdfcb08f386074883",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g534xx_sram_ns.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g534xx_sram_ns.sct",
+      "root": "g5_reference",
+      "sha256": "6e6583d0b56a2910829dfedc9703fcb5d123d62d8c5887592e5c3db43811882f",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g534xx_sram_s.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g534xx_sram_s.sct",
+      "root": "g5_reference",
+      "sha256": "6e1a1d3c7673d07e0d07397dc542a3cc33f152b62316f87139bbb82c10cb1f77",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g544x8_flash.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g544x8_flash.sct",
+      "root": "g5_reference",
+      "sha256": "2ac5c8971b062fbf13d6c1bdd95bc9e75f4da143719fcb87d04ea54c8200b95b",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g544x8_flash_ns.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g544x8_flash_ns.sct",
+      "root": "g5_reference",
+      "sha256": "21b91e5ecbbde33ac37eeb25d1d98c6b5c898214163cf2fa9d97c75c2eacd8e8",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g544x8_flash_s.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g544x8_flash_s.sct",
+      "root": "g5_reference",
+      "sha256": "7c0f3dff52513902db08a64364e04b5a81911b5eee6726be6b8708005470a886",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g544xb_flash.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g544xb_flash.sct",
+      "root": "g5_reference",
+      "sha256": "d11b4aa99928735e5e3810e41da4f00bde68a59f33f23c31b2b03bea57b65c65",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g544xb_flash_ns.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g544xb_flash_ns.sct",
+      "root": "g5_reference",
+      "sha256": "e9adf5a15f77c687c742fb590299e6de891e3e6d4882f9eb953900183ef9f418",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g544xb_flash_s.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g544xb_flash_s.sct",
+      "root": "g5_reference",
+      "sha256": "237f980c496f0ada464a7156ca56e5c5a11d9c95aef3c7393ccac521f9cc862b",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g544xc_flash.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g544xc_flash.sct",
+      "root": "g5_reference",
+      "sha256": "587dcf84d8d8cfc27775329ca4a525ecc9c4471b860074184ac9bcbea89b7bad",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g544xc_flash_ns.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g544xc_flash_ns.sct",
+      "root": "g5_reference",
+      "sha256": "6574b83bab804e985a07addee4cd2c6772fe80e78124654c58daa4326644347a",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g544xc_flash_s.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g544xc_flash_s.sct",
+      "root": "g5_reference",
+      "sha256": "4c33fbdcd7a747c4731aea0ef7f1c1fa9e458c7a8166952b137c34c8da8d2623",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g544xx_sram.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g544xx_sram.sct",
+      "root": "g5_reference",
+      "sha256": "410e9c69d4dcd61e9efecc6ab5cde9d25be4ef6bd4dc4d6bd57133ba47202de2",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g544xx_sram_ns.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g544xx_sram_ns.sct",
+      "root": "g5_reference",
+      "sha256": "fbd3eea3d707d59b37fb01040bd0388784d9f033675c709075ea0abbc9547a96",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g544xx_sram_s.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g544xx_sram_s.sct",
+      "root": "g5_reference",
+      "sha256": "1cc7bfd36be13a538e901b5618839c16ddb7df70b09620e849cd4ddabb49fa8e",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g553xb_flash.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g553xb_flash.sct",
+      "root": "g5_reference",
+      "sha256": "06a776ce3f12b31b8768f4895f202d5c777577a23102a64db51c86bb02667153",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g553xb_flash_ns.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g553xb_flash_ns.sct",
+      "root": "g5_reference",
+      "sha256": "3e587cdb7f632335a5fde86805e844ff566bd2fa805e65dd5f887acd1cd5d582",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g553xb_flash_s.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g553xb_flash_s.sct",
+      "root": "g5_reference",
+      "sha256": "2c93f42fc568d49ef884c293fa94f55a2b3003cf8d8a082ac9f5c19d17be0255",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g553xc_flash.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g553xc_flash.sct",
+      "root": "g5_reference",
+      "sha256": "09a63091a98e03ad386303b5e11f857ebcdb2a0e0831ed65804f37fc33a23874",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g553xc_flash_ns.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g553xc_flash_ns.sct",
+      "root": "g5_reference",
+      "sha256": "c181d43b008394f5395829687e5d3b4079b94908430f43ca9175c9abee7655cf",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g553xc_flash_s.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g553xc_flash_s.sct",
+      "root": "g5_reference",
+      "sha256": "506ae3fc5b38b15428ac0df7e0930cd3a906a6e56444691e6af3b4b7b1d7b482",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g553xe_flash.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g553xe_flash.sct",
+      "root": "g5_reference",
+      "sha256": "70a8931e5dd03401cd4cb5fca9336648c8d6e644b855822e891031f1c701c892",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g553xe_flash_ns.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g553xe_flash_ns.sct",
+      "root": "g5_reference",
+      "sha256": "b39ec39365f05e706434752282a33c8c8da4ae3ce690318e20bf8726e862f950",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g553xe_flash_s.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g553xe_flash_s.sct",
+      "root": "g5_reference",
+      "sha256": "4c2c37cb34366f4242634291af91a5439b50e69a4463a29a52d9b95ee494e761",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g553xx_sram.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g553xx_sram.sct",
+      "root": "g5_reference",
+      "sha256": "0dcce48ef265e2fcf5316307c39b88b06e9ac12c0ca67ded635e04c0261dd663",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g553xx_sram_ns.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g553xx_sram_ns.sct",
+      "root": "g5_reference",
+      "sha256": "4cec4668f292c8f5fef9f51e57a942d14ecc67e08b7eca48e66734931c25e96b",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g553xx_sram_s.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g553xx_sram_s.sct",
+      "root": "g5_reference",
+      "sha256": "018776073527402f64e8dfe8506bb11bb3dc03bdb81a8c5b7e1eb224a7bff2b9",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g554xe_flash.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g554xe_flash.sct",
+      "root": "g5_reference",
+      "sha256": "ac8c64e1b903459d756819608e4f030d8a89d986575515845d56def4233849d1",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g554xe_flash_ns.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g554xe_flash_ns.sct",
+      "root": "g5_reference",
+      "sha256": "3284fa044e805f7bb814366ac663ed9ed379647c26434831d03592e98e3d1c04",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g554xe_flash_s.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g554xe_flash_s.sct",
+      "root": "g5_reference",
+      "sha256": "e017877da769dbd8bd4ba8a64d5cc1447aaf8f0e228657fb7542d80c98f050a3",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g554xe_sram.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g554xe_sram.sct",
+      "root": "g5_reference",
+      "sha256": "5d2d3b52f1f2db2b2dd6e700d672aa94d888e104f6ee1eebaf6124e0fee2d0a6",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g554xe_sram_ns.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g554xe_sram_ns.sct",
+      "root": "g5_reference",
+      "sha256": "31e0f5df0215a1c79ccf16d4bb8000b3c273a437aef99e38d1fdc49771aa560f",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g554xe_sram_s.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g554xe_sram_s.sct",
+      "root": "g5_reference",
+      "sha256": "12c72660eef2edc4f1e79356e50120809be914c1978cbb3a1f441dea8e0b7a95",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g563xe_flash.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g563xe_flash.sct",
+      "root": "g5_reference",
+      "sha256": "221d68ad7576f3ee938c5e12aac83446297b1470ae303df5e4ec49056ca71cd5",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g563xe_flash_ns.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g563xe_flash_ns.sct",
+      "root": "g5_reference",
+      "sha256": "fa700467390d91d2c53e52c8b9a68eee153f7d8908b3574d3d322b668fa2e2cf",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g563xe_flash_s.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g563xe_flash_s.sct",
+      "root": "g5_reference",
+      "sha256": "732f334305141bd230a70a5256b80223ff49a071a4a9d3d8f091781cf67bde0b",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g563xe_sram.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g563xe_sram.sct",
+      "root": "g5_reference",
+      "sha256": "6b7897f970ef17b2a1afa21bbb05de10d9c449364fcaf5110d7e5b35ff313d41",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g563xe_sram_ns.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g563xe_sram_ns.sct",
+      "root": "g5_reference",
+      "sha256": "76ed70794ed8f7a3b10c20ba42d7953a637f70962369b407f4f22f321272ee8e",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g563xe_sram_s.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g563xe_sram_s.sct",
+      "root": "g5_reference",
+      "sha256": "94c22c4b0e334446f35dedb9a3e0c25c7c3fe98c3ac4419bdc995650d40d671f",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g564xb_flash.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g564xb_flash.sct",
+      "root": "g5_reference",
+      "sha256": "5263f7606e4a8d064fe0086ed34550ba8eb0497ec90c437bec5c1417af4b8f81",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g564xb_flash_ns.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g564xb_flash_ns.sct",
+      "root": "g5_reference",
+      "sha256": "386f2f35c6868b3218d80e8492057399c910b4c87a4c62cb889ccf91afdf9b1d",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g564xb_flash_s.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g564xb_flash_s.sct",
+      "root": "g5_reference",
+      "sha256": "2982def3bc3ddfa164589de2a282e381ddfe2bb5f7538165dc2f08d9172134f1",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g564xc_flash.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g564xc_flash.sct",
+      "root": "g5_reference",
+      "sha256": "4d3efdf6738411ded4f851ef2d71db7f00dfbc7c068c6df691619127cf41129d",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g564xc_flash_ns.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g564xc_flash_ns.sct",
+      "root": "g5_reference",
+      "sha256": "356b8fb6bbea25a7b8772aa534e149a16dbd1e9225e1021f8a3a33236e7a8d0d",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g564xc_flash_s.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g564xc_flash_s.sct",
+      "root": "g5_reference",
+      "sha256": "0d388ce2b97944f1db64d0267396b5a8d7500248dc73aa8b1153dd1d4b3f5b9e",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g564xe_flash.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g564xe_flash.sct",
+      "root": "g5_reference",
+      "sha256": "34a69baf1cb383df1c632b091ddf823e6d690b0729cedd7a1980e02c706dabfc",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g564xe_flash_ns.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g564xe_flash_ns.sct",
+      "root": "g5_reference",
+      "sha256": "91b1bb8f3082c9a382fc27155d55bd49ca52344d4fa6aad9ab2f4cff8975c73f",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g564xe_flash_s.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g564xe_flash_s.sct",
+      "root": "g5_reference",
+      "sha256": "929b068b4f009d38e04b9f9a5d3ceceb2602b9dd4703b43e8260cd2b86b4f2ed",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g564xx_sram.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g564xx_sram.sct",
+      "root": "g5_reference",
+      "sha256": "a677d37359fb90e6955dff7c8189e36c83f75f0117cde8ae442f841d369e0563",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g564xx_sram_ns.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g564xx_sram_ns.sct",
+      "root": "g5_reference",
+      "sha256": "869f07346a813d9fcfc3a955df336a1afea19331a147fa377f22f75343795549",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/arm/linker/stm32g564xx_sram_s.sct",
+      "destination": "stm32g5xx_dfp/Source/Templates/arm/linker/stm32g564xx_sram_s.sct",
+      "root": "g5_reference",
+      "sha256": "96f921bdfd8d675797d58f47669a5d1a4cf6f6a5e2eb41f5e02cd47cb214b10c",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g534x8_flash.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g534x8_flash.ld",
+      "root": "g5_reference",
+      "sha256": "191642d9cce72c67b4f89baf2b440fe877e38127abc55ec910388f9d24de1649",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g534x8_flash_ns.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g534x8_flash_ns.ld",
+      "root": "g5_reference",
+      "sha256": "ee2266fdf9093a518535ccb822ec3ef0f783bfe8edc7f99eae76fcd10cf1fee1",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g534x8_flash_s.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g534x8_flash_s.ld",
+      "root": "g5_reference",
+      "sha256": "afd2e446ff3a8bca23d79fb62314d232a6a6c24006d75ee8c418d7204080181a",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g534xb_flash.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g534xb_flash.ld",
+      "root": "g5_reference",
+      "sha256": "28b482e93c5990a1627bd18c73b7e1eaf711fdc32ae221685f204f11b2080db6",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g534xb_flash_ns.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g534xb_flash_ns.ld",
+      "root": "g5_reference",
+      "sha256": "053538e0322725112fc52cef176dc512168514dceedd115c9100ec30278da0b1",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g534xb_flash_s.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g534xb_flash_s.ld",
+      "root": "g5_reference",
+      "sha256": "1250a4641b06c8eb73a71dbc4b896b5e70aa302662310e50242b7347c1d735f5",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g534xc_flash.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g534xc_flash.ld",
+      "root": "g5_reference",
+      "sha256": "80e3290033aea82471924cf41f3901baa9659623907abe3b3961eaece1836363",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g534xc_flash_ns.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g534xc_flash_ns.ld",
+      "root": "g5_reference",
+      "sha256": "37cb387b5a1f45b07e0564fd3d577127e3bba8f07ae106d5c52a47ae3ff490e1",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g534xc_flash_s.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g534xc_flash_s.ld",
+      "root": "g5_reference",
+      "sha256": "76380ade75f50e8f0624bac5dc926e52be49016e97649595ea151ef7f4403a5a",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g534xx_sram.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g534xx_sram.ld",
+      "root": "g5_reference",
+      "sha256": "0c09151c1af612400b2c5cec0a03cd1093992bf2a1dc4e0fe3fbc4b6caf8b883",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g534xx_sram_ns.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g534xx_sram_ns.ld",
+      "root": "g5_reference",
+      "sha256": "b268d3c55a5c8b365b410e4f3735146ca9e3d4799ce8f170ba92d161e9cd88ea",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g534xx_sram_s.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g534xx_sram_s.ld",
+      "root": "g5_reference",
+      "sha256": "42c266fa721cf9f87c0c3f1b1edb860e06fbbfb5f56f9bd72a758595b77c22e4",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g544x8_flash.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g544x8_flash.ld",
+      "root": "g5_reference",
+      "sha256": "ec19a89d1b6bc1ce016bdd596a8e2dfefb4c194699ea03f2d848738365fc4609",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g544x8_flash_ns.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g544x8_flash_ns.ld",
+      "root": "g5_reference",
+      "sha256": "cb0fe56c96b1a94da3e5de983727281ba379fb0eec8bae4d4b4304c6ca6bea2a",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g544x8_flash_s.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g544x8_flash_s.ld",
+      "root": "g5_reference",
+      "sha256": "0e8b31f58265ecccb078deff95f0aef3cc2cf87782aab72062be28638a634396",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g544xb_flash.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g544xb_flash.ld",
+      "root": "g5_reference",
+      "sha256": "d2af4c25368122632db4c3cf26962269f2cd1dd115a28bc03f7c8276801d1d6c",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g544xb_flash_ns.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g544xb_flash_ns.ld",
+      "root": "g5_reference",
+      "sha256": "080d0cc9d52e2aa4f14c7829e6996dd31b6313c7bf3a7a4e26d0f6a1729ae2a3",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g544xb_flash_s.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g544xb_flash_s.ld",
+      "root": "g5_reference",
+      "sha256": "6a7163f7d06f4cac360735517da43d232c95a3efaafcca28c1d8197cf289a929",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g544xc_flash.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g544xc_flash.ld",
+      "root": "g5_reference",
+      "sha256": "2d0493edf2e35d2d9e7d5cedc518254d2c4d27cb86d907bcd1920bff706c6ca8",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g544xc_flash_ns.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g544xc_flash_ns.ld",
+      "root": "g5_reference",
+      "sha256": "283650faf889b4207f5cbd443bacdb49c3f82555b835619c29e40cd4b9fb6359",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g544xc_flash_s.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g544xc_flash_s.ld",
+      "root": "g5_reference",
+      "sha256": "b285894947fd7a79b3ae77daea813fe2df3cda55007e968652d74162d8ec49a7",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g544xx_sram.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g544xx_sram.ld",
+      "root": "g5_reference",
+      "sha256": "bde3ac60fd59081225bb6a3856b56fa16bcc3917f1aef90f4a722f0002566ead",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g544xx_sram_ns.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g544xx_sram_ns.ld",
+      "root": "g5_reference",
+      "sha256": "ab05149105f69b805474815abb40353f40f323a059be20d9ee29804dff725c6e",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g544xx_sram_s.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g544xx_sram_s.ld",
+      "root": "g5_reference",
+      "sha256": "9206761d807af6225c320facbed94a5e5e820a147b29b86623c437c02125c7d0",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g553xb_flash.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g553xb_flash.ld",
+      "root": "g5_reference",
+      "sha256": "dc30b3f5f44c81bac5bdec60d022c7ae74a81987b75c5ff9d1fb90b61ddf0649",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g553xb_flash_ns.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g553xb_flash_ns.ld",
+      "root": "g5_reference",
+      "sha256": "01f5e2351200397a944c08b34b4ce7f68fcf7ee9608da8b8d2a99d30f88b028b",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g553xb_flash_s.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g553xb_flash_s.ld",
+      "root": "g5_reference",
+      "sha256": "6612d55d335bbdc27b37e7307b7447c214b0af02af04983771e76b3b9f45d167",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g553xc_flash.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g553xc_flash.ld",
+      "root": "g5_reference",
+      "sha256": "c60b819580b1312311187fd5417d4d28de40848131805dcb36d2a8880d296856",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g553xc_flash_ns.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g553xc_flash_ns.ld",
+      "root": "g5_reference",
+      "sha256": "84d134e6f126df5b652de033be61fd243aa4815fb7310baf19ff5903634f2950",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g553xc_flash_s.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g553xc_flash_s.ld",
+      "root": "g5_reference",
+      "sha256": "7645947836aaf4e84fc47669f259e6a1798fe228d54bbeb82a6ff6776e983e99",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g553xe_flash.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g553xe_flash.ld",
+      "root": "g5_reference",
+      "sha256": "214706ab197e59508f0196e3f4c3f980efcb0152d00fc6e4d27f7030e1ae1dc3",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g553xe_flash_ns.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g553xe_flash_ns.ld",
+      "root": "g5_reference",
+      "sha256": "bff2ad47479f9292c7c6db089d3e5e70651e4306ca0afd61570c211d4063e004",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g553xe_flash_s.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g553xe_flash_s.ld",
+      "root": "g5_reference",
+      "sha256": "6e2a830a72303f3ba43d1727d63977c4b89b6bd27a046973d8ff366260478e5c",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g553xx_sram.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g553xx_sram.ld",
+      "root": "g5_reference",
+      "sha256": "000743490439adf938925f6ae55fcb0f9d55296957abd5837c3de35202f534e5",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g553xx_sram_ns.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g553xx_sram_ns.ld",
+      "root": "g5_reference",
+      "sha256": "eefe415573d3cb94baf4f8b1e8a1ed82e1f388406a636def7ce0e3be2d699d21",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g553xx_sram_s.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g553xx_sram_s.ld",
+      "root": "g5_reference",
+      "sha256": "574818e73d7cf0a57bfd205b834702b09d03ce929308f580b2a1c5712891621e",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g554xe_flash.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g554xe_flash.ld",
+      "root": "g5_reference",
+      "sha256": "7e54df05512f8a03865cbd71d27037ac63f48cb69f8c241961b5cdd44383a477",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g554xe_flash_ns.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g554xe_flash_ns.ld",
+      "root": "g5_reference",
+      "sha256": "12e923466bc78ded8472546081e5e7ede04506c912f2f20c28e40d0cbff5e652",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g554xe_flash_s.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g554xe_flash_s.ld",
+      "root": "g5_reference",
+      "sha256": "f03e584241845cb57ec78a7d1fd900d90d8e9783092ccedf3331e33db70d2e32",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g554xe_sram.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g554xe_sram.ld",
+      "root": "g5_reference",
+      "sha256": "8055a4d17a8822c14745e65b935848a9d18cbb6ae40386162b9a71c3750b5393",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g554xe_sram_ns.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g554xe_sram_ns.ld",
+      "root": "g5_reference",
+      "sha256": "bc31d8e85ed2a9c25a791777a6e3efee381023b897c08d55a1fd67375e3e0d4d",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g554xe_sram_s.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g554xe_sram_s.ld",
+      "root": "g5_reference",
+      "sha256": "a4b81bfbdabb9ea1716e024a5f2d396f4b86410dea5b3c3adc4e6be370417469",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g563xe_flash.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g563xe_flash.ld",
+      "root": "g5_reference",
+      "sha256": "037562a058c324b08820c7196f1f8879352fd20887c6b318dc343c3474f5e8bd",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g563xe_flash_ns.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g563xe_flash_ns.ld",
+      "root": "g5_reference",
+      "sha256": "2215f73a93a0e901080a4900a695389566e2f524d8902a8e75b2185280586036",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g563xe_flash_s.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g563xe_flash_s.ld",
+      "root": "g5_reference",
+      "sha256": "8ecb405ea13e3850cf328ccfea04f4c2d3898449216bbc5749a07496c2d1c66d",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g563xe_sram.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g563xe_sram.ld",
+      "root": "g5_reference",
+      "sha256": "8be688cdb000418fc68dce4d8454ecd26980a80b1e861b3be50cae411534956d",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g563xe_sram_ns.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g563xe_sram_ns.ld",
+      "root": "g5_reference",
+      "sha256": "60a1bf45368779829268c267b8f008129135c064cfe70e95c5229a162b4fd03c",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g563xe_sram_s.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g563xe_sram_s.ld",
+      "root": "g5_reference",
+      "sha256": "3a51164523d856d4ecd357cbf7b3a0ebe7b8c4411400aad24caa260170148771",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g564xb_flash.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g564xb_flash.ld",
+      "root": "g5_reference",
+      "sha256": "841870673523971eb350aee8c5591c1df2371935b034ecef4719863de1accdab",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g564xb_flash_ns.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g564xb_flash_ns.ld",
+      "root": "g5_reference",
+      "sha256": "be886c54aebb4102ae5f2bc8737e57811f88debedc30f3b06b3bc5fdd6cbc191",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g564xb_flash_s.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g564xb_flash_s.ld",
+      "root": "g5_reference",
+      "sha256": "6752c2f25a85443c5759c5644be155fa917f8bd98c65b22893f1ef9c8f019a0a",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g564xc_flash.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g564xc_flash.ld",
+      "root": "g5_reference",
+      "sha256": "533d729011cbd85cd445da6de4d97e6801cee2569f14ca855c5571a12e6bda91",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g564xc_flash_ns.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g564xc_flash_ns.ld",
+      "root": "g5_reference",
+      "sha256": "3901921203b233ce6893815713c3738f5c3a6a4beab2712511cd1399dc20861e",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g564xc_flash_s.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g564xc_flash_s.ld",
+      "root": "g5_reference",
+      "sha256": "d92f878ab4f6fc35c8a46d128d742c84af9eeedbe24f1a3983be3aceb7d174a9",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g564xe_flash.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g564xe_flash.ld",
+      "root": "g5_reference",
+      "sha256": "85342dcd1cfe2d5724d2071397f7770b4bd2bb2a6ced9593c46a6ada50b6a6bd",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g564xe_flash_ns.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g564xe_flash_ns.ld",
+      "root": "g5_reference",
+      "sha256": "1d4b5758d36312eaff4ea948ac6a4431070435b0f3502dfb5b52b94760030a73",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g564xe_flash_s.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g564xe_flash_s.ld",
+      "root": "g5_reference",
+      "sha256": "d5f9accdd7dd2f7328f474c153488d659a5117a6b1ac6f03b508c2071502a32f",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g564xx_sram.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g564xx_sram.ld",
+      "root": "g5_reference",
+      "sha256": "85aa5a7a286f21065aa761f395085dc8663eff338bd0d2c100c75c2d1f26b239",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g564xx_sram_ns.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g564xx_sram_ns.ld",
+      "root": "g5_reference",
+      "sha256": "4547df0eaf1c9a260ce2347a04cd84622601acb4a63d308676a56fe0d19285ab",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/gcc/linker/stm32g564xx_sram_s.ld",
+      "destination": "stm32g5xx_dfp/Source/Templates/gcc/linker/stm32g564xx_sram_s.ld",
+      "root": "g5_reference",
+      "sha256": "158a3ac433cc18f592279d97dd69c5cac6dc3880d624b32c94457a064689534e",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g534x8_flash.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g534x8_flash.icf",
+      "root": "g5_reference",
+      "sha256": "82fdd531dac2f41602f1cbeac37faae50e93a7c5137f0e87bb120574571d7f1d",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g534x8_flash_ns.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g534x8_flash_ns.icf",
+      "root": "g5_reference",
+      "sha256": "5c7958c499457622a6f2f84ff89fb91240fbc2dd35cbe7bb263d5bedefcf91a9",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g534x8_flash_s.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g534x8_flash_s.icf",
+      "root": "g5_reference",
+      "sha256": "c898632fcab48ba23ae7c4bdd9cbc18cb99ee0d26349f7ce2ca387723aba3143",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g534xb_flash.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g534xb_flash.icf",
+      "root": "g5_reference",
+      "sha256": "756ac2cf1225d4acf1c9d80addb5a7ece52c8c212ee63d1d12bd3dbfbe006c87",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g534xb_flash_ns.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g534xb_flash_ns.icf",
+      "root": "g5_reference",
+      "sha256": "721fa7c194db25d49db4518c2c630c7ee8b8ddf8144defaf170e845856394b61",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g534xb_flash_s.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g534xb_flash_s.icf",
+      "root": "g5_reference",
+      "sha256": "f8d5f7efce98ae0861cd974e210b3daaf3ec2138ab81f0642807fd951e809f4d",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g534xc_flash.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g534xc_flash.icf",
+      "root": "g5_reference",
+      "sha256": "aea507595e0582150eac803e5d46d21112f867d78c2609e4a2402a2934467a5f",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g534xc_flash_ns.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g534xc_flash_ns.icf",
+      "root": "g5_reference",
+      "sha256": "5ed897d88772bed9f98cd008455011dc34cb119053b76bd6aaedeccbaa3c3877",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g534xc_flash_s.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g534xc_flash_s.icf",
+      "root": "g5_reference",
+      "sha256": "8b0b1ca6410fab22084eca7282f715547a91491253f4745c00709bb52404e4ab",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g534xx_sram.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g534xx_sram.icf",
+      "root": "g5_reference",
+      "sha256": "ff7a185cef6a4224d0097db87c1432e1155df990404e8289ad2dc0076ff34761",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g534xx_sram_ns.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g534xx_sram_ns.icf",
+      "root": "g5_reference",
+      "sha256": "8d8b675fb0aea1ec8afb85ebf5e58eae06dad164bf9492dae80a03539c5e2660",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g534xx_sram_s.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g534xx_sram_s.icf",
+      "root": "g5_reference",
+      "sha256": "8867509b799bc29799c4da75cf0135c14ef43d55f0e55df900744ce071409f11",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g544x8_flash.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g544x8_flash.icf",
+      "root": "g5_reference",
+      "sha256": "eef00e341a418fd6d90cf1ac4658591f8f5b5d7f27c877e541a3756f2a73c9b2",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g544x8_flash_ns.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g544x8_flash_ns.icf",
+      "root": "g5_reference",
+      "sha256": "66233a9dcb09c24afdc634f097529a8341a1b3d41731cb3f2910592168e79f34",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g544x8_flash_s.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g544x8_flash_s.icf",
+      "root": "g5_reference",
+      "sha256": "54ac3a786534d1d8d78b3c5206bac7fa90dba688b5cfbf7690df5fe8be419195",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g544xb_flash.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g544xb_flash.icf",
+      "root": "g5_reference",
+      "sha256": "4e60704b3bfa08e63de47f9f162b91257e0232371e7ef63632d1a7ce6acdb6ba",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g544xb_flash_ns.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g544xb_flash_ns.icf",
+      "root": "g5_reference",
+      "sha256": "c08051c2714a60d44a5cf7e1263c72c00db5a00573d667db533985b35c6594e1",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g544xb_flash_s.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g544xb_flash_s.icf",
+      "root": "g5_reference",
+      "sha256": "1159045c2980ba26e68c553ccac54b01eababeeedc1a0c3dc6546099210f2126",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g544xc_flash.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g544xc_flash.icf",
+      "root": "g5_reference",
+      "sha256": "c013d72d35162f1e4971611006b68381fd0e11b584aca0f006614f78ac6c8cf6",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g544xc_flash_ns.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g544xc_flash_ns.icf",
+      "root": "g5_reference",
+      "sha256": "be1066d523a565da8fd61149c5c4bf6d442ce4d7f553c3449aa025bc8b531544",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g544xc_flash_s.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g544xc_flash_s.icf",
+      "root": "g5_reference",
+      "sha256": "a535c4145a3795cb74b1dea3e20fb0a0b2bdb4bd6494ffaedc1e69e98523f241",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g544xx_sram.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g544xx_sram.icf",
+      "root": "g5_reference",
+      "sha256": "aea6e3416287af71c30110356a58f32fcdd8b515b76ad33b0fa459539b60c664",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g544xx_sram_ns.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g544xx_sram_ns.icf",
+      "root": "g5_reference",
+      "sha256": "2a0e2ef0cada1c1d1ff2f7c48c4bb99f106aef7b4fa01a0368cb078d312974cc",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g544xx_sram_s.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g544xx_sram_s.icf",
+      "root": "g5_reference",
+      "sha256": "044d45f3103e3b6218cf6ba61036d2d0990a0c10edbc9f145ab7a3c2ac56d457",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g553xb_flash.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g553xb_flash.icf",
+      "root": "g5_reference",
+      "sha256": "7255ca801f7924c4fbca33fa03fc1fb0fc50d8b789f662b31bb2902f364018a1",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g553xb_flash_ns.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g553xb_flash_ns.icf",
+      "root": "g5_reference",
+      "sha256": "319af6a9aae7c27c4c12daf6518d49e6afc5f92b1cec4d3c83f728b3ef8a30bd",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g553xb_flash_s.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g553xb_flash_s.icf",
+      "root": "g5_reference",
+      "sha256": "1b1ce945090c3c15e060783c3f9e482c9f92a1b81a2120eaf5b5f0a484619c07",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g553xc_flash.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g553xc_flash.icf",
+      "root": "g5_reference",
+      "sha256": "419e028f0bb986a81b65585990556b183990e7fc93a98e3cad790bfe486b497f",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g553xc_flash_ns.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g553xc_flash_ns.icf",
+      "root": "g5_reference",
+      "sha256": "566f999fa26e7487bc6e0772552a0d6913cfa3efb8075d7cd7144f8db14fa703",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g553xc_flash_s.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g553xc_flash_s.icf",
+      "root": "g5_reference",
+      "sha256": "24b3a3e9d3eb11cf77a10ce2fd55ed538c9a7a99de3f0c52a36697111539db08",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g553xe_flash.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g553xe_flash.icf",
+      "root": "g5_reference",
+      "sha256": "98359bd3bf3f0b31b8722816edbc203786aa00aab0851cef4d2a7e4ba48203c9",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g553xe_flash_ns.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g553xe_flash_ns.icf",
+      "root": "g5_reference",
+      "sha256": "72c348aac1a624227b4c1fcef7c30f5d5caac4b23591a312f23a31986552dab6",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g553xe_flash_s.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g553xe_flash_s.icf",
+      "root": "g5_reference",
+      "sha256": "4fdb7c555a8fec8ec8f087826101a6c0c197e984ee712f662451a7edb8283a74",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g553xx_sram.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g553xx_sram.icf",
+      "root": "g5_reference",
+      "sha256": "0cb42c8b0ca37d1ad4cebb3232068ffc74a8cc2669b281a9068289139cdbc40d",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g553xx_sram_ns.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g553xx_sram_ns.icf",
+      "root": "g5_reference",
+      "sha256": "c396982e32a84f3e4f99b05a9cabe0ccd7f4d2db07a2b41638e58650e806fba7",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g553xx_sram_s.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g553xx_sram_s.icf",
+      "root": "g5_reference",
+      "sha256": "bf1afdc191f74dc0d9419c8ac82ffb16fb3a6226ab16a806b543a2c24c40364e",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g554xe_flash.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g554xe_flash.icf",
+      "root": "g5_reference",
+      "sha256": "5317424da8e1df0321e8a9f244b853566229a1d2dbb21c2c691e43ea40147207",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g554xe_flash_ns.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g554xe_flash_ns.icf",
+      "root": "g5_reference",
+      "sha256": "d2eee830e677f64fb8616b5fc005c12cf6169539458383fb18d1dece30ef590e",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g554xe_flash_s.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g554xe_flash_s.icf",
+      "root": "g5_reference",
+      "sha256": "a5a60596b7b5299ec0483a086ed009542f4cdbf477dbb00f884acd7159d85e19",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g554xe_sram.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g554xe_sram.icf",
+      "root": "g5_reference",
+      "sha256": "0892f9dadf8c92b497313596681799335f207b1d6dd08add50668cba6a22171c",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g554xe_sram_ns.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g554xe_sram_ns.icf",
+      "root": "g5_reference",
+      "sha256": "c278db5965a42d9010ba7990b18641934cc1d38967838b5d238684eedb57d95d",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g554xe_sram_s.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g554xe_sram_s.icf",
+      "root": "g5_reference",
+      "sha256": "24a16976f054a58d4bbf771e8e33a06ffdb440ddac8dd386eca7d38aad643733",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g563xe_flash.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g563xe_flash.icf",
+      "root": "g5_reference",
+      "sha256": "c058e6c4fbf7e2704a9ac6009c74069c403065d8d99fae20000ec9014095f6ef",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g563xe_flash_ns.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g563xe_flash_ns.icf",
+      "root": "g5_reference",
+      "sha256": "458d34c72b385d9f7851f5efbd9f8f754f3100c4814922bc8c78a6bf14639702",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g563xe_flash_s.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g563xe_flash_s.icf",
+      "root": "g5_reference",
+      "sha256": "9e068564863a774bd00c594268a6de80c0188174f36b3b6f82a9242d314e181e",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g563xe_sram.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g563xe_sram.icf",
+      "root": "g5_reference",
+      "sha256": "5978f7d140e17d332f1fb11ce2e79924620161aa6a2d49a26964ea3d9011ffdb",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g563xe_sram_ns.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g563xe_sram_ns.icf",
+      "root": "g5_reference",
+      "sha256": "32d8160bdc3a78ee5bc95729d615c86b9451c1ca3911d6069e1cbabd306996e3",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g563xe_sram_s.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g563xe_sram_s.icf",
+      "root": "g5_reference",
+      "sha256": "baea4b605de130bf09644ddadc60786386e3c8e803380df87930d1faba996dbf",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g564xb_flash.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g564xb_flash.icf",
+      "root": "g5_reference",
+      "sha256": "f14366a20a2d9ab79a51f6b8767bc57650faa24b7606e26086f4225fde24127d",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g564xb_flash_ns.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g564xb_flash_ns.icf",
+      "root": "g5_reference",
+      "sha256": "9fce772f24038c509df180ed2473353c7957ee6315aa1ba39c08571759e00e3f",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g564xb_flash_s.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g564xb_flash_s.icf",
+      "root": "g5_reference",
+      "sha256": "eeabe009d50382b8d89c56fecd16d996326cc8bacd9e83ed83598c26e85dfdcb",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g564xc_flash.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g564xc_flash.icf",
+      "root": "g5_reference",
+      "sha256": "7e070f38ee39ae8ffe127e58faed6112c6bf331591c399b3a1176e719376cc47",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g564xc_flash_ns.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g564xc_flash_ns.icf",
+      "root": "g5_reference",
+      "sha256": "42164ac8c9e95c0b55b8bd78cc07d3879e98ad928220bac7ef001426e7fb2049",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g564xc_flash_s.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g564xc_flash_s.icf",
+      "root": "g5_reference",
+      "sha256": "d7e972455d6291d5ea77fd1349b65c7925ec5002d193f99f71fcd538a7a64947",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g564xe_flash.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g564xe_flash.icf",
+      "root": "g5_reference",
+      "sha256": "a0c133897ec16a83e7da5a689ce6262a3ef7db66a320884a5d56d0ae1b08eb85",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g564xe_flash_ns.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g564xe_flash_ns.icf",
+      "root": "g5_reference",
+      "sha256": "4c3d2ed13c2877bb16b8dad037157d45a2281855cbc7c96ead5d1350d58a52bc",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g564xe_flash_s.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g564xe_flash_s.icf",
+      "root": "g5_reference",
+      "sha256": "9b788de84710cd7af4f06184fa13022eb13ef5ef7ee2d084b47a9286d7d09578",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g564xx_sram.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g564xx_sram.icf",
+      "root": "g5_reference",
+      "sha256": "d811b9e045d28a6b1b8330e1095e615a62091d99fdb9296b998143a14dfed818",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g564xx_sram_ns.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g564xx_sram_ns.icf",
+      "root": "g5_reference",
+      "sha256": "027fe8ba3a2f9ed054c1991e2cb0a20e46bc06dd85453d7322302136d90c44fd",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/iar/linker/stm32g564xx_sram_s.icf",
+      "destination": "stm32g5xx_dfp/Source/Templates/iar/linker/stm32g564xx_sram_s.icf",
+      "root": "g5_reference",
+      "sha256": "2d2e90750085c74ab5296a34c9894d170f3bc8296d2e091b41d32de036ff5bd7",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/system_stm32g5xx.c",
+      "destination": "stm32g5xx_dfp/Source/Templates/system_stm32g5xx.c",
+      "root": "g5_reference",
+      "sha256": "5339c2fd1494e20aef0f80732f6d52272d8012946597c32bc9931948febd3eb8",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/system_stm32g5xx_ns.c",
+      "destination": "stm32g5xx_dfp/Source/Templates/system_stm32g5xx_ns.c",
+      "root": "g5_reference",
+      "sha256": "940d93f1db86f6d248a458f7d2ad5832126503d49d10517dffc0f80def70c4ed",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-dfp/Source/Templates/system_stm32g5xx_s.c",
+      "destination": "stm32g5xx_dfp/Source/Templates/system_stm32g5xx_s.c",
+      "root": "g5_reference",
+      "sha256": "da2f13204ad8352a561a4872f126a4e6e9fc81de5b35619b428bf8bcb598c4cd",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/CMakeLists.txt",
+      "destination": "stm32g5xx_drivers/CMakeLists.txt",
+      "root": "g5_reference",
+      "sha256": "66297855f61b499211390c07eb5af7d41d51440ed2a6b8ba27b3f95be88890e4",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/LICENSE.md",
+      "destination": "stm32g5xx_drivers/LICENSE.md",
+      "root": "g5_reference",
+      "sha256": "09f3bc15e311807d252ff58d9cbf9b32958efe4b578d610675e059b28edbbf2c",
+      "mode": "copy",
+      "role": "license"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32_hal.h",
+      "destination": "stm32g5xx_drivers/hal/stm32_hal.h",
+      "root": "g5_reference",
+      "sha256": "5edd6b77cc62c127d6405e166bfcf5f069975b4991ff8e3118bbb67d196455ea",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_dlyb_core.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_dlyb_core.c",
+      "root": "g5_reference",
+      "sha256": "75a09ffb067c62a2cf6bb77afa7bc6f77c83d29f27b0aff0ec94032a29d0a705",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_dlyb_core.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_dlyb_core.h",
+      "root": "g5_reference",
+      "sha256": "620a41d3697182b29e8c10a8bbf0bf43cc96527e83f40a7e5e4f991965b0df7f",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal.c",
+      "root": "g5_reference",
+      "sha256": "f22b5120c5a166bbb1c657ffeb5fe9cb4259a79b367f948fab0a0caf204d3cb3",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal.h",
+      "root": "g5_reference",
+      "sha256": "0bb750421cefc47dd22da77a66c7d7d6c8fd1807d80da4c2ebee442042bbcd77",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_adc.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_adc.c",
+      "root": "g5_reference",
+      "sha256": "fbec4fb7799b339af170a4271f0cee993dd1b1e799ee7097aa82ccf84a88cff6",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_adc.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_adc.h",
+      "root": "g5_reference",
+      "sha256": "fc116b4d1ca27448c280816d783d5925a88b0fc70185a08f85174d4cd86c69fb",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_aes.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_aes.c",
+      "root": "g5_reference",
+      "sha256": "bd815a6825622811e8b780d4c648e3ad88815b1f9d6b0e7a7f46c0b56cee7442",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_aes.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_aes.h",
+      "root": "g5_reference",
+      "sha256": "306ff36e3f578bf31953a6b3faa274c3846d90526060a71d66c9ca89bce0ac8f",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_ccb.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_ccb.c",
+      "root": "g5_reference",
+      "sha256": "38ad0639445ce9841ce49dd1671cba802fb0b8817fd553c7f64767c2fceb924c",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_ccb.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_ccb.h",
+      "root": "g5_reference",
+      "sha256": "d856bc1d7460c1dc913cef5b27ea084513798606cb95b0a34af9f41b589dd178",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_comp.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_comp.c",
+      "root": "g5_reference",
+      "sha256": "a957b788e0ffea637f4815105f795b3903256bdb5b486adcc984db45d6df207e",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_comp.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_comp.h",
+      "root": "g5_reference",
+      "sha256": "71bd8cfe7deb783b2319ec9b22806c4ba12f960a168bd34ca20dac3fbbbe3b30",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_cordic.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_cordic.c",
+      "root": "g5_reference",
+      "sha256": "d1766475e4c9e730a5790576538442be8710829c50ccc614466082deaaf3a796",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_cordic.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_cordic.h",
+      "root": "g5_reference",
+      "sha256": "d6d0d28c618d327394d00b5c6a15247a46c363075aba8b63e6e5e3b327a49f5b",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_cortex.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_cortex.c",
+      "root": "g5_reference",
+      "sha256": "4f6feb91670ec7d955de6507157b99def022f68c175fb90a0e1d310318bf73eb",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_cortex.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_cortex.h",
+      "root": "g5_reference",
+      "sha256": "afdc5503d0a15d86c4d48dab866c613aa4c5aa042dda86d82b92687d2ef54249",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_crc.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_crc.c",
+      "root": "g5_reference",
+      "sha256": "e498c91c36b6bacfb6fb2718916d4a511d3188723005b348b9a64a805922f163",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_crc.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_crc.h",
+      "root": "g5_reference",
+      "sha256": "53efddeba4bf735134f3653297c324d85a5199d0093c22562278a368f8acc227",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_crs.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_crs.c",
+      "root": "g5_reference",
+      "sha256": "8883f1577c1a298dc3d6e09e17a8d82d76a550f36eec18c6f729ec83dd003a8d",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_crs.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_crs.h",
+      "root": "g5_reference",
+      "sha256": "c953180cbfd5360194c066291396e19d58c62d1dfc326d266095dda2385838eb",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_dac.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_dac.c",
+      "root": "g5_reference",
+      "sha256": "94143582428ba0820f1791237962175abd80232c4fcc7a9155e2eff393450cb8",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_dac.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_dac.h",
+      "root": "g5_reference",
+      "sha256": "465ec72ed52a40f878c8d7d0753f6d9ea59dea99723c3811754a3199e1591bed",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_dbgmcu.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_dbgmcu.c",
+      "root": "g5_reference",
+      "sha256": "2a8e48dd56d600a4b6b84857db062d86318a5f22c730d5a9fe60e4e4a88fa3f2",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_dbgmcu.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_dbgmcu.h",
+      "root": "g5_reference",
+      "sha256": "6a16e4296c8411faf9eeb9036d4e2a6b9d52690c772ac9122b613b630acdb145",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_dcache.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_dcache.c",
+      "root": "g5_reference",
+      "sha256": "32c5871386a5ebb71f48f9cd0c2a672462f87cfc89552275caab91c6b0465e83",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_dcache.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_dcache.h",
+      "root": "g5_reference",
+      "sha256": "228b5c33d4d301fefb36908769018e7493a4903099a8a731046446e8370e1c3a",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_def.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_def.h",
+      "root": "g5_reference",
+      "sha256": "4afd9c2a29d1f24fe908c7ae800bf16b1a2a1af27d811b91dd47f0823d0427e2",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_dma.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_dma.c",
+      "root": "g5_reference",
+      "sha256": "522a3caf1335fe35bbeed9079d0fb2ab44bd6397a8a583afa9815a5b1cf66d7b",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_dma.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_dma.h",
+      "root": "g5_reference",
+      "sha256": "76852341c58ffe1140f1a102e476de0eb16b250df815a15bc1ff9721c6370892",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_dts.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_dts.c",
+      "root": "g5_reference",
+      "sha256": "7a41d501ec5a2846dada4685ecf0ee1a4751b45c73536efe748224bead0fda5d",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_dts.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_dts.h",
+      "root": "g5_reference",
+      "sha256": "c7f10cc46e3867e29e8847a18003eb9bdc58ba0f1626785c57df1e81cbe6d720",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_exti.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_exti.c",
+      "root": "g5_reference",
+      "sha256": "2f8a2065c55e6c0c5ad9f3242f7568a8150f329fe536c110d0c5ff9fd0bab0dc",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_exti.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_exti.h",
+      "root": "g5_reference",
+      "sha256": "c48575406836bd06e85db8def4cc563649513f33406bd17ead7dd53973b8776a",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_fdcan.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_fdcan.c",
+      "root": "g5_reference",
+      "sha256": "07a21c2ad5d1bf9fecb33433f57da88720bab491021a7d33b91515817c8e58f3",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_fdcan.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_fdcan.h",
+      "root": "g5_reference",
+      "sha256": "4303fc4960aeaf419a9f55db51cc99767dd0a61bc3b518e09050b69df7378a26",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_flash.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_flash.c",
+      "root": "g5_reference",
+      "sha256": "177a331dda66947aad685b932e8b255d803e3fdcae671626f6a31a9afa929996",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_flash.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_flash.h",
+      "root": "g5_reference",
+      "sha256": "53b3dbe1661cef8b99d30c489612ca73728a8ce293a2fcd59f813f4821f82a81",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_flash_itf.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_flash_itf.c",
+      "root": "g5_reference",
+      "sha256": "dc6c570e7923b3e2329dee22ddbe9b6e93d006d11908783ce53ea6ad4ac99587",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_flash_itf.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_flash_itf.h",
+      "root": "g5_reference",
+      "sha256": "b86ba04d995a0927841addb5d2809f09f14f84fc706aad693bd18df09e15bda2",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_fmac.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_fmac.c",
+      "root": "g5_reference",
+      "sha256": "015790c0b0f917e4849e34b32beca02c2bd759819feffc6e18191efee61c1ecf",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_fmac.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_fmac.h",
+      "root": "g5_reference",
+      "sha256": "2aef3807e9d080fe850df8f12968640edf53a4c86e5c0597c03502948fa4ee1f",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_gpio.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_gpio.c",
+      "root": "g5_reference",
+      "sha256": "0d2bba71e97ecf41b5a8faf4f1567ef9cd00e3c3275fc4b48ab7faa5c266f24a",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_gpio.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_gpio.h",
+      "root": "g5_reference",
+      "sha256": "ade8cd1ec19974a4aba63d0cf65742be03d5543e1d51583d49ac6c0043ccc4db",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_gtzc.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_gtzc.c",
+      "root": "g5_reference",
+      "sha256": "1e777cfbbefcf303ab6d7b86ed03b1f505e4d432b1577d0c469ec527223ca693",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_gtzc.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_gtzc.h",
+      "root": "g5_reference",
+      "sha256": "c8923a8059b60596a64f2bca5f854a7d0902969f1810b19886dc765923c293f0",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_hash.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_hash.c",
+      "root": "g5_reference",
+      "sha256": "4b714e44299d502cf15693bfd4383a5a6e8099df4e7a62734423515afb756d3e",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_hash.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_hash.h",
+      "root": "g5_reference",
+      "sha256": "bf4cf5a123ba9b1ba45d44f6d5e83097009254aa2fdf50d9717bf37ffe245108",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_hcd.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_hcd.c",
+      "root": "g5_reference",
+      "sha256": "acc38bc39bc02c4a0927c293093ead1f3d3681d8c1d16076c26d964341689d93",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_hcd.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_hcd.h",
+      "root": "g5_reference",
+      "sha256": "b4bc9a5f89b78c9f98d9da6162a18e4d339574e86b2535eb361cb6333941fd97",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_hrtim.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_hrtim.c",
+      "root": "g5_reference",
+      "sha256": "6b5cce5c906ae679885a69819ad57bbf0967d9a9e4a6d04bd18d5afb50996ef6",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_hrtim.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_hrtim.h",
+      "root": "g5_reference",
+      "sha256": "42627e1d9b2b9d7d7e204f8e5f1d72ee8ae0ffb5fd3573ce9eb701f61853356d",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_i2c.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_i2c.c",
+      "root": "g5_reference",
+      "sha256": "af050d4433cd5f121ff98eb2e927c976c5ad94340000c183bb5bd243584c7560",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_i2c.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_i2c.h",
+      "root": "g5_reference",
+      "sha256": "284c2233321e261835474cbbe4759d0c0490065324c4cc5478842ccc9ae557b9",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_i2s.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_i2s.c",
+      "root": "g5_reference",
+      "sha256": "9ad31955aa6077d1c52c01ec5baef4ab0dcb8d8ce5e46ebfeefcf1f23eee288a",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_i2s.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_i2s.h",
+      "root": "g5_reference",
+      "sha256": "d65e4bef66ac36decd119c6510befb18ceda4b34d5cbc9f08402e8dd4258572e",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_i3c.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_i3c.c",
+      "root": "g5_reference",
+      "sha256": "835df3c45035b92dbf8cc6ca73231d23740ee7375837d1ff2afc6b42d72fc969",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_i3c.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_i3c.h",
+      "root": "g5_reference",
+      "sha256": "9c9b4c057e56fdb81f9e89e9595a92f2ad285074098a270772229cef0696dfcb",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_icache.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_icache.c",
+      "root": "g5_reference",
+      "sha256": "cc2bfe5b0cc0a5b57dafb38a1d38d6e3c8faa691ee43353ba03976d316886494",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_icache.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_icache.h",
+      "root": "g5_reference",
+      "sha256": "d5bf245b4cb0b74ec204889e30fe6ee05d354b6bae662fa12f5028b6d54be4a2",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_iwdg.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_iwdg.c",
+      "root": "g5_reference",
+      "sha256": "9aad8dac96d3208c707c1fd3206b3334764308107a25d382c04e79715e1bed89",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_iwdg.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_iwdg.h",
+      "root": "g5_reference",
+      "sha256": "e9f8b5a2e437222b803414e25c5b087c8d813cbb236af5404364c74dce3c67f9",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_lptim.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_lptim.c",
+      "root": "g5_reference",
+      "sha256": "6ddc0fba20690eceb9561515f158555cca210d74d8584e1e7ee59ccbe190c4ea",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_lptim.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_lptim.h",
+      "root": "g5_reference",
+      "sha256": "bf49eb9ef41196f1f016b1cd1beda05f39703a4cd06f540b422058853cf33550",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_opamp.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_opamp.c",
+      "root": "g5_reference",
+      "sha256": "69ea7d9db3590167ff921e222598404f1307756a8b0678fa5f1c5082c5b21abb",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_opamp.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_opamp.h",
+      "root": "g5_reference",
+      "sha256": "05472183da40c9fe0f373b3f7d09fd0fb82a0e1e13947a65e53f6dfa74c289ea",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_pcd.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_pcd.c",
+      "root": "g5_reference",
+      "sha256": "1f3408792f330dc776da05c64254123ba401a32b9924f5da8352896ec5a727c5",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_pcd.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_pcd.h",
+      "root": "g5_reference",
+      "sha256": "633f2df9d35311c548c34c8f6d5a9562af368f2689b8b33abfc6bf5a9f4e99a7",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_pka.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_pka.c",
+      "root": "g5_reference",
+      "sha256": "be41604456c9d4ec95b3b06cb2580a4ea0438f5cb4df346c6628772505e8aa5c",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_pka.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_pka.h",
+      "root": "g5_reference",
+      "sha256": "a03e52ad0a5c67a174aa398fcd25613a8e598d741ee61062689b2e4d8247ed10",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_play.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_play.c",
+      "root": "g5_reference",
+      "sha256": "d2bfe7c5425ebe8a29eb7a15b49a6df0b466ac1b7c2fa82f08ea792eef372b15",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_play.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_play.h",
+      "root": "g5_reference",
+      "sha256": "9f33b09dd8bd4d47f7e2333908f69cc627fd0a7f380f967dc5a0d58488e421e6",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_pwr.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_pwr.c",
+      "root": "g5_reference",
+      "sha256": "de556ef8073ba49ca3a8258e3983ac20ffee06495ffcef5db2c5f028135b755c",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_pwr.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_pwr.h",
+      "root": "g5_reference",
+      "sha256": "a30ef90007bffd46c971b1c92b0f7f14637b9e201d40609e4026713b28639f23",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_q.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_q.c",
+      "root": "g5_reference",
+      "sha256": "e19c8bdd3b2e8f5aa46aba2245fe0112c201712ae712a587d970110e5f28096a",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_q.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_q.h",
+      "root": "g5_reference",
+      "sha256": "d06527bd465fae31d30685e4c232a64f07d3b28e8011c44ae246c2ed2e447fa0",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_ramcfg.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_ramcfg.c",
+      "root": "g5_reference",
+      "sha256": "2a84326f11400fa2aa6a93b766183387e610624edb33ddc56e6cdf0f910f8be3",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_ramcfg.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_ramcfg.h",
+      "root": "g5_reference",
+      "sha256": "ac0d9e9cb7d6a1523f1464bc12d6ae1c9cab7aedc5837cfc162fb580aeab2128",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_rcc.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_rcc.c",
+      "root": "g5_reference",
+      "sha256": "08d015677688a42f6e42df99b222904871275338335eac7164ab7d306f8bb760",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_rcc.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_rcc.h",
+      "root": "g5_reference",
+      "sha256": "b9ac8f5da953d50e8f606ba31af955140a80e911b6f1789c958dd8f3e804475b",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_rng.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_rng.c",
+      "root": "g5_reference",
+      "sha256": "60d8b826042bc6989d1bbb881636ae041f115bf5d1df6184b0c043867d1858b7",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_rng.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_rng.h",
+      "root": "g5_reference",
+      "sha256": "b2cef2f40b23dbdb770b36b2c4750c12fcaf9a290ba581810468cbadfb490aab",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_rtc.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_rtc.c",
+      "root": "g5_reference",
+      "sha256": "2c51cada15db85e06f4638ab036b296b6ad24e6ce9f091eb02b70d37b59fe056",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_rtc.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_rtc.h",
+      "root": "g5_reference",
+      "sha256": "7c90cb2d504532eab3090e60ce05dc3b7712989dac37fbc22b8a2476d92ded34",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_sbs.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_sbs.c",
+      "root": "g5_reference",
+      "sha256": "aa8f523fa087710789cefa0fd515b6cbeadfb98282c6111d4a8ef56349219821",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_sbs.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_sbs.h",
+      "root": "g5_reference",
+      "sha256": "5676f111f8815851ba227f8fcc9a7aa2a7ddf150c1d198dc20ce02879b94b177",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_smartcard.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_smartcard.c",
+      "root": "g5_reference",
+      "sha256": "0f336878011a187d5ceeb32b457b5abad0b6fbfde4ee6a3861b30ce5d576fbbc",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_smartcard.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_smartcard.h",
+      "root": "g5_reference",
+      "sha256": "6bde8ea6d68fe43c17ad4b0ee78fd3aa7ced968dac393d189f2a1392da527625",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_smbus.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_smbus.c",
+      "root": "g5_reference",
+      "sha256": "a428b05a947b02fef0a94f1ca43ab413dc48da0b81289781081ddbf2449f6fae",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_smbus.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_smbus.h",
+      "root": "g5_reference",
+      "sha256": "f0c998f0b281ee290bcb70c11fea0b9f8ca58378a5ae0f126d64650972b1953f",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_spi.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_spi.c",
+      "root": "g5_reference",
+      "sha256": "6aa41b4437e1ec7ee94066cb85a2b0eeac79ffc7ded8ae38b8d9ca5b5d1a970e",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_spi.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_spi.h",
+      "root": "g5_reference",
+      "sha256": "c9977fc8b44f92b469d3e327c08593b12baedbd0e0ce1e0527276ad911da0df3",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_tamp.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_tamp.c",
+      "root": "g5_reference",
+      "sha256": "8bfa0590ad3db6afdf45ffbca2c48089f08a7a9dad04ec35ca91273623527141",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_tamp.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_tamp.h",
+      "root": "g5_reference",
+      "sha256": "735933c6f383c4165b2147aa6e2b00980cec73f9710d643c089aa1b57940d410",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_tim.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_tim.c",
+      "root": "g5_reference",
+      "sha256": "2514ffd2b3df2c5dc040f774632a6704ff1804970e7616d18966e3ef4df30763",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_tim.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_tim.h",
+      "root": "g5_reference",
+      "sha256": "ea65e3c06b81ff02a037156b422879e4fce1d36d36e0b2b9b8bd25c828afbe06",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_uart.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_uart.c",
+      "root": "g5_reference",
+      "sha256": "32365895251244c708d3ea890c2e4f897daaa159f5e00b614ac76b77b78c2113",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_uart.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_uart.h",
+      "root": "g5_reference",
+      "sha256": "b939cd28e3944825f4c6e39f1f5da99fb8862964ad2ebc8e2ceb2832ceeb1af7",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_ucpd.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_ucpd.c",
+      "root": "g5_reference",
+      "sha256": "1167e8bf7fb486737d8d1971ce62948db9688ec9c82edff3102726211e4fdd11",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_ucpd.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_ucpd.h",
+      "root": "g5_reference",
+      "sha256": "9534627339be1d70bc2300a2b9acb2c204f07bd2cc220e9c929b97eb0e53f705",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_usart.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_usart.c",
+      "root": "g5_reference",
+      "sha256": "f76e2838492ad9ed24affd601f1d44f9d8104516d612e9df6b2f4a58a73f0ea6",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_usart.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_usart.h",
+      "root": "g5_reference",
+      "sha256": "01e7cdf73f9fd5e55b9009d369cb60ed8e0226fbcbc4b7140393214c673188cd",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_vrefbuf.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_vrefbuf.c",
+      "root": "g5_reference",
+      "sha256": "d89ed53c74f415f7efe6e3b4b6e1eb0f50dd519d75ce3bef82fca47de11a7318",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_vrefbuf.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_vrefbuf.h",
+      "root": "g5_reference",
+      "sha256": "6b4211f0609bc76bfd4f4327e0e28b7d9089c0ddc6cd0ca62991248aa20af3bf",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_wwdg.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_wwdg.c",
+      "root": "g5_reference",
+      "sha256": "fc105ca684456e71b957d3547fd07faf871ee96d9f302ae5c1d2fc2fa5bb2241",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_wwdg.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_wwdg.h",
+      "root": "g5_reference",
+      "sha256": "83936b2bcf1e7344f2a3eae009c63e05e7ff1159d2adb070e9e41597a8d68d5b",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_xspi.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_xspi.c",
+      "root": "g5_reference",
+      "sha256": "f53f441dcfaccdde568a9d6512b1c9bcf81068dae15a31b3659d6f5c15d88d0e",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_hal_xspi.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_hal_xspi.h",
+      "root": "g5_reference",
+      "sha256": "d1125890ce03bf5ad65f0e746b92b6ded080041012fa277e8a6236498e1168c8",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_otfdec_core.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_otfdec_core.c",
+      "root": "g5_reference",
+      "sha256": "3fbbc3ae70cbd3a553b9efdb4b24ed53c6a0820305cee32b9266b8bb30388007",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_otfdec_core.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_otfdec_core.h",
+      "root": "g5_reference",
+      "sha256": "0afb258db87cf9dd39c9924bc9b6cc63339aaa338939ff01c6d3d180842b3358",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_usb_core_def.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_usb_core_def.h",
+      "root": "g5_reference",
+      "sha256": "ae1e91800e03615059a429f5ac045ebfaab8431690356677f82b080735be4d28",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_usb_drd_core.c",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_usb_drd_core.c",
+      "root": "g5_reference",
+      "sha256": "a8690e6180b4796d3e3a76d97f98c8b6fa7bc3d955136c3b8a3fb652bf4789c1",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/hal/stm32g5xx_usb_drd_core.h",
+      "destination": "stm32g5xx_drivers/hal/stm32g5xx_usb_drd_core.h",
+      "root": "g5_reference",
+      "sha256": "a7ed39a5d37746390816069c709db33ec0acf2f16c6aaedc27395778162ee81f",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_adc.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_adc.h",
+      "root": "g5_reference",
+      "sha256": "115b7d5e868f3d3fc3cc3f14dbec1b1c921138f65c696dac8d3b6dcdd0b82de5",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_bus.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_bus.h",
+      "root": "g5_reference",
+      "sha256": "eba0b21124e6468f904968ad9383aa295eaa9ba3fdb39e97b6ec4f73d8b3d871",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_comp.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_comp.h",
+      "root": "g5_reference",
+      "sha256": "b7fab02dbecb42a621819cbd83ef5128b25932ae6af51fc0c9326420994eb2ee",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_cordic.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_cordic.h",
+      "root": "g5_reference",
+      "sha256": "a1e05ef085b39f46c437aab254e2f2c15d40cc4eaf9d01709ce1582ae4be122c",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_crc.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_crc.h",
+      "root": "g5_reference",
+      "sha256": "464e3011e8ebf2d3ed81a7f230ad65914734fc914b3e595e4da442b2e586f09e",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_crs.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_crs.h",
+      "root": "g5_reference",
+      "sha256": "a55dd18274d990c2ee0f04debfbf8f1e833e3755202239b889a4a62ed45fac26",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_dac.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_dac.h",
+      "root": "g5_reference",
+      "sha256": "fb1ef9e3635d21193e7f11a6a1284ecd7b8dd40e4f86608a0729cdb5fe90f891",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_dbgmcu.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_dbgmcu.h",
+      "root": "g5_reference",
+      "sha256": "f7604fc146b0447ad644f9e3dcf61a9ad3dd0ef6cf02f7a756f459245950688e",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_dcache.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_dcache.h",
+      "root": "g5_reference",
+      "sha256": "27f4fca2fee29e59992d71aebf03b0b80877e9476c9b1c05dd55d1da29546f47",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_dma.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_dma.h",
+      "root": "g5_reference",
+      "sha256": "77662a53023528f990a1f0d0e34db0018675e6b8b30e4b0af5a9eb17ea4c8f63",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_exti.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_exti.h",
+      "root": "g5_reference",
+      "sha256": "5d0f77314873e98ca6d67c49a25faf9d671762fad9d6b1d200dcb05aa3a45b63",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_flash.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_flash.h",
+      "root": "g5_reference",
+      "sha256": "c700f631a562a4d755335a88305fbd4f2c1238c07256f638da418535ada731a7",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_fmac.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_fmac.h",
+      "root": "g5_reference",
+      "sha256": "7ec45c9b04662038d92189dc996e980132ad3ab9891770425a1966c595d4db51",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_gpio.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_gpio.h",
+      "root": "g5_reference",
+      "sha256": "27d3b651f508e0e32620ee6da89e563936354840376dc7a5b99c3d2c2c2935a7",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_gtzc.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_gtzc.h",
+      "root": "g5_reference",
+      "sha256": "9cbb61141736552e1faa40038b76d976f4a3734f220f1551200ec3bf6e757c01",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_hrtim.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_hrtim.h",
+      "root": "g5_reference",
+      "sha256": "4608af71773468d74c70bbff9391ca28ed719a2c66d0ae9dc10c0ccb1c3ac471",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_i2c.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_i2c.h",
+      "root": "g5_reference",
+      "sha256": "db18725799766f4528ab1c4c5a7423127b104b03106cf95fe8589bae8db13502",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_i3c.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_i3c.h",
+      "root": "g5_reference",
+      "sha256": "73bbddb320241c9163b821255f770288d247d2723828cfdac075e7ee78cf4e54",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_icache.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_icache.h",
+      "root": "g5_reference",
+      "sha256": "37f31bcda1a9fc328e88bac489e43054ad78ccf0166e71066d04e2ba721663d4",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_iwdg.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_iwdg.h",
+      "root": "g5_reference",
+      "sha256": "bb6e4fb2ff4da0401e10d6999ad2dc013381db9336444831ec7ad06087b4b3d8",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_lptim.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_lptim.h",
+      "root": "g5_reference",
+      "sha256": "b3324e7b13ec1136b4da821eb82d4274cc1b130960f97cf0a177dedfcabc4d42",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_lpuart.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_lpuart.h",
+      "root": "g5_reference",
+      "sha256": "a5aae423265e6be9bc62978cfbb7620c398b8fa48c314ad99d32ff97673ba023",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_opamp.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_opamp.h",
+      "root": "g5_reference",
+      "sha256": "2d2ddbd24db31c955943238f70a45f3ba7633496e262628b2b8f40ee1e72d41a",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_pka.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_pka.h",
+      "root": "g5_reference",
+      "sha256": "906fe8a4e14bbe14725a815df96a31013e64053e840976b631b2aca933a89777",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_play.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_play.h",
+      "root": "g5_reference",
+      "sha256": "2de6270608d04cbcbc3b6f54653cd693af31c7548ab353e9465004199e5378a9",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_posenc.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_posenc.h",
+      "root": "g5_reference",
+      "sha256": "6efdda036ce2aa401b699759f18b6fe59f28ff3a4e6eaa92c4ee9c70064e2926",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_pwr.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_pwr.h",
+      "root": "g5_reference",
+      "sha256": "e8489fb2da113f5dbcf36734bee8eb343f23c8b1ac0ecdcb6386fe27508b2bb8",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_ramcfg.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_ramcfg.h",
+      "root": "g5_reference",
+      "sha256": "6e1e00e4d078170de90bee619d91d980d761e3d118121645b02310907a9a3cac",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_rcc.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_rcc.h",
+      "root": "g5_reference",
+      "sha256": "505f9faf4728e7eee042245e349d5457ba301f9ff2425fea54ed2057397f0ed6",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_rng.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_rng.h",
+      "root": "g5_reference",
+      "sha256": "da7dceddf93f244c6afcd0eb2948b625048596bfdccc01e88112a4d3580c3338",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_rtc.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_rtc.h",
+      "root": "g5_reference",
+      "sha256": "5009f350b5346ec87f468d78009bc90b18c461b6b9d33dd74c38b94e611c3607",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_sbs.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_sbs.h",
+      "root": "g5_reference",
+      "sha256": "d08178ae062e645987eed90c2a3c7b855482f3fc24249d6d295978709c5b62ac",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_spi.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_spi.h",
+      "root": "g5_reference",
+      "sha256": "5fcf7a42b6ce9827fe5a1faf210e5f78cecfe0badb8a089f0812ce5d1f36ce91",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_system.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_system.h",
+      "root": "g5_reference",
+      "sha256": "fca4576c66b04f792a8fa092871cd7d600bf2acb1ae3fb0715ac12774e90d84a",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_tamp.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_tamp.h",
+      "root": "g5_reference",
+      "sha256": "4b9e6f64bef87f28e45f1fe1984f42035cb1910446c21d67cde88a3c22f1121f",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_tim.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_tim.h",
+      "root": "g5_reference",
+      "sha256": "1aa91e36b41e274e97f9bc2851b6a93c11b2c6d53252e8a8874f7c55b85b5378",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_ucpd.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_ucpd.h",
+      "root": "g5_reference",
+      "sha256": "c5e30e03401d6a4744cd143b9d737d26bc40ba55f04c278c82d7bd504a7531c4",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_usart.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_usart.h",
+      "root": "g5_reference",
+      "sha256": "1ad816b61be626434a1b981e576e6c71570d20d418d6c484fa00afe8beb781fd",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_utils.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_utils.h",
+      "root": "g5_reference",
+      "sha256": "fda12b6ae9c534f1fc017a436a3414ed8e7c2b6e6413aaccaf47dca525a0b7de",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_vrefbuf.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_vrefbuf.h",
+      "root": "g5_reference",
+      "sha256": "09db4cd187c67400a41f369a17420cf58d281ea641724609cdd677fb18f340e0",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/ll/stm32g5xx_ll_wwdg.h",
+      "destination": "stm32g5xx_drivers/ll/stm32g5xx_ll_wwdg.h",
+      "root": "g5_reference",
+      "sha256": "58a371a12b29c71c7bf90355b61a17e533736afa19789cf74765a0b5e43541ee",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/os_port/freertos/stm32_hal_os.c",
+      "destination": "stm32g5xx_drivers/os_port/freertos/stm32_hal_os.c",
+      "root": "g5_reference",
+      "sha256": "cb00ae394d5f2c0ad08592a372c495de8761bd275faee9ae3f93804b636650d0",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/os_port/freertos/stm32_hal_os.h",
+      "destination": "stm32g5xx_drivers/os_port/freertos/stm32_hal_os.h",
+      "root": "g5_reference",
+      "sha256": "9b795ac3ba14d0cd17a30bc62bf0ecaed9d1dda11132bfd12db8c369b4556106",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/os_port/no_os/stm32_hal_os.c",
+      "destination": "stm32g5xx_drivers/os_port/no_os/stm32_hal_os.c",
+      "root": "g5_reference",
+      "sha256": "6f9e60a107654665d6eb498d7ca2078e7da51d5147029d8bf4dc4a3c90d6fc9a",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/os_port/no_os/stm32_hal_os.h",
+      "destination": "stm32g5xx_drivers/os_port/no_os/stm32_hal_os.h",
+      "root": "g5_reference",
+      "sha256": "0459a38ad4b3125634704ce4ab1e3952052317d209ba6f264896afa9868ac625",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/templates/common/stm32_assert.h",
+      "destination": "stm32g5xx_drivers/templates/common/stm32_assert.h",
+      "root": "g5_reference",
+      "sha256": "811b45570fdc34fc5ad7b308625795b0a8c2aff53c1a261694772df6b7fb205c",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/templates/common/stm32_ll.h",
+      "destination": "stm32g5xx_drivers/templates/common/stm32_ll.h",
+      "root": "g5_reference",
+      "sha256": "e45bbf27f0a234e9ad8f05df2ae587c1b81fa3d8cf9ead554792821770800681",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/templates/common/stm32g5xx_hal_conf.h",
+      "destination": "stm32g5xx_drivers/templates/common/stm32g5xx_hal_conf.h",
+      "root": "g5_reference",
+      "sha256": "217bb7e0b0436b58055e0b3e7adecbc70667707e22b877897266d181feea894b",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/timebases/stm32_hal_timebase_rtc_alarm.c",
+      "destination": "stm32g5xx_drivers/timebases/stm32_hal_timebase_rtc_alarm.c",
+      "root": "g5_reference",
+      "sha256": "58c4eb728538e6ac2d67684cbbd612a3cc6eb65219939edbd61261121bca7ed7",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/timebases/stm32_hal_timebase_rtc_wakeup.c",
+      "destination": "stm32g5xx_drivers/timebases/stm32_hal_timebase_rtc_wakeup.c",
+      "root": "g5_reference",
+      "sha256": "51ecac170cc910433e2b6e84f6e1ee6505b972bd30e871dc56563e08095ebf82",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/timebases/stm32_hal_timebase_tim.c",
+      "destination": "stm32g5xx_drivers/timebases/stm32_hal_timebase_tim.c",
+      "root": "g5_reference",
+      "sha256": "95e2217c537cb59ddd10e2d5004a00be7cec7a71325d3216044a4b4f96a90663",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/utils/fdcan_timing/stm32_utils_fdcan.h",
+      "destination": "stm32g5xx_drivers/utils/fdcan_timing/stm32_utils_fdcan.h",
+      "root": "g5_reference",
+      "sha256": "0d96cdbb2cd1e744c6d4f102f2b1b8415ad2de143a06042b7597b0da11e08ff3",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/utils/i2c_timing/stm32_utils_i2c.h",
+      "destination": "stm32g5xx_drivers/utils/i2c_timing/stm32_utils_i2c.h",
+      "root": "g5_reference",
+      "sha256": "5253c4d35714ef9d7d2117770d9e21b7813e836264bd50bd2e6a6ff6e8933d7e",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "stm32g5xx-drivers/utils/i3c_timing/stm32_utils_i3c.h",
+      "destination": "stm32g5xx_drivers/utils/i3c_timing/stm32_utils_i3c.h",
+      "root": "g5_reference",
+      "sha256": "149d9052119d3cdf4d6f7d92b89fd63c12a4b93272926323ce91aaacecd2b1ed",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/examples/templates/no_os/NUCLEO-G564RE/user_modifiable/Device/STM32G564RET3/startup_stm32g564xx.c",
+      "destination": "user_modifiable/Device/STM32G564RET3/startup_stm32g564xx.c",
+      "root": "g5_reference",
+      "sha256": "c96a30705853a8351e7906a083debaca20f86dc4b9dcd713ac18e91e86528569",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/examples/templates/no_os/NUCLEO-G564RE/user_modifiable/Device/STM32G564RET3/stm32g564xe_flash.ld",
+      "destination": "user_modifiable/Device/STM32G564RET3/stm32g564xe_flash.ld",
+      "root": "g5_reference",
+      "sha256": "85342dcd1cfe2d5724d2071397f7770b4bd2bb2a6ced9593c46a6ada50b6a6bd",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/examples/templates/no_os/NUCLEO-G564RE/user_modifiable/Device/STM32G564RET3/system_stm32g5xx.c",
+      "destination": "user_modifiable/Device/STM32G564RET3/system_stm32g5xx.c",
+      "root": "g5_reference",
+      "sha256": "5339c2fd1494e20aef0f80732f6d52272d8012946597c32bc9931948febd3eb8",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/utilities/syscalls/CMakeLists.txt",
+      "destination": "utilities/syscalls/CMakeLists.txt",
+      "root": "g5_reference",
+      "sha256": "24c09ffa5c6f4890f9c96e53203955c92aab3645ee41fe61e84c05d48c5579c4",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/utilities/syscalls/LICENSE.html",
+      "destination": "utilities/syscalls/LICENSE.html",
+      "root": "g5_reference",
+      "sha256": "e7da226b9e1f48b39cca2590b2d416e796df02b576394801a240ef019507c75b",
+      "mode": "copy",
+      "role": "license"
+    },
+    {
+      "source": "STM32CubeG5/utilities/syscalls/LICENSE.md",
+      "destination": "utilities/syscalls/LICENSE.md",
+      "root": "g5_reference",
+      "sha256": "8009bd86af10150e1b6894e33a1336c2542a73598a191f27eaa9f188d1acd73f",
+      "mode": "copy",
+      "role": "license"
+    },
+    {
+      "source": "STM32CubeG5/utilities/syscalls/syscalls.c",
+      "destination": "utilities/syscalls/syscalls.c",
+      "root": "g5_reference",
+      "sha256": "7b5dbfafc500f769610acd49a2ab1ba3511bf258efe53275f9df712ad98326f2",
+      "mode": "copy",
+      "role": "foundation"
+    },
+    {
+      "source": "STM32CubeG5/utilities/syscalls/sysmem.c",
+      "destination": "utilities/syscalls/sysmem.c",
+      "root": "g5_reference",
+      "sha256": "afe5d245568bfd342e3110b81fd6d9e791594e0f997359df27ef1b908a2e5597",
+      "mode": "copy",
+      "role": "foundation"
+    }
+  ],
+  "required_outputs": [
+    "main.c",
+    "main.h",
+    "CMakeLists.txt",
+    "generated/hal/mx_system.c"
+  ]
+}

@@ -1,0 +1,448 @@
+{
+  "schema": 1,
+  "id": "stm32g5-dfp-2.0.0",
+  "pack": {
+    "id": "st-g5-dfp",
+    "kind": "cmsis_pack",
+    "path": "STMicroelectronics.stm32g5xx_dfp.pdsc",
+    "sha256": "798e030aaa0474bbc2ad6bb474d2ae2b13c1ecc4396b2f59d7042583d50bdade",
+    "uri": "https://github.com/STMicroelectronics/stm32g5xx-dfp/blob/2288c48393e70c4a787cd0c1b5bcaf163d67340f/STMicroelectronics.stm32g5xx_dfp.pdsc",
+    "revision": "DFP 2.0.0",
+    "authority": "manufacturer_machine_readable",
+    "scopes": [],
+    "options": {}
+  },
+  "targets": [
+    "STM32G564RET3"
+  ],
+  "binding": {
+    "environment": "STM32Cube",
+    "namespace": "https://developer.st.com/schemas/stm32cube/1.2.0",
+    "element": "device",
+    "container": "descriptors",
+    "entry": "descriptor",
+    "kind_attribute": "schemaType",
+    "path_attribute": "path",
+    "schema_attribute": "schemaVersion",
+    "version_attribute": "version"
+  },
+  "sources": [
+    {
+      "id": "DMA",
+      "kind": "device_descriptor",
+      "path": "Descriptors/peripherals/D44A_DMA.json",
+      "sha256": "8e5d4b1547b0ad8dd16ff931a9b6a6d11527cac093463f5a09f8ae287d8f8d32",
+      "uri": "https://github.com/STMicroelectronics/stm32g5xx-dfp/blob/2288c48393e70c4a787cd0c1b5bcaf163d67340f/Descriptors/peripherals/D44A_DMA.json",
+      "revision": "DFP 2.0.0",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [],
+      "options": {}
+    },
+    {
+      "id": "EXTI",
+      "kind": "device_descriptor",
+      "path": "Descriptors/peripherals/D44A_EXTI.json",
+      "sha256": "f6c521169271c94bbf9af16eaacb2c7674779a0b26dff5d40b95577f8239efd9",
+      "uri": "https://github.com/STMicroelectronics/stm32g5xx-dfp/blob/2288c48393e70c4a787cd0c1b5bcaf163d67340f/Descriptors/peripherals/D44A_EXTI.json",
+      "revision": "DFP 2.0.0",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [],
+      "options": {}
+    },
+    {
+      "id": "NVIC",
+      "kind": "device_descriptor",
+      "path": "Descriptors/peripherals/D44A_NVIC.json",
+      "sha256": "65edb5ce75980faa87d3f9c2d2fb1985d951504cc582d0178833636ca69e63a9",
+      "uri": "https://github.com/STMicroelectronics/stm32g5xx-dfp/blob/2288c48393e70c4a787cd0c1b5bcaf163d67340f/Descriptors/peripherals/D44A_NVIC.json",
+      "revision": "DFP 2.0.0",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [],
+      "options": {}
+    },
+    {
+      "id": "clock",
+      "kind": "device_descriptor",
+      "path": "Descriptors/clock/STM32G564(C-M-P-Q-R-V)(B-C-E)(I-T-U-Z)x(Q-Z-_)_clock.json",
+      "sha256": "c009904ad4416039c015815ec37ac41497eea25e3436fa45735a379505834ab4",
+      "uri": "https://github.com/STMicroelectronics/stm32g5xx-dfp/blob/2288c48393e70c4a787cd0c1b5bcaf163d67340f/Descriptors/clock/STM32G564%28C-M-P-Q-R-V%29%28B-C-E%29%28I-T-U-Z%29x%28Q-Z-_%29_clock.json",
+      "revision": "DFP 2.0.0",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [],
+      "options": {}
+    },
+    {
+      "id": "limitations",
+      "kind": "device_descriptor",
+      "path": "Descriptors/limitations/D44A_limitations.json",
+      "sha256": "683f91ff075457e42a7e602403f05d4139f1df3f3b9187e91123a73406a23b9a",
+      "uri": "https://github.com/STMicroelectronics/stm32g5xx-dfp/blob/2288c48393e70c4a787cd0c1b5bcaf163d67340f/Descriptors/limitations/D44A_limitations.json",
+      "revision": "DFP 2.0.0",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [],
+      "options": {}
+    },
+    {
+      "id": "middlewares",
+      "kind": "device_descriptor",
+      "path": "Descriptors/middlewares/D44A_middlewares.json",
+      "sha256": "762ab073c642e7a191805bafa3df774dac4cf32847bff37b3083a87f07fb4bc1",
+      "uri": "https://github.com/STMicroelectronics/stm32g5xx-dfp/blob/2288c48393e70c4a787cd0c1b5bcaf163d67340f/Descriptors/middlewares/D44A_middlewares.json",
+      "revision": "DFP 2.0.0",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [],
+      "options": {}
+    },
+    {
+      "id": "peripheral-configuration-mapping",
+      "kind": "device_descriptor",
+      "path": "Descriptors/peripheral_configuration_mapping.json",
+      "sha256": "16bff5448d7d6d50b8cec314e1bc092072d46d33dbb2505d9b7a844ed07ea10b",
+      "uri": "https://github.com/STMicroelectronics/stm32g5xx-dfp/blob/2288c48393e70c4a787cd0c1b5bcaf163d67340f/Descriptors/peripheral_configuration_mapping.json",
+      "revision": "DFP 2.0.0",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [],
+      "options": {}
+    },
+    {
+      "id": "peripherals",
+      "kind": "device_descriptor",
+      "path": "Descriptors/peripherals/D44A_peripherals.json",
+      "sha256": "d423162044f910baecfec2e0038d5c20e08cdc786e7cf5601a4ebb4167bf8a8a",
+      "uri": "https://github.com/STMicroelectronics/stm32g5xx-dfp/blob/2288c48393e70c4a787cd0c1b5bcaf163d67340f/Descriptors/peripherals/D44A_peripherals.json",
+      "revision": "DFP 2.0.0",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [],
+      "options": {}
+    },
+    {
+      "id": "pinout",
+      "kind": "device_descriptor",
+      "path": "Descriptors/pinout/STM32G5(5-6)4R(B-C-E)Tx(Z-_)_pinout.json",
+      "sha256": "164283b38897a01d2ef6e0099c3a387b3f05f62b90ea6967cdc37f5b2a2b0154",
+      "uri": "https://github.com/STMicroelectronics/stm32g5xx-dfp/blob/2288c48393e70c4a787cd0c1b5bcaf163d67340f/Descriptors/pinout/STM32G5%285-6%294R%28B-C-E%29Tx%28Z-_%29_pinout.json",
+      "revision": "DFP 2.0.0",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [],
+      "options": {}
+    },
+    {
+      "id": "utilities",
+      "kind": "device_descriptor",
+      "path": "Descriptors/utilities/D44A_utilities.json",
+      "sha256": "43a555f51f25bda89c63f2bbbc916c203eb40f03394f3bf742086ef411ff4e52",
+      "uri": "https://github.com/STMicroelectronics/stm32g5xx-dfp/blob/2288c48393e70c4a787cd0c1b5bcaf163d67340f/Descriptors/utilities/D44A_utilities.json",
+      "revision": "DFP 2.0.0",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [],
+      "options": {}
+    }
+  ],
+  "profiles": {
+    "peripheral-configuration-mapping": {
+      "schema_pointer": "/schema_version",
+      "version_pointer": "/version",
+      "supported_schemas": [
+        "1.0.0"
+      ],
+      "records": []
+    },
+    "peripherals": {
+      "schema_pointer": "/schema_version",
+      "version_pointer": "/version",
+      "supported_schemas": [
+        "1.8.0"
+      ],
+      "records": [
+        {
+          "kind": "peripheral.instance",
+          "pointer": "/peripherals/*",
+          "labels": [
+            "name",
+            "entityType",
+            "peripheralType",
+            "digitalName"
+          ]
+        },
+        {
+          "kind": "peripheral.feature",
+          "pointer": "/peripherals/*/features/*",
+          "labels": []
+        },
+        {
+          "kind": "peripheral.connection",
+          "pointer": "/peripherals/*/interconnect/*",
+          "labels": [
+            "id",
+            "ip_signal",
+            "source",
+            "type",
+            "instance",
+            "resource_id"
+          ]
+        },
+        {
+          "kind": "peripheral.resource",
+          "pointer": "/peripherals/*/resources/*",
+          "labels": [
+            "id",
+            "name",
+            "resourceType"
+          ]
+        },
+        {
+          "kind": "peripheral.protocol",
+          "pointer": "/peripherals/*/protocols/*",
+          "labels": [
+            "type",
+            "version"
+          ]
+        },
+        {
+          "kind": "peripheral.bus_mapping",
+          "pointer": "/peripherals/*/busMapping/*",
+          "labels": [
+            "mode"
+          ]
+        },
+        {
+          "kind": "peripheral.analog_group",
+          "pointer": "/analogInterconnections/*",
+          "labels": [
+            "instanceName",
+            "name",
+            "digitalName"
+          ]
+        },
+        {
+          "kind": "peripheral.pinout_signal",
+          "pointer": "/peripherals/*/pinout_signals/*",
+          "labels": [
+            "id",
+            "name"
+          ]
+        }
+      ]
+    },
+    "DMA": {
+      "schema_pointer": "/schema_version",
+      "version_pointer": "/version",
+      "supported_schemas": [
+        "1.2.0"
+      ],
+      "records": [
+        {
+          "kind": "dma.instance",
+          "pointer": "/instances/*",
+          "labels": [
+            "name"
+          ]
+        },
+        {
+          "kind": "dma.channel",
+          "pointer": "/instances/*/channels/*",
+          "labels": [
+            "name"
+          ]
+        },
+        {
+          "kind": "dma.master_port",
+          "pointer": "/instances/*/master_ports/*",
+          "labels": [
+            "id",
+            "name",
+            "type"
+          ]
+        },
+        {
+          "kind": "dma.connection",
+          "pointer": "/interconnect/*",
+          "labels": [
+            "dmaInstance",
+            "event",
+            "instance",
+            "signal_id",
+            "type"
+          ]
+        }
+      ]
+    },
+    "NVIC": {
+      "schema_pointer": "/schema_version",
+      "version_pointer": "/version",
+      "supported_schemas": [
+        "1.1.0"
+      ],
+      "records": [
+        {
+          "kind": "interrupt.controller",
+          "pointer": "/instances/*",
+          "labels": [
+            "instance",
+            "cpu_instance",
+            "core_type"
+          ]
+        },
+        {
+          "kind": "interrupt.declaration",
+          "pointer": "/instances/*/interrupts/*",
+          "labels": [
+            "name"
+          ]
+        }
+      ]
+    },
+    "EXTI": {
+      "schema_pointer": "/schema_version",
+      "version_pointer": "/version",
+      "supported_schemas": [
+        "1.2.1"
+      ],
+      "records": [
+        {
+          "kind": "exti.line",
+          "pointer": "/lines/*",
+          "labels": [
+            "line_id"
+          ]
+        },
+        {
+          "kind": "exti.connection",
+          "pointer": "/lines/*/interconnect/*",
+          "labels": [
+            "instance",
+            "type",
+            "pin",
+            "source"
+          ]
+        }
+      ]
+    },
+    "middlewares": {
+      "schema_pointer": "/schema_version",
+      "version_pointer": "/version",
+      "supported_schemas": [
+        "1.1.0"
+      ],
+      "records": []
+    },
+    "limitations": {
+      "schema_pointer": "/schema_version",
+      "version_pointer": "/version",
+      "supported_schemas": [
+        "1.1.0"
+      ],
+      "records": [
+        {
+          "kind": "part.removals",
+          "pointer": "/limitations/*",
+          "labels": [],
+          "part_key": 1
+        }
+      ]
+    },
+    "utilities": {
+      "schema_pointer": "/schema_version",
+      "version_pointer": "/version",
+      "supported_schemas": [
+        "1.1.0"
+      ],
+      "records": []
+    },
+    "clock": {
+      "schema_pointer": "/tree/schema_version",
+      "version_pointer": "/version",
+      "supported_schemas": [
+        "1.0.0"
+      ],
+      "records": [
+        {
+          "kind": "clock.element",
+          "pointer": "/tree/elements/*",
+          "labels": [
+            "id",
+            "type"
+          ]
+        },
+        {
+          "kind": "clock.choice",
+          "pointer": "/tree/elements/*/oneOf/*",
+          "labels": [
+            "const"
+          ]
+        },
+        {
+          "kind": "clock.input",
+          "pointer": "/tree/elements/*/possible_Input/*",
+          "labels": [
+            "input_Id",
+            "label",
+            "from"
+          ]
+        },
+        {
+          "kind": "clock.output",
+          "pointer": "/tree/elements/*/outputTargets/*",
+          "labels": []
+        },
+        {
+          "kind": "clock.action",
+          "pointer": "/tree/elements/*/actions/*",
+          "labels": [
+            "type"
+          ]
+        },
+        {
+          "kind": "clock.ui_transition",
+          "pointer": "/tree/transitions/*",
+          "labels": [
+            "id",
+            "sourceTaskId",
+            "targetTaskId"
+          ]
+        }
+      ]
+    },
+    "pinout": {
+      "schema_pointer": "/schema_version",
+      "version_pointer": "/version",
+      "supported_schemas": [
+        "1.0.0"
+      ],
+      "records": [
+        {
+          "kind": "pin.characteristics",
+          "pointer": "/characteristics",
+          "labels": []
+        },
+        {
+          "kind": "pin.die_pad",
+          "pointer": "/die_pads/*",
+          "labels": []
+        },
+        {
+          "kind": "pin.package_position",
+          "pointer": "/package_pins/*",
+          "labels": []
+        },
+        {
+          "kind": "pin.bond",
+          "pointer": "/bonds/*",
+          "labels": [
+            "position",
+            "die_pad"
+          ]
+        },
+        {
+          "kind": "pin.signal",
+          "pointer": "/signals/*",
+          "labels": [
+            "name",
+            "instance",
+            "die_pad"
+          ]
+        }
+      ]
+    }
+  }
+}

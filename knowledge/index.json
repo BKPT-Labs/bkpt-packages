@@ -4,6 +4,10 @@
     {
       "id": "stm32c5",
       "manifest": "stm32c5/knowledge-pack.json"
+    },
+    {
+      "id": "stm32g5",
+      "manifest": "stm32g5/knowledge-pack.json"
     }
   ]
 }

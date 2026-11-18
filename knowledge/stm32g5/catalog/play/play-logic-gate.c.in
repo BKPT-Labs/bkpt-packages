@@ -1,0 +1,161 @@
+// SPDX-License-Identifier: LicenseRef-BKPT-Proprietary
+/* BKPT generated PLAY unit {{unit}}: {{function}} (truth table {{truth_table}}) of pad {{pad_a_name}}
+   (PLAY1 {{a_name}}) and pad {{pad_b_name}} (PLAY1 {{b_name}}) through PLAY1 {{lut_name}} to pad
+   {{pad_out_name}} (PLAY1 {{out_name}}). Input filter: {{min_pulse_width}} kernel clock cycles. */
+#include "{{unit}}.h"
+
+#if !defined(USE_HAL_PLAY_MODULE) || (USE_HAL_PLAY_MODULE != 1) || !defined(USE_HAL_GPIO_MODULE) || (USE_HAL_GPIO_MODULE != 1)
+#error "BKPT PLAY units need USE_HAL_PLAY_MODULE and USE_HAL_GPIO_MODULE set to 1"
+#endif
+
+/* The one PLAY1 handle of every generated PLAY unit: each unit carries this weak definition and
+   the linker keeps one. Zero-initialized, so its state reads HAL_PLAY_STATE_RESET until a unit
+   initializes PLAY1. */
+__attribute__((weak)) hal_play_handle_t bkpt_play1_handle;
+
+static uint32_t {{unit}}_state; /* 0: not initialized, 1: running, 2: failed for good */
+
+static hal_status_t {{unit}}_pad(hal_gpio_t port, uint32_t pin, hal_gpio_pull_t pull, hal_gpio_af_t af)
+{
+  hal_gpio_config_t config;
+  config.mode        = HAL_GPIO_MODE_ALTERNATE;
+  config.pull        = pull;
+  config.speed       = HAL_GPIO_SPEED_FREQ_HIGH;
+  config.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
+  config.alternate   = af;
+  config.init_state  = HAL_GPIO_PIN_RESET;
+  return HAL_GPIO_Init(port, pin, &config);
+}
+
+/* PLAY1 ready for configuration: initialized with its kernel clock on the first call, stopped on
+   a later one. Any other state means a unit's initialization did not finish. */
+static hal_status_t {{unit}}_open(void)
+{
+  hal_play_handle_t *play = &bkpt_play1_handle;
+  hal_play_state_t state = HAL_PLAY_GetState(play);
+  if (state == HAL_PLAY_STATE_RESET)
+  {
+    HAL_RCC_PLAY1_EnableClock();
+    HAL_RCC_PLAY1_Reset();
+    if (HAL_RCC_LSI_Enable() != HAL_OK) { return HAL_ERROR; }
+    if (HAL_PLAY_Init(play, HAL_PLAY1) != HAL_OK) { return HAL_ERROR; }
+    if (HAL_RCC_PLAY1_SetKernelClkSource(HAL_RCC_PLAY1_CLK_SRC_LSI) != HAL_OK) { return HAL_ERROR; }
+    if (HAL_RCC_PLAY1_SetKernelClkDivider(HAL_RCC_PLAY1_CLK_DIVIDER1) != HAL_OK) { return HAL_ERROR; }
+  }
+  else if (state == HAL_PLAY_STATE_ACTIVE)
+  {
+    if (HAL_PLAY_Stop(play) != HAL_OK) { return HAL_ERROR; }
+  }
+  else
+  {
+    return HAL_ERROR;
+  }
+  if ((HAL_RCC_PLAY1_GetKernelClkSource() != HAL_RCC_PLAY1_CLK_SRC_LSI)
+      || (HAL_RCC_PLAY1_GetKernelClkDivider() != HAL_RCC_PLAY1_CLK_DIVIDER1))
+  {
+    return HAL_ERROR;
+  }
+  return HAL_OK;
+}
+
+static hal_status_t {{unit}}_start(void)
+{
+  const hal_play_edge_trigger_config_t no_edges = { .lut_out_falling_mask = 0U, .lut_out_rising_mask = 0U };
+  return HAL_PLAY_Start(&bkpt_play1_handle, &no_edges);
+}
+
+/* Reads back, through SDK getters, the selected PLAY configuration fields. */
+static hal_status_t {{unit}}_check(void)
+{
+  const hal_play_handle_t *play = &bkpt_play1_handle;
+  if ((HAL_PLAY_GetState(play) != HAL_PLAY_STATE_ACTIVE)
+      || (HAL_PLAY_INPUT_GetSource(play, {{a_mux}}) != {{a_source}})
+      || (HAL_PLAY_INPUT_GetSource(play, {{b_mux}}) != {{b_source}})
+      || (HAL_PLAY_INPUT_GetMinPulseWidth(play, {{a_mux}}) != {{min_pulse_width}}U)
+      || (HAL_PLAY_INPUT_GetMinPulseWidth(play, {{b_mux}}) != {{min_pulse_width}}U)
+      || (HAL_PLAY_INPUT_GetEdgeDetectionMode(play, {{a_mux}}) != HAL_PLAY_EDGE_DETECTION_BYPASSED)
+      || (HAL_PLAY_INPUT_GetEdgeDetectionMode(play, {{b_mux}}) != HAL_PLAY_EDGE_DETECTION_BYPASSED)
+      || (HAL_PLAY_LUT_GetTruthTable(play, {{lut_symbol}}) != {{truth_table}}U)
+      || (HAL_PLAY_LUT_GetSource(play, {{lut_symbol}}, HAL_PLAY_LUT_INPUT0) != {{a_lut_source}})
+      || (HAL_PLAY_LUT_GetSource(play, {{lut_symbol}}, HAL_PLAY_LUT_INPUT1) != {{b_lut_source}})
+      || (HAL_PLAY_LUT_GetSource(play, {{lut_symbol}}, HAL_PLAY_LUT_INPUT2) != HAL_PLAY_LUT_INPUT_DEFAULT)
+      || (HAL_PLAY_LUT_GetSource(play, {{lut_symbol}}, HAL_PLAY_LUT_INPUT3) != HAL_PLAY_LUT_INPUT_DEFAULT)
+      || (HAL_PLAY_LUT_GetClockGateSource(play, {{lut_symbol}}) != HAL_PLAY_LUT_CLK_GATE_OFF)
+      || (HAL_PLAY_OUTPUT_GetSource(play, {{out_symbol}}) != {{lut_direct}}))
+  {
+    return HAL_ERROR;
+  }
+  return HAL_OK;
+}
+
+static hal_status_t {{unit}}_configure(void)
+{
+  hal_play_in_config_t inputs[2];
+  hal_play_lut_config_t lut;
+  hal_play_out_config_t out;
+
+  inputs[0].min_pulse_width = {{min_pulse_width}}U;
+  inputs[0].mode            = HAL_PLAY_EDGE_DETECTION_BYPASSED;
+  inputs[0].source          = {{a_source}};
+  inputs[1].min_pulse_width = {{min_pulse_width}}U;
+  inputs[1].mode            = HAL_PLAY_EDGE_DETECTION_BYPASSED;
+  inputs[1].source          = {{b_source}};
+
+  lut.lut                                = {{lut_symbol}};
+  lut.truth_table                        = {{truth_table}}U; /* {{function}}: A on input 0, B on input 1 */
+  lut.input_source[HAL_PLAY_LUT_INPUT0]  = {{a_lut_source}};
+  lut.input_source[HAL_PLAY_LUT_INPUT1]  = {{b_lut_source}};
+  lut.input_source[HAL_PLAY_LUT_INPUT2]  = HAL_PLAY_LUT_INPUT_DEFAULT; /* not read by the table */
+  lut.input_source[HAL_PLAY_LUT_INPUT3]  = HAL_PLAY_LUT_INPUT_DEFAULT; /* not read by the table */
+  lut.clk_gate_source                    = HAL_PLAY_LUT_CLK_GATE_OFF;
+
+  out.output_mux = {{out_symbol}};
+  out.lut_output = {{lut_direct}};
+
+  if (HAL_PLAY_INPUT_SetConfig(&bkpt_play1_handle, inputs, 2U) != HAL_OK) { return HAL_ERROR; }
+  if (HAL_PLAY_LUT_SetConfig(&bkpt_play1_handle, &lut, 1U) != HAL_OK) { return HAL_ERROR; }
+  if (HAL_PLAY_OUTPUT_SetConfig(&bkpt_play1_handle, &out, 1U) != HAL_OK) { return HAL_ERROR; }
+  return HAL_OK;
+}
+
+hal_status_t {{unit}}_init(void)
+{
+  hal_status_t status = HAL_ERROR;
+  if ({{unit}}_state != 0U)
+  {
+    return HAL_ERROR;
+  }
+  {{unit}}_state = 2U;
+
+  {{pad_a_clock}}();
+  {{pad_b_clock}}();
+  {{pad_out_clock}}();
+  if (({{unit}}_pad({{pad_a_port}}, {{pad_a_pin}}, {{pull_a}}, {{pad_a_af}}) != HAL_OK)
+      || ({{unit}}_pad({{pad_b_port}}, {{pad_b_pin}}, {{pull_b}}, {{pad_b_af}}) != HAL_OK))
+  {
+    return HAL_ERROR;
+  }
+  if ({{unit}}_open() != HAL_OK)
+  {
+    return HAL_ERROR;
+  }
+  if ({{unit}}_configure() == HAL_OK)
+  {
+    status = {{unit}}_start();
+  }
+  else if (HAL_PLAY_GetState(&bkpt_play1_handle) == HAL_PLAY_STATE_IDLE)
+  {
+    (void){{unit}}_start(); /* let units already configured run again */
+  }
+  if ((status != HAL_OK) || ({{unit}}_check() != HAL_OK))
+  {
+    return HAL_ERROR;
+  }
+  /* The SDK connects PLAY outputs to pads only once PLAY1 is started. */
+  if ({{unit}}_pad({{pad_out_port}}, {{pad_out_pin}}, HAL_GPIO_PULL_NO, {{pad_out_af}}) != HAL_OK)
+  {
+    return HAL_ERROR;
+  }
+  {{unit}}_state = 1U;
+  return HAL_OK;
+}

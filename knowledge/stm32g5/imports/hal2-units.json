@@ -1,0 +1,1843 @@
+{
+  "sources": [
+    {
+      "id": "port-peripherals",
+      "path": "stm32g5xx-dfp/Descriptors/peripherals/D44A_peripherals.json",
+      "sha256": "d423162044f910baecfec2e0038d5c20e08cdc786e7cf5601a4ebb4167bf8a8a",
+      "revision": "DFP 2.0.0",
+      "authority": "manufacturer_machine_readable",
+      "scope": "device"
+    },
+    {
+      "id": "port-crc-c",
+      "path": "stm32g5xx-drivers/hal/stm32g5xx_hal_crc.c",
+      "sha256": "e498c91c36b6bacfb6fb2718916d4a511d3188723005b348b9a64a805922f163",
+      "revision": "2.0.0",
+      "authority": "manufacturer_sdk",
+      "scope": "sdk"
+    },
+    {
+      "id": "port-crc-h",
+      "path": "stm32g5xx-drivers/hal/stm32g5xx_hal_crc.h",
+      "sha256": "53efddeba4bf735134f3653297c324d85a5199d0093c22562278a368f8acc227",
+      "revision": "2.0.0",
+      "authority": "manufacturer_sdk",
+      "scope": "sdk"
+    },
+    {
+      "id": "port-ownership",
+      "path": "bkpt-g5/hal2-ownership.txt",
+      "sha256": "ee1bce206cb3f30361a67eaeeae88d07ecc49ac2e2b678796e20472279493799",
+      "revision": "1",
+      "authority": "bkpt_engineering_policy",
+      "scope": "policy",
+      "package_file": "sources/hal2-ownership.txt"
+    },
+    {
+      "id": "port-crc32-h-source",
+      "path": "bkpt-g5/bkpt-hal2-crc32-v1/crc32.h.in",
+      "sha256": "dc0e2fdf4ddced86aab42d659c87ee6e66767ac4d7d7d0c93d2a7fc3f7e974c3",
+      "revision": "bkpt-hal2-crc32-v1",
+      "authority": "bkpt_authored_implementation",
+      "scope": "implementation",
+      "package_file": "sources/bkpt-hal2-crc32-v1/crc32.h.in"
+    },
+    {
+      "id": "port-crc32-c-source",
+      "path": "bkpt-g5/bkpt-hal2-crc32-v1/crc32.c.in",
+      "sha256": "9418129f5637cc651f72551957bf95e56a9593c381ad84d03e45be0e33ed197a",
+      "revision": "bkpt-hal2-crc32-v1",
+      "authority": "bkpt_authored_implementation",
+      "scope": "implementation",
+      "package_file": "sources/bkpt-hal2-crc32-v1/crc32.c.in"
+    },
+    {
+      "id": "port-iwdg-c",
+      "path": "stm32g5xx-drivers/hal/stm32g5xx_hal_iwdg.c",
+      "sha256": "9aad8dac96d3208c707c1fd3206b3334764308107a25d382c04e79715e1bed89",
+      "revision": "2.0.0",
+      "authority": "manufacturer_sdk",
+      "scope": "sdk"
+    },
+    {
+      "id": "port-iwdg-h",
+      "path": "stm32g5xx-drivers/hal/stm32g5xx_hal_iwdg.h",
+      "sha256": "e9f8b5a2e437222b803414e25c5b087c8d813cbb236af5404364c74dce3c67f9",
+      "revision": "2.0.0",
+      "authority": "manufacturer_sdk",
+      "scope": "sdk"
+    },
+    {
+      "id": "port-iwdg-ll",
+      "path": "stm32g5xx-drivers/ll/stm32g5xx_ll_iwdg.h",
+      "sha256": "bb6e4fb2ff4da0401e10d6999ad2dc013381db9336444831ec7ad06087b4b3d8",
+      "revision": "2.0.0",
+      "authority": "manufacturer_sdk",
+      "scope": "sdk"
+    },
+    {
+      "id": "port-rm-iwdg-key",
+      "path": "pages/RM0514-page-2491.txt",
+      "sha256": "2418088d0aa2898f9ce533b318a7b0dde679dd7d6514955cb021ec7e2d012c38",
+      "revision": "RM0514 Rev 1 p.2491",
+      "authority": "manufacturer_document",
+      "scope": "device"
+    },
+    {
+      "id": "port-watchdog-h-source",
+      "path": "bkpt-g5/bkpt-hal2-watchdog-v3/watchdog.h.in",
+      "sha256": "8955c32bf22be97c9423189bfd360e091dfb034a0e3439ee1c948eb0034718b7",
+      "revision": "bkpt-hal2-watchdog-v3",
+      "authority": "bkpt_authored_implementation",
+      "scope": "implementation",
+      "package_file": "sources/bkpt-hal2-watchdog-v3/watchdog.h.in"
+    },
+    {
+      "id": "port-watchdog-c-source",
+      "path": "bkpt-g5/bkpt-hal2-watchdog-v3/watchdog.c.in",
+      "sha256": "ace2e1953dd286b33d55d8d4fd4ebc52470a5379b1b38a85e3501345ce8a07b8",
+      "revision": "bkpt-hal2-watchdog-v3",
+      "authority": "bkpt_authored_implementation",
+      "scope": "implementation",
+      "package_file": "sources/bkpt-hal2-watchdog-v3/watchdog.c.in"
+    },
+    {
+      "id": "gpio-port-netlist",
+      "path": "nucleo-g564re_hw-board/Descriptors/NUG564RE$CR1/pcbs/MB2067/netlist.json",
+      "sha256": "b17c29aea33312da3cfae36038c728d27bcba52ff49724b6a16dd046a70ae956",
+      "revision": "2.0.0 / MB2067 B02",
+      "authority": "manufacturer_machine_readable",
+      "scope": "board"
+    },
+    {
+      "id": "gpio-port-bom",
+      "path": "nucleo-g564re_hw-board/Descriptors/NUG564RE$CR1/bom.json",
+      "sha256": "92b2ed863368058784848411a0db28ac4bc3119a8f03a29d08a82a40999a6612",
+      "revision": "2.0.0 / MB2067 B02",
+      "authority": "manufacturer_machine_readable",
+      "scope": "board"
+    },
+    {
+      "id": "board-mounted",
+      "path": "nucleo-g564re_hw-board/Descriptors/NUG564RE$CR1/pcbs/MB2067/partlist.json",
+      "sha256": "9986e82ad4262a06b44c51a194c69eb937f1d9bd51c02a39049087040e570584",
+      "authority": "manufacturer_machine_readable",
+      "scope": "board",
+      "revision": "board pack 2.0.0 / MB2067 B02"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "g5-api-USE_HAL_CRC_MODULE",
+      "source": "hal-conf",
+      "start_line": 188,
+      "end_line": 188,
+      "excerpt_sha256": "9dd10364f2946b8e36d75b0ffdda4ceff4704e126714a26681d9d1ec0bc1cb29",
+      "statement": "Captured foundation configuration defines USE_HAL_CRC_MODULE as 0U on this line.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "g5-api-HAL_CRC",
+      "source": "port-crc-h",
+      "start_line": 51,
+      "end_line": 51,
+      "excerpt_sha256": "c7e71075934089dae03a7e077c65434b695da88866a2476c343118ed7c3675e9",
+      "statement": "SDK source declares HAL_CRC with its description.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "port-crc-decl",
+      "source": "port-peripherals",
+      "start_line": 41271,
+      "end_line": 41271,
+      "excerpt_sha256": "0790090cbb0ab7812094dadc79c14f649ba9d0d419cf03fb494ac178befcdb71",
+      "statement": "The peripheral descriptor names this instance.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "g5-api-HAL_CRC_Init",
+      "source": "port-crc-c",
+      "start_line": 224,
+      "end_line": 262,
+      "excerpt_sha256": "ffb94d03009c302e0f0b23ad29605cb0a121659b44cfa5844255d3e6cd075b68",
+      "statement": "SDK source documents and defines HAL_CRC_Init in these lines.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "g5-api-HAL_CRC_SetConfig",
+      "source": "port-crc-c",
+      "start_line": 319,
+      "end_line": 369,
+      "excerpt_sha256": "64dc19de115ec42047474491dcdeb1487ec5f54422a4181771238b68ee8759a6",
+      "statement": "SDK source documents and defines HAL_CRC_SetConfig in these lines.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "g5-api-HAL_CRC_Calculate",
+      "source": "port-crc-c",
+      "start_line": 639,
+      "end_line": 686,
+      "excerpt_sha256": "deaf08bc06f0147109a7462bc0a3e47d4b8e4399a3f3562872b06c2346d85d42",
+      "statement": "SDK source documents and defines HAL_CRC_Calculate in these lines.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "g5-api-HAL_CRC_GetState",
+      "source": "port-crc-c",
+      "start_line": 749,
+      "end_line": 762,
+      "excerpt_sha256": "3ed3e2a24148509f23bbd412c2ae7896dbca736a1124c8326b1c71380398d611",
+      "statement": "SDK source documents and defines HAL_CRC_GetState in these lines.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "g5-api-HAL_CRC_INDATA_REVERSE_BYTE",
+      "source": "port-crc-h",
+      "start_line": 75,
+      "end_line": 75,
+      "excerpt_sha256": "6323f6e619f350fc92eb6e84e096170f7bc2867c169d862f461603ef23be3f2c",
+      "statement": "SDK source declares HAL_CRC_INDATA_REVERSE_BYTE with its description.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "g5-api-HAL_CRC_OUTDATA_REVERSE_BIT",
+      "source": "port-crc-h",
+      "start_line": 92,
+      "end_line": 92,
+      "excerpt_sha256": "7b96de754f8b4a0adabeb0024fa8d491c48e8935855674c60467978527f3ef22",
+      "statement": "SDK source declares HAL_CRC_OUTDATA_REVERSE_BIT with its description.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "g5-api-HAL_CRC_POLY_SIZE_32B",
+      "source": "port-crc-h",
+      "start_line": 65,
+      "end_line": 65,
+      "excerpt_sha256": "564e2d82d45d85f1103debf6beda0d89fb26367bd8e98c6c766e08509f4eaf5c",
+      "statement": "SDK source declares HAL_CRC_POLY_SIZE_32B with its description.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "g5-api-HAL_RCC_CRC_EnableClock",
+      "source": "rcc-h",
+      "start_line": 1557,
+      "end_line": 1563,
+      "excerpt_sha256": "5e18cf1dc6d35492c2a1ea392dd430d410134b4fbd23f06ad873ef17f2c868d8",
+      "statement": "SDK source documents and defines HAL_RCC_CRC_EnableClock in these lines.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "port-crc-ownership",
+      "source": "port-ownership",
+      "start_line": 2,
+      "end_line": 2,
+      "excerpt_sha256": "938185cf5d271b04976fa5dbf473d05964c05ab188d8bcc731c50b49b506404f",
+      "statement": "BKPT component ownership policy for this resource.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "port-crc32-h",
+      "source": "port-crc32-h-source",
+      "start_line": 1,
+      "end_line": 58,
+      "excerpt_sha256": "51821b2b914ef3bafb31401c378ec2ffa17a5094bfba8f4d6cc758996382a48e",
+      "statement": "Authored CRC-32 header: the checksum of a buffer of bytes in one call. Not manufacturer evidence.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ],
+      "role": "template"
+    },
+    {
+      "id": "port-crc32-api-init",
+      "source": "port-crc32-h-source",
+      "start_line": 48,
+      "end_line": 48,
+      "excerpt_sha256": "c6d5bf5d366a94c7aa0c7c775e47de0fa9a0c94cff2eb6784418b2b2973f907b",
+      "statement": "Exact source-bound CRC-32 API declaration.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ],
+      "role": "template"
+    },
+    {
+      "id": "port-crc32-api-compute",
+      "source": "port-crc32-h-source",
+      "start_line": 54,
+      "end_line": 54,
+      "excerpt_sha256": "874799f752be02dd9d60ea8ebbf36fad73c1f350415ff87e0c54d8aef6f3cb08",
+      "statement": "Exact source-bound CRC-32 API declaration.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ],
+      "role": "template"
+    },
+    {
+      "id": "port-crc32-c",
+      "source": "port-crc32-c-source",
+      "start_line": 1,
+      "end_line": 66,
+      "excerpt_sha256": "9aef32485dd1819744fb7c17d892b242db6735f7464a232f94ea68b4f1993745",
+      "statement": "Authored CRC-32 unit with a private handle: polynomial, initial value and bit reversal through the SDK CRC interface, the final inversion in the unit. Not manufacturer evidence.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ],
+      "role": "template"
+    },
+    {
+      "id": "g5-api-USE_HAL_IWDG_MODULE",
+      "source": "hal-conf",
+      "start_line": 468,
+      "end_line": 468,
+      "excerpt_sha256": "97d3b0e32b8a9f601b93ee093ac1083a1195ecb48cfe49b1a7b90f8086a3b57d",
+      "statement": "Captured foundation configuration defines USE_HAL_IWDG_MODULE as 0U on this line.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "g5-api-HAL_IWDG1",
+      "source": "port-iwdg-h",
+      "start_line": 82,
+      "end_line": 82,
+      "excerpt_sha256": "9f70eed3800fd4dda7a54522f542fc837084be22a0b89e363da313fb8855ab27",
+      "statement": "SDK source declares HAL_IWDG1 with its description.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "port-iwdg-decl",
+      "source": "port-peripherals",
+      "start_line": 49268,
+      "end_line": 49268,
+      "excerpt_sha256": "51a4af64c5d49a3814f42209ed261431db5f7272bcb9f3a12e9fc8accdd667eb",
+      "statement": "The peripheral descriptor names this instance.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "g5-api-HAL_IWDG_Init",
+      "source": "port-iwdg-c",
+      "start_line": 332,
+      "end_line": 384,
+      "excerpt_sha256": "e5c0b94b3d1e3adb4a9b33b0239c37cd19f0a4bf2bd067f206dec5cfd792f394",
+      "statement": "SDK source documents and defines HAL_IWDG_Init in these lines.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "g5-api-HAL_IWDG_Start",
+      "source": "port-iwdg-c",
+      "start_line": 386,
+      "end_line": 477,
+      "excerpt_sha256": "7258bda05a84d0181ee703ebcfe4171f8c728d4be775a7238969554a13141dfb",
+      "statement": "SDK source documents and defines HAL_IWDG_Start in these lines.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "g5-api-HAL_IWDG_Refresh",
+      "source": "port-iwdg-c",
+      "start_line": 515,
+      "end_line": 529,
+      "excerpt_sha256": "d3dc86a001fc14eb26ded5d9aabd12cd7083f0942cf5c7bd97939fb0da3d4b67",
+      "statement": "SDK source documents and defines HAL_IWDG_Refresh in these lines.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "g5-api-HAL_IWDG_GetMaxTime",
+      "source": "port-iwdg-c",
+      "start_line": 574,
+      "end_line": 586,
+      "excerpt_sha256": "991070a02b937437792310257b8ed29c067f70f24d288d5379b13af58dc0a12c",
+      "statement": "SDK source documents and defines HAL_IWDG_GetMaxTime in these lines.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "g5-api-USE_HAL_IWDG_TIME_UNIT",
+      "source": "hal-conf",
+      "start_line": 472,
+      "end_line": 472,
+      "excerpt_sha256": "e03b00c54f627f45a71b94b15e016be6a9ade8b8f9497c9014508119117b6237",
+      "statement": "Captured foundation configuration defines USE_HAL_IWDG_TIME_UNIT as HAL_IWDG_TIME_UNIT_MS on this line.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "g5-api-USE_HAL_IWDG_LSI_FREQ",
+      "source": "hal-conf",
+      "start_line": 481,
+      "end_line": 481,
+      "excerpt_sha256": "57fbe842d2013d2ca6ef1f03bc1ea523c931b5ca372c2b7aa793eb4a07db0be7",
+      "statement": "Captured foundation configuration defines USE_HAL_IWDG_LSI_FREQ as LSI_VALUE on this line.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "g5-api-LSI_VALUE",
+      "source": "device-header",
+      "start_line": 1771,
+      "end_line": 1771,
+      "excerpt_sha256": "d7ff2cc2f155da96b6eefabc14d2832a4a719aed2d6541d04dc65abdecc378da",
+      "statement": "SDK source declares LSI_VALUE with its description.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "port-watchdog-clock",
+      "source": "port-iwdg-c",
+      "start_line": 63,
+      "end_line": 96,
+      "excerpt_sha256": "b6e0e2cdcb39985c30e843ddbb2b1e7839d8ab4744e62077e1999b7afeb17a1a",
+      "statement": "The driver describes LSI frequency tolerance, forced clock enable and the effect of starting the watchdog.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "g5-api-LL_IWDG_EnableWriteAccess",
+      "source": "port-iwdg-ll",
+      "start_line": 143,
+      "end_line": 152,
+      "excerpt_sha256": "6aa3112a15a68f54cd4ace6106255380f149ff98fd651041130ed24078a036bc",
+      "statement": "SDK source documents and defines LL_IWDG_EnableWriteAccess in these lines.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "g5-api-LL_IWDG_ReloadCounter",
+      "source": "port-iwdg-ll",
+      "start_line": 132,
+      "end_line": 141,
+      "excerpt_sha256": "a060ec0d03de8dc29d20ae3252f184e883fdf1d756615a95931e3c7ad3707cf7",
+      "statement": "SDK source documents and defines LL_IWDG_ReloadCounter in these lines.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "port-watchdog-keys",
+      "source": "port-rm-iwdg-key",
+      "start_line": 87,
+      "end_line": 93,
+      "excerpt_sha256": "e638d1cafc5abd54befa73e39af55f7d7adae0c931862f77644d67950b8f6471",
+      "statement": "The reload key refreshes the watchdog and write-protects registers; the access key enables writes.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "port-iwdg-ownership",
+      "source": "port-ownership",
+      "start_line": 3,
+      "end_line": 3,
+      "excerpt_sha256": "5913e91f3a95ffc75435566c09d0e754f85d2f703f6f016ef75e671805801e50",
+      "statement": "BKPT component ownership policy for this resource.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "port-watchdog-h",
+      "source": "port-watchdog-h-source",
+      "start_line": 1,
+      "end_line": 81,
+      "excerpt_sha256": "18ea58a83d23e154692f53312ef91fb3e8ba4e20dfe86fd40177add892668ed3",
+      "statement": "Authored independent watchdog header, version 3: prepare, start, refresh, the reset time set and a state that tells a start in progress, in which a refresh is refused, and a failed start, after which the watchdog may be running, from a start that was never made. Not manufacturer evidence.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ],
+      "role": "template"
+    },
+    {
+      "id": "port-watchdog-api-init",
+      "source": "port-watchdog-h-source",
+      "start_line": 46,
+      "end_line": 46,
+      "excerpt_sha256": "c6d5bf5d366a94c7aa0c7c775e47de0fa9a0c94cff2eb6784418b2b2973f907b",
+      "statement": "Exact source-bound watchdog API declaration.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ],
+      "role": "template"
+    },
+    {
+      "id": "port-watchdog-api-start",
+      "source": "port-watchdog-h-source",
+      "start_line": 59,
+      "end_line": 59,
+      "excerpt_sha256": "ccf9df52afe65c68de35f9fdeaf94e03d6bf23b6f3dde864e42c967b5e494fab",
+      "statement": "Exact source-bound watchdog API declaration.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ],
+      "role": "template"
+    },
+    {
+      "id": "port-watchdog-api-refresh",
+      "source": "port-watchdog-h-source",
+      "start_line": 67,
+      "end_line": 67,
+      "excerpt_sha256": "9338de7db843254dc682675e1731813d60373d3f5350dbc76fe38a27f9a6cead",
+      "statement": "Exact source-bound watchdog API declaration.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ],
+      "role": "template"
+    },
+    {
+      "id": "port-watchdog-api-timeout",
+      "source": "port-watchdog-h-source",
+      "start_line": 72,
+      "end_line": 72,
+      "excerpt_sha256": "10f349bb3091295c6fa44fc41a3aec7bbcbd69a4281d414bcca62d8cd41ae7d1",
+      "statement": "Exact source-bound watchdog API declaration.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ],
+      "role": "template"
+    },
+    {
+      "id": "port-watchdog-api-state",
+      "source": "port-watchdog-h-source",
+      "start_line": 77,
+      "end_line": 77,
+      "excerpt_sha256": "fcc385e5654c9a409d189371d1f48fe305946aa8917126721d6d1cbcb4199a2b",
+      "statement": "Exact source-bound watchdog API declaration.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ],
+      "role": "template"
+    },
+    {
+      "id": "port-watchdog-c",
+      "source": "port-watchdog-c-source",
+      "start_line": 1,
+      "end_line": 82,
+      "excerpt_sha256": "3731ad3b215511845ecb848d51eb04abfe9897cbd90608308e99eb79ccbaf685",
+      "statement": "Authored independent watchdog unit, version 3, with a private handle, without window or early interrupt, through the SDK IWDG interface; a refresh is refused until the SDK's start call has returned, and a start that the SDK reports as failed leaves the unit in a state of its own in which a refresh is passed on. Not manufacturer evidence.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ],
+      "role": "template"
+    },
+    {
+      "id": "gpio-port-u1",
+      "source": "gpio-port-bom",
+      "start_line": 192,
+      "end_line": 192,
+      "excerpt_sha256": "78c243f6b286eca1503174997b3e5e87102f2aa8782efa1054eb3bcca21f782c",
+      "statement": "The MB2067 bill of materials identifies U1 as the target MCU.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "gpio-port-net-PD12",
+      "source": "gpio-port-netlist",
+      "start_line": 510,
+      "end_line": 518,
+      "excerpt_sha256": "985814f8a704f92d54c9a0e37f7cc5fb0808993e232bf33754e6d10ea9052a2d",
+      "statement": "The pad is bonded to U1 and the listed Arduino or Morpho header contacts on MB2067 B02.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "gpio-port-net-PC11",
+      "source": "gpio-port-netlist",
+      "start_line": 562,
+      "end_line": 570,
+      "excerpt_sha256": "037bebb91ff899dfdeb15b158b16c8a36c9267a9f2ac0ad0314002bb94004ce1",
+      "statement": "The pad is bonded to U1 and the listed Arduino or Morpho header contacts on MB2067 B02.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "gpio-port-net-PC7",
+      "source": "gpio-port-netlist",
+      "start_line": 571,
+      "end_line": 579,
+      "excerpt_sha256": "ea424c065a49dea553e05ded1c110ea018c722a7f5bce22413a7bfbe349677ba",
+      "statement": "The pad is bonded to U1 and the listed Arduino or Morpho header contacts on MB2067 B02.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "gpio-port-net-PC6",
+      "source": "gpio-port-netlist",
+      "start_line": 580,
+      "end_line": 588,
+      "excerpt_sha256": "afaf54d5c9aad972d2068cde529c711c2c0f7a734e8c5984da3bdac242080739",
+      "statement": "The pad is bonded to U1 and the listed Arduino or Morpho header contacts on MB2067 B02.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "gpio-port-net-PC3",
+      "source": "gpio-port-netlist",
+      "start_line": 589,
+      "end_line": 596,
+      "excerpt_sha256": "4b974d7d4b9213364e720e5630a8a28d032ab2bc4d9030647729753f5bb46dd0",
+      "statement": "The pad is bonded to U1 and the listed Arduino or Morpho header contacts on MB2067 B02.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "gpio-port-net-PC2",
+      "source": "gpio-port-netlist",
+      "start_line": 597,
+      "end_line": 604,
+      "excerpt_sha256": "043b613b5066abbb94a4fd9bc04f50ed76e766d095827f4f5edd18146f371284",
+      "statement": "The pad is bonded to U1 and the listed Arduino or Morpho header contacts on MB2067 B02.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "gpio-port-net-PB14",
+      "source": "gpio-port-netlist",
+      "start_line": 633,
+      "end_line": 640,
+      "excerpt_sha256": "5c83772034a57ad90782a27051c28030b6f29e4d2017e6a03cf95d07bb4d6671",
+      "statement": "The pad is bonded to U1 and the listed Arduino or Morpho header contacts on MB2067 B02.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "gpio-port-net-PB6",
+      "source": "gpio-port-netlist",
+      "start_line": 697,
+      "end_line": 705,
+      "excerpt_sha256": "11a517d8ca3dadceda067911e88ad729be48f6c42aac112fdc2ec96562b59000",
+      "statement": "The pad is bonded to U1 and the listed Arduino or Morpho header contacts on MB2067 B02.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "gpio-port-net-PB4",
+      "source": "gpio-port-netlist",
+      "start_line": 715,
+      "end_line": 722,
+      "excerpt_sha256": "cbcb9f46ec005f9cae2ee05359dd4915a4c90c7ec644d5a29e0440ea20b7fe42",
+      "statement": "The pad is bonded to U1 and the listed Arduino or Morpho header contacts on MB2067 B02.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "gpio-port-net-PB1",
+      "source": "gpio-port-netlist",
+      "start_line": 741,
+      "end_line": 749,
+      "excerpt_sha256": "c65cff0717d1184ed1d9cede0c551d92953638388a21599f0a7f8b29741388d5",
+      "statement": "The pad is bonded to U1 and the listed Arduino or Morpho header contacts on MB2067 B02.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "gpio-port-net-PA10",
+      "source": "gpio-port-netlist",
+      "start_line": 804,
+      "end_line": 812,
+      "excerpt_sha256": "c97c7a5a706459b684da9adc8a62dfe5363b7ca82b00fe9764142c4c335b0692",
+      "statement": "The pad is bonded to U1 and the listed Arduino or Morpho header contacts on MB2067 B02.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "gpio-port-net-PA9",
+      "source": "gpio-port-netlist",
+      "start_line": 813,
+      "end_line": 821,
+      "excerpt_sha256": "6dd2eb9befb206574eb6e7b068963dff72c00e23575046ebb93cabaf96e474de",
+      "statement": "The pad is bonded to U1 and the listed Arduino or Morpho header contacts on MB2067 B02.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "gpio-port-net-PA8",
+      "source": "gpio-port-netlist",
+      "start_line": 822,
+      "end_line": 829,
+      "excerpt_sha256": "bdbc223afc5629f5de7be8ca2dd5c110b4319a491c515eafeeba5e32f4b14f4d",
+      "statement": "The pad is bonded to U1 and the listed Arduino or Morpho header contacts on MB2067 B02.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "gpio-port-net-PA6",
+      "source": "gpio-port-netlist",
+      "start_line": 839,
+      "end_line": 846,
+      "excerpt_sha256": "6e7eb9b71b24eb9ca1f4d8fd688e0226d7febe049376635d9d18ae40c509587a",
+      "statement": "The pad is bonded to U1 and the listed Arduino or Morpho header contacts on MB2067 B02.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "gpio-port-net-PA5",
+      "source": "gpio-port-netlist",
+      "start_line": 847,
+      "end_line": 855,
+      "excerpt_sha256": "545cb3631f053f25ec95090a3015de39d9db5a1c02099b8b7aea5d18a8a5cdcc",
+      "statement": "The pad is bonded to U1 and the listed Arduino or Morpho header contacts on MB2067 B02.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "g5-api-HAL_GPIO_Init",
+      "source": "gpio-c",
+      "start_line": 304,
+      "end_line": 401,
+      "excerpt_sha256": "017cf3226934ea15ee777145df81f713de4474906ca15c74aa00aa5bb145bb46",
+      "statement": "SDK source documents and defines HAL_GPIO_Init in these lines.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "g5-api-HAL_GPIO_ReadPin",
+      "source": "gpio-h",
+      "start_line": 1287,
+      "end_line": 1287,
+      "excerpt_sha256": "a086a6cb72323a7879f7586f6b3e5eae97464ac69ea982e43741e49798db4d1d",
+      "statement": "SDK header declares the prototype of HAL_GPIO_ReadPin; the excerpt does not contain its definition.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "g5-api-HAL_GPIO_MODE_INPUT",
+      "source": "gpio-h",
+      "start_line": 66,
+      "end_line": 66,
+      "excerpt_sha256": "838f5e1480d004b36abb7d7fd10688764f1ee422f41a5620546150022a305daf",
+      "statement": "SDK source declares HAL_GPIO_MODE_INPUT with its description.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "g5-api-HAL_GPIO_PULL_UP",
+      "source": "gpio-h",
+      "start_line": 100,
+      "end_line": 100,
+      "excerpt_sha256": "96e67124988457fb4c40f47440cf622c3df221881e756b9b9e3f6f5209c6643b",
+      "statement": "SDK source declares HAL_GPIO_PULL_UP with its description.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "g5-api-HAL_GPIO_PULL_DOWN",
+      "source": "gpio-h",
+      "start_line": 101,
+      "end_line": 101,
+      "excerpt_sha256": "ac0712b711b7b58362950111d001c2c0cd09e41448bc22f3750fad00b460f693",
+      "statement": "SDK source declares HAL_GPIO_PULL_DOWN with its description.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "g5-api-HAL_GPIO_WritePin",
+      "source": "gpio-h",
+      "start_line": 1288,
+      "end_line": 1288,
+      "excerpt_sha256": "4cc8935b1a8fb9bb3b6840b10a175d17879ee84020b4acd961ed9cd98ecc17e5",
+      "statement": "SDK header declares the prototype of HAL_GPIO_WritePin; the excerpt does not contain its definition.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "g5-api-HAL_GPIO_MODE_OUTPUT",
+      "source": "gpio-h",
+      "start_line": 67,
+      "end_line": 67,
+      "excerpt_sha256": "f74b1c97b29e20f106d9d04075aa4266d9cea74b6ff190cc3e1999586f58d807",
+      "statement": "SDK source declares HAL_GPIO_MODE_OUTPUT with its description.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "g5-api-HAL_GPIO_OUTPUT_PUSHPULL",
+      "source": "gpio-h",
+      "start_line": 77,
+      "end_line": 77,
+      "excerpt_sha256": "f2807648ae19cc4d42a039ea5c68849d7eac0812f05e0f0dede2457a717a3c9a",
+      "statement": "SDK source declares HAL_GPIO_OUTPUT_PUSHPULL with its description.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "g5-api-HAL_GPIO_SPEED_FREQ_LOW",
+      "source": "gpio-h",
+      "start_line": 88,
+      "end_line": 88,
+      "excerpt_sha256": "7a8f36e51f1ce3509fb10300a943b547c0a471e125818700b6b6d5f52fbe48ef",
+      "statement": "SDK source declares HAL_GPIO_SPEED_FREQ_LOW with its description.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "board-play-net-PE2",
+      "source": "gpio-port-netlist",
+      "start_line": 500,
+      "end_line": 509,
+      "excerpt_sha256": "5744e8ccf5f7f8bae6243c8152afcad5f65ca6c8b6787907823c95e8091c27d9",
+      "statement": "MB2067 B02 net for this package position and its attached endpoints.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "board-part-SB29",
+      "source": "board-mounted",
+      "start_line": 225,
+      "end_line": 225,
+      "excerpt_sha256": "d1d44f37fb569b7ce7a011b06351a9b319dea5b1f226e1e29568c0a11f89c0d5",
+      "statement": "Board part list records whether this bridge is mounted on MB2067 B02.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "board-part-SB35",
+      "source": "board-mounted",
+      "start_line": 231,
+      "end_line": 231,
+      "excerpt_sha256": "9b694f4e2e1bb094e50668363b88f9ce9d1b83a525d2a1d490fb81a39fbbf631",
+      "statement": "Board part list records whether this bridge is mounted on MB2067 B02.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "board-play-net-PD12",
+      "source": "gpio-port-netlist",
+      "start_line": 510,
+      "end_line": 518,
+      "excerpt_sha256": "985814f8a704f92d54c9a0e37f7cc5fb0808993e232bf33754e6d10ea9052a2d",
+      "statement": "MB2067 B02 net for this package position and its attached endpoints.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "board-play-net-PD11",
+      "source": "gpio-port-netlist",
+      "start_line": 519,
+      "end_line": 528,
+      "excerpt_sha256": "628a94ad648848f24d54166462fb0679bafb6de1881d572baafdac6af273bfd2",
+      "statement": "MB2067 B02 net for this package position and its attached endpoints.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "board-part-SB40",
+      "source": "board-mounted",
+      "start_line": 235,
+      "end_line": 235,
+      "excerpt_sha256": "856fe46310978a6490067eff54edd2ff95161a643d93d97cad8cdf19527a0aa9",
+      "statement": "Board part list records whether this bridge is mounted on MB2067 B02.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "board-play-net-PC13",
+      "source": "gpio-port-netlist",
+      "start_line": 545,
+      "end_line": 553,
+      "excerpt_sha256": "c8c3823637a437ebb5bd56e151b35cc1ceb30ee37d6924a49b205f0cf837dd6c",
+      "statement": "MB2067 B02 net for this package position and its attached endpoints.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "board-part-SB5",
+      "source": "board-mounted",
+      "start_line": 201,
+      "end_line": 201,
+      "excerpt_sha256": "3b2b20854408f4643329545a694fc5f4194d50d34e452b27b78dda7c0374f05d",
+      "statement": "Board part list records whether this bridge is mounted on MB2067 B02.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "board-play-net-PC1",
+      "source": "gpio-port-netlist",
+      "start_line": 605,
+      "end_line": 613,
+      "excerpt_sha256": "dcc42d264f595244ffb0e597e6cc52d5ea7a1e0c3765ce86bcbddd3938cef989",
+      "statement": "MB2067 B02 net for this package position and its attached endpoints.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "board-play-net-PC0",
+      "source": "gpio-port-netlist",
+      "start_line": 614,
+      "end_line": 622,
+      "excerpt_sha256": "8d2c9300f8db8f18cc3c444dee1c0c8df194599463a745239f1c4113b9101bdc",
+      "statement": "MB2067 B02 net for this package position and its attached endpoints.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "board-play-net-PB14",
+      "source": "gpio-port-netlist",
+      "start_line": 633,
+      "end_line": 640,
+      "excerpt_sha256": "5c83772034a57ad90782a27051c28030b6f29e4d2017e6a03cf95d07bb4d6671",
+      "statement": "MB2067 B02 net for this package position and its attached endpoints.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "board-play-net-PB11",
+      "source": "gpio-port-netlist",
+      "start_line": 659,
+      "end_line": 667,
+      "excerpt_sha256": "626b3a4a3864de19fa43e6956dd144cada8f27d80f4d03c3d1da20bd543afe9e",
+      "statement": "MB2067 B02 net for this package position and its attached endpoints.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "board-play-net-PB1",
+      "source": "gpio-port-netlist",
+      "start_line": 741,
+      "end_line": 749,
+      "excerpt_sha256": "c65cff0717d1184ed1d9cede0c551d92953638388a21599f0a7f8b29741388d5",
+      "statement": "MB2067 B02 net for this package position and its attached endpoints.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "board-play-net-PA9",
+      "source": "gpio-port-netlist",
+      "start_line": 813,
+      "end_line": 821,
+      "excerpt_sha256": "6dd2eb9befb206574eb6e7b068963dff72c00e23575046ebb93cabaf96e474de",
+      "statement": "MB2067 B02 net for this package position and its attached endpoints.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "board-play-net-PA4",
+      "source": "gpio-port-netlist",
+      "start_line": 856,
+      "end_line": 864,
+      "excerpt_sha256": "5e2de7c976465dd9b7dcf639023ca5f5c387862fa4699e20359381b8d7e8814b",
+      "statement": "MB2067 B02 net for this package position and its attached endpoints.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "board-part-SB14",
+      "source": "board-mounted",
+      "start_line": 210,
+      "end_line": 210,
+      "excerpt_sha256": "d6294bdde927bbaa1557ccfdfb1c5400498e2b5237e61563c988f86a287c6c67",
+      "statement": "Board part list records whether this bridge is mounted on MB2067 B02.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    },
+    {
+      "id": "board-part-SB20",
+      "source": "board-mounted",
+      "start_line": 216,
+      "end_line": 216,
+      "excerpt_sha256": "2e11e75d9555001ece8a08afe70018f7ac0ce255b6522beb724004d7df4cca15",
+      "statement": "Board part list records whether this bridge is mounted on MB2067 B02.",
+      "targets": [
+        "NUCLEO-G564RE"
+      ]
+    }
+  ],
+  "resources": [
+    {
+      "id": "STM32G564RET3.CRC",
+      "target": "NUCLEO-G564RE",
+      "kind": "checksum_unit",
+      "capacity": 1,
+      "attributes": {
+        "instance": "CRC",
+        "ownership_policy": "exclusive",
+        "hal_instance": "HAL_CRC",
+        "clock_enable_api": "HAL_RCC_CRC_EnableClock"
+      },
+      "conditions": {
+        "foundation_profile": "g5-hal2-minimal-1",
+        "operation_mode": "run"
+      },
+      "evidence": [
+        "g5-api-USE_HAL_CRC_MODULE",
+        "g5-api-HAL_CRC",
+        "port-crc-decl",
+        "g5-api-HAL_CRC_Init",
+        "g5-api-HAL_CRC_SetConfig",
+        "g5-api-HAL_CRC_Calculate",
+        "g5-api-HAL_CRC_GetState",
+        "g5-api-HAL_CRC_INDATA_REVERSE_BYTE",
+        "g5-api-HAL_CRC_OUTDATA_REVERSE_BIT",
+        "g5-api-HAL_CRC_POLY_SIZE_32B",
+        "g5-api-HAL_RCC_CRC_EnableClock",
+        "port-crc-ownership"
+      ],
+      "implementation": null
+    },
+    {
+      "id": "STM32G564RET3.IWDG",
+      "target": "NUCLEO-G564RE",
+      "kind": "watchdog",
+      "capacity": 1,
+      "attributes": {
+        "instance": "IWDG",
+        "ownership_policy": "exclusive",
+        "hal_instance": "HAL_IWDG1"
+      },
+      "conditions": {
+        "foundation_profile": "g5-hal2-minimal-1",
+        "operation_mode": "run"
+      },
+      "evidence": [
+        "g5-api-USE_HAL_IWDG_MODULE",
+        "g5-api-HAL_IWDG1",
+        "port-iwdg-decl",
+        "g5-api-HAL_IWDG_Init",
+        "g5-api-HAL_IWDG_Start",
+        "g5-api-HAL_IWDG_Refresh",
+        "g5-api-HAL_IWDG_GetMaxTime",
+        "g5-api-USE_HAL_IWDG_TIME_UNIT",
+        "g5-api-USE_HAL_IWDG_LSI_FREQ",
+        "g5-api-LSI_VALUE",
+        "port-watchdog-clock",
+        "g5-api-LL_IWDG_EnableWriteAccess",
+        "g5-api-LL_IWDG_ReloadCounter",
+        "port-watchdog-keys",
+        "port-iwdg-ownership"
+      ],
+      "implementation": null
+    }
+  ],
+  "edges": [],
+  "capabilities": [
+    {
+      "id": "crc32_checksum",
+      "target": "NUCLEO-G564RE",
+      "description": "CRC-32 (ISO 3309, zlib) of a buffer of bytes on the hardware CRC unit: a generated unit with init and a one-call computation. The whole CRC unit belongs to it.",
+      "parameters": {},
+      "roles": [
+        {
+          "id": "unit",
+          "kind": "checksum_unit",
+          "attributes": {},
+          "parameter_attributes": {},
+          "count": 1
+        }
+      ],
+      "links": [],
+      "implementations": [
+        "hal2.crc32"
+      ],
+      "parameter_constraints": [],
+      "domain_complete": false,
+      "closure_evidence": [],
+      "evidence": [
+        "g5-api-USE_HAL_CRC_MODULE",
+        "g5-api-HAL_CRC",
+        "port-crc-decl",
+        "g5-api-HAL_CRC_Init",
+        "g5-api-HAL_CRC_SetConfig",
+        "g5-api-HAL_CRC_Calculate",
+        "g5-api-HAL_CRC_GetState",
+        "g5-api-HAL_CRC_INDATA_REVERSE_BYTE",
+        "g5-api-HAL_CRC_OUTDATA_REVERSE_BIT",
+        "g5-api-HAL_CRC_POLY_SIZE_32B",
+        "g5-api-HAL_RCC_CRC_EnableClock",
+        "port-crc-ownership"
+      ]
+    },
+    {
+      "id": "independent_watchdog",
+      "target": "NUCLEO-G564RE",
+      "description": "Independent watchdog with a chosen reset time: a generated unit that prepares the watchdog, and start, refresh, the time actually set and a state for the application. Once started it resets the microcontroller unless refreshed in time and cannot be stopped; a start that fails may leave it running.",
+      "parameters": {
+        "timeout_ms": {
+          "type": "choice",
+          "values": [
+            "100",
+            "250",
+            "500",
+            "1000",
+            "2000",
+            "4000",
+            "8000"
+          ]
+        }
+      },
+      "roles": [
+        {
+          "id": "watchdog",
+          "kind": "watchdog",
+          "attributes": {},
+          "parameter_attributes": {},
+          "count": 1
+        }
+      ],
+      "links": [],
+      "implementations": [
+        "hal2.independent-watchdog"
+      ],
+      "parameter_constraints": [],
+      "domain_complete": false,
+      "closure_evidence": [],
+      "evidence": [
+        "g5-api-USE_HAL_IWDG_MODULE",
+        "g5-api-HAL_IWDG1",
+        "port-iwdg-decl",
+        "g5-api-HAL_IWDG_Init",
+        "g5-api-HAL_IWDG_Start",
+        "g5-api-HAL_IWDG_Refresh",
+        "g5-api-HAL_IWDG_GetMaxTime",
+        "g5-api-USE_HAL_IWDG_TIME_UNIT",
+        "g5-api-USE_HAL_IWDG_LSI_FREQ",
+        "g5-api-LSI_VALUE",
+        "port-watchdog-clock",
+        "g5-api-LL_IWDG_EnableWriteAccess",
+        "g5-api-LL_IWDG_ReloadCounter",
+        "port-watchdog-keys",
+        "port-iwdg-ownership"
+      ]
+    },
+    {
+      "id": "gpio_input",
+      "target": "NUCLEO-G564RE",
+      "description": "Allocate one board header GPIO input on the MB2067 B02. The application initializes and uses the allocated pin.",
+      "parameters": {
+        "pin": {
+          "type": "choice",
+          "values": [
+            "PA10",
+            "PA5",
+            "PA6",
+            "PA8",
+            "PA9",
+            "PB1",
+            "PB14",
+            "PB4",
+            "PB6",
+            "PC11",
+            "PC2",
+            "PC3",
+            "PC6",
+            "PC7",
+            "PD12"
+          ]
+        }
+      },
+      "roles": [
+        {
+          "id": "pin",
+          "kind": "pin",
+          "attributes": {
+            "supports_gpio_input": "true"
+          },
+          "parameter_attributes": {
+            "pin": "pin"
+          },
+          "count": 1
+        }
+      ],
+      "links": [],
+      "implementations": [
+        "hal2.gpio-input"
+      ],
+      "parameter_constraints": [],
+      "domain_complete": false,
+      "closure_evidence": [],
+      "evidence": [
+        "gpio-port-u1",
+        "g5-api-HAL_GPIO_Init",
+        "g5-api-HAL_GPIO_ReadPin",
+        "g5-api-HAL_GPIO_MODE_INPUT",
+        "g5-api-HAL_GPIO_PULL_UP",
+        "g5-api-HAL_GPIO_PULL_DOWN"
+      ]
+    },
+    {
+      "id": "gpio_output",
+      "target": "NUCLEO-G564RE",
+      "description": "Allocate one board header GPIO output on the MB2067 B02. The application initializes and uses the allocated pin.",
+      "parameters": {
+        "pin": {
+          "type": "choice",
+          "values": [
+            "PA10",
+            "PA5",
+            "PA6",
+            "PA8",
+            "PA9",
+            "PB1",
+            "PB14",
+            "PB4",
+            "PB6",
+            "PC11",
+            "PC2",
+            "PC3",
+            "PC6",
+            "PC7",
+            "PD12"
+          ]
+        }
+      },
+      "roles": [
+        {
+          "id": "pin",
+          "kind": "pin",
+          "attributes": {
+            "supports_gpio_output": "true"
+          },
+          "parameter_attributes": {
+            "pin": "pin"
+          },
+          "count": 1
+        }
+      ],
+      "links": [],
+      "domain_complete": false,
+      "closure_evidence": [],
+      "evidence": [
+        "gpio-port-u1",
+        "g5-api-HAL_GPIO_Init",
+        "g5-api-HAL_GPIO_WritePin",
+        "g5-api-HAL_GPIO_MODE_OUTPUT",
+        "g5-api-HAL_GPIO_OUTPUT_PUSHPULL",
+        "g5-api-HAL_GPIO_SPEED_FREQ_LOW"
+      ],
+      "implementations": [
+        "hal2.gpio-output"
+      ]
+    }
+  ],
+  "implementations": [
+    {
+      "id": "hal2.crc32",
+      "target": "NUCLEO-G564RE",
+      "guidance": "Generated component owns the CRC handle and its configuration: polynomial 0x04C11DB7, initial value 0xFFFFFFFF, every input byte and the result bit-reversed; the unit inverts the result. Use the returned interface; do not initialize the CRC unit again. compute takes a buffer of 1 or more bytes, starts from the initial value on every call and returns the CRC-32 whose value for the ASCII characters 123456789 is 0xCBF43926. One thread only, never from an interrupt. No other polynomial or size, no accumulation across calls, no DMA. The check value is arithmetic for testing a build, not a measurement.",
+      "evidence": [
+        "g5-api-USE_HAL_CRC_MODULE",
+        "g5-api-HAL_CRC",
+        "port-crc-decl",
+        "g5-api-HAL_CRC_Init",
+        "g5-api-HAL_CRC_SetConfig",
+        "g5-api-HAL_CRC_Calculate",
+        "g5-api-HAL_CRC_GetState",
+        "g5-api-HAL_CRC_INDATA_REVERSE_BYTE",
+        "g5-api-HAL_CRC_OUTDATA_REVERSE_BIT",
+        "g5-api-HAL_CRC_POLY_SIZE_32B",
+        "g5-api-HAL_RCC_CRC_EnableClock",
+        "port-crc-ownership"
+      ],
+      "edits": [
+        {
+          "path": "generated/hal/stm32g5xx_hal_conf.h",
+          "expected_sha256": "de65c43d95d7040e2a1db323d171b42bcd536ab836f3d1f3960561a50e164548",
+          "old": "#define USE_HAL_CRC_MODULE                      0U",
+          "new": "#define USE_HAL_CRC_MODULE                      1U",
+          "mode": "replace"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "expected_sha256": "20d3f811e70313437c0ebef1a24ee9de780b9b8ce13532e3cd5341cf4a65b7e3",
+          "old": "  # Add additional source files here",
+          "new": "  stm32g5xx_drivers/hal/stm32g5xx_hal_crc.c\n",
+          "mode": "insert_before"
+        }
+      ],
+      "component": {
+        "bindings": {
+          "unit": {
+            "source": {
+              "type": "instance"
+            }
+          },
+          "crc_name": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "unit",
+              "attribute": "instance"
+            }
+          },
+          "crc_instance": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "unit",
+              "attribute": "hal_instance"
+            }
+          },
+          "crc_clock": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "unit",
+              "attribute": "clock_enable_api"
+            }
+          }
+        },
+        "files": [
+          {
+            "path": "bkpt_components/{{unit}}.h",
+            "template": "port-crc32-h"
+          },
+          {
+            "path": "bkpt_components/{{unit}}.c",
+            "template": "port-crc32-c"
+          }
+        ],
+        "claims": [],
+        "interface": {
+          "setup": "Already initialized after mx_system_init. Header bkpt_components/{{unit}}.h; private CRC handle and configuration. No manual CRC or clock setup.",
+          "compute": "{{unit}}_compute(data, bytes, &crc32), bytes 1 or more: checked HAL_OK writes the CRC-32 of the buffer, computed from the initial value. Nothing is carried between calls. One thread only, never from an interrupt.",
+          "scope": "CRC-32 of ISO 3309 and zlib only: 123456789 gives 0xCBF43926. No other polynomial, size or accumulation.",
+          "declarations": "hal_status_t {{unit}}_init(void);\nhal_status_t {{unit}}_compute(const void *data, uint32_t bytes, uint32_t *crc32);"
+        },
+        "interface_sources": {
+          "declarations": [
+            "port-crc32-api-init",
+            "port-crc32-api-compute"
+          ]
+        },
+        "edits": [
+          {
+            "path": "CMakeLists.txt",
+            "expected_sha256": "20d3f811e70313437c0ebef1a24ee9de780b9b8ce13532e3cd5341cf4a65b7e3",
+            "old": "  # Add additional source files here",
+            "new": "  bkpt_components/{{unit}}.c\n",
+            "mode": "insert_before"
+          },
+          {
+            "path": "main.c",
+            "expected_sha256": "9e3cb6becffbef79ee032e2bfc16b48efaa34691bc2af7e79f8783407a58c22a",
+            "old": "#include \"main.h\"",
+            "new": "#include \"bkpt_components/{{unit}}.h\"\n",
+            "mode": "insert_before"
+          },
+          {
+            "path": "main.c",
+            "expected_sha256": "9e3cb6becffbef79ee032e2bfc16b48efaa34691bc2af7e79f8783407a58c22a",
+            "old": "    while (1) {}",
+            "new": "    if ({{unit}}_init() != HAL_OK) { return -1; }\n",
+            "mode": "insert_before"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hal2.independent-watchdog",
+      "target": "NUCLEO-G564RE",
+      "guidance": "Generated component owns the watchdog handle. Generated init only prepares it: the application calls start when it is ready, and from then on must call refresh within the reset time or the microcontroller resets. The watchdog cannot be stopped or reconfigured before a reset, so start it only when the refresh path is in place. The reset time is the selected number of milliseconds at the nominal 32kHz of the low-speed internal oscillator; timeout_ms reports the time the driver set, and the oscillator's real frequency shifts it. While start runs, state reports 3 and refresh returns HAL_BUSY and writes nothing: a refresh writes the reload key, the reference manual states that any key but the access key write-protects the watchdog's registers again, and the SDK writes the access key and then the prescaler and the reload value, so a refresh from an interrupt inside start could leave the watchdog with other values than the unit reports. The SDK enables the watchdog before it waits for its registers, and those waits can fail: when start returns an error other than busy, state reports 2, the watchdog may be running with a reset time that is not known, timeout_ms reports 0xFFFFFFFF, refresh still restarts the count, start cannot be tried again, and a reset may follow. No window (a refresh is allowed at any time) and no early interrupt. refresh may be called from the owning thread or an interrupt, and is refused from an interrupt that arrives while start runs; start from the thread only. Behaviour while a debugger halts the core and in low-power modes, and the option bytes, are not covered. Build does not exercise the reset.",
+      "evidence": [
+        "g5-api-USE_HAL_IWDG_MODULE",
+        "g5-api-HAL_IWDG1",
+        "port-iwdg-decl",
+        "g5-api-HAL_IWDG_Init",
+        "g5-api-HAL_IWDG_Start",
+        "g5-api-HAL_IWDG_Refresh",
+        "g5-api-HAL_IWDG_GetMaxTime",
+        "g5-api-USE_HAL_IWDG_TIME_UNIT",
+        "g5-api-USE_HAL_IWDG_LSI_FREQ",
+        "g5-api-LSI_VALUE",
+        "port-watchdog-clock",
+        "g5-api-LL_IWDG_EnableWriteAccess",
+        "g5-api-LL_IWDG_ReloadCounter",
+        "port-watchdog-keys",
+        "port-iwdg-ownership"
+      ],
+      "edits": [
+        {
+          "path": "generated/hal/stm32g5xx_hal_conf.h",
+          "expected_sha256": "de65c43d95d7040e2a1db323d171b42bcd536ab836f3d1f3960561a50e164548",
+          "old": "#define USE_HAL_IWDG_MODULE                     0U",
+          "new": "#define USE_HAL_IWDG_MODULE                     1U",
+          "mode": "replace"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "expected_sha256": "20d3f811e70313437c0ebef1a24ee9de780b9b8ce13532e3cd5341cf4a65b7e3",
+          "old": "  # Add additional source files here",
+          "new": "  stm32g5xx_drivers/hal/stm32g5xx_hal_iwdg.c\n",
+          "mode": "insert_before"
+        }
+      ],
+      "component": {
+        "bindings": {
+          "unit": {
+            "source": {
+              "type": "instance"
+            }
+          },
+          "timeout_ms": {
+            "source": {
+              "type": "parameter",
+              "name": "timeout_ms"
+            }
+          },
+          "watchdog_name": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "watchdog",
+              "attribute": "instance"
+            }
+          },
+          "watchdog_instance": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "watchdog",
+              "attribute": "hal_instance"
+            }
+          }
+        },
+        "files": [
+          {
+            "path": "bkpt_components/{{unit}}.h",
+            "template": "port-watchdog-h"
+          },
+          {
+            "path": "bkpt_components/{{unit}}.c",
+            "template": "port-watchdog-c"
+          }
+        ],
+        "claims": [],
+        "interface": {
+          "setup": "Prepared after mx_system_init, not running. Header bkpt_components/{{unit}}.h; private watchdog handle.",
+          "start": "{{unit}}_start(): checked HAL_OK starts the watchdog with a nominal reset time of {{timeout_ms}} ms; it cannot be stopped afterwards. HAL_BUSY when a start was already made. While it runs, state is 3 and refresh is refused. Any other result is a failed start after which the watchdog may be running with a reset time that is not known: state is 2 and a reset may follow. Thread only.",
+          "refresh": "{{unit}}_refresh(): checked HAL_OK restarts the count; call it more often than the reset time. Thread or interrupt. HAL_ERROR before any start; HAL_BUSY, with nothing written, while start is running; after a failed start the count is restarted all the same.",
+          "timeout": "{{unit}}_timeout_ms(): the reset time the driver set, in milliseconds of the nominal oscillator; 0 before start; 0xFFFFFFFF while start runs and after a failed start, when it is not known.",
+          "scope": "No window, no early interrupt, nominal 32kHz oscillator. The reset time is not measured, the reset is not exercised by a build, and a failed start is not recoverable.",
+          "declarations": "hal_status_t {{unit}}_init(void);\nhal_status_t {{unit}}_start(void);\nhal_status_t {{unit}}_refresh(void);\nuint32_t {{unit}}_timeout_ms(void);\nuint32_t {{unit}}_state(void);",
+          "state": "{{unit}}_state(): 0 not started, 1 running with the reported time, 2 a start failed and the watchdog may be running, 3 start is running (seen only from an interrupt)."
+        },
+        "interface_sources": {
+          "declarations": [
+            "port-watchdog-api-init",
+            "port-watchdog-api-start",
+            "port-watchdog-api-refresh",
+            "port-watchdog-api-timeout",
+            "port-watchdog-api-state"
+          ]
+        },
+        "edits": [
+          {
+            "path": "CMakeLists.txt",
+            "expected_sha256": "20d3f811e70313437c0ebef1a24ee9de780b9b8ce13532e3cd5341cf4a65b7e3",
+            "old": "  # Add additional source files here",
+            "new": "  bkpt_components/{{unit}}.c\n",
+            "mode": "insert_before"
+          },
+          {
+            "path": "main.c",
+            "expected_sha256": "9e3cb6becffbef79ee032e2bfc16b48efaa34691bc2af7e79f8783407a58c22a",
+            "old": "#include \"main.h\"",
+            "new": "#include \"bkpt_components/{{unit}}.h\"\n",
+            "mode": "insert_before"
+          },
+          {
+            "path": "main.c",
+            "expected_sha256": "9e3cb6becffbef79ee032e2bfc16b48efaa34691bc2af7e79f8783407a58c22a",
+            "old": "    while (1) {}",
+            "new": "    if ({{unit}}_init() != HAL_OK) { return -1; }\n",
+            "mode": "insert_before"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hal2.gpio-input",
+      "target": "NUCLEO-G564RE",
+      "guidance": "Enable the allocated port clock with clock_enable_api(), zero-initialize hal_gpio_config_t, and pass the selected port_symbol and pin_symbol to HAL_GPIO_Init. Check its status. Set mode HAL_GPIO_MODE_INPUT and pull to HAL_GPIO_PULL_NO, HAL_GPIO_PULL_UP or HAL_GPIO_PULL_DOWN. Read with HAL_GPIO_ReadPin after successful initialization. Choose a pull appropriate to the external circuit. Only nets listing U1 and ordinary header contacts in the board file are offered. External circuits and loads are the application’s responsibility.",
+      "evidence": [
+        "gpio-port-u1",
+        "g5-api-HAL_GPIO_Init",
+        "g5-api-HAL_GPIO_ReadPin",
+        "g5-api-HAL_GPIO_MODE_INPUT",
+        "g5-api-HAL_GPIO_PULL_UP",
+        "g5-api-HAL_GPIO_PULL_DOWN"
+      ],
+      "edits": [
+        {
+          "path": "generated/hal/stm32g5xx_hal_conf.h",
+          "expected_sha256": "de65c43d95d7040e2a1db323d171b42bcd536ab836f3d1f3960561a50e164548",
+          "old": "#define USE_HAL_GPIO_MODULE                     0U",
+          "new": "#define USE_HAL_GPIO_MODULE                     1U"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "expected_sha256": "20d3f811e70313437c0ebef1a24ee9de780b9b8ce13532e3cd5341cf4a65b7e3",
+          "old": "  # Add additional source files here",
+          "new": "  stm32g5xx_drivers/hal/stm32g5xx_hal_gpio.c\n",
+          "mode": "insert_before"
+        }
+      ]
+    },
+    {
+      "id": "hal2.gpio-output",
+      "target": "NUCLEO-G564RE",
+      "guidance": "Enable the allocated port clock with clock_enable_api(), zero-initialize hal_gpio_config_t, and pass the selected port_symbol and pin_symbol to HAL_GPIO_Init. Check its status. Set mode HAL_GPIO_MODE_OUTPUT, pull HAL_GPIO_PULL_NO, speed HAL_GPIO_SPEED_FREQ_LOW, output_type HAL_GPIO_OUTPUT_PUSHPULL, and init_state to the required safe initial level. Use HAL_GPIO_WritePin after successful initialization. Only nets listing U1 and ordinary header contacts in the board file are offered. External circuits and loads are the application’s responsibility.",
+      "evidence": [
+        "gpio-port-u1",
+        "g5-api-HAL_GPIO_Init",
+        "g5-api-HAL_GPIO_WritePin",
+        "g5-api-HAL_GPIO_MODE_OUTPUT",
+        "g5-api-HAL_GPIO_OUTPUT_PUSHPULL",
+        "g5-api-HAL_GPIO_SPEED_FREQ_LOW"
+      ],
+      "edits": [
+        {
+          "path": "generated/hal/stm32g5xx_hal_conf.h",
+          "expected_sha256": "de65c43d95d7040e2a1db323d171b42bcd536ab836f3d1f3960561a50e164548",
+          "old": "#define USE_HAL_GPIO_MODULE                     0U",
+          "new": "#define USE_HAL_GPIO_MODULE                     1U"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "expected_sha256": "20d3f811e70313437c0ebef1a24ee9de780b9b8ce13532e3cd5341cf4a65b7e3",
+          "old": "  # Add additional source files here",
+          "new": "  stm32g5xx_drivers/hal/stm32g5xx_hal_gpio.c\n",
+          "mode": "insert_before"
+        }
+      ]
+    }
+  ],
+  "pin_updates": [
+    {
+      "id": "STM32G564RET3.PA4",
+      "attributes": {},
+      "remove_attributes": [
+        "play_output_pad"
+      ],
+      "evidence": [
+        "gpio-port-u1",
+        "board-play-net-PA4",
+        "board-part-SB14",
+        "board-part-SB20"
+      ]
+    },
+    {
+      "id": "STM32G564RET3.PA5",
+      "attributes": {
+        "supports_gpio_input": "true",
+        "supports_gpio_output": "true"
+      },
+      "remove_attributes": [],
+      "evidence": [
+        "gpio-port-u1",
+        "gpio-port-net-PA5"
+      ]
+    },
+    {
+      "id": "STM32G564RET3.PA6",
+      "attributes": {
+        "supports_gpio_input": "true",
+        "supports_gpio_output": "true"
+      },
+      "remove_attributes": [],
+      "evidence": [
+        "gpio-port-u1",
+        "gpio-port-net-PA6"
+      ]
+    },
+    {
+      "id": "STM32G564RET3.PA8",
+      "attributes": {
+        "supports_gpio_input": "true",
+        "supports_gpio_output": "true"
+      },
+      "remove_attributes": [],
+      "evidence": [
+        "gpio-port-u1",
+        "gpio-port-net-PA8"
+      ]
+    },
+    {
+      "id": "STM32G564RET3.PA9",
+      "attributes": {
+        "supports_gpio_input": "true",
+        "supports_gpio_output": "true"
+      },
+      "remove_attributes": [],
+      "evidence": [
+        "gpio-port-u1",
+        "gpio-port-net-PA9",
+        "gpio-port-u1",
+        "board-play-net-PA9"
+      ]
+    },
+    {
+      "id": "STM32G564RET3.PA10",
+      "attributes": {
+        "supports_gpio_input": "true",
+        "supports_gpio_output": "true"
+      },
+      "remove_attributes": [],
+      "evidence": [
+        "gpio-port-u1",
+        "gpio-port-net-PA10"
+      ]
+    },
+    {
+      "id": "STM32G564RET3.PB1",
+      "attributes": {
+        "supports_gpio_input": "true",
+        "supports_gpio_output": "true"
+      },
+      "remove_attributes": [],
+      "evidence": [
+        "gpio-port-u1",
+        "gpio-port-net-PB1",
+        "gpio-port-u1",
+        "board-play-net-PB1"
+      ]
+    },
+    {
+      "id": "STM32G564RET3.PB4",
+      "attributes": {
+        "supports_gpio_input": "true",
+        "supports_gpio_output": "true"
+      },
+      "remove_attributes": [],
+      "evidence": [
+        "gpio-port-u1",
+        "gpio-port-net-PB4"
+      ]
+    },
+    {
+      "id": "STM32G564RET3.PB6",
+      "attributes": {
+        "supports_gpio_input": "true",
+        "supports_gpio_output": "true"
+      },
+      "remove_attributes": [],
+      "evidence": [
+        "gpio-port-u1",
+        "gpio-port-net-PB6"
+      ]
+    },
+    {
+      "id": "STM32G564RET3.PB11",
+      "attributes": {},
+      "remove_attributes": [
+        "play_input_pad"
+      ],
+      "evidence": [
+        "gpio-port-u1",
+        "board-play-net-PB11"
+      ]
+    },
+    {
+      "id": "STM32G564RET3.PB14",
+      "attributes": {
+        "supports_gpio_input": "true",
+        "supports_gpio_output": "true"
+      },
+      "remove_attributes": [],
+      "evidence": [
+        "gpio-port-u1",
+        "gpio-port-net-PB14",
+        "gpio-port-u1",
+        "board-play-net-PB14"
+      ]
+    },
+    {
+      "id": "STM32G564RET3.PC0",
+      "attributes": {},
+      "remove_attributes": [
+        "play_input_pad"
+      ],
+      "evidence": [
+        "gpio-port-u1",
+        "board-play-net-PC0"
+      ]
+    },
+    {
+      "id": "STM32G564RET3.PC1",
+      "attributes": {},
+      "remove_attributes": [
+        "play_output_pad"
+      ],
+      "evidence": [
+        "gpio-port-u1",
+        "board-play-net-PC1"
+      ]
+    },
+    {
+      "id": "STM32G564RET3.PC2",
+      "attributes": {
+        "supports_gpio_input": "true",
+        "supports_gpio_output": "true"
+      },
+      "remove_attributes": [],
+      "evidence": [
+        "gpio-port-u1",
+        "gpio-port-net-PC2"
+      ]
+    },
+    {
+      "id": "STM32G564RET3.PC3",
+      "attributes": {
+        "supports_gpio_input": "true",
+        "supports_gpio_output": "true"
+      },
+      "remove_attributes": [],
+      "evidence": [
+        "gpio-port-u1",
+        "gpio-port-net-PC3"
+      ]
+    },
+    {
+      "id": "STM32G564RET3.PC6",
+      "attributes": {
+        "supports_gpio_input": "true",
+        "supports_gpio_output": "true"
+      },
+      "remove_attributes": [],
+      "evidence": [
+        "gpio-port-u1",
+        "gpio-port-net-PC6"
+      ]
+    },
+    {
+      "id": "STM32G564RET3.PC7",
+      "attributes": {
+        "supports_gpio_input": "true",
+        "supports_gpio_output": "true"
+      },
+      "remove_attributes": [],
+      "evidence": [
+        "gpio-port-u1",
+        "gpio-port-net-PC7"
+      ]
+    },
+    {
+      "id": "STM32G564RET3.PC11",
+      "attributes": {
+        "supports_gpio_input": "true",
+        "supports_gpio_output": "true"
+      },
+      "remove_attributes": [],
+      "evidence": [
+        "gpio-port-u1",
+        "gpio-port-net-PC11"
+      ]
+    },
+    {
+      "id": "STM32G564RET3.PC13",
+      "attributes": {},
+      "remove_attributes": [],
+      "evidence": [
+        "gpio-port-u1",
+        "board-play-net-PC13",
+        "board-part-SB5"
+      ]
+    },
+    {
+      "id": "STM32G564RET3.PD11",
+      "attributes": {},
+      "remove_attributes": [],
+      "evidence": [
+        "gpio-port-u1",
+        "board-play-net-PD11",
+        "board-part-SB40"
+      ]
+    },
+    {
+      "id": "STM32G564RET3.PD12",
+      "attributes": {
+        "supports_gpio_input": "true",
+        "supports_gpio_output": "true"
+      },
+      "remove_attributes": [],
+      "evidence": [
+        "gpio-port-u1",
+        "gpio-port-net-PD12",
+        "gpio-port-u1",
+        "board-play-net-PD12"
+      ]
+    },
+    {
+      "id": "STM32G564RET3.PE2",
+      "attributes": {},
+      "remove_attributes": [],
+      "evidence": [
+        "gpio-port-u1",
+        "board-play-net-PE2",
+        "board-part-SB29",
+        "board-part-SB35"
+      ]
+    }
+  ]
+}

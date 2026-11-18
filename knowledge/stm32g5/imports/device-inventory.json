@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "id": "stm32g5-device-v1",
+  "base": {
+    "stage": "play-layer.json",
+    "note": "The layer the inventory stage starts from is written by stm32g5/tests/regenerate_graph.py from play-layer.json; no hand-written base graph exists for this package."
+  },
+  "target": "NUCLEO-G564RE",
+  "resource_prefix": "STM32G564RET3",
+  "pad_name": "P{port}{index}",
+  "conditions": {
+    "foundation_profile": "g5-hal2-minimal-1",
+    "operation_mode": "run"
+  },
+  "pinout": {
+    "source": "pinout",
+    "identifying": [
+      "name",
+      "instance",
+      "die_pad"
+    ]
+  },
+  "excluded_signals": [],
+  "gpio_symbols": {
+    "port": {
+      "source": "gpio-h",
+      "symbol": "HAL_GPIO{port}"
+    },
+    "pin": {
+      "source": "gpio-h",
+      "symbol": "HAL_GPIO_PIN_{index}"
+    },
+    "clock": {
+      "source": "rcc-h",
+      "symbol": "HAL_RCC_GPIO{port}_EnableClock"
+    }
+  },
+  "interrupts": {
+    "header": "device-header",
+    "startup": "startup",
+    "enum_type": "IRQn_Type",
+    "symbol_suffix": "_IRQn",
+    "handler_suffix": "_IRQHandler",
+    "last_core_vector": "SysTick_Handler"
+  },
+  "assumption": "Inventory pins, signal routes and interrupts transcribe machine-readable descriptors: they record what is declared, not electrical behaviour, board wiring or a usable capability."
+}

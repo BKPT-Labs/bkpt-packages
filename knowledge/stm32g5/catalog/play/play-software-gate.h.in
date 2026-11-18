@@ -1,0 +1,31 @@
+// SPDX-License-Identifier: LicenseRef-BKPT-Proprietary
+/* BKPT generated PLAY unit {{unit}}: {{function}} of pad {{pad_a_name}} (PLAY1 {{a_name}}, input A) and
+   PLAY1 software trigger {{trigger_name}} (input B), computed by PLAY1 {{lut_name}} and driven on pad
+   {{pad_out_name}} through PLAY1 {{out_name}}. STM32G5 HAL2 2.0.0, NUCLEO-G564RE. */
+#ifndef BKPT_{{unit}}_H
+#define BKPT_{{unit}}_H
+
+#include "stm32_hal.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* Sets up the input pad, the PLAY1 input multiplexer, the lookup table, the output multiplexer
+   and the output pad, then checks the selected PLAY configuration fields. Called once, from one thread, never from an
+   interrupt. HAL_OK: the unit is running. Any other value is final for this unit. */
+hal_status_t {{unit}}_init(void);
+
+/* Writes software trigger {{trigger_name}}, input B: level 0 or 1. HAL_OK once the SDK reports the
+   write done; HAL_BUSY while any PLAY1 software trigger write is pending; HAL_TIMEOUT after 10 ms of
+   HAL ticks. Only after a successful init, from one thread, never from an interrupt. */
+hal_status_t {{unit}}_set_trigger(uint32_t level);
+
+/* Reads software trigger {{trigger_name}} as 0 or 1 through the SDK. Only after a successful init. */
+hal_status_t {{unit}}_get_trigger(uint32_t *level);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* BKPT_{{unit}}_H */

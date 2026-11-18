@@ -2,3 +2,4 @@
 viewalyzer-recorder/recorder/** text=auto eol=lf
 # Reviewed firmware inputs retain their exact hashes, including CRLF inputs.
 knowledge/stm32c5/** -text
+knowledge/stm32g5/** -text

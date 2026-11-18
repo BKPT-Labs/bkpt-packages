@@ -1,0 +1,313 @@
+{
+  "schema": 1,
+  "owned": [
+    {
+      "id": "policy",
+      "path": "architecture/sources/bkpt-g5-play-v1/bkpt-g5-play-policy-v1.txt",
+      "sha256": "dc5417424f706c41177c3768be0b61a0d222c43e44d918939c00f9cb3c9f2fe4",
+      "revision": "BKPT G5 PLAY policy version 1",
+      "authority": "bkpt_engineering_policy",
+      "package_path": "catalog/play/bkpt-g5-play-policy-v1.txt"
+    },
+    {
+      "id": "template-logic-gate-h",
+      "path": "architecture/sources/bkpt-g5-play-v1/play-logic-gate.h.in",
+      "sha256": "4170b8d3b8286547d1bbd3a80129ad00631c5c85b79dacbb1908ffcfbd547e2b",
+      "revision": "BKPT G5 PLAY components v1",
+      "authority": "bkpt_authored_implementation",
+      "package_path": "catalog/play/play-logic-gate.h.in"
+    },
+    {
+      "id": "template-logic-gate-c",
+      "path": "architecture/sources/bkpt-g5-play-v1/play-logic-gate.c.in",
+      "sha256": "00d87b982b6dd17b0956b511854fc1c877e6efec31b494dc4ef922d93caca439",
+      "revision": "BKPT G5 PLAY components v1",
+      "authority": "bkpt_authored_implementation",
+      "package_path": "catalog/play/play-logic-gate.c.in"
+    },
+    {
+      "id": "template-signal-route-h",
+      "path": "architecture/sources/bkpt-g5-play-v1/play-signal-route.h.in",
+      "sha256": "bb071018b47b8a1cab5bd5511541d31e256e1bfc1b14431bb9d27a7759d6bb11",
+      "revision": "BKPT G5 PLAY components v1",
+      "authority": "bkpt_authored_implementation",
+      "package_path": "catalog/play/play-signal-route.h.in"
+    },
+    {
+      "id": "template-signal-route-c",
+      "path": "architecture/sources/bkpt-g5-play-v1/play-signal-route.c.in",
+      "sha256": "06c6f0bb96a2db047df24960acbbacf003f7a49302b2893e4b23d392189de635",
+      "revision": "BKPT G5 PLAY components v1",
+      "authority": "bkpt_authored_implementation",
+      "package_path": "catalog/play/play-signal-route.c.in"
+    },
+    {
+      "id": "template-software-gate-h",
+      "path": "architecture/sources/bkpt-g5-play-v1/play-software-gate.h.in",
+      "sha256": "975d38dabe7b1c6021e21c03d79d7bd078a8d3a57ab605a58987bcafdf86de39",
+      "revision": "BKPT G5 PLAY components v1",
+      "authority": "bkpt_authored_implementation",
+      "package_path": "catalog/play/play-software-gate.h.in"
+    },
+    {
+      "id": "template-software-gate-c",
+      "path": "architecture/sources/bkpt-g5-play-v1/play-software-gate.c.in",
+      "sha256": "2738f9768da3da63fa36c4768a00d10326996a8cab8464d23fadb754738cae37",
+      "revision": "BKPT G5 PLAY components v1",
+      "authority": "bkpt_authored_implementation",
+      "package_path": "catalog/play/play-software-gate.c.in"
+    },
+    {
+      "id": "port-ownership",
+      "path": "bkpt-g5/hal2-ownership.txt",
+      "sha256": "ee1bce206cb3f30361a67eaeeae88d07ecc49ac2e2b678796e20472279493799",
+      "revision": "1",
+      "authority": "bkpt_engineering_policy",
+      "package_path": "sources/hal2-ownership.txt"
+    },
+    {
+      "id": "port-crc32-h-source",
+      "path": "bkpt-g5/bkpt-hal2-crc32-v1/crc32.h.in",
+      "sha256": "dc0e2fdf4ddced86aab42d659c87ee6e66767ac4d7d7d0c93d2a7fc3f7e974c3",
+      "revision": "bkpt-hal2-crc32-v1",
+      "authority": "bkpt_authored_implementation",
+      "package_path": "sources/bkpt-hal2-crc32-v1/crc32.h.in"
+    },
+    {
+      "id": "port-crc32-c-source",
+      "path": "bkpt-g5/bkpt-hal2-crc32-v1/crc32.c.in",
+      "sha256": "9418129f5637cc651f72551957bf95e56a9593c381ad84d03e45be0e33ed197a",
+      "revision": "bkpt-hal2-crc32-v1",
+      "authority": "bkpt_authored_implementation",
+      "package_path": "sources/bkpt-hal2-crc32-v1/crc32.c.in"
+    },
+    {
+      "id": "port-watchdog-h-source",
+      "path": "bkpt-g5/bkpt-hal2-watchdog-v3/watchdog.h.in",
+      "sha256": "8955c32bf22be97c9423189bfd360e091dfb034a0e3439ee1c948eb0034718b7",
+      "revision": "bkpt-hal2-watchdog-v3",
+      "authority": "bkpt_authored_implementation",
+      "package_path": "sources/bkpt-hal2-watchdog-v3/watchdog.h.in"
+    },
+    {
+      "id": "port-watchdog-c-source",
+      "path": "bkpt-g5/bkpt-hal2-watchdog-v3/watchdog.c.in",
+      "sha256": "ace2e1953dd286b33d55d8d4fd4ebc52470a5379b1b38a85e3501345ce8a07b8",
+      "revision": "bkpt-hal2-watchdog-v3",
+      "authority": "bkpt_authored_implementation",
+      "package_path": "sources/bkpt-hal2-watchdog-v3/watchdog.c.in"
+    }
+  ],
+  "external": [
+    {
+      "id": "dfp",
+      "path": "stm32g5xx-dfp/STMicroelectronics.stm32g5xx_dfp.pdsc",
+      "sha256": "798e030aaa0474bbc2ad6bb474d2ae2b13c1ecc4396b2f59d7042583d50bdade",
+      "revision": "ST DFP 2.0.0",
+      "authority": "manufacturer_machine_readable"
+    },
+    {
+      "id": "pinout",
+      "path": "stm32g5xx-dfp/Descriptors/pinout/STM32G5(5-6)4R(B-C-E)Tx(Z-_)_pinout.json",
+      "sha256": "164283b38897a01d2ef6e0099c3a387b3f05f62b90ea6967cdc37f5b2a2b0154",
+      "revision": "ST DFP 2.0.0",
+      "authority": "manufacturer_machine_readable"
+    },
+    {
+      "id": "device-header",
+      "path": "stm32g5xx-dfp/Include/stm32g564xx.h",
+      "sha256": "1e4bcf72a3621131af0cbbb07261b1d24dfb19fe302deac00810b44de87d2a3f",
+      "revision": "ST DFP 2.0.0",
+      "authority": "manufacturer_machine_readable"
+    },
+    {
+      "id": "startup",
+      "path": "stm32g5xx-dfp/Source/startup_stm32g564xx.c",
+      "sha256": "c96a30705853a8351e7906a083debaca20f86dc4b9dcd713ac18e91e86528569",
+      "revision": "ST DFP 2.0.0",
+      "authority": "manufacturer_sdk"
+    },
+    {
+      "id": "gpio-h",
+      "path": "stm32g5xx-drivers/hal/stm32g5xx_hal_gpio.h",
+      "sha256": "ade8cd1ec19974a4aba63d0cf65742be03d5543e1d51583d49ac6c0043ccc4db",
+      "revision": "HAL2 pack 2.0.0",
+      "authority": "manufacturer_sdk"
+    },
+    {
+      "id": "gpio-c",
+      "path": "stm32g5xx-drivers/hal/stm32g5xx_hal_gpio.c",
+      "sha256": "0d2bba71e97ecf41b5a8faf4f1567ef9cd00e3c3275fc4b48ab7faa5c266f24a",
+      "revision": "HAL2 pack 2.0.0",
+      "authority": "manufacturer_sdk"
+    },
+    {
+      "id": "rcc-h",
+      "path": "stm32g5xx-drivers/hal/stm32g5xx_hal_rcc.h",
+      "sha256": "b9ac8f5da953d50e8f606ba31af955140a80e911b6f1789c958dd8f3e804475b",
+      "revision": "HAL2 pack 2.0.0",
+      "authority": "manufacturer_sdk"
+    },
+    {
+      "id": "rcc-c",
+      "path": "stm32g5xx-drivers/hal/stm32g5xx_hal_rcc.c",
+      "sha256": "08d015677688a42f6e42df99b222904871275338335eac7164ab7d306f8bb760",
+      "revision": "HAL2 pack 2.0.0",
+      "authority": "manufacturer_sdk"
+    },
+    {
+      "id": "play-h",
+      "path": "stm32g5xx-drivers/hal/stm32g5xx_hal_play.h",
+      "sha256": "9f33b09dd8bd4d47f7e2333908f69cc627fd0a7f380f967dc5a0d58488e421e6",
+      "revision": "HAL2 pack 2.0.0",
+      "authority": "manufacturer_sdk"
+    },
+    {
+      "id": "play-c",
+      "path": "stm32g5xx-drivers/hal/stm32g5xx_hal_play.c",
+      "sha256": "d2bfe7c5425ebe8a29eb7a15b49a6df0b466ac1b7c2fa82f08ea792eef372b15",
+      "revision": "HAL2 pack 2.0.0",
+      "authority": "manufacturer_sdk"
+    },
+    {
+      "id": "play-helpers",
+      "path": "stm32g5xx-drivers/.config/template/helpers/play_helpers.js",
+      "sha256": "639fd609f0b53144841aa9ed6df026011fc796ebe6f369b4b3d925973f3a1832",
+      "revision": "HAL2 pack 2.0.0",
+      "authority": "manufacturer_sdk"
+    },
+    {
+      "id": "hal-conf",
+      "path": "STM32CubeG5/examples/templates/no_os/NUCLEO-G564RE/generated/hal/stm32g5xx_hal_conf.h",
+      "sha256": "de65c43d95d7040e2a1db323d171b42bcd536ab836f3d1f3960561a50e164548",
+      "revision": "STM32CubeG5 2.0.0",
+      "authority": "captured_generated_source"
+    },
+    {
+      "id": "example-gate-xor-play",
+      "path": "STM32CubeG5/examples/hal/play/gate_xor/NUCLEO-G564RE/generated/hal/mx_play1.c",
+      "sha256": "de976a8d1018b215e152c504a2a7b8cc869d561b95b2e42a2df5822298d5ae4c",
+      "revision": "STM32CubeG5 2.0.0",
+      "authority": "manufacturer_example_code"
+    },
+    {
+      "id": "example-gate-xor-rcc",
+      "path": "STM32CubeG5/examples/hal/play/gate_xor/NUCLEO-G564RE/generated/hal/mx_rcc.c",
+      "sha256": "227ca7f2f5f18280c360f0328b3918f65d0483a271490c78bc23a25d25be6b00",
+      "revision": "STM32CubeG5 2.0.0",
+      "authority": "manufacturer_example_code"
+    },
+    {
+      "id": "example-gate-xor-readme",
+      "path": "STM32CubeG5/examples/hal/play/gate_xor/README.md",
+      "sha256": "0bbf11ebab07cea1b85608a2fd7ed6dd78efefd2ada5ae3d75ebefc6637943f1",
+      "revision": "STM32CubeG5 2.0.0",
+      "authority": "manufacturer_example_code"
+    },
+    {
+      "id": "example-gate-xor-components",
+      "path": "STM32CubeG5/examples/hal/play/gate_xor/NUCLEO-G564RE/cmake/cmake/components.cmake",
+      "sha256": "fdf459c9856c6fa827f677a46f08fe41e9d1d0e468e3604310ffea45c59ef556",
+      "revision": "STM32CubeG5 2.0.0",
+      "authority": "manufacturer_example_code"
+    },
+    {
+      "id": "example-signal-routing-play",
+      "path": "STM32CubeG5/examples/hal/play/signal_routing/NUCLEO-G564RE/generated/hal/mx_play1.c",
+      "sha256": "fdc0569a9d0aeefcef2ef482f0d562d8a0b45961a68716c6a8376ceb619940b6",
+      "revision": "STM32CubeG5 2.0.0",
+      "authority": "manufacturer_example_code"
+    },
+    {
+      "id": "example-counter-play",
+      "path": "STM32CubeG5/examples/hal/play/counter_3bits/NUCLEO-G564RE/generated/hal/mx_play1.c",
+      "sha256": "d11fff628387ace601b38ca36e1725b3ffa3a61ff4be49b6acda964cde37a4af",
+      "revision": "STM32CubeG5 2.0.0",
+      "authority": "manufacturer_example_code"
+    },
+    {
+      "id": "example-alarm-play",
+      "path": "STM32CubeG5/examples/hal/play/emergency_alarm/NUCLEO-G564RE/generated/hal/mx_play1.c",
+      "sha256": "094f656e3ee34e72340f8c1e9463ea0b29134efb2428620f661caf798ad5966d",
+      "revision": "STM32CubeG5 2.0.0",
+      "authority": "manufacturer_example_code"
+    },
+    {
+      "id": "board-project",
+      "path": "STM32CubeG5/examples/templates/start_from_nucleo/NUCLEO-G564RE/template_start_from_nucleo.ioc2",
+      "sha256": "258e4409b4f780e82eb523e58396a856afc4016053f4ec7c526a0bf20e17fb01",
+      "revision": "STM32CubeG5 2.0.0 start_from_nucleo project, board nucleo-g564re_hw-board 2.0.0",
+      "authority": "manufacturer_machine_readable"
+    },
+    {
+      "id": "port-peripherals",
+      "path": "stm32g5xx-dfp/Descriptors/peripherals/D44A_peripherals.json",
+      "sha256": "d423162044f910baecfec2e0038d5c20e08cdc786e7cf5601a4ebb4167bf8a8a",
+      "revision": "DFP 2.0.0",
+      "authority": "manufacturer_machine_readable"
+    },
+    {
+      "id": "port-crc-c",
+      "path": "stm32g5xx-drivers/hal/stm32g5xx_hal_crc.c",
+      "sha256": "e498c91c36b6bacfb6fb2718916d4a511d3188723005b348b9a64a805922f163",
+      "revision": "2.0.0",
+      "authority": "manufacturer_sdk"
+    },
+    {
+      "id": "port-crc-h",
+      "path": "stm32g5xx-drivers/hal/stm32g5xx_hal_crc.h",
+      "sha256": "53efddeba4bf735134f3653297c324d85a5199d0093c22562278a368f8acc227",
+      "revision": "2.0.0",
+      "authority": "manufacturer_sdk"
+    },
+    {
+      "id": "port-iwdg-c",
+      "path": "stm32g5xx-drivers/hal/stm32g5xx_hal_iwdg.c",
+      "sha256": "9aad8dac96d3208c707c1fd3206b3334764308107a25d382c04e79715e1bed89",
+      "revision": "2.0.0",
+      "authority": "manufacturer_sdk"
+    },
+    {
+      "id": "port-iwdg-h",
+      "path": "stm32g5xx-drivers/hal/stm32g5xx_hal_iwdg.h",
+      "sha256": "e9f8b5a2e437222b803414e25c5b087c8d813cbb236af5404364c74dce3c67f9",
+      "revision": "2.0.0",
+      "authority": "manufacturer_sdk"
+    },
+    {
+      "id": "port-iwdg-ll",
+      "path": "stm32g5xx-drivers/ll/stm32g5xx_ll_iwdg.h",
+      "sha256": "bb6e4fb2ff4da0401e10d6999ad2dc013381db9336444831ec7ad06087b4b3d8",
+      "revision": "2.0.0",
+      "authority": "manufacturer_sdk"
+    },
+    {
+      "id": "port-rm-iwdg-key",
+      "path": "pages/RM0514-page-2491.txt",
+      "sha256": "2418088d0aa2898f9ce533b318a7b0dde679dd7d6514955cb021ec7e2d012c38",
+      "revision": "RM0514 Rev 1 p.2491",
+      "authority": "manufacturer_document"
+    },
+    {
+      "id": "gpio-port-netlist",
+      "path": "nucleo-g564re_hw-board/Descriptors/NUG564RE$CR1/pcbs/MB2067/netlist.json",
+      "sha256": "b17c29aea33312da3cfae36038c728d27bcba52ff49724b6a16dd046a70ae956",
+      "revision": "2.0.0 / MB2067 B02",
+      "authority": "manufacturer_machine_readable"
+    },
+    {
+      "id": "gpio-port-bom",
+      "path": "nucleo-g564re_hw-board/Descriptors/NUG564RE$CR1/bom.json",
+      "sha256": "92b2ed863368058784848411a0db28ac4bc3119a8f03a29d08a82a40999a6612",
+      "revision": "2.0.0 / MB2067 B02",
+      "authority": "manufacturer_machine_readable"
+    },
+    {
+      "id": "board-mounted",
+      "path": "nucleo-g564re_hw-board/Descriptors/NUG564RE$CR1/pcbs/MB2067/partlist.json",
+      "sha256": "9986e82ad4262a06b44c51a194c69eb937f1d9bd51c02a39049087040e570584",
+      "revision": "board pack 2.0.0 / MB2067 B02",
+      "authority": "manufacturer_machine_readable"
+    }
+  ]
+}

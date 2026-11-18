@@ -1,0 +1,6 @@
+{
+  "bundle_sha256": "fe75d9ae9656dbf8105f7a4cf97d429cdbbe7cd8c13d9cffd5b67d03595e2d30",
+  "decision": "accept",
+  "reviewer": "Independent Claude Opus 5.5 (claude.ai subscription) and independent Codex reviews accepted these exact bytes as bounded source-backed integration on 2026-11-18. Both checked all 42 source hashes and 1458 excerpt hashes, PLAY clock and shared-unit ownership, board restrictions, and CRC/watchdog bindings. No hardware verification.",
+  "reviewed_at": "2026-11-18"
+}

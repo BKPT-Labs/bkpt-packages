@@ -1,0 +1,18 @@
+{
+  "rule_sources": [],
+  "sdk": "stm32g5-hal2-2.0.0",
+  "schema": 1,
+  "packs": [
+    {
+      "authority": "manufacturer_machine_readable",
+      "project_prefix": "stm32g5xx_drivers",
+      "id": "g5-hal-2.0.0",
+      "asset_root": "g5_hal_pack",
+      "sha256": "702cfa8d097fae32b2d1230a02cafb20b13e24a36db837d0ec5ebcd1e9fa5f35",
+      "path": "STMicroelectronics.stm32g5xx_hal_drivers.pdsc",
+      "uri": "https://github.com/STMicroelectronics/stm32g5xx-drivers/blob/6df73a63fe7e2b480df2a17fbee2c7657337442e/STMicroelectronics.stm32g5xx_hal_drivers.pdsc",
+      "revision": "2.0.0"
+    }
+  ],
+  "rules": []
+}

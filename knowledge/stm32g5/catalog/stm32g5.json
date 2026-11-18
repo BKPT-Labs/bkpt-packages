@@ -1,0 +1,609 @@
+{
+  "schema": 1,
+  "scopes": [
+    {
+      "id": "STM32G5",
+      "kind": "family",
+      "name": "STM32G5"
+    },
+    {
+      "id": "STM32G564",
+      "kind": "device",
+      "name": "STM32G564"
+    },
+    {
+      "id": "STM32G564RET3",
+      "kind": "part",
+      "name": "STM32G564RET3"
+    },
+    {
+      "id": "LQFP64",
+      "kind": "package",
+      "name": "LQFP64"
+    },
+    {
+      "id": "NUCLEO-G564RE",
+      "kind": "board",
+      "name": "NUCLEO-G564RE"
+    },
+    {
+      "id": "stm32g5-hal2-2.0.0",
+      "kind": "sdk",
+      "name": "stm32g5-hal2-2.0.0"
+    }
+  ],
+  "memberships": [
+    {
+      "child": "STM32G564",
+      "parent": "STM32G5",
+      "evidence": "dfp"
+    },
+    {
+      "child": "STM32G564RET3",
+      "parent": "STM32G564",
+      "evidence": "dfp"
+    },
+    {
+      "child": "STM32G564RET3",
+      "parent": "LQFP64",
+      "evidence": "dfp"
+    },
+    {
+      "child": "NUCLEO-G564RE",
+      "parent": "STM32G564RET3",
+      "evidence": "board-pack"
+    }
+  ],
+  "sources": [
+    {
+      "id": "dfp",
+      "kind": "metadata",
+      "path": "stm32g5xx-dfp/STMicroelectronics.stm32g5xx_dfp.pdsc",
+      "sha256": "798e030aaa0474bbc2ad6bb474d2ae2b13c1ecc4396b2f59d7042583d50bdade",
+      "uri": "https://github.com/STMicroelectronics/stm32g5xx-dfp/blob/2288c48393e70c4a787cd0c1b5bcaf163d67340f/STMicroelectronics.stm32g5xx_dfp.pdsc",
+      "revision": "2.0.0",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [
+        "STM32G5",
+        "STM32G564",
+        "STM32G564RET3",
+        "LQFP64"
+      ],
+      "options": {}
+    },
+    {
+      "id": "board-target",
+      "kind": "text",
+      "path": "STM32CubeG5/examples/templates/no_os/NUCLEO-G564RE/cmake/cmake/target.cmake",
+      "sha256": "6d14debf35e6bf0431987114c70dbc1c3e3d79296e1bbfda36935abde146ac81",
+      "uri": "https://github.com/STMicroelectronics/STM32CubeG5/blob/55256c5f5d7050ea2474fb006877c12bbdd09f4c/examples/templates/no_os/NUCLEO-G564RE/cmake/cmake/target.cmake",
+      "revision": "2.0.0",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [
+        "NUCLEO-G564RE",
+        "STM32G564RET3"
+      ],
+      "options": {}
+    },
+    {
+      "id": "pinout",
+      "kind": "mx2_pinout",
+      "path": "stm32g5xx-dfp/Descriptors/pinout/STM32G5(5-6)4R(B-C-E)Tx(Z-_)_pinout.json",
+      "sha256": "164283b38897a01d2ef6e0099c3a387b3f05f62b90ea6967cdc37f5b2a2b0154",
+      "uri": "https://github.com/STMicroelectronics/stm32g5xx-dfp/blob/2288c48393e70c4a787cd0c1b5bcaf163d67340f/Descriptors/pinout/STM32G5%285-6%294R%28B-C-E%29Tx%28Z-_%29_pinout.json",
+      "revision": "2.0.0",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [
+        "STM32G564RET3"
+      ],
+      "options": {
+        "package": "LQFP64"
+      }
+    },
+    {
+      "id": "g564-svd",
+      "kind": "svd",
+      "path": "stm32g5xx-dfp/SVD/STM32G564.svd",
+      "sha256": "ce7855d4fad8b845af6e59e14c9fc0b03945d62e0b20ea5f2467e8cd58ab1b60",
+      "uri": "https://github.com/STMicroelectronics/stm32g5xx-dfp/blob/2288c48393e70c4a787cd0c1b5bcaf163d67340f/SVD/STM32G564.svd",
+      "revision": "2.0.0",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [
+        "STM32G564"
+      ],
+      "options": {
+        "device": "STM32G564"
+      }
+    },
+    {
+      "id": "board-bom",
+      "kind": "text",
+      "path": "nucleo-g564re_hw-board/Descriptors/NUG564RE$CR1/bom.json",
+      "sha256": "92b2ed863368058784848411a0db28ac4bc3119a8f03a29d08a82a40999a6612",
+      "uri": "pack://STMicroelectronics.nucleo-g564re_hw-board/2.0.0/Descriptors/NUG564RE%24CR1/bom.json",
+      "revision": "2.0.0 / MB2067 B02",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [
+        "NUCLEO-G564RE"
+      ],
+      "options": {}
+    },
+    {
+      "id": "board-parameters",
+      "kind": "text",
+      "path": "nucleo-g564re_hw-board/Descriptors/NUG564RE$CR1/parameters.json",
+      "sha256": "6d56fe1463ce2107f00b28d8f0b12881efddccf1d0d2c2a818bd442e3b5f5228",
+      "uri": "pack://STMicroelectronics.nucleo-g564re_hw-board/2.0.0/Descriptors/NUG564RE%24CR1/parameters.json",
+      "revision": "2.0.0 / MB2067 B02",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [
+        "NUCLEO-G564RE"
+      ],
+      "options": {}
+    },
+    {
+      "id": "board-config",
+      "kind": "text",
+      "path": "nucleo-g564re_hw-board/Descriptors/NUG564RE$CR1/pcbs/MB2067/config.json",
+      "sha256": "1ebfca537423f892d76d0f901a4ba4741288bcdcac1fabcfd24a393ff27baf4f",
+      "uri": "pack://STMicroelectronics.nucleo-g564re_hw-board/2.0.0/Descriptors/NUG564RE%24CR1/pcbs/MB2067/config.json",
+      "revision": "2.0.0 / MB2067 B02",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [
+        "NUCLEO-G564RE"
+      ],
+      "options": {}
+    },
+    {
+      "id": "board-connectors",
+      "kind": "text",
+      "path": "nucleo-g564re_hw-board/Descriptors/NUG564RE$CR1/pcbs/MB2067/connectors.json",
+      "sha256": "05ab27a6960e15b2a43ad43eef698369baa058cdb10fd176bcb5f5a9b3ab028c",
+      "uri": "pack://STMicroelectronics.nucleo-g564re_hw-board/2.0.0/Descriptors/NUG564RE%24CR1/pcbs/MB2067/connectors.json",
+      "revision": "2.0.0 / MB2067 B02",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [
+        "NUCLEO-G564RE"
+      ],
+      "options": {}
+    },
+    {
+      "id": "board-netlist",
+      "kind": "text",
+      "path": "nucleo-g564re_hw-board/Descriptors/NUG564RE$CR1/pcbs/MB2067/netlist.json",
+      "sha256": "b17c29aea33312da3cfae36038c728d27bcba52ff49724b6a16dd046a70ae956",
+      "uri": "pack://STMicroelectronics.nucleo-g564re_hw-board/2.0.0/Descriptors/NUG564RE%24CR1/pcbs/MB2067/netlist.json",
+      "revision": "2.0.0 / MB2067 B02",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [
+        "NUCLEO-G564RE"
+      ],
+      "options": {}
+    },
+    {
+      "id": "board-part-parameters",
+      "kind": "text",
+      "path": "nucleo-g564re_hw-board/Descriptors/NUG564RE$CR1/pcbs/MB2067/part-parameters.json",
+      "sha256": "2e756d035b42e0937bbcf74df7048e1f5ca00052d236dc8510a122fdcd85501b",
+      "uri": "pack://STMicroelectronics.nucleo-g564re_hw-board/2.0.0/Descriptors/NUG564RE%24CR1/pcbs/MB2067/part-parameters.json",
+      "revision": "2.0.0 / MB2067 B02",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [
+        "NUCLEO-G564RE"
+      ],
+      "options": {}
+    },
+    {
+      "id": "board-partlist",
+      "kind": "text",
+      "path": "nucleo-g564re_hw-board/Descriptors/NUG564RE$CR1/pcbs/MB2067/partlist.json",
+      "sha256": "9986e82ad4262a06b44c51a194c69eb937f1d9bd51c02a39049087040e570584",
+      "uri": "pack://STMicroelectronics.nucleo-g564re_hw-board/2.0.0/Descriptors/NUG564RE%24CR1/pcbs/MB2067/partlist.json",
+      "revision": "2.0.0 / MB2067 B02",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [
+        "NUCLEO-G564RE"
+      ],
+      "options": {}
+    },
+    {
+      "id": "board-pack",
+      "kind": "text",
+      "path": "nucleo-g564re_hw-board/STMicroelectronics.nucleo-g564re_hw-board.pdsc",
+      "sha256": "c4354e25fd28138f15ff8b869ecf0a577ce16ae7d6a910842fb020b9d61458ee",
+      "uri": "pack://STMicroelectronics.nucleo-g564re_hw-board/2.0.0/STMicroelectronics.nucleo-g564re_hw-board.pdsc",
+      "revision": "2.0.0 / MB2067 B02",
+      "authority": "manufacturer_machine_readable",
+      "scopes": [
+        "NUCLEO-G564RE",
+        "STM32G564RET3"
+      ],
+      "options": {}
+    },
+    {
+      "id": "AN6401",
+      "kind": "document",
+      "path": "AN6401.pdf",
+      "sha256": "9ad2b91015a806c1ef93192581bd91f184c94d07e1382921dd187e851964d591",
+      "uri": "urn:st:document:AN6401:rev:2",
+      "revision": "Rev 2",
+      "authority": "manufacturer_document",
+      "scopes": [
+        "STM32G564"
+      ],
+      "options": {}
+    },
+    {
+      "id": "AN6401-pages",
+      "kind": "pages",
+      "path": "pages/AN6401.pages.json",
+      "sha256": "473dd8ca0d34402f5ee704966da7914bf65cca8418867bf977f5703a529c2e63",
+      "uri": "urn:st:document:AN6401:rev:2",
+      "revision": "Rev 2",
+      "authority": "manufacturer_document",
+      "scopes": [
+        "STM32G564"
+      ],
+      "options": {
+        "origin_source": "AN6401"
+      }
+    },
+    {
+      "id": "DS14920",
+      "kind": "document",
+      "path": "DS14920.pdf",
+      "sha256": "152c429fe230a75c92385922282623ad014eb607b321f2fae95a1a5692d74280",
+      "uri": "urn:st:document:DS14920:rev:1",
+      "revision": "Rev 1",
+      "authority": "manufacturer_document",
+      "scopes": [
+        "STM32G564"
+      ],
+      "options": {}
+    },
+    {
+      "id": "DS14920-pages",
+      "kind": "pages",
+      "path": "pages/DS14920.pages.json",
+      "sha256": "20ba540ce88f0832784a351e547cd8e3d5254d264a6df17ded31338e25f543d2",
+      "uri": "urn:st:document:DS14920:rev:1",
+      "revision": "Rev 1",
+      "authority": "manufacturer_document",
+      "scopes": [
+        "STM32G564"
+      ],
+      "options": {
+        "origin_source": "DS14920"
+      }
+    },
+    {
+      "id": "ES0656",
+      "kind": "document",
+      "path": "ES0656.pdf",
+      "sha256": "0771029382b34b38e86c146e568edddb6570ba7d93e68cafe00dc1ef173de5bc",
+      "uri": "urn:st:document:ES0656:rev:1",
+      "revision": "Rev 1",
+      "authority": "manufacturer_document",
+      "scopes": [
+        "STM32G564"
+      ],
+      "options": {}
+    },
+    {
+      "id": "ES0656-pages",
+      "kind": "pages",
+      "path": "pages/ES0656.pages.json",
+      "sha256": "36577ab9d192be302b806a7c65a1514b642c91283ed3eda615dfa131b0830c9d",
+      "uri": "urn:st:document:ES0656:rev:1",
+      "revision": "Rev 1",
+      "authority": "manufacturer_document",
+      "scopes": [
+        "STM32G564"
+      ],
+      "options": {
+        "origin_source": "ES0656"
+      }
+    },
+    {
+      "id": "RM0514",
+      "kind": "document",
+      "path": "RM0514.pdf",
+      "sha256": "852fee12258ef7c89eb502c78b1209eba990b2e4f4e03c5a2a53dda5a534e8c6",
+      "uri": "urn:st:document:RM0514:rev:1",
+      "revision": "Rev 1",
+      "authority": "manufacturer_document",
+      "scopes": [
+        "STM32G564"
+      ],
+      "options": {}
+    },
+    {
+      "id": "RM0514-pages",
+      "kind": "pages",
+      "path": "pages/RM0514.pages.json",
+      "sha256": "85d237cecb6602c0bfae9e7bb9926eb3b2cb6e155404611b6abf183a561747ce",
+      "uri": "urn:st:document:RM0514:rev:1",
+      "revision": "Rev 1",
+      "authority": "manufacturer_document",
+      "scopes": [
+        "STM32G564"
+      ],
+      "options": {
+        "origin_source": "RM0514"
+      }
+    },
+    {
+      "id": "UM3659",
+      "kind": "document",
+      "path": "UM3659.pdf",
+      "sha256": "3ccc79b7a8913a867a445a7d1d67cc0102f83ed15a6f8f97a444d9623493f27f",
+      "uri": "urn:st:document:UM3659:rev:1",
+      "revision": "Rev 1",
+      "authority": "manufacturer_document",
+      "scopes": [
+        "NUCLEO-G564RE"
+      ],
+      "options": {}
+    },
+    {
+      "id": "UM3659-pages",
+      "kind": "pages",
+      "path": "pages/UM3659.pages.json",
+      "sha256": "5521bb26e5e83bf52d52cc2003db89df1bc3f8516f7ef3849c6e8920ebdb23d7",
+      "uri": "urn:st:document:UM3659:rev:1",
+      "revision": "Rev 1",
+      "authority": "manufacturer_document",
+      "scopes": [
+        "NUCLEO-G564RE"
+      ],
+      "options": {
+        "origin_source": "UM3659"
+      }
+    },
+    {
+      "id": "play-hal-counter-3bits-guide",
+      "kind": "text",
+      "path": "STM32CubeG5/examples/hal/play/counter_3bits/README.md",
+      "sha256": "07a7253f421dd1deca29fed51686377831e52f369648bd62cf365f739af13052",
+      "uri": "https://github.com/STMicroelectronics/STM32CubeG5/blob/55256c5f5d7050ea2474fb006877c12bbdd09f4c/examples/hal/play/counter_3bits/README.md",
+      "revision": "2.0.0",
+      "authority": "manufacturer_document",
+      "scopes": [
+        "NUCLEO-G564RE"
+      ],
+      "options": {}
+    },
+    {
+      "id": "play-hal-counter-3bits-main",
+      "kind": "text",
+      "path": "STM32CubeG5/examples/hal/play/counter_3bits/application/main.c",
+      "sha256": "d67d05678c178ef6eb496659fb83459f6fed16981befe3f556b1e04fcc85a78b",
+      "uri": "https://github.com/STMicroelectronics/STM32CubeG5/blob/55256c5f5d7050ea2474fb006877c12bbdd09f4c/examples/hal/play/counter_3bits/application/main.c",
+      "revision": "2.0.0",
+      "authority": "manufacturer_document",
+      "scopes": [
+        "NUCLEO-G564RE"
+      ],
+      "options": {}
+    },
+    {
+      "id": "play-hal-emergency-alarm-guide",
+      "kind": "text",
+      "path": "STM32CubeG5/examples/hal/play/emergency_alarm/README.md",
+      "sha256": "4b79bb567140f1f21f07435af7fd4c8e1d6493da4033a39af05d8b13e3a10922",
+      "uri": "https://github.com/STMicroelectronics/STM32CubeG5/blob/55256c5f5d7050ea2474fb006877c12bbdd09f4c/examples/hal/play/emergency_alarm/README.md",
+      "revision": "2.0.0",
+      "authority": "manufacturer_document",
+      "scopes": [
+        "NUCLEO-G564RE"
+      ],
+      "options": {}
+    },
+    {
+      "id": "play-hal-emergency-alarm-main",
+      "kind": "text",
+      "path": "STM32CubeG5/examples/hal/play/emergency_alarm/application/main.c",
+      "sha256": "b562e1cff5562113544c9e7d7a48b5b86e7e514ad079b755481df184c9991d04",
+      "uri": "https://github.com/STMicroelectronics/STM32CubeG5/blob/55256c5f5d7050ea2474fb006877c12bbdd09f4c/examples/hal/play/emergency_alarm/application/main.c",
+      "revision": "2.0.0",
+      "authority": "manufacturer_document",
+      "scopes": [
+        "NUCLEO-G564RE"
+      ],
+      "options": {}
+    },
+    {
+      "id": "play-hal-gate-xor-guide",
+      "kind": "text",
+      "path": "STM32CubeG5/examples/hal/play/gate_xor/README.md",
+      "sha256": "0bbf11ebab07cea1b85608a2fd7ed6dd78efefd2ada5ae3d75ebefc6637943f1",
+      "uri": "https://github.com/STMicroelectronics/STM32CubeG5/blob/55256c5f5d7050ea2474fb006877c12bbdd09f4c/examples/hal/play/gate_xor/README.md",
+      "revision": "2.0.0",
+      "authority": "manufacturer_document",
+      "scopes": [
+        "NUCLEO-G564RE"
+      ],
+      "options": {}
+    },
+    {
+      "id": "play-hal-gate-xor-main",
+      "kind": "text",
+      "path": "STM32CubeG5/examples/hal/play/gate_xor/application/main.c",
+      "sha256": "0d4326984b31a3734565c721c1f2b272c3befa32d4f2595d9a223525d9b2469e",
+      "uri": "https://github.com/STMicroelectronics/STM32CubeG5/blob/55256c5f5d7050ea2474fb006877c12bbdd09f4c/examples/hal/play/gate_xor/application/main.c",
+      "revision": "2.0.0",
+      "authority": "manufacturer_document",
+      "scopes": [
+        "NUCLEO-G564RE"
+      ],
+      "options": {}
+    },
+    {
+      "id": "play-hal-signal-routing-guide",
+      "kind": "text",
+      "path": "STM32CubeG5/examples/hal/play/signal_routing/README.md",
+      "sha256": "e5c3117b4cb09fc1612e6b6e31f7c84455e10ff97b0fab0e506f75371aef484e",
+      "uri": "https://github.com/STMicroelectronics/STM32CubeG5/blob/55256c5f5d7050ea2474fb006877c12bbdd09f4c/examples/hal/play/signal_routing/README.md",
+      "revision": "2.0.0",
+      "authority": "manufacturer_document",
+      "scopes": [
+        "NUCLEO-G564RE"
+      ],
+      "options": {}
+    },
+    {
+      "id": "play-hal-signal-routing-main",
+      "kind": "text",
+      "path": "STM32CubeG5/examples/hal/play/signal_routing/application/main.c",
+      "sha256": "0d4326984b31a3734565c721c1f2b272c3befa32d4f2595d9a223525d9b2469e",
+      "uri": "https://github.com/STMicroelectronics/STM32CubeG5/blob/55256c5f5d7050ea2474fb006877c12bbdd09f4c/examples/hal/play/signal_routing/application/main.c",
+      "revision": "2.0.0",
+      "authority": "manufacturer_document",
+      "scopes": [
+        "NUCLEO-G564RE"
+      ],
+      "options": {}
+    },
+    {
+      "id": "play-ll-gate-xor-guide",
+      "kind": "text",
+      "path": "STM32CubeG5/examples/ll/play/gate_xor/README.md",
+      "sha256": "7a019fe7ddb9bd962adae20677521d65368add5cf976e2f3b41bd117992204c5",
+      "uri": "https://github.com/STMicroelectronics/STM32CubeG5/blob/55256c5f5d7050ea2474fb006877c12bbdd09f4c/examples/ll/play/gate_xor/README.md",
+      "revision": "2.0.0",
+      "authority": "manufacturer_document",
+      "scopes": [
+        "NUCLEO-G564RE"
+      ],
+      "options": {}
+    },
+    {
+      "id": "play-ll-gate-xor-main",
+      "kind": "text",
+      "path": "STM32CubeG5/examples/ll/play/gate_xor/application/main.c",
+      "sha256": "bbbfc27c0fab926a5dd27918affbda09b66d33cb64c1467477044bb614f2527b",
+      "uri": "https://github.com/STMicroelectronics/STM32CubeG5/blob/55256c5f5d7050ea2474fb006877c12bbdd09f4c/examples/ll/play/gate_xor/application/main.c",
+      "revision": "2.0.0",
+      "authority": "manufacturer_document",
+      "scopes": [
+        "NUCLEO-G564RE"
+      ],
+      "options": {}
+    },
+    {
+      "id": "play-ll-wakeup-lowpower-guide",
+      "kind": "text",
+      "path": "STM32CubeG5/examples/ll/play/wakeup_lowpower/README.md",
+      "sha256": "2e755b1d2ddc8dab204069cd9a1389ff292a734a2110d7f51f6b38586f085904",
+      "uri": "https://github.com/STMicroelectronics/STM32CubeG5/blob/55256c5f5d7050ea2474fb006877c12bbdd09f4c/examples/ll/play/wakeup_lowpower/README.md",
+      "revision": "2.0.0",
+      "authority": "manufacturer_document",
+      "scopes": [
+        "NUCLEO-G564RE"
+      ],
+      "options": {}
+    },
+    {
+      "id": "play-ll-wakeup-lowpower-main",
+      "kind": "text",
+      "path": "STM32CubeG5/examples/ll/play/wakeup_lowpower/application/main.c",
+      "sha256": "fa1fbe3d1258c3946c586fabd72d3d8360d9505dd6444453683ca4519863e4bc",
+      "uri": "https://github.com/STMicroelectronics/STM32CubeG5/blob/55256c5f5d7050ea2474fb006877c12bbdd09f4c/examples/ll/play/wakeup_lowpower/application/main.c",
+      "revision": "2.0.0",
+      "authority": "manufacturer_document",
+      "scopes": [
+        "NUCLEO-G564RE"
+      ],
+      "options": {}
+    }
+  ],
+  "boards": [
+    {
+      "id": "NUCLEO-G564RE",
+      "part": "STM32G564RET3",
+      "family": "STM32G5",
+      "package": "LQFP64",
+      "hal": "HAL2",
+      "sdk": "stm32g5-hal2-2.0.0",
+      "source": "board-pack",
+      "backend": {
+        "id": "foundation",
+        "version": "1"
+      },
+      "build": {
+        "configure": [
+          "--preset",
+          "debug_GCC_{{board}}",
+          "-B",
+          "build/{{host}}"
+        ],
+        "build": [
+          "--build",
+          "build/{{host}}",
+          "--parallel"
+        ],
+        "artifact": "build/{{host}}/{{name}}.elf"
+      },
+      "bindings": {}
+    }
+  ],
+  "recipes": [],
+  "fact_kinds": [
+    {
+      "id": "play1.logic_elements",
+      "value_type": "number",
+      "unit": "count",
+      "condition_types": {}
+    },
+    {
+      "id": "play1.inputs_per_lut",
+      "value_type": "number",
+      "unit": "count",
+      "condition_types": {}
+    },
+    {
+      "id": "play1.outputs_per_lut",
+      "value_type": "number",
+      "unit": "count",
+      "condition_types": {}
+    }
+  ],
+  "facts": [
+    {
+      "id": "play1.logic_elements",
+      "kind": "play1.logic_elements",
+      "scope": "STM32G564",
+      "value": 16,
+      "conditions": {},
+      "source": "DS14920-pages",
+      "locator": "pdf-page:28",
+      "review_state": "reviewed",
+      "reviewer": "Codex, DS14920 Rev 1 section 3.22 page image checked",
+      "reviewed_at": "2026-11-18"
+    },
+    {
+      "id": "play1.inputs_per_lut",
+      "kind": "play1.inputs_per_lut",
+      "scope": "STM32G564",
+      "value": 4,
+      "conditions": {},
+      "source": "DS14920-pages",
+      "locator": "pdf-page:28",
+      "review_state": "reviewed",
+      "reviewer": "Codex, DS14920 Rev 1 section 3.22 page image checked",
+      "reviewed_at": "2026-11-18"
+    },
+    {
+      "id": "play1.outputs_per_lut",
+      "kind": "play1.outputs_per_lut",
+      "scope": "STM32G564",
+      "value": 1,
+      "conditions": {},
+      "source": "DS14920-pages",
+      "locator": "pdf-page:28",
+      "review_state": "reviewed",
+      "reviewer": "Codex, DS14920 Rev 1 section 3.22 page image checked",
+      "reviewed_at": "2026-11-18"
+    }
+  ]
+}

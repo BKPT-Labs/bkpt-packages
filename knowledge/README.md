@@ -21,6 +21,7 @@ and trace components and is unchanged.
 | Package | Target | State |
 | --- | --- | --- |
 | [`stm32c5`](stm32c5/knowledge-pack.json) | STM32C542RCT6, LQFP64, NUCLEO-C542RC, STM32 HAL2 2.1.0 | Development |
+| [`stm32g5`](stm32g5/knowledge-pack.json) | STM32G564RET3, LQFP64, NUCLEO-G564RE MB2067 B02, STM32G5 HAL2 2.0.0 | Development. [Coverage and build inputs](stm32g5/README.md) |
 
 The STM32C5 package covers the exact part, package, board and SDK version named
 in its manifest. It contains 23 scoped capability profiles (for example a managed

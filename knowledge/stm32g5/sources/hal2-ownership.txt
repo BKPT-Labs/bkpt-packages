@@ -1,0 +1,3 @@
+BKPT G564RE HAL2 allocation policy, revision 1.
+The checksum component owns the entire CRC instance exclusively.
+The independent watchdog component owns the entire IWDG instance exclusively. Its initialization prepares the handle. Starting the watchdog is an explicit application action.
