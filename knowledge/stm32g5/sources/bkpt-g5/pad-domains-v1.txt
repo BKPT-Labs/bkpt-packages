@@ -1,0 +1,4 @@
+BKPT G564 pad allocation rules, revision 1. SPDX-License-Identifier: LicenseRef-BKPT-Proprietary
+GPIO input: the application configures an allocated pad as a digital input.
+GPIO output: the application configures an allocated pad as a digital output.
+Routed pad: use only a reviewed route from the selected hardware resource and the pads admitted by the board.

@@ -1,0 +1,3 @@
+BKPT declared board policy. SPDX-License-Identifier: LicenseRef-BKPT-Proprietary
+General: only explicitly released pads enter general allocation.
+USB: the owner reserves this pad for USB Type-C.

@@ -1,0 +1,247 @@
+{
+  "schema": 1,
+  "sources": [
+    {
+      "id": "board-project",
+      "path": "STM32CubeG5/examples/templates/start_from_nucleo/NUCLEO-G564RE/template_start_from_nucleo.ioc2",
+      "sha256": "258e4409b4f780e82eb523e58396a856afc4016053f4ec7c526a0bf20e17fb01",
+      "revision": "STM32CubeG5 2.0.0 start_from_nucleo project, board nucleo-g564re_hw-board 2.0.0",
+      "authority": "manufacturer_machine_readable",
+      "scope": "board"
+    },
+    {
+      "id": "gpio-port-netlist",
+      "path": "nucleo-g564re_hw-board/Descriptors/NUG564RE$CR1/pcbs/MB2067/netlist.json",
+      "sha256": "b17c29aea33312da3cfae36038c728d27bcba52ff49724b6a16dd046a70ae956",
+      "revision": "2.0.0 / MB2067 B02",
+      "authority": "manufacturer_machine_readable",
+      "scope": "board"
+    },
+    {
+      "id": "gpio-port-bom",
+      "path": "nucleo-g564re_hw-board/Descriptors/NUG564RE$CR1/bom.json",
+      "sha256": "92b2ed863368058784848411a0db28ac4bc3119a8f03a29d08a82a40999a6612",
+      "revision": "2.0.0 / MB2067 B02",
+      "authority": "manufacturer_machine_readable",
+      "scope": "board"
+    },
+    {
+      "id": "board-mounted",
+      "path": "nucleo-g564re_hw-board/Descriptors/NUG564RE$CR1/pcbs/MB2067/partlist.json",
+      "sha256": "9986e82ad4262a06b44c51a194c69eb937f1d9bd51c02a39049087040e570584",
+      "authority": "manufacturer_machine_readable",
+      "scope": "board",
+      "revision": "board pack 2.0.0 / MB2067 B02"
+    },
+    {
+      "id": "board-policy",
+      "path": "bkpt-g5/mb2067-b02-policy-v1.txt",
+      "sha256": "efaf5c6abd40d12ed2741d1590b2d5fff1c644a173adde6e9bc3dc73390d846f",
+      "revision": "version 1",
+      "authority": "bkpt_engineering_policy",
+      "scope": "policy"
+    }
+  ],
+  "policy": {
+    "source": "board-policy",
+    "label": "MB2067 B02 engineering policy",
+    "evidence_prefix": "board-rule",
+    "lines": {
+      "general": 2,
+      "debug": 3,
+      "clock": 4,
+      "routed_header": 5
+    }
+  },
+  "board": {
+    "kind": "netlist",
+    "source": "gpio-port-netlist",
+    "identity": {
+      "board": "NUCLEO-G564RE",
+      "part": "STM32G564RET3",
+      "package": "LQFP64"
+    },
+    "device_reference": "U1",
+    "passive_members": "CN[0-9]+",
+    "reserved_nets": {
+      "PA13": "debug",
+      "PA14": "debug",
+      "PB3": "debug",
+      "NetR1_1": "clock",
+      "NetR2_1": "clock",
+      "NetR3_1": "clock",
+      "NetR4_1": "clock"
+    },
+    "excluded_nets": {},
+    "citations": {
+      "target": [
+        {
+          "id": "board-identity",
+          "source": "board-project",
+          "start_line": 1873,
+          "end_line": 1873,
+          "excerpt_sha256": "0d2a8cb8ed79dbde317a3f6bd367a039f453cc9d802dbaffff0c80d5392555f5",
+          "statement": "The NUCLEO-G564RE start_from_nucleo project composes board nucleo-g564re_hw-board 2.0.0 (NUG564RE, CR1)."
+        },
+        {
+          "id": "board-device",
+          "source": "board-project",
+          "start_line": 3938,
+          "end_line": 3938,
+          "excerpt_sha256": "1a2a4108cf275a4c1c71202e960f3736b36fba8df22c155462a7fbb46f618130",
+          "statement": "The NUCLEO-G564RE start_from_nucleo project builds for device STM32G564RET3."
+        },
+        {
+          "id": "gpio-port-u1",
+          "source": "gpio-port-bom",
+          "start_line": 192,
+          "end_line": 192,
+          "excerpt_sha256": "78c243f6b286eca1503174997b3e5e87102f2aa8782efa1054eb3bcca21f782c",
+          "statement": "The MB2067 bill of materials identifies U1 as the target MCU."
+        }
+      ],
+      "PC13": [
+        {
+          "id": "board-B1-3",
+          "source": "board-project",
+          "start_line": 1879,
+          "end_line": 1895,
+          "excerpt_sha256": "e990440a3e07ed741c4acc4b90c0a2a8732e46d2f0b58e72232de88fddc712d9",
+          "statement": "Board composition: board part B1 (KSC721JLFS) pin 3 is connected to device package position 1."
+        },
+        {
+          "id": "board-B1-4",
+          "source": "board-project",
+          "start_line": 1896,
+          "end_line": 1912,
+          "excerpt_sha256": "b12bdac5feb4e7269557a1cd8e5d2ce5d345d53f4f71cf1fd94a3e5068fa1790",
+          "statement": "Board composition: board part B1 (KSC721JLFS) pin 4 is connected to device package position 1."
+        },
+        {
+          "id": "board-part-SB5",
+          "source": "board-mounted",
+          "start_line": 201,
+          "end_line": 201,
+          "excerpt_sha256": "3b2b20854408f4643329545a694fc5f4194d50d34e452b27b78dda7c0374f05d",
+          "statement": "Board part list records whether this bridge is mounted on MB2067 B02."
+        }
+      ],
+      "PE2": [
+        {
+          "id": "board-part-SB29",
+          "source": "board-mounted",
+          "start_line": 225,
+          "end_line": 225,
+          "excerpt_sha256": "d1d44f37fb569b7ce7a011b06351a9b319dea5b1f226e1e29568c0a11f89c0d5",
+          "statement": "Board part list records whether this bridge is mounted on MB2067 B02."
+        },
+        {
+          "id": "board-part-SB35",
+          "source": "board-mounted",
+          "start_line": 231,
+          "end_line": 231,
+          "excerpt_sha256": "9b694f4e2e1bb094e50668363b88f9ce9d1b83a525d2a1d490fb81a39fbbf631",
+          "statement": "Board part list records whether this bridge is mounted on MB2067 B02."
+        }
+      ],
+      "PD11": [
+        {
+          "id": "board-part-SB40",
+          "source": "board-mounted",
+          "start_line": 235,
+          "end_line": 235,
+          "excerpt_sha256": "856fe46310978a6490067eff54edd2ff95161a643d93d97cad8cdf19527a0aa9",
+          "statement": "Board part list records whether this bridge is mounted on MB2067 B02."
+        }
+      ],
+      "PA13": [
+        {
+          "id": "board-U13-L2",
+          "source": "board-project",
+          "start_line": 1930,
+          "end_line": 1955,
+          "excerpt_sha256": "c6fe91c05d13f94e625f5311e46cdc2a83076734f20eb5fba2cc2974d515bdf7",
+          "statement": "Board composition: board part U13 (STLINK-V3EC) pin L2 is connected to device package position 59."
+        }
+      ],
+      "PA14": [
+        {
+          "id": "board-U13-M11",
+          "source": "board-project",
+          "start_line": 1956,
+          "end_line": 1981,
+          "excerpt_sha256": "50e833bfec7e9a9c69fd0d8cf4b9bac75fed850d3a3f8b85e983c32673cee9b0",
+          "statement": "Board composition: board part U13 (STLINK-V3EC) pin M11 is connected to device package position 60."
+        }
+      ],
+      "PB3": [
+        {
+          "id": "board-U13-D12",
+          "source": "board-project",
+          "start_line": 1982,
+          "end_line": 2007,
+          "excerpt_sha256": "9f77ca1e1316a37e8999fae902354141a9bd8f47b787eaeadad4a5b534dbdb17",
+          "statement": "Board composition: board part U13 (STLINK-V3EC) pin D12 is connected to device package position 57."
+        }
+      ],
+      "PC14": [
+        {
+          "id": "board-X2-2",
+          "source": "board-project",
+          "start_line": 2086,
+          "end_line": 2111,
+          "excerpt_sha256": "9da46640ebdd9402072b1d15a50e21c8d4f13900e0c6634873f864a78b4b3395",
+          "statement": "Board composition: board part X2 (NX1610SE-32.768KHz-EXS00A-MU01499) pin 2 is connected to device package position 3."
+        }
+      ],
+      "PC15": [
+        {
+          "id": "board-X2-1",
+          "source": "board-project",
+          "start_line": 2060,
+          "end_line": 2085,
+          "excerpt_sha256": "8d6fda66859f0cc77721a8b82ec32d003a6c81573ee43cd3705b6eb12d55ac60",
+          "statement": "Board composition: board part X2 (NX1610SE-32.768KHz-EXS00A-MU01499) pin 1 is connected to device package position 4."
+        }
+      ],
+      "PH0": [
+        {
+          "id": "board-X3-1",
+          "source": "board-project",
+          "start_line": 2112,
+          "end_line": 2137,
+          "excerpt_sha256": "f6e7b69641f0aceff833c9b6d5747503b6b7828addc21e87771073724c10bffd",
+          "statement": "Board composition: board part X3 (NX2016SA-24MHz-EXS00A-CS10820) pin 1 is connected to device package position 8."
+        }
+      ],
+      "PH1": [
+        {
+          "id": "board-X3-3",
+          "source": "board-project",
+          "start_line": 2138,
+          "end_line": 2163,
+          "excerpt_sha256": "28579a5ce7676579b980aa1c6cc4d2485b34861a5cca681948f5e0a5d803873d",
+          "statement": "Board composition: board part X3 (NX2016SA-24MHz-EXS00A-CS10820) pin 3 is connected to device package position 9."
+        }
+      ]
+    }
+  },
+  "profile_pads": {
+    "play_logic_gate": {
+      "PC13": "routed_header",
+      "PE2": "routed_header",
+      "PD11": "routed_header"
+    },
+    "play_signal_route": {
+      "PC13": "routed_header",
+      "PE2": "routed_header",
+      "PD11": "routed_header"
+    },
+    "play_software_gate": {
+      "PC13": "routed_header",
+      "PE2": "routed_header",
+      "PD11": "routed_header"
+    }
+  },
+  "assumption": "Target is nominal NUCLEO-G564RE, MB2067 B02. PLAY allocation uses the Cube board composition, board netlist and bridge population. PC13 is the active-high B1 input through SB5. Attached shields, external drivers, modifications and actual bridge state must be checked by the operator."
+}

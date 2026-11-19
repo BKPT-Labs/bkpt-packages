@@ -2,8 +2,8 @@
   "schema": 1,
   "id": "stm32g5-device-v1",
   "base": {
-    "stage": "play-layer.json",
-    "note": "The layer the inventory stage starts from is written by stm32g5/tests/regenerate_graph.py from play-layer.json; no hand-written base graph exists for this package."
+    "git_blob": "ae37b8863ac8ecf3081993c85d390ad7cde0196a",
+    "sha256": "90fe1e41f9b9be60fa383301e6ba96b7b6add7f745e1766e41444d93398c6c39"
   },
   "target": "NUCLEO-G564RE",
   "resource_prefix": "STM32G564RET3",
@@ -43,5 +43,6 @@
     "handler_suffix": "_IRQHandler",
     "last_core_vector": "SysTick_Handler"
   },
-  "assumption": "Inventory pins, signal routes and interrupts transcribe machine-readable descriptors: they record what is declared, not electrical behaviour, board wiring or a usable capability."
+  "assumption": "Inventory pins, signal routes and interrupts transcribe machine-readable descriptors: they record what is declared, not electrical behaviour, board wiring or a usable capability.",
+  "foundation_manifest": "foundation-inputs/manifest.json"
 }

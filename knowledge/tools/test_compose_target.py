@@ -408,6 +408,18 @@ class Corpus(unittest.TestCase):
         self.assertEqual([scope["id"] for scope in twice["scopes"]][-4:], ["PART-C", "SMALL", "mine", "second"])
         self.assertEqual(twice["memberships"][len(once["memberships"]):], [{"child": "second", "parent": "PART-C", "evidence": "second-description"}])
 
+    def test_same_part_board_reuses_the_exact_pinout(self):
+        recipe = copy.deepcopy(self.RECIPE)
+        recipe["target"].update(part="PART-R", package="BIG")
+        recipe["package"]["pinout"]["path"] = "big.json"
+        recipe["corpus"]["pinout"].update(id="pinout", path="big.json")
+        hashes = {"pinout": "b", "board": "owner-hash"}
+        catalog = support.corpus_overlay(self.CATALOG, recipe, self.MANIFEST, hashes)
+        self.assertEqual(catalog["sources"][1], self.CATALOG["sources"][1])
+        self.assertEqual([s["id"] for s in catalog["sources"]], ["pack", "pinout", "mine-description"])
+        with self.assertRaisesRegex(SystemExit, "same pinned descriptor"):
+            support.corpus_overlay(self.CATALOG, recipe, self.MANIFEST, {**hashes, "pinout": "different"})
+
     def test_what_does_not_fit_the_catalog_is_refused(self):
         with self.assertRaises(SystemExit):
             self.overlay(self.overlay())
@@ -552,6 +564,8 @@ class Boards(unittest.TestCase):
     # Every checked-in recipe and the graph it composes to. A change of these
     # bytes is a change of the graph on main and is made here on purpose.
     COMPOSED = {
+        "stm32g5/targets/nucleo-g564re.json": "f371eb74a51d10d0dfb4e89c6eb390fc47720c578c44afe66f25f25ed62e306d",
+        "stm32g5/targets/declared-g564re-usbc.json": "4b41551a1e8e00e94448bb494d04cec5f987d24420dac4e385e871211750d2eb",
         "stm32c5/targets/nucleo-c542rc.json": "9eb802d52285c391c4735b183bba51f51fe7cf2573e96c904d779eb9936b0603",
         "stm32c5/targets/stm32c542cc-lqfp48-declared.json": "2aea13fcbdf1570fe37acbaf7c5898226f54a2f6f18c7a342d67bc57f79a34b5",
         "stm32c5/targets/stm32c542kc-lqfp32-declared.json": "0202dbcd9f18ea2ea163a9d886edf6605048c88a113334407f3c3360e42b66f8",

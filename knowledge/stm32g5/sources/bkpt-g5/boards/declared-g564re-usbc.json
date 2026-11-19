@@ -1,0 +1,15 @@
+{
+  "board": "declared-g564re-usbc",
+  "description": "Worked owner declaration. USB Type-C uses both CC pins; other unnamed pads are declared free.",
+  "part": "STM32G564RET3",
+  "package": "LQFP64",
+  "unlisted_pads": "free",
+  "reserved": {
+    "PA8": "usb",
+    "PA9": "usb"
+  },
+  "excluded": {},
+  "clock": {
+    "source": "internal_hsi"
+  }
+}

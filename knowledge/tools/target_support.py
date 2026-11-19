@@ -152,6 +152,12 @@ def corpus_overlay(catalog, recipe, manifest, hashes):
          "uri": spec["board"]["uri"], "revision": spec["board"]["revision"], "authority": spec["board"]["authority"],
          "scopes": [target["board"]], "options": {}},
     ]
+    if spec["pinout"]["id"] == pinout["id"]:
+        # A second board on the same ordering code uses the original descriptor.
+        if (target["part"] not in pinout["scopes"] or pinout["options"].get("package") != target["package"]
+                or pinout["sha256"] != hashes["pinout"] or pinout["path"] != spec["pinout"]["path"]):
+            raise SystemExit("an existing pinout id can only reuse the same pinned descriptor, part and package")
+        added.pop(0)
     if {source["id"] for source in added} & {source["id"] for source in catalog["sources"]}:
         raise SystemExit("the catalog already has a source with one of these ids")
     catalog["sources"] += added

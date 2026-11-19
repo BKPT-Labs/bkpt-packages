@@ -180,6 +180,18 @@ class Domains:
             self.declared_board(spec)
         else:
             self.netlist_board(spec)
+        for holder, excerpts in spec.get("citations", {}).items():
+            if holder != "target" and holder not in self.net_cite:
+                raise SystemExit(f"board citations require a target or bonded board pad, got {holder}")
+            record = self.target if holder == "target" else self.resource(holder)
+            for entry in excerpts:
+                source = self.source(entry["source"])
+                start, end = entry["start_line"], entry["end_line"]
+                if (self.declared_scopes.get(source.id) != "board" or entry["id"] in self.graph.evidence_ids
+                        or not 1 <= start <= end <= len(source.lines)
+                        or inventory.sha256(source.excerpt(start, end).encode()) != entry["excerpt_sha256"]):
+                    raise SystemExit(f"invalid board citation {entry['id']} for {holder}")
+                extend(record, [self.graph.cite(entry["id"], source, start, end, entry["statement"])])
         for old, new in self.config.get("assumption_replacements", []):
             # A reviewed assumption that names the old, narrower domain is restated.
             if self.target["assumptions"].count(old) != 1:
@@ -280,6 +292,9 @@ class Domains:
 
     def netlist_board(self, spec):
         """Classify every configurable pad by what its board net carries."""
+        for key, value in spec.get("identity", {}).items():
+            if key not in ("part", "package", "board") or self.target[key] != value:
+                raise SystemExit(f"netlist does not describe this target's {key}")
         netlist = self.sources[spec["source"]]
         passive = re.compile(spec["passive_members"])
         nets = {}
@@ -1071,12 +1086,40 @@ class Domains:
                                              agree.format(*match.groups(), instance=name)))
                 self.mark(signal.value["name"], marks, cites)
 
+    def routed_pads(self, spec, rule, general):
+        # The reviewed base already connects each sub-resource to its pad.
+        # Keep those routes intact. The board controls which endpoints may be used.
+        routed = spec["routed_pads"]
+        kinds = {r["id"]: r["kind"] for r in self.value["resources"]}
+        extra = spec.get("extra_pads", {})
+        if set(extra) - self.net_cite.keys():
+            raise SystemExit("a routed pad allowance names an unbonded pad")
+        if self.config["board"]["kind"] == "declared" and set(extra) - set(self.eligible):
+            raise SystemExit("a profile cannot release a pad the owner reserves or excludes")
+        reserved = {r["resource"] for r in self.target["reservations"]}
+        marked = set()
+        for edge in self.value["edges"]:
+            if edge["relation"] != routed["relation"] or kinds[edge["from"]] != routed["from_kind"]:
+                continue
+            pin = self.name(edge["to"])
+            if edge["to"] in reserved or (pin not in self.eligible and pin not in extra):
+                continue
+            record = self.resource(pin)
+            if record["kind"] != "pin" or self.withheld(pin, record):
+                continue
+            record["attributes"].update(routed["pad_attribute"])
+            extend(record, [self.net_cite[pin], self.policy(extra[pin]) if pin in extra else general, rule])
+            marked.add(pin)
+        return {"relation": routed["relation"], "from_kind": routed["from_kind"], "pads": sorted(marked)}
+
     def profile(self, spec):
         """Let a capability take a covered instance and each of its signals on
         any allowed pad the signal is routed to. The reviewed instance and
         pads stay the first choice; the alternate function is bound from the
         selected route."""
         rule, general = self.policy(spec["policy"]), self.policy("general")
+        if "routed_pads" in spec:
+            return self.routed_pads(spec, rule, general)
         instance = spec["instance"]
         instance_rule = self.policy(instance["policy"])
         extra = spec.get("extra_pads", {})
@@ -1449,9 +1492,14 @@ class Domains:
             extend(record, [rule])
         symbols = [self.graph.cite_symbol("inv-api", self.source(source), symbol) for source, symbol in spec.get("symbols", [])]
         evidence = [rule, general, *symbols, *spec.get("evidence", [])]
-        for records, identifier in ((self.value["capabilities"], spec["capability"]), (self.value["implementations"], spec["card"])):
-            if any(record["id"] == identifier for record in records):
-                raise SystemExit(f"{identifier} already exists")
+        card = spec["card"]
+        reviewed = spec.get("use_reviewed_card", False)
+        if reviewed:
+            find(self.value["implementations"], card)
+        elif any(record["id"] == card for record in self.value["implementations"]):
+            raise SystemExit(f"{card} already exists")
+        if any(record["id"] == spec["capability"] for record in self.value["capabilities"]):
+            raise SystemExit(f"{spec['capability']} already exists")
         parameters = copy.deepcopy(spec.get("parameters", {}))
         if "pin" in parameters:
             raise SystemExit(f"{spec['capability']}: the pad choice is added here")
@@ -1466,8 +1514,9 @@ class Domains:
             "links": [], "implementations": [spec["card"]], "parameter_constraints": [], "domain_complete": False,
             "closure_evidence": [], "evidence": list(evidence),
         })
-        self.value["implementations"].append({"id": spec["card"], "target": self.graph.target, "guidance": spec["guidance"],
-                                              "evidence": list(evidence), "edits": []})
+        if not reviewed:
+            self.value["implementations"].append({"id": card, "target": self.graph.target, "guidance": spec["guidance"],
+                                                  "evidence": list(evidence), "edits": []})
         return len(pins)
 
     def static_edits(self, spec):
@@ -1590,14 +1639,17 @@ def run(graph, sources, summary, inventory_config, config, source_root):
     domains.board()
     domains.foundation_pads()
     summary["general_allocation_pads"] = len(domains.eligible)
-    summary["gpio_output_pads"] = domains.gpio_output()
-    summary["gpio_interrupt_pads"] = domains.gpio_interrupt()
+    if "gpio_output" in config:
+        summary["gpio_output_pads"] = domains.gpio_output()
+    if "gpio_interrupt" in config:
+        summary["gpio_interrupt_pads"] = domains.gpio_interrupt()
     domains.templates()
     if config.get("route_marks"):
         summary["route_marks"] = domains.route_marks()
-    summary["promoted_instances"], skipped = domains.classes()
-    if skipped:
-        summary["instances_not_promoted"] = skipped
+    if "peripherals" in config or "instance_classes" in config:
+        summary["promoted_instances"], skipped = domains.classes()
+        if skipped:
+            summary["instances_not_promoted"] = skipped
     summary["profiles"] = [domains.profile(spec) for spec in config["profiles"]]
     summary["allocations"] = {spec["capability"]: domains.allocation(spec) for spec in config.get("allocations", [])}
     if config.get("instance_capabilities"):

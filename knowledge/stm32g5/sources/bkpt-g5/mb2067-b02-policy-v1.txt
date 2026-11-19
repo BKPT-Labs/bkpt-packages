@@ -1,0 +1,5 @@
+BKPT nominal MB2067 B02 board policy. SPDX-License-Identifier: LicenseRef-BKPT-Proprietary
+General: use header-only pads for general GPIO allocation.
+Debug: reserve the three board debug connections.
+Clock: reserve the external oscillator connections.
+PLAY: in addition to general pads allow PC13 for input via B1/SB5, PE2 for input with SB29 and SB35 open, and PD11 for output with SB40 open. External connections and actual population require confirmation.

@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "id": "g5-hal2-declared-usbc",
+  "directory": "g5-hal2-declared-usbc-1",
+  "base": {
+    "id": "g5-hal2-minimal",
+    "sha256": "7f06391c64c414729663ba96519b403a3782e881194dd95d4e16bf8fdd7efd53"
+  },
+  "parts": [
+    "STM32G564RET3"
+  ],
+  "boards": [
+    "declared-g564re-usbc"
+  ],
+  "build_values": {
+    "board": "NUCLEO-G564RE"
+  },
+  "configuration": [
+    "Identical STM32G564RET3 startup and build inputs. The captured preset uses the Nucleo label. The system PLL runs from HSI."
+  ],
+  "provenance": {
+    "uri": "bkpt-foundation://g5-hal2-minimal-1",
+    "revision": "owner-board-1",
+    "locator": "Base manifest and its unchanged file hashes."
+  },
+  "board_declares": {
+    "clock": {
+      "source": "internal_hsi"
+    }
+  },
+  "sha256": "355894d535eb6a15fe1072d78c660cd7d3e0e79a38a85aeae1e26e5934c46a67"
+}

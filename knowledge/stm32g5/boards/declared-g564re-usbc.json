@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "sources": [
+    {
+      "id": "board-description",
+      "path": "bkpt-g5/boards/declared-g564re-usbc.json",
+      "sha256": "d67a86df23a1449811dd33f15f584749414f2d148797876de3fc789a644b4be6",
+      "revision": "worked example v1",
+      "authority": "bkpt_declared_board_example",
+      "scope": "board"
+    },
+    {
+      "id": "declared-policy",
+      "path": "bkpt-g5/declared-board-policy-v1.txt",
+      "sha256": "9e80d0dbc1bfeed590815661f3dbc691d75b40bf95538d129aed7f136c8996d2",
+      "revision": "version 1",
+      "authority": "bkpt_engineering_policy",
+      "scope": "policy"
+    }
+  ],
+  "policy": {
+    "source": "declared-policy",
+    "label": "Declared board policy",
+    "evidence_prefix": "declared-rule",
+    "lines": {
+      "general": 2,
+      "usb": 3
+    }
+  },
+  "board": {
+    "kind": "declared",
+    "source": "board-description"
+  },
+  "assumption": "The owner declaration supplies the pad reservations. No schematic or populated board has been verified."
+}

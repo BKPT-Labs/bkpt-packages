@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "id": "declared-g564re-usbc",
+  "inventory": "../imports/device-inventory.json",
+  "domains": "../imports/device-domains.json",
+  "briefs": "../imports/capability-briefs.json",
+  "board": "../boards/declared-g564re-usbc.json",
+  "target": {
+    "id": "declared-g564re-usbc",
+    "board": "declared-g564re-usbc",
+    "part": "STM32G564RET3",
+    "package": "LQFP64",
+    "resource_prefix": "STM32G564RET3"
+  },
+  "package": {
+    "pinout": {
+      "path": "stm32g5xx-dfp/Descriptors/pinout/STM32G5(5-6)4R(B-C-E)Tx(Z-_)_pinout.json",
+      "revision": "ST DFP 2.0.0",
+      "sha256": "164283b38897a01d2ef6e0099c3a387b3f05f62b90ea6967cdc37f5b2a2b0154"
+    }
+  },
+  "foundation": "../foundations/g5-hal2-declared-usbc.json",
+  "corpus": {
+    "catalog": "../catalog/stm32g5.json",
+    "like_board": "NUCLEO-G564RE",
+    "pack_description": "dfp",
+    "backend_version": "foundation-1",
+    "pinout": {
+      "like": "pinout",
+      "id": "pinout",
+      "path": "stm32g5xx-dfp/Descriptors/pinout/STM32G5(5-6)4R(B-C-E)Tx(Z-_)_pinout.json"
+    },
+    "board": {
+      "id": "declared-g564re-usbc-owner",
+      "path": "bkpt-g5/boards/declared-g564re-usbc.json",
+      "uri": "bkpt-board://declared/g564re-usbc/1",
+      "revision": "worked example v1",
+      "authority": "community",
+      "name": "Owner-declared STM32G564RET3 LQFP64 with USB-C reserved"
+    }
+  }
+}

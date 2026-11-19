@@ -16,7 +16,7 @@
     },
     {
       "capability": "gpio_output",
-      "brief": "Application-owned GPIO output on a header-only NUCLEO-G564RE net"
+      "brief": "Application-owned GPIO output on a board-eligible pad"
     },
     {
       "capability": "crc32_checksum",
@@ -28,7 +28,7 @@
     },
     {
       "capability": "gpio_input",
-      "brief": "Application-owned GPIO input on a header-only NUCLEO-G564RE net"
+      "brief": "Application-owned GPIO input on a board-eligible pad"
     }
   ]
 }

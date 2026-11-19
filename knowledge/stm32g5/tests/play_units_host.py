@@ -18,7 +18,7 @@ What is checked:
   LSI, truth table write and kernel clock faults, software trigger misuse and a
   later unit's restart of PLAY1;
 * with BKPT_KNOWLEDGE_SOURCE_ROOT set: graph.json is byte for byte what
-  regenerate_graph.py writes from the pinned inputs.
+  compose_target.py writes from the pinned inputs.
 
 The model is not the hardware: see play_hal_model.c. Build outputs go to a
 temporary folder that is removed.
@@ -36,9 +36,29 @@ import unittest
 HERE = pathlib.Path(__file__).resolve().parent
 PACKAGE = HERE.parent
 sys.path.insert(0, str(HERE))
-import regenerate_graph  # noqa: E402
+sys.path.insert(0, str(PACKAGE.parent / "tools"))
+import compose_target
+import author_device_inventory as inventory
 
 SCENARIOS = ("compose", "twice", "lsi", "truth_write", "kernel_clock", "triggers", "restart")
+
+
+def truth_table(expression: str) -> str:
+    """The SDK's documented encoding: bit i is set when the expression holds
+    with A = bit 0, B = bit 1, C = bit 2 and D = bit 3 of i."""
+    expressions = {
+        "A": lambda a, b: a,
+        "!A": lambda a, b: not a,
+        "A & B": lambda a, b: a and b,
+        "A | B": lambda a, b: a or b,
+        "A ^ B": lambda a, b: a != b,
+        "!(A & B)": lambda a, b: not (a and b),
+        "!(A | B)": lambda a, b: not (a or b),
+        "!(A ^ B)": lambda a, b: a == b,
+    }
+    operation = expressions[expression]
+    value = sum(1 << i for i in range(16) if operation(bool(i & 1), bool(i & 2)))
+    return f"0x{value:04X}"
 
 
 def graph():
@@ -46,7 +66,7 @@ def graph():
 
 
 def layer():
-    return json.loads((PACKAGE / "imports/play-layer.json").read_text(encoding="utf-8"))
+    return json.loads((PACKAGE / "tests/play-fixture.json").read_text(encoding="utf-8"))
 
 
 # Expected output bits in input order 00, 01, 10, 11 (A is bit 0).
@@ -159,8 +179,8 @@ def build_and_run(units, label):
             parameters.update({f"pull_{x}": pulls[k] for k, x in enumerate(spec["inputs"])})
             values = g.bindings(capability, spec["card"], unit, parameters, chosen)
             for file in g.cards[spec["card"]]["component"]["files"]:
-                record = next(s for s in lay["sources"] if s["id"] == file["template"])
-                text = expand((PACKAGE / record["package_file"]).read_text(encoding="utf-8"), values)
+                record = next(s for s in g.value["sources"] if s["id"] == file["template"])
+                text = expand((PACKAGE / "sources" / record["path"]).read_text(encoding="utf-8"), values)
                 path = work / expand(file["path"], values).split("/")[-1]
                 path.write_text(text, encoding="utf-8", newline="\n")
                 if path.suffix == ".c":
@@ -217,7 +237,7 @@ class PlayGraph(unittest.TestCase):
             table = self.g.cards[spec["card"]]["component"]["bindings"]["truth_table"]["map"]
             for function in spec["functions"]:
                 expression = self.layer["truth_tables"][function]["expression"]
-                self.assertEqual(table[function], regenerate_graph.truth_table(expression), function)
+                self.assertEqual(table[function], truth_table(expression), function)
                 # Independent of inputs C and D: bits repeat every 4 combinations.
                 value = int(table[function], 16)
                 self.assertEqual(value, (value & 0xF) * 0x1111, function)
@@ -246,18 +266,54 @@ class PlayGraph(unittest.TestCase):
         self.assertEqual(outputs, ["PB1", "PB14", "PD11", "PD12"])
         self.assertTrue(board <= set(inputs))
 
+    def test_gpio_cards_enable_and_compile_the_driver_without_play(self):
+        for cap in ("gpio_input", "gpio_output"):
+            edits = [e for card in self.g.capabilities[cap]["implementations"] for e in self.g.cards[card]["edits"]]
+            self.assertTrue(any(e["path"].endswith("/stm32g5xx_hal_conf.h")
+                                and re.fullmatch(r"#define\s+USE_HAL_GPIO_MODULE\s+1U", e["new"]) for e in edits))
+            self.assertTrue(any(e["path"] == "CMakeLists.txt"
+                                and "stm32g5xx_drivers/hal/stm32g5xx_hal_gpio.c" in e["new"] for e in edits))
+
+    def test_cc_pads_select_one_shared_startup_write_only_with_permission(self):
+        affected = [r for r in self.g.value["resources"] if "ucpd_dead_battery" in r["conditions"]]
+        self.assertEqual(sorted(r["id"] for r in affected), ["STM32G564RET3.PA8", "STM32G564RET3.PA9"])
+        self.assertEqual({r["conditions"]["ucpd_dead_battery"] for r in affected}, {"disable_permitted_on_both_cc_pins"})
+        self.assertNotIn("ucpd_dead_battery", self.g.value["targets"][0]["context"])
+        card = "hal2.ucpd-disable-dead-battery"
+        self.assertEqual({r["implementation"] for r in affected}, {card})
+        self.assertTrue(all(card not in c["implementations"] for c in self.g.value["capabilities"]))
+        edits = self.g.cards[card]["edits"]
+        self.assertEqual(len(edits), 1)
+        self.assertEqual((edits[0]["path"], edits[0]["new"].strip()), ("main.c", "HAL_PWR_LP_DisableUCPDDeadBattery();"))
+
+    @unittest.skipUnless(os.environ.get("BKPT_KNOWLEDGE_SOURCE_ROOT"), "requires the pinned sources")
+    def test_owner_board_keeps_chip_routes_and_reserves_both_cc_pads(self):
+        built, _ = compose_target.compose(PACKAGE / "targets/declared-g564re-usbc.json",
+                                          pathlib.Path(os.environ["BKPT_KNOWLEDGE_SOURCE_ROOT"]))
+        owner = Graph(built.value)
+        self.assertEqual({(e["from"], e["to"], e["relation"]) for e in self.g.value["edges"]},
+                         {(e["from"], e["to"], e["relation"]) for e in owner.value["edges"]})
+        self.assertEqual({s["id"] for s in owner.value["sources"] if s["scope"] == "board"}, {"board-description"})
+        reserved = {r["resource"] for r in owner.value["targets"][0]["reservations"]}
+        self.assertEqual(reserved, {"STM32G564RET3.PA8", "STM32G564RET3.PA9"})
+        for pin in reserved:
+            self.assertEqual(owner.resources[pin]["conditions"], self.g.resources[pin]["conditions"])
+            self.assertNotIn("general_allocation", owner.resources[pin]["attributes"])
+        self.assertNotIn("supports_gpio_output", self.g.resources["STM32G564RET3.PC13"]["attributes"])
+        self.assertEqual(owner.resources["STM32G564RET3.PC13"]["attributes"]["supports_gpio_output"], "true")
+
     def test_schema_and_briefs(self):
         self.assertEqual(self.g.value["schema"], 6)
         for cap in self.g.value["capabilities"]:
             self.assertTrue(0 < len(cap["brief"]) <= 96)
         target = self.g.value["targets"][0]
         manifest = (PACKAGE / "foundation-manifest.json").read_bytes()
-        self.assertEqual(target["foundation_sha256"], regenerate_graph.inventory.sha256(manifest))
+        self.assertEqual(target["foundation_sha256"], inventory.sha256(manifest))
 
     @unittest.skipUnless(os.environ.get("BKPT_KNOWLEDGE_SOURCE_ROOT"), "set BKPT_KNOWLEDGE_SOURCE_ROOT to regenerate")
     def test_graph_regenerates_byte_for_byte(self):
-        built, _ = regenerate_graph.generate(pathlib.Path(os.environ["BKPT_KNOWLEDGE_SOURCE_ROOT"]))
-        self.assertEqual(regenerate_graph.inventory.encoded(built), (PACKAGE / "graph.json").read_bytes())
+        built, _ = compose_target.compose(PACKAGE / "targets/nucleo-g564re.json", pathlib.Path(os.environ["BKPT_KNOWLEDGE_SOURCE_ROOT"]))
+        self.assertEqual(inventory.encoded(built), (PACKAGE / "graph.json").read_bytes())
 
 
 class PlayUnits(unittest.TestCase):

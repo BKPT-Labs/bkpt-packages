@@ -46,11 +46,13 @@ def pages(root):
             }
         data = (json.dumps(extracted, indent=2, ensure_ascii=False) + "\n").encode()
         checked_output(root / row["path"], data, row["sha256"])
-        if original["id"] == "RM0514":
-            units = json.loads((PACKAGE / "imports/hal2-units.json").read_bytes())
-            keys = next(s for s in units["sources"] if s["id"] == "port-rm-iwdg-key")
-            text = extracted["pages"][2490]["text"]
-            checked_output(root / keys["path"], text.encode(), keys["sha256"])
+        graph_inputs = json.loads((PACKAGE / "source-inputs.json").read_bytes())["external"]
+        for source in graph_inputs:
+            prefix = f"pages/{original['id']}-page-"
+            if source["path"].startswith(prefix):
+                page = int(Path(source["path"]).stem.rsplit("-", 1)[1])
+                text = extracted["pages"][page - 1]["text"]
+                checked_output(root / source["path"], text.encode(), source["sha256"])
 
 
 def foundation(root):
@@ -81,3 +83,9 @@ if __name__ == "__main__":
     args = parser.parse_args()
     pages(args.source_root)
     foundation(args.source_root)
+    manifest = (PACKAGE / "foundation-manifest.json").read_bytes()
+    checked_output(args.source_root / "foundation-inputs/manifest.json", manifest, hashlib.sha256(manifest).hexdigest())
+    for path in (PACKAGE / "sources").rglob("*"):
+        if path.is_file():
+            data = path.read_bytes()
+            checked_output(args.source_root / path.relative_to(PACKAGE / "sources"), data, hashlib.sha256(data).hexdigest())

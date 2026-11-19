@@ -414,8 +414,15 @@ def apply_board(config, board, reserved_sources=()):
         outside = sorted(key for key in feature["attributes"] if not key.startswith("board_"))
         if outside or feature["policy"] not in rules or not feature.get("circuit"):
             raise SystemExit(f"board feature {pad} may only add board_ attributes under a board rule, with the circuit that supports it")
-    config["gpio_interrupt"]["feature_pads"] = features
+    if "gpio_interrupt" in config:
+        config["gpio_interrupt"]["feature_pads"] = features
+    elif features:
+        raise SystemExit("board feature_pads require a configured GPIO interrupt profile")
     for profile in config["profiles"]:
+        if "routed_pads" in profile:
+            allowances = [board.get("profile_pads", {}).get(capability, {}) for capability in profile["capabilities"]]
+            if any(pads != allowances[0] for pads in allowances):
+                raise SystemExit("capabilities sharing a routed pad marker need the same board allowances")
         pads = {name: rule for capability in profile["capabilities"]
                 for name, rule in board.get("profile_pads", {}).get(capability, {}).items()}
         if set(pads.values()) - rules:
@@ -449,7 +456,8 @@ def compose(recipe_path: pathlib.Path, source_root: pathlib.Path):
         # The family configuration is written for the die; this package may
         # bond fewer signals and offer fewer of the reviewed choices.
         config["composed"] = True
-        config["peripherals"]["pinout_file"] = pathlib.PurePosixPath(recipe["package"]["pinout"]["path"]).name
+        if "peripherals" in config:
+            config["peripherals"]["pinout_file"] = pathlib.PurePosixPath(recipe["package"]["pinout"]["path"]).name
     inventory_config["id"] = recipe["id"]
     board = load(folder / recipe["board"])
     apply_board(config, board, {source["id"] for source in base["sources"]})

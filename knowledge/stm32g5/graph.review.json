@@ -1,6 +1,6 @@
 {
-  "bundle_sha256": "fe75d9ae9656dbf8105f7a4cf97d429cdbbe7cd8c13d9cffd5b67d03595e2d30",
+  "bundle_sha256": "f371eb74a51d10d0dfb4e89c6eb390fc47720c578c44afe66f25f25ed62e306d",
   "decision": "accept",
-  "reviewer": "Independent Claude Opus 5.5 (claude.ai subscription) and independent Codex reviews accepted these exact bytes as bounded source-backed integration on 2026-11-18. Both checked all 42 source hashes and 1458 excerpt hashes, PLAY clock and shared-unit ownership, board restrictions, and CRC/watchdog bindings. No hardware verification.",
+  "reviewer": "Independent Claude Opus 5.5 (claude.ai subscription) and Codex reviewed these exact composed bytes, including 48 source hashes, 1485 cited excerpts, board-specific pad allocation, resource-level shared initialization and preservation of the seven profiles. Bounded source-backed integration. No hardware qualification.",
   "reviewed_at": "2026-11-18"
 }

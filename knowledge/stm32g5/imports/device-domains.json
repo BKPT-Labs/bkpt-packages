@@ -1,0 +1,146 @@
+{
+  "schema": 1,
+  "graph_schema": 5,
+  "sources": [
+    {
+      "id": "pad-policy",
+      "path": "bkpt-g5/pad-domains-v1.txt",
+      "sha256": "e5241bf325b8652202559180b731eaab0b4962963b9d3a56511aaa465646c77b",
+      "revision": "version 1",
+      "authority": "bkpt_engineering_policy",
+      "scope": "policy"
+    }
+  ],
+  "base_source_scopes": {
+    "dfp": "device",
+    "pinout": "device",
+    "device-header": "device",
+    "startup": "sdk",
+    "gpio-h": "sdk",
+    "gpio-c": "sdk",
+    "rcc-h": "sdk",
+    "rcc-c": "sdk",
+    "play-h": "sdk",
+    "play-c": "sdk",
+    "play-helpers": "sdk",
+    "hal-conf": "sdk",
+    "example-gate-xor-play": "sdk",
+    "example-gate-xor-rcc": "sdk",
+    "example-gate-xor-readme": "sdk",
+    "example-gate-xor-components": "sdk",
+    "example-signal-routing-play": "sdk",
+    "example-counter-play": "sdk",
+    "example-alarm-play": "sdk",
+    "policy": "policy",
+    "template-logic-gate-h": "implementation",
+    "template-logic-gate-c": "implementation",
+    "template-signal-route-h": "implementation",
+    "template-signal-route-c": "implementation",
+    "template-software-gate-h": "implementation",
+    "template-software-gate-c": "implementation",
+    "port-peripherals": "device",
+    "port-crc-c": "sdk",
+    "port-crc-h": "sdk",
+    "port-ownership": "policy",
+    "port-crc32-h-source": "implementation",
+    "port-crc32-c-source": "implementation",
+    "port-iwdg-c": "sdk",
+    "port-iwdg-h": "sdk",
+    "port-iwdg-ll": "sdk",
+    "port-rm-iwdg-key": "device",
+    "port-watchdog-h-source": "implementation",
+    "port-watchdog-c-source": "implementation",
+    "DS14920-cc": "device",
+    "RM0514-cc": "device",
+    "hal-pwr": "sdk",
+    "ll-pwr": "sdk"
+  },
+  "policy": {
+    "source": "pad-policy",
+    "label": "G564 pad allocation policy",
+    "evidence_prefix": "pad-rule",
+    "lines": {
+      "input": 2,
+      "output": 3,
+      "route": 4
+    }
+  },
+  "board_rules": [
+    "general",
+    "debug",
+    "clock",
+    "routed_header",
+    "usb"
+  ],
+  "general_attribute": {
+    "general_allocation": "true"
+  },
+  "profiles": [
+    {
+      "capabilities": [
+        "play_logic_gate",
+        "play_signal_route",
+        "play_software_gate"
+      ],
+      "policy": "route",
+      "routed_pads": {
+        "relation": "play_pad",
+        "from_kind": "play_input",
+        "pad_attribute": {
+          "play_input_pad": "true"
+        }
+      }
+    },
+    {
+      "capabilities": [
+        "play_logic_gate",
+        "play_signal_route",
+        "play_software_gate"
+      ],
+      "policy": "route",
+      "routed_pads": {
+        "relation": "play_pad",
+        "from_kind": "play_output",
+        "pad_attribute": {
+          "play_output_pad": "true"
+        }
+      }
+    }
+  ],
+  "pad_capabilities": [
+    {
+      "capability": "gpio_input",
+      "card": "hal2.gpio-input",
+      "description": "Allocate one board-eligible GPIO input. The application initializes and uses the allocated pin.",
+      "policy": "input",
+      "pad_attribute": {
+        "supports_gpio_input": "true"
+      },
+      "evidence": [
+        "g5-api-HAL_GPIO_Init",
+        "g5-api-HAL_GPIO_ReadPin",
+        "g5-api-HAL_GPIO_MODE_INPUT",
+        "g5-api-HAL_GPIO_PULL_UP",
+        "g5-api-HAL_GPIO_PULL_DOWN"
+      ],
+      "use_reviewed_card": true
+    },
+    {
+      "capability": "gpio_output",
+      "card": "hal2.gpio-output",
+      "description": "Allocate one board-eligible GPIO output. The application initializes and uses the allocated pin.",
+      "policy": "output",
+      "pad_attribute": {
+        "supports_gpio_output": "true"
+      },
+      "evidence": [
+        "g5-api-HAL_GPIO_Init",
+        "g5-api-HAL_GPIO_WritePin",
+        "g5-api-HAL_GPIO_MODE_OUTPUT",
+        "g5-api-HAL_GPIO_OUTPUT_PUSHPULL",
+        "g5-api-HAL_GPIO_SPEED_FREQ_LOW"
+      ],
+      "use_reviewed_card": true
+    }
+  ]
+}
