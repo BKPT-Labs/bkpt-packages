@@ -9,6 +9,46 @@
       "revision": "version 1",
       "authority": "bkpt_engineering_policy",
       "scope": "policy"
+    },
+    {
+      "id": "digital-input-h-source",
+      "path": "bkpt-g5/bkpt-hal2-digital-gpio-v1/input.h.in",
+      "revision": "1",
+      "authority": "bkpt_authored_implementation",
+      "scope": "implementation",
+      "sha256": "ce2a41ae7ae476e8c838016a7af180e78b81fe167a11f35da11f0d11ac2bdb4e"
+    },
+    {
+      "id": "digital-input-c-source",
+      "path": "bkpt-g5/bkpt-hal2-digital-gpio-v1/input.c.in",
+      "revision": "1",
+      "authority": "bkpt_authored_implementation",
+      "scope": "implementation",
+      "sha256": "8d7512300890560ed88f31b2d8e479e995741be0ae9875814c43aa86c40428ab"
+    },
+    {
+      "id": "digital-output-h-source",
+      "path": "bkpt-g5/bkpt-hal2-digital-gpio-v1/output.h.in",
+      "revision": "1",
+      "authority": "bkpt_authored_implementation",
+      "scope": "implementation",
+      "sha256": "b37b7244a49deb19d1b1af4edc11d7e5b2dd4bb6b6a4dfbe082c1cc3bd6f5edd"
+    },
+    {
+      "id": "digital-output-c-source",
+      "path": "bkpt-g5/bkpt-hal2-digital-gpio-v1/output.c.in",
+      "revision": "1",
+      "authority": "bkpt_authored_implementation",
+      "scope": "implementation",
+      "sha256": "218306faa1c862f1bb7666f2bf97c2b7064ac4cb647a22fa3da94ffb53257d1a"
+    },
+    {
+      "id": "digital-gpio-foundation-cmake",
+      "path": "foundation-inputs/CMakeLists.txt",
+      "revision": "STM32CubeG5 2.0.0 no-OS NUCLEO-G564RE CMake template, name-parameterized by prepare_inputs.py",
+      "authority": "manufacturer_derived_layout",
+      "scope": "sdk",
+      "sha256": "20d3f811e70313437c0ebef1a24ee9de780b9b8ce13532e3cd5341cf4a65b7e3"
     }
   ],
   "base_source_scopes": {
@@ -141,6 +181,343 @@
         "g5-api-HAL_GPIO_SPEED_FREQ_LOW"
       ],
       "use_reviewed_card": true
+    },
+    {
+      "capability": "digital_input",
+      "card": "hal2.digital-input",
+      "policy": "input",
+      "pad_attribute": {
+        "supports_gpio_input": "true"
+      },
+      "description": "Read one digital input with a fixed internal pull. read() returns 0 or 1 for a single sample. A floating input has no guaranteed level.",
+      "guidance": "The native component enables the allocated GPIO port clock and initializes one pad after mx_system_init. Do not repeat initialization or reconfigure the pad. read() returns 0 or 1 for a single sample. A floating input has no guaranteed level. Single foreground owner in run mode. No debounce, electrical validation, interrupts, or low-power transitions.",
+      "parameters": {
+        "pull": {
+          "type": "choice",
+          "values": [
+            "none",
+            "up",
+            "down"
+          ]
+        }
+      },
+      "symbols": [
+        [
+          "gpio-h",
+          "HAL_GPIO_MODE_INPUT"
+        ],
+        [
+          "gpio-h",
+          "HAL_GPIO_PULL_NO"
+        ],
+        [
+          "gpio-h",
+          "HAL_GPIO_PULL_UP"
+        ],
+        [
+          "gpio-h",
+          "HAL_GPIO_PULL_DOWN"
+        ],
+        [
+          "gpio-h",
+          "HAL_GPIO_PIN_SET"
+        ],
+        [
+          "gpio-c",
+          "HAL_GPIO_Init",
+          "definition"
+        ],
+        [
+          "gpio-c",
+          "HAL_GPIO_ReadPin",
+          "definition"
+        ]
+      ],
+      "edits_from": {
+        "card": "hal2.play-logic-gate"
+      },
+      "component": {
+        "bindings": {
+          "port": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "pin",
+              "attribute": "port_symbol"
+            }
+          },
+          "pin_mask": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "pin",
+              "attribute": "pin_symbol"
+            }
+          },
+          "clock": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "pin",
+              "attribute": "clock_enable_api"
+            }
+          },
+          "unit": {
+            "source": {
+              "type": "instance"
+            }
+          },
+          "pull": {
+            "source": {
+              "type": "parameter",
+              "name": "pull"
+            },
+            "map": {
+              "none": "HAL_GPIO_PULL_NO",
+              "up": "HAL_GPIO_PULL_UP",
+              "down": "HAL_GPIO_PULL_DOWN"
+            }
+          }
+        },
+        "files": [
+          {
+            "path": "bkpt_components/{{unit}}.h",
+            "template": "digital-input-h"
+          },
+          {
+            "path": "bkpt_components/{{unit}}.c",
+            "template": "digital-input-c"
+          }
+        ],
+        "claims": [],
+        "interface": {
+          "setup": "Already initialized after mx_system_init; include bkpt_components/{{unit}}.h. Use the allocated pin only through this unit.",
+          "operation": "read() returns 0 or 1 for a single sample. A floating input has no guaranteed level.",
+          "declarations": "hal_status_t {{unit}}_init(void);\nuint32_t {{unit}}_read(void);"
+        },
+        "interface_sources": {
+          "declarations": [
+            "digital-input-api-init",
+            "digital-input-api-operation"
+          ]
+        }
+      },
+      "static_edits": [
+        {
+          "path": "generated/hal/stm32g5xx_hal_conf.h",
+          "old": "#define USE_HAL_GPIO_MODULE                     0U",
+          "new": "#define USE_HAL_GPIO_MODULE                     1U",
+          "source": "hal-conf",
+          "mode": "replace"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "old": "  # Add additional source files here",
+          "new": "  stm32g5xx_drivers/hal/stm32g5xx_hal_gpio.c\n",
+          "mode": "insert_before",
+          "source": "digital-gpio-foundation-cmake"
+        }
+      ]
+    },
+    {
+      "capability": "digital_output",
+      "card": "hal2.digital-output",
+      "policy": "output",
+      "pad_attribute": {
+        "supports_gpio_output": "true"
+      },
+      "description": "Drive one push-pull digital output with a defined initial level. write(0) drives low; write(1) drives high; other values return HAL_INVALID_PARAM without writing. Low speed, no internal pull, push-pull. Only drive pads whose external load is safe.",
+      "guidance": "The native component enables the allocated GPIO port clock and initializes one pad after mx_system_init. Do not repeat initialization or reconfigure the pad. write(0) drives low; write(1) drives high; other values return HAL_INVALID_PARAM without writing. Low speed, no internal pull, push-pull. Only drive pads whose external load is safe. Single foreground owner in run mode. No debounce, electrical validation, interrupts, or low-power transitions.",
+      "parameters": {
+        "initial": {
+          "type": "choice",
+          "values": [
+            "low",
+            "high"
+          ]
+        }
+      },
+      "symbols": [
+        [
+          "gpio-h",
+          "HAL_GPIO_MODE_OUTPUT"
+        ],
+        [
+          "gpio-h",
+          "HAL_GPIO_OUTPUT_PUSHPULL"
+        ],
+        [
+          "gpio-h",
+          "HAL_GPIO_PULL_NO"
+        ],
+        [
+          "gpio-h",
+          "HAL_GPIO_SPEED_FREQ_LOW"
+        ],
+        [
+          "gpio-h",
+          "HAL_GPIO_PIN_SET"
+        ],
+        [
+          "gpio-h",
+          "HAL_GPIO_PIN_RESET"
+        ],
+        [
+          "gpio-c",
+          "HAL_GPIO_Init",
+          "definition"
+        ],
+        [
+          "gpio-c",
+          "HAL_GPIO_WritePin",
+          "definition"
+        ]
+      ],
+      "edits_from": {
+        "card": "hal2.play-logic-gate"
+      },
+      "component": {
+        "bindings": {
+          "port": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "pin",
+              "attribute": "port_symbol"
+            }
+          },
+          "pin_mask": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "pin",
+              "attribute": "pin_symbol"
+            }
+          },
+          "clock": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "pin",
+              "attribute": "clock_enable_api"
+            }
+          },
+          "unit": {
+            "source": {
+              "type": "instance"
+            }
+          },
+          "initial": {
+            "source": {
+              "type": "parameter",
+              "name": "initial"
+            },
+            "map": {
+              "low": "HAL_GPIO_PIN_RESET",
+              "high": "HAL_GPIO_PIN_SET"
+            }
+          }
+        },
+        "files": [
+          {
+            "path": "bkpt_components/{{unit}}.h",
+            "template": "digital-output-h"
+          },
+          {
+            "path": "bkpt_components/{{unit}}.c",
+            "template": "digital-output-c"
+          }
+        ],
+        "claims": [],
+        "interface": {
+          "setup": "Already initialized after mx_system_init; include bkpt_components/{{unit}}.h. Use the allocated pin only through this unit.",
+          "operation": "write(0) drives low; write(1) drives high; other values return HAL_INVALID_PARAM without writing. Low speed, no internal pull, push-pull. Only drive pads whose external load is safe.",
+          "declarations": "hal_status_t {{unit}}_init(void);\nhal_status_t {{unit}}_write(uint32_t level);"
+        },
+        "interface_sources": {
+          "declarations": [
+            "digital-output-api-init",
+            "digital-output-api-operation"
+          ]
+        }
+      },
+      "static_edits": [
+        {
+          "path": "generated/hal/stm32g5xx_hal_conf.h",
+          "old": "#define USE_HAL_GPIO_MODULE                     0U",
+          "new": "#define USE_HAL_GPIO_MODULE                     1U",
+          "source": "hal-conf",
+          "mode": "replace"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "old": "  # Add additional source files here",
+          "new": "  stm32g5xx_drivers/hal/stm32g5xx_hal_gpio.c\n",
+          "mode": "insert_before",
+          "source": "digital-gpio-foundation-cmake"
+        }
+      ],
+      "cites": [
+        {
+          "id": "digital-output-latch-init",
+          "source": "gpio-c",
+          "start": 350,
+          "end": 355,
+          "statement": "HAL_GPIO_Init writes the selected initial output state before the following per-pin mode configuration."
+        }
+      ]
+    }
+  ],
+  "templates": [
+    {
+      "id": "digital-input-h",
+      "source": "digital-input-h-source",
+      "statement": "BKPT generated digital input component interface.",
+      "start": 1,
+      "end": 47
+    },
+    {
+      "id": "digital-input-api-init",
+      "source": "digital-input-h-source",
+      "statement": "Exact source-bound declaration.",
+      "start": 42,
+      "end": 42
+    },
+    {
+      "id": "digital-input-api-operation",
+      "source": "digital-input-h-source",
+      "statement": "Exact source-bound declaration.",
+      "start": 43,
+      "end": 43
+    },
+    {
+      "id": "digital-input-c",
+      "source": "digital-input-c-source",
+      "statement": "BKPT generated digital input component implementation.",
+      "start": 1,
+      "end": 49
+    },
+    {
+      "id": "digital-output-h",
+      "source": "digital-output-h-source",
+      "statement": "BKPT generated digital output component interface.",
+      "start": 1,
+      "end": 47
+    },
+    {
+      "id": "digital-output-api-init",
+      "source": "digital-output-h-source",
+      "statement": "Exact source-bound declaration.",
+      "start": 42,
+      "end": 42
+    },
+    {
+      "id": "digital-output-api-operation",
+      "source": "digital-output-h-source",
+      "statement": "Exact source-bound declaration.",
+      "start": 43,
+      "end": 43
+    },
+    {
+      "id": "digital-output-c",
+      "source": "digital-output-c-source",
+      "statement": "BKPT generated digital output component implementation.",
+      "start": 1,
+      "end": 57
     }
   ]
 }

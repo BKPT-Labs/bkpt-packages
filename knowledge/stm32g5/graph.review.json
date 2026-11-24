@@ -1,6 +1,6 @@
 {
-  "bundle_sha256": "f371eb74a51d10d0dfb4e89c6eb390fc47720c578c44afe66f25f25ed62e306d",
+  "bundle_sha256": "b3f8ee50f75c0f6d9b8456e76fcd3b2bac0d8d035300bb6de7171c41d697a65a",
   "decision": "accept",
-  "reviewer": "Independent Claude Opus 5.5 (claude.ai subscription) and Codex reviewed these exact composed bytes, including 48 source hashes, 1485 cited excerpts, board-specific pad allocation, resource-level shared initialization and preservation of the seven profiles. Bounded source-backed integration. No hardware qualification.",
-  "reviewed_at": "2026-11-18"
+  "reviewer": "Independent Claude Fable 5.2 (claude.ai) and Codex reviewed these exact G564RE graph bytes, bound GPIO templates, SDK definitions, allocation and integration. Bounded software qualification.",
+  "reviewed_at": "2026-11-23"
 }

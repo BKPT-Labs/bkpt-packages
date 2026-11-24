@@ -564,8 +564,8 @@ class Boards(unittest.TestCase):
     # Every checked-in recipe and the graph it composes to. A change of these
     # bytes is a change of the graph on main and is made here on purpose.
     COMPOSED = {
-        "stm32g5/targets/nucleo-g564re.json": "f371eb74a51d10d0dfb4e89c6eb390fc47720c578c44afe66f25f25ed62e306d",
-        "stm32g5/targets/declared-g564re-usbc.json": "4b41551a1e8e00e94448bb494d04cec5f987d24420dac4e385e871211750d2eb",
+        "stm32g5/targets/nucleo-g564re.json": "b3f8ee50f75c0f6d9b8456e76fcd3b2bac0d8d035300bb6de7171c41d697a65a",
+        "stm32g5/targets/declared-g564re-usbc.json": "515c8a060dcefeb167cf295b150eecea44efda419a564a8685dd28f17b892dfd",
         "stm32c5/targets/nucleo-c542rc.json": "85e7468de3f545e92c8b7066d8525d807649db5d903fa0a8fd2dfa7c3ac7dcc6",
         "stm32c5/targets/stm32c542cc-lqfp48-declared.json": "8ed6acc5b482893838b44fece95f965bf4a1119b1e400a8069936228dfdbd7a2",
         "stm32c5/targets/stm32c542kc-lqfp32-declared.json": "5595027f3ed6bef1c1f92204104839a121c5431a46a47cb5f015b59391579bba",
