@@ -1,6 +1,10 @@
 # Package source rules
 
-Follow the parent workspace AGENTS.md. Keep the existing scaffold/component
+Read the coding agreement in the BKPT workspace root (`../AGENTS.md` in
+the standard checkout layout). For a worktree elsewhere, use the workspace
+beside the primary checkout or the location in Eddie's personal instructions.
+
+Keep the existing scaffold/component
 index compatible with its current consumers. New firmware knowledge packs use
 `knowledge/index.json`; they are not legacy scaffold packages.
 
@@ -50,11 +54,3 @@ Run `python -B -m unittest tools.test_sync_recorder` and
 `python -B tools/sync_recorder.py --source <ViewAlyzer> --check` before publishing.
 The Suite release controller already runs this generator and its strict package
 preflight before pushing; preserve compatibility with Suite's isolated rehearsal.
-
-## Follow established architecture
-
-Before extending a system, find the closest working implementation and follow its established architecture, extension points, and conventions. If you see a reason to change or bypass that architecture or introduce a parallel implementation, explain the concrete tradeoff and get my explicit approval before proceeding.
-
-## Protect the correctness checks
-
-Keep the behavioral contract independent of the implementation you change. Get my explicit approval before weakening an existing test, updating a snapshot to accept changed behavior, raising a compatibility baseline, or applying a bypass. For high-impact changes, use independent review and checks that can catch different kinds of failure.
