@@ -12,6 +12,15 @@ This package targets the STM32G564RET3 in LQFP64 on the NUCLEO-G564RE, MB2067 B0
 | `crc32_checksum` | The C5 CRC-32 component bound to the G5 CRC instance |
 | `independent_watchdog` | The C5 watchdog component bound to G5 IWDG with explicit application start |
 | `gpio_input`, `gpio_output` | Allocation of an exposed header pad for application-owned GPIO initialization |
+| `digital_input` | Initialized digital input on an eligible header pad. Choose a pull of `none`, `up` or `down`; the component samples one level per `read()` call. |
+| `digital_output` | Initialized push-pull output on an eligible header pad. Choose the initial level and call `write(0)` or `write(1)`. Other values return `HAL_INVALID_PARAM` without writing. |
+
+The two managed GPIO profiles share the allocation-only profiles' pad domains
+and ownership rules. Selecting them adds the GPIO driver, generated source, and
+initialization to the project. Their templates are shared with the C5 package;
+this graph binds the G5 HAL2 2.0.0 definitions and board rules separately.
+The application owns sampling intervals, debouncing and decisions about the
+external load. The two profiles cover foreground operation in run mode.
 
 The PLAY profiles use a 1:1 LSI kernel clock and expose input pulls and a minimum pulse width in kernel-clock cycles. Zero bypasses the filter. The allocator assigns the muxes, LUT, pads and software trigger needed by each requirement. Multiple requirements may share PLAY1. Complete initialization before relying on the outputs. Check board population and attached circuitry before driving a pin. PC13 shares the B1 button through SB5 on the nominal board.
 
