@@ -1,7 +1,7 @@
 {
   "schema": "bkpt.knowledge-pack-source/1",
   "id": "stm32g5",
-  "revision": 2,
+  "revision": 3,
   "state": "development",
   "targets": [
     {
@@ -14,11 +14,11 @@
   "inputs": {
     "architecture": {
       "path": "graph.json",
-      "sha256": "f371eb74a51d10d0dfb4e89c6eb390fc47720c578c44afe66f25f25ed62e306d"
+      "sha256": "b3f8ee50f75c0f6d9b8456e76fcd3b2bac0d8d035300bb6de7171c41d697a65a"
     },
     "architecture_review": {
       "path": "graph.review.json",
-      "sha256": "a201e9a2d0fad198e4908818de6c7ea977fa62e75ddc488362a4a86b0c4f9aea"
+      "sha256": "ae2585dc28def17b238df3be3996429e111a3236e70037e4b6793e37f18bc547"
     },
     "devices": {
       "path": "imports/devices.json",
@@ -46,7 +46,7 @@
     "vendor_assets": "external"
   },
   "coverage": {
-    "capability_count": 7,
+    "capability_count": 9,
     "full_device": false,
     "hardware_verified": false
   },

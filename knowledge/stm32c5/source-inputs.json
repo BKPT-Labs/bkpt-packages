@@ -418,6 +418,38 @@
       "package_path": "sources/architecture/sources/bkpt-hal2-watchdog-v3/watchdog.c.in"
     },
     {
+      "id": "digital-input-h-source",
+      "path": "architecture/sources/bkpt-hal2-digital-gpio-v1/input.h.in",
+      "sha256": "ce2a41ae7ae476e8c838016a7af180e78b81fe167a11f35da11f0d11ac2bdb4e",
+      "revision": "1",
+      "authority": "bkpt_authored_implementation",
+      "package_path": "sources/architecture/sources/bkpt-hal2-digital-gpio-v1/input.h.in"
+    },
+    {
+      "id": "digital-input-c-source",
+      "path": "architecture/sources/bkpt-hal2-digital-gpio-v1/input.c.in",
+      "sha256": "8d7512300890560ed88f31b2d8e479e995741be0ae9875814c43aa86c40428ab",
+      "revision": "1",
+      "authority": "bkpt_authored_implementation",
+      "package_path": "sources/architecture/sources/bkpt-hal2-digital-gpio-v1/input.c.in"
+    },
+    {
+      "id": "digital-output-h-source",
+      "path": "architecture/sources/bkpt-hal2-digital-gpio-v1/output.h.in",
+      "sha256": "b37b7244a49deb19d1b1af4edc11d7e5b2dd4bb6b6a4dfbe082c1cc3bd6f5edd",
+      "revision": "1",
+      "authority": "bkpt_authored_implementation",
+      "package_path": "sources/architecture/sources/bkpt-hal2-digital-gpio-v1/output.h.in"
+    },
+    {
+      "id": "digital-output-c-source",
+      "path": "architecture/sources/bkpt-hal2-digital-gpio-v1/output.c.in",
+      "sha256": "218306faa1c862f1bb7666f2bf97c2b7064ac4cb647a22fa3da94ffb53257d1a",
+      "revision": "1",
+      "authority": "bkpt_authored_implementation",
+      "package_path": "sources/architecture/sources/bkpt-hal2-digital-gpio-v1/output.c.in"
+    },
+    {
       "id": "clock-policy-v5",
       "path": "architecture/sources/bkpt-clock-policy-v5.txt",
       "sha256": "9338bd926c09da364c5782e09593cf277840723c085c7935205220f98f752c7f",

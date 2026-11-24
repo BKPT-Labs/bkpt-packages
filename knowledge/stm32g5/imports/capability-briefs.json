@@ -29,6 +29,14 @@
     {
       "capability": "gpio_input",
       "brief": "Application-owned GPIO input on a board-eligible pad"
+    },
+    {
+      "capability": "digital_input",
+      "brief": "Read one digital input with a fixed internal pull."
+    },
+    {
+      "capability": "digital_output",
+      "brief": "Drive one push-pull digital output with a defined initial level."
     }
   ]
 }

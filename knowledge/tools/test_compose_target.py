@@ -564,11 +564,11 @@ class Boards(unittest.TestCase):
     # Every checked-in recipe and the graph it composes to. A change of these
     # bytes is a change of the graph on main and is made here on purpose.
     COMPOSED = {
-        "stm32g5/targets/nucleo-g564re.json": "f371eb74a51d10d0dfb4e89c6eb390fc47720c578c44afe66f25f25ed62e306d",
-        "stm32g5/targets/declared-g564re-usbc.json": "4b41551a1e8e00e94448bb494d04cec5f987d24420dac4e385e871211750d2eb",
-        "stm32c5/targets/nucleo-c542rc.json": "9eb802d52285c391c4735b183bba51f51fe7cf2573e96c904d779eb9936b0603",
-        "stm32c5/targets/stm32c542cc-lqfp48-declared.json": "2aea13fcbdf1570fe37acbaf7c5898226f54a2f6f18c7a342d67bc57f79a34b5",
-        "stm32c5/targets/stm32c542kc-lqfp32-declared.json": "0202dbcd9f18ea2ea163a9d886edf6605048c88a113334407f3c3360e42b66f8",
+        "stm32g5/targets/nucleo-g564re.json": "b3f8ee50f75c0f6d9b8456e76fcd3b2bac0d8d035300bb6de7171c41d697a65a",
+        "stm32g5/targets/declared-g564re-usbc.json": "515c8a060dcefeb167cf295b150eecea44efda419a564a8685dd28f17b892dfd",
+        "stm32c5/targets/nucleo-c542rc.json": "85e7468de3f545e92c8b7066d8525d807649db5d903fa0a8fd2dfa7c3ac7dcc6",
+        "stm32c5/targets/stm32c542cc-lqfp48-declared.json": "8ed6acc5b482893838b44fece95f965bf4a1119b1e400a8069936228dfdbd7a2",
+        "stm32c5/targets/stm32c542kc-lqfp32-declared.json": "5595027f3ed6bef1c1f92204104839a121c5431a46a47cb5f015b59391579bba",
     }
 
     @unittest.skipUnless(os.environ.get("BKPT_KNOWLEDGE_SOURCE_ROOT"), "needs the pinned sources: set BKPT_KNOWLEDGE_SOURCE_ROOT")
@@ -682,7 +682,8 @@ class Boards(unittest.TestCase):
         for name in exempt:
             self.assertEqual(now[name]["component"]["files"], before[name]["component"]["files"], name)
         covered = sorted(set(now) - set(exempt))
-        self.assertEqual(covered, ["hal2.analog-reading", "hal2.crc32", "hal2.independent-watchdog", "hal2.input-capture",
+        self.assertEqual(covered, ["hal2.analog-reading", "hal2.crc32", "hal2.digital-input", "hal2.digital-output",
+                                   "hal2.independent-watchdog", "hal2.input-capture",
                                    "hal2.pwm-output", "hal2.timer-update-channel-timer"])
         rule = next(record for record in graph.value["evidence"] if record["id"] == "policy9-sdk_definitions")
         for name in covered:

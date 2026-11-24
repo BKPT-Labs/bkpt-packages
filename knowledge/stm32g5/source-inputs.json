@@ -112,6 +112,38 @@
       "revision": "version 1",
       "authority": "bkpt_engineering_policy",
       "package_path": "sources/bkpt-g5/mb2067-b02-policy-v1.txt"
+    },
+    {
+      "id": "digital-input-h-source",
+      "path": "bkpt-g5/bkpt-hal2-digital-gpio-v1/input.h.in",
+      "sha256": "ce2a41ae7ae476e8c838016a7af180e78b81fe167a11f35da11f0d11ac2bdb4e",
+      "revision": "1",
+      "authority": "bkpt_authored_implementation",
+      "package_path": "sources/bkpt-g5/bkpt-hal2-digital-gpio-v1/input.h.in"
+    },
+    {
+      "id": "digital-input-c-source",
+      "path": "bkpt-g5/bkpt-hal2-digital-gpio-v1/input.c.in",
+      "sha256": "8d7512300890560ed88f31b2d8e479e995741be0ae9875814c43aa86c40428ab",
+      "revision": "1",
+      "authority": "bkpt_authored_implementation",
+      "package_path": "sources/bkpt-g5/bkpt-hal2-digital-gpio-v1/input.c.in"
+    },
+    {
+      "id": "digital-output-h-source",
+      "path": "bkpt-g5/bkpt-hal2-digital-gpio-v1/output.h.in",
+      "sha256": "b37b7244a49deb19d1b1af4edc11d7e5b2dd4bb6b6a4dfbe082c1cc3bd6f5edd",
+      "revision": "1",
+      "authority": "bkpt_authored_implementation",
+      "package_path": "sources/bkpt-g5/bkpt-hal2-digital-gpio-v1/output.h.in"
+    },
+    {
+      "id": "digital-output-c-source",
+      "path": "bkpt-g5/bkpt-hal2-digital-gpio-v1/output.c.in",
+      "sha256": "218306faa1c862f1bb7666f2bf97c2b7064ac4cb647a22fa3da94ffb53257d1a",
+      "revision": "1",
+      "authority": "bkpt_authored_implementation",
+      "package_path": "sources/bkpt-g5/bkpt-hal2-digital-gpio-v1/output.c.in"
     }
   ],
   "external": [
@@ -352,6 +384,13 @@
       "sha256": "9986e82ad4262a06b44c51a194c69eb937f1d9bd51c02a39049087040e570584",
       "revision": "board pack 2.0.0 / MB2067 B02",
       "authority": "manufacturer_machine_readable"
+    },
+    {
+      "id": "digital-gpio-foundation-cmake",
+      "path": "foundation-inputs/CMakeLists.txt",
+      "sha256": "20d3f811e70313437c0ebef1a24ee9de780b9b8ce13532e3cd5341cf4a65b7e3",
+      "revision": "STM32CubeG5 2.0.0 no-OS NUCLEO-G564RE CMake template, name-parameterized by prepare_inputs.py",
+      "authority": "manufacturer_derived_layout"
     }
   ]
 }

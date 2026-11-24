@@ -1479,9 +1479,7 @@ class Domains:
         return [self.name(instance) for instance in instances]
 
     def pad_capability(self, spec):
-        """A capability that takes one pad eligible for general allocation and
-        generates nothing: the card states how the application uses the pad
-        through the SDK, as the reviewed GPIO output card does."""
+        """Allocate one eligible pad, optionally rendering a component from its bindings."""
         rule, general = self.policy(spec["policy"]), self.policy("general")
         pins = list(self.eligible)
         if not pins:
@@ -1490,11 +1488,13 @@ class Domains:
             record = self.resource(pin)
             record["attributes"].update(spec["pad_attribute"])
             extend(record, [rule])
-        symbols = [self.graph.cite_symbol("inv-api", self.source(source), symbol) for source, symbol in spec.get("symbols", [])]
+        symbols = self.cited_symbols(spec)
         evidence = [rule, general, *symbols, *spec.get("evidence", [])]
         card = spec["card"]
         reviewed = spec.get("use_reviewed_card", False)
         if reviewed:
+            if "component" in spec:
+                raise SystemExit(f"{card}: a reused card cannot supply a new component")
             find(self.value["implementations"], card)
         elif any(record["id"] == card for record in self.value["implementations"]):
             raise SystemExit(f"{card} already exists")
@@ -1515,8 +1515,13 @@ class Domains:
             "closure_evidence": [], "evidence": list(evidence),
         })
         if not reviewed:
-            self.value["implementations"].append({"id": card, "target": self.graph.target, "guidance": spec["guidance"],
-                                                  "evidence": list(evidence), "edits": []})
+            record = {"id": card, "target": self.graph.target, "guidance": spec["guidance"],
+                      "evidence": list(evidence), "edits": []}
+            if "component" in spec:
+                self.card_evidence = record["evidence"]
+                record.update(self.component({**spec, "parameters": parameters},
+                                             {"pin": {self.resource(pin)["id"] for pin in pins}}))
+            self.value["implementations"].append(record)
         return len(pins)
 
     def static_edits(self, spec):
