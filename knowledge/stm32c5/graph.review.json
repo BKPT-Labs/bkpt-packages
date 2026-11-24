@@ -1,6 +1,6 @@
 {
-  "bundle_sha256": "9eb802d52285c391c4735b183bba51f51fe7cf2573e96c904d779eb9936b0603",
-  "reviewer": "Independent Claude Opus 5.5 review (review-3.claude.md: PASS, no must-fix) and independent Codex gpt-6-astra review (review-3.codex.md: PASS, no must-fix), both of these bytes at bkpt-packages 05d8020. Reviewed: the 23 capability brief lines against each capability's description, parameters, roles and implementation cards, the brief stage author_capability_briefs.py, and that the graph is graph 8d52bfb3 plus schema 6 and one brief per capability. Two earlier pairs failed or flagged earlier brief texts; their findings were applied before these two.",
-  "reviewed_at": "2026-11-16",
-  "decision": "accept"
+  "decision": "accept",
+  "bundle_sha256": "85e7468de3f545e92c8b7066d8525d807649db5d903fa0a8fd2dfa7c3ac7dcc6",
+  "reviewer": "Independent Codex regression reviewer (root); preservation of prior native records and source/template/location bindings, bounded generated digital GPIO interfaces.",
+  "reviewed_at": "2026-11-23"
 }

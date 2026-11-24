@@ -1139,6 +1139,38 @@
       "scope": "device"
     },
     {
+      "id": "digital-input-h-source",
+      "path": "architecture/sources/bkpt-hal2-digital-gpio-v1/input.h.in",
+      "sha256": "ce2a41ae7ae476e8c838016a7af180e78b81fe167a11f35da11f0d11ac2bdb4e",
+      "revision": "1",
+      "authority": "bkpt_authored_implementation",
+      "scope": "implementation"
+    },
+    {
+      "id": "digital-input-c-source",
+      "path": "architecture/sources/bkpt-hal2-digital-gpio-v1/input.c.in",
+      "sha256": "8d7512300890560ed88f31b2d8e479e995741be0ae9875814c43aa86c40428ab",
+      "revision": "1",
+      "authority": "bkpt_authored_implementation",
+      "scope": "implementation"
+    },
+    {
+      "id": "digital-output-h-source",
+      "path": "architecture/sources/bkpt-hal2-digital-gpio-v1/output.h.in",
+      "sha256": "b37b7244a49deb19d1b1af4edc11d7e5b2dd4bb6b6a4dfbe082c1cc3bd6f5edd",
+      "revision": "1",
+      "authority": "bkpt_authored_implementation",
+      "scope": "implementation"
+    },
+    {
+      "id": "digital-output-c-source",
+      "path": "architecture/sources/bkpt-hal2-digital-gpio-v1/output.c.in",
+      "sha256": "218306faa1c862f1bb7666f2bf97c2b7064ac4cb647a22fa3da94ffb53257d1a",
+      "revision": "1",
+      "authority": "bkpt_authored_implementation",
+      "scope": "implementation"
+    },
+    {
       "id": "clock-policy-v5",
       "path": "architecture/sources/bkpt-clock-policy-v5.txt",
       "sha256": "9338bd926c09da364c5782e09593cf277840723c085c7935205220f98f752c7f",
@@ -13737,6 +13769,102 @@
       "role": "template"
     },
     {
+      "id": "digital-input-h",
+      "source": "digital-input-h-source",
+      "start_line": 1,
+      "end_line": 47,
+      "excerpt_sha256": "28aca69087aaa40bd6e240aea9cf29eee38040487f33f2e495a5e36250cf9f2f",
+      "statement": "BKPT generated digital input component interface.",
+      "targets": [
+        "NUCLEO-C542RC"
+      ],
+      "role": "template"
+    },
+    {
+      "id": "digital-input-api-init",
+      "source": "digital-input-h-source",
+      "start_line": 42,
+      "end_line": 42,
+      "excerpt_sha256": "c6d5bf5d366a94c7aa0c7c775e47de0fa9a0c94cff2eb6784418b2b2973f907b",
+      "statement": "Exact source-bound declaration.",
+      "targets": [
+        "NUCLEO-C542RC"
+      ],
+      "role": "template"
+    },
+    {
+      "id": "digital-input-api-operation",
+      "source": "digital-input-h-source",
+      "start_line": 43,
+      "end_line": 43,
+      "excerpt_sha256": "734b324f80b8b6b65e7736f3bfdbe40ee0ecba5cf86a759305dab1249c16ef3b",
+      "statement": "Exact source-bound declaration.",
+      "targets": [
+        "NUCLEO-C542RC"
+      ],
+      "role": "template"
+    },
+    {
+      "id": "digital-input-c",
+      "source": "digital-input-c-source",
+      "start_line": 1,
+      "end_line": 49,
+      "excerpt_sha256": "25ad6907fb62adf02cb731638e2ce5d6d2bad116e90c0a815a3d472f0a76cacb",
+      "statement": "BKPT generated digital input component implementation.",
+      "targets": [
+        "NUCLEO-C542RC"
+      ],
+      "role": "template"
+    },
+    {
+      "id": "digital-output-h",
+      "source": "digital-output-h-source",
+      "start_line": 1,
+      "end_line": 47,
+      "excerpt_sha256": "11770ed8e14ba08b7a4690b9126e119ced517e108cd0ec3255bc1d3a193ddb73",
+      "statement": "BKPT generated digital output component interface.",
+      "targets": [
+        "NUCLEO-C542RC"
+      ],
+      "role": "template"
+    },
+    {
+      "id": "digital-output-api-init",
+      "source": "digital-output-h-source",
+      "start_line": 42,
+      "end_line": 42,
+      "excerpt_sha256": "c6d5bf5d366a94c7aa0c7c775e47de0fa9a0c94cff2eb6784418b2b2973f907b",
+      "statement": "Exact source-bound declaration.",
+      "targets": [
+        "NUCLEO-C542RC"
+      ],
+      "role": "template"
+    },
+    {
+      "id": "digital-output-api-operation",
+      "source": "digital-output-h-source",
+      "start_line": 43,
+      "end_line": 43,
+      "excerpt_sha256": "571bd86a5f4ad15094d49599970734bb3b1862c429249dd2b0e3dce460f13970",
+      "statement": "Exact source-bound declaration.",
+      "targets": [
+        "NUCLEO-C542RC"
+      ],
+      "role": "template"
+    },
+    {
+      "id": "digital-output-c",
+      "source": "digital-output-c-source",
+      "start_line": 1,
+      "end_line": 57,
+      "excerpt_sha256": "b4ce7925542c1a04e00dd9ecc71cf15f5fd4d892df23142bb309c5cbf4a34aed",
+      "statement": "BKPT generated digital output component implementation.",
+      "targets": [
+        "NUCLEO-C542RC"
+      ],
+      "role": "template"
+    },
+    {
       "id": "pack-variant-STM32C542RCT6",
       "source": "dfp",
       "start_line": 1323,
@@ -18583,6 +18711,94 @@
       "end_line": 68,
       "excerpt_sha256": "838f5e1480d004b36abb7d7fd10688764f1ee422f41a5620546150022a305daf",
       "statement": "SDK source declares HAL_GPIO_MODE_INPUT with its description.",
+      "targets": [
+        "NUCLEO-C542RC"
+      ]
+    },
+    {
+      "id": "inv-api-HAL_GPIO_PIN_SET",
+      "source": "gpio-h",
+      "start_line": 135,
+      "end_line": 135,
+      "excerpt_sha256": "c63ab665fcf7230de29a3250d8983b4aeca8bd71592e87aab210e7e1d7a3636e",
+      "statement": "SDK source declares HAL_GPIO_PIN_SET with its description.",
+      "targets": [
+        "NUCLEO-C542RC"
+      ]
+    },
+    {
+      "id": "inv-def-HAL_GPIO_Init",
+      "source": "gpio-c",
+      "start_line": 303,
+      "end_line": 400,
+      "excerpt_sha256": "4e6ce292289dc28421066d1b87c867a43e9a0714b0e6c180fc16bd9e8574d1e8",
+      "statement": "SDK source documents and defines HAL_GPIO_Init in these lines.",
+      "targets": [
+        "NUCLEO-C542RC"
+      ]
+    },
+    {
+      "id": "inv-def-HAL_GPIO_ReadPin",
+      "source": "gpio-c",
+      "start_line": 488,
+      "end_line": 502,
+      "excerpt_sha256": "2b82e25528afd27231299ed2864f7b92fd6df965f5d534f142f7841736ac81bc",
+      "statement": "SDK source documents and defines HAL_GPIO_ReadPin in these lines.",
+      "targets": [
+        "NUCLEO-C542RC"
+      ]
+    },
+    {
+      "id": "inv-api-HAL_GPIO_MODE_OUTPUT",
+      "source": "gpio-h",
+      "start_line": 69,
+      "end_line": 69,
+      "excerpt_sha256": "f74b1c97b29e20f106d9d04075aa4266d9cea74b6ff190cc3e1999586f58d807",
+      "statement": "SDK source declares HAL_GPIO_MODE_OUTPUT with its description.",
+      "targets": [
+        "NUCLEO-C542RC"
+      ]
+    },
+    {
+      "id": "inv-api-HAL_GPIO_OUTPUT_PUSHPULL",
+      "source": "gpio-h",
+      "start_line": 79,
+      "end_line": 79,
+      "excerpt_sha256": "f2807648ae19cc4d42a039ea5c68849d7eac0812f05e0f0dede2457a717a3c9a",
+      "statement": "SDK source declares HAL_GPIO_OUTPUT_PUSHPULL with its description.",
+      "targets": [
+        "NUCLEO-C542RC"
+      ]
+    },
+    {
+      "id": "inv-api-HAL_GPIO_SPEED_FREQ_LOW",
+      "source": "gpio-h",
+      "start_line": 90,
+      "end_line": 90,
+      "excerpt_sha256": "7a8f36e51f1ce3509fb10300a943b547c0a471e125818700b6b6d5f52fbe48ef",
+      "statement": "SDK source declares HAL_GPIO_SPEED_FREQ_LOW with its description.",
+      "targets": [
+        "NUCLEO-C542RC"
+      ]
+    },
+    {
+      "id": "inv-api-HAL_GPIO_PIN_RESET",
+      "source": "gpio-h",
+      "start_line": 134,
+      "end_line": 134,
+      "excerpt_sha256": "5a5ede8116b8b74ed01d058c91039c1359e8150b83ab56750daa0b59f0f1141e",
+      "statement": "SDK source declares HAL_GPIO_PIN_RESET with its description.",
+      "targets": [
+        "NUCLEO-C542RC"
+      ]
+    },
+    {
+      "id": "inv-def-HAL_GPIO_WritePin",
+      "source": "gpio-c",
+      "start_line": 504,
+      "end_line": 523,
+      "excerpt_sha256": "e5dbf92bc7d3b733255cc63cc9e30c4eceea9a6218f583ddadb3a762e643cfd5",
+      "statement": "SDK source documents and defines HAL_GPIO_WritePin in these lines.",
       "targets": [
         "NUCLEO-C542RC"
       ]
@@ -57045,6 +57261,184 @@
         "inv-api-HAL_GPIO_Init",
         "inv-api-HAL_GPIO_ReadPin"
       ]
+    },
+    {
+      "id": "digital_input",
+      "target": "NUCLEO-C542RC",
+      "description": "Read one digital input with a fixed internal pull. read() returns 0 or 1 for a single sample. A floating input has no guaranteed level.",
+      "brief": "Read one digital input with a fixed internal pull.",
+      "parameters": {
+        "pin": {
+          "type": "choice",
+          "values": [
+            "PA0",
+            "PA1",
+            "PA10",
+            "PA4",
+            "PA5",
+            "PA6",
+            "PA7",
+            "PA8",
+            "PA9",
+            "PB0",
+            "PB1",
+            "PB10",
+            "PB12",
+            "PB13",
+            "PB14",
+            "PB15",
+            "PB2",
+            "PB4",
+            "PB5",
+            "PB6",
+            "PB7",
+            "PB8",
+            "PC0",
+            "PC1",
+            "PC10",
+            "PC11",
+            "PC12",
+            "PC2",
+            "PC3",
+            "PC4",
+            "PC5",
+            "PC6",
+            "PC7",
+            "PC8",
+            "PC9",
+            "PD2",
+            "PE2"
+          ]
+        },
+        "pull": {
+          "type": "choice",
+          "values": [
+            "none",
+            "up",
+            "down"
+          ]
+        }
+      },
+      "roles": [
+        {
+          "id": "pin",
+          "kind": "pin",
+          "attributes": {
+            "supports_gpio_input": "true"
+          },
+          "parameter_attributes": {
+            "pin": "pin"
+          },
+          "count": 1
+        }
+      ],
+      "links": [],
+      "implementations": [
+        "hal2.digital-input"
+      ],
+      "parameter_constraints": [],
+      "domain_complete": false,
+      "closure_evidence": [],
+      "evidence": [
+        "policy9-gpio_input",
+        "policy9-general",
+        "inv-api-HAL_GPIO_MODE_INPUT",
+        "inv-api-HAL_GPIO_PULL_NO",
+        "inv-api-HAL_GPIO_PULL_UP",
+        "inv-api-HAL_GPIO_PULL_DOWN",
+        "inv-api-HAL_GPIO_PIN_SET",
+        "inv-def-HAL_GPIO_Init",
+        "inv-def-HAL_GPIO_ReadPin"
+      ]
+    },
+    {
+      "id": "digital_output",
+      "target": "NUCLEO-C542RC",
+      "description": "Drive one push-pull digital output with a defined initial level. write(0) drives low; write(1) drives high; other values return HAL_INVALID_PARAM without writing. Low speed, no internal pull, push-pull. Only drive pads whose external load is safe.",
+      "brief": "Drive one push-pull digital output with a defined initial level.",
+      "parameters": {
+        "pin": {
+          "type": "choice",
+          "values": [
+            "PA0",
+            "PA1",
+            "PA10",
+            "PA4",
+            "PA5",
+            "PA6",
+            "PA7",
+            "PA8",
+            "PA9",
+            "PB0",
+            "PB1",
+            "PB10",
+            "PB12",
+            "PB13",
+            "PB14",
+            "PB15",
+            "PB2",
+            "PB4",
+            "PB5",
+            "PB6",
+            "PB7",
+            "PB8",
+            "PC0",
+            "PC1",
+            "PC10",
+            "PC11",
+            "PC12",
+            "PC2",
+            "PC3",
+            "PC4",
+            "PC5",
+            "PC6",
+            "PC7",
+            "PC8",
+            "PC9",
+            "PD2",
+            "PE2"
+          ]
+        },
+        "initial": {
+          "type": "choice",
+          "values": [
+            "low",
+            "high"
+          ]
+        }
+      },
+      "roles": [
+        {
+          "id": "pin",
+          "kind": "pin",
+          "attributes": {
+            "supports_gpio_output": "true"
+          },
+          "parameter_attributes": {
+            "pin": "pin"
+          },
+          "count": 1
+        }
+      ],
+      "links": [],
+      "implementations": [
+        "hal2.digital-output"
+      ],
+      "parameter_constraints": [],
+      "domain_complete": false,
+      "closure_evidence": [],
+      "evidence": [
+        "policy9-gpio_output",
+        "policy9-general",
+        "inv-api-HAL_GPIO_MODE_OUTPUT",
+        "inv-api-HAL_GPIO_OUTPUT_PUSHPULL",
+        "inv-api-HAL_GPIO_PULL_NO",
+        "inv-api-HAL_GPIO_SPEED_FREQ_LOW",
+        "inv-api-HAL_GPIO_PIN_SET",
+        "inv-api-HAL_GPIO_PIN_RESET",
+        "inv-def-HAL_GPIO_Init",
+        "inv-def-HAL_GPIO_WritePin"
+      ]
     }
   ],
   "implementations": [
@@ -61777,6 +62171,214 @@
         "inv-api-HAL_GPIO_ReadPin"
       ],
       "edits": []
+    },
+    {
+      "id": "hal2.digital-input",
+      "target": "NUCLEO-C542RC",
+      "guidance": "The native component enables the allocated GPIO port clock and initializes one pad after mx_system_init. Do not repeat initialization or reconfigure the pad. read() returns 0 or 1 for a single sample. A floating input has no guaranteed level. Single foreground owner in run mode. No debounce, electrical validation, interrupts, or low-power transitions.",
+      "evidence": [
+        "policy9-gpio_input",
+        "policy9-general",
+        "inv-api-HAL_GPIO_MODE_INPUT",
+        "inv-api-HAL_GPIO_PULL_NO",
+        "inv-api-HAL_GPIO_PULL_UP",
+        "inv-api-HAL_GPIO_PULL_DOWN",
+        "inv-api-HAL_GPIO_PIN_SET",
+        "inv-def-HAL_GPIO_Init",
+        "inv-def-HAL_GPIO_ReadPin",
+        "policy9-sdk_definitions"
+      ],
+      "edits": [],
+      "component": {
+        "bindings": {
+          "port": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "pin",
+              "attribute": "port_symbol"
+            }
+          },
+          "pin_mask": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "pin",
+              "attribute": "pin_symbol"
+            }
+          },
+          "clock": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "pin",
+              "attribute": "clock_enable_api"
+            }
+          },
+          "unit": {
+            "source": {
+              "type": "instance"
+            }
+          },
+          "pull": {
+            "source": {
+              "type": "parameter",
+              "name": "pull"
+            },
+            "map": {
+              "none": "HAL_GPIO_PULL_NO",
+              "up": "HAL_GPIO_PULL_UP",
+              "down": "HAL_GPIO_PULL_DOWN"
+            }
+          }
+        },
+        "files": [
+          {
+            "path": "bkpt_components/{{unit}}.h",
+            "template": "digital-input-h"
+          },
+          {
+            "path": "bkpt_components/{{unit}}.c",
+            "template": "digital-input-c"
+          }
+        ],
+        "claims": [],
+        "interface": {
+          "setup": "Already initialized after mx_system_init; include bkpt_components/{{unit}}.h. Use the allocated pin only through this unit.",
+          "operation": "read() returns 0 or 1 for a single sample. A floating input has no guaranteed level.",
+          "declarations": "hal_status_t {{unit}}_init(void);\nuint32_t {{unit}}_read(void);"
+        },
+        "interface_sources": {
+          "declarations": [
+            "digital-input-api-init",
+            "digital-input-api-operation"
+          ]
+        },
+        "edits": [
+          {
+            "path": "CMakeLists.txt",
+            "expected_sha256": "cc62617a88d54489a2e79e173a4c64dd55a9339427fc84490aad3c9b3d21249f",
+            "old": "  # Add additional source files here",
+            "new": "  bkpt_components/{{unit}}.c\n",
+            "mode": "insert_before"
+          },
+          {
+            "path": "main.c",
+            "expected_sha256": "07ad68490e5ec16c7172694a730fb55154f9b1be39ab34de70792f7f503bfa33",
+            "old": "#include \"main.h\"",
+            "new": "#include \"bkpt_components/{{unit}}.h\"\n",
+            "mode": "insert_before"
+          },
+          {
+            "path": "main.c",
+            "expected_sha256": "07ad68490e5ec16c7172694a730fb55154f9b1be39ab34de70792f7f503bfa33",
+            "old": "    for (;;) { }",
+            "new": "    if ({{unit}}_init() != HAL_OK) { return -1; }\n",
+            "mode": "insert_before"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hal2.digital-output",
+      "target": "NUCLEO-C542RC",
+      "guidance": "The native component enables the allocated GPIO port clock and initializes one pad after mx_system_init. Do not repeat initialization or reconfigure the pad. write(0) drives low; write(1) drives high; other values return HAL_INVALID_PARAM without writing. Low speed, no internal pull, push-pull. Only drive pads whose external load is safe. Single foreground owner in run mode. No debounce, electrical validation, interrupts, or low-power transitions.",
+      "evidence": [
+        "policy9-gpio_output",
+        "policy9-general",
+        "inv-api-HAL_GPIO_MODE_OUTPUT",
+        "inv-api-HAL_GPIO_OUTPUT_PUSHPULL",
+        "inv-api-HAL_GPIO_PULL_NO",
+        "inv-api-HAL_GPIO_SPEED_FREQ_LOW",
+        "inv-api-HAL_GPIO_PIN_SET",
+        "inv-api-HAL_GPIO_PIN_RESET",
+        "inv-def-HAL_GPIO_Init",
+        "inv-def-HAL_GPIO_WritePin",
+        "policy9-sdk_definitions"
+      ],
+      "edits": [],
+      "component": {
+        "bindings": {
+          "port": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "pin",
+              "attribute": "port_symbol"
+            }
+          },
+          "pin_mask": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "pin",
+              "attribute": "pin_symbol"
+            }
+          },
+          "clock": {
+            "source": {
+              "type": "resource_attribute",
+              "role": "pin",
+              "attribute": "clock_enable_api"
+            }
+          },
+          "unit": {
+            "source": {
+              "type": "instance"
+            }
+          },
+          "initial": {
+            "source": {
+              "type": "parameter",
+              "name": "initial"
+            },
+            "map": {
+              "low": "HAL_GPIO_PIN_RESET",
+              "high": "HAL_GPIO_PIN_SET"
+            }
+          }
+        },
+        "files": [
+          {
+            "path": "bkpt_components/{{unit}}.h",
+            "template": "digital-output-h"
+          },
+          {
+            "path": "bkpt_components/{{unit}}.c",
+            "template": "digital-output-c"
+          }
+        ],
+        "claims": [],
+        "interface": {
+          "setup": "Already initialized after mx_system_init; include bkpt_components/{{unit}}.h. Use the allocated pin only through this unit.",
+          "operation": "write(0) drives low; write(1) drives high; other values return HAL_INVALID_PARAM without writing. Low speed, no internal pull, push-pull. Only drive pads whose external load is safe.",
+          "declarations": "hal_status_t {{unit}}_init(void);\nhal_status_t {{unit}}_write(uint32_t level);"
+        },
+        "interface_sources": {
+          "declarations": [
+            "digital-output-api-init",
+            "digital-output-api-operation"
+          ]
+        },
+        "edits": [
+          {
+            "path": "CMakeLists.txt",
+            "expected_sha256": "cc62617a88d54489a2e79e173a4c64dd55a9339427fc84490aad3c9b3d21249f",
+            "old": "  # Add additional source files here",
+            "new": "  bkpt_components/{{unit}}.c\n",
+            "mode": "insert_before"
+          },
+          {
+            "path": "main.c",
+            "expected_sha256": "07ad68490e5ec16c7172694a730fb55154f9b1be39ab34de70792f7f503bfa33",
+            "old": "#include \"main.h\"",
+            "new": "#include \"bkpt_components/{{unit}}.h\"\n",
+            "mode": "insert_before"
+          },
+          {
+            "path": "main.c",
+            "expected_sha256": "07ad68490e5ec16c7172694a730fb55154f9b1be39ab34de70792f7f503bfa33",
+            "old": "    for (;;) { }",
+            "new": "    if ({{unit}}_init() != HAL_OK) { return -1; }\n",
+            "mode": "insert_before"
+          }
+        ]
+      }
     }
   ]
 }

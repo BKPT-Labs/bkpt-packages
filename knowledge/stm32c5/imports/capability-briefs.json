@@ -93,6 +93,14 @@
     {
       "capability": "gpio_input",
       "brief": "Digital input on any pad eligible for general allocation; allocation only, no code"
+    },
+    {
+      "capability": "digital_input",
+      "brief": "Read one digital input with a fixed internal pull."
+    },
+    {
+      "capability": "digital_output",
+      "brief": "Drive one push-pull digital output with a defined initial level."
     }
   ]
 }
