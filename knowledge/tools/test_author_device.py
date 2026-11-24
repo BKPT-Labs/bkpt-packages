@@ -854,6 +854,24 @@ class Internal(unittest.TestCase):
         with self.assertRaises(SystemExit):
             empty.pad_capability(spec)
 
+    def test_a_generated_pad_uses_only_attributes_present_on_every_eligible_pad(self):
+        subject = self.subject()
+        subject.eligible = ["PA1", "PA2"]
+        for pin in subject.eligible:
+            subject.value["resources"].append({"id": f"PART.{pin}", "kind": "pin",
+                                               "attributes": {"symbol": pin}, "evidence": []})
+        binding = {"source": {"type": "resource_attribute", "role": "pin", "attribute": "symbol"}}
+        spec = {"capability": "output", "card": "card.output", "policy": "allocation",
+                "pad_attribute": {"drives_level": "true"}, "description": "Output.", "guidance": "Drive it.",
+                **self.component(pad=binding)}
+        self.assertEqual(subject.pad_capability(spec), 2)
+        card = domains.find(subject.value["implementations"], "card.output")
+        self.assertEqual(card["component"]["bindings"]["pad"], binding)
+        self.assertEqual(card["component"]["edits"], domains.find(subject.value["implementations"], "card.reviewed")["component"]["edits"])
+        del subject.resource("PA2")["attributes"]["symbol"]
+        with self.assertRaisesRegex(SystemExit, "symbol.*PA2"):
+            subject.pad_capability({**spec, "capability": "other", "card": "card.other"})
+
     def test_a_later_graph_schema_raises_the_bounds_for_one_run_only(self):
         graph = {"schema": 4}
         inventory.use_schema(graph, 5)
