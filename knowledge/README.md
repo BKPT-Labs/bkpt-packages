@@ -24,9 +24,9 @@ and trace components and is unchanged.
 | [`stm32g5`](stm32g5/knowledge-pack.json) | STM32G564RET3, LQFP64, NUCLEO-G564RE MB2067 B02, STM32G5 HAL2 2.0.0 | Development. [Coverage and build inputs](stm32g5/README.md) |
 
 The STM32C5 package covers the exact part, package, board and SDK version named
-in its manifest. It contains 23 scoped capability profiles (for example a managed
-SPI DMA transfer, a PWM output or a periodic timer interrupt). That is not 23
-fully supported peripherals and not coverage of the whole STM32C5 family.
+in its manifest. Its 25 capability profiles include managed SPI DMA transfers,
+PWM, periodic timer interrupts and digital GPIO. Each profile describes one
+operation and its limits on that target.
 
 ## What a package contains
 
@@ -163,6 +163,50 @@ measures its own output pad: the frequency agreed within a quarter of a
 percent and the duty within twelve thousandths, with every lifecycle call
 returning what the interface states.
 
+### Adding a managed pad capability
+
+The C5 and G5 packages demonstrate two levels of GPIO support. `gpio_input`
+and `gpio_output` reserve a pad for application-owned setup. `digital_input`
+and `digital_output` also generate a driver and initialize it. The application
+chooses a pad and a pull or initial level, then calls the returned unit's
+`read()` or `write(level)` interface.
+
+1. Define the operation and its limits in the family's
+   `imports/device-domains.json`, under `pad_capabilities`. Use the board's
+   admitted pads and the relevant `pad_attribute`. Give the capability a brief
+   in `imports/capability-briefs.json`. The allocation and the managed driver
+   should claim the same physical pad so a second owner conflicts.
+2. Pin the manufacturer's SDK sources and cite the symbols and function
+   definitions that establish the behavior. Pin the authored header and source
+   templates separately. Use `start` and `end` line locators for each public
+   declaration and name those excerpts in `component.interface_sources`.
+3. Bind each template value through the card. For GPIO, the allocated pad
+   supplies `port_symbol`, `pin_symbol` and `clock_enable_api`. A finite map
+   translates each public parameter to a reviewed HAL value. One header and
+   one source template per operation serve every admitted pad and parameter
+   combination. An incomplete resource binding stops graph authoring.
+4. Declare the generated files under `bkpt_components/`. Inspect the card's
+   edits for the selected project profile. The C5 cards register the source
+   in `CMakeLists.txt`, include its header in `main.c`, and call its initializer
+   after `mx_system_init`. Each edit names an anchor and the hash of the
+   expected base file. The exact hooks must be qualified on a fresh MX2 export
+   for each supported layout. Preserving edits during subsequent regeneration
+   requires its own test on a user-edited project.
+5. Compose every affected target recipe. Verify the pinned sources and graph
+   bytes, review the diff against the previous catalog, and update the package
+   manifest and review record. Run the authoring tests with
+   `BKPT_KNOWLEDGE_SOURCE_ROOT` set so the recipe digest checks execute.
+   Exercise each allowed parameter, an overlapping pin claim and a mixed
+   project. A clean cross-build checks SDK and link integration. Execute the
+   generated interfaces against known inputs and independently observable
+   outputs to check behavior. Record which checks ran on a host or a board.
+
+The NUCLEO-C542RC native profile admits 37 pads for each managed GPIO
+operation. The separately qualified MX2 1.2.0 board export admits 36. Starting
+from the same eligible pad set, the live profile removes resources already
+assigned by the project model or reserved by its target. The default model
+owns PA5. Recompute the intersection from the selected model when it changes.
+
 A capability does not have to be an instance with one routed pad. The family
 configuration can also state:
 
@@ -259,7 +303,7 @@ allocated, lives in that policy text and is cited as policy, never as a
 manufacturer statement.
 
 `stm32c5/graph.json` is the graph for the STM32C542 on the NUCLEO-C542RC:
-23 capability profiles at pack revision 5, written in graph schema 6 under
+25 capability profiles at pack revision 6, written in graph schema 6 under
 policy version 9 and clock policy version 5. `graph.review.json` names the
 exact bytes its reviews passed, and `inputs.architecture` in the manifest
 names the graph with its hash; the tool tests fail when the two disagree.
